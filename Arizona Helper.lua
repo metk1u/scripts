@@ -14,7 +14,7 @@ local dlstatus = require("moonloader").download_status
 ----------------------------------------
 update_status = false
 
-local script_vers = 2
+local script_vers = 1
 local script_vers_text = "1.8"
 
 local update_url = "https://raw.githubusercontent.com/metk1u/scripts/main/update.ini"
@@ -45,9 +45,6 @@ local olen_count = 0
 local waxta_state = false
 local waxta_count = 0
 ----------------------------------------
-local nick = "Sawa_Seleznev" -- Сюда свой ник!
-local password = "Sawka1289" -- Сюда свой пароль!
-----------------------------------------
 local friends =
 {
 	"Sawa_Seleznev",
@@ -61,6 +58,8 @@ local mainIni = inicfg.load(
 {
 	config = 
 	{
+		my_nick = 'Nickname',
+		my_password = 'Password',
 		renderChat = false,
 		
 		removechatbuy = false,
@@ -93,6 +92,9 @@ local mainIni = inicfg.load(
 if not doesDirectoryExist(path) then
 	inicfg.save(mainIni,file)
 end
+
+local my_nick = tostring(mainIni.config.my_nick)
+local my_password = tostring(mainIni.config.my_password)
 
 local windowstate = imgui.ImBool(false)
 local renderChat = imgui.ImBool(mainIni.config.renderChat)
@@ -131,6 +133,8 @@ end
 reCreateFont(fontSize.v,fontName.v)
 POSITION_SET = false
 function saveini()
+	mainIni.config.my_nick = my_nick
+	mainIni.config.my_password = my_password
 	mainIni.config.renderChat = renderChat.v
 	mainIni.config.removechatbuy = removechatbuy.v
 	mainIni.config.removechat = removechat.v
@@ -266,9 +270,10 @@ function main()
 				downloadUrlToFile(script_url, script_path, function(id, status)
 					if status == dlstatus.STATUS_ENDDOWNLOADDATA then
 						sampAddChatMessage('[{E3BE88}'..thisScript().name..'{FFFFFF}] Мы успешно обновились до версии '..script_vers_text..'.', 0xFFFFFF)
-						thisScript().reload()
+						thisScript():reload()
 					end
 				end)
+				break
 			end
 			----------------------------------------
 			imgui.Process = windowstate.v
@@ -338,9 +343,9 @@ function main()
 			end
 			----------------------------------------
 			ip, port = sampGetCurrentServerAddress()
-			if ip == "185.169.134.5" and local_name == nick then
+			if ip == "185.169.134.5" and local_name == my_nick then
 				if sampIsDialogActive() and sampGetCurrentDialogId() == 2 then
-					sampSendDialogResponse(2, 1, 0, password)
+					sampSendDialogResponse(2, 1, 0, my_password)
 					wait(100)
 					sampCloseCurrentDialogWithButton(0)
 				end
