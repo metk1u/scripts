@@ -15,12 +15,12 @@ local dlstatus = require("moonloader").download_status
 update_status = false
 
 local script_vers = 2
-local script_vers_text = "1.00"
+local script_vers_text = "1.8"
 
 local update_url = "https://raw.githubusercontent.com/metk1u/scripts/main/update.ini"
 local update_path = getWorkingDirectory() .. "/update.ini"
 
-local script_url = ""
+local script_url = "https://raw.githubusercontent.com/metk1u/scripts/main/Arizona%20Helper.lua"
 local script_path = thisScript().path
 ----------------------------------------
 arial = renderCreateFont('Arial', 12, 5)
@@ -153,17 +153,16 @@ end
 
 function main()
 	while not isSampAvailable() do wait(0) end
-	sampAddChatMessage('[{E3BE88}'..thisScript().name..' '..thisScript().version..'{FFFFFF}] {299800}Загружен{FFFFFF}. Настройки: /chat.', 0xFFFFFF)
+	sampAddChatMessage('[{E3BE88}'..thisScript().name..' '..script_vers_text..'{FFFFFF}] {299800}Загружен{FFFFFF}. Настройки: /chat.', 0xFFFFFF)
 	----------------------------------------
 	downloadUrlToFile(update_url, update_path, function(id, status)
 		if status == dlstatus.STATUS_ENDDOWNLOADDATA then
 			updateIni = inicfg.load(nil, update_path)
 			if tonumber(updateIni.info.vers) > script_vers then
 				update_status = true
-				sampAddChatMessage('[{E3BE88}'..thisScript().name..' '..thisScript().version..'{FFFFFF}] {299800}Доступно обновление{FFFFFF}.', 0xFFFFFF)
+				sampAddChatMessage('[{E3BE88}'..thisScript().name..'{FFFFFF}] Доступно обновление до версии '..updateIni.info.vers_text..'.', 0xFFFFFF)
 			end
 			os.remove(update_path)
-			
 		end
 	end)
 	----------------------------------------
@@ -266,13 +265,11 @@ function main()
 			if update_status == true then
 				downloadUrlToFile(script_url, script_path, function(id, status)
 					if status == dlstatus.STATUS_ENDDOWNLOADDATA then
-						sampAddChatMessage('[{E3BE88}'..thisScript().name..' '..thisScript().version..'{FFFFFF}] {299800}Обновилися =){FFFFFF}.', 0xFFFFFF)
+						sampAddChatMessage('[{E3BE88}'..thisScript().name..'{FFFFFF}] Мы успешно обновились до версии '..script_vers_text..'.', 0xFFFFFF)
 						thisScript().reload()
 					end
 				end)
-				break
 			end
-			
 			----------------------------------------
 			imgui.Process = windowstate.v
 			imgui.ShowCursor = windowstate.v
