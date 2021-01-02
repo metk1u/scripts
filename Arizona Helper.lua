@@ -1,6 +1,215 @@
 script_name("Arizona Helper")
-script_version('1.8')
+script_version('2.0')
 script_author("metk1u")
+
+--local mynick, myid = text:match("(%w+_%w+)%[(%d+)%] начал следить за %w+_%w+%[%d+%]")
+
+local coords = 
+{
+	{-1555.0145263672, -2506.1828613281, 89.531120300293},{986.32458496094, 15.252331733704, 85.240425109863},{-776.26336669922, 945.80554199219, 1.288339972496},{-1637.576171875, 532.34777832031, 32.690540313721},
+	{289.19430541992, -560.21295166016, 16.263120651245},{-2827.0607910156, -1832.7004394531, 123.79853820801},{-2625.9074707031, -997.0107421875, 11.762429237366},{2488.8598632813, -1809.3796386719, 14.94012928009},
+	{-265.78546142578, -2181.5583496094, 28.03005027771},{1817.3167724609, 2833.5241699219, 10.328179359436},{2650.564453125, 224.7706451416, 55.676471710205},{303.12265014648, -255.16917419434, 0.61698001623154},
+	{178.60859680176, 1457.9509277344, 9.7259492874146},{1086.4359130859, -2050.7009277344, 55.992740631104},{-1253.6226806641, 49.224720001221, 13.284070014954},{551.49353027344, 1222.2264404297, 10.870379447937},
+	{1502.6746826172, -1833.3646240234, 13.118579864502},{1781.7172851563, -278.80676269531, 68.069213867188},{1124.5002441406, -2021.2779541016, 68.242149353027},{-306.86407470703, 1797.7108154297, 41.875610351563},
+	{-1101.2518310547, -700.54956054688, 31.554269790649},{-2069.1042480469, 1220.4896240234, 34.325031280518},{2185.3127441406, -2709.076171875, 3.5722301006317},{-2564.2119140625, 328.10757446289, 9.6642093658447},
+	{376.21139526367, -1479.1572265625, 32.382831573486},{-2914.3305664063, 906.67919921875, 7.2093100547791},{782.33123779297, 2066.8247070313, 5.8476300239563},{2463.2878417969, 708.88262939453, 10.502669334412},
+	{-2514.7336425781, -720.51226806641, 138.18872070313},{-2672.3298339844, -2133.7973632813, 36.962371826172},{-2903.0974121094, 1015.4561157227, 35.979610443115},{-2232.8830566406, -2295.6826171875, 29.736019134521},
+	{2350.1928710938, -647.29974365234, 127.22103881836},{2764.9987792969, -2245.6823730469, 1.793340086937},{-2262.7138671875, -1073.0777587891, 14.771800041199},{-526.52642822266, -2704.4167480469, 143.27575683594},
+	{2522.5725097656, -1136.5804443359, 40.293521881104},{-219.47760009766, 1123.7203369141, 18.876239776611},{830.4208984375, -481.56237792969, 15.655109405518},{901.40905761719, -1044.6019287109, 29.127750396729},
+	{-451.08322143555, -1712.8026123047, 7.6876602172852},{463.09375, 794.61810302734, 6.6404600143433},{2242.7817382813, 674.20092773438, 10.101259231567},{-749.21697998047, 1126.7946777344, 31.7161693573},
+	{2435.8569335938, 1871.6798095703, 7.309229850769},{984.21472167969, -2188.3732910156, 12.21895980835},{2261.5827636719, 1073.9862060547, 28.541330337524},{-1647.9920654297, 380.31649780273, 6.2779898643494},
+	{1530.0245361328, 2679.21484375, 10.029949188232},{712.27777099609, 1997.8930664063, 4.0955300331116},{2155, -2726, 5},{2254, -2270, 14},{2298, -2118, 14},{2648, -2017, 14},{2645, -1993, 14},{2788, -2214, 10},
+	{2890, -2118, 4},{2200, -2013, 14},{2090, -1850, 4},{2511, -1778, 14},{2413, -1402, 25},{2501, -1134, 39},{2562, -1110, 65},{2339, -1052, 52},{2689, -874, 66},{2793, -637, 58},{2609, -513, 81},{2576, -641, 136},
+	{2346, -655, 128},{2327, -565, 128},{2177, -557, 126},{1621, -892, 53},{1833, -1023, 25},{1844, -1058, 25},{1894, -1061, 24},{1938, -1062, 24},{2007, -1048, 25},{1874, -1324, 15},{1996, -1319, 23},{1738, -1510, 14},
+	{1898, -1559, 14},{2078, -1556, 13},{1657, -2139, 14},{1703, -2285, -1},{1474, -2316, 14},{1073, -2215, 47},{1105, -2077, 69},{976, -2168, 13},{991, -2056, 7},{893, -1860, 9},{1293, -1871, 13},{1077, -1754, 13},
+	{969, -1714, 14},{972, -1636, 14},{761, -1851, 6},{479, -1809, 6},{224, -1762, 5},{380, -1478, 33},{252, -1359, 53},{268, -1074, 85},{805, -1089, 24},{931, -894, 46},{852, -630, 18},{825, -565, 16},{819, -474, 17},
+	{642, -506, 16},{329, -571, 11},{303, -571, 17},{157, -530, 41},{-64, -101, 3},{369, -114, 1},{322, -254, 2},{854, -225, 21},{1041, -284, 74},{1094, -313, 74},{962, -29, 93},{972, 40, 69},{867, -15, 63},{646, 69, 12},
+	{692, 283, 20},{738, 271, 27},{995, 164, 28},{1359, -96, 28},{1570, 40, 25},{1726, -111, 48},{1779, -291, 74},{2115, 223, 13},{1740, 602, 11},{1840, 965, 11},{2405, 700, 11},{2657, 843, 6},{2696, 867, 10},
+	{2440, 1491, 11},{1981, 1796, 12},{2419, 1901, 6},{2911, 1690, 12},{2938, 2105, 12},{2413, 2183, 19},{2607, 2330, 11},{2650, 2390, 11},{2587, 2463, 11},{2495, 2528, 22},{2745, 2764, 11},{2580, 2844, 11},
+	{2523, 2726, 11},{2118, 2409, 65},{2064, 2782, 11},{1905, 2791, 11},{1835, 2842, 11},{1695, 2707, 11},{1534, 2668, 11},{1651, 2500, 9},{1423, 2572, 11},{1206, 2618, 11},{1276, 2175, 13},{1084, 1392, 11},
+	{1364, 1179, 11},{1515, 924, 11},{1096, 697, 10},{958, 1040, 11},{417, 851, 8},{551, 1218, 12},{603, 1246, 12},{704, 1205, 13},{676, 1698, 7},{712, 1998, 5},{1029, 2915, 46},{548, 2910, 2},{265, 2908, 7},
+	{309, 2677, 16},{330, 2394, 16},{277, 2330, 20},{-177, 2655, 63},{-770, 2500, 98},{-803, 2446, 157},{-780, 2270, 117},{-122, 2265, 38},{-304, 1802, 43},{-354, 1617, 76},{-397, 1238, 6},{-379, 1203, 20},
+	{-222, 1129, 20},{-742, 736, 18},{-670, 888, 10},{-664, 967, 12},{-774, 951, 4},{-768, 1119, 33},{-1114, 1123, 15},{-735, 1531, 39},{-669, 1599, 33},{-727, 1625, 27},{-849, 1877, 23},{-1096, 1947, 113},
+	{-1032, 2080, 98},{-1163, 2282, 110},{-1292, 2810, 86},{-1957, 2383, 49},{-2072, 2460, 20},{-1976, 2628, 94},{-2067, 2930, 67},{-2856, 2188, 175},{-2905, 902, 6},{-2940, 739, 7},{-2936, 448, 4},{-2568, 326, 11},
+	{-2513, 136, 22},{-2765, -163, 7},{-2546, -252, 22},{-2493, -265, 39},{-2411, -221, 40},{-2155, -233, 37},{-2116, 160, 36},{-1947, 491, 32},{-2179, 612, 35},{-2207, 698, 49},{-2192, 963, 80},{-2075, 1205, 45},
+	{-1608, 561, 28},{-1692, 573, 25},{-1630, 393, 7},{-1574, 50, 17},{-1486, -365, 15},{-2342, -1006, 16},{-2354, -1045, 88},{-2639, -993, 10},{-2756, -1083, 16},{-2790, -1317, 127},{-2666, -1544, 306},
+	{-2816, -1823, 134},{-2750, -1988, 46},{-2679, -2130, 38},{-2198, -1764, 306},{-1915, -1626, 26},{-2215, -2362, 31},{-2131, -2560, 31},{-2093, -2398, 31},{-1982, -2380, 31},{-1839, -2302, 49},{-1743, -2403, 60},
+	{-1670, -2387, 97},{-1613, -2282, 37},{-1565, -2494, 91},{-528, -2656, 156},{-477, -2650, 157},{-449, -2498, 117},{-72, -2648, 80},{54, -2645, 40},{-5, -2489, 37},{-255, -2187, 29},{-827, -2172, 24},{-964, -1960, 68},
+	{-556, -1910, 9},{-516, -1961, 40},{-297, -1900, 19},{-299, -1807, 9},{-453, -1722, 9},{-590, -1486, 12},{-845, -1474, 112},{-962, -1673, 75},{-994, -1663, 76},{-1092, -1648, 76},{-1252, -1572, 39},
+	{-1304, -1503, 24},{-1399, -1541, 102},{-1321, -1350, 144},{-1219, -1147, 129},{-760, -1143, 62},{-1219, -834, 89},{-1121, -686, 32},{-945, -525, 26},{-606, -608, 24},{-478, -767, 30},{-336, -458, 2},
+	{-666, -266, 66},{-712, -103, 69},{-791, -139, 64},{1176, -2143, 67},{1512, -1830, 14},{587, -1604, 16},{679, -1496, 15},{826, -1527, 14},{1477, -1404, 47},{2818, -1212, 25},{-395, -1153, 70},
+	{-364, -1417, 26},{-466, -1421, 18},{-760, -1785, 117},{-1205, -2346, 1},{-1004, -2299, 61},{-2815, -1508, 139},{-2520, -724, 138},{-2514, -941, 15},{-2775, -343, 8},{-1884, -440, 25},{-1133, -852, 123},
+	{-1663, 877, 136},{-2535, 1156, 55},{-2374, 2216, 5},{-876, 1912, 51},{-1227, 1836, 42},{-1006, 1614, 33},{679, 832, -43},{1665, 971, 11},{1669, 1055, 11},{2718, 781, 11},{2624, 760, 11},{2619, 246, 57},
+	{2266, 1112, 29},{1996, 1381, 9},{2586, 2183, 11},{1860, 2385, 11},{1146, 2328, 11},{781, 2059, 7},{671, 343, 20},{2185, -2711, 4},{-2233, -2296, 31},{1045, 1013, 55},{1430, 2021, 11},{-1332, -2592, 42},
+	{-1336, -2589, 42},{-151, -1027, 1},{1166, -2117, 68},{1180, -1058, 31},{1296, -980, 33},{2035, -459, 77},{-1857.4552001953, -2313.6716308594, 44.360092163086},{1496.0688476563, -2302.9116210938, 12.687759399414},
+	{2201.2370605469, -2030.3232421875, 12.680119514465},{1991.2661132813, 2183.9887695313, 9.8860092163086},{-2545.2697753906, 692.07562255859, 28.079608917236},{-1501.2393798828, 1376.55859375, 2.7384400367737},
+	{2404.0551757813, 1825.5991210938, 10.830889701843},{2461.1872558594, 2496.8603515625, 9.9578495025635},{1958.9912109375, 1379.4376220703, 8.3464298248291},{1840.7130126953, 964.83239746094, 9.927339553833},
+	{-2177.1784667969, 615.90747070313, 34.248332977295},{-2083.5368652344, 2920.9567871094, 68.719779968262},{-1452.8057861328, -348.36990356445, 13.687139511108},{1416.7073974609, 2547.580078125, 9.9946994781494},
+	{1987.6284179688, -1306.3503417969, 19.896619796753},{-2549.7309570313, -951.95245361328, 19.586568832397},{720.19653320313, 356.64959716797, 19.392189025879},{855.52233886719, -221.36175537109, 19.753759384155},
+	{1881.4862060547, -1312.8455810547, 13.60825920105},{261.91680908203, -1075.9052734375, 84.411193847656},{-2764.5927734375, -160.36288452148, 6.2882399559021},{40.842876434326, -2649.9680175781, 39.574390411377},
+	{-2104.712890625, 139.72756958008, 34.266101837158},{-793.23913574219, 2264.9169921875, 58.38468170166},{2592.3732910156, 2847.3041992188, 9.9298000335693},{1835.1895751953, -1065.5373535156, 23.810859680176},
+	{-1436.9216308594, -967.33453369141, 200.16317749023},{302.3623046875, -1352.3764648438, 52.449001312256},{2932.6689453125, 2110.0310058594, 13.140619277954},{-557.79650878906, -1482.1083984375, 8.5115299224854},
+	{980.42864990234, -1707.0816650391, 12.722299575806},{-2204.8103027344, 961.43469238281, 79.139671325684},{1900.9174804688, 2793.775390625, 10.023699760437},{853.73583984375, -1504.5710449219, 13.416759490967},
+	{-2113.3566894531, -2406.5100097656, 30.371049880981},{-2932.3991699219, 453.52862548828, 3.1856100559235},{2642.3996582031, -1462.2476806641, 15.346459388733},{2413.1242675781, -1399.2993164063, 23.463150024414},
+	{-1668.0303955078, -2422.8862304688, 100.07484436035},{336.11532592773, 2695.5993652344, 18.972049713135},{2613.0776367188, -502.88977050781, 78.000679016113},{-1966.0201416016, -209.29716491699, 26.116109848022},
+	{2448.8330078125, 1510.119140625, 9.8509197235107},{-1955.8090820313, 497.50314331055, 34.897262573242},{1668.1645507813, 969.96026611328, 10.140239715576},{1431.2762451172, -153.52743530273, 24.444568634033},
+	{2917.7521972656, 1701.0046386719, 8.3925495147705},{893.96514892578, -1863.7783203125, 7.5980200767517},{374.40475463867, -116.46190643311, 0.35130000114441},{845.85772705078, -620.79632568359, 16.46715927124},
+	{-1741.25, -2416.5317382813, 40.428192138672},{-1111.0736083984, 1126.4230957031, 18.928070068359},{2511.4123535156, 2704.9909667969, 10.124899864197},{876.46264648438, -15.426488876343, 62.401950836182},
+	{2744.9411621094, 2763.8493652344, 9.9954891204834},{562.34979248047, 2872.1220703125, 1.1273599863052}
+}
+local textklad =
+{
+	["Что объединяет"] = "Семья", 
+	["на сервере Mesa"] = "2", 
+	["Сколько всего стилей форума"] = "3", 
+	["Какой аксессуар может сидеть на плече"] = "Попугай", 
+	["Какая работа в центре занятости открывается на 6 уровне"] = "Инкассатор", 
+	["Сколько нужно EXP для получения 12 уровня, если сейчас у тебя 1 lvl 0 exp"] = "308", 
+	["Количество серверов с самым длинным названием"] = "3", 
+	["В каком месяце ввели покраску куратора на форуме проекта"] = "Декабрь", 
+	["Количество ГА, которые когда-либо были на сервере Yuma"] = "1", 
+	["Собирает яйца птица, ни павлин и ни синица"] = "Попугай", 
+	["Кто пишет эту систему глубочайщей ночью"] = "Альберт", 
+	["Максимальная ставка в одноруком бандите"] = "5000", 
+	["Дата регистрации спец.администратора Sam_Mason на форуме в формате xx.xx.xx"] = "27.04.15", 
+	["Минимальная сумма пожертвования в благотворительность"] = "10000", 
+	["Максимальное количество дерева в 1 слоте инвентаря"] = "10000", 
+	["Каждый проходит через это при начале игры"] = "Регистрация", 
+	["Сервер Аризоны, который чаще всего занимает 1 место по онлайну"] = "Scottdale", 
+	["Сервер Аризоны"] = "Scottdale", 
+	["Сколько нужно EXP для получения 40 уровня, если сейчас у тебя 3 lvl 2 exp"] = "3254", 
+	["Какой урон наносит удар с кулака при 0%% силы по игроку с 0%%%% мускулатуры"] = "1.32", 
+	["Висит на спине, но не гитара, быстрый и юркий, но не велосипед"] = "Скейт", 
+	["Как зовут начальника Магнуса"] = "Эрих", 
+	["главного администратора 6-го сервера"] = "Diana_Mironova", 
+	["Любит репорт отвечать, игрокам всем помогать"] = "Хелпер", 
+	["Количество ГА, которые когда-либо были на сервере Red-Rock"] = "3", 
+	["Это бывает 7 раз в неделю, 24 раза в сутки. Что это"] = "Payday", 
+	["Напишите Nick_Name главного администратора 6-го сервера"] = "Diana_Mironova", 
+	["Максимальная цена на оружие в АММО для владельцев бизнеса"] = "50000", 
+	["Самая популярная игра в казино"] = "Кости", 
+	["Сколько АЗ стоит в донате 8000 семейной репутации"] = "2400", 
+	["Как звали третьего по счету ГА на сервере Scottdale"] = "Владислав", 
+	["Фамилия администратора с ником Kory_McGregor"] = "Мясников", 
+	["Ник главного администратора сервера Tucson, который был назначен после ухода Dmitriy_Prise"] = "Steff_Kingston", 
+	["Сколько серверов было 1 октября 2017 года"] = "6", 
+	["Кто однорукий постоянно стоит в казино"] = "Бандит", 
+	["Количество работ в центре занятости"] = "19", 
+	["Сколько нужно EXP для получения 39 уровня, если сейчас у тебя 1 lvl 4 exp"] = "3112", 
+	["Каков возраст самого молодого ГА"] = "14", 
+	["Дата добавления корабля для мафий в формате xx.xx.xx"] = "19.06.16", 
+	["Напишите Nick_Name главного администратора 9-го сервера"] = "" ,
+	["Кто закопал эти клады"] = "Дмитрий", 
+	["Количество фракций на сервере"] = "27", 
+	["Сколько минут нужно отыграть для получения PayDay"] = "20", 
+	["Максимальное количество EXP, которое может выпасть с контейнера"] = "80", 
+	["Сколько нужно EXP для получения 25 уровня, если сейчас у тебя 22 lvl 20 exp"] = "268", 
+	["Напишите Nick_Name главного администратора 9-го сервера"] = "Leonardo_Toren", 
+	["Накануне праздник, вышла обнова - это любимая наша"] = "Аризона", 
+	["Старый, мудрый, 05го дежурный"] = "Николай", 
+	["Дата выхода обновления, позволившего зарабатывать реальные деньги в игре"] = "16.07.19", 
+	["Какой налог нужен для слета дома"] = "104000", 
+	["которое было за все время на проекте"] = "3", 
+	["Сколько стоило 1 евро в день выпуска"] = "3000", 
+	["Стандартное количество ХП у автомобиля"] = "1500", 
+	["В каком месяце был добавлен информационный центр"] = "Март", 
+	["В каком месяце Conor стал спец.администратором"] = "Январь", 
+	["Какой урон наносит удар с кулака при 100%%%% силы по игроку с 0%%%% мускулатуры"] = "11.32", 
+	["Сколько талонов в день можно получать с семейных квестов"] = "11", 
+	["Количество лавок на Центральном Рынке"] = "30", 
+	["В каком году был добавлен депозит"] = "2017", 
+	["Самый крупный ютубер на 1 октября 2019 года"] = "Delorenzy", 
+	["Количество домов на сервере за AZ монеты"] = "15", 
+	["Как зовут квестового NPC в деревне Montgomery"] = "Майкл", 
+	["Напишите Nick_Name главного администратора 9-го сервера"] = "Leonardo_Toren", 
+	["цена у любого бизнеса на сервере"] = "6000000", 
+	["Горячие вакансии"] = "Николай", 
+	["Максимальный онлайн на проекте Arizona за все время"] = "100000",
+	["Максимальный срок"] = "180000", 
+	["Ник администратора который занимал пост ГА на двух разных серверах"] = "Conor", 
+	["Максимальное количество бронзовых рулеток в 1 слоте инвентаря"] = "100", 
+	["Сколько энергии пополняется каждый PayDay при 75выносливости"] = "17.5", 
+	["В каком году был открыт сервер Mesa"] = "2018", 
+	["Количество ГА, которые когда-либо были на сервере Mesa"] = "2", 
+	["Какой урон наносит удар с кулака при 100силы по игроку с 0мускулатуры"] = "11.32", 
+	["Какая цена была у Titan VIP в AZ монетах изначально"] = "2000", 
+	["которые когда-либо были на сервере Yuma"] = "1", 
+	["Какое название у лучшего типа контейнера на английском"] = "Business", 
+	["Напишите Nick_Name главного администратора 6-го сервера"] = "Diana_Mironova", 
+	["Напишите Nick_Name главного администратора 3-го сервера"] = "Xavier_Cooper", 
+	["которые когда-либо были на сервере Red-Rock"] = "3", 
+	["Напишите Nick_Name главного администратора 6-го сервера"] = "Diana_Mironova", 
+	["Сколько энергии пополняется каждый PayDay при 75%% выносливости"] = "17.5", 
+	["В каком году Conor ушел с поста ГА на сервере Chandler"] = "2016", 
+	["которые когда-либо были на сервере Red-Rock"] = "3", 
+	["которые когда-либо были на сервере Mesa"] = "2", 
+	["Красная, как яблоко, наклейка с белой надписью"] = "Supreme", 
+	["энергии пополняется каждый"] = "17.5", 
+	["энергии пополняется каждый"] = "1.32", 
+	["Какая фамилия у разработчика Альберта"] = "Миронов", 
+	["Лысый, смешной, большой и злой"] = "Conor", 
+	["Вечно ждущий NPC на вокзале ЛС"] = "Джереми", 
+	["были на сервере Mesa"] = "3", 
+	["недалеко от моста"] = "Ричи", 
+	["Напишите Nick_Name главного администратора 3-го сервера"] = "ё", 
+	["Максимальное количество слотов для машин у 1 игрока"] = "5", 
+	["Сколько нужно перевезти пицц, чтобы выполнить начальный квест"] = "15", 
+	["Количество ГА, которые когда-либо были на сервере Red-Rock"] = "3", 
+	["Из какой страны привозят контейнеры для аукциона"] = "Германия", 
+	["Какой урон наносит удар с кулака при 100силы по игроку с 0мускулатуры"] = "11.32", 
+	["Накануне праздник, вышла обнова - это любимая наша"] = "Аризона", 
+	["В честь кого установлен памятник недалеко от моста ЛС-СФ"] = "Ричи", 
+	["Увеличивает скорость, но не чит, добавляет наклейку, но не Supreme"] = "TwinTurbo", 
+	["установлен памятник"] = "Ричи", 
+	["были на сервере Yuma"] = "1", 
+	["администратора 3-го сервера"] = "Xavier_Cooper", 
+	["это любимая наша"] = "Аризона", 
+	["администратора 6-го сервера"] = "Diana_Mironova",  
+	["Количество ГА, которые когда-либо были на сервере Mesa"] = "2", 
+	["администратора 9-го сервера"] = "Leonardo_Toren", 
+	["Какой урон наносит удар с кулака при 100cилы по игроку с 0мускулатуры"] = "11.32",
+	["Количество ГА, которые когда-либо были на сервере Red-Rock"] = "3", 
+	["Какой ник в игре у Валика"] = "Farmer", 
+	["Какой урон наносит удар с кулака при 100 силы по игроку с 0 мускулатуры"] = "11.32", 
+	["Что нужно сделать или получить для выполнения первого начального квеста"] = "Паспорт", 
+	["Сколько энергии пополняется каждый PayDay при 75%% выносливости"] = "17.5", 
+	["первого уровня"] = "Таксист", 
+	["Напишите Nick_Name главного администратора 9-го сервера"] = "Leonardo_Toren", 
+	["Количество ГА, которые когда-либо были на сервере Red-Rock"] = "3", 
+	["Напишите Nick_Name главного администратора 6-го сервера"] = "Diana_Mironova", 
+	["Напишите Nick_Name главного администратора 3-го сервера"] = "Xavier_Cooper", 
+	["Напишите Nick_Name главного администратора 3-го сервера"] = "Xavier_Cooper", 
+	["Какой урон наносит удар с кулака при 100%% силы по игроку с 0%% мускулатуры"] = "11.32", 
+	["Какой урон наносит удар с кулака при 0% силы по игроку с 0%% мускулатуры"] = "1.32", 
+	["Напишите Nick_Name главного администратора 9-го сервера"] = "Leonardo_Toren", 
+	["Напишите Nick_Name главного администратора 6-го сервера"] = "Diana_Mironova", 
+	["Напишите Nick_Name главного администратора 9-го сервера"] = "Leonardo_Toren",  
+	["Какой урон наносит удар с кулака при 100 силы по игроку с 0 мускулатуры"] = "11.32", 
+	["Количество ГА, которые когда-либо были на сервере Red-Rock?"] = "3", 
+	["Red-Rock?"] = "3",
+	["Напишите Nick_Name главного администратора 3-го сервера"] = "Xavier_Cooper"
+};
+
+local tCarsName = 
+{
+	"Landstalker","Bravura","Buffalo","Linerunner","Pereniel","Sentinel","Dumper","Firetruck","Trashmaster","Stretch","Manana","Infernus",
+	"Voodoo","Pony","Mule","Cheetah","Ambulance","Leviathan","Moonbeam","Esperanto","Taxi","Washington","Bobcat","Mr.Whoopee","BF Injection",
+	"Hunter","Premier","Enforcer","Securicar","Banshee","Predator","Bus","Rhino","Barracks","Hotknife","Trailer","Previon","Coach","Cabbie",
+	"Stallion","Rumpo","RC Bandit","Romero","Packer","Monster","Admiral","Squalo","Seasparrow","Pizzaboy","Tram","Trailer","Turismo","Speeder",
+	"Reefer","Tropic","Flatbed","Yankee","Caddy","Solair","Berkley's RC Van","Skimmer","PCJ-600","Faggio","Freeway","RC Baron","RC Raider",
+	"Glendale","Oceanic","Sanchez","Sparrow","Patriot","Quad","Coastguard","Dinghy","Hermes","Sabre","Rustler","ZR-350","Walton","Regina",
+	"Comet","BMX","Burrito","Camper","Marquis","Baggage","Dozer","Maverick","News Chopper","Rancher","FBI Rancher","Virgo","Greenwood",
+	"Jetmax","Hotring Racer","Sandking","Blista Compact","Police Maverick","Boxville","Benson","Mesa","RC Goblin","Hotring Racer A","Hotring Racer B",
+	"Bloodring Banger","Rancher","Super GT","Elegant","Journey","Bike","Mountain Bike","Beagle","Cropdust","Stunt","Tanker","RoadTrain",
+	"Nebula","Majestic","Buccaneer","Shamal","Hydra","FCR-900","NRG-500","HPV1000","Cement Truck","Tow Truck","Fortune","Cadrona","FBI Truck",
+	"Willard","Forklift","Tractor","Combine","Feltzer","Remington","Slamvan","Blade","Freight","Streak","Vortex","Vincent","Bullet","Clover",
+	"Sadler","Firetruck","Hustler","Intruder","Primo","Cargobob","Tampa","Sunrise","Merit","Utility","Nevada","Yosemite","Windsor","Monster A",
+	"Monster B","Uranus","Jester","Sultan","Stratum","Elegy","Raindance","RC Tiger","Flash","Tahoma","Savanna","Bandito","Freight","Trailer",
+	"Kart","Mower","Dune","Sweeper","Broadway","Tornado","AT-400","DFT-30","Huntley","Stafford","BF-400","Newsvan","Tug","Trailer A","Emperor",
+	"Wayfarer","Euros","Hotdog","Club","Trailer B","Trailer C","Andromada","Dodo","RC Cam","Launch","Police Car (LSPD)","Police Car (SFPD)",
+	"Police Car (LVPD)","Police Ranger","Picador","S.W.A.T.","Alpha","Phoenix","Glendale","Sadler","L Trailer A","L Trailer B",
+	"Stair Trailer","Boxville","Farm Plow","U Trailer"
+}
 
 ----------------------------------------
 local imgui = require('imgui')
@@ -9,6 +218,7 @@ encoding.default = 'CP1251'
 u8 = encoding.UTF8
 local inicfg = require("inicfg")
 local sampev = require("samp.events")
+local key = require 'vkeys'
 require "lib.moonloader"
 local dlstatus = require("moonloader").download_status
 ----------------------------------------
@@ -44,12 +254,22 @@ local olen_state = false
 local olen_count = 0
 local waxta_state = false
 local waxta_count = 0
+local klad_state = true
+local klad_count = 0
+local loot_state = false
+local loot_count = 0
+local loot_timer = 0
+local MarkersState = false
+local checkpoint = {}
+local marker = {}
+local carid = -1
 ----------------------------------------
 local friends =
 {
 	"Sawa_Seleznev",
 	"Denis_Seleznev",
-	"Alexey_Agesilay"
+	"Alexey_Agesilay",
+	"Vartan_Germun"
 };
 ----------------------------------------
 local path = getWorkingDirectory() .. '\\config'
@@ -79,6 +299,10 @@ local mainIni = inicfg.load(
 		vipchat = true,
 		tosampfuncsvipchat = true,
 		removevipchat = true,
+		
+		eatenable = true,
+		autoanim = true,
+		autoanimid = 88,
 		
 		posRenderX = 50,
 		posRenderY = 300,
@@ -117,6 +341,10 @@ local vipchat = imgui.ImBool(mainIni.config.vipchat)
 local tosampfuncsvipchat = imgui.ImBool(mainIni.config.tosampfuncsvipchat)
 local removevipchat = imgui.ImBool(mainIni.config.removevipchat)
 
+local eatenable = imgui.ImBool(mainIni.config.eatenable)
+local autoanim = imgui.ImBool(mainIni.config.autoanim)
+local autoanimid = imgui.ImInt(mainIni.config.autoanimid)
+
 local stringsCount = imgui.ImInt(mainIni.config.stringsCount)
 local fontSize = imgui.ImFloat(mainIni.config.fontSize)
 local fontName = imgui.ImBuffer(tostring(mainIni.config.fontName), 100)
@@ -149,6 +377,9 @@ function saveini()
 	mainIni.config.vipchat = vipchat.v
 	mainIni.config.tosampfuncsvipchat = tosampfuncsvipchat.v
 	mainIni.config.removevipchat = removevipchat.v
+	mainIni.config.eatenable = eatenable.v
+	mainIni.config.autoanim = autoanim.v
+	mainIni.config.autoanimid = autoanimid.v
 	mainIni.config.fontSize = fontSize.v
 	mainIni.config.fontName = fontName.v
 	mainIni.config.offsetStrings = offsetStrings.v
@@ -240,6 +471,48 @@ function main()
 	----------------------------------------
 	sampRegisterChatCommand("waxta",function()
 		waxta_state = not waxta_state
+	end)
+	----------------------------------------
+	sampRegisterChatCommand("klad",function()
+		klad_state = not klad_state
+		printString('',0)
+	end)
+	----------------------------------------
+	sampRegisterChatCommand("poisk",function()
+		MarkersState = not MarkersState
+		if MarkersState == true then
+			for i = 1, #coords do
+				checkpoint[i] = addBlipForCoord(coords[i][1], coords[i][2], coords[i][3])
+				changeBlipColour(checkpoint[i], 0xFF3300FF)
+				marker[i] = createCheckpoint(1, coords[i][1], coords[i][2], coords[i][3], 1, 1, 1, 1)
+				---marker[i] = addSphere(coords[i][1], coords[i][2], coords[i][3], 3.0)
+				----marker[i] = createUser3dMarker(coords[i][1], coords[i][2], coords[i][3], 4)
+			end
+			printString('~g~markers enable',3000)
+		else
+			for i = 1, #coords do
+				removeBlip(checkpoint[i])
+				checkpoint[i] = 0
+				deleteCheckpoint(marker[i])
+				---removeSphere(marker[i])
+				----removeUser3dMarker(marker[i])
+				marker[i] = 0
+			end
+			printString('~r~markers disable',3000)
+		end
+	end)
+	----------------------------------------
+	sampRegisterChatCommand("loot",function()
+		loot_state = not loot_state
+		printString('',0)
+		if loot_state == true then
+			loot_count = 0
+			loot_timer = os.time()+1
+			printString('~g~loot enable',3000)
+		else
+			loot_count = 0
+			printString('~r~loot disable',3000)
+		end
 	end)
 	----------------------------------------
 	for i = 0, sampGetMaxPlayerId(true) do
@@ -540,7 +813,141 @@ function main()
 					renderFontDrawText(arial,'Руды в зоне стрима: '..waxta_count, sx / 2.5, sy - 30, 0xFFFF0000)
 				end
 			end
+			if klad_state == true then
+				----------------------------------------
+				if sampIsDialogActive() and sampGetCurrentDialogId() == 13101 then
+					dialogid = sampGetCurrentDialogId()
+					text = sampGetDialogText(dialogid)
+					----------------------------------------
+					for k, v in pairs(textklad) do
+						if string.match(text, k) then
+							sampAddChatMessage('', -1)
+							sampAddChatMessage('', -1)
+							sampAddChatMessage('', -1)
+							sampAddChatMessage('Ответ на вопрос: {FF3300}'..v, -1)
+							wait(10000)
+						end
+					end
+					----------------------------------------
+				end
+				----------------------------------------
+				klad_count = 0
+				for _, i in pairs(getAllObjects()) do
+					if getObjectModel(i) == 1271 then
+						klad_count = klad_count + 1
+						if isObjectOnScreen(i) then
+							local result, oX, oY, oZ = getObjectCoordinates(i)
+						
+							local x1, y1 = convert3DCoordsToScreen(oX,oY,oZ)
+							local PlayerX, PlayerY, PlayerZ = getCharCoordinates(PLAYER_PED)
+							local PlayerX2, PlayerY2 = convert3DCoordsToScreen(PlayerX, PlayerY, PlayerZ)
+							distance = string.format("%.0f",getDistanceBetweenCoords3d(oX, oY, oZ, PlayerX, PlayerY, PlayerZ))
+						
+							renderDrawLine(PlayerX2, PlayerY2, x1, y1, 2, 0xFF3300FF) 
+							renderFontDrawText(arial,"{FF0000}Клад: {3300FF}"..distance, x1, y1, -1)
+						end
+					end
+				end
+				local sx, sy = getScreenResolution()
+				if klad_count == 0 then
+					renderFontDrawText(arial, 'Кладов в зоне стрима: '..klad_count, sx / 1.22, sy - 30, 0xFF3300FF)
+					--placeWaypoint(0, 0, 0)
+				else
+					renderFontDrawText(arial, 'Кладов в зоне стрима: '..klad_count, sx / 1.22, sy - 30, 0xFFFF0000)
+					printString('~r~KLAD! KLAD! KLAD!',1000)
+				end
+				if carid ~= -1 then
+					res, carhandle = sampGetCarHandleBySampVehicleId(carid)
+					if carhandle ~= -1 then
+						model = getCarModel(carhandle)
+						if model ~= 414 and -- Mule
+							model ~= 416 and -- Ambulance
+							model ~= 420 and -- Taxi
+							model ~= 427 and -- Police Enforcer
+							model ~= 428 and -- Securicar
+							model ~= 438 and -- Cabbie Taxi
+							model ~= 456 and -- Yankee
+							model ~= 525 then -- Towtruck
+							x, y, z = getCarCoordinates(carhandle)
+							name_vehicle = getCarName(model)
+							
+							printString('~p~OPEN BAGAJHUK~n~'..name_vehicle..'['..carid..']',1000)
+
+							local x2, y2 = convert3DCoordsToScreen(x, y, z)
+							local PlayerX3, PlayerY3, PlayerZ3 = getCharCoordinates(PLAYER_PED)
+							local PlayerX4, PlayerY4 = convert3DCoordsToScreen(PlayerX3, PlayerY3, PlayerZ3)
+							distance = string.format("%.0f",getDistanceBetweenCoords3d(x, y, z, PlayerX3, PlayerY3, PlayerZ3))
+
+							renderDrawLine(PlayerX4, PlayerY4, x2, y2, 2, 0x8B00FFFF) 
+							renderFontDrawText(arial,"{8B00FF}"..name_vehicle.."["..carid.."]\nБагажник: {3300FF}"..distance, x2, y2, -1)
+						end
+					end
+				end
+			end
 			----------------------------------------
+			if loot_state == true then
+			--sampTextdrawIsExists
+			--sampTextdrawGetString
+			--sampTextdrawGetStyle
+				----------------------------------------
+				if loot_timer == os.time() then
+					loot_timer = os.time()+1
+					if sampIsCursorActive() and not sampIsDialogActive() then
+						for i = 0, 2304	do
+							if sampTextdrawIsExists(i) then
+								model, rotX, rotY, rotZ, zoom, clr1, clr2 = sampTextdrawGetModelRotationZoomVehColor(i)
+								x, y = sampTextdrawGetPos(i)
+								--if model ~= 1649 then
+									if x == 184.5 and loot_count == 0 then
+										sampSendClickTextdraw(i)
+										loot_count = 1
+									elseif x == 211 and loot_count == 1 then
+										sampSendClickTextdraw(i)
+										loot_count = 2
+									elseif x == 237.5 and loot_count == 2 then
+										sampSendClickTextdraw(i)
+										loot_count = 3
+									elseif x == 264 and loot_count == 3 then
+										sampSendClickTextdraw(i)
+										loot_count = 4
+									elseif x == 290.5 and loot_count == 4 then
+										sampSendClickTextdraw(i)
+										loot_count = 0
+									end
+								--end
+							end
+						end
+					end
+				end
+				----------------------------------------
+				if sampIsDialogActive() and sampGetCurrentDialogId() == 8251 then
+					for i = 0, 2304	do
+						if sampTextdrawIsExists(i) then
+							x, y = sampTextdrawGetPos(i)
+							if x == 209 then
+								number_text = sampTextdrawGetString(i)
+								number = tonumber(number_text)
+							elseif x == 235.5 then
+								number_text = sampTextdrawGetString(i)
+								number = tonumber(number_text)
+							elseif x == 262 then
+								number_text = sampTextdrawGetString(i)
+								number = tonumber(number_text)
+							elseif x == 288.5 then
+								number_text = sampTextdrawGetString(i)
+								number = tonumber(number_text)
+							elseif x == 315 then
+								number_text = sampTextdrawGetString(i)
+								number = tonumber(number_text)
+							end
+						end
+					end
+					loot_count = 0
+					sampSendDialogResponse(8251, 2, 1, number)
+					sampCloseCurrentDialogWithButton(0)
+				end
+				----------------------------------------
+			end
 		end
 	end)
 end
@@ -598,6 +1005,8 @@ function imgui.OnDrawFrame()
 		imgui.Text(u8"/trash - Включить поиск мусорок в зоне стрима")
 		imgui.Text(u8"/olen - Включить поиск оленей в зоне стрима")
 		imgui.Text(u8"/waxta - Включить поиск руды в зоне стрима")
+		imgui.Text(u8"/klad - Включить поиск кладов и открытых багажников")
+		imgui.Text(u8"/poisk - Показать места спавна кладов")
 		----------------------------------------
 		if imgui.BeginPopup('chatrender') then
 			imgui.Checkbox(u8('Рендер чата'),renderChat)
@@ -650,6 +1059,19 @@ function imgui.OnDrawFrame()
 		imgui.Checkbox(u8('Рендер вип чата'),vipchat)
 		imgui.Checkbox(u8('Выводить вип чат в консоль SAMPFUNCS (~)'),tosampfuncsvipchat)
 		imgui.Checkbox(u8('Отключить вип чат'),removevipchat)
+		imgui.Checkbox(u8('Кушать чипсы'),eatenable)
+		----------------------------------------
+		imgui.SameLine()
+		imgui.TextQuestion(u8'Кушает чипсы при появлении надписи You are hungry! или\nYou are very hungry!')
+		----------------------------------------
+		imgui.SameLine()
+		imgui.Checkbox(u8('Автоматическая анимация'),autoanim)
+		----------------------------------------
+		imgui.SameLine()
+		imgui.TextQuestion(u8'После еды чипсов автоматически включает /anim '..autoanimid.v..'.')
+		----------------------------------------
+		imgui.PushItemWidth(300)
+		imgui.SliderInt(u8('Анимация'),autoanimid,1,103)
 		--imgui.SameLine()
 		----------------------------------------
 		imgui.EndGroup()
@@ -673,6 +1095,7 @@ function imgui.OnDrawFrame()
 end
 
 function sampev.onDisplayGameText(style, time, text)
+	----------------------------------------
 	if isCharInAnyCar(PLAYER_PED) then
 		carhandle = storeCarCharIsInNoSave(PLAYER_PED)
 		if getCarModel(carhandle) == 456 then
@@ -681,6 +1104,11 @@ function sampev.onDisplayGameText(style, time, text)
 			end
 		end
 	end
+	----------------------------------------
+	if eatenable.v == true and (text:find('You are hungry!') or text:find('You are very hungry!')) then
+		sampSendChat('/cheeps')
+	end
+	----------------------------------------
 end
 
 function sampev.onServerMessage(color, text)
@@ -695,7 +1123,7 @@ function sampev.onServerMessage(color, text)
 		end
 	end
 	----------------------------------------
-	if string.find(text,"[PREMIUM]") or string.find(text,"[VIP]") then
+	if string.find(text,"%[PREMIUM%]") or string.find(text,"%[VIP%]") then
 		if vipchat.v then
 			table.insert(chatMessages, sendmessageTime.v and ('{FFFFFF}'..os.date('[%H:%M:%S] ')..text) or '{FFFFFF}'..text)
 		end
@@ -764,7 +1192,19 @@ function sampev.onServerMessage(color, text)
 	if text:find('Попробуйте через {FF6347}') then
 		second = string.match(text,'Попробуйте через {FF6347}(%d+)')
 		prodovoz_timer = os.time()+second
-    end
+	end
+	----------------------------------------
+	if eatenable.v == true and autoanim.v == true and text:find("скушал%(а%) пачку чипсов") and color == -1029514497 then
+		if text:find(string.format("%s скушал",local_name)) then
+			lua_thread.create(function()
+				setVirtualKeyDown(key.VK_RETURN, true)
+				wait(10)
+				setVirtualKeyDown(key.VK_RETURN, false)
+				wait(2000)
+				sampSendChat('/anim '..autoanimid.v)
+			end)
+		end
+	end
 	----------------------------------------
 end
 
@@ -818,17 +1258,6 @@ function report(arg)
 	end
 end
 
-function imgui.TextQuestion(text)
-	imgui.TextDisabled(u8'(?)')
-	if imgui.IsItemHovered() then
-		imgui.BeginTooltip()
-		imgui.PushTextWrapPos(450)
-		imgui.TextUnformatted(text)
-		imgui.PopTextWrapPos()
-		imgui.EndTooltip()
-	end
-end
-
 function sampev.onTrailerSync(playerId, data)
 	if isCharInAnyCar(PLAYER_PED) then
 		local veh = storeCarCharIsInNoSave(PLAYER_PED)
@@ -841,9 +1270,9 @@ function sampev.onTrailerSync(playerId, data)
 end
 
 function sampev.onUnoccupiedSync(playerId, data)
-    if data.roll.x >= 10000.0 or data.roll.y >= 10000.0 or data.roll.z >= 10000.0 or data.roll.x <= -10000.0 or data.roll.y <= -10000.0 or data.roll.z <= -10000.0 then
-        sampAddChatMessage('[{E3BE88}'..thisScript().name..' '..thisScript().version..'{FFFFFF}] {FF3300}'..sampGetPlayerNickname(playerId)..'['..playerId..'] used Roll crasher.', 0xFFFFFF)
-        return false
+	if data.roll.x >= 10000.0 or data.roll.y >= 10000.0 or data.roll.z >= 10000.0 or data.roll.x <= -10000.0 or data.roll.y <= -10000.0 or data.roll.z <= -10000.0 then
+		sampAddChatMessage('[{E3BE88}'..thisScript().name..' '..thisScript().version..'{FFFFFF}] {FF3300}'..sampGetPlayerNickname(playerId)..'['..playerId..'] used Roll crasher.', 0xFFFFFF)
+		return false
 	end
 end
 
@@ -853,6 +1282,44 @@ end
 
 function sampev.onSendClientJoin()
 	joinCount = joinCount + 1
+end
+
+function sampev.onSetVehicleParamsEx(vehicleId, params, doors, windows)
+	if params.boot == 1 then
+		carid = vehicleId
+	end
+	if carid == vehicleId and params.boot == 0 then
+		carid = -1
+		printString('',0)
+	end
+end
+
+function onVehicleStreamOut(vehicleId)
+	if carid ~= -1 and carid == vehicleId then
+		carid = -1
+		printString('',0)
+	end
+end
+
+function getCarName(vehicleId)
+	if type(vehicleId) ~= "number" then
+		return "No valid car id"
+	end
+	if vehicleId < 400 or vehicleId > 611 then
+		return "No valid car id"
+	end
+	return tCarsName[vehicleId-399]
+end
+
+function imgui.TextQuestion(text)
+	imgui.TextDisabled(u8'(?)')
+	if imgui.IsItemHovered() then
+		imgui.BeginTooltip()
+		imgui.PushTextWrapPos(450)
+		imgui.TextUnformatted(text)
+		imgui.PopTextWrapPos()
+		imgui.EndTooltip()
+	end
 end
 
 function imgui.CenterText(text) 
