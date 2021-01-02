@@ -224,8 +224,8 @@ local dlstatus = require("moonloader").download_status
 ----------------------------------------
 update_status = false
 
-local script_vers = 1
-local script_vers_text = "1.8"
+local script_vers = 2
+local script_vers_text = "2.0"
 
 local update_url = "https://raw.githubusercontent.com/metk1u/scripts/main/update.ini"
 local update_path = getWorkingDirectory() .. "/update.ini"
