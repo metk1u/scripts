@@ -1,5 +1,5 @@
 script_name("Arizona Helper")
-script_version('2.0')
+script_version('2.1')
 script_author("metk1u")
 
 --local mynick, myid = text:match("(%w+_%w+)%[(%d+)%] начал следить за %w+_%w+%[%d+%]")
@@ -224,8 +224,8 @@ local dlstatus = require("moonloader").download_status
 ----------------------------------------
 update_status = false
 
-local script_vers = 2
-local script_vers_text = "2.0"
+local script_vers = 3
+local script_vers_text = "2.1"
 
 local update_url = "https://raw.githubusercontent.com/metk1u/scripts/main/update.ini"
 local update_path = getWorkingDirectory() .. "/update.ini"
@@ -235,6 +235,8 @@ local script_path = thisScript().path
 ----------------------------------------
 arial = renderCreateFont('Arial', 12, 5)
 ----------------------------------------
+POSITION_SET = false
+local chatMessages = {}
 local reconnect_timer = 0
 local message_report = ""
 local local_name = ""
@@ -244,7 +246,6 @@ local mechanic_count = 0
 local players_state = false
 local players_count = 0
 local players_state_finds = 65535
-local joinCount = 0
 local prodovoz_timer = 0
 local prods = 2000
 local prodovoz_count = 0
@@ -257,12 +258,15 @@ local waxta_count = 0
 local klad_state = true
 local klad_count = 0
 local loot_state = false
-local loot_count = 0
 local loot_timer = 0
 local MarkersState = false
 local checkpoint = {}
 local marker = {}
 local carid = -1
+local chest_state = false
+local chest_timer = 0
+local infinity_run = true
+local aactiv = false
 ----------------------------------------
 local friends =
 {
@@ -272,15 +276,32 @@ local friends =
 	"Vartan_Germun"
 };
 ----------------------------------------
+local file = 'settings.ini'
 local path = getWorkingDirectory() .. '\\config'
-local file = 'chat.ini'
+----------------------------------------
 local mainIni = inicfg.load(
 {
-	config = 
+	config =
+	{
+		posRenderX = 50,
+		posRenderY = 300,
+		stringsCount = 10,
+		fontSize = 8.2,
+		offsetStrings = 4,
+		fontName = 'Calibri',
+		destroy_object = true
+	},
+	account =
 	{
 		my_nick = 'Nickname',
 		my_password = 'Password',
+		my_nick_2 = 'Nickname2',
+		my_password_2 = 'Password2'
+	},
+	chat =
+	{
 		renderChat = false,
+		sendmessageTime = true,
 		
 		removechatbuy = false,
 		removechat = true,
@@ -288,68 +309,73 @@ local mainIni = inicfg.load(
 		tosampfuncsbuy = true,
 		tosampfuncs = true,
 		
-		sendmessageTime = true,
-		
 		sendconnect = true,
 		senddisconnect = true,
 		
 		tosampfuncsconnect = true,
 		tosampfuncsdisconnect = true,
 		
-		vipchat = true,
+		vipchat = false,
 		tosampfuncsvipchat = true,
-		removevipchat = true,
-		
+		removevipchat = true
+	},
+	hunger =
+	{
 		eatenable = true,
-		autoanim = true,
-		autoanimid = 88,
-		
-		posRenderX = 50,
-		posRenderY = 300,
-		stringsCount = 10,
-		fontSize = 8.2,
-		offsetStrings = 4,
-		fontName = 'Calibri'
-	} 
+		autoanim = false,
+		autoanimid = 88
+	},
+	chest =
+	{
+		roll_standart = true,
+		roll_platinum = true,
+		roll_wait = 120
+	}
 },file)
 
 if not doesDirectoryExist(path) then
 	inicfg.save(mainIni,file)
 end
 
-local my_nick = tostring(mainIni.config.my_nick)
-local my_password = tostring(mainIni.config.my_password)
-
 local windowstate = imgui.ImBool(false)
-local renderChat = imgui.ImBool(mainIni.config.renderChat)
-
-local removechatbuy = imgui.ImBool(mainIni.config.removechatbuy)
-local removechat = imgui.ImBool(mainIni.config.removechat)
-
-local tosampfuncsbuy = imgui.ImBool(mainIni.config.tosampfuncsbuy)
-local tosampfuncs = imgui.ImBool(mainIni.config.tosampfuncs)
-
-local sendmessageTime = imgui.ImBool(mainIni.config.sendmessageTime)
-
-local sendconnect = imgui.ImBool(mainIni.config.sendconnect)
-local senddisconnect = imgui.ImBool(mainIni.config.senddisconnect)
-
-local tosampfuncsconnect = imgui.ImBool(mainIni.config.tosampfuncsconnect)
-local tosampfuncsdisconnect = imgui.ImBool(mainIni.config.tosampfuncsdisconnect)
-
-local vipchat = imgui.ImBool(mainIni.config.vipchat)
-local tosampfuncsvipchat = imgui.ImBool(mainIni.config.tosampfuncsvipchat)
-local removevipchat = imgui.ImBool(mainIni.config.removevipchat)
-
-local eatenable = imgui.ImBool(mainIni.config.eatenable)
-local autoanim = imgui.ImBool(mainIni.config.autoanim)
-local autoanimid = imgui.ImInt(mainIni.config.autoanimid)
-
+--------------------[config]--------------------
 local stringsCount = imgui.ImInt(mainIni.config.stringsCount)
 local fontSize = imgui.ImFloat(mainIni.config.fontSize)
 local fontName = imgui.ImBuffer(tostring(mainIni.config.fontName), 100)
 local offsetStrings = imgui.ImInt(mainIni.config.offsetStrings)
-local chatMessages = {}
+local destroy_object = imgui.ImBool(mainIni.config.destroy_object)
+--------------------[account]--------------------
+local my_nick = tostring(mainIni.account.my_nick)
+local my_password = tostring(mainIni.account.my_password)
+local my_nick_2 = tostring(mainIni.account.my_nick_2)
+local my_password_2 = tostring(mainIni.account.my_password_2)
+--------------------[chat]--------------------
+local renderChat = imgui.ImBool(mainIni.chat.renderChat)
+local sendmessageTime = imgui.ImBool(mainIni.chat.sendmessageTime)
+
+local removechatbuy = imgui.ImBool(mainIni.chat.removechatbuy)
+local removechat = imgui.ImBool(mainIni.chat.removechat)
+
+local tosampfuncsbuy = imgui.ImBool(mainIni.chat.tosampfuncsbuy)
+local tosampfuncs = imgui.ImBool(mainIni.chat.tosampfuncs)
+
+local sendconnect = imgui.ImBool(mainIni.chat.sendconnect)
+local senddisconnect = imgui.ImBool(mainIni.chat.senddisconnect)
+
+local tosampfuncsconnect = imgui.ImBool(mainIni.chat.tosampfuncsconnect)
+local tosampfuncsdisconnect = imgui.ImBool(mainIni.chat.tosampfuncsdisconnect)
+
+local vipchat = imgui.ImBool(mainIni.chat.vipchat)
+local tosampfuncsvipchat = imgui.ImBool(mainIni.chat.tosampfuncsvipchat)
+local removevipchat = imgui.ImBool(mainIni.chat.removevipchat)
+--------------------[hunger]--------------------
+local eatenable = imgui.ImBool(mainIni.hunger.eatenable)
+local autoanim = imgui.ImBool(mainIni.hunger.autoanim)
+local autoanimid = imgui.ImInt(mainIni.hunger.autoanimid)
+--------------------[chest]--------------------
+local roll_standart = imgui.ImBool(mainIni.chest.roll_standart)
+local roll_platinum = imgui.ImBool(mainIni.chest.roll_platinum)
+local roll_wait = imgui.ImInt(mainIni.chest.roll_wait)
 
 function reCreateFont(intSize,nameFont)
 	if font then
@@ -359,32 +385,6 @@ function reCreateFont(intSize,nameFont)
 end
 
 reCreateFont(fontSize.v,fontName.v)
-POSITION_SET = false
-function saveini()
-	mainIni.config.my_nick = my_nick
-	mainIni.config.my_password = my_password
-	mainIni.config.renderChat = renderChat.v
-	mainIni.config.removechatbuy = removechatbuy.v
-	mainIni.config.removechat = removechat.v
-	mainIni.config.tosampfuncsbuy = tosampfuncsbuy.v
-	mainIni.config.tosampfuncs = tosampfuncs.v
-	mainIni.config.stringsCount = stringsCount.v
-	mainIni.config.sendmessageTime = sendmessageTime.v
-	mainIni.config.sendconnect = sendconnect.v
-	mainIni.config.senddisconnect = senddisconnect.v
-	mainIni.config.tosampfuncsconnect = tosampfuncsconnect.v
-	mainIni.config.tosampfuncsdisconnect = tosampfuncsdisconnect.v
-	mainIni.config.vipchat = vipchat.v
-	mainIni.config.tosampfuncsvipchat = tosampfuncsvipchat.v
-	mainIni.config.removevipchat = removevipchat.v
-	mainIni.config.eatenable = eatenable.v
-	mainIni.config.autoanim = autoanim.v
-	mainIni.config.autoanimid = autoanimid.v
-	mainIni.config.fontSize = fontSize.v
-	mainIni.config.fontName = fontName.v
-	mainIni.config.offsetStrings = offsetStrings.v
-	inicfg.save(mainIni,file)
-end
 
 function main()
 	while not isSampAvailable() do wait(0) end
@@ -506,14 +506,14 @@ function main()
 		loot_state = not loot_state
 		printString('',0)
 		if loot_state == true then
-			loot_count = 0
 			loot_timer = os.time()+1
 			printString('~g~loot enable',3000)
 		else
-			loot_count = 0
 			printString('~r~loot disable',3000)
 		end
 	end)
+	----------------------------------------
+	setPlayerNeverGetsTired(PLAYER_HANDLE, infinity_run)
 	----------------------------------------
 	for i = 0, sampGetMaxPlayerId(true) do
 		if sampIsPlayerConnected(i) then
@@ -580,7 +580,6 @@ function main()
 			if reconnect_timer >= os.time() then
 				printString(string.format('~r~RECONNECT: %d cek',reconnect_timer-os.time()),100)
 				if reconnect_timer == os.time() then
-					ip, port = sampGetCurrentServerAddress()
 					sampConnectToServer(ip, port)				
 					reconnect_timer = 0
 				end
@@ -616,11 +615,20 @@ function main()
 			end
 			----------------------------------------
 			ip, port = sampGetCurrentServerAddress()
-			if ip == "185.169.134.5" and local_name == my_nick then
-				if sampIsDialogActive() and sampGetCurrentDialogId() == 2 then
-					sampSendDialogResponse(2, 1, 0, my_password)
-					wait(100)
-					sampCloseCurrentDialogWithButton(0)
+			if ip == "185.169.134.5" then
+				if local_name == my_nick then
+					if sampIsDialogActive() and sampGetCurrentDialogId() == 2 then
+						sampSendDialogResponse(2, 1, 0, my_password)
+						wait(100)
+						sampCloseCurrentDialogWithButton(0)
+					end
+				end
+				if local_name == my_nick_2 then
+					if sampIsDialogActive() and sampGetCurrentDialogId() == 2 then
+						sampSendDialogResponse(2, 1, 0, my_password_2)
+						wait(100)
+						sampCloseCurrentDialogWithButton(0)
+					end
 				end
 			end
 			----------------------------------------
@@ -886,7 +894,6 @@ function main()
 			end
 			----------------------------------------
 			if loot_state == true then
-			--sampTextdrawIsExists
 			--sampTextdrawGetString
 			--sampTextdrawGetStyle
 				----------------------------------------
@@ -898,21 +905,16 @@ function main()
 								model, rotX, rotY, rotZ, zoom, clr1, clr2 = sampTextdrawGetModelRotationZoomVehColor(i)
 								x, y = sampTextdrawGetPos(i)
 								--if model ~= 1649 then
-									if x == 184.5 and loot_count == 0 then
+									if x == 184.5 and math.floor(tonumber(y)) == 164 and model ~= 1649 then
 										sampSendClickTextdraw(i)
-										loot_count = 1
-									elseif x == 211 and loot_count == 1 then
+									elseif x == 211 and math.floor(tonumber(y)) == 164 and model ~= 1649 then
 										sampSendClickTextdraw(i)
-										loot_count = 2
-									elseif x == 237.5 and loot_count == 2 then
+									elseif x == 237.5 and math.floor(tonumber(y)) == 164 and model ~= 1649 then
 										sampSendClickTextdraw(i)
-										loot_count = 3
-									elseif x == 264 and loot_count == 3 then
+									elseif x == 264 and math.floor(tonumber(y)) == 164 and model ~= 1649 then
 										sampSendClickTextdraw(i)
-										loot_count = 4
-									elseif x == 290.5 and loot_count == 4 then
+									elseif x == 290.5 and math.floor(tonumber(y)) == 164 and model ~= 1649 then
 										sampSendClickTextdraw(i)
-										loot_count = 0
 									end
 								--end
 							end
@@ -924,32 +926,105 @@ function main()
 					for i = 0, 2304	do
 						if sampTextdrawIsExists(i) then
 							x, y = sampTextdrawGetPos(i)
-							if x == 209 then
+							if x == 209 and math.floor(tonumber(y)) == 186 then
 								number_text = sampTextdrawGetString(i)
-								number = tonumber(number_text)
-							elseif x == 235.5 then
+								number_1 = tonumber(number_text)
+							elseif x == 235.5 and math.floor(tonumber(y)) == 186 then
 								number_text = sampTextdrawGetString(i)
-								number = tonumber(number_text)
-							elseif x == 262 then
+								number_2 = tonumber(number_text)
+							elseif x == 262 and math.floor(tonumber(y)) == 186 then
 								number_text = sampTextdrawGetString(i)
-								number = tonumber(number_text)
-							elseif x == 288.5 then
+								number_3 = tonumber(number_text)
+							elseif x == 288.5 and math.floor(tonumber(y)) == 186 then
 								number_text = sampTextdrawGetString(i)
-								number = tonumber(number_text)
-							elseif x == 315 then
+								number_4 = tonumber(number_text)
+							elseif x == 315 and math.floor(tonumber(y)) == 186 then
 								number_text = sampTextdrawGetString(i)
-								number = tonumber(number_text)
+								number_5 = tonumber(number_text)
 							end
 						end
 					end
-					loot_count = 0
-					sampSendDialogResponse(8251, 2, 1, number)
+					if number_1 ~= 0 then
+						sampSendDialogResponse(8251, 2, 1, number_1)
+						number_1 = 0
+					end
+					if number_2 ~= 0 then
+						sampSendDialogResponse(8251, 2, 1, number_2)
+						number_2 = 0
+					end
+					if number_3 ~= 0 then
+						sampSendDialogResponse(8251, 2, 1, number_3)
+						number_3 = 0
+					end
+					if number_4 ~= 0 then
+						sampSendDialogResponse(8251, 2, 1, number_4)
+						number_4 = 0
+					end
+					if number_5 ~= 0 then
+						sampSendDialogResponse(8251, 2, 1, number_5)
+						number_5 = 0
+					end
 					sampCloseCurrentDialogWithButton(0)
 				end
 				----------------------------------------
 			end
+			----------------------------------------
+			if chest_state and chest_timer == os.time() then
+				sampSendChat('/invent')
+			end
+			----------------------------------------
 		end
 	end)
+end
+
+function saveini()
+	inicfg.save(
+	{
+		config =
+		{
+			stringsCount = stringsCount.v,
+			fontSize = fontSize.v,
+			fontName = fontName.v,
+			offsetStrings = offsetStrings.v,
+			destroy_object = destroy_object.v
+		},
+		account =
+		{
+			my_nick = my_nick,
+			my_password = my_password,
+			my_nick_2 = my_nick_2,
+			my_password_2 = my_password_2
+			--nick = u8:decode(i_reconnect_nick.v)
+		},
+		chat =
+		{
+			renderChat = renderChat.v,
+			removechatbuy = removechatbuy.v,
+			removechat = removechat.v,
+			tosampfuncsbuy = tosampfuncsbuy.v,
+			tosampfuncs = tosampfuncs.v,
+			sendmessageTime = sendmessageTime.v,
+			sendconnect = sendconnect.v,
+			senddisconnect = senddisconnect.v,
+			tosampfuncsconnect = tosampfuncsconnect.v,
+			tosampfuncsdisconnect = tosampfuncsdisconnect.v,
+			vipchat = vipchat.v,
+			tosampfuncsvipchat = tosampfuncsvipchat.v,
+			removevipchat = removevipchat.v
+		},
+		hunger =
+		{
+			eatenable = eatenable.v,
+			autoanim = autoanim.v,
+			autoanimid = autoanimid.v
+		},
+		chest =
+		{
+			roll_standart = roll_standart.v,
+			roll_platinum = roll_platinum.v,
+			roll_wait = roll_wait.v
+		}
+	},file)
 end
 
 function imgui.OnDrawFrame()
@@ -985,6 +1060,12 @@ function imgui.OnDrawFrame()
 			sampDisconnectWithReason(false)
 			sampConnectToServer(ip, port)
 		end
+		imgui.SameLine()
+		if imgui.Button(u8(infinity_run and 'Выкл. бесконечный бег' or 'Вкл. бесконечный бег'),imgui.ImVec2(170,20)) then
+			infinity_run = not infinity_run
+			printString("~w~Infinity run "..(infinity_run and "~g~ENABLE" or "~r~DISABLE"),3000)
+			setPlayerNeverGetsTired(PLAYER_HANDLE, infinity_run)
+		end
 		----------------------------------------
 		imgui.Text(u8"Основные команды:")
 		imgui.Text(u8"/rec - Перезайти на сервер")
@@ -1007,18 +1088,21 @@ function imgui.OnDrawFrame()
 		imgui.Text(u8"/waxta - Включить поиск руды в зоне стрима")
 		imgui.Text(u8"/klad - Включить поиск кладов и открытых багажников")
 		imgui.Text(u8"/poisk - Показать места спавна кладов")
+		imgui.Text(u8"/loot - Автосбор с мусорки (BETA)")
+		imgui.SameLine()
+		imgui.TextQuestion(u8'Заходишь в мусорку, вводишь /loot и скрипт будет автоматически\nлутать все что появится в первой строчке мусорки.')
 		----------------------------------------
 		if imgui.BeginPopup('chatrender') then
 			imgui.Checkbox(u8('Рендер чата'),renderChat)
 			if renderChat.v then
 				imgui.PushItemWidth(150)
 				imgui.SliderInt(u8('Кол-во строк'),stringsCount,1,30)
-				--imgui.InputText(u8('Кол-во строк 2'),stringsCount2)
 				if imgui.Button(u8('Сменить положение'),imgui.ImVec2(imgui.GetWindowWidth() - 16,20)) then
 					sampAddChatMessage('['..thisScript().name..'] {FFFFFF}Перемести чат в нужное для тебя место и нажми {FDDB6D}ЛКМ{FFFFFF}.',0xFDDB6D)
 					POSITION_SET = true
 				end
-				imgui.SliderFloat(u8('Размер шрифта'),fontSize,1,20)  
+				imgui.InputFloat(u8('Размер шрифта'),fontSize)
+				--imgui.SliderFloat(u8('Размер шрифта'),fontSize,1,20)  
 				imgui.SliderInt(u8('Расстояние между строками'),offsetStrings,0,20)
 				imgui.InputText(u8('Название шрифта'),fontName)
 				if imgui.Button(u8('Обновить шрифт'),imgui.ImVec2(imgui.GetWindowWidth() - 16,20)) then
@@ -1044,21 +1128,41 @@ function imgui.OnDrawFrame()
 		imgui.SameLine()
 		imgui.TextQuestion(u8'В лог будет писать \'[23.59.00] текст\' (как /timestamp)')
 		----------------------------------------
-		imgui.Checkbox(u8('Отключить в чате сообщения о покупке'),removechatbuy)
-		imgui.Checkbox(u8('Отключить в чате SPAM сообщения'),removechat)
+		if imgui.CollapsingHeader(u8'Сообщения о покупке') then
+			imgui.Separator()
+			imgui.Checkbox(u8('Отключить в чате сообщения о покупке'),removechatbuy)
+			imgui.Checkbox(u8('Выводить сообщения о покупке в консоль SAMPFUNCS (~)'),tosampfuncsbuy)
+			imgui.Separator()
+		end
 		----------------------------------------
-		imgui.SameLine()
-		imgui.TextQuestion(u8'1. Удаляет рекламу от сервера.\n2. Удаляет репортажи СМИ (Гость, Репортёр).\n3. Удаляет сообщения News\n4. Удаляет сообщения /d чата.\n5. Удаляет сообщение \'Недостаточно VKoin\'.\n6. Удаляет сообщения в бандах об инкассаторах.')
+		if imgui.CollapsingHeader(u8'SPAM сообщения') then
+			imgui.Separator()
+			imgui.Checkbox(u8('Отключить в чате SPAM сообщения'),removechat)
+			----------------------------------------
+			imgui.SameLine()
+			imgui.TextQuestion(u8'1. Удаляет рекламу от сервера.\n2. Удаляет репортажи СМИ (Гость, Репортёр).\n3. Удаляет сообщения News.\n4. Удаляет сообщения /d чата.\n5. Удаляет сообщение \'Недостаточно VKoin\'.\n6. Удаляет сообщения в бандах об инкассаторах.')
+			----------------------------------------
+			imgui.Checkbox(u8('Выводить SPAM сообщения в консоль SAMPFUNCS (~)'),tosampfuncs)
+			imgui.Separator()
+		end
 		----------------------------------------
-		imgui.Checkbox(u8('Выводить сообщения о покупке в консоль SAMPFUNCS (~)'),tosampfuncsbuy)
-		imgui.Checkbox(u8('Выводить SPAM сообщения в консоль SAMPFUNCS (~)'),tosampfuncs)
-		imgui.Checkbox(u8('Сообщения о входе игроков'),sendconnect)
-		imgui.Checkbox(u8('Сообщения о выходе игроков'),senddisconnect)
-		imgui.Checkbox(u8('Сообщения о входе игроков в консоль SAMPFUNCS (~)'),tosampfuncsconnect)
-		imgui.Checkbox(u8('Сообщения о выходе игроков в консоль SAMPFUNCS (~)'),tosampfuncsdisconnect)
-		imgui.Checkbox(u8('Рендер вип чата'),vipchat)
-		imgui.Checkbox(u8('Выводить вип чат в консоль SAMPFUNCS (~)'),tosampfuncsvipchat)
-		imgui.Checkbox(u8('Отключить вип чат'),removevipchat)
+		if imgui.CollapsingHeader(u8'Сообщения о подключении/отключении игроков') then
+			imgui.Separator()
+			imgui.Checkbox(u8('Сообщения о входе игроков'),sendconnect)
+			imgui.Checkbox(u8('Сообщения о выходе игроков'),senddisconnect)
+			imgui.Checkbox(u8('Сообщения о входе игроков в консоль SAMPFUNCS (~)'),tosampfuncsconnect)
+			imgui.Checkbox(u8('Сообщения о выходе игроков в консоль SAMPFUNCS (~)'),tosampfuncsdisconnect)
+			imgui.Separator()
+		end
+		----------------------------------------
+		if imgui.CollapsingHeader(u8'Настройки VIP чата') then
+			imgui.Separator()
+			imgui.Checkbox(u8('Рендер вип чата'),vipchat)
+			imgui.Checkbox(u8('Выводить вип чат в консоль SAMPFUNCS (~)'),tosampfuncsvipchat)
+			imgui.Checkbox(u8('Отключить вип чат'),removevipchat)
+			imgui.Separator()
+		end
+		----------------------------------------
 		imgui.Checkbox(u8('Кушать чипсы'),eatenable)
 		----------------------------------------
 		imgui.SameLine()
@@ -1072,7 +1176,25 @@ function imgui.OnDrawFrame()
 		----------------------------------------
 		imgui.PushItemWidth(300)
 		imgui.SliderInt(u8('Анимация'),autoanimid,1,103)
-		--imgui.SameLine()
+		imgui.Separator()
+		----------------------------------------
+		imgui.Checkbox(u8('Открывать стандартный сундук'),roll_standart)
+		imgui.Checkbox(u8('Открывать платиновый сундук'),roll_platinum)
+		----------------------------------------
+		imgui.PushItemWidth(81)
+		if chest_state == true then
+			imgui.InputInt(u8(string.format("Задержка в мин. (осталось %d мин.)",(chest_timer-os.time())/60)),roll_wait)
+		else
+			imgui.InputInt(u8('Задержка в мин.'),roll_wait)
+		end
+		----------------------------------------
+		if imgui.Button(u8(chest_state and 'Выключить автооткрытие сундуков' or 'Включить автооткрытие сундуков')) then
+			chest_state = not chest_state
+			chest_timer = os.time()
+		end
+		----------------------------------------
+		imgui.Separator()
+		imgui.Checkbox(u8('Отключить на сервере \'ковши\''),destroy_object)
 		----------------------------------------
 		imgui.EndGroup()
 		imgui.Separator()
@@ -1091,6 +1213,59 @@ function imgui.OnDrawFrame()
 		end
 		imgui.EndChild()
 		imgui.End()
+	end
+end
+
+local opentimerid =
+{
+	standart = -1,
+	platina = -1
+}
+
+tblclosetest = 
+{
+	['50.83'] = 50.84, ['49.9'] = 50, ['49.05'] = 49.15, ['48.2'] = 48.4, ['47.4'] = 47.6, ['46.5'] = 46.7, ['45.81'] = '45.84',
+	['44.99'] = '45.01', ['44.09'] = '44.17', ['43.2'] = '43.4', ['42.49'] = '42.51', ['41.59'] = '41.7', ['40.7'] = '40.9', ['39.99'] = 40.01,
+	['39.09'] = 39.2, ['38.3'] = 38.4, ['37.49'] = '37.51', ['36.5'] = '36.7', ['35.7'] = '35.9', ['34.99'] = '35.01', ['34.1'] = '34.2';
+}
+tblclose = {}
+
+sendcloseinventory = function()
+	sampSendClickTextdraw(tblclose[1])
+end
+
+--function sampev.onSendClickTextDraw(textdrawId)
+	--x, y = sampTextdrawGetPos(textdrawId)
+	--sampAddChatMessage(x..' '..math.floor(tonumber(y)),0xFDDB6D)
+--end
+
+function sampev.onShowTextDraw(textdrawId, data)
+	if chest_state == true and chest_timer <= os.time() then
+		for w, q in pairs(tblclosetest) do
+			if data.lineWidth >= tonumber(w) and data.lineWidth <= tonumber(q) and data.text:find('^LD_SPAC:white$') then
+				for i = 0, 2 do rawset(tblclose, #tblclose + 1, textdrawId) end
+			end
+		end
+		if roll_standart.v then
+			if data.modelId == 19918 then
+				opentimerid.standart = textdrawId + 1
+			end
+			if textdrawId == opentimerid.standart then
+				sampSendClickTextdraw(textdrawId - 1) 
+				sampSendClickTextdraw(2302)
+			end
+		end
+		if roll_platinum.v then
+			if data.modelId == 1353 then
+				opentimerid.platina = textdrawId + 1
+			end
+			if textdrawId == opentimerid.platina then
+				sampSendClickTextdraw(textdrawId - 1) 
+				sampSendClickTextdraw(2302)
+				sendcloseinventory()
+				chest_timer = os.time()+(roll_wait.v*60)
+			end
+		end
 	end
 end
 
@@ -1276,14 +1451,6 @@ function sampev.onUnoccupiedSync(playerId, data)
 	end
 end
 
-function sampev.onRemoveBuilding()
-	if joinCount > 1 then return false end
-end
-
-function sampev.onSendClientJoin()
-	joinCount = joinCount + 1
-end
-
 function sampev.onSetVehicleParamsEx(vehicleId, params, doors, windows)
 	if params.boot == 1 then
 		carid = vehicleId
@@ -1310,6 +1477,43 @@ function getCarName(vehicleId)
 	end
 	return tCarsName[vehicleId-399]
 end
+
+function onReceiveRpc(id, bitStream)
+    if id == RPC_SCRCREATEOBJECT and sampIsLocalPlayerSpawned() and destroy_object == true then 
+		local id = raknetBitStreamReadInt16(bitStream)
+		local model = raknetBitStreamReadInt32(bitStream)
+		if model == 2406 or model == 2410 or model == 19601 then
+			--return false
+			setObjectCollision(id, false)
+		end
+    end
+end
+
+--function onReceivePacket(id)
+	--if reconifkick.v == true and (id == 32 or id == 33 or id == 37) then
+		--lua_thread.create(function()
+			--red = redelayifkick.v * 1000
+--			SCM("Подключение к серверу через: "..redelayifkick.v.." секунд", 0x19600e)
+	--		wait(red)
+		--	if reconifkick.v == true then
+			--	sampConnectToServer(ip, port)
+			--end
+		--end)
+--	end
+--end
+
+--function sampev.onConnectionRejected()
+	--if reconifkick.v == true then
+		--lua_thread.create(function()
+			--red = redelayifkick.v * 1000
+		--	SCM("Подключение к серверу через: "..redelayifkick.v.." секунд", 0x19600e)
+			--wait(red)
+			--if reconifkick.v == true then
+			--	sampConnectToServer(ip, port)
+	--		end
+	--	end)
+	--end
+--end
 
 function imgui.TextQuestion(text)
 	imgui.TextDisabled(u8'(?)')
@@ -1465,8 +1669,8 @@ function theme()
 	colors[clr.CheckMark]				= ImVec4(1.00, 0.28, 0.28, 1.00);
 	colors[clr.SliderGrab]				= ImVec4(1.00, 0.28, 0.28, 1.00);
 	colors[clr.SliderGrabActive]		= ImVec4(1.00, 0.28, 0.28, 1.00);
-	colors[clr.Button]					= ImVec4(1.00, 0.28, 0.28, 1.00);
-	colors[clr.ButtonHovered]			= ImVec4(1.00, 0.39, 0.39, 1.00);
+	colors[clr.Button]					= ImVec4(0.22, 0.22, 0.22, 1.00);
+	colors[clr.ButtonHovered]			= ImVec4(1.00, 0.28, 0.28, 1.00);
 	colors[clr.ButtonActive]			= ImVec4(1.00, 0.21, 0.21, 1.00);
 	colors[clr.Header]					= ImVec4(1.00, 0.28, 0.28, 1.00);
 	colors[clr.HeaderHovered]			= ImVec4(1.00, 0.39, 0.39, 1.00);
