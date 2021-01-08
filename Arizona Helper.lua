@@ -1,5 +1,5 @@
 script_name("Arizona Helper")
-script_version('2.1')
+script_version('2.2')
 script_author("metk1u")
 
 --local mynick, myid = text:match("(%w+_%w+)%[(%d+)%] начал следить за %w+_%w+%[%d+%]")
@@ -224,8 +224,8 @@ local dlstatus = require("moonloader").download_status
 ----------------------------------------
 update_status = false
 
-local script_vers = 3
-local script_vers_text = "2.1"
+local script_vers = 4
+local script_vers_text = "2.2"
 
 local update_url = "https://raw.githubusercontent.com/metk1u/scripts/main/update.ini"
 local update_path = getWorkingDirectory() .. "/update.ini"
@@ -272,8 +272,11 @@ local friends =
 {
 	"Sawa_Seleznev",
 	"Denis_Seleznev",
+	"Jack_Seleznev",
 	"Alexey_Agesilay",
-	"Vartan_Germun"
+	"Vartan_Germun",
+	"Kevin_Colins",
+	"Amelia_Nebrasko"
 };
 ----------------------------------------
 local file = 'settings.ini'
@@ -288,8 +291,7 @@ local mainIni = inicfg.load(
 		stringsCount = 10,
 		fontSize = 8.2,
 		offsetStrings = 4,
-		fontName = 'Calibri',
-		destroy_object = true
+		fontName = 'Calibri'
 	},
 	account =
 	{
@@ -330,6 +332,14 @@ local mainIni = inicfg.load(
 		roll_standart = true,
 		roll_platinum = true,
 		roll_wait = 120
+	},
+	destroy =
+	{
+		destroy_bucket = true,
+		destroy_tree = false,
+		destroy_floor = false,
+		destroy_chest = false,
+		destroy_game = false
 	}
 },file)
 
@@ -343,7 +353,6 @@ local stringsCount = imgui.ImInt(mainIni.config.stringsCount)
 local fontSize = imgui.ImFloat(mainIni.config.fontSize)
 local fontName = imgui.ImBuffer(tostring(mainIni.config.fontName), 100)
 local offsetStrings = imgui.ImInt(mainIni.config.offsetStrings)
-local destroy_object = imgui.ImBool(mainIni.config.destroy_object)
 --------------------[account]--------------------
 local my_nick = tostring(mainIni.account.my_nick)
 local my_password = tostring(mainIni.account.my_password)
@@ -376,6 +385,12 @@ local autoanimid = imgui.ImInt(mainIni.hunger.autoanimid)
 local roll_standart = imgui.ImBool(mainIni.chest.roll_standart)
 local roll_platinum = imgui.ImBool(mainIni.chest.roll_platinum)
 local roll_wait = imgui.ImInt(mainIni.chest.roll_wait)
+--------------------[destroy]--------------------
+local destroy_bucket = imgui.ImBool(mainIni.destroy.destroy_bucket)
+local destroy_tree = imgui.ImBool(mainIni.destroy.destroy_tree)
+local destroy_floor = imgui.ImBool(mainIni.destroy.destroy_floor)
+local destroy_chest = imgui.ImBool(mainIni.destroy.destroy_chest)
+local destroy_game = imgui.ImBool(mainIni.destroy.destroy_game)
 
 function reCreateFont(intSize,nameFont)
 	if font then
@@ -889,6 +904,8 @@ function main()
 							renderDrawLine(PlayerX4, PlayerY4, x2, y2, 2, 0x8B00FFFF) 
 							renderFontDrawText(arial,"{8B00FF}"..name_vehicle.."["..carid.."]\nБагажник: {3300FF}"..distance, x2, y2, -1)
 						end
+					else
+						carid = -1
 					end
 				end
 			end
@@ -985,8 +1002,7 @@ function saveini()
 			stringsCount = stringsCount.v,
 			fontSize = fontSize.v,
 			fontName = fontName.v,
-			offsetStrings = offsetStrings.v,
-			destroy_object = destroy_object.v
+			offsetStrings = offsetStrings.v
 		},
 		account =
 		{
@@ -1023,6 +1039,14 @@ function saveini()
 			roll_standart = roll_standart.v,
 			roll_platinum = roll_platinum.v,
 			roll_wait = roll_wait.v
+		},
+		destroy =
+		{
+			destroy_bucket = destroy_bucket.v,
+			destroy_tree = destroy_tree.v,
+			destroy_floor = destroy_floor.v,
+			destroy_chest = destroy_chest.v,
+			destroy_game = destroy_game.v
 		}
 	},file)
 end
@@ -1163,6 +1187,16 @@ function imgui.OnDrawFrame()
 			imgui.Separator()
 		end
 		----------------------------------------
+		if imgui.CollapsingHeader(u8'Удаление мусора с сервера') then
+			imgui.Separator()
+			imgui.Checkbox(u8('Отключить на сервере \'ковши\''),destroy_bucket)
+			imgui.Checkbox(u8('Отключить на сервере \'ёлки\''),destroy_tree)
+			imgui.Checkbox(u8('Отключить на сервере \'танцполы\''),destroy_floor)
+			imgui.Checkbox(u8('Отключить на сервере \'новогодние подарки\''),destroy_chest)
+			imgui.Checkbox(u8('Отключить на сервере \'ёлочные игрушки\''),destroy_game)
+			imgui.Separator()
+		end
+		----------------------------------------
 		imgui.Checkbox(u8('Кушать чипсы'),eatenable)
 		----------------------------------------
 		imgui.SameLine()
@@ -1192,9 +1226,6 @@ function imgui.OnDrawFrame()
 			chest_state = not chest_state
 			chest_timer = os.time()
 		end
-		----------------------------------------
-		imgui.Separator()
-		imgui.Checkbox(u8('Отключить на сервере \'ковши\''),destroy_object)
 		----------------------------------------
 		imgui.EndGroup()
 		imgui.Separator()
@@ -1433,24 +1464,6 @@ function report(arg)
 	end
 end
 
-function sampev.onTrailerSync(playerId, data)
-	if isCharInAnyCar(PLAYER_PED) then
-		local veh = storeCarCharIsInNoSave(PLAYER_PED)
-		local _, v = sampGetVehicleIdByCarHandle(veh) 
-		if data.trailerId == v then
-			sampAddChatMessage('[{E3BE88}'..thisScript().name..' '..thisScript().version..'{FFFFFF}] {FF3300}'..sampGetPlayerNickname(playerId)..'['..playerId..'] used Trailer crasher.', 0xFFFFFF)
-			return false
-		end
-	end
-end
-
-function sampev.onUnoccupiedSync(playerId, data)
-	if data.roll.x >= 10000.0 or data.roll.y >= 10000.0 or data.roll.z >= 10000.0 or data.roll.x <= -10000.0 or data.roll.y <= -10000.0 or data.roll.z <= -10000.0 then
-		sampAddChatMessage('[{E3BE88}'..thisScript().name..' '..thisScript().version..'{FFFFFF}] {FF3300}'..sampGetPlayerNickname(playerId)..'['..playerId..'] used Roll crasher.', 0xFFFFFF)
-		return false
-	end
-end
-
 function sampev.onSetVehicleParamsEx(vehicleId, params, doors, windows)
 	if params.boot == 1 then
 		carid = vehicleId
@@ -1479,12 +1492,29 @@ function getCarName(vehicleId)
 end
 
 function onReceiveRpc(id, bitStream)
-    if id == RPC_SCRCREATEOBJECT and sampIsLocalPlayerSpawned() and destroy_object == true then 
+    if id == RPC_SCRCREATEOBJECT and sampIsLocalPlayerSpawned() then 
 		local id = raknetBitStreamReadInt16(bitStream)
 		local model = raknetBitStreamReadInt32(bitStream)
-		if model == 2406 or model == 2410 or model == 19601 then
-			--return false
-			setObjectCollision(id, false)
+		if destroy_bucket.v == true and (model == 2404 or model == 2405 or model == 2406 or model == 2410 or model == 19601 or model == 19848) then
+			return false
+		end
+		if destroy_tree.v == true and model == 19076 then
+			return false
+		end
+		if destroy_floor.v == true and model == 19128 then
+			return false
+		end
+		if destroy_chest.v == true and (model == 19054 or model == 19055 or model == 19056 or model == 19057 or model == 19058) then
+			return false
+		end
+		if destroy_game.v == true and (model == 19059 or model == 19060 or model == 19061 or model == 19062 or model == 19063) then
+			return false
+		end
+		if model == 1271 then
+			sampAddChatMessage('В зоне стрима КЛАД!!!', 0xFFFFFF)
+			sampAddChatMessage('В зоне стрима КЛАД!!!', 0xFFFFFF)
+			sampAddChatMessage('В зоне стрима КЛАД!!!', 0xFFFFFF)
+			sampAddChatMessage('В зоне стрима КЛАД!!!', 0xFFFFFF)
 		end
     end
 end
