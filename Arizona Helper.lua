@@ -1,6 +1,9 @@
 script_name("Arizona Helper")
-script_version('2.3')
+script_version('2.4')
 script_author("metk1u")
+
+local script_vers = 6
+local script_vers_text = "2.4"
 
 --local mynick, myid = text:match("(%w+_%w+)%[(%d+)%] начал следить за %w+_%w+%[%d+%]")
 
@@ -224,9 +227,6 @@ local dlstatus = require("moonloader").download_status
 ----------------------------------------
 update_status = false
 
-local script_vers = 5
-local script_vers_text = "2.3"
-
 local update_url = "https://raw.githubusercontent.com/metk1u/scripts/main/update.ini"
 local update_path = getWorkingDirectory() .. "/update.ini"
 
@@ -265,6 +265,7 @@ local marker = {}
 local carid = -1
 local chest_state = false
 local chest_timer = 0
+local del_stream = false
 ----------------------------------------
 local friends =
 {
@@ -406,11 +407,13 @@ function main()
 	downloadUrlToFile(update_url, update_path, function(id, status)
 		if status == dlstatus.STATUS_ENDDOWNLOADDATA then
 			updateIni = inicfg.load(nil, update_path)
-			if tonumber(updateIni.info.vers) > script_vers then
-				update_status = true
-				sampAddChatMessage('[{E3BE88}'..thisScript().name..'{FFFFFF}] Доступно обновление до версии '..updateIni.info.vers_text..'.', 0xFFFFFF)
+			if updateIni ~= nil then
+				if tonumber(updateIni.info.vers) > script_vers then
+					update_status = true
+					sampAddChatMessage('[{E3BE88}'..thisScript().name..'{FFFFFF}] Доступно обновление до версии '..updateIni.info.vers_text..'.', 0xFFFFFF)
+				end
+				os.remove(update_path)
 			end
-			os.remove(update_path)
 		end
 	end)
 	----------------------------------------
@@ -498,8 +501,6 @@ function main()
 				checkpoint[i] = addBlipForCoord(coords[i][1], coords[i][2], coords[i][3])
 				changeBlipColour(checkpoint[i], 0xFF3300FF)
 				marker[i] = createCheckpoint(1, coords[i][1], coords[i][2], coords[i][3], 1, 1, 1, 1)
-				---marker[i] = addSphere(coords[i][1], coords[i][2], coords[i][3], 3.0)
-				----marker[i] = createUser3dMarker(coords[i][1], coords[i][2], coords[i][3], 4)
 			end
 			printString('~g~markers enable',3000)
 		else
@@ -507,8 +508,6 @@ function main()
 				removeBlip(checkpoint[i])
 				checkpoint[i] = 0
 				deleteCheckpoint(marker[i])
-				---removeSphere(marker[i])
-				----removeUser3dMarker(marker[i])
 				marker[i] = 0
 			end
 			printString('~r~markers disable',3000)
@@ -603,11 +602,9 @@ function main()
 			end
 			if sampIsDialogActive() and (sampGetCurrentDialogId() == 1332 or sampGetCurrentDialogId() == 1333) then
 				sampCloseCurrentDialogWithButton(0)
-				--setDialogState(0)
 			end
 			----------------------------------------
 			if buyvk_state == true and not sampIsChatInputActive() then
-				--setVirtualKeyDown(123, true)
 				wait(100)
 				setVirtualKeyDown(13, false)
 			end
@@ -870,7 +867,6 @@ function main()
 				local sx, sy = getScreenResolution()
 				if klad_count == 0 then
 					renderFontDrawText(arial, 'Кладов в зоне стрима: '..klad_count, sx / 1.22, sy - 30, 0xFF3300FF)
-					--placeWaypoint(0, 0, 0)
 				else
 					renderFontDrawText(arial, 'Кладов в зоне стрима: '..klad_count, sx / 1.22, sy - 30, 0xFFFF0000)
 					printString('~r~KLAD! KLAD! KLAD!',1000)
@@ -907,8 +903,6 @@ function main()
 			end
 			----------------------------------------
 			if loot_state == true then
-			--sampTextdrawGetString
-			--sampTextdrawGetStyle
 				----------------------------------------
 				if loot_timer == os.time() then
 					loot_timer = os.time()+1
@@ -917,19 +911,17 @@ function main()
 							if sampTextdrawIsExists(i) then
 								model, rotX, rotY, rotZ, zoom, clr1, clr2 = sampTextdrawGetModelRotationZoomVehColor(i)
 								x, y = sampTextdrawGetPos(i)
-								--if model ~= 1649 then
-									if x == 184.5 and math.floor(tonumber(y)) == 164 and model ~= 1649 then
-										sampSendClickTextdraw(i)
-									elseif x == 211 and math.floor(tonumber(y)) == 164 and model ~= 1649 then
-										sampSendClickTextdraw(i)
-									elseif x == 237.5 and math.floor(tonumber(y)) == 164 and model ~= 1649 then
-										sampSendClickTextdraw(i)
-									elseif x == 264 and math.floor(tonumber(y)) == 164 and model ~= 1649 then
-										sampSendClickTextdraw(i)
-									elseif x == 290.5 and math.floor(tonumber(y)) == 164 and model ~= 1649 then
-										sampSendClickTextdraw(i)
-									end
-								--end
+								if x == 184.5 and math.floor(tonumber(y)) == 164 and model ~= 1649 then
+									sampSendClickTextdraw(i)
+								elseif x == 211 and math.floor(tonumber(y)) == 164 and model ~= 1649 then
+									sampSendClickTextdraw(i)
+								elseif x == 237.5 and math.floor(tonumber(y)) == 164 and model ~= 1649 then
+									sampSendClickTextdraw(i)
+								elseif x == 264 and math.floor(tonumber(y)) == 164 and model ~= 1649 then
+									sampSendClickTextdraw(i)
+								elseif x == 290.5 and math.floor(tonumber(y)) == 164 and model ~= 1649 then
+									sampSendClickTextdraw(i)
+								end
 							end
 						end
 					end
@@ -1222,6 +1214,14 @@ function imgui.OnDrawFrame()
 			chest_state = not chest_state
 			chest_timer = os.time()
 		end
+		imgui.Separator()
+		----------------------------------------
+		if imgui.Button(u8(del_stream and 'Включить обновление зоны стрима' or 'Выключить обновление зоны стрима')) then
+			del_stream = not del_stream
+		end
+		----------------------------------------
+		imgui.SameLine()
+		imgui.TextQuestion(u8'Отключает появление игроков и транспорта в зоне стрима.\nПосле отключения функции необходимо обновить зону стрима (достаточно зайти и выйти в любой интерьер).')
 		----------------------------------------
 		imgui.EndGroup()
 		imgui.Separator()
@@ -1477,10 +1477,22 @@ function sampev.onSetVehicleParamsEx(vehicleId, params, doors, windows)
 	end
 end
 
-function onVehicleStreamOut(vehicleId)
+function sampev.onVehicleStreamOut(vehicleId)
 	if carid ~= -1 and carid == vehicleId then
 		carid = -1
 		printString('',0)
+	end
+end
+
+function sampev.onPlayerStreamIn(playerId, team, model, position, rotation, color, fightingStyle)
+	if del_stream == true then
+		return false
+	end
+end
+
+function sampev.onVehicleStreamIn()
+	if del_stream == true then
+		return false
 	end
 end
 
@@ -1531,37 +1543,6 @@ function onScriptTerminate(LuaScript, slot1)
 		sampAddChatMessage('[{E3BE88}'..thisScript().name..' '..script_vers_text..'{FFFFFF}] Скрипт перестал существовать =(', 0xFFFFFF)
 	end
 end
-
---function onExitScript()
---end
---function onQuitGame()
---end
-
---function onReceivePacket(id)
-	--if reconifkick.v == true and (id == 32 or id == 33 or id == 37) then
-		--lua_thread.create(function()
-			--red = redelayifkick.v * 1000
---			SCM("Подключение к серверу через: "..redelayifkick.v.." секунд", 0x19600e)
-	--		wait(red)
-		--	if reconifkick.v == true then
-			--	sampConnectToServer(ip, port)
-			--end
-		--end)
---	end
---end
-
---function sampev.onConnectionRejected()
-	--if reconifkick.v == true then
-		--lua_thread.create(function()
-			--red = redelayifkick.v * 1000
-		--	SCM("Подключение к серверу через: "..redelayifkick.v.." секунд", 0x19600e)
-			--wait(red)
-			--if reconifkick.v == true then
-			--	sampConnectToServer(ip, port)
-	--		end
-	--	end)
-	--end
---end
 
 function imgui.TextQuestion(text)
 	imgui.TextDisabled(u8'(?)')
