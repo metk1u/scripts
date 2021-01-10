@@ -1,5 +1,5 @@
 script_name("Arizona Helper")
-script_version('2.2')
+script_version('2.3')
 script_author("metk1u")
 
 --local mynick, myid = text:match("(%w+_%w+)%[(%d+)%] начал следить за %w+_%w+%[%d+%]")
@@ -224,8 +224,8 @@ local dlstatus = require("moonloader").download_status
 ----------------------------------------
 update_status = false
 
-local script_vers = 4
-local script_vers_text = "2.2"
+local script_vers = 5
+local script_vers_text = "2.3"
 
 local update_url = "https://raw.githubusercontent.com/metk1u/scripts/main/update.ini"
 local update_path = getWorkingDirectory() .. "/update.ini"
@@ -265,8 +265,6 @@ local marker = {}
 local carid = -1
 local chest_state = false
 local chest_timer = 0
-local infinity_run = true
-local aactiv = false
 ----------------------------------------
 local friends =
 {
@@ -274,9 +272,7 @@ local friends =
 	"Denis_Seleznev",
 	"Jack_Seleznev",
 	"Alexey_Agesilay",
-	"Vartan_Germun",
-	"Kevin_Colins",
-	"Amelia_Nebrasko"
+	"Vartan_Germun"
 };
 ----------------------------------------
 local file = 'settings.ini'
@@ -339,7 +335,8 @@ local mainIni = inicfg.load(
 		destroy_tree = false,
 		destroy_floor = false,
 		destroy_chest = false,
-		destroy_game = false
+		destroy_game = false,
+		destroy_newyear = false
 	}
 },file)
 
@@ -391,6 +388,7 @@ local destroy_tree = imgui.ImBool(mainIni.destroy.destroy_tree)
 local destroy_floor = imgui.ImBool(mainIni.destroy.destroy_floor)
 local destroy_chest = imgui.ImBool(mainIni.destroy.destroy_chest)
 local destroy_game = imgui.ImBool(mainIni.destroy.destroy_game)
+local destroy_newyear = imgui.ImBool(mainIni.destroy.destroy_newyear)
 
 function reCreateFont(intSize,nameFont)
 	if font then
@@ -456,7 +454,7 @@ function main()
 	sampRegisterChatCommand('finds',function(playerid)
 		if #playerid == 0 then
 			sampAddChatMessage('Используй: /finds [playerid]', 0xAFAFAF)
-			if players_state_finds ~= 65535 then 
+			if players_state_finds ~= 65535 then
 				players_state_finds = 65535
 				printString('~r~Find disable',2000)
 			end
@@ -527,8 +525,6 @@ function main()
 			printString('~r~loot disable',3000)
 		end
 	end)
-	----------------------------------------
-	setPlayerNeverGetsTired(PLAYER_HANDLE, infinity_run)
 	----------------------------------------
 	for i = 0, sampGetMaxPlayerId(true) do
 		if sampIsPlayerConnected(i) then
@@ -1046,7 +1042,8 @@ function saveini()
 			destroy_tree = destroy_tree.v,
 			destroy_floor = destroy_floor.v,
 			destroy_chest = destroy_chest.v,
-			destroy_game = destroy_game.v
+			destroy_game = destroy_game.v,
+			destroy_newyear = destroy_newyear.v
 		}
 	},file)
 end
@@ -1083,12 +1080,6 @@ function imgui.OnDrawFrame()
 			ip, port = sampGetCurrentServerAddress()
 			sampDisconnectWithReason(false)
 			sampConnectToServer(ip, port)
-		end
-		imgui.SameLine()
-		if imgui.Button(u8(infinity_run and 'Выкл. бесконечный бег' or 'Вкл. бесконечный бег'),imgui.ImVec2(170,20)) then
-			infinity_run = not infinity_run
-			printString("~w~Infinity run "..(infinity_run and "~g~ENABLE" or "~r~DISABLE"),3000)
-			setPlayerNeverGetsTired(PLAYER_HANDLE, infinity_run)
 		end
 		----------------------------------------
 		imgui.Text(u8"Основные команды:")
@@ -1194,6 +1185,7 @@ function imgui.OnDrawFrame()
 			imgui.Checkbox(u8('Отключить на сервере \'танцполы\''),destroy_floor)
 			imgui.Checkbox(u8('Отключить на сервере \'новогодние подарки\''),destroy_chest)
 			imgui.Checkbox(u8('Отключить на сервере \'ёлочные игрушки\''),destroy_game)
+			imgui.Checkbox(u8('Отключить на сервере \'новогодний маппинг\''),destroy_newyear)
 			imgui.Separator()
 		end
 		----------------------------------------
@@ -1217,7 +1209,11 @@ function imgui.OnDrawFrame()
 		----------------------------------------
 		imgui.PushItemWidth(81)
 		if chest_state == true then
-			imgui.InputInt(u8(string.format("Задержка в мин. (осталось %d мин.)",(chest_timer-os.time())/60)),roll_wait)
+			if (chest_timer-os.time())/60 == 0 then 
+				imgui.InputInt(u8(string.format("Задержка в мин. (осталось %d мин.)",(chest_timer-os.time())/60)),roll_wait)
+			else
+				imgui.InputInt(u8(string.format("Задержка в мин. (осталось %d сек.)",chest_timer-os.time())),roll_wait)
+			end
 		else
 			imgui.InputInt(u8('Задержка в мин.'),roll_wait)
 		end
@@ -1430,6 +1426,7 @@ function sampev.onPlayerJoin(playerid, color, isNpc, nickname)
 			----------------------------------------
 		end
 	end
+	----------------------------------------
 end
 
 function sampev.onPlayerQuit(playerid, reason)
@@ -1453,6 +1450,12 @@ function sampev.onPlayerQuit(playerid, reason)
 			----------------------------------------
 		end
 	end
+	----------------------------------------
+	if playerid == players_state_finds then
+		players_state_finds = 65535
+		printString('~r~Find disable player disconnect',3000)
+	end
+	----------------------------------------
 end
 
 function report(arg)
@@ -1510,14 +1513,29 @@ function onReceiveRpc(id, bitStream)
 		if destroy_game.v == true and (model == 19059 or model == 19060 or model == 19061 or model == 19062 or model == 19063) then
 			return false
 		end
+		if destroy_newyear.v == true and (model == 658 or model == 1247 or model == 1606 or model == 3038 or model == 3281 or model == 3505 or model == 3506 or
+		model == 7666 or model == 16101 or model == 16304 or model == 18864 or model == 19604 or model == 19606) then
+			return false
+		end
 		if model == 1271 then
-			sampAddChatMessage('В зоне стрима КЛАД!!!', 0xFFFFFF)
-			sampAddChatMessage('В зоне стрима КЛАД!!!', 0xFFFFFF)
-			sampAddChatMessage('В зоне стрима КЛАД!!!', 0xFFFFFF)
-			sampAddChatMessage('В зоне стрима КЛАД!!!', 0xFFFFFF)
+			for i = 0, 12 do
+				sampAddChatMessage('В зоне стрима КЛАД!!!', 0xFF3300)
+			end
 		end
     end
 end
+
+function onScriptTerminate(LuaScript, slot1)
+	if LuaScript == thisScript() then
+		showCursor(false)
+		sampAddChatMessage('[{E3BE88}'..thisScript().name..' '..script_vers_text..'{FFFFFF}] Скрипт перестал существовать =(', 0xFFFFFF)
+	end
+end
+
+--function onExitScript()
+--end
+--function onQuitGame()
+--end
 
 --function onReceivePacket(id)
 	--if reconifkick.v == true and (id == 32 or id == 33 or id == 37) then
