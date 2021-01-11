@@ -295,12 +295,14 @@ local mainIni = inicfg.load(
 		my_nick = 'Nickname',
 		my_password = 'Password',
 		my_nick_2 = 'Nickname2',
-		my_password_2 = 'Password2'
+		my_password_2 = 'Password2',
+		promocode = 'PROMO: #seleznev'
 	},
 	chat =
 	{
 		renderChat = false,
 		sendmessageTime = true,
+		chatlog = true,
 		
 		removechatbuy = false,
 		removechat = true,
@@ -316,7 +318,10 @@ local mainIni = inicfg.load(
 		
 		vipchat = false,
 		tosampfuncsvipchat = true,
-		removevipchat = true
+		removevipchat = true,
+		
+		tosampfuncsjobchat = false,
+		removejobchat = false
 	},
 	hunger =
 	{
@@ -356,9 +361,11 @@ local my_nick = tostring(mainIni.account.my_nick)
 local my_password = tostring(mainIni.account.my_password)
 local my_nick_2 = tostring(mainIni.account.my_nick_2)
 local my_password_2 = tostring(mainIni.account.my_password_2)
+local promocode = imgui.ImBuffer(tostring(mainIni.account.promocode), 100)
 --------------------[chat]--------------------
 local renderChat = imgui.ImBool(mainIni.chat.renderChat)
 local sendmessageTime = imgui.ImBool(mainIni.chat.sendmessageTime)
+local chatlog = imgui.ImBool(mainIni.chat.chatlog)
 
 local removechatbuy = imgui.ImBool(mainIni.chat.removechatbuy)
 local removechat = imgui.ImBool(mainIni.chat.removechat)
@@ -375,6 +382,9 @@ local tosampfuncsdisconnect = imgui.ImBool(mainIni.chat.tosampfuncsdisconnect)
 local vipchat = imgui.ImBool(mainIni.chat.vipchat)
 local tosampfuncsvipchat = imgui.ImBool(mainIni.chat.tosampfuncsvipchat)
 local removevipchat = imgui.ImBool(mainIni.chat.removevipchat)
+
+local tosampfuncsjobchat = imgui.ImBool(mainIni.chat.tosampfuncsjobchat)
+local removejobchat = imgui.ImBool(mainIni.chat.removejobchat)
 --------------------[hunger]--------------------
 local eatenable = imgui.ImBool(mainIni.hunger.eatenable)
 local autoanim = imgui.ImBool(mainIni.hunger.autoanim)
@@ -402,6 +412,7 @@ reCreateFont(fontSize.v,fontName.v)
 
 function main()
 	while not isSampAvailable() do wait(0) end
+	if not doesDirectoryExist("moonloader\\logs") then createDirectory("moonloader\\logs") end
 	sampAddChatMessage('[{E3BE88}'..thisScript().name..' '..script_vers_text..'{FFFFFF}] {299800}Загружен{FFFFFF}. Настройки: /chat.', 0xFFFFFF)
 	----------------------------------------
 	downloadUrlToFile(update_url, update_path, function(id, status)
@@ -637,6 +648,11 @@ function main()
 						wait(100)
 						sampCloseCurrentDialogWithButton(0)
 					end
+				end
+				if sampIsDialogActive() and sampGetCurrentDialogId() == 3020 then
+					sampSendDialogResponse(3020, 1, 0, promocode.v)
+					wait(100)
+					sampCloseCurrentDialogWithButton(0)
 				end
 			end
 			----------------------------------------
@@ -904,49 +920,58 @@ function main()
 			----------------------------------------
 			if loot_state == true then
 				----------------------------------------
-				if loot_timer == os.time() then
-					loot_timer = os.time()+1
+				--if loot_timer == os.time() then
+					--loot_timer = os.time()+1
+					wait(100)
 					if sampIsCursorActive() and not sampIsDialogActive() then
 						for i = 0, 2304	do
 							if sampTextdrawIsExists(i) then
 								model, rotX, rotY, rotZ, zoom, clr1, clr2 = sampTextdrawGetModelRotationZoomVehColor(i)
 								x, y = sampTextdrawGetPos(i)
-								if x == 184.5 and math.floor(tonumber(y)) == 164 and model ~= 1649 then
-									sampSendClickTextdraw(i)
-								elseif x == 211 and math.floor(tonumber(y)) == 164 and model ~= 1649 then
-									sampSendClickTextdraw(i)
-								elseif x == 237.5 and math.floor(tonumber(y)) == 164 and model ~= 1649 then
-									sampSendClickTextdraw(i)
-								elseif x == 264 and math.floor(tonumber(y)) == 164 and model ~= 1649 then
-									sampSendClickTextdraw(i)
-								elseif x == 290.5 and math.floor(tonumber(y)) == 164 and model ~= 1649 then
-									sampSendClickTextdraw(i)
-								end
+								--if model ~= 854 and model ~= 2855 and model ~= 11722 then
+								--2855 - газеты
+								--11722 - краситель
+								--854 - мусор
+									if x == 184.5 and math.floor(tonumber(y)) == 164 and model ~= 1649 then
+										sampSendClickTextdraw(i)
+									elseif x == 211 and math.floor(tonumber(y)) == 164 and model ~= 1649 then
+										sampSendClickTextdraw(i)
+									elseif x == 237.5 and math.floor(tonumber(y)) == 164 and model ~= 1649 then
+										sampSendClickTextdraw(i)
+									elseif x == 264 and math.floor(tonumber(y)) == 164 and model ~= 1649 then
+										sampSendClickTextdraw(i)
+									elseif x == 290.5 and math.floor(tonumber(y)) == 164 and model ~= 1649 then
+										sampSendClickTextdraw(i)
+									end
+								--end
 							end
 						end
 					end
-				end
+				--end
 				----------------------------------------
 				if sampIsDialogActive() and sampGetCurrentDialogId() == 8251 then
 					for i = 0, 2304	do
 						if sampTextdrawIsExists(i) then
+							--model, rotX, rotY, rotZ, zoom, clr1, clr2 = sampTextdrawGetModelRotationZoomVehColor(i)
 							x, y = sampTextdrawGetPos(i)
-							if x == 209 and math.floor(tonumber(y)) == 186 then
-								number_text = sampTextdrawGetString(i)
-								number_1 = tonumber(number_text)
-							elseif x == 235.5 and math.floor(tonumber(y)) == 186 then
-								number_text = sampTextdrawGetString(i)
-								number_2 = tonumber(number_text)
-							elseif x == 262 and math.floor(tonumber(y)) == 186 then
-								number_text = sampTextdrawGetString(i)
-								number_3 = tonumber(number_text)
-							elseif x == 288.5 and math.floor(tonumber(y)) == 186 then
-								number_text = sampTextdrawGetString(i)
-								number_4 = tonumber(number_text)
-							elseif x == 315 and math.floor(tonumber(y)) == 186 then
-								number_text = sampTextdrawGetString(i)
-								number_5 = tonumber(number_text)
-							end
+							--if model ~= 854 and model ~= 2855 and model ~= 11722 then
+								if x == 209 and math.floor(tonumber(y)) == 186 then
+									number_text = sampTextdrawGetString(i)
+									number_1 = tonumber(number_text)
+								elseif x == 235.5 and math.floor(tonumber(y)) == 186 then
+									number_text = sampTextdrawGetString(i)
+									number_2 = tonumber(number_text)
+								elseif x == 262 and math.floor(tonumber(y)) == 186 then
+									number_text = sampTextdrawGetString(i)
+									number_3 = tonumber(number_text)
+								elseif x == 288.5 and math.floor(tonumber(y)) == 186 then
+									number_text = sampTextdrawGetString(i)
+									number_4 = tonumber(number_text)
+								elseif x == 315 and math.floor(tonumber(y)) == 186 then
+									number_text = sampTextdrawGetString(i)
+									number_5 = tonumber(number_text)
+								end
+							--end
 						end
 					end
 					if number_1 ~= 0 then
@@ -997,24 +1022,28 @@ function saveini()
 			my_nick = my_nick,
 			my_password = my_password,
 			my_nick_2 = my_nick_2,
-			my_password_2 = my_password_2
+			my_password_2 = my_password_2,
+			promocode = promocode.v
 			--nick = u8:decode(i_reconnect_nick.v)
 		},
 		chat =
 		{
 			renderChat = renderChat.v,
+			sendmessageTime = sendmessageTime.v,
+			chatlog = chatlog.v,
 			removechatbuy = removechatbuy.v,
 			removechat = removechat.v,
 			tosampfuncsbuy = tosampfuncsbuy.v,
 			tosampfuncs = tosampfuncs.v,
-			sendmessageTime = sendmessageTime.v,
 			sendconnect = sendconnect.v,
 			senddisconnect = senddisconnect.v,
 			tosampfuncsconnect = tosampfuncsconnect.v,
 			tosampfuncsdisconnect = tosampfuncsdisconnect.v,
 			vipchat = vipchat.v,
 			tosampfuncsvipchat = tosampfuncsvipchat.v,
-			removevipchat = removevipchat.v
+			removevipchat = removevipchat.v,
+			tosampfuncsjobchat = tosampfuncsjobchat.v,
+			removejobchat = removejobchat.v
 		},
 		hunger =
 		{
@@ -1135,6 +1164,8 @@ function imgui.OnDrawFrame()
 		imgui.SameLine()
 		imgui.TextQuestion(u8'В лог будет писать \'[23.59.00] текст\' (как /timestamp)')
 		----------------------------------------
+		imgui.Checkbox(u8('Включить чатлог'),chatlog)
+		----------------------------------------
 		if imgui.CollapsingHeader(u8'Сообщения о покупке') then
 			imgui.Separator()
 			imgui.Checkbox(u8('Отключить в чате сообщения о покупке'),removechatbuy)
@@ -1167,6 +1198,13 @@ function imgui.OnDrawFrame()
 			imgui.Checkbox(u8('Рендер вип чата'),vipchat)
 			imgui.Checkbox(u8('Выводить вип чат в консоль SAMPFUNCS (~)'),tosampfuncsvipchat)
 			imgui.Checkbox(u8('Отключить вип чат'),removevipchat)
+			imgui.Separator()
+		end
+		----------------------------------------
+		if imgui.CollapsingHeader(u8'Настройки /j чата') then
+			imgui.Separator()
+			imgui.Checkbox(u8('Выводить /j чат в консоль SAMPFUNCS (~)'),tosampfuncsjobchat)
+			imgui.Checkbox(u8('Отключить /j чат'),removejobchat)
 			imgui.Separator()
 		end
 		----------------------------------------
@@ -1223,6 +1261,9 @@ function imgui.OnDrawFrame()
 		imgui.SameLine()
 		imgui.TextQuestion(u8'Отключает появление игроков и транспорта в зоне стрима.\nПосле отключения функции необходимо обновить зону стрима (достаточно зайти и выйти в любой интерьер).')
 		----------------------------------------
+		imgui.PushItemWidth(150)
+		imgui.InputText(u8('Название лавки'),promocode)
+		----------------------------------------
 		imgui.EndGroup()
 		imgui.Separator()
 		imgui.CenterTextColored(u8('{FDDB6D}Лог'))
@@ -1263,6 +1304,8 @@ end
 
 --function sampev.onSendClickTextDraw(textdrawId)
 	--x, y = sampTextdrawGetPos(textdrawId)
+	--model, rotX, rotY, rotZ, zoom, clr1, clr2 = sampTextdrawGetModelRotationZoomVehColor(textdrawId)
+	--sampAddChatMessage(model,0xFDDB6D)
 	--sampAddChatMessage(x..' '..math.floor(tonumber(y)),0xFDDB6D)
 --end
 
@@ -1315,24 +1358,43 @@ end
 
 function sampev.onServerMessage(color, text)
 	----------------------------------------
+	if chatlog.v == true and text ~= ' ' then
+		local file_logs = io.open('moonloader/logs/'..sampGetCurrentServerAddress()..'.txt', 'a+')
+		file_logs:write('['..os.date('%d-%m-%Y || %H:%M:%S')..']['..color..'] '..text..'\n')
+		file_logs:close()
+	end
+	----------------------------------------
 	if string.find(text,"купил у вас") then
 		table.insert(chatMessages, sendmessageTime.v and ('{FDDB6D}'..os.date('[%H:%M:%S] ')..text) or '{FDDB6D}'..text)
-		if tosampfuncsbuy.v then
+		if tosampfuncsbuy.v == true then
 			sampfuncsLog(sendmessageTime.v and ('{FDDB6D}'..os.date('[%H:%M:%S] ')..text) or '{FDDB6D}'..text)
 		end
-		if removechatbuy.v then
+		if removechatbuy.v == true then
 			return false
 		end
 	end
 	----------------------------------------
-	if string.find(text,"%[PREMIUM%]") or string.find(text,"%[VIP%]") then
-		if vipchat.v then
+	if string.find(text,"%[PREMIUM%]") or string.find(text,"%[VIP%]") or string.find(text,"%[ADMIN%]") then
+		if vipchat.v == true then
 			table.insert(chatMessages, sendmessageTime.v and ('{FFFFFF}'..os.date('[%H:%M:%S] ')..text) or '{FFFFFF}'..text)
 		end
-		if tosampfuncsvipchat.v then
+		if tosampfuncsvipchat.v == true then
 			sampfuncsLog(sendmessageTime.v and ('{FFFFFF}'..os.date('[%H:%M:%S] ')..text) or '{FFFFFF}'..text)
 		end
-		if removevipchat.v then
+		if removevipchat.v == true then
+			return false
+		end
+	end
+	----------------------------------------
+	if (string.find(text,"%[Механик%]") or
+	string.find(text,"%[Развозчик продуктов%]") or
+	string.find(text,"%[Адвокат%]") or
+	string.find(text,"%[Таксист%]") or
+	string.find(text,"%[Грузчик%]")) and color == -2686721 then
+		if tosampfuncsjobchat.v == true then
+			sampfuncsLog(sendmessageTime.v and ('{FFD700}'..os.date('[%H:%M:%S] ')..text) or '{FFD700}'..text)
+		end
+		if removejobchat.v == true then
 			return false
 		end
 	end
@@ -1355,10 +1417,10 @@ function sampev.onServerMessage(color, text)
 		string.find(text,"начал работу новый инкассатор") or
 		string.find(text,"Убив его, вы сможете получить деньги") or
 		string.find(text,"Со склада Армии") then
-		if tosampfuncs.v then
+		if tosampfuncs.v == true then
 			sampfuncsLog(sendmessageTime.v and (os.date('[%H:%M:%S] ')..text) or text)
 		end
-		if removechat.v then
+		if removechat.v == true then
 			return false
 		end
 	end
@@ -1540,7 +1602,7 @@ end
 function onScriptTerminate(LuaScript, slot1)
 	if LuaScript == thisScript() then
 		showCursor(false)
-		sampAddChatMessage('[{E3BE88}'..thisScript().name..' '..script_vers_text..'{FFFFFF}] Скрипт перестал существовать =(', 0xFFFFFF)
+		sampAddChatMessage('[{E3BE88}'..thisScript().name..' '..script_vers_text..'{FFFFFF}] Скрипт выключается =(', 0xFFFFFF)
 	end
 end
 
