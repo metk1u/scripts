@@ -2,8 +2,8 @@ script_name("Arizona Helper")
 script_version('2.4')
 script_author("metk1u")
 
-local script_vers = 6
-local script_vers_text = "2.4"
+local script_vers = 7
+local script_vers_text = "2.5"
 
 --local mynick, myid = text:match("(%w+_%w+)%[(%d+)%] начал следить за %w+_%w+%[%d+%]")
 
