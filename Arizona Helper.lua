@@ -1,9 +1,8 @@
 script_name("Arizona Helper")
-script_version('2.6')
+script_version('2.7')
 script_author("metk1u")
 
-local script_vers = 8
-local script_vers_text = "2.6"
+local script_vers = 9
 
 --local mynick, myid = text:match("(%w+_%w+)%[(%d+)%] начал следить за %w+_%w+%[%d+%]")
 
@@ -301,7 +300,6 @@ local friends =
 	"Jack_Seleznev",
 	"Alexey_Agesilay",
 	"Donny_Agesilay",
-	"Nastya_Berezovsky",
 	"Vartan_Germun"
 };
 ----------------------------------------
@@ -372,6 +370,20 @@ local mainIni = inicfg.load(
 		destroy_chest = false,
 		destroy_game = false,
 		destroy_newyear = false
+	},
+	lavka =
+	{
+		fam_talon_price = 8000,
+		sale_talon_price = 300000,
+		gift_price = 4000,
+		twinturbo_price = 0,
+		cooper_roll_price = 6000,
+		silver_roll_price = 20000,
+		gold_roll_price = 150000,
+		euro_price = 4000,
+		gr_talon_price = 5000,
+		prison_price = 35000,
+		toch_stone_price = 20000
 	}
 },file)
 
@@ -429,6 +441,28 @@ local destroy_floor = imgui.ImBool(mainIni.destroy.destroy_floor)
 local destroy_chest = imgui.ImBool(mainIni.destroy.destroy_chest)
 local destroy_game = imgui.ImBool(mainIni.destroy.destroy_game)
 local destroy_newyear = imgui.ImBool(mainIni.destroy.destroy_newyear)
+--------------------[lavka]--------------------
+local fam_talon = imgui.ImInt(0)
+local fam_talon_price = imgui.ImInt(mainIni.lavka.fam_talon_price)
+local sale_talon = imgui.ImInt(0)
+local sale_talon_price = imgui.ImInt(mainIni.lavka.sale_talon_price)
+local gift = imgui.ImInt(0)
+local gift_price = imgui.ImInt(mainIni.lavka.gift_price)
+local twinturbo_price = imgui.ImInt(mainIni.lavka.twinturbo_price)
+local cooper_roll = imgui.ImInt(0)
+local cooper_roll_price = imgui.ImInt(mainIni.lavka.cooper_roll_price)
+local silver_roll = imgui.ImInt(0)
+local silver_roll_price = imgui.ImInt(mainIni.lavka.silver_roll_price)
+local gold_roll = imgui.ImInt(0)
+local gold_roll_price = imgui.ImInt(mainIni.lavka.gold_roll_price)
+local euro = imgui.ImInt(0)
+local euro_price = imgui.ImInt(mainIni.lavka.euro_price)
+local gr_talon = imgui.ImInt(0)
+local gr_talon_price = imgui.ImInt(mainIni.lavka.gr_talon_price)
+local prison = imgui.ImInt(0)
+local prison_price = imgui.ImInt(mainIni.lavka.prison_price)
+local toch_stone = imgui.ImInt(0)
+local toch_stone_price = imgui.ImInt(mainIni.lavka.toch_stone_price)
 
 function reCreateFont(intSize,nameFont)
 	if font then
@@ -442,7 +476,7 @@ reCreateFont(fontSize.v,fontName.v)
 function main()
 	while not isSampAvailable() do wait(0) end
 	if not doesDirectoryExist("moonloader\\logs") then createDirectory("moonloader\\logs") end
-	sampAddChatMessage('[{E3BE88}'..thisScript().name..' '..script_vers_text..'{FFFFFF}] {299800}Загружен{FFFFFF}. Настройки: /chat.', 0xFFFFFF)
+	sampAddChatMessage('[{E3BE88}'..thisScript().name..' '..thisScript().version..'{FFFFFF}] {299800}Загружен{FFFFFF}. Настройки: /chat.', 0xFFFFFF)
 	----------------------------------------
 	downloadUrlToFile(update_url, update_path, function(id, status)
 		if status == dlstatus.STATUS_ENDDOWNLOADDATA then
@@ -592,7 +626,7 @@ function main()
 			if update_status == true then
 				downloadUrlToFile(script_url, script_path, function(id, status)
 					if status == dlstatus.STATUS_ENDDOWNLOADDATA then
-						sampAddChatMessage('[{E3BE88}'..thisScript().name..'{FFFFFF}] Мы успешно обновились до версии '..script_vers_text..'.', 0xFFFFFF)
+						sampAddChatMessage('[{E3BE88}'..thisScript().name..'{FFFFFF}] Мы успешно обновились до версии '..thisScript().version..'.', 0xFFFFFF)
 						thisScript():reload()
 					end
 				end)
@@ -739,15 +773,24 @@ function main()
 			end
 			----------------------------------------
 			if sampIsDialogActive() then
+				dialog_text = ""
+				dialog_text = sampGetDialogText(sampGetCurrentDialogId())
+				if sampGetCurrentDialogId() == 0 and dialog_text:find("В этом месте запрещено") and dialog_text:find("Если вы продолжите, то вы будете кикнуты!") then
+					sampCloseCurrentDialogWithButton(0)
+				end
+				----------------------------------------
 				if sampGetCurrentDialogId() == 2291 then
 					sampSendDialogResponse(2291, 1, 0, "Купить")
 				end
+				----------------------------------------
 				if sampGetCurrentDialogId() == 430 then
 					sampSendDialogResponse(430, 1, 0, "2000")
 					sampCloseCurrentDialogWithButton(0)
 					prods = 2000
 				end
+				----------------------------------------
 				if sampGetCurrentDialogId() == 8762 then
+					dialog_text = ""
 					dialog_text = sampGetDialogText(8762)
 					if dialog_text:match('которое хотите продать бизнесу.') then
 						bizz = string.match(dialog_text,'закупает {B7A51B}(%d+)')
@@ -768,6 +811,7 @@ function main()
 						end
 					end
 				end
+				----------------------------------------
 			end
 			----------------------------------------
 			if prodovoz_timer >= os.time() then
@@ -936,7 +980,8 @@ function main()
 							model ~= 428 and -- Securicar
 							model ~= 438 and -- Cabbie Taxi
 							model ~= 456 and -- Yankee
-							model ~= 525 then -- Towtruck
+							model ~= 525 and -- Towtruck
+							model ~= 601 then -- S.W.A.T
 							x, y, z = getCarCoordinates(carhandle)
 							name_vehicle = getCarName(model)
 							
@@ -1121,6 +1166,20 @@ function saveini()
 			destroy_chest = destroy_chest.v,
 			destroy_game = destroy_game.v,
 			destroy_newyear = destroy_newyear.v
+		},
+		lavka =
+		{
+			fam_talon_price = fam_talon_price.v,
+			sale_talon_price = sale_talon_price.v,
+			gift_price = gift_price.v,
+			twinturbo_price = twinturbo_price.v,
+			cooper_roll_price = cooper_roll_price.v,
+			silver_roll_price = silver_roll_price.v,
+			gold_roll_price = gold_roll_price.v,
+			euro_price = euro_price.v,
+			gr_talon_price = gr_talon_price.v,
+			prison_price = prison_price.v,
+			toch_stone_price = toch_stone_price.v
 		}
 	},file)
 end
@@ -1130,7 +1189,7 @@ function imgui.OnDrawFrame()
 	if windowstate.v and not POSITION_SET then
 		----------------------------------------
 		imgui.SetNextWindowPos(imgui.ImVec2(sw/2,sh/3),imgui.Cond.FirstUseEver,imgui.ImVec2(0.5,0.5))
-		imgui.SetNextWindowSize(imgui.ImVec2(770,700),imgui.Cond.FirstUseEver)
+		imgui.SetNextWindowSize(imgui.ImVec2(860,700),imgui.Cond.FirstUseEver)
 		imgui.Begin(u8(thisScript().name..' | v'..thisScript().version),windowstate,imgui.WindowFlags.HorizontalScrollbar)
 		imgui.BeginGroup()
 		----------------------------------------
@@ -1180,7 +1239,7 @@ function imgui.OnDrawFrame()
 		imgui.Text(u8"/waxta - Включить поиск руды в зоне стрима")
 		imgui.Text(u8"/klad - Включить поиск кладов и открытых багажников")
 		imgui.Text(u8"/poisk - Показать места спавна кладов")
-		imgui.Text(u8"/loot - Автосбор с мусорки (BETA)")
+		imgui.Text(u8"/loot - Автосбор с мусорки")
 		imgui.SameLine()
 		imgui.TextQuestion(u8'Заходишь в мусорку, вводишь /loot и скрипт будет автоматически\nлутать все что появится в первой строчке мусорки.')
 		----------------------------------------
@@ -1274,6 +1333,92 @@ function imgui.OnDrawFrame()
 			imgui.Checkbox(u8('Отключить на сервере \'новогодние подарки\''),destroy_chest)
 			imgui.Checkbox(u8('Отключить на сервере \'ёлочные игрушки\''),destroy_game)
 			imgui.Checkbox(u8('Отключить на сервере \'новогодний маппинг\''),destroy_newyear)
+			imgui.Separator()
+		end
+		if imgui.CollapsingHeader(u8'Автоскуп в ларьке (BETA)') then
+			imgui.Separator()
+			imgui.PushItemWidth(108)
+			----------------------------------------
+			imgui.InputInt(u8('Цена  ##1'),fam_talon_price)
+			imgui.SameLine()
+			imgui.InputInt(u8('Семейный талон (кол-во)'),fam_talon)
+			----------------------------------------
+			imgui.InputInt(u8('Цена  ##2'),sale_talon_price)
+			imgui.SameLine()
+			imgui.InputInt(u8('Скидочный талон (кол-во)'),sale_talon)
+			----------------------------------------
+			imgui.InputInt(u8('Цена  ##3'),gift_price)
+			imgui.SameLine()
+			imgui.InputInt(u8('Подарки (кол-во)'),gift)
+			----------------------------------------
+			imgui.InputInt(u8('TwinTurbo Цена  ##6'),twinturbo_price)
+			----------------------------------------
+			imgui.InputInt(u8('Цена  ##4'),cooper_roll_price)
+			imgui.SameLine()
+			imgui.InputInt(u8('Бронзовые рулетки (кол-во)'),cooper_roll)
+			----------------------------------------
+			imgui.InputInt(u8('Цена  ##5'),silver_roll_price)
+			imgui.SameLine()
+			imgui.InputInt(u8('Серебрянные рулетки (кол-во)'),silver_roll)
+			----------------------------------------
+			imgui.InputInt(u8('Цена  ##6'),gold_roll_price)
+			imgui.SameLine()
+			imgui.InputInt(u8('Золотые рулетки (кол-во)'),gold_roll)
+			----------------------------------------
+			imgui.InputInt(u8('Цена  ##7'),euro_price)
+			imgui.SameLine()
+			imgui.InputInt(u8('Евро (кол-во)'),euro)
+			----------------------------------------
+			imgui.InputInt(u8('Цена  ##8'),gr_talon_price)
+			imgui.SameLine()
+			imgui.InputInt(u8('Гражданский талон (кол-во)'),gr_talon)
+			----------------------------------------
+			imgui.InputInt(u8('Цена  ##9'),prison_price)
+			imgui.SameLine()
+			imgui.InputInt(u8('Отмычки от ТСР (кол-во)'),prison)
+			----------------------------------------
+			imgui.InputInt(u8('Цена  ##10'),toch_stone_price)
+			imgui.SameLine()
+			imgui.InputInt(u8('Точильные камни (кол-во)'),toch_stone)
+			----------------------------------------
+			count_all = 0
+			
+			if fam_talon.v ~= 0 then
+				count_all = count_all+(fam_talon_price.v*fam_talon.v)
+			end
+			if sale_talon.v ~= 0 then
+				count_all = count_all+(sale_talon_price.v*sale_talon.v)
+			end
+			if gift.v ~= 0 then
+				count_all = count_all+(gift_price.v*gift.v)
+			end
+			if twinturbo_price.v ~= 0 then
+				count_all = count_all+twinturbo_price.v
+			end
+			if cooper_roll.v ~= 0 then
+				count_all = count_all+(cooper_roll_price.v*cooper_roll.v)
+			end
+			if silver_roll.v ~= 0 then
+				count_all = count_all+(silver_roll_price.v*silver_roll.v)
+			end
+			if gold_roll.v ~= 0 then
+				count_all = count_all+(gold_roll_price.v*gold_roll.v)
+			end
+			if euro.v ~= 0 then
+				count_all = count_all+(euro_price.v*euro.v)
+			end
+			if gr_talon.v ~= 0 then
+				count_all = count_all+(gr_talon_price.v*gr_talon.v)
+			end
+			if prison.v ~= 0 then
+				count_all = count_all+(prison_price.v*prison.v)
+			end
+			if toch_stone.v ~= 0 then
+				count_all = count_all+(toch_stone_price.v*toch_stone.v)
+			end
+			imgui.Text('')
+			imgui.Text(u8('Для покупки всех товаров необходимо $'..count_all))
+			if imgui.Button(u8"Начать скупку",imgui.ImVec2(250,25)) then skupka() end
 			imgui.Separator()
 		end
 		----------------------------------------
@@ -1410,6 +1555,11 @@ function sampev.onDisplayGameText(style, time, text)
 	end
 	----------------------------------------
 end
+
+--function sampev.onShowDialog(dialogId, style, title, button1, button2, text)
+	--sampfuncsLog(text)
+	--sampSendChat('dialogId')
+--end
 
 function sampev.onServerMessage(color, text)
 	----------------------------------------
@@ -1624,7 +1774,7 @@ function getCarName(vehicleId)
 end
 
 function onReceiveRpc(id, bitStream)
-    if id == RPC_SCRCREATEOBJECT and sampIsLocalPlayerSpawned() then 
+    if id == RPC_SCRCREATEOBJECT and sampIsLocalPlayerSpawned() then
 		local id = raknetBitStreamReadInt16(bitStream)
 		local model = raknetBitStreamReadInt32(bitStream)
 		if destroy_bucket.v == true and (model == 2404 or model == 2405 or model == 2406 or model == 2410 or model == 19601 or model == 19848) then
@@ -1654,10 +1804,148 @@ function onReceiveRpc(id, bitStream)
     end
 end
 
+function skupka()
+	lua_thread.create(function()
+		wait(100)
+		if fam_talon.v ~= 0 then
+			sampSendDialogResponse(3040, 1, 0, '')
+			sampSendDialogResponse(3050, 1, 12, '')
+			sampSendDialogResponse(3060, 1, 0, fam_talon.v..' '..fam_talon_price.v)
+		end
+		if sale_talon.v ~= 0 then
+			sampSendDialogResponse(3040, 1, 0, '')
+			sampSendDialogResponse(3050, 1, 19, '')
+			sampSendDialogResponse(3050, 1, 4, '')
+			sampSendDialogResponse(3060, 1, 0, sale_talon.v..' '..sale_talon_price.v)
+		end
+		if gift.v ~= 0 then
+			sampSendDialogResponse(3040, 1, 0, '')
+			sampSendDialogResponse(3050, 1, 19, '')
+			sampSendDialogResponse(3050, 1, 5, '')
+			sampSendDialogResponse(3060, 1, 0, gift.v..' '..gift_price.v)
+		end
+		if twinturbo_price.v ~= 0 then
+			sampSendDialogResponse(3040, 1, 0, '')
+			sampSendDialogResponse(3050, 1, 19, '')
+			sampSendDialogResponse(3050, 1, 7, '')
+			sampSendDialogResponse(3060, 1, 0, twinturbo_price.v)
+		end
+		if cooper_roll.v ~= 0 then
+			sampSendDialogResponse(3040, 1, 0, '')
+			sampSendDialogResponse(3050, 1, 19, '')
+			sampSendDialogResponse(3050, 1, 8, '')
+			sampSendDialogResponse(3060, 1, 0, cooper_roll.v..' '..cooper_roll_price.v)
+		end
+		if silver_roll.v ~= 0 then
+			sampSendDialogResponse(3040, 1, 0, '')
+			sampSendDialogResponse(3050, 1, 19, '')
+			sampSendDialogResponse(3050, 1, 9, '')
+			sampSendDialogResponse(3060, 1, 0, silver_roll.v..' '..silver_roll_price.v)
+		end
+		if gold_roll.v ~= 0 then
+			sampSendDialogResponse(3040, 1, 0, '')
+			sampSendDialogResponse(3050, 1, 19, '')
+			sampSendDialogResponse(3050, 1, 10, '')
+			sampSendDialogResponse(3060, 1, 0, gold_roll.v..' '..gold_roll_price.v)
+		end
+		if euro.v ~= 0 then
+			sampSendDialogResponse(3040, 1, 0, '')
+			sampSendDialogResponse(3050, 1, 19, '')
+			sampSendDialogResponse(3050, 1, 20, '')
+			sampSendDialogResponse(3050, 1, 20, '')
+			sampSendDialogResponse(3050, 1, 20, '')
+			sampSendDialogResponse(3050, 1, 20, '')
+			sampSendDialogResponse(3050, 1, 20, '')
+			sampSendDialogResponse(3050, 1, 20, '')
+			sampSendDialogResponse(3050, 1, 20, '')
+			sampSendDialogResponse(3050, 1, 20, '')
+			sampSendDialogResponse(3050, 1, 20, '')
+			sampSendDialogResponse(3050, 1, 20, '')
+			sampSendDialogResponse(3050, 1, 20, '')
+			sampSendDialogResponse(3050, 1, 20, '')
+			sampSendDialogResponse(3050, 1, 20, '')
+			sampSendDialogResponse(3050, 1, 20, '')
+			sampSendDialogResponse(3050, 1, 20, '')
+			sampSendDialogResponse(3050, 1, 4, '')
+			sampSendDialogResponse(3060, 1, 0, euro.v..' '..euro_price.v)
+		end
+		if gr_talon.v ~= 0 then
+			sampSendDialogResponse(3040, 1, 0, '')
+			sampSendDialogResponse(3050, 1, 19, '')
+			sampSendDialogResponse(3050, 1, 20, '')
+			sampSendDialogResponse(3050, 1, 20, '')
+			sampSendDialogResponse(3050, 1, 20, '')
+			sampSendDialogResponse(3050, 1, 20, '')
+			sampSendDialogResponse(3050, 1, 20, '')
+			sampSendDialogResponse(3050, 1, 20, '')
+			sampSendDialogResponse(3050, 1, 20, '')
+			sampSendDialogResponse(3050, 1, 20, '')
+			sampSendDialogResponse(3050, 1, 20, '')
+			sampSendDialogResponse(3050, 1, 20, '')
+			sampSendDialogResponse(3050, 1, 20, '')
+			sampSendDialogResponse(3050, 1, 20, '')
+			sampSendDialogResponse(3050, 1, 20, '')
+			sampSendDialogResponse(3050, 1, 20, '')
+			sampSendDialogResponse(3050, 1, 20, '')
+			sampSendDialogResponse(3050, 1, 20, '')
+			sampSendDialogResponse(3050, 1, 20, '')
+			sampSendDialogResponse(3050, 1, 5, '')
+			sampSendDialogResponse(3060, 1, 0, gr_talon.v..' '..gr_talon_price.v)
+		end
+		if prison.v ~= 0 then
+			sampSendDialogResponse(3040, 1, 0, '')
+			sampSendDialogResponse(3050, 1, 19, '')
+			sampSendDialogResponse(3050, 1, 20, '')
+			sampSendDialogResponse(3050, 1, 20, '')
+			sampSendDialogResponse(3050, 1, 20, '')
+			sampSendDialogResponse(3050, 1, 20, '')
+			sampSendDialogResponse(3050, 1, 20, '')
+			sampSendDialogResponse(3050, 1, 20, '')
+			sampSendDialogResponse(3050, 1, 20, '')
+			sampSendDialogResponse(3050, 1, 20, '')
+			sampSendDialogResponse(3050, 1, 20, '')
+			sampSendDialogResponse(3050, 1, 20, '')
+			sampSendDialogResponse(3050, 1, 20, '')
+			sampSendDialogResponse(3050, 1, 20, '')
+			sampSendDialogResponse(3050, 1, 20, '')
+			sampSendDialogResponse(3050, 1, 20, '')
+			sampSendDialogResponse(3050, 1, 20, '')
+			sampSendDialogResponse(3050, 1, 20, '')
+			sampSendDialogResponse(3050, 1, 20, '')
+			sampSendDialogResponse(3050, 1, 7, '')
+			sampSendDialogResponse(3060, 1, 0, prison.v..' '..prison_price.v)
+		end
+		if toch_stone.v ~= 0 then
+			sampSendDialogResponse(3040, 1, 0, '')
+			sampSendDialogResponse(3050, 1, 19, '')
+			sampSendDialogResponse(3050, 1, 20, '')
+			sampSendDialogResponse(3050, 1, 20, '')
+			sampSendDialogResponse(3050, 1, 20, '')
+			sampSendDialogResponse(3050, 1, 20, '')
+			sampSendDialogResponse(3050, 1, 20, '')
+			sampSendDialogResponse(3050, 1, 20, '')
+			sampSendDialogResponse(3050, 1, 20, '')
+			sampSendDialogResponse(3050, 1, 20, '')
+			sampSendDialogResponse(3050, 1, 20, '')
+			sampSendDialogResponse(3050, 1, 20, '')
+			sampSendDialogResponse(3050, 1, 20, '')
+			sampSendDialogResponse(3050, 1, 20, '')
+			sampSendDialogResponse(3050, 1, 20, '')
+			sampSendDialogResponse(3050, 1, 20, '')
+			sampSendDialogResponse(3050, 1, 20, '')
+			sampSendDialogResponse(3050, 1, 20, '')
+			sampSendDialogResponse(3050, 1, 20, '')
+			sampSendDialogResponse(3050, 1, 20, '')
+			sampSendDialogResponse(3050, 1, 18, '')
+			sampSendDialogResponse(3060, 1, 0, toch_stone.v..' '..toch_stone_price.v)
+		end
+	end)
+end
+
 function onScriptTerminate(LuaScript, slot1)
 	if LuaScript == thisScript() then
 		showCursor(false)
-		sampAddChatMessage('[{E3BE88}'..thisScript().name..' '..script_vers_text..'{FFFFFF}] Скрипт выключается =(', 0xFFFFFF)
+		sampAddChatMessage('[{E3BE88}'..thisScript().name..' '..thisScript().version..'{FFFFFF}] Скрипт выключается =(', 0xFFFFFF)
 	end
 end
 
