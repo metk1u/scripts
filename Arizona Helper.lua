@@ -1,8 +1,8 @@
 script_name("Arizona Helper")
-script_version('2.7')
+script_version('2.8')
 script_author("metk1u")
 
-local script_vers = 9
+local script_vers = 10
 
 --local mynick, myid = text:match("(%w+_%w+)%[(%d+)%] начал следить за %w+_%w+%[%d+%]")
 
@@ -364,25 +364,47 @@ local mainIni = inicfg.load(
 	},
 	destroy =
 	{
-		destroy_bucket = true,
-		destroy_tree = false,
-		destroy_floor = false,
-		destroy_chest = false,
-		destroy_game = false,
-		destroy_newyear = false
+		bucket = true,
+		tree = false,
+		floor = false,
+		chest = false,
+		game = false,
+		newyear = false
 	},
 	lavka =
 	{
+		materials = 0,
+		materials_price = 10,
+		fam_talon = 0,
 		fam_talon_price = 8000,
+		sale_talon = 0,
 		sale_talon_price = 300000,
+		gift = 0,
 		gift_price = 4000,
 		twinturbo_price = 0,
+		cooper_roll = 0,
 		cooper_roll_price = 6000,
+		silver_roll = 0,
 		silver_roll_price = 20000,
+		gold_roll = 0,
 		gold_roll_price = 150000,
+		metal = 0,
+		metal_price = 1000,
+		bronze = 0,
+		bronze_price = 1500,
+		silver = 0,
+		silver_price = 2000,
+		gold = 0,
+		gold_price = 2500,
+		euro = 0,
 		euro_price = 4000,
+		gr_talon = 0,
 		gr_talon_price = 5000,
+		antibiotiki = 0,
+		antibiotiki_price = 2000,
+		prison = 0,
 		prison_price = 35000,
+		toch_stone = 0,
 		toch_stone_price = 20000
 	}
 },file)
@@ -392,77 +414,106 @@ if not doesDirectoryExist(path) then
 end
 
 local windowstate = imgui.ImBool(false)
---------------------[config]--------------------
-local stringsCount = imgui.ImInt(mainIni.config.stringsCount)
-local fontSize = imgui.ImFloat(mainIni.config.fontSize)
-local offsetStrings = imgui.ImInt(mainIni.config.offsetStrings)
-local fontName = imgui.ImBuffer(tostring(mainIni.config.fontName), 100)
-local renderTime = imgui.ImBool(mainIni.config.renderTime)
---------------------[account]--------------------
-local my_nick = tostring(mainIni.account.my_nick)
-local my_password = tostring(mainIni.account.my_password)
-local my_nick_2 = tostring(mainIni.account.my_nick_2)
-local my_password_2 = tostring(mainIni.account.my_password_2)
---------------------[chat]--------------------
-local renderChat = imgui.ImBool(mainIni.chat.renderChat)
-local sendmessageTime = imgui.ImBool(mainIni.chat.sendmessageTime)
-local chatlog = imgui.ImBool(mainIni.chat.chatlog)
+local elements =
+{
+	config =
+	{
+		stringsCount = imgui.ImInt(mainIni.config.stringsCount),
+		fontSize = imgui.ImFloat(mainIni.config.fontSize),
+		offsetStrings = imgui.ImInt(mainIni.config.offsetStrings),
+		fontName = imgui.ImBuffer(tostring(mainIni.config.fontName), 100),
+		renderTime = imgui.ImBool(mainIni.config.renderTime)
+	},
+	account =
+	{
+		my_nick = tostring(mainIni.account.my_nick),
+		my_password = tostring(mainIni.account.my_password),
+		my_nick_2 = tostring(mainIni.account.my_nick_2),
+		my_password_2 = tostring(mainIni.account.my_password_2)
+	},
+	chat =
+	{
+		renderChat = imgui.ImBool(mainIni.chat.renderChat),
+		sendmessageTime = imgui.ImBool(mainIni.chat.sendmessageTime),
+		chatlog = imgui.ImBool(mainIni.chat.chatlog),
 
-local removechatbuy = imgui.ImBool(mainIni.chat.removechatbuy)
-local removechat = imgui.ImBool(mainIni.chat.removechat)
+		removechatbuy = imgui.ImBool(mainIni.chat.removechatbuy),
+		removechat = imgui.ImBool(mainIni.chat.removechat),
 
-local tosampfuncsbuy = imgui.ImBool(mainIni.chat.tosampfuncsbuy)
-local tosampfuncs = imgui.ImBool(mainIni.chat.tosampfuncs)
+		tosampfuncsbuy = imgui.ImBool(mainIni.chat.tosampfuncsbuy),
+		tosampfuncs = imgui.ImBool(mainIni.chat.tosampfuncs),
 
-local sendconnect = imgui.ImBool(mainIni.chat.sendconnect)
-local senddisconnect = imgui.ImBool(mainIni.chat.senddisconnect)
+		sendconnect = imgui.ImBool(mainIni.chat.sendconnect),
+		senddisconnect = imgui.ImBool(mainIni.chat.senddisconnect),
 
-local tosampfuncsconnect = imgui.ImBool(mainIni.chat.tosampfuncsconnect)
-local tosampfuncsdisconnect = imgui.ImBool(mainIni.chat.tosampfuncsdisconnect)
+		tosampfuncsconnect = imgui.ImBool(mainIni.chat.tosampfuncsconnect),
+		tosampfuncsdisconnect = imgui.ImBool(mainIni.chat.tosampfuncsdisconnect),
 
-local vipchat = imgui.ImBool(mainIni.chat.vipchat)
-local tosampfuncsvipchat = imgui.ImBool(mainIni.chat.tosampfuncsvipchat)
-local removevipchat = imgui.ImBool(mainIni.chat.removevipchat)
+		vipchat = imgui.ImBool(mainIni.chat.vipchat),
+		tosampfuncsvipchat = imgui.ImBool(mainIni.chat.tosampfuncsvipchat),
+		removevipchat = imgui.ImBool(mainIni.chat.removevipchat),
 
-local tosampfuncsjobchat = imgui.ImBool(mainIni.chat.tosampfuncsjobchat)
-local removejobchat = imgui.ImBool(mainIni.chat.removejobchat)
---------------------[hunger]--------------------
-local eatenable = imgui.ImBool(mainIni.hunger.eatenable)
-local autoanim = imgui.ImBool(mainIni.hunger.autoanim)
-local autoanimid = imgui.ImInt(mainIni.hunger.autoanimid)
---------------------[chest]--------------------
-local roll_standart = imgui.ImBool(mainIni.chest.roll_standart)
-local roll_platinum = imgui.ImBool(mainIni.chest.roll_platinum)
-local roll_wait = imgui.ImInt(mainIni.chest.roll_wait)
---------------------[destroy]--------------------
-local destroy_bucket = imgui.ImBool(mainIni.destroy.destroy_bucket)
-local destroy_tree = imgui.ImBool(mainIni.destroy.destroy_tree)
-local destroy_floor = imgui.ImBool(mainIni.destroy.destroy_floor)
-local destroy_chest = imgui.ImBool(mainIni.destroy.destroy_chest)
-local destroy_game = imgui.ImBool(mainIni.destroy.destroy_game)
-local destroy_newyear = imgui.ImBool(mainIni.destroy.destroy_newyear)
---------------------[lavka]--------------------
-local fam_talon = imgui.ImInt(0)
-local fam_talon_price = imgui.ImInt(mainIni.lavka.fam_talon_price)
-local sale_talon = imgui.ImInt(0)
-local sale_talon_price = imgui.ImInt(mainIni.lavka.sale_talon_price)
-local gift = imgui.ImInt(0)
-local gift_price = imgui.ImInt(mainIni.lavka.gift_price)
-local twinturbo_price = imgui.ImInt(mainIni.lavka.twinturbo_price)
-local cooper_roll = imgui.ImInt(0)
-local cooper_roll_price = imgui.ImInt(mainIni.lavka.cooper_roll_price)
-local silver_roll = imgui.ImInt(0)
-local silver_roll_price = imgui.ImInt(mainIni.lavka.silver_roll_price)
-local gold_roll = imgui.ImInt(0)
-local gold_roll_price = imgui.ImInt(mainIni.lavka.gold_roll_price)
-local euro = imgui.ImInt(0)
-local euro_price = imgui.ImInt(mainIni.lavka.euro_price)
-local gr_talon = imgui.ImInt(0)
-local gr_talon_price = imgui.ImInt(mainIni.lavka.gr_talon_price)
-local prison = imgui.ImInt(0)
-local prison_price = imgui.ImInt(mainIni.lavka.prison_price)
-local toch_stone = imgui.ImInt(0)
-local toch_stone_price = imgui.ImInt(mainIni.lavka.toch_stone_price)
+		tosampfuncsjobchat = imgui.ImBool(mainIni.chat.tosampfuncsjobchat),
+		removejobchat = imgui.ImBool(mainIni.chat.removejobchat)
+	},
+	hunger =
+	{
+		eatenable = imgui.ImBool(mainIni.hunger.eatenable),
+		autoanim = imgui.ImBool(mainIni.hunger.autoanim),
+		autoanimid = imgui.ImInt(mainIni.hunger.autoanimid)
+	},
+	chest =
+	{
+		roll_standart = imgui.ImBool(mainIni.chest.roll_standart),
+		roll_platinum = imgui.ImBool(mainIni.chest.roll_platinum),
+		roll_wait = imgui.ImInt(mainIni.chest.roll_wait)
+	},
+	destroy =
+	{
+		bucket = imgui.ImBool(mainIni.destroy.bucket),
+		tree = imgui.ImBool(mainIni.destroy.tree),
+		floor = imgui.ImBool(mainIni.destroy.floor),
+		chest = imgui.ImBool(mainIni.destroy.chest),
+		game = imgui.ImBool(mainIni.destroy.game),
+		newyear = imgui.ImBool(mainIni.destroy.newyear)
+	},
+	lavka =
+	{
+		materials = imgui.ImInt(mainIni.lavka.materials),
+		materials_price = imgui.ImInt(mainIni.lavka.materials_price),
+		fam_talon = imgui.ImInt(mainIni.lavka.fam_talon),
+		fam_talon_price = imgui.ImInt(mainIni.lavka.fam_talon_price),
+		sale_talon = imgui.ImInt(mainIni.lavka.sale_talon),
+		sale_talon_price = imgui.ImInt(mainIni.lavka.sale_talon_price),
+		gift = imgui.ImInt(mainIni.lavka.gift),
+		gift_price = imgui.ImInt(mainIni.lavka.gift_price),
+		twinturbo_price = imgui.ImInt(mainIni.lavka.twinturbo_price),
+		cooper_roll = imgui.ImInt(mainIni.lavka.cooper_roll),
+		cooper_roll_price = imgui.ImInt(mainIni.lavka.cooper_roll_price),
+		silver_roll = imgui.ImInt(mainIni.lavka.silver_roll),
+		silver_roll_price = imgui.ImInt(mainIni.lavka.silver_roll_price),
+		gold_roll = imgui.ImInt(mainIni.lavka.gold_roll),
+		gold_roll_price = imgui.ImInt(mainIni.lavka.gold_roll_price),
+		metal = imgui.ImInt(mainIni.lavka.metal),
+		metal_price = imgui.ImInt(mainIni.lavka.metal_price),
+		bronze = imgui.ImInt(mainIni.lavka.bronze),
+		bronze_price = imgui.ImInt(mainIni.lavka.bronze_price),
+		silver = imgui.ImInt(mainIni.lavka.silver),
+		silver_price = imgui.ImInt(mainIni.lavka.silver_price),
+		gold = imgui.ImInt(mainIni.lavka.gold),
+		gold_price = imgui.ImInt(mainIni.lavka.gold_price),
+		euro = imgui.ImInt(mainIni.lavka.euro),
+		euro_price = imgui.ImInt(mainIni.lavka.euro_price),
+		gr_talon = imgui.ImInt(mainIni.lavka.gr_talon),
+		gr_talon_price = imgui.ImInt(mainIni.lavka.gr_talon_price),
+		antibiotiki = imgui.ImInt(mainIni.lavka.antibiotiki),
+		antibiotiki_price = imgui.ImInt(mainIni.lavka.antibiotiki_price),
+		prison = imgui.ImInt(mainIni.lavka.prison),
+		prison_price = imgui.ImInt(mainIni.lavka.prison_price),
+		toch_stone = imgui.ImInt(mainIni.lavka.toch_stone),
+		toch_stone_price = imgui.ImInt(mainIni.lavka.toch_stone_price)
+	}
+}
 
 function reCreateFont(intSize,nameFont)
 	if font then
@@ -471,7 +522,7 @@ function reCreateFont(intSize,nameFont)
 	font = renderCreateFont(nameFont,intSize,5)
 end
 
-reCreateFont(fontSize.v,fontName.v)
+reCreateFont(elements.config.fontSize.v,elements.config.fontName.v)
 
 function main()
 	while not isSampAvailable() do wait(0) end
@@ -605,13 +656,13 @@ function main()
 			for id = 1, #friends do
 				if nickname == friends[id] then
 					----------------------------------------
-					table.insert(chatMessages, sendmessageTime.v and (os.date('{FF3300}[%H:%M:%S] Игрок ')..nickname..'['..i..'] находится на сервере.') or '{FF3300}Игрок '..nickname..'['..i..'] находится на сервере.')
+					table.insert(chatMessages, elements.chat.sendmessageTime.v and (os.date('{FF3300}[%H:%M:%S] Игрок ')..nickname..'['..i..'] находится на сервере.') or '{FF3300}Игрок '..nickname..'['..i..'] находится на сервере.')
 					----------------------------------------
-					if tosampfuncsconnect.v then
-						sampfuncsLog(sendmessageTime.v and (os.date('{FF3300}[%H:%M:%S] Игрок ')..nickname..'['..i..'] находится на сервере.') or '{FF3300}Игрок '..nickname..'['..i..'] находится на сервере.')
+					if elements.chat.tosampfuncsconnect.v then
+						sampfuncsLog(elements.chat.sendmessageTime.v and (os.date('{FF3300}[%H:%M:%S] Игрок ')..nickname..'['..i..'] находится на сервере.') or '{FF3300}Игрок '..nickname..'['..i..'] находится на сервере.')
 					end
 					----------------------------------------
-					if sendconnect.v then
+					if elements.chat.sendconnect.v then
 						sampAddChatMessage('Игрок '..nickname..'['..i..'] находится на сервере.', 0xFF3300)
 					end
 					----------------------------------------
@@ -635,7 +686,7 @@ function main()
 			----------------------------------------
 			imgui.Process = windowstate.v
 			imgui.ShowCursor = windowstate.v
-			if renderChat.v then
+			if elements.chat.renderChat.v then
 				local POSITION_X, POSITION_Y
 				if POSITION_SET then
 					POSITION_X, POSITION_Y = getCursorPos()
@@ -647,12 +698,12 @@ function main()
 					POSITION_X, POSITION_Y = mainIni.config.posRenderX, mainIni.config.posRenderY
 				end
 				local heightChatRender = POSITION_Y
-				for i = 0, stringsCount.v -1  do
+				for i = 0, elements.config.stringsCount.v -1  do
 					local message = table.maxn(chatMessages) - i
 					local textForRender = chatMessages[message]
 					if table.maxn(chatMessages) > 0 and message >= 1 then
 						renderFontDrawText(font,''..textForRender,POSITION_X,heightChatRender,-1)
-						heightChatRender = heightChatRender - (renderGetFontDrawHeight(font) + offsetStrings.v)
+						heightChatRender = heightChatRender - (renderGetFontDrawHeight(font) + elements.config.offsetStrings.v)
 					end
 				end
 			end
@@ -698,16 +749,16 @@ function main()
 			----------------------------------------
 			ip, port = sampGetCurrentServerAddress()
 			if ip == "185.169.134.5" then
-				if local_name == my_nick then
+				if local_name == elements.account.my_nick then
 					if sampIsDialogActive() and sampGetCurrentDialogId() == 2 then
-						sampSendDialogResponse(2, 1, 0, my_password)
+						sampSendDialogResponse(2, 1, 0, elements.account.my_password)
 						wait(100)
 						sampCloseCurrentDialogWithButton(0)
 					end
 				end
-				if local_name == my_nick_2 then
+				if local_name == elements.account.my_nick_2 then
 					if sampIsDialogActive() and sampGetCurrentDialogId() == 2 then
-						sampSendDialogResponse(2, 1, 0, my_password_2)
+						sampSendDialogResponse(2, 1, 0, elements.account.my_password_2)
 						wait(100)
 						sampCloseCurrentDialogWithButton(0)
 					end
@@ -1086,7 +1137,7 @@ function main()
 				sampSendChat('/invent')
 			end
 			----------------------------------------
-			if renderTime.v == true then
+			if elements.config.renderTime.v == true then
 				local tWeekdays = 
 				{
 					[0] = 'Воскресенье',
@@ -1113,73 +1164,95 @@ function saveini()
 	{
 		config =
 		{
-			stringsCount = stringsCount.v,
-			fontSize = fontSize.v,
-			offsetStrings = offsetStrings.v,
-			fontName = fontName.v,
-			renderTime = renderTime.v
+			stringsCount = elements.config.stringsCount.v,
+			fontSize = elements.config.fontSize.v,
+			offsetStrings = elements.config.offsetStrings.v,
+			fontName = elements.config.fontName.v,
+			renderTime = elements.config.renderTime.v
 		},
 		account =
 		{
-			my_nick = my_nick,
-			my_password = my_password,
-			my_nick_2 = my_nick_2,
-			my_password_2 = my_password_2
+			my_nick = elements.account.my_nick,
+			my_password = elements.account.my_password,
+			my_nick_2 = elements.account.my_nick_2,
+			my_password_2 = elements.account.my_password_2
 			--nick = u8:decode(i_reconnect_nick.v)
 		},
 		chat =
 		{
-			renderChat = renderChat.v,
-			sendmessageTime = sendmessageTime.v,
-			chatlog = chatlog.v,
-			removechatbuy = removechatbuy.v,
-			removechat = removechat.v,
-			tosampfuncsbuy = tosampfuncsbuy.v,
-			tosampfuncs = tosampfuncs.v,
-			sendconnect = sendconnect.v,
-			senddisconnect = senddisconnect.v,
-			tosampfuncsconnect = tosampfuncsconnect.v,
-			tosampfuncsdisconnect = tosampfuncsdisconnect.v,
-			vipchat = vipchat.v,
-			tosampfuncsvipchat = tosampfuncsvipchat.v,
-			removevipchat = removevipchat.v,
-			tosampfuncsjobchat = tosampfuncsjobchat.v,
-			removejobchat = removejobchat.v
+			renderChat = elements.chat.renderChat.v,
+			sendmessageTime = elements.chat.sendmessageTime.v,
+			chatlog = elements.chat.chatlog.v,
+			removechatbuy = elements.chat.removechatbuy.v,
+			removechat = elements.chat.removechat.v,
+			tosampfuncsbuy = elements.chat.tosampfuncsbuy.v,
+			tosampfuncs = elements.chat.tosampfuncs.v,
+			sendconnect = elements.chat.sendconnect.v,
+			senddisconnect = elements.chat.senddisconnect.v,
+			tosampfuncsconnect = elements.chat.tosampfuncsconnect.v,
+			tosampfuncsdisconnect = elements.chat.tosampfuncsdisconnect.v,
+			vipchat = elements.chat.vipchat.v,
+			tosampfuncsvipchat = elements.chat.tosampfuncsvipchat.v,
+			removevipchat = elements.chat.removevipchat.v,
+			tosampfuncsjobchat = elements.chat.tosampfuncsjobchat.v,
+			removejobchat = elements.chat.removejobchat.v
 		},
 		hunger =
 		{
-			eatenable = eatenable.v,
-			autoanim = autoanim.v,
-			autoanimid = autoanimid.v
+			eatenable = elements.hunger.eatenable.v,
+			autoanim = elements.hunger.autoanim.v,
+			autoanimid = elements.hunger.autoanimid.v
 		},
 		chest =
 		{
-			roll_standart = roll_standart.v,
-			roll_platinum = roll_platinum.v,
-			roll_wait = roll_wait.v
+			roll_standart = elements.chest.roll_standart.v,
+			roll_platinum = elements.chest.roll_platinum.v,
+			roll_wait = elements.chest.roll_wait.v
 		},
 		destroy =
 		{
-			destroy_bucket = destroy_bucket.v,
-			destroy_tree = destroy_tree.v,
-			destroy_floor = destroy_floor.v,
-			destroy_chest = destroy_chest.v,
-			destroy_game = destroy_game.v,
-			destroy_newyear = destroy_newyear.v
+			bucket = elements.destroy.bucket.v,
+			tree = elements.destroy.tree.v,
+			floor = elements.destroy.floor.v,
+			chest = elements.destroy.chest.v,
+			game = elements.destroy.game.v,
+			newyear = elements.destroy.newyear.v
 		},
 		lavka =
 		{
-			fam_talon_price = fam_talon_price.v,
-			sale_talon_price = sale_talon_price.v,
-			gift_price = gift_price.v,
-			twinturbo_price = twinturbo_price.v,
-			cooper_roll_price = cooper_roll_price.v,
-			silver_roll_price = silver_roll_price.v,
-			gold_roll_price = gold_roll_price.v,
-			euro_price = euro_price.v,
-			gr_talon_price = gr_talon_price.v,
-			prison_price = prison_price.v,
-			toch_stone_price = toch_stone_price.v
+			materials = elements.lavka.materials.v,
+			materials_price = elements.lavka.materials_price.v,
+			fam_talon = elements.lavka.fam_talon.v,
+			fam_talon_price = elements.lavka.fam_talon_price.v,
+			sale_talon = elements.lavka.sale_talon.v,
+			sale_talon_price = elements.lavka.sale_talon_price.v,
+			gift = elements.lavka.gift.v,
+			gift_price = elements.lavka.gift_price.v,
+			twinturbo_price = elements.lavka.twinturbo_price.v,
+			cooper_roll = elements.lavka.cooper_roll.v,
+			cooper_roll_price = elements.lavka.cooper_roll_price.v,
+			silver_roll = elements.lavka.silver_roll.v,
+			silver_roll_price = elements.lavka.silver_roll_price.v,
+			gold_roll = elements.lavka.gold_roll.v,
+			gold_roll_price = elements.lavka.gold_roll_price.v,
+			metal = elements.lavka.metal.v,
+			metal_price = elements.lavka.metal_price.v,
+			bronze = elements.lavka.bronze.v,
+			bronze_price = elements.lavka.bronze_price.v,
+			silver = elements.lavka.silver.v,
+			silver_price = elements.lavka.silver_price.v,
+			gold = elements.lavka.gold.v,
+			gold_price = elements.lavka.gold_price.v,
+			euro = elements.lavka.euro.v,
+			euro_price = elements.lavka.euro_price.v,
+			gr_talon = elements.lavka.gr_talon.v,
+			gr_talon_price = elements.lavka.gr_talon_price.v,
+			antibiotiki = elements.lavka.antibiotiki.v,
+			antibiotiki_price = elements.lavka.antibiotiki_price.v,
+			prison = elements.lavka.prison.v,
+			prison_price = elements.lavka.prison_price.v,
+			toch_stone = elements.lavka.toch_stone.v,
+			toch_stone_price = elements.lavka.toch_stone_price.v
 		}
 	},file)
 end
@@ -1244,20 +1317,20 @@ function imgui.OnDrawFrame()
 		imgui.TextQuestion(u8'Заходишь в мусорку, вводишь /loot и скрипт будет автоматически\nлутать все что появится в первой строчке мусорки.')
 		----------------------------------------
 		if imgui.BeginPopup('chatrender') then
-			imgui.Checkbox(u8('Рендер чата'),renderChat)
-			if renderChat.v then
+			imgui.Checkbox(u8('Рендер чата'),elements.chat.renderChat)
+			if elements.chat.renderChat.v then
 				imgui.PushItemWidth(150)
-				imgui.SliderInt(u8('Кол-во строк'),stringsCount,1,30)
+				imgui.SliderInt(u8('Кол-во строк'),elements.config.stringsCount,1,30)
 				if imgui.Button(u8('Сменить положение'),imgui.ImVec2(imgui.GetWindowWidth() - 16,20)) then
 					sampAddChatMessage('['..thisScript().name..'] {FFFFFF}Перемести чат в нужное для тебя место и нажми {FDDB6D}ЛКМ{FFFFFF}.',0xFDDB6D)
 					POSITION_SET = true
 				end
-				imgui.InputFloat(u8('Размер шрифта'),fontSize)
-				--imgui.SliderFloat(u8('Размер шрифта'),fontSize,1,20)  
-				imgui.SliderInt(u8('Расстояние между строками'),offsetStrings,0,20)
-				imgui.InputText(u8('Название шрифта'),fontName)
+				imgui.InputFloat(u8('Размер шрифта'),elements.config.fontSize)
+				--imgui.SliderFloat(u8('Размер шрифта'),elements.config.fontSize,1,20)  
+				imgui.SliderInt(u8('Расстояние между строками'),elements.config.offsetStrings,0,20)
+				imgui.InputText(u8('Название шрифта'),elements.config.fontName)
 				if imgui.Button(u8('Обновить шрифт'),imgui.ImVec2(imgui.GetWindowWidth() - 16,20)) then
-					reCreateFont(fontSize.v,fontName.v)
+					reCreateFont(elements.config.fontSize.v,elements.config.fontName.v)
 				end
 				imgui.PopItemWidth()
 				imgui.TextDisabled(u8('(( Нажми чтобы закрыть ))'))
@@ -1274,147 +1347,189 @@ function imgui.OnDrawFrame()
 		imgui.SameLine()
 		imgui.BeginGroup()
 		----------------------------------------
-		imgui.Checkbox(u8('Включить время отправки'),sendmessageTime)
+		imgui.Checkbox(u8('Включить время отправки'),elements.chat.sendmessageTime)
 		----------------------------------------
 		imgui.SameLine()
 		imgui.TextQuestion(u8'В лог будет писать \'[23.59.00] текст\' (как /timestamp)')
 		----------------------------------------
-		imgui.Checkbox(u8('Включить чатлог'),chatlog)
+		imgui.Checkbox(u8('Включить чатлог'),elements.chat.chatlog)
 		----------------------------------------
-		imgui.Checkbox(u8('Включить время в левом нижнем углу'),renderTime)
+		imgui.Checkbox(u8('Включить время в левом нижнем углу'),elements.config.renderTime)
 		----------------------------------------
 		if imgui.CollapsingHeader(u8'Сообщения о покупке') then
 			imgui.Separator()
-			imgui.Checkbox(u8('Отключить в чате сообщения о покупке'),removechatbuy)
-			imgui.Checkbox(u8('Выводить сообщения о покупке в консоль SAMPFUNCS (~)'),tosampfuncsbuy)
+			imgui.Checkbox(u8('Отключить в чате сообщения о покупке'),elements.chat.removechatbuy)
+			imgui.Checkbox(u8('Выводить сообщения о покупке в консоль SAMPFUNCS (~)'),elements.chat.tosampfuncsbuy)
 			imgui.Separator()
 		end
 		----------------------------------------
 		if imgui.CollapsingHeader(u8'SPAM сообщения') then
 			imgui.Separator()
-			imgui.Checkbox(u8('Отключить в чате SPAM сообщения'),removechat)
+			imgui.Checkbox(u8('Отключить в чате SPAM сообщения'),elements.chat.removechat)
 			----------------------------------------
 			imgui.SameLine()
 			imgui.TextQuestion(u8'1. Удаляет рекламу от сервера.\n2. Удаляет репортажи СМИ (Гость, Репортёр).\n3. Удаляет сообщения News.\n4. Удаляет сообщения /d чата.\n5. Удаляет сообщение \'Недостаточно VKoin\'.\n6. Удаляет сообщения в бандах об инкассаторах.')
 			----------------------------------------
-			imgui.Checkbox(u8('Выводить SPAM сообщения в консоль SAMPFUNCS (~)'),tosampfuncs)
+			imgui.Checkbox(u8('Выводить SPAM сообщения в консоль SAMPFUNCS (~)'),elements.chat.tosampfuncs)
 			imgui.Separator()
 		end
 		----------------------------------------
 		if imgui.CollapsingHeader(u8'Сообщения о подключении/отключении игроков') then
 			imgui.Separator()
-			imgui.Checkbox(u8('Сообщения о входе игроков'),sendconnect)
-			imgui.Checkbox(u8('Сообщения о выходе игроков'),senddisconnect)
-			imgui.Checkbox(u8('Сообщения о входе игроков в консоль SAMPFUNCS (~)'),tosampfuncsconnect)
-			imgui.Checkbox(u8('Сообщения о выходе игроков в консоль SAMPFUNCS (~)'),tosampfuncsdisconnect)
+			imgui.Checkbox(u8('Сообщения о входе игроков'),elements.chat.sendconnect)
+			imgui.Checkbox(u8('Сообщения о выходе игроков'),elements.chat.senddisconnect)
+			imgui.Checkbox(u8('Сообщения о входе игроков в консоль SAMPFUNCS (~)'),elements.chat.tosampfuncsconnect)
+			imgui.Checkbox(u8('Сообщения о выходе игроков в консоль SAMPFUNCS (~)'),elements.chat.tosampfuncsdisconnect)
 			imgui.Separator()
 		end
 		----------------------------------------
 		if imgui.CollapsingHeader(u8'Настройки VIP чата') then
 			imgui.Separator()
-			imgui.Checkbox(u8('Рендер вип чата'),vipchat)
-			imgui.Checkbox(u8('Выводить вип чат в консоль SAMPFUNCS (~)'),tosampfuncsvipchat)
-			imgui.Checkbox(u8('Отключить вип чат'),removevipchat)
+			imgui.Checkbox(u8('Рендер вип чата'),elements.chat.vipchat)
+			imgui.Checkbox(u8('Выводить вип чат в консоль SAMPFUNCS (~)'),elements.chat.tosampfuncsvipchat)
+			imgui.Checkbox(u8('Отключить вип чат'),elements.chat.removevipchat)
 			imgui.Separator()
 		end
 		----------------------------------------
 		if imgui.CollapsingHeader(u8'Настройки /j чата') then
 			imgui.Separator()
-			imgui.Checkbox(u8('Выводить /j чат в консоль SAMPFUNCS (~)'),tosampfuncsjobchat)
-			imgui.Checkbox(u8('Отключить /j чат'),removejobchat)
+			imgui.Checkbox(u8('Выводить /j чат в консоль SAMPFUNCS (~)'),elements.chat.tosampfuncsjobchat)
+			imgui.Checkbox(u8('Отключить /j чат'),elements.chat.removejobchat)
 			imgui.Separator()
 		end
 		----------------------------------------
 		if imgui.CollapsingHeader(u8'Удаление мусора с сервера') then
 			imgui.Separator()
-			imgui.Checkbox(u8('Отключить на сервере \'ковши\''),destroy_bucket)
-			imgui.Checkbox(u8('Отключить на сервере \'ёлки\''),destroy_tree)
-			imgui.Checkbox(u8('Отключить на сервере \'танцполы\''),destroy_floor)
-			imgui.Checkbox(u8('Отключить на сервере \'новогодние подарки\''),destroy_chest)
-			imgui.Checkbox(u8('Отключить на сервере \'ёлочные игрушки\''),destroy_game)
-			imgui.Checkbox(u8('Отключить на сервере \'новогодний маппинг\''),destroy_newyear)
+			imgui.Checkbox(u8('Отключить на сервере \'ковши\''),elements.destroy.bucket)
+			imgui.Checkbox(u8('Отключить на сервере \'ёлки\''),elements.destroy.tree)
+			imgui.Checkbox(u8('Отключить на сервере \'танцполы\''),elements.destroy.floor)
+			imgui.Checkbox(u8('Отключить на сервере \'новогодние подарки\''),elements.destroy.chest)
+			imgui.Checkbox(u8('Отключить на сервере \'ёлочные игрушки\''),elements.destroy.game)
+			imgui.Checkbox(u8('Отключить на сервере \'новогодний маппинг\''),elements.destroy.newyear)
 			imgui.Separator()
 		end
 		if imgui.CollapsingHeader(u8'Автоскуп в ларьке (BETA)') then
 			imgui.Separator()
 			imgui.PushItemWidth(108)
 			----------------------------------------
-			imgui.InputInt(u8('Цена  ##1'),fam_talon_price)
+			imgui.InputInt(u8('Цена  ##1'),elements.lavka.materials_price)
 			imgui.SameLine()
-			imgui.InputInt(u8('Семейный талон (кол-во)'),fam_talon)
+			imgui.InputInt(u8('Материалы (кол-во)'),elements.lavka.materials)
 			----------------------------------------
-			imgui.InputInt(u8('Цена  ##2'),sale_talon_price)
+			imgui.InputInt(u8('Цена  ##2'),elements.lavka.fam_talon_price)
 			imgui.SameLine()
-			imgui.InputInt(u8('Скидочный талон (кол-во)'),sale_talon)
+			imgui.InputInt(u8('Семейный талон (кол-во)'),elements.lavka.fam_talon)
 			----------------------------------------
-			imgui.InputInt(u8('Цена  ##3'),gift_price)
+			imgui.InputInt(u8('Цена  ##3'),elements.lavka.sale_talon_price)
 			imgui.SameLine()
-			imgui.InputInt(u8('Подарки (кол-во)'),gift)
+			imgui.InputInt(u8('Скидочный талон (кол-во)'),elements.lavka.sale_talon)
 			----------------------------------------
-			imgui.InputInt(u8('TwinTurbo Цена  ##6'),twinturbo_price)
-			----------------------------------------
-			imgui.InputInt(u8('Цена  ##4'),cooper_roll_price)
+			imgui.InputInt(u8('Цена  ##4'),elements.lavka.gift_price)
 			imgui.SameLine()
-			imgui.InputInt(u8('Бронзовые рулетки (кол-во)'),cooper_roll)
+			imgui.InputInt(u8('Подарки (кол-во)'),elements.lavka.gift)
 			----------------------------------------
-			imgui.InputInt(u8('Цена  ##5'),silver_roll_price)
-			imgui.SameLine()
-			imgui.InputInt(u8('Серебрянные рулетки (кол-во)'),silver_roll)
+			imgui.InputInt(u8('TwinTurbo Цена  ##5'),elements.lavka.twinturbo_price)
 			----------------------------------------
-			imgui.InputInt(u8('Цена  ##6'),gold_roll_price)
+			imgui.InputInt(u8('Цена  ##6'),elements.lavka.cooper_roll_price)
 			imgui.SameLine()
-			imgui.InputInt(u8('Золотые рулетки (кол-во)'),gold_roll)
+			imgui.InputInt(u8('Бронзовые рулетки (кол-во)'),elements.lavka.cooper_roll)
 			----------------------------------------
-			imgui.InputInt(u8('Цена  ##7'),euro_price)
+			imgui.InputInt(u8('Цена  ##7'),elements.lavka.silver_roll_price)
 			imgui.SameLine()
-			imgui.InputInt(u8('Евро (кол-во)'),euro)
+			imgui.InputInt(u8('Серебрянные рулетки (кол-во)'),elements.lavka.silver_roll)
 			----------------------------------------
-			imgui.InputInt(u8('Цена  ##8'),gr_talon_price)
+			imgui.InputInt(u8('Цена  ##8'),elements.lavka.gold_roll_price)
 			imgui.SameLine()
-			imgui.InputInt(u8('Гражданский талон (кол-во)'),gr_talon)
+			imgui.InputInt(u8('Золотые рулетки (кол-во)'),elements.lavka.gold_roll)
 			----------------------------------------
-			imgui.InputInt(u8('Цена  ##9'),prison_price)
+			imgui.InputInt(u8('Цена  ##9'),elements.lavka.metal_price)
 			imgui.SameLine()
-			imgui.InputInt(u8('Отмычки от ТСР (кол-во)'),prison)
+			imgui.InputInt(u8('Металл (кол-во)'),elements.lavka.metal)
 			----------------------------------------
-			imgui.InputInt(u8('Цена  ##10'),toch_stone_price)
+			imgui.InputInt(u8('Цена  ##10'),elements.lavka.bronze_price)
 			imgui.SameLine()
-			imgui.InputInt(u8('Точильные камни (кол-во)'),toch_stone)
+			imgui.InputInt(u8('Бронза (кол-во)'),elements.lavka.bronze)
+			----------------------------------------
+			imgui.InputInt(u8('Цена  ##11'),elements.lavka.silver_price)
+			imgui.SameLine()
+			imgui.InputInt(u8('Серебро (кол-во)'),elements.lavka.silver)
+			----------------------------------------
+			imgui.InputInt(u8('Цена  ##12'),elements.lavka.gold_price)
+			imgui.SameLine()
+			imgui.InputInt(u8('Золото (кол-во)'),elements.lavka.gold)
+			----------------------------------------
+			imgui.InputInt(u8('Цена  ##13'),elements.lavka.euro_price)
+			imgui.SameLine()
+			imgui.InputInt(u8('Евро (кол-во)'),elements.lavka.euro)
+			----------------------------------------
+			imgui.InputInt(u8('Цена  ##14'),elements.lavka.gr_talon_price)
+			imgui.SameLine()
+			imgui.InputInt(u8('Гражданский талон (кол-во)'),elements.lavka.gr_talon)
+			----------------------------------------
+			imgui.InputInt(u8('Цена  ##15'),elements.lavka.antibiotiki_price)
+			imgui.SameLine()
+			imgui.InputInt(u8('Антибиотики (кол-во)'),elements.lavka.antibiotiki)
+			----------------------------------------
+			imgui.InputInt(u8('Цена  ##16'),elements.lavka.prison_price)
+			imgui.SameLine()
+			imgui.InputInt(u8('Отмычки от ТСР (кол-во)'),elements.lavka.prison)
+			----------------------------------------
+			imgui.InputInt(u8('Цена  ##17'),elements.lavka.toch_stone_price)
+			imgui.SameLine()
+			imgui.InputInt(u8('Точильные камни (кол-во)'),elements.lavka.toch_stone)
 			----------------------------------------
 			count_all = 0
 			
-			if fam_talon.v ~= 0 then
-				count_all = count_all+(fam_talon_price.v*fam_talon.v)
+			if elements.lavka.materials.v ~= 0 then
+				count_all = count_all+(elements.lavka.materials_price.v*elements.lavka.materials.v)
 			end
-			if sale_talon.v ~= 0 then
-				count_all = count_all+(sale_talon_price.v*sale_talon.v)
+			if elements.lavka.fam_talon.v ~= 0 then
+				count_all = count_all+(elements.lavka.fam_talon_price.v*elements.lavka.fam_talon.v)
 			end
-			if gift.v ~= 0 then
-				count_all = count_all+(gift_price.v*gift.v)
+			if elements.lavka.sale_talon.v ~= 0 then
+				count_all = count_all+(elements.lavka.sale_talon_price.v*elements.lavka.sale_talon.v)
 			end
-			if twinturbo_price.v ~= 0 then
-				count_all = count_all+twinturbo_price.v
+			if elements.lavka.gift.v ~= 0 then
+				count_all = count_all+(elements.lavka.gift_price.v*elements.lavka.gift.v)
 			end
-			if cooper_roll.v ~= 0 then
-				count_all = count_all+(cooper_roll_price.v*cooper_roll.v)
+			if elements.lavka.twinturbo_price.v ~= 0 then
+				count_all = count_all+elements.lavka.twinturbo_price.v
 			end
-			if silver_roll.v ~= 0 then
-				count_all = count_all+(silver_roll_price.v*silver_roll.v)
+			if elements.lavka.cooper_roll.v ~= 0 then
+				count_all = count_all+(elements.lavka.cooper_roll_price.v*elements.lavka.cooper_roll.v)
 			end
-			if gold_roll.v ~= 0 then
-				count_all = count_all+(gold_roll_price.v*gold_roll.v)
+			if elements.lavka.silver_roll.v ~= 0 then
+				count_all = count_all+(elements.lavka.silver_roll_price.v*elements.lavka.silver_roll.v)
 			end
-			if euro.v ~= 0 then
-				count_all = count_all+(euro_price.v*euro.v)
+			if elements.lavka.gold_roll.v ~= 0 then
+				count_all = count_all+(elements.lavka.gold_roll_price.v*elements.lavka.gold_roll.v)
 			end
-			if gr_talon.v ~= 0 then
-				count_all = count_all+(gr_talon_price.v*gr_talon.v)
+			if elements.lavka.metal.v ~= 0 then
+				count_all = count_all+(elements.lavka.metal_price.v*elements.lavka.metal.v)
 			end
-			if prison.v ~= 0 then
-				count_all = count_all+(prison_price.v*prison.v)
+			if elements.lavka.bronze.v ~= 0 then
+				count_all = count_all+(elements.lavka.bronze_price.v*elements.lavka.bronze.v)
 			end
-			if toch_stone.v ~= 0 then
-				count_all = count_all+(toch_stone_price.v*toch_stone.v)
+			if elements.lavka.silver.v ~= 0 then
+				count_all = count_all+(elements.lavka.silver_price.v*elements.lavka.silver.v)
+			end
+			if elements.lavka.gold.v ~= 0 then
+				count_all = count_all+(elements.lavka.gold_price.v*elements.lavka.gold.v)
+			end
+			if elements.lavka.euro.v ~= 0 then
+				count_all = count_all+(elements.lavka.euro_price.v*elements.lavka.euro.v)
+			end
+			if elements.lavka.gr_talon.v ~= 0 then
+				count_all = count_all+(elements.lavka.gr_talon_price.v*elements.lavka.gr_talon.v)
+			end
+			if elements.lavka.antibiotiki.v ~= 0 then
+				count_all = count_all+(elements.lavka.antibiotiki_price.v*elements.lavka.antibiotiki.v)
+			end
+			if elements.lavka.prison.v ~= 0 then
+				count_all = count_all+(elements.lavka.prison_price.v*elements.lavka.prison.v)
+			end
+			if elements.lavka.toch_stone.v ~= 0 then
+				count_all = count_all+(elements.lavka.toch_stone_price.v*elements.lavka.toch_stone.v)
 			end
 			imgui.Text('')
 			imgui.Text(u8('Для покупки всех товаров необходимо $'..count_all))
@@ -1422,33 +1537,33 @@ function imgui.OnDrawFrame()
 			imgui.Separator()
 		end
 		----------------------------------------
-		imgui.Checkbox(u8('Кушать чипсы'),eatenable)
+		imgui.Checkbox(u8('Кушать чипсы'),elements.hunger.eatenable)
 		----------------------------------------
 		imgui.SameLine()
 		imgui.TextQuestion(u8'Кушает чипсы при появлении надписи You are hungry! или\nYou are very hungry!')
 		----------------------------------------
 		imgui.SameLine()
-		imgui.Checkbox(u8('Автоматическая анимация'),autoanim)
+		imgui.Checkbox(u8('Автоматическая анимация'),elements.hunger.autoanim)
 		----------------------------------------
 		imgui.SameLine()
-		imgui.TextQuestion(u8'После еды чипсов автоматически включает /anim '..autoanimid.v..'.')
+		imgui.TextQuestion(u8'После еды чипсов автоматически включает /anim '..elements.hunger.autoanimid.v..'.')
 		----------------------------------------
 		imgui.PushItemWidth(300)
-		imgui.SliderInt(u8('Анимация'),autoanimid,1,103)
+		imgui.SliderInt(u8('Анимация'),elements.hunger.autoanimid,1,103)
 		imgui.Separator()
 		----------------------------------------
-		imgui.Checkbox(u8('Открывать стандартный сундук'),roll_standart)
-		imgui.Checkbox(u8('Открывать платиновый сундук'),roll_platinum)
+		imgui.Checkbox(u8('Открывать стандартный сундук'),elements.chest.roll_standart)
+		imgui.Checkbox(u8('Открывать платиновый сундук'),elements.chest.roll_platinum)
 		----------------------------------------
 		imgui.PushItemWidth(81)
 		if chest_state == true then
 			if (chest_timer-os.time())/60 == 0 then
-				imgui.InputInt(u8(string.format("Задержка в мин. (осталось %d сек.)",chest_timer-os.time())),roll_wait)
+				imgui.InputInt(u8(string.format("Задержка в мин. (осталось %d сек.)",chest_timer-os.time())),elements.chest.roll_wait)
 			else
-				imgui.InputInt(u8(string.format("Задержка в мин. (осталось %d мин.)",(chest_timer-os.time())/60)),roll_wait)
+				imgui.InputInt(u8(string.format("Задержка в мин. (осталось %d мин.)",(chest_timer-os.time())/60)),elements.chest.roll_wait)
 			end
 		else
-			imgui.InputInt(u8('Задержка в мин.'),roll_wait)
+			imgui.InputInt(u8('Задержка в мин.'),elements.chest.roll_wait)
 		end
 		----------------------------------------
 		if imgui.Button(u8(chest_state and 'Выключить автооткрытие сундуков' or 'Включить автооткрытие сундуков')) then
@@ -1516,7 +1631,7 @@ function sampev.onShowTextDraw(textdrawId, data)
 				for i = 0, 2 do rawset(tblclose, #tblclose + 1, textdrawId) end
 			end
 		end
-		if roll_standart.v then
+		if elements.chest.roll_standart.v then
 			if data.modelId == 19918 then
 				opentimerid.standart = textdrawId + 1
 			end
@@ -1525,7 +1640,7 @@ function sampev.onShowTextDraw(textdrawId, data)
 				sampSendClickTextdraw(2302)
 			end
 		end
-		if roll_platinum.v then
+		if elements.chest.roll_platinum.v then
 			if data.modelId == 1353 then
 				opentimerid.platina = textdrawId + 1
 			end
@@ -1533,7 +1648,7 @@ function sampev.onShowTextDraw(textdrawId, data)
 				sampSendClickTextdraw(textdrawId - 1) 
 				sampSendClickTextdraw(2302)
 				sendcloseinventory()
-				chest_timer = os.time()+(roll_wait.v*60)
+				chest_timer = os.time()+(elements.chest.roll_wait.v*60)
 			end
 		end
 	end
@@ -1550,7 +1665,7 @@ function sampev.onDisplayGameText(style, time, text)
 		end
 	end
 	----------------------------------------
-	if eatenable.v == true and (text:find('You are hungry!') or text:find('You are very hungry!')) then
+	if elements.hunger.eatenable.v == true and (text:find('You are hungry!') or text:find('You are very hungry!')) then
 		sampSendChat('/cheeps')
 	end
 	----------------------------------------
@@ -1563,30 +1678,34 @@ end
 
 function sampev.onServerMessage(color, text)
 	----------------------------------------
-	if chatlog.v == true and text ~= ' ' then
+	if elements.chat.chatlog.v == true and text ~= ' ' then
 		local file_logs = io.open('moonloader/logs/'..sampGetCurrentServerAddress()..'.txt', 'a+')
-		file_logs:write('['..os.date('%d-%m-%Y || %H:%M:%S')..']['..color..'] '..text..'\n')
-		file_logs:close()
+		if file_logs ~= -1 then
+			if file_logs ~= nil then
+				file_logs:write('['..os.date('%d-%m-%Y || %H:%M:%S')..']['..color..'] '..text..'\n')
+				file_logs:close()
+			end
+		end
 	end
 	----------------------------------------
 	if string.find(text,"купил у вас") then
-		table.insert(chatMessages, sendmessageTime.v and ('{FDDB6D}'..os.date('[%H:%M:%S] ')..text) or '{FDDB6D}'..text)
-		if tosampfuncsbuy.v == true then
-			sampfuncsLog(sendmessageTime.v and ('{FDDB6D}'..os.date('[%H:%M:%S] ')..text) or '{FDDB6D}'..text)
+		table.insert(chatMessages, elements.chat.sendmessageTime.v and ('{FDDB6D}'..os.date('[%H:%M:%S] ')..text) or '{FDDB6D}'..text)
+		if elements.chat.tosampfuncsbuy.v == true then
+			sampfuncsLog(elements.chat.sendmessageTime.v and ('{FDDB6D}'..os.date('[%H:%M:%S] ')..text) or '{FDDB6D}'..text)
 		end
-		if removechatbuy.v == true then
+		if elements.chat.removechatbuy.v == true then
 			return false
 		end
 	end
 	----------------------------------------
 	if string.find(text,"%[PREMIUM%]") or string.find(text,"%[VIP%]") or string.find(text,"%[ADMIN%]") then
-		if vipchat.v == true then
-			table.insert(chatMessages, sendmessageTime.v and ('{FFFFFF}'..os.date('[%H:%M:%S] ')..text) or '{FFFFFF}'..text)
+		if elements.chat.vipchat.v == true then
+			table.insert(chatMessages, elements.chat.sendmessageTime.v and ('{FFFFFF}'..os.date('[%H:%M:%S] ')..text) or '{FFFFFF}'..text)
 		end
-		if tosampfuncsvipchat.v == true then
-			sampfuncsLog(sendmessageTime.v and ('{FFFFFF}'..os.date('[%H:%M:%S] ')..text) or '{FFFFFF}'..text)
+		if elements.chat.tosampfuncsvipchat.v == true then
+			sampfuncsLog(elements.chat.sendmessageTime.v and ('{FFFFFF}'..os.date('[%H:%M:%S] ')..text) or '{FFFFFF}'..text)
 		end
-		if removevipchat.v == true then
+		if elements.chat.removevipchat.v == true then
 			return false
 		end
 	end
@@ -1596,10 +1715,10 @@ function sampev.onServerMessage(color, text)
 	string.find(text,"%[Адвокат%]") or
 	string.find(text,"%[Таксист%]") or
 	string.find(text,"%[Грузчик%]")) and color == -2686721 then
-		if tosampfuncsjobchat.v == true then
-			sampfuncsLog(sendmessageTime.v and ('{FFD700}'..os.date('[%H:%M:%S] ')..text) or '{FFD700}'..text)
+		if elements.chat.tosampfuncsjobchat.v == true then
+			sampfuncsLog(elements.chat.sendmessageTime.v and ('{FFD700}'..os.date('[%H:%M:%S] ')..text) or '{FFD700}'..text)
 		end
-		if removejobchat.v == true then
+		if elements.chat.removejobchat.v == true then
 			return false
 		end
 	end
@@ -1622,10 +1741,10 @@ function sampev.onServerMessage(color, text)
 		string.find(text,"начал работу новый инкассатор") or
 		string.find(text,"Убив его, вы сможете получить деньги") or
 		string.find(text,"Со склада Армии") then
-		if tosampfuncs.v == true then
-			sampfuncsLog(sendmessageTime.v and (os.date('[%H:%M:%S] ')..text) or text)
+		if elements.chat.tosampfuncs.v == true then
+			sampfuncsLog(elements.chat.sendmessageTime.v and (os.date('[%H:%M:%S] ')..text) or text)
 		end
-		if removechat.v == true then
+		if elements.chat.removechat.v == true then
 			return false
 		end
 	end
@@ -1663,14 +1782,14 @@ function sampev.onServerMessage(color, text)
 		prodovoz_timer = os.time()+second
 	end
 	----------------------------------------
-	if eatenable.v == true and autoanim.v == true and text:find("скушал%(а%) пачку чипсов") and color == -1029514497 then
+	if elements.hunger.eatenable.v == true and elements.hunger.autoanim.v == true and text:find("скушал%(а%) пачку чипсов") and color == -1029514497 then
 		if text:find(string.format("%s скушал",local_name)) then
 			lua_thread.create(function()
 				setVirtualKeyDown(key.VK_RETURN, true)
 				wait(10)
 				setVirtualKeyDown(key.VK_RETURN, false)
 				wait(2000)
-				sampSendChat('/anim '..autoanimid.v)
+				sampSendChat('/anim '..elements.hunger.autoanimid.v)
 			end)
 		end
 	end
@@ -1681,13 +1800,13 @@ function sampev.onPlayerJoin(playerid, color, isNpc, nickname)
 	for i = 1, #friends do
 		if nickname == friends[i] then
 			----------------------------------------
-			table.insert(chatMessages, sendmessageTime.v and (os.date('{FF3300}[%H:%M:%S] ')..nickname..'['..playerid..'] заходит на сервер.') or '{FF3300}'..nickname..'['..playerid..'] заходит на сервер.')
+			table.insert(chatMessages, elements.chat.sendmessageTime.v and (os.date('{FF3300}[%H:%M:%S] ')..nickname..'['..playerid..'] заходит на сервер.') or '{FF3300}'..nickname..'['..playerid..'] заходит на сервер.')
 			----------------------------------------
-			if tosampfuncsconnect.v then
-				sampfuncsLog(sendmessageTime.v and (os.date('{FF3300}[%H:%M:%S] ')..nickname..'['..playerid..'] заходит на сервер.') or '{FF3300}'..nickname..'['..playerid..'] заходит на сервер.')
+			if elements.chat.tosampfuncsconnect.v then
+				sampfuncsLog(elements.chat.sendmessageTime.v and (os.date('{FF3300}[%H:%M:%S] ')..nickname..'['..playerid..'] заходит на сервер.') or '{FF3300}'..nickname..'['..playerid..'] заходит на сервер.')
 			end
 			----------------------------------------
-			if sendconnect.v then
+			if elements.chat.sendconnect.v then
 				sampAddChatMessage(nickname..'['..playerid..'] заходит на сервер.', 0xFF3300)
 			end
 			----------------------------------------
@@ -1705,13 +1824,13 @@ function sampev.onPlayerQuit(playerid, reason)
 			elseif reason == 1 then reason_s = string.format("Вышел")
 			else reason_s = string.format("Кик/Бан") end
 			----------------------------------------
-			table.insert(chatMessages, sendmessageTime.v and (os.date('{FF3300}[%H:%M:%S] ')..nickname..'['..playerid..'] выходит с сервера. Причина: '..reason_s) or '{FF3300}'..nickname..'['..playerid..'] выходит с сервера. Причина: '..reason_s)
+			table.insert(chatMessages, elements.chat.sendmessageTime.v and (os.date('{FF3300}[%H:%M:%S] ')..nickname..'['..playerid..'] выходит с сервера. Причина: '..reason_s) or '{FF3300}'..nickname..'['..playerid..'] выходит с сервера. Причина: '..reason_s)
 			----------------------------------------
-			if tosampfuncsdisconnect.v then
-				sampfuncsLog(sendmessageTime.v and (os.date('{FF3300}[%H:%M:%S] ')..nickname..'['..playerid..'] выходит с сервера. Причина: '..reason_s) or '{FF3300}'..nickname..'['..playerid..'] выходит с сервера. Причина: '..reason_s)
+			if elements.chat.tosampfuncsdisconnect.v then
+				sampfuncsLog(elements.chat.sendmessageTime.v and (os.date('{FF3300}[%H:%M:%S] ')..nickname..'['..playerid..'] выходит с сервера. Причина: '..reason_s) or '{FF3300}'..nickname..'['..playerid..'] выходит с сервера. Причина: '..reason_s)
 			end
 			----------------------------------------
-			if senddisconnect.v then
+			if elements.chat.senddisconnect.v then
 				sampAddChatMessage(nickname..'['..playerid..'] выходит с сервера. Причина: '..reason_s, 0xFF3300)
 			end
 			----------------------------------------
@@ -1777,22 +1896,22 @@ function onReceiveRpc(id, bitStream)
     if id == RPC_SCRCREATEOBJECT and sampIsLocalPlayerSpawned() then
 		local id = raknetBitStreamReadInt16(bitStream)
 		local model = raknetBitStreamReadInt32(bitStream)
-		if destroy_bucket.v == true and (model == 2404 or model == 2405 or model == 2406 or model == 2410 or model == 19601 or model == 19848) then
+		if elements.destroy.bucket.v == true and (model == 2404 or model == 2405 or model == 2406 or model == 2410 or model == 19601 or model == 19848) then
 			return false
 		end
-		if destroy_tree.v == true and model == 19076 then
+		if elements.destroy.tree.v == true and model == 19076 then
 			return false
 		end
-		if destroy_floor.v == true and model == 19128 then
+		if elements.destroy.floor.v == true and model == 19128 then
 			return false
 		end
-		if destroy_chest.v == true and (model == 19054 or model == 19055 or model == 19056 or model == 19057 or model == 19058) then
+		if elements.destroy.chest.v == true and (model == 19054 or model == 19055 or model == 19056 or model == 19057 or model == 19058) then
 			return false
 		end
-		if destroy_game.v == true and (model == 19059 or model == 19060 or model == 19061 or model == 19062 or model == 19063) then
+		if elements.destroy.game.v == true and (model == 19059 or model == 19060 or model == 19061 or model == 19062 or model == 19063) then
 			return false
 		end
-		if destroy_newyear.v == true and (model == 658 or model == 1247 or model == 1606 or model == 3038 or model == 3281 or model == 3505 or model == 3506 or
+		if elements.destroy.newyear.v == true and (model == 658 or model == 1247 or model == 1606 or model == 3038 or model == 3281 or model == 3505 or model == 3506 or
 		model == 7666 or model == 16101 or model == 16304 or model == 18864 or model == 19604 or model == 19606) then
 			return false
 		end
@@ -1807,48 +1926,81 @@ end
 function skupka()
 	lua_thread.create(function()
 		wait(100)
-		if fam_talon.v ~= 0 then
+		if elements.lavka.materials.v ~= 0 then
+			sampSendDialogResponse(3040, 1, 0, '')
+			sampSendDialogResponse(3050, 1, 1, '')
+			sampSendDialogResponse(3060, 1, 0, elements.lavka.materials.v..' '..elements.lavka.materials_price.v)
+		end
+		if elements.lavka.fam_talon.v ~= 0 then
 			sampSendDialogResponse(3040, 1, 0, '')
 			sampSendDialogResponse(3050, 1, 12, '')
-			sampSendDialogResponse(3060, 1, 0, fam_talon.v..' '..fam_talon_price.v)
+			sampSendDialogResponse(3060, 1, 0, elements.lavka.fam_talon.v..' '..elements.lavka.fam_talon_price.v)
 		end
-		if sale_talon.v ~= 0 then
+		if elements.lavka.sale_talon.v ~= 0 then
 			sampSendDialogResponse(3040, 1, 0, '')
 			sampSendDialogResponse(3050, 1, 19, '')
 			sampSendDialogResponse(3050, 1, 4, '')
-			sampSendDialogResponse(3060, 1, 0, sale_talon.v..' '..sale_talon_price.v)
+			sampSendDialogResponse(3060, 1, 0, elements.lavka.sale_talon.v..' '..elements.lavka.sale_talon_price.v)
 		end
-		if gift.v ~= 0 then
+		if elements.lavka.gift.v ~= 0 then
 			sampSendDialogResponse(3040, 1, 0, '')
 			sampSendDialogResponse(3050, 1, 19, '')
 			sampSendDialogResponse(3050, 1, 5, '')
-			sampSendDialogResponse(3060, 1, 0, gift.v..' '..gift_price.v)
+			sampSendDialogResponse(3060, 1, 0, elements.lavka.gift.v..' '..elements.lavka.gift_price.v)
 		end
-		if twinturbo_price.v ~= 0 then
+		if elements.lavka.twinturbo_price.v ~= 0 then
 			sampSendDialogResponse(3040, 1, 0, '')
 			sampSendDialogResponse(3050, 1, 19, '')
 			sampSendDialogResponse(3050, 1, 7, '')
-			sampSendDialogResponse(3060, 1, 0, twinturbo_price.v)
+			sampSendDialogResponse(3060, 1, 0, elements.lavka.twinturbo_price.v)
 		end
-		if cooper_roll.v ~= 0 then
+		if elements.lavka.cooper_roll.v ~= 0 then
 			sampSendDialogResponse(3040, 1, 0, '')
 			sampSendDialogResponse(3050, 1, 19, '')
 			sampSendDialogResponse(3050, 1, 8, '')
-			sampSendDialogResponse(3060, 1, 0, cooper_roll.v..' '..cooper_roll_price.v)
+			sampSendDialogResponse(3060, 1, 0, elements.lavka.cooper_roll.v..' '..elements.lavka.cooper_roll_price.v)
 		end
-		if silver_roll.v ~= 0 then
+		if elements.lavka.silver_roll.v ~= 0 then
 			sampSendDialogResponse(3040, 1, 0, '')
 			sampSendDialogResponse(3050, 1, 19, '')
 			sampSendDialogResponse(3050, 1, 9, '')
-			sampSendDialogResponse(3060, 1, 0, silver_roll.v..' '..silver_roll_price.v)
+			sampSendDialogResponse(3060, 1, 0, elements.lavka.silver_roll.v..' '..elements.lavka.silver_roll_price.v)
 		end
-		if gold_roll.v ~= 0 then
+		if elements.lavka.gold_roll.v ~= 0 then
 			sampSendDialogResponse(3040, 1, 0, '')
 			sampSendDialogResponse(3050, 1, 19, '')
 			sampSendDialogResponse(3050, 1, 10, '')
-			sampSendDialogResponse(3060, 1, 0, gold_roll.v..' '..gold_roll_price.v)
+			sampSendDialogResponse(3060, 1, 0, elements.lavka.gold_roll.v..' '..elements.lavka.gold_roll_price.v)
 		end
-		if euro.v ~= 0 then
+		if elements.lavka.metal.v ~= 0 then
+			sampSendDialogResponse(3040, 1, 0, '')
+			sampSendDialogResponse(3050, 1, 19, '')
+			sampSendDialogResponse(3050, 1, 20, '')
+			sampSendDialogResponse(3050, 1, 5, '')
+			sampSendDialogResponse(3060, 1, 0, elements.lavka.metal.v..' '..elements.lavka.metal_price.v)
+		end
+		if elements.lavka.bronze.v ~= 0 then
+			sampSendDialogResponse(3040, 1, 0, '')
+			sampSendDialogResponse(3050, 1, 19, '')
+			sampSendDialogResponse(3050, 1, 20, '')
+			sampSendDialogResponse(3050, 1, 6, '')
+			sampSendDialogResponse(3060, 1, 0, elements.lavka.bronze.v..' '..elements.lavka.bronze_price.v)
+		end
+		if elements.lavka.silver.v ~= 0 then
+			sampSendDialogResponse(3040, 1, 0, '')
+			sampSendDialogResponse(3050, 1, 19, '')
+			sampSendDialogResponse(3050, 1, 20, '')
+			sampSendDialogResponse(3050, 1, 7, '')
+			sampSendDialogResponse(3060, 1, 0, elements.lavka.silver.v..' '..elements.lavka.silver_price.v)
+		end
+		if elements.lavka.gold.v ~= 0 then
+			sampSendDialogResponse(3040, 1, 0, '')
+			sampSendDialogResponse(3050, 1, 19, '')
+			sampSendDialogResponse(3050, 1, 20, '')
+			sampSendDialogResponse(3050, 1, 8, '')
+			sampSendDialogResponse(3060, 1, 0, elements.lavka.gold.v..' '..elements.lavka.gold_price.v)
+		end
+		if elements.lavka.euro.v ~= 0 then
 			sampSendDialogResponse(3040, 1, 0, '')
 			sampSendDialogResponse(3050, 1, 19, '')
 			sampSendDialogResponse(3050, 1, 20, '')
@@ -1867,9 +2019,9 @@ function skupka()
 			sampSendDialogResponse(3050, 1, 20, '')
 			sampSendDialogResponse(3050, 1, 20, '')
 			sampSendDialogResponse(3050, 1, 4, '')
-			sampSendDialogResponse(3060, 1, 0, euro.v..' '..euro_price.v)
+			sampSendDialogResponse(3060, 1, 0, elements.lavka.euro.v..' '..elements.lavka.euro_price.v)
 		end
-		if gr_talon.v ~= 0 then
+		if elements.lavka.gr_talon.v ~= 0 then
 			sampSendDialogResponse(3040, 1, 0, '')
 			sampSendDialogResponse(3050, 1, 19, '')
 			sampSendDialogResponse(3050, 1, 20, '')
@@ -1890,9 +2042,32 @@ function skupka()
 			sampSendDialogResponse(3050, 1, 20, '')
 			sampSendDialogResponse(3050, 1, 20, '')
 			sampSendDialogResponse(3050, 1, 5, '')
-			sampSendDialogResponse(3060, 1, 0, gr_talon.v..' '..gr_talon_price.v)
+			sampSendDialogResponse(3060, 1, 0, elements.lavka.gr_talon.v..' '..elements.lavka.gr_talon_price.v)
 		end
-		if prison.v ~= 0 then
+		if elements.lavka.antibiotiki.v ~= 0 then
+			sampSendDialogResponse(3040, 1, 0, '')
+			sampSendDialogResponse(3050, 1, 19, '')
+			sampSendDialogResponse(3050, 1, 20, '')
+			sampSendDialogResponse(3050, 1, 20, '')
+			sampSendDialogResponse(3050, 1, 20, '')
+			sampSendDialogResponse(3050, 1, 20, '')
+			sampSendDialogResponse(3050, 1, 20, '')
+			sampSendDialogResponse(3050, 1, 20, '')
+			sampSendDialogResponse(3050, 1, 20, '')
+			sampSendDialogResponse(3050, 1, 20, '')
+			sampSendDialogResponse(3050, 1, 20, '')
+			sampSendDialogResponse(3050, 1, 20, '')
+			sampSendDialogResponse(3050, 1, 20, '')
+			sampSendDialogResponse(3050, 1, 20, '')
+			sampSendDialogResponse(3050, 1, 20, '')
+			sampSendDialogResponse(3050, 1, 20, '')
+			sampSendDialogResponse(3050, 1, 20, '')
+			sampSendDialogResponse(3050, 1, 20, '')
+			sampSendDialogResponse(3050, 1, 20, '')
+			sampSendDialogResponse(3050, 1, 6, '')
+			sampSendDialogResponse(3060, 1, 0, elements.lavka.antibiotiki.v..' '..elements.lavka.antibiotiki_price.v)
+		end
+		if elements.lavka.prison.v ~= 0 then
 			sampSendDialogResponse(3040, 1, 0, '')
 			sampSendDialogResponse(3050, 1, 19, '')
 			sampSendDialogResponse(3050, 1, 20, '')
@@ -1913,9 +2088,9 @@ function skupka()
 			sampSendDialogResponse(3050, 1, 20, '')
 			sampSendDialogResponse(3050, 1, 20, '')
 			sampSendDialogResponse(3050, 1, 7, '')
-			sampSendDialogResponse(3060, 1, 0, prison.v..' '..prison_price.v)
+			sampSendDialogResponse(3060, 1, 0, elements.lavka.prison.v..' '..elements.lavka.prison_price.v)
 		end
-		if toch_stone.v ~= 0 then
+		if elements.lavka.toch_stone.v ~= 0 then
 			sampSendDialogResponse(3040, 1, 0, '')
 			sampSendDialogResponse(3050, 1, 19, '')
 			sampSendDialogResponse(3050, 1, 20, '')
@@ -1937,7 +2112,7 @@ function skupka()
 			sampSendDialogResponse(3050, 1, 20, '')
 			sampSendDialogResponse(3050, 1, 20, '')
 			sampSendDialogResponse(3050, 1, 18, '')
-			sampSendDialogResponse(3060, 1, 0, toch_stone.v..' '..toch_stone_price.v)
+			sampSendDialogResponse(3060, 1, 0, elements.lavka.toch_stone.v..' '..elements.lavka.toch_stone_price.v)
 		end
 	end)
 end
