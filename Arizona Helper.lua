@@ -1,8 +1,8 @@
 script_name("Arizona Helper")
-script_version('2.8')
+script_version('2.9')
 script_author("metk1u")
 
-local script_vers = 10
+local script_vers = 11
 
 --local mynick, myid = text:match("(%w+_%w+)%[(%d+)%] начал следить за %w+_%w+%[%d+%]")
 
@@ -217,7 +217,6 @@ local textklad =
 	["Red-Rock?"] = "3",
 	["Напишите Nick_Name главного администратора 3-го сервера"] = "Xavier_Cooper"
 };
-
 local tCarsName = 
 {
 	"Landstalker","Bravura","Buffalo","Linerunner","Pereniel","Sentinel","Dumper","Firetruck","Trashmaster","Stretch","Manana","Infernus",
@@ -238,7 +237,19 @@ local tCarsName =
 	"Police Car (LVPD)","Police Ranger","Picador","S.W.A.T.","Alpha","Phoenix","Glendale","Sadler","L Trailer A","L Trailer B",
 	"Stair Trailer","Boxville","Farm Plow","U Trailer"
 }
+----------------------------------------
+local _message = {}
 
+function push_message(text, del)
+	del = del or 5
+	_message[#_message+1] =
+	{
+		active = false,
+		time = 0,
+		showtime = del,
+		text = text
+	}
+end
 ----------------------------------------
 local imgui = require('imgui')
 local encoding = require("encoding")
@@ -300,7 +311,8 @@ local friends =
 	"Jack_Seleznev",
 	"Alexey_Agesilay",
 	"Donny_Agesilay",
-	"Vartan_Germun"
+	"Vartan_Germun",
+	"Nastya_Berezovsky"
 };
 ----------------------------------------
 local file = 'settings.ini'
@@ -328,22 +340,21 @@ local mainIni = inicfg.load(
 	chat =
 	{
 		renderChat = false,
-		sendmessageTime = true,
 		chatlog = true,
 		
+		renderchatbuy = true,
 		removechatbuy = false,
-		removechat = true,
-		
 		tosampfuncsbuy = true,
-		tosampfuncs = true,
+		
+		removechatspam = true,
+		tosampfuncsspam = true,
 		
 		sendconnect = true,
 		senddisconnect = true,
-		
 		tosampfuncsconnect = true,
 		tosampfuncsdisconnect = true,
 		
-		vipchat = false,
+		rendervipchat = false,
 		tosampfuncsvipchat = true,
 		removevipchat = true,
 		
@@ -434,22 +445,21 @@ local elements =
 	chat =
 	{
 		renderChat = imgui.ImBool(mainIni.chat.renderChat),
-		sendmessageTime = imgui.ImBool(mainIni.chat.sendmessageTime),
 		chatlog = imgui.ImBool(mainIni.chat.chatlog),
 
+		renderchatbuy = imgui.ImBool(mainIni.chat.renderchatbuy),
 		removechatbuy = imgui.ImBool(mainIni.chat.removechatbuy),
-		removechat = imgui.ImBool(mainIni.chat.removechat),
-
 		tosampfuncsbuy = imgui.ImBool(mainIni.chat.tosampfuncsbuy),
-		tosampfuncs = imgui.ImBool(mainIni.chat.tosampfuncs),
+		
+		removechatspam = imgui.ImBool(mainIni.chat.removechatspam),
+		tosampfuncsspam = imgui.ImBool(mainIni.chat.tosampfuncsspam),
 
 		sendconnect = imgui.ImBool(mainIni.chat.sendconnect),
 		senddisconnect = imgui.ImBool(mainIni.chat.senddisconnect),
-
 		tosampfuncsconnect = imgui.ImBool(mainIni.chat.tosampfuncsconnect),
 		tosampfuncsdisconnect = imgui.ImBool(mainIni.chat.tosampfuncsdisconnect),
 
-		vipchat = imgui.ImBool(mainIni.chat.vipchat),
+		rendervipchat = imgui.ImBool(mainIni.chat.rendervipchat),
 		tosampfuncsvipchat = imgui.ImBool(mainIni.chat.tosampfuncsvipchat),
 		removevipchat = imgui.ImBool(mainIni.chat.removevipchat),
 
@@ -528,6 +538,7 @@ function main()
 	while not isSampAvailable() do wait(0) end
 	if not doesDirectoryExist("moonloader\\logs") then createDirectory("moonloader\\logs") end
 	sampAddChatMessage('[{E3BE88}'..thisScript().name..' '..thisScript().version..'{FFFFFF}] {299800}Загружен{FFFFFF}. Настройки: /chat.', 0xFFFFFF)
+	push_message(thisScript().name..' загружен.')
 	----------------------------------------
 	downloadUrlToFile(update_url, update_path, function(id, status)
 		if status == dlstatus.STATUS_ENDDOWNLOADDATA then
@@ -536,6 +547,7 @@ function main()
 				if tonumber(updateIni.info.vers) > script_vers then
 					update_status = true
 					sampAddChatMessage('[{E3BE88}'..thisScript().name..'{FFFFFF}] Доступно обновление до версии '..updateIni.info.vers_text..'.', 0xFFFFFF)
+					push_message('Доступно обновление!')
 				end
 				os.remove(update_path)
 			end
@@ -553,30 +565,33 @@ function main()
 		ip, port = sampGetCurrentServerAddress()
 		sampDisconnectWithReason(false)
 		sampConnectToServer(ip, port)
+		push_message('Перезахожу...')
 	end)
 	----------------------------------------
 	sampRegisterChatCommand("rr",report)
 	----------------------------------------
 	sampRegisterChatCommand('piss',function()
 		sampSetSpecialAction(68)
+		push_message('Сикаю :3')
 	end)
 	----------------------------------------
 	sampRegisterChatCommand("buyvk",function()
 		buyvk_state = not buyvk_state
 		mechanic_state = false
 		mechanic_count = 0
-		printString("~w~AUTO ENTER "..(buyvk_state and "~g~ENABLE" or "~r~DISABLE"),3000)
+		push_message((buyvk_state and "Включаю" or "Выключаю")..' покупку VK-Coins.')
 	end)
 	----------------------------------------
 	sampRegisterChatCommand("mechanic",function()
 		mechanic_state = not mechanic_state
 		mechanic_count = 0
 		buyvk_state = false
-		printString("~w~AUTO ALT "..(mechanic_state and "~g~ENABLE" or "~r~DISABLE"),3000)
+		push_message((mechanic_state and "Включаю" or "Выключаю")..' помощника для механика.')
 	end)
 	----------------------------------------
 	sampRegisterChatCommand("nicks",function()
 		players_state = not players_state
+		push_message((players_state and "Включаю" or "Выключаю")..' поиск игроков в зоне стрима.')
 	end)
 	----------------------------------------
 	sampRegisterChatCommand('finds',function(playerid)
@@ -585,16 +600,19 @@ function main()
 			if players_state_finds ~= 65535 then
 				players_state_finds = 65535
 				printString('~r~Find disable',2000)
+				push_message('Выключаю поиск игрока.')
 			end
 		else
 			if sampIsPlayerConnected(playerid) then
 				if players_state_finds == playerid then
 					players_state_finds = 65535
 					printString('~r~Find disable',2000)
+					push_message('Выключаю поиск игрока.')
 				else
 					sampSendChat("/id "..playerid)
 					players_state_finds = playerid
 					printString('~g~Find enable',2000)
+					push_message('Поиск ID:'..players_state_finds..' активирован.')
 				end
 			else
 				sampAddChatMessage('{FF3300}x{AFAFAF} Игрок не в игре.',0xAFAFAF)
@@ -604,18 +622,22 @@ function main()
 	----------------------------------------
 	sampRegisterChatCommand("trash",function()
 		trasher_state = not trasher_state
+		push_message((trasher_state and "Включаю" or "Выключаю")..' поиск мусорок в зоне стрима.')
 	end)
 	----------------------------------------
 	sampRegisterChatCommand("olen",function()
 		olen_state = not olen_state
+		push_message((olen_state and "Включаю" or "Выключаю")..' поиск оленей в зоне стрима.')
 	end)
 	----------------------------------------
 	sampRegisterChatCommand("waxta",function()
 		waxta_state = not waxta_state
+		push_message((waxta_state and "Включаю" or "Выключаю")..' поиск руды в зоне стрима.')
 	end)
 	----------------------------------------
 	sampRegisterChatCommand("klad",function()
 		klad_state = not klad_state
+		push_message((klad_state and "Включаю" or "Выключаю")..' поиск кладов в зоне стрима.')
 		printString('',0)
 	end)
 	----------------------------------------
@@ -648,6 +670,7 @@ function main()
 		else
 			printString('~r~loot disable',3000)
 		end
+		push_message((loot_state and "Включаю" or "Выключаю")..' пылесос.')
 	end)
 	----------------------------------------
 	for i = 0, sampGetMaxPlayerId(true) do
@@ -656,10 +679,10 @@ function main()
 			for id = 1, #friends do
 				if nickname == friends[id] then
 					----------------------------------------
-					table.insert(chatMessages, elements.chat.sendmessageTime.v and (os.date('{FF3300}[%H:%M:%S] Игрок ')..nickname..'['..i..'] находится на сервере.') or '{FF3300}Игрок '..nickname..'['..i..'] находится на сервере.')
+					table.insert(chatMessages, '{FF3300}'..os.date('[%H:%M:%S] ')..nickname..'['..i..'] находится на сервере.')
 					----------------------------------------
 					if elements.chat.tosampfuncsconnect.v then
-						sampfuncsLog(elements.chat.sendmessageTime.v and (os.date('{FF3300}[%H:%M:%S] Игрок ')..nickname..'['..i..'] находится на сервере.') or '{FF3300}Игрок '..nickname..'['..i..'] находится на сервере.')
+						sampfuncsLog('{FF3300}'..os.date('[%H:%M:%S] ')..nickname..'['..i..'] находится на сервере.')
 					end
 					----------------------------------------
 					if elements.chat.sendconnect.v then
@@ -678,24 +701,28 @@ function main()
 				downloadUrlToFile(script_url, script_path, function(id, status)
 					if status == dlstatus.STATUS_ENDDOWNLOADDATA then
 						sampAddChatMessage('[{E3BE88}'..thisScript().name..'{FFFFFF}] Мы успешно обновились до версии '..thisScript().version..'.', 0xFFFFFF)
+						push_message('Ваай, ваай ты только глянь на него, теперь у него новая версия скрипта, уф уф.')
 						thisScript():reload()
 					end
 				end)
 				break
 			end
 			----------------------------------------
-			imgui.Process = windowstate.v
+			--imgui.Process = windowstate.v
+			imgui.Process = true
 			imgui.ShowCursor = windowstate.v
 			if elements.chat.renderChat.v then
 				local POSITION_X, POSITION_Y
 				if POSITION_SET then
 					POSITION_X, POSITION_Y = getCursorPos()
 					if isKeyJustPressed(0x01) then
-						mainIni.config.posRenderX, mainIni.config.posRenderY = POSITION_X, POSITION_Y
+						mainIni.config.posRenderX = POSITION_X
+						mainIni.config.posRenderY = POSITION_Y
 						POSITION_SET = false
 					end
 				else 
-					POSITION_X, POSITION_Y = mainIni.config.posRenderX, mainIni.config.posRenderY
+					POSITION_X = mainIni.config.posRenderX
+					POSITION_Y = mainIni.config.posRenderY
 				end
 				local heightChatRender = POSITION_Y
 				for i = 0, elements.config.stringsCount.v -1  do
@@ -743,7 +770,7 @@ function main()
 				else
 					mechanic_state = not mechanic_state
 					mechanic_count = 0
-					printString("~w~AUTO ALT "..(mechanic_state and "~g~ENABLE" or "~r~DISABLE"),3000)
+					push_message((mechanic_state and "Включаю" or "Выключаю")..' помощника для механика.')
 				end
 			end
 			----------------------------------------
@@ -782,6 +809,12 @@ function main()
 							if color == 368966908 then
 								color = -1
 							end
+							if color == 2158524536 then
+								color = 0xFF705151
+							end
+							if color == 2566951719 then
+								color = 0xFF01691C
+							end
 							afk = ""
 							if sampIsPlayerPaused(i) then
 								afk = "{FF3300}(AFK)"
@@ -812,6 +845,12 @@ function main()
 						color = sampGetPlayerColor(players_state_finds)
 						if color == 368966908 then
 							color = -1
+						end
+						if color == 2158524536 then
+							color = 0xFF705151
+						end
+						if color == 2566951719 then
+							color = 0xFF01691C
 						end
 						afk = ""
 						if sampIsPlayerPaused(players_state_finds) then
@@ -1029,6 +1068,7 @@ function main()
 							model ~= 420 and -- Taxi
 							model ~= 427 and -- Police Enforcer
 							model ~= 428 and -- Securicar
+							model ~= 437 and -- Coach (Автобус)
 							model ~= 438 and -- Cabbie Taxi
 							model ~= 456 and -- Yankee
 							model ~= 525 and -- Towtruck
@@ -1181,17 +1221,17 @@ function saveini()
 		chat =
 		{
 			renderChat = elements.chat.renderChat.v,
-			sendmessageTime = elements.chat.sendmessageTime.v,
 			chatlog = elements.chat.chatlog.v,
+			renderchatbuy = elements.chat.renderchatbuy.v,
 			removechatbuy = elements.chat.removechatbuy.v,
-			removechat = elements.chat.removechat.v,
 			tosampfuncsbuy = elements.chat.tosampfuncsbuy.v,
-			tosampfuncs = elements.chat.tosampfuncs.v,
+			removechatspam = elements.chat.removechatspam.v,
+			tosampfuncsspam = elements.chat.tosampfuncsspam.v,
 			sendconnect = elements.chat.sendconnect.v,
 			senddisconnect = elements.chat.senddisconnect.v,
 			tosampfuncsconnect = elements.chat.tosampfuncsconnect.v,
 			tosampfuncsdisconnect = elements.chat.tosampfuncsdisconnect.v,
-			vipchat = elements.chat.vipchat.v,
+			rendervipchat = elements.chat.rendervipchat.v,
 			tosampfuncsvipchat = elements.chat.tosampfuncsvipchat.v,
 			removevipchat = elements.chat.removevipchat.v,
 			tosampfuncsjobchat = elements.chat.tosampfuncsjobchat.v,
@@ -1258,6 +1298,7 @@ function saveini()
 end
 
 function imgui.OnDrawFrame()
+	onRenderNotification()
 	local sw,sh = getScreenResolution()
 	if windowstate.v and not POSITION_SET then
 		----------------------------------------
@@ -1269,12 +1310,14 @@ function imgui.OnDrawFrame()
 		if imgui.Button(u8('Сохранить настройки'),imgui.ImVec2(170,20)) then
 			saveini()
 			sampAddChatMessage('[{E3BE88}'..thisScript().name..' '..thisScript().version..'{FFFFFF}] Настройки успешно сохранены.', 0xFFFFFF)
+			push_message('Настройки сохранены!')
 		end
 		imgui.SameLine()
 		----------------------------------------
 		if imgui.Button(u8('Очистить чат'),imgui.ImVec2(170,20)) then
 			chatMessages = {}
 			sampAddChatMessage('[{E3BE88}'..thisScript().name..' '..thisScript().version..'{FFFFFF}] Чат успешно очищен.', 0xFFFFFF)
+			push_message('Чат очищен!')
 		end
 		----------------------------------------
 		if imgui.Button(u8('Перезагрузить скрипт'),imgui.ImVec2(170,20)) then
@@ -1347,17 +1390,13 @@ function imgui.OnDrawFrame()
 		imgui.SameLine()
 		imgui.BeginGroup()
 		----------------------------------------
-		imgui.Checkbox(u8('Включить время отправки'),elements.chat.sendmessageTime)
-		----------------------------------------
-		imgui.SameLine()
-		imgui.TextQuestion(u8'В лог будет писать \'[23.59.00] текст\' (как /timestamp)')
-		----------------------------------------
 		imgui.Checkbox(u8('Включить чатлог'),elements.chat.chatlog)
 		----------------------------------------
 		imgui.Checkbox(u8('Включить время в левом нижнем углу'),elements.config.renderTime)
 		----------------------------------------
 		if imgui.CollapsingHeader(u8'Сообщения о покупке') then
 			imgui.Separator()
+			imgui.Checkbox(u8('Рендер сообщений о покупке'),elements.chat.renderchatbuy)
 			imgui.Checkbox(u8('Отключить в чате сообщения о покупке'),elements.chat.removechatbuy)
 			imgui.Checkbox(u8('Выводить сообщения о покупке в консоль SAMPFUNCS (~)'),elements.chat.tosampfuncsbuy)
 			imgui.Separator()
@@ -1365,12 +1404,12 @@ function imgui.OnDrawFrame()
 		----------------------------------------
 		if imgui.CollapsingHeader(u8'SPAM сообщения') then
 			imgui.Separator()
-			imgui.Checkbox(u8('Отключить в чате SPAM сообщения'),elements.chat.removechat)
+			imgui.Checkbox(u8('Отключить в чате SPAM сообщения'),elements.chat.removechatspam)
 			----------------------------------------
 			imgui.SameLine()
 			imgui.TextQuestion(u8'1. Удаляет рекламу от сервера.\n2. Удаляет репортажи СМИ (Гость, Репортёр).\n3. Удаляет сообщения News.\n4. Удаляет сообщения /d чата.\n5. Удаляет сообщение \'Недостаточно VKoin\'.\n6. Удаляет сообщения в бандах об инкассаторах.')
 			----------------------------------------
-			imgui.Checkbox(u8('Выводить SPAM сообщения в консоль SAMPFUNCS (~)'),elements.chat.tosampfuncs)
+			imgui.Checkbox(u8('Выводить SPAM сообщения в консоль SAMPFUNCS (~)'),elements.chat.tosampfuncsspam)
 			imgui.Separator()
 		end
 		----------------------------------------
@@ -1385,7 +1424,7 @@ function imgui.OnDrawFrame()
 		----------------------------------------
 		if imgui.CollapsingHeader(u8'Настройки VIP чата') then
 			imgui.Separator()
-			imgui.Checkbox(u8('Рендер вип чата'),elements.chat.vipchat)
+			imgui.Checkbox(u8('Рендер вип чата'),elements.chat.rendervipchat)
 			imgui.Checkbox(u8('Выводить вип чат в консоль SAMPFUNCS (~)'),elements.chat.tosampfuncsvipchat)
 			imgui.Checkbox(u8('Отключить вип чат'),elements.chat.removevipchat)
 			imgui.Separator()
@@ -1665,10 +1704,13 @@ function sampev.onDisplayGameText(style, time, text)
 		end
 	end
 	----------------------------------------
-	if elements.hunger.eatenable.v == true and (text:find('You are hungry!') or text:find('You are very hungry!')) then
-		sampSendChat('/cheeps')
+	if text:find('You are hungry!') or text:find('You are very hungry!') then
+		if elements.hunger.eatenable.v == true then
+			sampSendChat('/cheeps')
+		else
+			return false
+		end
 	end
-	----------------------------------------
 end
 
 --function sampev.onShowDialog(dialogId, style, title, button1, button2, text)
@@ -1689,9 +1731,11 @@ function sampev.onServerMessage(color, text)
 	end
 	----------------------------------------
 	if string.find(text,"купил у вас") then
-		table.insert(chatMessages, elements.chat.sendmessageTime.v and ('{FDDB6D}'..os.date('[%H:%M:%S] ')..text) or '{FDDB6D}'..text)
+		if elements.chat.renderchatbuy.v == true then
+			table.insert(chatMessages, '{FDDB6D}'..os.date('[%H:%M:%S] ')..text)
+		end
 		if elements.chat.tosampfuncsbuy.v == true then
-			sampfuncsLog(elements.chat.sendmessageTime.v and ('{FDDB6D}'..os.date('[%H:%M:%S] ')..text) or '{FDDB6D}'..text)
+			sampfuncsLog('{FDDB6D}'..os.date('[%H:%M:%S] ')..text)
 		end
 		if elements.chat.removechatbuy.v == true then
 			return false
@@ -1699,11 +1743,11 @@ function sampev.onServerMessage(color, text)
 	end
 	----------------------------------------
 	if string.find(text,"%[PREMIUM%]") or string.find(text,"%[VIP%]") or string.find(text,"%[ADMIN%]") then
-		if elements.chat.vipchat.v == true then
-			table.insert(chatMessages, elements.chat.sendmessageTime.v and ('{FFFFFF}'..os.date('[%H:%M:%S] ')..text) or '{FFFFFF}'..text)
+		if elements.chat.rendervipchat.v == true then
+			table.insert(chatMessages, '{FFFFFF}'..os.date('[%H:%M:%S] ')..text)
 		end
 		if elements.chat.tosampfuncsvipchat.v == true then
-			sampfuncsLog(elements.chat.sendmessageTime.v and ('{FFFFFF}'..os.date('[%H:%M:%S] ')..text) or '{FFFFFF}'..text)
+			sampfuncsLog('{FFFFFF}'..os.date('[%H:%M:%S] ')..text)
 		end
 		if elements.chat.removevipchat.v == true then
 			return false
@@ -1716,7 +1760,7 @@ function sampev.onServerMessage(color, text)
 	string.find(text,"%[Таксист%]") or
 	string.find(text,"%[Грузчик%]")) and color == -2686721 then
 		if elements.chat.tosampfuncsjobchat.v == true then
-			sampfuncsLog(elements.chat.sendmessageTime.v and ('{FFD700}'..os.date('[%H:%M:%S] ')..text) or '{FFD700}'..text)
+			sampfuncsLog('{FFD700}'..os.date('[%H:%M:%S] ')..text)
 		end
 		if elements.chat.removejobchat.v == true then
 			return false
@@ -1741,10 +1785,10 @@ function sampev.onServerMessage(color, text)
 		string.find(text,"начал работу новый инкассатор") or
 		string.find(text,"Убив его, вы сможете получить деньги") or
 		string.find(text,"Со склада Армии") then
-		if elements.chat.tosampfuncs.v == true then
-			sampfuncsLog(elements.chat.sendmessageTime.v and (os.date('[%H:%M:%S] ')..text) or text)
+		if elements.chat.tosampfuncsspam.v == true then
+			sampfuncsLog(os.date('[%H:%M:%S] ')..text)
 		end
-		if elements.chat.removechat.v == true then
+		if elements.chat.removechatspam.v == true then
 			return false
 		end
 	end
@@ -1800,10 +1844,10 @@ function sampev.onPlayerJoin(playerid, color, isNpc, nickname)
 	for i = 1, #friends do
 		if nickname == friends[i] then
 			----------------------------------------
-			table.insert(chatMessages, elements.chat.sendmessageTime.v and (os.date('{FF3300}[%H:%M:%S] ')..nickname..'['..playerid..'] заходит на сервер.') or '{FF3300}'..nickname..'['..playerid..'] заходит на сервер.')
+			table.insert(chatMessages, '{FF3300}'..os.date('[%H:%M:%S] ')..nickname..'['..playerid..'] заходит на сервер.')
 			----------------------------------------
 			if elements.chat.tosampfuncsconnect.v then
-				sampfuncsLog(elements.chat.sendmessageTime.v and (os.date('{FF3300}[%H:%M:%S] ')..nickname..'['..playerid..'] заходит на сервер.') or '{FF3300}'..nickname..'['..playerid..'] заходит на сервер.')
+				sampfuncsLog('{FF3300}'..os.date('[%H:%M:%S] ')..nickname..'['..playerid..'] заходит на сервер.')
 			end
 			----------------------------------------
 			if elements.chat.sendconnect.v then
@@ -1824,10 +1868,10 @@ function sampev.onPlayerQuit(playerid, reason)
 			elseif reason == 1 then reason_s = string.format("Вышел")
 			else reason_s = string.format("Кик/Бан") end
 			----------------------------------------
-			table.insert(chatMessages, elements.chat.sendmessageTime.v and (os.date('{FF3300}[%H:%M:%S] ')..nickname..'['..playerid..'] выходит с сервера. Причина: '..reason_s) or '{FF3300}'..nickname..'['..playerid..'] выходит с сервера. Причина: '..reason_s)
+			table.insert(chatMessages, '{FF3300}'..os.date('[%H:%M:%S] ')..nickname..'['..playerid..'] выходит с сервера. Причина: '..reason_s)
 			----------------------------------------
 			if elements.chat.tosampfuncsdisconnect.v then
-				sampfuncsLog(elements.chat.sendmessageTime.v and (os.date('{FF3300}[%H:%M:%S] ')..nickname..'['..playerid..'] выходит с сервера. Причина: '..reason_s) or '{FF3300}'..nickname..'['..playerid..'] выходит с сервера. Причина: '..reason_s)
+				sampfuncsLog('{FF3300}'..os.date('[%H:%M:%S] ')..nickname..'['..playerid..'] выходит с сервера. Причина: '..reason_s)
 			end
 			----------------------------------------
 			if elements.chat.senddisconnect.v then
@@ -1839,7 +1883,7 @@ function sampev.onPlayerQuit(playerid, reason)
 	----------------------------------------
 	if playerid == players_state_finds then
 		players_state_finds = 65535
-		printString('~r~Find disable player disconnect',3000)
+		push_message('Выключаю поиск игрока (disconnect).')
 	end
 	----------------------------------------
 end
@@ -1880,6 +1924,10 @@ function sampev.onVehicleStreamIn()
 	if del_stream == true then
 		return false
 	end
+end
+
+function sampev.onPlayerDeathNotification(killerid, killedid, reason)
+	return false
 end
 
 function getCarName(vehicleId)
@@ -2122,6 +2170,65 @@ function onScriptTerminate(LuaScript, slot1)
 		showCursor(false)
 		sampAddChatMessage('[{E3BE88}'..thisScript().name..' '..thisScript().version..'{FFFFFF}] Скрипт выключается =(', 0xFFFFFF)
 	end
+end
+
+local list = {}
+function list:new()
+	return 
+	{
+		pos =
+		{
+			x = select(1,getScreenResolution()) - 222,
+			y = select(2,getScreenResolution()) - 65
+		},
+		size =
+		{
+			x = 200,
+			y = 0
+		}
+	}
+end
+notfList = list:new()
+
+function onRenderNotification()
+	local count = 0
+	for k, v in ipairs(_message) do
+		local push = false
+		if v.active and v.time < os.clock() then
+			v.active = false
+			table.remove(_message, k)
+		end
+		if count < 10 then
+			if not v.active then
+				if v.showtime > 0 then
+					v.active = true
+					v.time = os.clock() + v.showtime
+					v.showtime = 0
+				end
+			end
+			if v.active then
+				count = count + 1
+				if v.time + 3.000 >= os.clock() then
+					imgui.PushStyleVar(imgui.StyleVar.Alpha, (v.time - os.clock()) / 0.3)
+					push = true
+				end
+				local nText = u8(tostring(v.text))
+				notfList.size = imgui.GetFont():CalcTextSizeA(imgui.GetFont().FontSize, 200.0, 196.0, nText)
+				notfList.pos = imgui.ImVec2(notfList.pos.x, (notfList.pos.y - (count == 1 and notfList.size.y or (notfList.size.y + 40))))
+				imgui.SetNextWindowPos(notfList.pos, _, imgui.ImVec2(0.0, 0.0))
+				imgui.SetNextWindowSize(imgui.ImVec2(200, notfList.size.y + imgui.GetStyle().ItemSpacing.y + imgui.GetStyle().WindowPadding.y+25))
+				imgui.Begin(u8'##msg' .. k, _, imgui.WindowFlags.NoCollapse + imgui.WindowFlags.NoResize + imgui.WindowFlags.NoScrollbar + imgui.WindowFlags.NoMove + imgui.WindowFlags.NoTitleBar)
+				imgui.CenterText(thisScript().name)
+				imgui.Separator()
+				imgui.TextWrapped(nText)
+				imgui.End()
+				if push then
+					imgui.PopStyleVar()
+				end
+			end
+		end
+	end
+	notfList = list:new()
 end
 
 function imgui.TextQuestion(text)
