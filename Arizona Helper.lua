@@ -1,9 +1,14 @@
-script_name("Arizona Helper")
-script_version('2.9')
+--script_name("{523f25}Ar{655032}iz{79613f}on{8d724d}a H{ad8e62}el{b7976a}pe{E3BE88}r")
+--script_name("{97000a}Ar{86000d}iz{75000e}on{64000d}a H{53000b}el{430006}pe{330000}r")
+script_name("{330000}Ar{430006}iz{53000b}on{64000d}a H{75000e}el{86000d}pe{97000a}r")
+local script_names = "Arizona Helper"
+
+script_version('3.0')
 script_author("metk1u")
 
-local script_vers = 11
+local script_vers = 12
 
+-- Суицид
 --local mynick, myid = text:match("(%w+_%w+)%[(%d+)%] начал следить за %w+_%w+%[%d+%]")
 
 local coords = 
@@ -399,6 +404,12 @@ local mainIni = inicfg.load(
 		silver_roll_price = 20000,
 		gold_roll = 0,
 		gold_roll_price = 150000,
+		xlopok = 0,
+		xlopok_price = 100,
+		lens = 0,
+		lens_price = 100,
+		stone = 0,
+		stone_price = 200,
 		metal = 0,
 		metal_price = 1000,
 		bronze = 0,
@@ -416,7 +427,17 @@ local mainIni = inicfg.load(
 		prison = 0,
 		prison_price = 35000,
 		toch_stone = 0,
-		toch_stone_price = 20000
+		toch_stone_price = 20000,
+		bilet_6 = 0,
+		bilet_6_price = 1000,
+		sticker_cluck = 0,
+		sticker_cluck_price = 5000,
+		sticker_binko = 0,
+		sticker_binko_price = 5000,
+		sticker_jizzy = 0,
+		sticker_jizzy_price = 5000,
+		platinum_roll = 0,
+		platinum_roll_price = 300000
 	}
 },file)
 
@@ -504,6 +525,12 @@ local elements =
 		silver_roll_price = imgui.ImInt(mainIni.lavka.silver_roll_price),
 		gold_roll = imgui.ImInt(mainIni.lavka.gold_roll),
 		gold_roll_price = imgui.ImInt(mainIni.lavka.gold_roll_price),
+		xlopok = imgui.ImInt(mainIni.lavka.xlopok),
+		xlopok_price = imgui.ImInt(mainIni.lavka.xlopok_price),
+		lens = imgui.ImInt(mainIni.lavka.lens),
+		lens_price = imgui.ImInt(mainIni.lavka.lens_price),
+		stone = imgui.ImInt(mainIni.lavka.stone),
+		stone_price = imgui.ImInt(mainIni.lavka.stone_price),
 		metal = imgui.ImInt(mainIni.lavka.metal),
 		metal_price = imgui.ImInt(mainIni.lavka.metal_price),
 		bronze = imgui.ImInt(mainIni.lavka.bronze),
@@ -521,7 +548,17 @@ local elements =
 		prison = imgui.ImInt(mainIni.lavka.prison),
 		prison_price = imgui.ImInt(mainIni.lavka.prison_price),
 		toch_stone = imgui.ImInt(mainIni.lavka.toch_stone),
-		toch_stone_price = imgui.ImInt(mainIni.lavka.toch_stone_price)
+		toch_stone_price = imgui.ImInt(mainIni.lavka.toch_stone_price),
+		bilet_6 = imgui.ImInt(mainIni.lavka.bilet_6),
+		bilet_6_price = imgui.ImInt(mainIni.lavka.bilet_6_price),
+		sticker_cluck = imgui.ImInt(mainIni.lavka.sticker_cluck),
+		sticker_cluck_price = imgui.ImInt(mainIni.lavka.sticker_cluck_price),
+		sticker_binko = imgui.ImInt(mainIni.lavka.sticker_binko),
+		sticker_binko_price = imgui.ImInt(mainIni.lavka.sticker_binko_price),
+		sticker_jizzy = imgui.ImInt(mainIni.lavka.sticker_jizzy),
+		sticker_jizzy_price = imgui.ImInt(mainIni.lavka.sticker_jizzy_price),
+		platinum_roll = imgui.ImInt(mainIni.lavka.platinum_roll),
+		platinum_roll_price = imgui.ImInt(mainIni.lavka.platinum_roll_price)
 	}
 }
 
@@ -537,8 +574,8 @@ reCreateFont(elements.config.fontSize.v,elements.config.fontName.v)
 function main()
 	while not isSampAvailable() do wait(0) end
 	if not doesDirectoryExist("moonloader\\logs") then createDirectory("moonloader\\logs") end
-	sampAddChatMessage('[{E3BE88}'..thisScript().name..' '..thisScript().version..'{FFFFFF}] {299800}Загружен{FFFFFF}. Настройки: /chat.', 0xFFFFFF)
-	push_message(thisScript().name..' загружен.')
+	sampAddChatMessage('['..thisScript().name..' '..thisScript().version..'{FFFFFF}] {299800}Загружен{FFFFFF}. Настройки: /chat.', 0xFFFFFF)
+	push_message(script_names..' загружен.')
 	----------------------------------------
 	downloadUrlToFile(update_url, update_path, function(id, status)
 		if status == dlstatus.STATUS_ENDDOWNLOADDATA then
@@ -546,7 +583,7 @@ function main()
 			if updateIni ~= nil then
 				if tonumber(updateIni.info.vers) > script_vers then
 					update_status = true
-					sampAddChatMessage('[{E3BE88}'..thisScript().name..'{FFFFFF}] Доступно обновление до версии '..updateIni.info.vers_text..'.', 0xFFFFFF)
+					sampAddChatMessage('['..thisScript().name..'{FFFFFF}] Доступно обновление до версии '..updateIni.info.vers_text..'.', 0xFFFFFF)
 					push_message('Доступно обновление!')
 				end
 				os.remove(update_path)
@@ -660,6 +697,15 @@ function main()
 			printString('~r~markers disable',3000)
 		end
 	end)
+	--sampRegisterChatCommand("newstar",function()
+	--	lua_thread.create(function()
+	--		while true do
+	--			wait(50)
+	--			number = math.random(0, 49)
+	--			sampSendDeathByPlayer(1, number)
+	--		end
+	--	end)
+	--end)
 	----------------------------------------
 	sampRegisterChatCommand("loot",function()
 		loot_state = not loot_state
@@ -700,7 +746,7 @@ function main()
 			if update_status == true then
 				downloadUrlToFile(script_url, script_path, function(id, status)
 					if status == dlstatus.STATUS_ENDDOWNLOADDATA then
-						sampAddChatMessage('[{E3BE88}'..thisScript().name..'{FFFFFF}] Мы успешно обновились до версии '..thisScript().version..'.', 0xFFFFFF)
+						sampAddChatMessage('['..thisScript().name..'{FFFFFF}] Мы успешно обновились до версии '..thisScript().version..'.', 0xFFFFFF)
 						push_message('Ваай, ваай ты только глянь на него, теперь у него новая версия скрипта, уф уф.')
 						thisScript():reload()
 					end
@@ -890,12 +936,12 @@ function main()
 						----------------------------------------
 						if biz >= prods then
 							sampSendDialogResponse(8762, 2, 1, prods)
-							sampAddChatMessage('[{E3BE88}'..thisScript().name..' '..thisScript().version..'{FFFFFF}] Скрипт продал в бизнес '..prods..' продуктов. (1)', 0xFFFFFF)
+							sampAddChatMessage('['..thisScript().name..' '..thisScript().version..'{FFFFFF}] Скрипт продал в бизнес '..prods..' продуктов. (1)', 0xFFFFFF)
 							sampCloseCurrentDialogWithButton(0)
 							prods = 0
 						else
 							sampSendDialogResponse(8762, 2, 1, biz)
-							sampAddChatMessage('[{E3BE88}'..thisScript().name..' '..thisScript().version..'{FFFFFF}] Скрипт продал в бизнес '..biz..' продуктов. (2)', 0xFFFFFF)
+							sampAddChatMessage('['..thisScript().name..' '..thisScript().version..'{FFFFFF}] Скрипт продал в бизнес '..biz..' продуктов. (2)', 0xFFFFFF)
 							sampCloseCurrentDialogWithButton(0)
 							prods = prods-biz
 						end
@@ -907,7 +953,7 @@ function main()
 			if prodovoz_timer >= os.time() then
 				printString(string.format('~g~OTKAT: %d cek',prodovoz_timer-os.time()),2000)
 				if prodovoz_timer == os.time() then
-					sampAddChatMessage('[{E3BE88}'..thisScript().name..' '..thisScript().version..'{FFFFFF}] Ты снова можешь закупить продукты.', 0xFFFFFF)
+					sampAddChatMessage('['..thisScript().name..' '..thisScript().version..'{FFFFFF}] Ты снова можешь закупить продукты.', 0xFFFFFF)
 					prodovoz_timer = 0
 				end
 			end
@@ -1017,6 +1063,7 @@ function main()
 					renderFontDrawText(arial,'Руды в зоне стрима: '..waxta_count, sx / 2.5, sy - 30, 0xFFFF0000)
 				end
 			end
+			----------------------------------------
 			if klad_state == true then
 				----------------------------------------
 				if sampIsDialogActive() and sampGetCurrentDialogId() == 13101 then
@@ -1275,6 +1322,12 @@ function saveini()
 			silver_roll_price = elements.lavka.silver_roll_price.v,
 			gold_roll = elements.lavka.gold_roll.v,
 			gold_roll_price = elements.lavka.gold_roll_price.v,
+			xlopok = elements.lavka.xlopok.v,
+			xlopok_price = elements.lavka.xlopok_price.v,
+			lens = elements.lavka.lens.v,
+			lens_price = elements.lavka.lens_price.v,
+			stone = elements.lavka.stone.v,
+			stone_price = elements.lavka.stone_price.v,
 			metal = elements.lavka.metal.v,
 			metal_price = elements.lavka.metal_price.v,
 			bronze = elements.lavka.bronze.v,
@@ -1292,7 +1345,17 @@ function saveini()
 			prison = elements.lavka.prison.v,
 			prison_price = elements.lavka.prison_price.v,
 			toch_stone = elements.lavka.toch_stone.v,
-			toch_stone_price = elements.lavka.toch_stone_price.v
+			toch_stone_price = elements.lavka.toch_stone_price.v,
+			bilet_6 = elements.lavka.bilet_6.v,
+			bilet_6_price = elements.lavka.bilet_6_price.v,
+			sticker_cluck = elements.lavka.sticker_cluck.v,
+			sticker_cluck_price = elements.lavka.sticker_cluck_price.v,
+			sticker_binko = elements.lavka.sticker_binko.v,
+			sticker_binko_price = elements.lavka.sticker_binko_price.v,
+			sticker_jizzy = elements.lavka.sticker_jizzy.v,
+			sticker_jizzy_price = elements.lavka.sticker_jizzy_price.v,
+			platinum_roll = elements.lavka.platinum_roll.v,
+			platinum_roll_price = elements.lavka.platinum_roll_price.v
 		}
 	},file)
 end
@@ -1304,19 +1367,19 @@ function imgui.OnDrawFrame()
 		----------------------------------------
 		imgui.SetNextWindowPos(imgui.ImVec2(sw/2,sh/3),imgui.Cond.FirstUseEver,imgui.ImVec2(0.5,0.5))
 		imgui.SetNextWindowSize(imgui.ImVec2(860,700),imgui.Cond.FirstUseEver)
-		imgui.Begin(u8(thisScript().name..' | v'..thisScript().version),windowstate,imgui.WindowFlags.HorizontalScrollbar)
+		imgui.Begin(u8(script_names..' | v'..thisScript().version),windowstate,imgui.WindowFlags.HorizontalScrollbar)
 		imgui.BeginGroup()
 		----------------------------------------
 		if imgui.Button(u8('Сохранить настройки'),imgui.ImVec2(170,20)) then
 			saveini()
-			sampAddChatMessage('[{E3BE88}'..thisScript().name..' '..thisScript().version..'{FFFFFF}] Настройки успешно сохранены.', 0xFFFFFF)
+			sampAddChatMessage('['..thisScript().name..' '..thisScript().version..'{FFFFFF}] Настройки успешно сохранены.', 0xFFFFFF)
 			push_message('Настройки сохранены!')
 		end
 		imgui.SameLine()
 		----------------------------------------
 		if imgui.Button(u8('Очистить чат'),imgui.ImVec2(170,20)) then
 			chatMessages = {}
-			sampAddChatMessage('[{E3BE88}'..thisScript().name..' '..thisScript().version..'{FFFFFF}] Чат успешно очищен.', 0xFFFFFF)
+			sampAddChatMessage('['..thisScript().name..' '..thisScript().version..'{FFFFFF}] Чат успешно очищен.', 0xFFFFFF)
 			push_message('Чат очищен!')
 		end
 		----------------------------------------
@@ -1328,10 +1391,17 @@ function imgui.OnDrawFrame()
 		if imgui.Button(u8('Рендер чата'),imgui.ImVec2(170,20)) then
 			imgui.OpenPopup('chatrender')
 		end
+		----------------------------------------
 		if imgui.Button(u8('Переподключиться (/rec)'),imgui.ImVec2(170,20)) then
 			ip, port = sampGetCurrentServerAddress()
 			sampDisconnectWithReason(false)
 			sampConnectToServer(ip, port)
+		end
+		imgui.SameLine()
+		----------------------------------------
+		if imgui.Button(u8('Суицид'),imgui.ImVec2(170,20)) then
+			setCharHealth(PLAYER_PED, 0)
+			push_message('Покойся с миром!')
 		end
 		----------------------------------------
 		imgui.Text(u8"Основные команды:")
@@ -1481,44 +1551,75 @@ function imgui.OnDrawFrame()
 			imgui.SameLine()
 			imgui.InputInt(u8('Золотые рулетки (кол-во)'),elements.lavka.gold_roll)
 			----------------------------------------
-			imgui.InputInt(u8('Цена  ##9'),elements.lavka.metal_price)
+			imgui.InputInt(u8('Цена  ##9'),elements.lavka.xlopok_price)
+			imgui.SameLine()
+			imgui.InputInt(u8('Хлопок (кол-во)'),elements.lavka.xlopok)
+			----------------------------------------
+			imgui.InputInt(u8('Цена  ##10'),elements.lavka.lens_price)
+			imgui.SameLine()
+			imgui.InputInt(u8('Лён (кол-во)'),elements.lavka.lens)
+			----------------------------------------
+			imgui.InputInt(u8('Цена  ##11'),elements.lavka.stone_price)
+			imgui.SameLine()
+			imgui.InputInt(u8('Камень (кол-во)'),elements.lavka.stone)
+			----------------------------------------
+			imgui.InputInt(u8('Цена  ##12'),elements.lavka.metal_price)
 			imgui.SameLine()
 			imgui.InputInt(u8('Металл (кол-во)'),elements.lavka.metal)
 			----------------------------------------
-			imgui.InputInt(u8('Цена  ##10'),elements.lavka.bronze_price)
+			imgui.InputInt(u8('Цена  ##13'),elements.lavka.bronze_price)
 			imgui.SameLine()
 			imgui.InputInt(u8('Бронза (кол-во)'),elements.lavka.bronze)
 			----------------------------------------
-			imgui.InputInt(u8('Цена  ##11'),elements.lavka.silver_price)
+			imgui.InputInt(u8('Цена  ##14'),elements.lavka.silver_price)
 			imgui.SameLine()
 			imgui.InputInt(u8('Серебро (кол-во)'),elements.lavka.silver)
 			----------------------------------------
-			imgui.InputInt(u8('Цена  ##12'),elements.lavka.gold_price)
+			imgui.InputInt(u8('Цена  ##15'),elements.lavka.gold_price)
 			imgui.SameLine()
 			imgui.InputInt(u8('Золото (кол-во)'),elements.lavka.gold)
 			----------------------------------------
-			imgui.InputInt(u8('Цена  ##13'),elements.lavka.euro_price)
+			imgui.InputInt(u8('Цена  ##16'),elements.lavka.euro_price)
 			imgui.SameLine()
 			imgui.InputInt(u8('Евро (кол-во)'),elements.lavka.euro)
 			----------------------------------------
-			imgui.InputInt(u8('Цена  ##14'),elements.lavka.gr_talon_price)
+			imgui.InputInt(u8('Цена  ##17'),elements.lavka.gr_talon_price)
 			imgui.SameLine()
 			imgui.InputInt(u8('Гражданский талон (кол-во)'),elements.lavka.gr_talon)
 			----------------------------------------
-			imgui.InputInt(u8('Цена  ##15'),elements.lavka.antibiotiki_price)
+			imgui.InputInt(u8('Цена  ##18'),elements.lavka.antibiotiki_price)
 			imgui.SameLine()
 			imgui.InputInt(u8('Антибиотики (кол-во)'),elements.lavka.antibiotiki)
 			----------------------------------------
-			imgui.InputInt(u8('Цена  ##16'),elements.lavka.prison_price)
+			imgui.InputInt(u8('Цена  ##19'),elements.lavka.prison_price)
 			imgui.SameLine()
 			imgui.InputInt(u8('Отмычки от ТСР (кол-во)'),elements.lavka.prison)
 			----------------------------------------
-			imgui.InputInt(u8('Цена  ##17'),elements.lavka.toch_stone_price)
+			imgui.InputInt(u8('Цена  ##20'),elements.lavka.toch_stone_price)
 			imgui.SameLine()
 			imgui.InputInt(u8('Точильные камни (кол-во)'),elements.lavka.toch_stone)
 			----------------------------------------
+			imgui.InputInt(u8('Цена  ##21'),elements.lavka.bilet_6_price)
+			imgui.SameLine()
+			imgui.InputInt(u8('Билет 6 годовщины (кол-во)'),elements.lavka.bilet_6)
+			----------------------------------------
+			imgui.InputInt(u8('Цена  ##22'),elements.lavka.sticker_cluck_price)
+			imgui.SameLine()
+			imgui.InputInt(u8('Стикер Cluckin Bell (кол-во)'),elements.lavka.sticker_cluck)
+			----------------------------------------
+			imgui.InputInt(u8('Цена  ##23'),elements.lavka.sticker_binko_price)
+			imgui.SameLine()
+			imgui.InputInt(u8('Стикер Binko (кол-во)'),elements.lavka.sticker_binko)
+			----------------------------------------
+			imgui.InputInt(u8('Цена  ##24'),elements.lavka.sticker_jizzy_price)
+			imgui.SameLine()
+			imgui.InputInt(u8('Стикер Jizzy (кол-во)'),elements.lavka.sticker_jizzy)
+			----------------------------------------
+			imgui.InputInt(u8('Цена  ##25'),elements.lavka.platinum_roll_price)
+			imgui.SameLine()
+			imgui.InputInt(u8('Платиновая рулетка (кол-во)'),elements.lavka.platinum_roll)
+			----------------------------------------
 			count_all = 0
-			
 			if elements.lavka.materials.v ~= 0 then
 				count_all = count_all+(elements.lavka.materials_price.v*elements.lavka.materials.v)
 			end
@@ -1542,6 +1643,15 @@ function imgui.OnDrawFrame()
 			end
 			if elements.lavka.gold_roll.v ~= 0 then
 				count_all = count_all+(elements.lavka.gold_roll_price.v*elements.lavka.gold_roll.v)
+			end
+			if elements.lavka.xlopok.v ~= 0 then
+				count_all = count_all+(elements.lavka.xlopok_price.v*elements.lavka.xlopok.v)
+			end
+			if elements.lavka.lens.v ~= 0 then
+				count_all = count_all+(elements.lavka.lens_price.v*elements.lavka.lens.v)
+			end
+			if elements.lavka.stone.v ~= 0 then
+				count_all = count_all+(elements.lavka.stone_price.v*elements.lavka.stone.v)
 			end
 			if elements.lavka.metal.v ~= 0 then
 				count_all = count_all+(elements.lavka.metal_price.v*elements.lavka.metal.v)
@@ -1569,6 +1679,21 @@ function imgui.OnDrawFrame()
 			end
 			if elements.lavka.toch_stone.v ~= 0 then
 				count_all = count_all+(elements.lavka.toch_stone_price.v*elements.lavka.toch_stone.v)
+			end
+			if elements.lavka.bilet_6.v ~= 0 then
+				count_all = count_all+(elements.lavka.bilet_6_price.v*elements.lavka.bilet_6.v)
+			end
+			if elements.lavka.sticker_cluck.v ~= 0 then
+				count_all = count_all+(elements.lavka.sticker_cluck_price.v*elements.lavka.sticker_cluck.v)
+			end
+			if elements.lavka.sticker_binko.v ~= 0 then
+				count_all = count_all+(elements.lavka.sticker_binko_price.v*elements.lavka.sticker_binko.v)
+			end
+			if elements.lavka.sticker_jizzy.v ~= 0 then
+				count_all = count_all+(elements.lavka.sticker_jizzy_price.v*elements.lavka.sticker_jizzy.v)
+			end
+			if elements.lavka.platinum_roll.v ~= 0 then
+				count_all = count_all+(elements.lavka.platinum_roll_price.v*elements.lavka.platinum_roll.v)
 			end
 			imgui.Text('')
 			imgui.Text(u8('Для покупки всех товаров необходимо $'..count_all))
@@ -1691,6 +1816,30 @@ function sampev.onShowTextDraw(textdrawId, data)
 			end
 		end
 	end
+	if data.position.x == 34 and data.position.y == 230 then
+		return false
+	end
+	if data.position.x == 37 and data.position.y == 233 then
+		return false
+	end
+	if data.position.x == 39 and data.position.y == 235 then
+		return false
+	end
+	if data.position.x == 18 and data.position.y == 182 then
+		return false
+	end
+	if data.position.x == 66 and data.position.y == 232 then
+		return false
+	end
+	if data.position.x == 66 and data.position.y == 240 then
+		return false
+	end
+	if data.position.x == 79 and data.position.y == 248 then
+		return false
+	end
+	if data.position.x == 85 and data.position.y == 256 then
+		return false
+	end
 end
 
 function sampev.onDisplayGameText(style, time, text)
@@ -1710,6 +1859,9 @@ function sampev.onDisplayGameText(style, time, text)
 		else
 			return false
 		end
+	end
+	if text:find('attention, chat!!') then
+		return false
 	end
 end
 
@@ -2020,6 +2172,27 @@ function skupka()
 			sampSendDialogResponse(3050, 1, 10, '')
 			sampSendDialogResponse(3060, 1, 0, elements.lavka.gold_roll.v..' '..elements.lavka.gold_roll_price.v)
 		end
+		if elements.lavka.xlopok.v ~= 0 then
+			sampSendDialogResponse(3040, 1, 0, '')
+			sampSendDialogResponse(3050, 1, 19, '')
+			sampSendDialogResponse(3050, 1, 20, '')
+			sampSendDialogResponse(3050, 1, 2, '')
+			sampSendDialogResponse(3060, 1, 0, elements.lavka.xlopok.v..' '..elements.lavka.xlopok_price.v)
+		end
+		if elements.lavka.lens.v ~= 0 then
+			sampSendDialogResponse(3040, 1, 0, '')
+			sampSendDialogResponse(3050, 1, 19, '')
+			sampSendDialogResponse(3050, 1, 20, '')
+			sampSendDialogResponse(3050, 1, 3, '')
+			sampSendDialogResponse(3060, 1, 0, elements.lavka.lens.v..' '..elements.lavka.lens_price.v)
+		end
+		if elements.lavka.stone.v ~= 0 then
+			sampSendDialogResponse(3040, 1, 0, '')
+			sampSendDialogResponse(3050, 1, 19, '')
+			sampSendDialogResponse(3050, 1, 20, '')
+			sampSendDialogResponse(3050, 1, 4, '')
+			sampSendDialogResponse(3060, 1, 0, elements.lavka.stone.v..' '..elements.lavka.stone_price.v)
+		end
 		if elements.lavka.metal.v ~= 0 then
 			sampSendDialogResponse(3040, 1, 0, '')
 			sampSendDialogResponse(3050, 1, 19, '')
@@ -2162,13 +2335,138 @@ function skupka()
 			sampSendDialogResponse(3050, 1, 18, '')
 			sampSendDialogResponse(3060, 1, 0, elements.lavka.toch_stone.v..' '..elements.lavka.toch_stone_price.v)
 		end
+		if elements.lavka.bilet_6.v ~= 0 then
+			sampSendDialogResponse(3040, 1, 0, '')
+			sampSendDialogResponse(3050, 1, 19, '')
+			sampSendDialogResponse(3050, 1, 20, '')
+			sampSendDialogResponse(3050, 1, 20, '')
+			sampSendDialogResponse(3050, 1, 20, '')
+			sampSendDialogResponse(3050, 1, 20, '')
+			sampSendDialogResponse(3050, 1, 20, '')
+			sampSendDialogResponse(3050, 1, 20, '')
+			sampSendDialogResponse(3050, 1, 20, '')
+			sampSendDialogResponse(3050, 1, 20, '')
+			sampSendDialogResponse(3050, 1, 20, '')
+			sampSendDialogResponse(3050, 1, 20, '')
+			sampSendDialogResponse(3050, 1, 20, '')
+			sampSendDialogResponse(3050, 1, 20, '')
+			sampSendDialogResponse(3050, 1, 20, '')
+			sampSendDialogResponse(3050, 1, 20, '')
+			sampSendDialogResponse(3050, 1, 20, '')
+			sampSendDialogResponse(3050, 1, 20, '')
+			sampSendDialogResponse(3050, 1, 20, '')
+			sampSendDialogResponse(3050, 1, 20, '')
+			sampSendDialogResponse(3050, 1, 20, '')
+			sampSendDialogResponse(3050, 1, 3, '')
+			sampSendDialogResponse(3060, 1, 0, elements.lavka.bilet_6.v..' '..elements.lavka.bilet_6_price.v)
+		end
+		if elements.lavka.sticker_cluck.v ~= 0 then
+			sampSendDialogResponse(3040, 1, 0, '')
+			sampSendDialogResponse(3050, 1, 19, '')
+			sampSendDialogResponse(3050, 1, 20, '')
+			sampSendDialogResponse(3050, 1, 20, '')
+			sampSendDialogResponse(3050, 1, 20, '')
+			sampSendDialogResponse(3050, 1, 20, '')
+			sampSendDialogResponse(3050, 1, 20, '')
+			sampSendDialogResponse(3050, 1, 20, '')
+			sampSendDialogResponse(3050, 1, 20, '')
+			sampSendDialogResponse(3050, 1, 20, '')
+			sampSendDialogResponse(3050, 1, 20, '')
+			sampSendDialogResponse(3050, 1, 20, '')
+			sampSendDialogResponse(3050, 1, 20, '')
+			sampSendDialogResponse(3050, 1, 20, '')
+			sampSendDialogResponse(3050, 1, 20, '')
+			sampSendDialogResponse(3050, 1, 20, '')
+			sampSendDialogResponse(3050, 1, 20, '')
+			sampSendDialogResponse(3050, 1, 20, '')
+			sampSendDialogResponse(3050, 1, 20, '')
+			sampSendDialogResponse(3050, 1, 20, '')
+			sampSendDialogResponse(3050, 1, 20, '')
+			sampSendDialogResponse(3050, 1, 4, '')
+			sampSendDialogResponse(3060, 1, 0, elements.lavka.sticker_cluck.v..' '..elements.lavka.sticker_cluck_price.v)
+		end
+		if elements.lavka.sticker_binko.v ~= 0 then
+			sampSendDialogResponse(3040, 1, 0, '')
+			sampSendDialogResponse(3050, 1, 19, '')
+			sampSendDialogResponse(3050, 1, 20, '')
+			sampSendDialogResponse(3050, 1, 20, '')
+			sampSendDialogResponse(3050, 1, 20, '')
+			sampSendDialogResponse(3050, 1, 20, '')
+			sampSendDialogResponse(3050, 1, 20, '')
+			sampSendDialogResponse(3050, 1, 20, '')
+			sampSendDialogResponse(3050, 1, 20, '')
+			sampSendDialogResponse(3050, 1, 20, '')
+			sampSendDialogResponse(3050, 1, 20, '')
+			sampSendDialogResponse(3050, 1, 20, '')
+			sampSendDialogResponse(3050, 1, 20, '')
+			sampSendDialogResponse(3050, 1, 20, '')
+			sampSendDialogResponse(3050, 1, 20, '')
+			sampSendDialogResponse(3050, 1, 20, '')
+			sampSendDialogResponse(3050, 1, 20, '')
+			sampSendDialogResponse(3050, 1, 20, '')
+			sampSendDialogResponse(3050, 1, 20, '')
+			sampSendDialogResponse(3050, 1, 20, '')
+			sampSendDialogResponse(3050, 1, 20, '')
+			sampSendDialogResponse(3050, 1, 8, '')
+			sampSendDialogResponse(3060, 1, 0, elements.lavka.sticker_binko.v..' '..elements.lavka.sticker_binko_price.v)
+		end
+		if elements.lavka.sticker_jizzy.v ~= 0 then
+			sampSendDialogResponse(3040, 1, 0, '')
+			sampSendDialogResponse(3050, 1, 19, '')
+			sampSendDialogResponse(3050, 1, 20, '')
+			sampSendDialogResponse(3050, 1, 20, '')
+			sampSendDialogResponse(3050, 1, 20, '')
+			sampSendDialogResponse(3050, 1, 20, '')
+			sampSendDialogResponse(3050, 1, 20, '')
+			sampSendDialogResponse(3050, 1, 20, '')
+			sampSendDialogResponse(3050, 1, 20, '')
+			sampSendDialogResponse(3050, 1, 20, '')
+			sampSendDialogResponse(3050, 1, 20, '')
+			sampSendDialogResponse(3050, 1, 20, '')
+			sampSendDialogResponse(3050, 1, 20, '')
+			sampSendDialogResponse(3050, 1, 20, '')
+			sampSendDialogResponse(3050, 1, 20, '')
+			sampSendDialogResponse(3050, 1, 20, '')
+			sampSendDialogResponse(3050, 1, 20, '')
+			sampSendDialogResponse(3050, 1, 20, '')
+			sampSendDialogResponse(3050, 1, 20, '')
+			sampSendDialogResponse(3050, 1, 20, '')
+			sampSendDialogResponse(3050, 1, 20, '')
+			sampSendDialogResponse(3050, 1, 9, '')
+			sampSendDialogResponse(3060, 1, 0, elements.lavka.sticker_jizzy.v..' '..elements.lavka.sticker_jizzy_price.v)
+		end
+		if elements.lavka.platinum_roll.v ~= 0 then
+			sampSendDialogResponse(3040, 1, 0, '')
+			sampSendDialogResponse(3050, 1, 19, '')
+			sampSendDialogResponse(3050, 1, 20, '')
+			sampSendDialogResponse(3050, 1, 20, '')
+			sampSendDialogResponse(3050, 1, 20, '')
+			sampSendDialogResponse(3050, 1, 20, '')
+			sampSendDialogResponse(3050, 1, 20, '')
+			sampSendDialogResponse(3050, 1, 20, '')
+			sampSendDialogResponse(3050, 1, 20, '')
+			sampSendDialogResponse(3050, 1, 20, '')
+			sampSendDialogResponse(3050, 1, 20, '')
+			sampSendDialogResponse(3050, 1, 20, '')
+			sampSendDialogResponse(3050, 1, 20, '')
+			sampSendDialogResponse(3050, 1, 20, '')
+			sampSendDialogResponse(3050, 1, 20, '')
+			sampSendDialogResponse(3050, 1, 20, '')
+			sampSendDialogResponse(3050, 1, 20, '')
+			sampSendDialogResponse(3050, 1, 20, '')
+			sampSendDialogResponse(3050, 1, 20, '')
+			sampSendDialogResponse(3050, 1, 20, '')
+			sampSendDialogResponse(3050, 1, 20, '')
+			sampSendDialogResponse(3050, 1, 10, '')
+			sampSendDialogResponse(3060, 1, 0, elements.lavka.platinum_roll.v..' '..elements.lavka.platinum_roll_price.v)
+		end
 	end)
 end
 
 function onScriptTerminate(LuaScript, slot1)
 	if LuaScript == thisScript() then
 		showCursor(false)
-		sampAddChatMessage('[{E3BE88}'..thisScript().name..' '..thisScript().version..'{FFFFFF}] Скрипт выключается =(', 0xFFFFFF)
+		sampAddChatMessage('['..thisScript().name..' '..thisScript().version..'{FFFFFF}] Скрипт выключается =(', 0xFFFFFF)
 	end
 end
 
@@ -2218,7 +2516,7 @@ function onRenderNotification()
 				imgui.SetNextWindowPos(notfList.pos, _, imgui.ImVec2(0.0, 0.0))
 				imgui.SetNextWindowSize(imgui.ImVec2(200, notfList.size.y + imgui.GetStyle().ItemSpacing.y + imgui.GetStyle().WindowPadding.y+25))
 				imgui.Begin(u8'##msg' .. k, _, imgui.WindowFlags.NoCollapse + imgui.WindowFlags.NoResize + imgui.WindowFlags.NoScrollbar + imgui.WindowFlags.NoMove + imgui.WindowFlags.NoTitleBar)
-				imgui.CenterText(thisScript().name)
+				imgui.CenterText(script_names)
 				imgui.Separator()
 				imgui.TextWrapped(nText)
 				imgui.End()
@@ -2245,7 +2543,7 @@ end
 function imgui.CenterText(text) 
 	local width = imgui.GetWindowWidth()
 	local calc = imgui.CalcTextSize(text)
-	imgui.SetCursorPosX( width / 2 - calc.x / 2 )
+	imgui.SetCursorPosX(width / 2 - calc.x / 2)
 	imgui.Text(text)
 end
 
