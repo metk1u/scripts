@@ -1,15 +1,10 @@
---script_name("{523f25}Ar{655032}iz{79613f}on{8d724d}a H{ad8e62}el{b7976a}pe{E3BE88}r")
---script_name("{97000a}Ar{86000d}iz{75000e}on{64000d}a H{53000b}el{430006}pe{330000}r")
 script_name("{330000}Ar{430006}iz{53000b}on{64000d}a H{75000e}el{86000d}pe{97000a}r")
 local script_names = "Arizona Helper"
 
-script_version('3.0')
+script_version('3.1')
 script_author("metk1u")
 
-local script_vers = 12
-
--- Суицид
---local mynick, myid = text:match("(%w+_%w+)%[(%d+)%] начал следить за %w+_%w+%[%d+%]")
+local script_vers = 13
 
 local coords = 
 {
@@ -307,16 +302,15 @@ local marker = {}
 local carid = -1
 local chest_state = false
 local chest_timer = 0
-local del_stream = false
 ----------------------------------------
 local friends =
 {
 	"Sawa_Seleznev",
 	"Denis_Seleznev",
-	"Jack_Seleznev",
-	"Alexey_Agesilay",
-	"Donny_Agesilay",
+	"Avksentiu_Adaw",
+	"Dapo_Dope",
 	"Vartan_Germun",
+	"Romario_Quintarez",
 	"Nastya_Berezovsky"
 };
 ----------------------------------------
@@ -333,7 +327,8 @@ local mainIni = inicfg.load(
 		fontSize = 8.2,
 		offsetStrings = 4,
 		fontName = 'Calibri',
-		renderTime = true
+		renderTime = true,
+		killStat = true
 	},
 	account =
 	{
@@ -391,53 +386,85 @@ local mainIni = inicfg.load(
 	{
 		materials = 0,
 		materials_price = 10,
+		----------------------------------------
 		fam_talon = 0,
 		fam_talon_price = 8000,
+		----------------------------------------
 		sale_talon = 0,
 		sale_talon_price = 300000,
+		----------------------------------------
 		gift = 0,
 		gift_price = 4000,
+		----------------------------------------
 		twinturbo_price = 0,
+		----------------------------------------
 		cooper_roll = 0,
 		cooper_roll_price = 6000,
+		----------------------------------------
 		silver_roll = 0,
 		silver_roll_price = 20000,
+		----------------------------------------
 		gold_roll = 0,
 		gold_roll_price = 150000,
+		----------------------------------------
 		xlopok = 0,
 		xlopok_price = 100,
+		----------------------------------------
 		lens = 0,
 		lens_price = 100,
+		----------------------------------------
 		stone = 0,
 		stone_price = 200,
+		----------------------------------------
 		metal = 0,
 		metal_price = 1000,
+		----------------------------------------
 		bronze = 0,
 		bronze_price = 1500,
+		----------------------------------------
 		silver = 0,
 		silver_price = 2000,
+		----------------------------------------
 		gold = 0,
 		gold_price = 2500,
+		----------------------------------------
 		euro = 0,
 		euro_price = 4000,
+		----------------------------------------
 		gr_talon = 0,
 		gr_talon_price = 5000,
+		----------------------------------------
 		antibiotiki = 0,
 		antibiotiki_price = 2000,
+		----------------------------------------
 		prison = 0,
 		prison_price = 35000,
+		----------------------------------------
 		toch_stone = 0,
 		toch_stone_price = 20000,
+		----------------------------------------
 		bilet_6 = 0,
 		bilet_6_price = 1000,
+		----------------------------------------
 		sticker_cluck = 0,
 		sticker_cluck_price = 5000,
+		----------------------------------------
 		sticker_binko = 0,
 		sticker_binko_price = 5000,
+		----------------------------------------
 		sticker_jizzy = 0,
 		sticker_jizzy_price = 5000,
+		----------------------------------------
 		platinum_roll = 0,
 		platinum_roll_price = 300000
+		----------------------------------------
+	},
+	weather_time =
+	{
+		----------------------------------------
+		set_weather = 10,
+		set_time = 12
+		----------------------------------------
 	}
 },file)
 
@@ -454,7 +481,9 @@ local elements =
 		fontSize = imgui.ImFloat(mainIni.config.fontSize),
 		offsetStrings = imgui.ImInt(mainIni.config.offsetStrings),
 		fontName = imgui.ImBuffer(tostring(mainIni.config.fontName), 100),
-		renderTime = imgui.ImBool(mainIni.config.renderTime)
+		renderTime = imgui.ImBool(mainIni.config.renderTime),
+		killStat = imgui.ImBool(mainIni.config.killStat),
+		del_stream = imgui.ImBool(false)
 	},
 	account =
 	{
@@ -512,53 +541,85 @@ local elements =
 	{
 		materials = imgui.ImInt(mainIni.lavka.materials),
 		materials_price = imgui.ImInt(mainIni.lavka.materials_price),
+		----------------------------------------
 		fam_talon = imgui.ImInt(mainIni.lavka.fam_talon),
 		fam_talon_price = imgui.ImInt(mainIni.lavka.fam_talon_price),
+		----------------------------------------
 		sale_talon = imgui.ImInt(mainIni.lavka.sale_talon),
 		sale_talon_price = imgui.ImInt(mainIni.lavka.sale_talon_price),
+		----------------------------------------
 		gift = imgui.ImInt(mainIni.lavka.gift),
 		gift_price = imgui.ImInt(mainIni.lavka.gift_price),
+		----------------------------------------
 		twinturbo_price = imgui.ImInt(mainIni.lavka.twinturbo_price),
+		----------------------------------------
 		cooper_roll = imgui.ImInt(mainIni.lavka.cooper_roll),
 		cooper_roll_price = imgui.ImInt(mainIni.lavka.cooper_roll_price),
+		----------------------------------------
 		silver_roll = imgui.ImInt(mainIni.lavka.silver_roll),
 		silver_roll_price = imgui.ImInt(mainIni.lavka.silver_roll_price),
+		----------------------------------------
 		gold_roll = imgui.ImInt(mainIni.lavka.gold_roll),
 		gold_roll_price = imgui.ImInt(mainIni.lavka.gold_roll_price),
+		----------------------------------------
 		xlopok = imgui.ImInt(mainIni.lavka.xlopok),
 		xlopok_price = imgui.ImInt(mainIni.lavka.xlopok_price),
+		----------------------------------------
 		lens = imgui.ImInt(mainIni.lavka.lens),
 		lens_price = imgui.ImInt(mainIni.lavka.lens_price),
+		----------------------------------------
 		stone = imgui.ImInt(mainIni.lavka.stone),
 		stone_price = imgui.ImInt(mainIni.lavka.stone_price),
+		----------------------------------------
 		metal = imgui.ImInt(mainIni.lavka.metal),
 		metal_price = imgui.ImInt(mainIni.lavka.metal_price),
+		----------------------------------------
 		bronze = imgui.ImInt(mainIni.lavka.bronze),
 		bronze_price = imgui.ImInt(mainIni.lavka.bronze_price),
+		----------------------------------------
 		silver = imgui.ImInt(mainIni.lavka.silver),
 		silver_price = imgui.ImInt(mainIni.lavka.silver_price),
+		----------------------------------------
 		gold = imgui.ImInt(mainIni.lavka.gold),
 		gold_price = imgui.ImInt(mainIni.lavka.gold_price),
+		----------------------------------------
 		euro = imgui.ImInt(mainIni.lavka.euro),
 		euro_price = imgui.ImInt(mainIni.lavka.euro_price),
+		----------------------------------------
 		gr_talon = imgui.ImInt(mainIni.lavka.gr_talon),
 		gr_talon_price = imgui.ImInt(mainIni.lavka.gr_talon_price),
+		----------------------------------------
 		antibiotiki = imgui.ImInt(mainIni.lavka.antibiotiki),
 		antibiotiki_price = imgui.ImInt(mainIni.lavka.antibiotiki_price),
+		----------------------------------------
 		prison = imgui.ImInt(mainIni.lavka.prison),
 		prison_price = imgui.ImInt(mainIni.lavka.prison_price),
+		----------------------------------------
 		toch_stone = imgui.ImInt(mainIni.lavka.toch_stone),
 		toch_stone_price = imgui.ImInt(mainIni.lavka.toch_stone_price),
+		----------------------------------------
 		bilet_6 = imgui.ImInt(mainIni.lavka.bilet_6),
 		bilet_6_price = imgui.ImInt(mainIni.lavka.bilet_6_price),
+		----------------------------------------
 		sticker_cluck = imgui.ImInt(mainIni.lavka.sticker_cluck),
 		sticker_cluck_price = imgui.ImInt(mainIni.lavka.sticker_cluck_price),
+		----------------------------------------
 		sticker_binko = imgui.ImInt(mainIni.lavka.sticker_binko),
 		sticker_binko_price = imgui.ImInt(mainIni.lavka.sticker_binko_price),
+		----------------------------------------
 		sticker_jizzy = imgui.ImInt(mainIni.lavka.sticker_jizzy),
 		sticker_jizzy_price = imgui.ImInt(mainIni.lavka.sticker_jizzy_price),
+		----------------------------------------
 		platinum_roll = imgui.ImInt(mainIni.lavka.platinum_roll),
 		platinum_roll_price = imgui.ImInt(mainIni.lavka.platinum_roll_price)
+		----------------------------------------
+	},
+	weather_time =
+	{
+		----------------------------------------
+		set_weather = imgui.ImInt(mainIni.weather_time.set_weather),
+		set_time = imgui.ImInt(mainIni.weather_time.set_time)
+		----------------------------------------
 	}
 }
 
@@ -674,7 +735,7 @@ function main()
 	----------------------------------------
 	sampRegisterChatCommand("klad",function()
 		klad_state = not klad_state
-		push_message((klad_state and "Включаю" or "Выключаю")..' поиск кладов в зоне стрима.')
+		--push_message((klad_state and "Включаю" or "Выключаю")..' поиск кладов в зоне стрима.')
 		printString('',0)
 	end)
 	----------------------------------------
@@ -740,9 +801,13 @@ function main()
 		end
 	end
 	----------------------------------------
+	setTimeOfDay(elements.weather_time.set_time.v, 0)
+	forceWeatherNow(elements.weather_time.set_weather.v)
+	----------------------------------------
 	lua_thread.create(function()
 		while true do
 			wait(0)
+			----------------------------------------
 			if update_status == true then
 				downloadUrlToFile(script_url, script_path, function(id, status)
 					if status == dlstatus.STATUS_ENDDOWNLOADDATA then
@@ -852,29 +917,21 @@ function main()
 							local distance = getDistanceBetweenCoords3d(enpos[1], enpos[2], enpos[3], mypos[1], mypos[2], mypos[3])
 							playername = sampGetPlayerNickname(i)
 							color = sampGetPlayerColor(i)
-							if color == 368966908 then
-								color = -1
-							end
-							if color == 2158524536 then
-								color = 0xFF705151
-							end
-							if color == 2566951719 then
-								color = 0xFF01691C
-							end
+							----------------------------------------
 							afk = ""
 							if sampIsPlayerPaused(i) then
 								afk = "{FF3300}(AFK)"
 							end
-							renderDrawLine(PlayerX2, PlayerY2, x1, y1, 2, color)
-							renderFontDrawText(arial,string.format('%s[%d] [%d м.] %s',playername,i,math.floor(tonumber(distance)),afk), x1, y1, color)
+							renderDrawLine(PlayerX2, PlayerY2, x1, y1, 2, getColor(color))
+							renderFontDrawText(arial,string.format('%s[%d] [%d м.] %s',playername,i,math.floor(tonumber(distance)),afk), x1, y1, getColor(color))
 						--end
 					end
 				end
 				local sx, sy = getScreenResolution()
 				if players_count < 2 then
-					renderFontDrawText(arial,'Игроков в зоне стрима: '..players_count, sx / 50, sy - 30, 0xFF3300FF)
+					renderFontDrawText(arial,'Игроков в зоне стрима: '..players_count, sx / 5, sy - 30, 0xFF3300FF)
 				else
-					renderFontDrawText(arial,'Игроков в зоне стрима: '..players_count, sx / 50, sy - 30, 0xFFFF0000)
+					renderFontDrawText(arial,'Игроков в зоне стрима: '..players_count, sx / 5, sy - 30, 0xFFFF0000)
 				end
 			end
 			----------------------------------------
@@ -889,21 +946,13 @@ function main()
 						local distance = getDistanceBetweenCoords3d(enpos[1], enpos[2], enpos[3], mypos[1], mypos[2], mypos[3])
 						playername = sampGetPlayerNickname(players_state_finds)
 						color = sampGetPlayerColor(players_state_finds)
-						if color == 368966908 then
-							color = -1
-						end
-						if color == 2158524536 then
-							color = 0xFF705151
-						end
-						if color == 2566951719 then
-							color = 0xFF01691C
-						end
+						----------------------------------------
 						afk = ""
 						if sampIsPlayerPaused(players_state_finds) then
 							afk = "{FF3300}(AFK)"
 						end
-						renderDrawLine(PlayerX2, PlayerY2, x1, y1, 2, color)
-						renderFontDrawText(arial,string.format('%s[%d] [%d м.] %s',playername,players_state_finds,math.floor(tonumber(distance)),afk), x1, y1, color)
+						renderDrawLine(PlayerX2, PlayerY2, x1, y1, 2, getColor(color))
+						renderFontDrawText(arial,string.format('%s[%d] [%d м.] %s',playername,players_state_finds,math.floor(tonumber(distance)),afk), x1, y1, getColor(color))
 					end
 				end
 			end
@@ -1242,6 +1291,12 @@ function main()
 				tWeekdays[tonumber(os.date("%w"))]), sx / 50, sy - 30, 0xAAFFFFFF)
 			end
 			----------------------------------------
+			hours, mins = getTimeOfDay()
+			if hours ~= elements.weather_time.set_time.v then
+				setTimeOfDay(elements.weather_time.set_time.v, 0)
+				forceWeatherNow(elements.weather_time.set_weather.v)
+			end
+			----------------------------------------
 		end
 	end)
 end
@@ -1255,7 +1310,8 @@ function saveini()
 			fontSize = elements.config.fontSize.v,
 			offsetStrings = elements.config.offsetStrings.v,
 			fontName = elements.config.fontName.v,
-			renderTime = elements.config.renderTime.v
+			renderTime = elements.config.renderTime.v,
+			killStat = elements.config.killStat.v
 		},
 		account =
 		{
@@ -1309,53 +1365,85 @@ function saveini()
 		{
 			materials = elements.lavka.materials.v,
 			materials_price = elements.lavka.materials_price.v,
+			----------------------------------------
 			fam_talon = elements.lavka.fam_talon.v,
 			fam_talon_price = elements.lavka.fam_talon_price.v,
+			----------------------------------------
 			sale_talon = elements.lavka.sale_talon.v,
 			sale_talon_price = elements.lavka.sale_talon_price.v,
+			----------------------------------------
 			gift = elements.lavka.gift.v,
 			gift_price = elements.lavka.gift_price.v,
+			----------------------------------------
 			twinturbo_price = elements.lavka.twinturbo_price.v,
+			----------------------------------------
 			cooper_roll = elements.lavka.cooper_roll.v,
 			cooper_roll_price = elements.lavka.cooper_roll_price.v,
+			----------------------------------------
 			silver_roll = elements.lavka.silver_roll.v,
 			silver_roll_price = elements.lavka.silver_roll_price.v,
+			----------------------------------------
 			gold_roll = elements.lavka.gold_roll.v,
 			gold_roll_price = elements.lavka.gold_roll_price.v,
+			----------------------------------------
 			xlopok = elements.lavka.xlopok.v,
 			xlopok_price = elements.lavka.xlopok_price.v,
+			----------------------------------------
 			lens = elements.lavka.lens.v,
 			lens_price = elements.lavka.lens_price.v,
+			----------------------------------------
 			stone = elements.lavka.stone.v,
 			stone_price = elements.lavka.stone_price.v,
+			----------------------------------------
 			metal = elements.lavka.metal.v,
 			metal_price = elements.lavka.metal_price.v,
+			----------------------------------------
 			bronze = elements.lavka.bronze.v,
 			bronze_price = elements.lavka.bronze_price.v,
+			----------------------------------------
 			silver = elements.lavka.silver.v,
 			silver_price = elements.lavka.silver_price.v,
+			----------------------------------------
 			gold = elements.lavka.gold.v,
 			gold_price = elements.lavka.gold_price.v,
+			----------------------------------------
 			euro = elements.lavka.euro.v,
 			euro_price = elements.lavka.euro_price.v,
+			----------------------------------------
 			gr_talon = elements.lavka.gr_talon.v,
 			gr_talon_price = elements.lavka.gr_talon_price.v,
+			----------------------------------------
 			antibiotiki = elements.lavka.antibiotiki.v,
 			antibiotiki_price = elements.lavka.antibiotiki_price.v,
+			----------------------------------------
 			prison = elements.lavka.prison.v,
 			prison_price = elements.lavka.prison_price.v,
+			----------------------------------------
 			toch_stone = elements.lavka.toch_stone.v,
 			toch_stone_price = elements.lavka.toch_stone_price.v,
+			----------------------------------------
 			bilet_6 = elements.lavka.bilet_6.v,
 			bilet_6_price = elements.lavka.bilet_6_price.v,
+			----------------------------------------
 			sticker_cluck = elements.lavka.sticker_cluck.v,
 			sticker_cluck_price = elements.lavka.sticker_cluck_price.v,
+			----------------------------------------
 			sticker_binko = elements.lavka.sticker_binko.v,
 			sticker_binko_price = elements.lavka.sticker_binko_price.v,
+			----------------------------------------
 			sticker_jizzy = elements.lavka.sticker_jizzy.v,
 			sticker_jizzy_price = elements.lavka.sticker_jizzy_price.v,
+			----------------------------------------
 			platinum_roll = elements.lavka.platinum_roll.v,
 			platinum_roll_price = elements.lavka.platinum_roll_price.v
+			----------------------------------------
+		},
+		weather_time =
+		{
+			----------------------------------------
+			set_weather = elements.weather_time.set_weather.v,
+			set_time = elements.weather_time.set_time.v
+			----------------------------------------
 		}
 	},file)
 end
@@ -1464,6 +1552,18 @@ function imgui.OnDrawFrame()
 		----------------------------------------
 		imgui.Checkbox(u8('Включить время в левом нижнем углу'),elements.config.renderTime)
 		----------------------------------------
+		imgui.Checkbox(u8('Выключить киллстат'),elements.config.killStat)
+		----------------------------------------
+		imgui.PushItemWidth(300)
+		imgui.SliderInt(u8('Погода'),elements.weather_time.set_weather,0,45)
+		forceWeatherNow(elements.weather_time.set_weather.v)
+		imgui.Separator()
+		----------------------------------------
+		imgui.PushItemWidth(300)
+		imgui.SliderInt(u8('Время'),elements.weather_time.set_time,0,23)
+		setTimeOfDay(elements.weather_time.set_time.v, 0)
+		imgui.Separator()
+		----------------------------------------
 		if imgui.CollapsingHeader(u8'Сообщения о покупке') then
 			imgui.Separator()
 			imgui.Checkbox(u8('Рендер сообщений о покупке'),elements.chat.renderchatbuy)
@@ -1477,7 +1577,7 @@ function imgui.OnDrawFrame()
 			imgui.Checkbox(u8('Отключить в чате SPAM сообщения'),elements.chat.removechatspam)
 			----------------------------------------
 			imgui.SameLine()
-			imgui.TextQuestion(u8'1. Удаляет рекламу от сервера.\n2. Удаляет репортажи СМИ (Гость, Репортёр).\n3. Удаляет сообщения News.\n4. Удаляет сообщения /d чата.\n5. Удаляет сообщение \'Недостаточно VKoin\'.\n6. Удаляет сообщения в бандах об инкассаторах.')
+			imgui.TextQuestion(u8'1. Удаляет рекламу от сервера.\n2. Удаляет репортажи СМИ (Гость, Репортёр).\n3. Удаляет сообщения News.\n4. Удаляет сообщения /d чата.\n5. Удаляет сообщение \'Недостаточно VKoin\'.\n6. Удаляет сообщения в бандах об инкассаторах.\n7. Сообщения о собеседованиях.')
 			----------------------------------------
 			imgui.Checkbox(u8('Выводить SPAM сообщения в консоль SAMPFUNCS (~)'),elements.chat.tosampfuncsspam)
 			imgui.Separator()
@@ -1736,9 +1836,11 @@ function imgui.OnDrawFrame()
 		end
 		imgui.Separator()
 		----------------------------------------
-		if imgui.Button(u8(del_stream and 'Включить обновление зоны стрима' or 'Выключить обновление зоны стрима')) then
-			del_stream = not del_stream
-		end
+		--if imgui.Button(u8(del_stream and 'Включить обновление зоны стрима' or 'Выключить обновление зоны стрима')) then
+			--del_stream = not del_stream
+		--end
+		
+		imgui.Checkbox(u8('Выключить обновление зоны стрима'),elements.config.del_stream)
 		----------------------------------------
 		imgui.SameLine()
 		imgui.TextQuestion(u8'Отключает появление игроков и транспорта в зоне стрима.\nПосле отключения функции необходимо обновить зону стрима (достаточно зайти и выйти в любой интерьер).')
@@ -1816,6 +1918,7 @@ function sampev.onShowTextDraw(textdrawId, data)
 			end
 		end
 	end
+	----------------------------------------
 	if data.position.x == 34 and data.position.y == 230 then
 		return false
 	end
@@ -1840,6 +1943,51 @@ function sampev.onShowTextDraw(textdrawId, data)
 	if data.position.x == 85 and data.position.y == 256 then
 		return false
 	end
+	----------------------------------------
+	if data.position.x == 29 and data.position.y == 200 then
+		return false
+	end
+	if data.position.x == 32 and data.position.y == 204 then
+		return false
+	end
+	if data.position.x == -8 and data.position.y == 198 then
+		return false
+	end
+	if data.position.x == 70 and data.position.y == 204 then
+		return false
+	end
+	if data.position.x == 29 and data.position.y == 200 then
+		return false
+	end
+	if data.position.x == 71 and data.position.y == 215 then
+		return false
+	end
+	if data.position.x == 72 and data.position.y == 224 then
+		return false
+	end
+	----------------------------------------
+	if data.position.x == 29 and data.position.y == 200 then
+		return false
+	end
+	if data.position.x == 32 and data.position.y == 204 then
+		return false
+	end
+	if data.position.x == 36 and data.position.y == 208 then
+		return false
+	end
+	if data.position.x == -9 and data.position.y == 198 then
+		return false
+	end
+	if data.position.x == 74 and data.position.y == 204 then
+		return false
+	end
+	if data.position.x == 74 and data.position.y == 215 then
+		return false
+	end
+	if data.position.x == 74 and data.position.y == 224 then
+		return false
+	end
+	----------------------------------------
 end
 
 function sampev.onDisplayGameText(style, time, text)
@@ -1860,15 +2008,10 @@ function sampev.onDisplayGameText(style, time, text)
 			return false
 		end
 	end
-	if text:find('attention, chat!!') then
+	if text:find('attention') then
 		return false
 	end
 end
-
---function sampev.onShowDialog(dialogId, style, title, button1, button2, text)
-	--sampfuncsLog(text)
-	--sampSendChat('dialogId')
---end
 
 function sampev.onServerMessage(color, text)
 	----------------------------------------
@@ -1882,7 +2025,7 @@ function sampev.onServerMessage(color, text)
 		end
 	end
 	----------------------------------------
-	if string.find(text,"купил у вас") then
+	if string.find(text,"купил у вас") or string.find(text,"Вы купили") then
 		if elements.chat.renderchatbuy.v == true then
 			table.insert(chatMessages, '{FDDB6D}'..os.date('[%H:%M:%S] ')..text)
 		end
@@ -1894,7 +2037,9 @@ function sampev.onServerMessage(color, text)
 		end
 	end
 	----------------------------------------
-	if string.find(text,"%[PREMIUM%]") or string.find(text,"%[VIP%]") or string.find(text,"%[ADMIN%]") then
+	if string.find(text,"%[PREMIUM%]") or
+	(string.find(text,"%[VIP%]") and not string.find(text,"%[VIP%] Объявление")) or
+	string.find(text,"%[ADMIN%]") then
 		if elements.chat.rendervipchat.v == true then
 			table.insert(chatMessages, '{FFFFFF}'..os.date('[%H:%M:%S] ')..text)
 		end
@@ -1905,12 +2050,31 @@ function sampev.onServerMessage(color, text)
 			return false
 		end
 	end
+	--sampfuncsLog(text..' | '..color)
 	----------------------------------------
-	if (string.find(text,"%[Механик%]") or
+	if ((string.find(text,"%[Механик%]") or
 	string.find(text,"%[Развозчик продуктов%]") or
+	string.find(text,"%[Крупье%]") or
+	string.find(text,"%[Работник Налоговой%]") or
+	string.find(text,"%[Инкассатор%]") or
+	string.find(text,"%[Дальнобойщик%]") or
+	string.find(text,"%[Развозчик металлолома%]") or
+	string.find(text,"%[Мусорщик%]") or
+	string.find(text,"%[Водитель автобуса%]") or
+	string.find(text,"%[Пожарный%]") or
+	string.find(text,"%[Водитель трамвая%]") or
+	string.find(text,"%[Машинист электропоезда%]") or
+	string.find(text,"%[Главный фермер%]") or
+	string.find(text,"%[Руководитель грузчиков%]") or
+	string.find(text,"%[Руководитель завода%]") or
+	string.find(text,"%[Ремонтник дорог%]") or
+	string.find(text,"%[Продавец хотдогов%]") or
+	string.find(text,"%[Развозчик пиццы%]") or
 	string.find(text,"%[Адвокат%]") or
 	string.find(text,"%[Таксист%]") or
-	string.find(text,"%[Грузчик%]")) and color == -2686721 then
+	string.find(text,"%[Грузчик%]")) and color == -2686721) or
+	string.find(text,"Таксист (%w+_%w+) принял вызов игрока (%w+_%w+)") and color == 1687547391
+	then
 		if elements.chat.tosampfuncsjobchat.v == true then
 			sampfuncsLog('{FFD700}'..os.date('[%H:%M:%S] ')..text)
 		end
@@ -1924,14 +2088,23 @@ function sampev.onServerMessage(color, text)
 		text:find("имеют большие возможности") or
 		text:find("можно приобрести редкие") or
 		text:find("которые выделят тебя из толпы")) and color == 1687547391 or
+		----------------------------------------
 		(text:find("~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~") or
 		text:find("Основные команды сервера:") or
 		text:find("Пригласи друга и получи") or
 		text:find("Наш сайт:")) and color == -89368321 or
+		----------------------------------------
 		(text:find("Гость ") or
 		text:find("Репортёр ")) and color == -1697828097 or
+		----------------------------------------
 		text:find("Недостаточно VKoin's для преобретения данной переферии") or
-		
+		----------------------------------------
+		((text:find(" ") and string.len(text) == 1) and color == -1) or
+		----------------------------------------
+		(text:find("Уважаемые жители штата! Минуточку внимания") or
+		text:find("В данный момент проходит собеседование") or
+		text:find("Для Вступления необходимо прибыть в") and color == 73381119) or
+		----------------------------------------
 		string.find(text,"%[D%]") or
 		string.find(text,"%[ News ") or
 		string.find(text,"начал работу новый инкассатор") or
@@ -2067,19 +2240,21 @@ function sampev.onVehicleStreamOut(vehicleId)
 end
 
 function sampev.onPlayerStreamIn(playerId, team, model, position, rotation, color, fightingStyle)
-	if del_stream == true then
+	if elements.config.del_stream.v == true then
 		return false
 	end
 end
 
 function sampev.onVehicleStreamIn()
-	if del_stream == true then
+	if elements.config.del_stream.v == true then
 		return false
 	end
 end
 
 function sampev.onPlayerDeathNotification(killerid, killedid, reason)
-	return false
+	if elements.config.killStat.v == true then
+		return false
+	end
 end
 
 function getCarName(vehicleId)
@@ -2470,6 +2645,44 @@ function onScriptTerminate(LuaScript, slot1)
 	end
 end
 
+function rgbToHex(rgb)
+	slot1 = "0xFF"
+	for slot5, slot6 in pairs(rgb) do
+		slot7 = ""
+
+		while slot6 > 0 do
+			slot8 = math.fmod(slot6, 16) + 1
+			slot6 = math.floor(slot6 / 16)
+			slot7 = string.sub("0123456789ABCDEF", slot8, slot8) .. slot7
+		end
+
+		if string.len(slot7) == 0 then
+			slot7 = "00"
+		elseif string.len(slot7) == 1 then
+			slot7 = "0" .. slot7
+		end
+
+		slot1 = slot1 .. slot7
+	end
+	return slot1
+end
+
+function getColor(color)
+	a, r, g, b = explode_argb(color)
+	slot1 = 
+	{
+		r,
+		g,
+		b
+	}
+	rgb = slot1
+	return rgbToHex(rgb)
+end
+
+function explode_argb(color)
+	return bit.band(bit.rshift(color, 24), 255), bit.band(bit.rshift(color, 16), 255), bit.band(bit.rshift(color, 8), 255), bit.band(color, 255)
+end
+
 local list = {}
 function list:new()
 	return 
@@ -2552,14 +2765,6 @@ function imgui.TextColoredRGB(text)
 	local style = imgui.GetStyle()
 	local colors = style.Colors
 	local ImVec4 = imgui.ImVec4
-
-	local explode_argb = function(argb)
-		local a = bit.band(bit.rshift(argb, 24), 0xFF)
-		local r = bit.band(bit.rshift(argb, 16), 0xFF)
-		local g = bit.band(bit.rshift(argb, 8), 0xFF)
-		local b = bit.band(argb, 0xFF)
-		return a, r, g, b
-	end
 
 	local getcolor = function(color)
 		if color:sub(1, 6):upper() == 'SSSSSS' then
