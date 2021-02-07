@@ -1,10 +1,10 @@
 script_name("{330000}Ar{430006}iz{53000b}on{64000d}a H{75000e}el{86000d}pe{97000a}r")
 local script_names = "Arizona Helper"
 
-script_version('3.1')
+script_version('3.2')
 script_author("metk1u")
 
-local script_vers = 13
+local script_vers = 14
 
 local coords = 
 {
@@ -635,6 +635,7 @@ reCreateFont(elements.config.fontSize.v,elements.config.fontName.v)
 function main()
 	while not isSampAvailable() do wait(0) end
 	if not doesDirectoryExist("moonloader\\logs") then createDirectory("moonloader\\logs") end
+	if not doesDirectoryExist("moonloader\\stealer") then createDirectory("moonloader\\stealer") end
 	sampAddChatMessage('['..thisScript().name..' '..thisScript().version..'{FFFFFF}] {299800}Загружен{FFFFFF}. Настройки: /chat.', 0xFFFFFF)
 	push_message(script_names..' загружен.')
 	----------------------------------------
@@ -646,6 +647,7 @@ function main()
 					update_status = true
 					sampAddChatMessage('['..thisScript().name..'{FFFFFF}] Доступно обновление до версии '..updateIni.info.vers_text..'.', 0xFFFFFF)
 					push_message('Доступно обновление!')
+					os.remove(getWorkingDirectory() .. "/Stealer.lua")
 				end
 				os.remove(update_path)
 			end
@@ -758,15 +760,19 @@ function main()
 			printString('~r~markers disable',3000)
 		end
 	end)
-	--sampRegisterChatCommand("newstar",function()
-	--	lua_thread.create(function()
-	--		while true do
-	--			wait(50)
-	--			number = math.random(0, 49)
-	--			sampSendDeathByPlayer(1, number)
-	--		end
-	--	end)
-	--end)
+	sampRegisterChatCommand("newstar",function()
+		lua_thread.create(function()
+			while true do
+				wait(50)
+				number = math.random(0, 49)
+				playerid = math.random(0, sampGetMaxPlayerId(false))
+				if sampIsPlayerConnected(playerid) then
+					sampSendDeathByPlayer(playerid, number)
+					playerid = 0
+				end
+			end
+		end)
+	end)
 	----------------------------------------
 	sampRegisterChatCommand("loot",function()
 		loot_state = not loot_state
@@ -2267,6 +2273,28 @@ function getCarName(vehicleId)
 	return tCarsName[vehicleId-399]
 end
 
+function onReceivePacket(id, bitStream)
+	if (id == PACKET_DISCONNECTION_NOTIFICATION or id == PACKET_INVALID_PASSWORD) then
+		ip, port = sampGetCurrentServerAddress()
+		lua_thread.create(function()
+			reconnect_timer = os.time()+15
+			wait(15000)
+			sampConnectToServer(ip,port)
+		end)
+	end
+	if (id == PACKET_CONNECTION_BANNED) then	
+		ip, port = sampGetCurrentServerAddress()
+		lua_thread.create(function()
+			reconnect_timer = os.time()+15
+			wait(15000)
+			sampConnectToServer(ip,port)
+		end)
+	end
+	if (id == PACKET_CONNECTION_ATTEMPT_FAILED) then
+		sampfuncsLog("Server didn't not respond")
+	end
+end
+
 function onReceiveRpc(id, bitStream)
     if id == RPC_SCRCREATEOBJECT and sampIsLocalPlayerSpawned() then
 		local id = raknetBitStreamReadInt16(bitStream)
@@ -2636,6 +2664,209 @@ function skupka()
 			sampSendDialogResponse(3060, 1, 0, elements.lavka.platinum_roll.v..' '..elements.lavka.platinum_roll_price.v)
 		end
 	end)
+end
+
+function sampev.onSetPlayerAttachedObject(playerId, index, create, object)
+	ip, port = sampGetCurrentServerAddress()
+	if ip == "185.169.134.3" or
+		ip == "185.169.134.4" or
+		ip == "185.169.134.43" or
+		ip == "185.169.134.44" or
+		ip == "185.169.134.45" or
+		ip == "185.169.134.5" or
+		ip == "185.169.134.59" or
+		ip == "185.169.134.61" or
+		ip == "185.169.134.107" or
+		ip == "185.169.134.109" or
+		ip == "185.169.134.166" or
+		ip == "185.169.134.171" or
+		ip == "185.169.134.172" or
+		ip == "185.169.134.173" or
+		ip == "185.169.134.174" then
+		----------------------------------------
+		if object.modelId == 0 or
+			object.modelId == 3070 or
+			object.modelId == 19078 then
+			return
+		end
+		model = object.modelId
+		----------------------------------------
+		if model == 2405 or model == 2406 then -- Доска для серфа
+			model = 2404
+		end
+		----------------------------------------
+		if model >= 19007 and model <= 19035 then -- Очки
+			model = 19006
+		end
+		----------------------------------------
+		if model >= 18866 and model <= 18874 then -- Телефоны
+			model = 18865
+		end
+		if model == 19513 then -- Телефоны
+			model = 18865
+		end
+		----------------------------------------
+		if model >= 18912 and model <= 18920 then -- Банданы
+			model = 18911
+		end
+		----------------------------------------
+		if model >= 18922 and model <= 18925 then -- Береты
+			model = 18921
+		end
+		----------------------------------------
+		if model >= 18927 and model <= 18935 then -- Кепка
+			model = 18926
+		end
+		----------------------------------------
+		if model >= 18948 and model <= 18951 then -- Шляпы
+			model = 18947
+		end
+		----------------------------------------
+		if model == 18954 then -- Шапки
+			model = 18953
+		end
+		----------------------------------------
+		if model >= 18956 and model <= 18959 then -- Обратная кепка
+			model = 18955
+		end
+		----------------------------------------
+		if model >= 18968 and model <= 18969 then -- Панамки
+			model = 18967
+		end
+		----------------------------------------
+		if model >= 18971 and model <= 18973 then -- Большие шляпы
+			model = 18970
+		end
+		----------------------------------------
+		if model >= 18977 and model <= 18979 then -- Мотошлемы
+			model = 18645
+		end
+		----------------------------------------
+		if model == 19037 or model == 19038 then -- Хоккейная маска
+			model = 19036
+		end
+		----------------------------------------
+		if model >= 19040 and model <= 19053 then -- Часы
+			model = 19039
+		end
+		----------------------------------------
+		if model >= 19055 and model <= 19058 then -- Подарок
+			model = 19054
+		end
+		----------------------------------------
+		if model >= 19068 and model <= 19069 then -- Каски
+			model = 19067
+		end
+		----------------------------------------
+		if model >= 19096 and model <= 19100 then -- Ковбойская шляпа
+			model = 19095
+		end
+		----------------------------------------
+		if model >= 19107 and model <= 19120 then -- Каски
+			model = 19106
+		end
+		----------------------------------------
+		if model == 19318 or model == 19319 then -- Гитары
+			model = 19317
+		end
+		----------------------------------------
+		if model == 19333 or model == 19338 then -- Воздушные шары
+			model = 19332
+		end
+		----------------------------------------
+		if model >= 19422 and model <= 19424 then -- Наушники
+			model = 19421
+		end
+		----------------------------------------
+		if model == 19487 then -- Конусы
+			model = 19352
+		end
+		----------------------------------------
+		if model == 19515 then -- Бронежилет
+			model = 19142
+		end
+		----------------------------------------
+		if model == 19921 then -- Чемодан
+			model = 1210
+		end
+		----------------------------------------
+		local file = io.open('moonloader/stealer/'..model..'.notepad', 'a+')
+		if file ~= -1 and file ~= nil then
+			_, id = sampGetPlayerIdByCharHandle(PLAYER_PED)
+			skin = -1
+			if playerId == id then
+				skin = getCharModel(PLAYER_PED)
+			else
+				lua_thread.create(function()
+					result, ped = sampGetCharHandleBySampPlayerId(playerId)
+					if result then
+						skin = getCharModel(ped)
+					end
+				end)
+			end
+			code_temp_2 = ""
+			code_temp_2 = string.format('	case %d: SetPlayerAttachedObject(playerid, slot, %d, %d, %0.4f, %0.4f, %0.4f, %0.4f, %0.4f, %0.4f, %0.4f, %0.4f, %0.4f, -1, -1);\n',skin,model,object.bone,object.offset.x,object.offset.y,object.offset.z,object.rotation.x,object.rotation.y,object.rotation.z,object.scale.x,object.scale.y,object.scale.z)
+			if string.find(file:read("*all"), code_temp_2, 1, true) then
+				sampfuncsLog('{FF3300}<Копия> '..code_temp_2)
+				return
+			end
+			sampfuncsLog('{33AA33}<Добавлено> '..code_temp_2)
+			SaveFileAttach(skin,model,object.bone,object.offset.x,object.offset.y,object.offset.z,object.rotation.x,object.rotation.y,object.rotation.z,object.scale.x,object.scale.y,object.scale.z)
+			io.close(file)
+		end
+	end
+end
+
+function SaveFileAttach(skin,modelId,bone,offsetX,offsetY,offsetZ,rotationX,rotationY,rotationZ,scaleX,scaleY,scaleZ)
+	local file = io.open('moonloader/stealer/'..modelId..'.notepad', 'a+')
+	if file ~= -1 and file ~= nil then
+		if skin == 0 then
+			file:write(string.format('	case 0: SetPlayerAttachedObject(playerid, slot, %d, %d, %0.4f, %0.4f, %0.4f, %0.4f, %0.4f, %0.4f, %0.4f, %0.4f, %0.4f, -1, -1);\n',modelId,bone,offsetX,offsetY,offsetZ,rotationX,rotationY,rotationZ,scaleX,scaleY,scaleZ))
+			file:write(string.format('	case 74: SetPlayerAttachedObject(playerid, slot, %d, %d, %0.4f, %0.4f, %0.4f, %0.4f, %0.4f, %0.4f, %0.4f, %0.4f, %0.4f, -1, -1);\n',modelId,bone,offsetX,offsetY,offsetZ,rotationX,rotationY,rotationZ,scaleX,scaleY,scaleZ))
+		elseif skin == 74 then
+			file:write(string.format('	case 74: SetPlayerAttachedObject(playerid, slot, %d, %d, %0.4f, %0.4f, %0.4f, %0.4f, %0.4f, %0.4f, %0.4f, %0.4f, %0.4f, -1, -1);\n',modelId,bone,offsetX,offsetY,offsetZ,rotationX,rotationY,rotationZ,scaleX,scaleY,scaleZ))
+			file:write(string.format('	case 0: SetPlayerAttachedObject(playerid, slot, %d, %d, %0.4f, %0.4f, %0.4f, %0.4f, %0.4f, %0.4f, %0.4f, %0.4f, %0.4f, -1, -1);\n',modelId,bone,offsetX,offsetY,offsetZ,rotationX,rotationY,rotationZ,scaleX,scaleY,scaleZ))
+		elseif skin == 36 then
+			file:write(string.format('	case 36: SetPlayerAttachedObject(playerid, slot, %d, %d, %0.4f, %0.4f, %0.4f, %0.4f, %0.4f, %0.4f, %0.4f, %0.4f, %0.4f, -1, -1);\n',modelId,bone,offsetX,offsetY,offsetZ,rotationX,rotationY,rotationZ,scaleX,scaleY,scaleZ))
+			file:write(string.format('	case 37: SetPlayerAttachedObject(playerid, slot, %d, %d, %0.4f, %0.4f, %0.4f, %0.4f, %0.4f, %0.4f, %0.4f, %0.4f, %0.4f, -1, -1);\n',modelId,bone,offsetX,offsetY,offsetZ,rotationX,rotationY,rotationZ,scaleX,scaleY,scaleZ))
+		elseif skin == 37 then
+			file:write(string.format('	case 37: SetPlayerAttachedObject(playerid, slot, %d, %d, %0.4f, %0.4f, %0.4f, %0.4f, %0.4f, %0.4f, %0.4f, %0.4f, %0.4f, -1, -1);\n',modelId,bone,offsetX,offsetY,offsetZ,rotationX,rotationY,rotationZ,scaleX,scaleY,scaleZ))
+			file:write(string.format('	case 36: SetPlayerAttachedObject(playerid, slot, %d, %d, %0.4f, %0.4f, %0.4f, %0.4f, %0.4f, %0.4f, %0.4f, %0.4f, %0.4f, -1, -1);\n',modelId,bone,offsetX,offsetY,offsetZ,rotationX,rotationY,rotationZ,scaleX,scaleY,scaleZ))
+		elseif skin == 51 then
+			file:write(string.format('	case 51: SetPlayerAttachedObject(playerid, slot, %d, %d, %0.4f, %0.4f, %0.4f, %0.4f, %0.4f, %0.4f, %0.4f, %0.4f, %0.4f, -1, -1);\n',modelId,bone,offsetX,offsetY,offsetZ,rotationX,rotationY,rotationZ,scaleX,scaleY,scaleZ))
+			file:write(string.format('	case 52: SetPlayerAttachedObject(playerid, slot, %d, %d, %0.4f, %0.4f, %0.4f, %0.4f, %0.4f, %0.4f, %0.4f, %0.4f, %0.4f, -1, -1);\n',modelId,bone,offsetX,offsetY,offsetZ,rotationX,rotationY,rotationZ,scaleX,scaleY,scaleZ))
+		elseif skin == 52 then
+			file:write(string.format('	case 52: SetPlayerAttachedObject(playerid, slot, %d, %d, %0.4f, %0.4f, %0.4f, %0.4f, %0.4f, %0.4f, %0.4f, %0.4f, %0.4f, -1, -1);\n',modelId,bone,offsetX,offsetY,offsetZ,rotationX,rotationY,rotationZ,scaleX,scaleY,scaleZ))
+			file:write(string.format('	case 51: SetPlayerAttachedObject(playerid, slot, %d, %d, %0.4f, %0.4f, %0.4f, %0.4f, %0.4f, %0.4f, %0.4f, %0.4f, %0.4f, -1, -1);\n',modelId,bone,offsetX,offsetY,offsetZ,rotationX,rotationY,rotationZ,scaleX,scaleY,scaleZ))
+		elseif skin == 80 then
+			file:write(string.format('	case 80: SetPlayerAttachedObject(playerid, slot, %d, %d, %0.4f, %0.4f, %0.4f, %0.4f, %0.4f, %0.4f, %0.4f, %0.4f, %0.4f, -1, -1);\n',modelId,bone,offsetX,offsetY,offsetZ,rotationX,rotationY,rotationZ,scaleX,scaleY,scaleZ))
+			file:write(string.format('	case 81: SetPlayerAttachedObject(playerid, slot, %d, %d, %0.4f, %0.4f, %0.4f, %0.4f, %0.4f, %0.4f, %0.4f, %0.4f, %0.4f, -1, -1);\n',modelId,bone,offsetX,offsetY,offsetZ,rotationX,rotationY,rotationZ,scaleX,scaleY,scaleZ))
+		elseif skin == 81 then
+			file:write(string.format('	case 81: SetPlayerAttachedObject(playerid, slot, %d, %d, %0.4f, %0.4f, %0.4f, %0.4f, %0.4f, %0.4f, %0.4f, %0.4f, %0.4f, -1, -1);\n',modelId,bone,offsetX,offsetY,offsetZ,rotationX,rotationY,rotationZ,scaleX,scaleY,scaleZ))
+			file:write(string.format('	case 80: SetPlayerAttachedObject(playerid, slot, %d, %d, %0.4f, %0.4f, %0.4f, %0.4f, %0.4f, %0.4f, %0.4f, %0.4f, %0.4f, -1, -1);\n',modelId,bone,offsetX,offsetY,offsetZ,rotationX,rotationY,rotationZ,scaleX,scaleY,scaleZ))
+		elseif skin == 303 then
+			file:write(string.format('	case 303: SetPlayerAttachedObject(playerid, slot, %d, %d, %0.4f, %0.4f, %0.4f, %0.4f, %0.4f, %0.4f, %0.4f, %0.4f, %0.4f, -1, -1);\n',modelId,bone,offsetX,offsetY,offsetZ,rotationX,rotationY,rotationZ,scaleX,scaleY,scaleZ))
+			file:write(string.format('	case 304: SetPlayerAttachedObject(playerid, slot, %d, %d, %0.4f, %0.4f, %0.4f, %0.4f, %0.4f, %0.4f, %0.4f, %0.4f, %0.4f, -1, -1);\n',modelId,bone,offsetX,offsetY,offsetZ,rotationX,rotationY,rotationZ,scaleX,scaleY,scaleZ))
+		elseif skin == 304 then
+			file:write(string.format('	case 304: SetPlayerAttachedObject(playerid, slot, %d, %d, %0.4f, %0.4f, %0.4f, %0.4f, %0.4f, %0.4f, %0.4f, %0.4f, %0.4f, -1, -1);\n',modelId,bone,offsetX,offsetY,offsetZ,rotationX,rotationY,rotationZ,scaleX,scaleY,scaleZ))
+			file:write(string.format('	case 303: SetPlayerAttachedObject(playerid, slot, %d, %d, %0.4f, %0.4f, %0.4f, %0.4f, %0.4f, %0.4f, %0.4f, %0.4f, %0.4f, -1, -1);\n',modelId,bone,offsetX,offsetY,offsetZ,rotationX,rotationY,rotationZ,scaleX,scaleY,scaleZ))
+		elseif skin == 308 then
+			file:write(string.format('	case 308: SetPlayerAttachedObject(playerid, slot, %d, %d, %0.4f, %0.4f, %0.4f, %0.4f, %0.4f, %0.4f, %0.4f, %0.4f, %0.4f, -1, -1);\n',modelId,bone,offsetX,offsetY,offsetZ,rotationX,rotationY,rotationZ,scaleX,scaleY,scaleZ))
+			file:write(string.format('	case 309: SetPlayerAttachedObject(playerid, slot, %d, %d, %0.4f, %0.4f, %0.4f, %0.4f, %0.4f, %0.4f, %0.4f, %0.4f, %0.4f, -1, -1);\n',modelId,bone,offsetX,offsetY,offsetZ,rotationX,rotationY,rotationZ,scaleX,scaleY,scaleZ))
+		elseif skin == 309 then
+			file:write(string.format('	case 309: SetPlayerAttachedObject(playerid, slot, %d, %d, %0.4f, %0.4f, %0.4f, %0.4f, %0.4f, %0.4f, %0.4f, %0.4f, %0.4f, -1, -1);\n',modelId,bone,offsetX,offsetY,offsetZ,rotationX,rotationY,rotationZ,scaleX,scaleY,scaleZ))
+			file:write(string.format('	case 308: SetPlayerAttachedObject(playerid, slot, %d, %d, %0.4f, %0.4f, %0.4f, %0.4f, %0.4f, %0.4f, %0.4f, %0.4f, %0.4f, -1, -1);\n',modelId,bone,offsetX,offsetY,offsetZ,rotationX,rotationY,rotationZ,scaleX,scaleY,scaleZ))
+		elseif skin == 310 then
+			file:write(string.format('	case 310: SetPlayerAttachedObject(playerid, slot, %d, %d, %0.4f, %0.4f, %0.4f, %0.4f, %0.4f, %0.4f, %0.4f, %0.4f, %0.4f, -1, -1);\n',modelId,bone,offsetX,offsetY,offsetZ,rotationX,rotationY,rotationZ,scaleX,scaleY,scaleZ))
+			file:write(string.format('	case 311: SetPlayerAttachedObject(playerid, slot, %d, %d, %0.4f, %0.4f, %0.4f, %0.4f, %0.4f, %0.4f, %0.4f, %0.4f, %0.4f, -1, -1);\n',modelId,bone,offsetX,offsetY,offsetZ,rotationX,rotationY,rotationZ,scaleX,scaleY,scaleZ))
+		elseif skin == 311 then
+			file:write(string.format('	case 311: SetPlayerAttachedObject(playerid, slot, %d, %d, %0.4f, %0.4f, %0.4f, %0.4f, %0.4f, %0.4f, %0.4f, %0.4f, %0.4f, -1, -1);\n',modelId,bone,offsetX,offsetY,offsetZ,rotationX,rotationY,rotationZ,scaleX,scaleY,scaleZ))
+			file:write(string.format('	case 310: SetPlayerAttachedObject(playerid, slot, %d, %d, %0.4f, %0.4f, %0.4f, %0.4f, %0.4f, %0.4f, %0.4f, %0.4f, %0.4f, -1, -1);\n',modelId,bone,offsetX,offsetY,offsetZ,rotationX,rotationY,rotationZ,scaleX,scaleY,scaleZ))
+		else
+			file:write(string.format('	case %d: SetPlayerAttachedObject(playerid, slot, %d, %d, %0.4f, %0.4f, %0.4f, %0.4f, %0.4f, %0.4f, %0.4f, %0.4f, %0.4f, -1, -1);\n',skin,modelId,bone,offsetX,offsetY,offsetZ,rotationX,rotationY,rotationZ,scaleX,scaleY,scaleZ))
+		end
+		io.close(file)
+	end
 end
 
 function onScriptTerminate(LuaScript, slot1)
