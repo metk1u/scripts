@@ -1,10 +1,10 @@
 script_name("{330000}Ar{430006}iz{53000b}on{64000d}a H{75000e}el{86000d}pe{97000a}r")
 local script_names = "Arizona Helper"
 
-script_version('3.2')
+script_version('3.3')
 script_author("metk1u")
 
-local script_vers = 14
+local script_vers = 15
 
 local coords = 
 {
@@ -308,9 +308,7 @@ local friends =
 	"Sawa_Seleznev",
 	"Denis_Seleznev",
 	"Avksentiu_Adaw",
-	"Dapo_Dope",
 	"Vartan_Germun",
-	"Romario_Quintarez",
 	"Nastya_Berezovsky"
 };
 ----------------------------------------
@@ -334,8 +332,10 @@ local mainIni = inicfg.load(
 	{
 		my_nick = 'Nickname',
 		my_password = 'Password',
+		my_pincode = '0000',
 		my_nick_2 = 'Nickname2',
-		my_password_2 = 'Password2'
+		my_password_2 = 'Password2',
+		my_pincode_2 = '0000'
 	},
 	chat =
 	{
@@ -487,10 +487,12 @@ local elements =
 	},
 	account =
 	{
-		my_nick = tostring(mainIni.account.my_nick),
-		my_password = tostring(mainIni.account.my_password),
-		my_nick_2 = tostring(mainIni.account.my_nick_2),
-		my_password_2 = tostring(mainIni.account.my_password_2)
+		my_nick = imgui.ImBuffer(tostring(mainIni.account.my_nick), 24),
+		my_password = imgui.ImBuffer(tostring(mainIni.account.my_password), 100),
+		my_pincode = imgui.ImBuffer(tostring(mainIni.account.my_pincode), 24),
+		my_nick_2 = imgui.ImBuffer(tostring(mainIni.account.my_nick_2), 24),
+		my_password_2 = imgui.ImBuffer(tostring(mainIni.account.my_password_2), 100),
+		my_pincode_2 = imgui.ImBuffer(tostring(mainIni.account.my_pincode_2), 24)
 	},
 	chat =
 	{
@@ -647,7 +649,6 @@ function main()
 					update_status = true
 					sampAddChatMessage('['..thisScript().name..'{FFFFFF}] Доступно обновление до версии '..updateIni.info.vers_text..'.', 0xFFFFFF)
 					push_message('Доступно обновление!')
-					os.remove(getWorkingDirectory() .. "/Stealer.lua")
 				end
 				os.remove(update_path)
 			end
@@ -893,18 +894,32 @@ function main()
 			----------------------------------------
 			ip, port = sampGetCurrentServerAddress()
 			if ip == "185.169.134.5" then
-				if local_name == elements.account.my_nick then
-					if sampIsDialogActive() and sampGetCurrentDialogId() == 2 then
-						sampSendDialogResponse(2, 1, 0, elements.account.my_password)
-						wait(100)
-						sampCloseCurrentDialogWithButton(0)
+				if local_name == elements.account.my_nick.v then
+					if sampIsDialogActive() then
+						if sampGetCurrentDialogId() == 2 then
+							sampSendDialogResponse(2, 1, 0, elements.account.my_password.v)
+							wait(100)
+							sampCloseCurrentDialogWithButton(0)
+						end
+						if sampGetCurrentDialogId() == 991 then
+							sampSendDialogResponse(991, 1, 0, elements.account.my_pincode.v)
+							wait(100)
+							sampCloseCurrentDialogWithButton(0)
+						end
 					end
 				end
-				if local_name == elements.account.my_nick_2 then
-					if sampIsDialogActive() and sampGetCurrentDialogId() == 2 then
-						sampSendDialogResponse(2, 1, 0, elements.account.my_password_2)
-						wait(100)
-						sampCloseCurrentDialogWithButton(0)
+				if local_name == elements.account.my_nick_2.v then
+					if sampIsDialogActive() then
+						if sampGetCurrentDialogId() == 2 then
+							sampSendDialogResponse(2, 1, 0, elements.account.my_password_2.v)
+							wait(100)
+							sampCloseCurrentDialogWithButton(0)
+						end
+						if sampGetCurrentDialogId() == 991 then
+							sampSendDialogResponse(991, 1, 0, elements.account.my_pincode_2.v)
+							wait(100)
+							sampCloseCurrentDialogWithButton(0)
+						end
 					end
 				end
 			end
@@ -966,7 +981,10 @@ function main()
 			if sampIsDialogActive() then
 				dialog_text = ""
 				dialog_text = sampGetDialogText(sampGetCurrentDialogId())
-				if sampGetCurrentDialogId() == 0 and dialog_text:find("В этом месте запрещено") and dialog_text:find("Если вы продолжите, то вы будете кикнуты!") then
+				if sampGetCurrentDialogId() == 0 and
+				(dialog_text:find("В этом месте запрещено") and
+				dialog_text:find("Если вы продолжите, то вы будете кикнуты!")) or
+				dialog_text:find("PIN%-код принят") then
 					sampCloseCurrentDialogWithButton(0)
 				end
 				----------------------------------------
@@ -1321,10 +1339,12 @@ function saveini()
 		},
 		account =
 		{
-			my_nick = elements.account.my_nick,
-			my_password = elements.account.my_password,
-			my_nick_2 = elements.account.my_nick_2,
-			my_password_2 = elements.account.my_password_2
+			my_nick = elements.account.my_nick.v,
+			my_password = elements.account.my_password.v,
+			my_pincode = elements.account.my_pincode.v,
+			my_nick_2 = elements.account.my_nick_2.v,
+			my_password_2 = elements.account.my_password_2.v,
+			my_pincode_2 = elements.account.my_pincode_2.v
 			--nick = u8:decode(i_reconnect_nick.v)
 		},
 		chat =
@@ -1570,6 +1590,18 @@ function imgui.OnDrawFrame()
 		setTimeOfDay(elements.weather_time.set_time.v, 0)
 		imgui.Separator()
 		----------------------------------------
+		if imgui.CollapsingHeader(u8'Настройки автологина') then
+			imgui.Separator()
+			imgui.InputText(u8('Ник'),elements.account.my_nick)
+			imgui.InputText(u8('Пароль'),elements.account.my_password)
+			imgui.InputText(u8('Пинкод'),elements.account.my_pincode)
+			imgui.Separator()
+			imgui.InputText(u8('Ник##2'),elements.account.my_nick_2)
+			imgui.InputText(u8('Пароль##2'),elements.account.my_password_2)
+			imgui.InputText(u8('Пинкод##2'),elements.account.my_pincode_2)
+			imgui.Separator()
+		end
+		----------------------------------------
 		if imgui.CollapsingHeader(u8'Сообщения о покупке') then
 			imgui.Separator()
 			imgui.Checkbox(u8('Рендер сообщений о покупке'),elements.chat.renderchatbuy)
@@ -1623,7 +1655,7 @@ function imgui.OnDrawFrame()
 			imgui.Checkbox(u8('Отключить на сервере \'новогодний маппинг\''),elements.destroy.newyear)
 			imgui.Separator()
 		end
-		if imgui.CollapsingHeader(u8'Автоскуп в ларьке (BETA)') then
+		if imgui.CollapsingHeader(u8'Автоскуп в ларьке') then
 			imgui.Separator()
 			imgui.PushItemWidth(108)
 			----------------------------------------
@@ -2807,10 +2839,10 @@ function sampev.onSetPlayerAttachedObject(playerId, index, create, object)
 			code_temp_2 = ""
 			code_temp_2 = string.format('	case %d: SetPlayerAttachedObject(playerid, slot, %d, %d, %0.4f, %0.4f, %0.4f, %0.4f, %0.4f, %0.4f, %0.4f, %0.4f, %0.4f, -1, -1);\n',skin,model,object.bone,object.offset.x,object.offset.y,object.offset.z,object.rotation.x,object.rotation.y,object.rotation.z,object.scale.x,object.scale.y,object.scale.z)
 			if string.find(file:read("*all"), code_temp_2, 1, true) then
-				sampfuncsLog('{FF3300}<Копия> '..code_temp_2)
+				--sampfuncsLog('{FF3300}<Копия> '..code_temp_2)
 				return
 			end
-			sampfuncsLog('{33AA33}<Добавлено> '..code_temp_2)
+			--sampfuncsLog('{33AA33}<Добавлено> '..code_temp_2)
 			SaveFileAttach(skin,model,object.bone,object.offset.x,object.offset.y,object.offset.z,object.rotation.x,object.rotation.y,object.rotation.z,object.scale.x,object.scale.y,object.scale.z)
 			io.close(file)
 		end
