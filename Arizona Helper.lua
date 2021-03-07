@@ -1,10 +1,10 @@
 script_name("{330000}Ar{430006}iz{53000b}on{64000d}a H{75000e}el{86000d}pe{97000a}r")
 local script_names = "Arizona Helper"
 
-script_version('3.4')
+script_version('3.5')
 script_author("metk1u")
 
-local script_vers = 16
+local script_vers = 17
 
 local coords = 
 {
@@ -1939,41 +1939,41 @@ function sampev.onShowTextDraw(textdrawId, data)
 		if file ~= -1 and file ~= nil then
 			code_temp_2 = ""
 			code_temp_2 = string.format('textdraw = TextDrawCreate(%0.6f, %0.6f, "%s");\n',data.position.x,data.position.y,data.text)
-			if string.find(file:read("*all"), code_temp_2, 1, true) then
+			--if string.find(file:read("*all"), code_temp_2, 1, true) then
 				--sampfuncsLog('{FF3300}<Копия> '..code_temp_2)
-				io.close(file)
-				return
-			end
+				--io.close(file)
+				--return
+			--end
 			--sampfuncsLog('{33AA33}<Добавлено> '..code_temp_2)
 
-			file:write(string.format('textdraw = TextDrawCreate(%0.6f, %0.6f, "%s");\n',data.position.x,data.position.y,data.text))
-			file:write(string.format('TextDrawLetterSize(textdraw, %0.6f, %0.6f);\n',data.letterWidth,data.letterHeight))
-			file:write(string.format('TextDrawTextSize(textdraw, %0.6f, %0.6f);\n',data.lineWidth,data.lineHeight))
-			file:write(string.format('TextDrawAlignment(textdraw, 0);\n'))
-			file:write('TextDrawColor(textdraw, 0);\n')
+			----file:write(string.format('textdraw = TextDrawCreate(%0.6f, %0.6f, "%s");\n',data.position.x,data.position.y,data.text))
+			----file:write(string.format('TextDrawLetterSize(textdraw, %0.6f, %0.6f);\n',data.letterWidth,data.letterHeight))
+			----file:write(string.format('TextDrawTextSize(textdraw, %0.6f, %0.6f);\n',data.lineWidth,data.lineHeight))
+			----file:write(string.format('TextDrawAlignment(textdraw, 0);\n'))
+			----file:write('TextDrawColor(textdraw, 0);\n')
 			--if data.color == 0 then
 			--	file:write('TextDrawColor(textdraw, 0);\n')
 			--else
 			--	file:write(string.format('TextDrawColor(textdraw, 0x%s);\n',bit.tohex(argb_to_rgba(data.color))))
 			--end
-			file:write(string.format('TextDrawUseBox(textdraw, 0);\n'))
-			file:write('TextDrawBoxColor(textdraw, 0);\n')
+			----file:write(string.format('TextDrawUseBox(textdraw, 0);\n'))
+			----file:write('TextDrawBoxColor(textdraw, 0);\n')
 			--if data.boxColor == 0 then
 			--	file:write('TextDrawBoxColor(textdraw, 0);\n')
 			--else
 			--	file:write(string.format('TextDrawBoxColor(textdraw, 0x%s);\n',bit.tohex(argb_to_rgba(data.boxColor))))
 			--end
-			file:write(string.format('TextDrawSetShadow(textdraw, %d);\n',data.shadow))
-			file:write(string.format('TextDrawSetOutline(textdraw, %d);\n',data.outline))
-			file:write('TextDrawBackgroundColor(textdraw, 0);\n')
+			----file:write(string.format('TextDrawSetShadow(textdraw, %d);\n',data.shadow))
+			----file:write(string.format('TextDrawSetOutline(textdraw, %d);\n',data.outline))
+			----file:write('TextDrawBackgroundColor(textdraw, 0);\n')
 			--if data.backgroundColor == 0 then
 			--	file:write('TextDrawBackgroundColor(textdraw, 0);\n')
 			--else
 			--	file:write(string.format('TextDrawBackgroundColor(textdraw, 0x%s);\n',bit.tohex(argb_to_rgba(data.backgroundColor))))
 			--end
-			file:write(string.format('TextDrawFont(textdraw, %d);\n',data.style))
-			file:write(string.format('TextDrawSetProportional(textdraw, 0);\n'))
-			file:write(string.format('TextDrawSetSelectable(textdraw, %d);\n',data.selectable))
+			----file:write(string.format('TextDrawFont(textdraw, %d);\n',data.style))
+			----file:write(string.format('TextDrawSetProportional(textdraw, 0);\n'))
+			----file:write(string.format('TextDrawSetSelectable(textdraw, %d);\n',data.selectable))
 			file:write(string.format('TextDrawSetPreviewModel(textdraw, %d);\n',data.modelId))
 			file:write(string.format('TextDrawSetPreviewRot(textdraw, %0.6f, %0.6f, %0.6f, %0.6f);\n',data.rotation.x,data.rotation.y,data.rotation.z,data.zoom))
 			file:write('////////////////////////////////////////\n')
@@ -2759,8 +2759,193 @@ function sampev.onSetPlayerAttachedObject(playerId, index, create, object)
 		ip == "185.169.134.174" then
 		----------------------------------------
 		if object.modelId == 0 or
+			object.modelId == 635 or
+			object.modelId == 636 or
+			object.modelId == 701 or
+			object.modelId == 806 or
+			object.modelId == 815 or
+			object.modelId == 1007 or
+			object.modelId == 1017 or
+			object.modelId == 1098 or
+			object.modelId == 1108 or
+			object.modelId == 1112 or
+			object.modelId == 1116 or
+			object.modelId == 1133 or
+			object.modelId == 1186 or
+			object.modelId == 1220 or
+			object.modelId == 1221 or
+			object.modelId == 1228 or
+			object.modelId == 1238 or
+			object.modelId == 1265 or
+			object.modelId == 1279 or
+			object.modelId == 1336 or
+			object.modelId == 1366 or
+			object.modelId == 1371 or
+			object.modelId == 1387 or
+			object.modelId == 1546 or
+			object.modelId == 1548 or
+			object.modelId == 1565 or
+			object.modelId == 1582 or
+			object.modelId == 1603 or
+			object.modelId == 1614 or
+			object.modelId == 1851 or
+			object.modelId == 1974 or
+			
+			object.modelId == 2060 or
+			object.modelId == 2064 or
+			object.modelId == 2168 or
+			--object.modelId == 2238 or
+			object.modelId == 2250 or
+			object.modelId == 2362 or
+			object.modelId == 2384 or
+			object.modelId == 2680 or
+			object.modelId == 2689 or
+			object.modelId == 2711 or
+			--object.modelId == 2714 or
+			object.modelId == 2769 or
+			object.modelId == 2788 or
+			--object.modelId == 2803 or
+			object.modelId == 2804 or
+			object.modelId == 2814 or
+			object.modelId == 2846 or
+			object.modelId == 2901 or
+			object.modelId == 2908 or
+			object.modelId == 2913 or
+			object.modelId == 2916 or
+			object.modelId == 2918 or
+			object.modelId == 2976 or
+			object.modelId == 2983 or
+			--object.modelId == 2985 or
+			object.modelId == 2992 or
+			object.modelId == 3013 or
+			object.modelId == 3031 or
+			object.modelId == 3052 or
+			object.modelId == 3096 or
+			object.modelId == 3100 or
+			object.modelId == 3272 or
+			object.modelId == 3273 or
+			object.modelId == 3434 or
+			object.modelId == 3524 or
+			object.modelId == 3643 or
+			object.modelId == 3801 or
+			object.modelId == 7093 or
+			object.modelId == 7313 or
+			object.modelId == 7891 or
+			object.modelId == 8548 or
+			--object.modelId == 8644 or
+			object.modelId == 11700 or
+			object.modelId == 11716 or
+			object.modelId == 11722 or
+			object.modelId == 11726 or
+			object.modelId == 11727 or
+			object.modelId == 11731 or
+			--object.modelId == 11733 or
+			object.modelId == 11738 or
+			object.modelId == 11741 or
+			object.modelId == 11749 or
+			object.modelId == 14527 or
+			object.modelId == 14611 or
+			object.modelId == 16368 or
+			--object.modelId == 16442 or
+			object.modelId == 18633 or
+			object.modelId == 18640 or
+			object.modelId == 18644 or
+			object.modelId == 18701 or
+			object.modelId == 18717 or
+			object.modelId == 18718 or
+			object.modelId == 18729 or
+			--object.modelId == 18782 or
+			object.modelId == 18848 or
+			object.modelId == 18936 or
+			object.modelId == 18961 or
+			object.modelId == 18976 or
+			object.modelId == 19087 or
+			object.modelId == 19090 or
+			object.modelId == 19130 or
+			object.modelId == 19135 or
+			object.modelId == 19177 or
+			object.modelId == 19200 or
+			object.modelId == 19202 or
+			--object.modelId == 19315 or
+			--object.modelId == 19320 or
+			object.modelId == 19339 or
+			object.modelId == 19341 or
+			object.modelId == 19342 or
+			object.modelId == 19343 or
+			object.modelId == 19344 or
+			object.modelId == 19345 or
+			--object.modelId == 19347 or
+			object.modelId == 19348 or
+			object.modelId == 19468 or
+			object.modelId == 19516 or
+			object.modelId == 19517 or
+			object.modelId == 19518 or
+			object.modelId == 19519 or
+			object.modelId == 19525 or
+			object.modelId == 19555 or
+			object.modelId == 19556 or
+			object.modelId == 19570 or
+			object.modelId == 19576 or
+			object.modelId == 19577 or
+			object.modelId == 19578 or
+			object.modelId == 19582 or
+			object.modelId == 19610 or
+			object.modelId == 19620 or
+			object.modelId == 19626 or
+			object.modelId == 19636 or
+			object.modelId == 19793 or
+			object.modelId == 19806 or
+			object.modelId == 19840 or
+			object.modelId == 19847 or
+			object.modelId == 19917 or
+			object.modelId == 19939 or
+			object.modelId == 19967 or
+			
+			object.modelId == 1877 or
+			object.modelId == 1878 or
+			object.modelId == 1879 or
+			object.modelId == 1880 or
+			object.modelId == 1881 or
+			object.modelId == 1882 or
+			object.modelId == 2985 or
+			object.modelId == 2992 or
 			object.modelId == 3070 or
-			object.modelId == 19078 then
+			object.modelId == 11749 or
+			object.modelId == 14467 or
+			object.modelId == 16778 or
+			object.modelId == 18642 or
+			object.modelId == 18688 or
+			object.modelId == 18891 or
+			object.modelId == 18892 or
+			object.modelId == 18893 or
+			object.modelId == 18894 or
+			object.modelId == 18895 or
+			object.modelId == 18896 or
+			object.modelId == 18897 or
+			object.modelId == 18898 or
+			object.modelId == 18899 or
+			object.modelId == 18900 or
+			object.modelId == 18901 or
+			object.modelId == 18902 or
+			object.modelId == 18903 or
+			object.modelId == 18904 or
+			object.modelId == 18905 or
+			object.modelId == 19063 or
+			object.modelId == 19077 or
+			object.modelId == 19078 or
+			object.modelId == 19101 or
+			object.modelId == 19102 or
+			object.modelId == 19103 or
+			object.modelId == 19104 or
+			object.modelId == 19105 or
+			object.modelId == 19163 or
+			object.modelId == 19274 or
+			object.modelId == 19350 or
+			object.modelId == 19351 or
+			object.modelId == 19527 or
+			object.modelId == 19583 or
+			object.modelId == 19801 or
+			object.modelId == 19874 then
 			return
 		end
 		model = object.modelId
@@ -2778,6 +2963,10 @@ function sampev.onSetPlayerAttachedObject(playerId, index, create, object)
 		end
 		if model == 19513 then -- Телефоны
 			model = 18865
+		end
+		----------------------------------------
+		if model >= 18907 and model <= 18910 then -- Повязки на голову
+			model = 18906
 		end
 		----------------------------------------
 		if model >= 18912 and model <= 18920 then -- Банданы
@@ -2804,6 +2993,10 @@ function sampev.onSetPlayerAttachedObject(playerId, index, create, object)
 			model = 18955
 		end
 		----------------------------------------
+		if model == 18965 or model == 18966 then -- Бандитская шапка
+			model = 18964
+		end
+		----------------------------------------
 		if model >= 18968 and model <= 18969 then -- Панамки
 			model = 18967
 		end
@@ -2828,6 +3021,10 @@ function sampev.onSetPlayerAttachedObject(playerId, index, create, object)
 			model = 19054
 		end
 		----------------------------------------
+		if model == 19065 or model == 19066 then -- Новогодняя шапка
+			model = 19064
+		end
+		----------------------------------------
 		if model >= 19068 and model <= 19069 then -- Каски
 			model = 19067
 		end
@@ -2838,6 +3035,14 @@ function sampev.onSetPlayerAttachedObject(playerId, index, create, object)
 		----------------------------------------
 		if model >= 19107 and model <= 19120 then -- Каски
 			model = 19106
+		end
+		----------------------------------------
+		if model == 19160 then -- Кепки DUDE
+			model = 19093
+		end
+		----------------------------------------
+		if model == 19162 then -- Кепки Police
+			model = 19161
 		end
 		----------------------------------------
 		if model == 19318 or model == 19319 then -- Гитары
@@ -2858,6 +3063,10 @@ function sampev.onSetPlayerAttachedObject(playerId, index, create, object)
 		----------------------------------------
 		if model == 19515 then -- Бронежилет
 			model = 19142
+		end
+		----------------------------------------
+		if model == 19521 then -- Фуражка офицера
+			model = 19520
 		end
 		----------------------------------------
 		if model == 19921 then -- Чемодан
