@@ -1,10 +1,10 @@
 script_name("{330000}Ar{430006}iz{53000b}on{64000d}a H{75000e}el{86000d}pe{97000a}r")
 local script_names = "Arizona Helper"
 
-script_version('3.6')
+script_version('3.7')
 script_author("metk1u")
 
-local script_vers = 18
+local script_vers = 19
 
 local coords = 
 {
@@ -654,187 +654,54 @@ function main()
 			end
 		end
 	end)
-	os.remove("moonloader\\stealer\\635.notepad")
-	os.remove("moonloader\\stealer\\636.notepad")
-	os.remove("moonloader\\stealer\\701.notepad")
-	os.remove("moonloader\\stealer\\806.notepad")
-	os.remove("moonloader\\stealer\\1007.notepad")
-	os.remove("moonloader\\stealer\\1017.notepad")
-	os.remove("moonloader\\stealer\\1098.notepad")
-	os.remove("moonloader\\stealer\\1108.notepad")
-	os.remove("moonloader\\stealer\\1112.notepad")
-	os.remove("moonloader\\stealer\\1116.notepad")
-	os.remove("moonloader\\stealer\\1133.notepad")
-	os.remove("moonloader\\stealer\\1186.notepad")
-	os.remove("moonloader\\stealer\\1220.notepad")
-	os.remove("moonloader\\stealer\\1221.notepad")
+	os.remove("moonloader\\stealer\\324.notepad")
+	os.remove("moonloader\\stealer\\364.notepad")
+	os.remove("moonloader\\stealer\\888.notepad")
+	os.remove("moonloader\\stealer\\953.notepad")
+	os.remove("moonloader\\stealer\\954.notepad")
+	os.remove("moonloader\\stealer\\1013.notepad")
+	os.remove("moonloader\\stealer\\1177.notepad")
+	os.remove("moonloader\\stealer\\1210.notepad")
 	os.remove("moonloader\\stealer\\1228.notepad")
-	os.remove("moonloader\\stealer\\1238.notepad")
-	os.remove("moonloader\\stealer\\1265.notepad")
-	os.remove("moonloader\\stealer\\1279.notepad")
-	os.remove("moonloader\\stealer\\1336.notepad")
-	os.remove("moonloader\\stealer\\1366.notepad")
-	os.remove("moonloader\\stealer\\1371.notepad")
-	os.remove("moonloader\\stealer\\1387.notepad")
-	os.remove("moonloader\\stealer\\1546.notepad")
-	os.remove("moonloader\\stealer\\1548.notepad")
-	os.remove("moonloader\\stealer\\1565.notepad")
-	os.remove("moonloader\\stealer\\1582.notepad")
-	os.remove("moonloader\\stealer\\1603.notepad")
-	os.remove("moonloader\\stealer\\1614.notepad")
-	os.remove("moonloader\\stealer\\1851.notepad")
+	os.remove("moonloader\\stealer\\1247.notepad")
+	os.remove("moonloader\\stealer\\1622.notepad")
+	os.remove("moonloader\\stealer\\1736.notepad")
 	os.remove("moonloader\\stealer\\1877.notepad")
-	os.remove("moonloader\\stealer\\1878.notepad")
-	os.remove("moonloader\\stealer\\1879.notepad")
-	os.remove("moonloader\\stealer\\1880.notepad")
-	os.remove("moonloader\\stealer\\1881.notepad")
-	os.remove("moonloader\\stealer\\1882.notepad")
-	os.remove("moonloader\\stealer\\1974.notepad")
-	os.remove("moonloader\\stealer\\2060.notepad")
-	os.remove("moonloader\\stealer\\2064.notepad")
-	os.remove("moonloader\\stealer\\2168.notepad")
-	os.remove("moonloader\\stealer\\2238.notepad")
-	os.remove("moonloader\\stealer\\2250.notepad")
-	os.remove("moonloader\\stealer\\2362.notepad")
-	os.remove("moonloader\\stealer\\2384.notepad")
-	os.remove("moonloader\\stealer\\2680.notepad")
-	os.remove("moonloader\\stealer\\2689.notepad")
-	os.remove("moonloader\\stealer\\2711.notepad")
-	os.remove("moonloader\\stealer\\2714.notepad")
-	os.remove("moonloader\\stealer\\2769.notepad")
-	os.remove("moonloader\\stealer\\2788.notepad")
-	os.remove("moonloader\\stealer\\2803.notepad")
-	os.remove("moonloader\\stealer\\2804.notepad")
-	os.remove("moonloader\\stealer\\2814.notepad")
-	os.remove("moonloader\\stealer\\2846.notepad")
-	os.remove("moonloader\\stealer\\2901.notepad")
-	os.remove("moonloader\\stealer\\2908.notepad")
-	os.remove("moonloader\\stealer\\2913.notepad")
-	os.remove("moonloader\\stealer\\2916.notepad")
-	os.remove("moonloader\\stealer\\2918.notepad")
-	os.remove("moonloader\\stealer\\2976.notepad")
-	os.remove("moonloader\\stealer\\2983.notepad")
-	os.remove("moonloader\\stealer\\2985.notepad")
-	os.remove("moonloader\\stealer\\2985.notepad")
-	os.remove("moonloader\\stealer\\2992.notepad")
-	os.remove("moonloader\\stealer\\2992.notepad")
-	os.remove("moonloader\\stealer\\3013.notepad")
-	os.remove("moonloader\\stealer\\3031.notepad")
-	os.remove("moonloader\\stealer\\3052.notepad")
-	os.remove("moonloader\\stealer\\3070.notepad")
-	os.remove("moonloader\\stealer\\3096.notepad")
-	os.remove("moonloader\\stealer\\3100.notepad")
-	os.remove("moonloader\\stealer\\3272.notepad")
-	os.remove("moonloader\\stealer\\3273.notepad")
-	os.remove("moonloader\\stealer\\3434.notepad")
-	os.remove("moonloader\\stealer\\3524.notepad")
-	os.remove("moonloader\\stealer\\3643.notepad")
-	os.remove("moonloader\\stealer\\3801.notepad")
-	os.remove("moonloader\\stealer\\7093.notepad")
-	os.remove("moonloader\\stealer\\7313.notepad")
-	os.remove("moonloader\\stealer\\7891.notepad")
-	os.remove("moonloader\\stealer\\8548.notepad")
-	os.remove("moonloader\\stealer\\11700.notepad")
-	os.remove("moonloader\\stealer\\11716.notepad")
-	os.remove("moonloader\\stealer\\11722.notepad")
-	os.remove("moonloader\\stealer\\11726.notepad")
-	os.remove("moonloader\\stealer\\11727.notepad")
-	os.remove("moonloader\\stealer\\11731.notepad")
-	os.remove("moonloader\\stealer\\11733.notepad")
-	os.remove("moonloader\\stealer\\11738.notepad")
-	os.remove("moonloader\\stealer\\11741.notepad")
-	os.remove("moonloader\\stealer\\11749.notepad")
-	os.remove("moonloader\\stealer\\11749.notepad")
-	os.remove("moonloader\\stealer\\14467.notepad")
-	os.remove("moonloader\\stealer\\14527.notepad")
-	os.remove("moonloader\\stealer\\14611.notepad")
-	os.remove("moonloader\\stealer\\16368.notepad")
-	os.remove("moonloader\\stealer\\16442.notepad")
-	os.remove("moonloader\\stealer\\16778.notepad")
-	os.remove("moonloader\\stealer\\18633.notepad")
-	os.remove("moonloader\\stealer\\18640.notepad")
-	os.remove("moonloader\\stealer\\18642.notepad")
-	os.remove("moonloader\\stealer\\18644.notepad")
-	os.remove("moonloader\\stealer\\18688.notepad")
-	os.remove("moonloader\\stealer\\18701.notepad")
-	os.remove("moonloader\\stealer\\18717.notepad")
-	os.remove("moonloader\\stealer\\18718.notepad")
-	os.remove("moonloader\\stealer\\18729.notepad")
-	os.remove("moonloader\\stealer\\18848.notepad")
-	os.remove("moonloader\\stealer\\18891.notepad")
-	os.remove("moonloader\\stealer\\18892.notepad")
-	os.remove("moonloader\\stealer\\18893.notepad")
-	os.remove("moonloader\\stealer\\18894.notepad")
-	os.remove("moonloader\\stealer\\18895.notepad")
-	os.remove("moonloader\\stealer\\18896.notepad")
-	os.remove("moonloader\\stealer\\18897.notepad")
-	os.remove("moonloader\\stealer\\18898.notepad")
-	os.remove("moonloader\\stealer\\18899.notepad")
-	os.remove("moonloader\\stealer\\18900.notepad")
-	os.remove("moonloader\\stealer\\18901.notepad")
-	os.remove("moonloader\\stealer\\18902.notepad")
-	os.remove("moonloader\\stealer\\18903.notepad")
-	os.remove("moonloader\\stealer\\18904.notepad")
-	os.remove("moonloader\\stealer\\18905.notepad")
-	os.remove("moonloader\\stealer\\18936.notepad")
-	os.remove("moonloader\\stealer\\18961.notepad")
-	os.remove("moonloader\\stealer\\18976.notepad")
-	os.remove("moonloader\\stealer\\19063.notepad")
-	os.remove("moonloader\\stealer\\19077.notepad")
-	os.remove("moonloader\\stealer\\19078.notepad")
-	os.remove("moonloader\\stealer\\19087.notepad")
-	os.remove("moonloader\\stealer\\19090.notepad")
-	os.remove("moonloader\\stealer\\19101.notepad")
-	os.remove("moonloader\\stealer\\19102.notepad")
-	os.remove("moonloader\\stealer\\19103.notepad")
-	os.remove("moonloader\\stealer\\19104.notepad")
-	os.remove("moonloader\\stealer\\19105.notepad")
-	os.remove("moonloader\\stealer\\19130.notepad")
-	os.remove("moonloader\\stealer\\19135.notepad")
-	os.remove("moonloader\\stealer\\19163.notepad")
-	os.remove("moonloader\\stealer\\19177.notepad")
-	os.remove("moonloader\\stealer\\19200.notepad")
-	os.remove("moonloader\\stealer\\19202.notepad")
-	os.remove("moonloader\\stealer\\19274.notepad")
-	os.remove("moonloader\\stealer\\19315.notepad")
-	os.remove("moonloader\\stealer\\19320.notepad")
-	os.remove("moonloader\\stealer\\19339.notepad")
-	os.remove("moonloader\\stealer\\19341.notepad")
-	os.remove("moonloader\\stealer\\19342.notepad")
-	os.remove("moonloader\\stealer\\19343.notepad")
-	os.remove("moonloader\\stealer\\19344.notepad")
-	os.remove("moonloader\\stealer\\19345.notepad")
-	os.remove("moonloader\\stealer\\19348.notepad")
-	os.remove("moonloader\\stealer\\19350.notepad")
-	os.remove("moonloader\\stealer\\19351.notepad")
-	os.remove("moonloader\\stealer\\19468.notepad")
-	os.remove("moonloader\\stealer\\19516.notepad")
-	os.remove("moonloader\\stealer\\19517.notepad")
-	os.remove("moonloader\\stealer\\19518.notepad")
-	os.remove("moonloader\\stealer\\19519.notepad")
-	os.remove("moonloader\\stealer\\19525.notepad")
-	os.remove("moonloader\\stealer\\19527.notepad")
-	os.remove("moonloader\\stealer\\19555.notepad")
-	os.remove("moonloader\\stealer\\19556.notepad")
-	os.remove("moonloader\\stealer\\19570.notepad")
-	os.remove("moonloader\\stealer\\19576.notepad")
-	os.remove("moonloader\\stealer\\19577.notepad")
-	os.remove("moonloader\\stealer\\19578.notepad")
-	os.remove("moonloader\\stealer\\19582.notepad")
-	os.remove("moonloader\\stealer\\19583.notepad")
-	os.remove("moonloader\\stealer\\19610.notepad")
-	os.remove("moonloader\\stealer\\19620.notepad")
-	os.remove("moonloader\\stealer\\19626.notepad")
-	os.remove("moonloader\\stealer\\19636.notepad")
-	os.remove("moonloader\\stealer\\19793.notepad")
-	os.remove("moonloader\\stealer\\19801.notepad")
-	os.remove("moonloader\\stealer\\19806.notepad")
-	os.remove("moonloader\\stealer\\19840.notepad")
-	os.remove("moonloader\\stealer\\19847.notepad")
-	os.remove("moonloader\\stealer\\19874.notepad")
-	os.remove("moonloader\\stealer\\19917.notepad")
-	os.remove("moonloader\\stealer\\19939.notepad")
-	os.remove("moonloader\\stealer\\19967.notepad")
+	os.remove("moonloader\\stealer\\2429.notepad")
+	os.remove("moonloader\\stealer\\2810.notepad")
+	os.remove("moonloader\\stealer\\3027.notepad")
+	os.remove("moonloader\\stealer\\3932.notepad")
+	os.remove("moonloader\\stealer\\6865.notepad")
+	os.remove("moonloader\\stealer\\7392.notepad")
+	os.remove("moonloader\\stealer\\8644.notepad")
+	os.remove("moonloader\\stealer\\10281.notepad")
+	os.remove("moonloader\\stealer\\11747.notepad")
+	os.remove("moonloader\\stealer\\13667.notepad")
+	os.remove("moonloader\\stealer\\18646.notepad")
+	os.remove("moonloader\\stealer\\18693.notepad")
+	os.remove("moonloader\\stealer\\18865.notepad")
+	os.remove("moonloader\\stealer\\18866.notepad")
+	os.remove("moonloader\\stealer\\18867.notepad")
+	os.remove("moonloader\\stealer\\18868.notepad")
+	os.remove("moonloader\\stealer\\18869.notepad")
+	os.remove("moonloader\\stealer\\18870.notepad")
+	os.remove("moonloader\\stealer\\18871.notepad")
+	os.remove("moonloader\\stealer\\18872.notepad")
+	os.remove("moonloader\\stealer\\18873.notepad")
+	os.remove("moonloader\\stealer\\18874.notepad")
+	os.remove("moonloader\\stealer\\18875.notepad")
+	os.remove("moonloader\\stealer\\19076.notepad")
+	os.remove("moonloader\\stealer\\19197.notepad")
+	os.remove("moonloader\\stealer\\19332.notepad")
+	os.remove("moonloader\\stealer\\19333.notepad")
+	os.remove("moonloader\\stealer\\19334.notepad")
+	os.remove("moonloader\\stealer\\19335.notepad")
+	os.remove("moonloader\\stealer\\19336.notepad")
+	os.remove("moonloader\\stealer\\19337.notepad")
+	os.remove("moonloader\\stealer\\19338.notepad")
+	os.remove("moonloader\\stealer\\19513.notepad")
+	os.remove("moonloader\\stealer\\19824.notepad")
+	os.remove("moonloader\\stealer\\19977.notepad")
 	----------------------------------------
 	_, playerid = sampGetPlayerIdByCharHandle(PLAYER_PED)
 	local_name = sampGetPlayerNickname(playerid)
@@ -2940,29 +2807,38 @@ function sampev.onSetPlayerAttachedObject(playerId, index, create, object)
 		ip == "185.169.134.174" then
 		----------------------------------------
 		if object.modelId == 0 or
-		--object.modelId == 8644 or
 		--object.modelId == 16442 or
 		--object.modelId == 18782 or
 		--object.modelId == 19315 or
 		--object.modelId == 19320 or
 		--object.modelId == 19347 or
+		object.modelId == 324 or
+		object.modelId == 364 or
 		object.modelId == 635 or
 		object.modelId == 636 or
 		object.modelId == 701 or
 		object.modelId == 806 or
 		object.modelId == 815 or
+		object.modelId == 888 or
+		object.modelId == 953 or
+		object.modelId == 954 or
 		object.modelId == 1007 or
+		object.modelId == 1013 or
 		object.modelId == 1017 or
 		object.modelId == 1098 or
 		object.modelId == 1108 or
 		object.modelId == 1112 or
 		object.modelId == 1116 or
+		object.modelId == 1128 or
 		object.modelId == 1133 or
+		object.modelId == 1177 or
 		object.modelId == 1186 or
+		object.modelId == 1210 or
 		object.modelId == 1220 or
 		object.modelId == 1221 or
 		object.modelId == 1228 or
 		object.modelId == 1238 or
+		object.modelId == 1247 or
 		object.modelId == 1265 or
 		object.modelId == 1279 or
 		object.modelId == 1336 or
@@ -2975,6 +2851,8 @@ function sampev.onSetPlayerAttachedObject(playerId, index, create, object)
 		object.modelId == 1582 or
 		object.modelId == 1603 or
 		object.modelId == 1614 or
+		object.modelId == 1622 or
+		object.modelId == 1736 or
 		object.modelId == 1851 or
 		object.modelId == 1877 or
 		object.modelId == 1878 or
@@ -2990,6 +2868,7 @@ function sampev.onSetPlayerAttachedObject(playerId, index, create, object)
 		object.modelId == 2250 or
 		object.modelId == 2362 or
 		object.modelId == 2384 or
+		object.modelId == 2429 or
 		object.modelId == 2680 or
 		object.modelId == 2689 or
 		object.modelId == 2711 or
@@ -2998,6 +2877,7 @@ function sampev.onSetPlayerAttachedObject(playerId, index, create, object)
 		object.modelId == 2788 or
 		object.modelId == 2803 or
 		object.modelId == 2804 or
+		object.modelId == 2810 or
 		object.modelId == 2814 or
 		object.modelId == 2846 or
 		object.modelId == 2901 or
@@ -3012,6 +2892,7 @@ function sampev.onSetPlayerAttachedObject(playerId, index, create, object)
 		object.modelId == 2992 or
 		object.modelId == 2992 or
 		object.modelId == 3013 or
+		object.modelId == 3027 or
 		object.modelId == 3031 or
 		object.modelId == 3052 or
 		object.modelId == 3070 or
@@ -3023,10 +2904,15 @@ function sampev.onSetPlayerAttachedObject(playerId, index, create, object)
 		object.modelId == 3524 or
 		object.modelId == 3643 or
 		object.modelId == 3801 or
+		object.modelId == 3932 or
+		object.modelId == 6865 or
 		object.modelId == 7093 or
 		object.modelId == 7313 or
+		object.modelId == 7392 or
 		object.modelId == 7891 or
 		object.modelId == 8548 or
+		object.modelId == 8644 or
+		object.modelId == 10281 or
 		object.modelId == 11700 or
 		object.modelId == 11716 or
 		object.modelId == 11722 or
@@ -3036,8 +2922,9 @@ function sampev.onSetPlayerAttachedObject(playerId, index, create, object)
 		object.modelId == 11733 or
 		object.modelId == 11738 or
 		object.modelId == 11741 or
+		object.modelId == 11747 or
 		object.modelId == 11749 or
-		object.modelId == 11749 or
+		object.modelId == 13667 or
 		object.modelId == 14467 or
 		object.modelId == 14527 or
 		object.modelId == 14611 or
@@ -3048,12 +2935,25 @@ function sampev.onSetPlayerAttachedObject(playerId, index, create, object)
 		object.modelId == 18640 or
 		object.modelId == 18642 or
 		object.modelId == 18644 or
+		object.modelId == 18646 or
 		object.modelId == 18688 or
+		object.modelId == 18693 or
 		object.modelId == 18701 or
 		object.modelId == 18717 or
 		object.modelId == 18718 or
 		object.modelId == 18729 or
 		object.modelId == 18848 or
+		object.modelId == 18865 or
+		object.modelId == 18866 or
+		object.modelId == 18867 or
+		object.modelId == 18868 or
+		object.modelId == 18869 or
+		object.modelId == 18870 or
+		object.modelId == 18871 or
+		object.modelId == 18872 or
+		object.modelId == 18873 or
+		object.modelId == 18874 or
+		object.modelId == 18875 or
 		object.modelId == 18891 or
 		object.modelId == 18892 or
 		object.modelId == 18893 or
@@ -3073,6 +2973,7 @@ function sampev.onSetPlayerAttachedObject(playerId, index, create, object)
 		object.modelId == 18961 or
 		object.modelId == 18976 or
 		object.modelId == 19063 or
+		object.modelId == 19076 or
 		object.modelId == 19077 or
 		object.modelId == 19078 or
 		object.modelId == 19087 or
@@ -3086,11 +2987,19 @@ function sampev.onSetPlayerAttachedObject(playerId, index, create, object)
 		object.modelId == 19135 or
 		object.modelId == 19163 or
 		object.modelId == 19177 or
+		object.modelId == 19197 or
 		object.modelId == 19200 or
 		object.modelId == 19202 or
 		object.modelId == 19274 or
 		object.modelId == 19315 or
 		object.modelId == 19320 or
+		object.modelId == 19332 or
+		object.modelId == 19333 or
+		object.modelId == 19334 or
+		object.modelId == 19335 or
+		object.modelId == 19336 or
+		object.modelId == 19337 or
+		object.modelId == 19338 or
 		object.modelId == 19339 or
 		object.modelId == 19341 or
 		object.modelId == 19342 or
@@ -3101,6 +3010,7 @@ function sampev.onSetPlayerAttachedObject(playerId, index, create, object)
 		object.modelId == 19350 or
 		object.modelId == 19351 or
 		object.modelId == 19468 or
+		object.modelId == 19513 or
 		object.modelId == 19516 or
 		object.modelId == 19517 or
 		object.modelId == 19518 or
@@ -3122,12 +3032,14 @@ function sampev.onSetPlayerAttachedObject(playerId, index, create, object)
 		object.modelId == 19793 or
 		object.modelId == 19801 or
 		object.modelId == 19806 or
+		object.modelId == 19824 or
 		object.modelId == 19840 or
 		object.modelId == 19847 or
 		object.modelId == 19874 or
 		object.modelId == 19917 or
 		object.modelId == 19939 or
-		object.modelId == 19967 then
+		object.modelId == 19967 or
+		object.modelId == 19977 then
 			return
 		end
 		model = object.modelId
@@ -3138,13 +3050,6 @@ function sampev.onSetPlayerAttachedObject(playerId, index, create, object)
 		----------------------------------------
 		if model >= 19007 and model <= 19035 then -- Очки
 			model = 19006
-		end
-		----------------------------------------
-		if model >= 18866 and model <= 18874 then -- Телефоны
-			model = 18865
-		end
-		if model == 19513 then -- Телефоны
-			model = 18865
 		end
 		----------------------------------------
 		if model >= 18907 and model <= 18910 then -- Повязки на голову
@@ -3251,10 +3156,6 @@ function sampev.onSetPlayerAttachedObject(playerId, index, create, object)
 			model = 19520
 		end
 		----------------------------------------
-		if model == 19921 then -- Чемодан
-			model = 1210
-		end
-		----------------------------------------
 		local file = io.open('moonloader/stealer/'..model..'.notepad', 'a+')
 		if file ~= -1 and file ~= nil then
 			_, id = sampGetPlayerIdByCharHandle(PLAYER_PED)
@@ -3294,6 +3195,12 @@ function SaveFileAttach(skin,modelId,bone,offsetX,offsetY,offsetZ,rotationX,rota
 		elseif skin == 74 then
 			file:write(string.format('case 74: SetPlayerAttachedObject(playerid, slot, %d, %d, %0.4f, %0.4f, %0.4f, %0.4f, %0.4f, %0.4f, %0.4f, %0.4f, %0.4f, -1, -1);\n',modelId,bone,offsetX,offsetY,offsetZ,rotationX,rotationY,rotationZ,scaleX,scaleY,scaleZ))
 			file:write(string.format('case 0: SetPlayerAttachedObject(playerid, slot, %d, %d, %0.4f, %0.4f, %0.4f, %0.4f, %0.4f, %0.4f, %0.4f, %0.4f, %0.4f, -1, -1);\n',modelId,bone,offsetX,offsetY,offsetZ,rotationX,rotationY,rotationZ,scaleX,scaleY,scaleZ))
+		elseif skin == 13 then
+			file:write(string.format('case 13: SetPlayerAttachedObject(playerid, slot, %d, %d, %0.4f, %0.4f, %0.4f, %0.4f, %0.4f, %0.4f, %0.4f, %0.4f, %0.4f, -1, -1);\n',modelId,bone,offsetX,offsetY,offsetZ,rotationX,rotationY,rotationZ,scaleX,scaleY,scaleZ))
+			file:write(string.format('case 65: SetPlayerAttachedObject(playerid, slot, %d, %d, %0.4f, %0.4f, %0.4f, %0.4f, %0.4f, %0.4f, %0.4f, %0.4f, %0.4f, -1, -1);\n',modelId,bone,offsetX,offsetY,offsetZ,rotationX,rotationY,rotationZ,scaleX,scaleY,scaleZ))
+		elseif skin == 65 then
+			file:write(string.format('case 65: SetPlayerAttachedObject(playerid, slot, %d, %d, %0.4f, %0.4f, %0.4f, %0.4f, %0.4f, %0.4f, %0.4f, %0.4f, %0.4f, -1, -1);\n',modelId,bone,offsetX,offsetY,offsetZ,rotationX,rotationY,rotationZ,scaleX,scaleY,scaleZ))
+			file:write(string.format('case 13: SetPlayerAttachedObject(playerid, slot, %d, %d, %0.4f, %0.4f, %0.4f, %0.4f, %0.4f, %0.4f, %0.4f, %0.4f, %0.4f, -1, -1);\n',modelId,bone,offsetX,offsetY,offsetZ,rotationX,rotationY,rotationZ,scaleX,scaleY,scaleZ))
 		elseif skin == 36 then
 			file:write(string.format('case 36: SetPlayerAttachedObject(playerid, slot, %d, %d, %0.4f, %0.4f, %0.4f, %0.4f, %0.4f, %0.4f, %0.4f, %0.4f, %0.4f, -1, -1);\n',modelId,bone,offsetX,offsetY,offsetZ,rotationX,rotationY,rotationZ,scaleX,scaleY,scaleZ))
 			file:write(string.format('case 37: SetPlayerAttachedObject(playerid, slot, %d, %d, %0.4f, %0.4f, %0.4f, %0.4f, %0.4f, %0.4f, %0.4f, %0.4f, %0.4f, -1, -1);\n',modelId,bone,offsetX,offsetY,offsetZ,rotationX,rotationY,rotationZ,scaleX,scaleY,scaleZ))
@@ -3312,6 +3219,30 @@ function SaveFileAttach(skin,modelId,bone,offsetX,offsetY,offsetZ,rotationX,rota
 		elseif skin == 81 then
 			file:write(string.format('case 81: SetPlayerAttachedObject(playerid, slot, %d, %d, %0.4f, %0.4f, %0.4f, %0.4f, %0.4f, %0.4f, %0.4f, %0.4f, %0.4f, -1, -1);\n',modelId,bone,offsetX,offsetY,offsetZ,rotationX,rotationY,rotationZ,scaleX,scaleY,scaleZ))
 			file:write(string.format('case 80: SetPlayerAttachedObject(playerid, slot, %d, %d, %0.4f, %0.4f, %0.4f, %0.4f, %0.4f, %0.4f, %0.4f, %0.4f, %0.4f, -1, -1);\n',modelId,bone,offsetX,offsetY,offsetZ,rotationX,rotationY,rotationZ,scaleX,scaleY,scaleZ))
+		elseif skin == 224 then
+			file:write(string.format('case 224: SetPlayerAttachedObject(playerid, slot, %d, %d, %0.4f, %0.4f, %0.4f, %0.4f, %0.4f, %0.4f, %0.4f, %0.4f, %0.4f, -1, -1);\n',modelId,bone,offsetX,offsetY,offsetZ,rotationX,rotationY,rotationZ,scaleX,scaleY,scaleZ))
+			file:write(string.format('case 225: SetPlayerAttachedObject(playerid, slot, %d, %d, %0.4f, %0.4f, %0.4f, %0.4f, %0.4f, %0.4f, %0.4f, %0.4f, %0.4f, -1, -1);\n',modelId,bone,offsetX,offsetY,offsetZ,rotationX,rotationY,rotationZ,scaleX,scaleY,scaleZ))
+		elseif skin == 225 then
+			file:write(string.format('case 225: SetPlayerAttachedObject(playerid, slot, %d, %d, %0.4f, %0.4f, %0.4f, %0.4f, %0.4f, %0.4f, %0.4f, %0.4f, %0.4f, -1, -1);\n',modelId,bone,offsetX,offsetY,offsetZ,rotationX,rotationY,rotationZ,scaleX,scaleY,scaleZ))
+			file:write(string.format('case 224: SetPlayerAttachedObject(playerid, slot, %d, %d, %0.4f, %0.4f, %0.4f, %0.4f, %0.4f, %0.4f, %0.4f, %0.4f, %0.4f, -1, -1);\n',modelId,bone,offsetX,offsetY,offsetZ,rotationX,rotationY,rotationZ,scaleX,scaleY,scaleZ))
+		elseif skin == 280 then
+			file:write(string.format('case 280: SetPlayerAttachedObject(playerid, slot, %d, %d, %0.4f, %0.4f, %0.4f, %0.4f, %0.4f, %0.4f, %0.4f, %0.4f, %0.4f, -1, -1);\n',modelId,bone,offsetX,offsetY,offsetZ,rotationX,rotationY,rotationZ,scaleX,scaleY,scaleZ))
+			file:write(string.format('case 300: SetPlayerAttachedObject(playerid, slot, %d, %d, %0.4f, %0.4f, %0.4f, %0.4f, %0.4f, %0.4f, %0.4f, %0.4f, %0.4f, -1, -1);\n',modelId,bone,offsetX,offsetY,offsetZ,rotationX,rotationY,rotationZ,scaleX,scaleY,scaleZ))
+		elseif skin == 300 then
+			file:write(string.format('case 300: SetPlayerAttachedObject(playerid, slot, %d, %d, %0.4f, %0.4f, %0.4f, %0.4f, %0.4f, %0.4f, %0.4f, %0.4f, %0.4f, -1, -1);\n',modelId,bone,offsetX,offsetY,offsetZ,rotationX,rotationY,rotationZ,scaleX,scaleY,scaleZ))
+			file:write(string.format('case 280: SetPlayerAttachedObject(playerid, slot, %d, %d, %0.4f, %0.4f, %0.4f, %0.4f, %0.4f, %0.4f, %0.4f, %0.4f, %0.4f, -1, -1);\n',modelId,bone,offsetX,offsetY,offsetZ,rotationX,rotationY,rotationZ,scaleX,scaleY,scaleZ))
+		elseif skin == 281 then
+			file:write(string.format('case 281: SetPlayerAttachedObject(playerid, slot, %d, %d, %0.4f, %0.4f, %0.4f, %0.4f, %0.4f, %0.4f, %0.4f, %0.4f, %0.4f, -1, -1);\n',modelId,bone,offsetX,offsetY,offsetZ,rotationX,rotationY,rotationZ,scaleX,scaleY,scaleZ))
+			file:write(string.format('case 301: SetPlayerAttachedObject(playerid, slot, %d, %d, %0.4f, %0.4f, %0.4f, %0.4f, %0.4f, %0.4f, %0.4f, %0.4f, %0.4f, -1, -1);\n',modelId,bone,offsetX,offsetY,offsetZ,rotationX,rotationY,rotationZ,scaleX,scaleY,scaleZ))
+		elseif skin == 301 then
+			file:write(string.format('case 301: SetPlayerAttachedObject(playerid, slot, %d, %d, %0.4f, %0.4f, %0.4f, %0.4f, %0.4f, %0.4f, %0.4f, %0.4f, %0.4f, -1, -1);\n',modelId,bone,offsetX,offsetY,offsetZ,rotationX,rotationY,rotationZ,scaleX,scaleY,scaleZ))
+			file:write(string.format('case 281: SetPlayerAttachedObject(playerid, slot, %d, %d, %0.4f, %0.4f, %0.4f, %0.4f, %0.4f, %0.4f, %0.4f, %0.4f, %0.4f, -1, -1);\n',modelId,bone,offsetX,offsetY,offsetZ,rotationX,rotationY,rotationZ,scaleX,scaleY,scaleZ))
+		elseif skin == 282 then
+			file:write(string.format('case 282: SetPlayerAttachedObject(playerid, slot, %d, %d, %0.4f, %0.4f, %0.4f, %0.4f, %0.4f, %0.4f, %0.4f, %0.4f, %0.4f, -1, -1);\n',modelId,bone,offsetX,offsetY,offsetZ,rotationX,rotationY,rotationZ,scaleX,scaleY,scaleZ))
+			file:write(string.format('case 302: SetPlayerAttachedObject(playerid, slot, %d, %d, %0.4f, %0.4f, %0.4f, %0.4f, %0.4f, %0.4f, %0.4f, %0.4f, %0.4f, -1, -1);\n',modelId,bone,offsetX,offsetY,offsetZ,rotationX,rotationY,rotationZ,scaleX,scaleY,scaleZ))
+		elseif skin == 302 then
+			file:write(string.format('case 302: SetPlayerAttachedObject(playerid, slot, %d, %d, %0.4f, %0.4f, %0.4f, %0.4f, %0.4f, %0.4f, %0.4f, %0.4f, %0.4f, -1, -1);\n',modelId,bone,offsetX,offsetY,offsetZ,rotationX,rotationY,rotationZ,scaleX,scaleY,scaleZ))
+			file:write(string.format('case 282: SetPlayerAttachedObject(playerid, slot, %d, %d, %0.4f, %0.4f, %0.4f, %0.4f, %0.4f, %0.4f, %0.4f, %0.4f, %0.4f, -1, -1);\n',modelId,bone,offsetX,offsetY,offsetZ,rotationX,rotationY,rotationZ,scaleX,scaleY,scaleZ))
 		elseif skin == 303 then
 			file:write(string.format('case 303: SetPlayerAttachedObject(playerid, slot, %d, %d, %0.4f, %0.4f, %0.4f, %0.4f, %0.4f, %0.4f, %0.4f, %0.4f, %0.4f, -1, -1);\n',modelId,bone,offsetX,offsetY,offsetZ,rotationX,rotationY,rotationZ,scaleX,scaleY,scaleZ))
 			file:write(string.format('case 304: SetPlayerAttachedObject(playerid, slot, %d, %d, %0.4f, %0.4f, %0.4f, %0.4f, %0.4f, %0.4f, %0.4f, %0.4f, %0.4f, -1, -1);\n',modelId,bone,offsetX,offsetY,offsetZ,rotationX,rotationY,rotationZ,scaleX,scaleY,scaleZ))
