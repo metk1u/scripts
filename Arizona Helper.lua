@@ -1,10 +1,10 @@
 script_name("{330000}Ar{430006}iz{53000b}on{64000d}a H{75000e}el{86000d}pe{97000a}r")
 local script_names = "Arizona Helper"
 
-script_version('3.7')
+script_version('3.8')
 script_author("metk1u")
 
-local script_vers = 19
+local script_vers = 20
 
 local coords = 
 {
@@ -326,7 +326,8 @@ local mainIni = inicfg.load(
 		offsetStrings = 4,
 		fontName = 'Calibri',
 		renderTime = true,
-		killStat = true
+		killStat = true,
+		del_3d = true
 	},
 	account =
 	{
@@ -483,6 +484,7 @@ local elements =
 		fontName = imgui.ImBuffer(tostring(mainIni.config.fontName), 100),
 		renderTime = imgui.ImBool(mainIni.config.renderTime),
 		killStat = imgui.ImBool(mainIni.config.killStat),
+		del_3d = imgui.ImBool(mainIni.config.del_3d),
 		del_stream = imgui.ImBool(false)
 	},
 	account =
@@ -654,54 +656,7 @@ function main()
 			end
 		end
 	end)
-	os.remove("moonloader\\stealer\\324.notepad")
-	os.remove("moonloader\\stealer\\364.notepad")
-	os.remove("moonloader\\stealer\\888.notepad")
-	os.remove("moonloader\\stealer\\953.notepad")
-	os.remove("moonloader\\stealer\\954.notepad")
-	os.remove("moonloader\\stealer\\1013.notepad")
-	os.remove("moonloader\\stealer\\1177.notepad")
-	os.remove("moonloader\\stealer\\1210.notepad")
-	os.remove("moonloader\\stealer\\1228.notepad")
-	os.remove("moonloader\\stealer\\1247.notepad")
-	os.remove("moonloader\\stealer\\1622.notepad")
-	os.remove("moonloader\\stealer\\1736.notepad")
-	os.remove("moonloader\\stealer\\1877.notepad")
-	os.remove("moonloader\\stealer\\2429.notepad")
-	os.remove("moonloader\\stealer\\2810.notepad")
-	os.remove("moonloader\\stealer\\3027.notepad")
-	os.remove("moonloader\\stealer\\3932.notepad")
-	os.remove("moonloader\\stealer\\6865.notepad")
-	os.remove("moonloader\\stealer\\7392.notepad")
-	os.remove("moonloader\\stealer\\8644.notepad")
-	os.remove("moonloader\\stealer\\10281.notepad")
-	os.remove("moonloader\\stealer\\11747.notepad")
-	os.remove("moonloader\\stealer\\13667.notepad")
-	os.remove("moonloader\\stealer\\18646.notepad")
-	os.remove("moonloader\\stealer\\18693.notepad")
-	os.remove("moonloader\\stealer\\18865.notepad")
-	os.remove("moonloader\\stealer\\18866.notepad")
-	os.remove("moonloader\\stealer\\18867.notepad")
-	os.remove("moonloader\\stealer\\18868.notepad")
-	os.remove("moonloader\\stealer\\18869.notepad")
-	os.remove("moonloader\\stealer\\18870.notepad")
-	os.remove("moonloader\\stealer\\18871.notepad")
-	os.remove("moonloader\\stealer\\18872.notepad")
-	os.remove("moonloader\\stealer\\18873.notepad")
-	os.remove("moonloader\\stealer\\18874.notepad")
-	os.remove("moonloader\\stealer\\18875.notepad")
-	os.remove("moonloader\\stealer\\19076.notepad")
-	os.remove("moonloader\\stealer\\19197.notepad")
-	os.remove("moonloader\\stealer\\19332.notepad")
-	os.remove("moonloader\\stealer\\19333.notepad")
-	os.remove("moonloader\\stealer\\19334.notepad")
-	os.remove("moonloader\\stealer\\19335.notepad")
-	os.remove("moonloader\\stealer\\19336.notepad")
-	os.remove("moonloader\\stealer\\19337.notepad")
-	os.remove("moonloader\\stealer\\19338.notepad")
-	os.remove("moonloader\\stealer\\19513.notepad")
-	os.remove("moonloader\\stealer\\19824.notepad")
-	os.remove("moonloader\\stealer\\19977.notepad")
+	--os.remove("moonloader\\stealer\\324.notepad")
 	----------------------------------------
 	_, playerid = sampGetPlayerIdByCharHandle(PLAYER_PED)
 	local_name = sampGetPlayerNickname(playerid)
@@ -1388,7 +1343,8 @@ function saveini()
 			offsetStrings = elements.config.offsetStrings.v,
 			fontName = elements.config.fontName.v,
 			renderTime = elements.config.renderTime.v,
-			killStat = elements.config.killStat.v
+			killStat = elements.config.killStat.v,
+			del_3d = elements.config.del_3d.v
 		},
 		account =
 		{
@@ -1632,6 +1588,7 @@ function imgui.OnDrawFrame()
 		imgui.Checkbox(u8('Включить время в левом нижнем углу'),elements.config.renderTime)
 		----------------------------------------
 		imgui.Checkbox(u8('Выключить киллстат'),elements.config.killStat)
+		imgui.Checkbox(u8('Убрать \'Описание\' игроков'),elements.config.del_3d)
 		----------------------------------------
 		imgui.PushItemWidth(300)
 		imgui.SliderInt(u8('Погода'),elements.weather_time.set_weather,0,45)
@@ -2382,6 +2339,24 @@ function sampev.onPlayerStreamIn(playerId, team, model, position, rotation, colo
 	end
 end
 
+--function sampev.onCreateObject(objectId, data)
+	--if data.attachToVehicleId ~= 65535 and data.modelId == 19476 then
+
+		--sampfuncsLog(objectId)
+		--sampfuncsLog(data.modelId)
+		--sampfuncsLog(data.attachToVehicleId)
+		
+
+		--res, carhandle = sampGetCarHandleBySampVehicleId(data.attachToVehicleId)
+		--if carhandle ~= -1 then
+			--model = getCarModel(carhandle)
+			--sampfuncsLog("AttachDynamicObjectToVehicle(supreme, "..model..", "..data.attachOffsets.x..", "..data.attachOffsets.y..", "..data.attachOffsets.z..", "..data.attachRotation.x..", "..data.attachRotation.x..", "..data.attachRotation.x..");")
+			--sampfuncsLog("AttachDynamicObjectToVehicle(supreme, "..model..", "..data.syncRotation.x..", "..data.syncRotation.y..", "..data.syncRotation.z..", "..data.attachRotation.x..", "..data.attachRotation.x..", "..data.attachRotation.x..");")
+		
+		--end
+	--end
+--end
+
 function sampev.onVehicleStreamIn()
 	if elements.config.del_stream.v == true then
 		return false
@@ -2390,6 +2365,12 @@ end
 
 function sampev.onPlayerDeathNotification(killerid, killedid, reason)
 	if elements.config.killStat.v == true then
+		return false
+	end
+end
+
+function sampev.onCreate3DText(id, color, position, distance, testLOS, attachedPlayerId, attachedVehicleId, text)
+	if elements.config.del_3d.v == true and position.x == 0 and position.y == 0 and position.z == -1 and distance == 7 and attachedPlayerId ~= 65535 then
 		return false
 	end
 end
@@ -3026,7 +3007,6 @@ function sampev.onSetPlayerAttachedObject(playerId, index, create, object)
 		object.modelId == 19582 or
 		object.modelId == 19583 or
 		object.modelId == 19610 or
-		object.modelId == 19620 or
 		object.modelId == 19626 or
 		object.modelId == 19636 or
 		object.modelId == 19793 or
