@@ -1,10 +1,10 @@
 script_name("{330000}Ar{430006}iz{53000b}on{64000d}a H{75000e}el{86000d}pe{97000a}r")
 local script_names = "Arizona Helper"
 
-script_version('3.8')
+script_version('3.9')
 script_author("metk1u")
 
-local script_vers = 20
+local script_vers = 21
 
 local coords = 
 {
@@ -309,7 +309,9 @@ local friends =
 	"Denis_Seleznev",
 	"Avksentiu_Adaw",
 	"Vartan_Germun",
-	"Mawka_Dvornyawka"
+	"Mawka_Dvornyawka",
+	"Nikita_Bernoy",
+	"Kostya_Seleznev"
 };
 ----------------------------------------
 local file = 'settings.ini'
@@ -656,7 +658,9 @@ function main()
 			end
 		end
 	end)
-	--os.remove("moonloader\\stealer\\324.notepad")
+	os.remove("moonloader\\stealer\\1319.notepad")
+	os.remove("moonloader\\stealer\\1511.notepad")
+	os.remove("moonloader\\stealer\\3528.notepad")
 	----------------------------------------
 	_, playerid = sampGetPlayerIdByCharHandle(PLAYER_PED)
 	local_name = sampGetPlayerNickname(playerid)
@@ -1145,77 +1149,94 @@ function main()
 				end
 			end
 			----------------------------------------
-			if klad_state == true then
-				----------------------------------------
-				if sampIsDialogActive() and sampGetCurrentDialogId() == 13101 then
-					dialogid = sampGetCurrentDialogId()
-					text = sampGetDialogText(dialogid)
+			ip, port = sampGetCurrentServerAddress()
+			if ip == "185.169.134.3" or
+				ip == "185.169.134.4" or
+				ip == "185.169.134.43" or
+				ip == "185.169.134.44" or
+				ip == "185.169.134.45" or
+				ip == "185.169.134.5" or
+				ip == "185.169.134.59" or
+				ip == "185.169.134.61" or
+				ip == "185.169.134.107" or
+				ip == "185.169.134.109" or
+				ip == "185.169.134.166" or
+				ip == "185.169.134.171" or
+				ip == "185.169.134.172" or
+				ip == "185.169.134.173" or
+				ip == "185.169.134.174" then
+				if klad_state == true then
 					----------------------------------------
-					for k, v in pairs(textklad) do
-						if string.match(text, k) then
-							sampAddChatMessage('', -1)
-							sampAddChatMessage('', -1)
-							sampAddChatMessage('', -1)
-							sampAddChatMessage('Ответ на вопрос: {FF3300}'..v, -1)
-							wait(10000)
+					if sampIsDialogActive() and sampGetCurrentDialogId() == 13101 then
+						dialogid = sampGetCurrentDialogId()
+						text = sampGetDialogText(dialogid)
+						----------------------------------------
+						for k, v in pairs(textklad) do
+							if string.match(text, k) then
+								sampAddChatMessage('', -1)
+								sampAddChatMessage('', -1)
+								sampAddChatMessage('', -1)
+								sampAddChatMessage('Ответ на вопрос: {FF3300}'..v, -1)
+								wait(10000)
+							end
 						end
+						----------------------------------------
 					end
 					----------------------------------------
-				end
-				----------------------------------------
-				klad_count = 0
-				for _, i in pairs(getAllObjects()) do
-					if getObjectModel(i) == 1271 then
-						klad_count = klad_count + 1
-						if isObjectOnScreen(i) then
-							local result, oX, oY, oZ = getObjectCoordinates(i)
-						
-							local x1, y1 = convert3DCoordsToScreen(oX,oY,oZ)
-							local PlayerX, PlayerY, PlayerZ = getCharCoordinates(PLAYER_PED)
-							local PlayerX2, PlayerY2 = convert3DCoordsToScreen(PlayerX, PlayerY, PlayerZ)
-							distance = string.format("%.0f",getDistanceBetweenCoords3d(oX, oY, oZ, PlayerX, PlayerY, PlayerZ))
-						
-							renderDrawLine(PlayerX2, PlayerY2, x1, y1, 2, 0xFF3300FF) 
-							renderFontDrawText(arial,"{FF0000}Клад: {3300FF}"..distance, x1, y1, -1)
-						end
-					end
-				end
-				local sx, sy = getScreenResolution()
-				if klad_count == 0 then
-					renderFontDrawText(arial, 'Кладов в зоне стрима: '..klad_count, sx / 1.22, sy - 30, 0xFF3300FF)
-				else
-					renderFontDrawText(arial, 'Кладов в зоне стрима: '..klad_count, sx / 1.22, sy - 30, 0xFFFF0000)
-					printString('~r~KLAD! KLAD! KLAD!',1000)
-				end
-				if carid ~= -1 then
-					res, carhandle = sampGetCarHandleBySampVehicleId(carid)
-					if carhandle ~= -1 then
-						model = getCarModel(carhandle)
-						if model ~= 414 and -- Mule
-							model ~= 416 and -- Ambulance
-							model ~= 420 and -- Taxi
-							model ~= 427 and -- Police Enforcer
-							model ~= 428 and -- Securicar
-							model ~= 437 and -- Coach (Автобус)
-							model ~= 438 and -- Cabbie Taxi
-							model ~= 456 and -- Yankee
-							model ~= 525 and -- Towtruck
-							model ~= 601 then -- S.W.A.T
-							x, y, z = getCarCoordinates(carhandle)
-							name_vehicle = getCarName(model)
+					klad_count = 0
+					for _, i in pairs(getAllObjects()) do
+						if getObjectModel(i) == 1271 then
+							klad_count = klad_count + 1
+							if isObjectOnScreen(i) then
+								local result, oX, oY, oZ = getObjectCoordinates(i)
 							
-							printString('~p~OPEN BAGAJHUK~n~'..name_vehicle..'['..carid..']',1000)
-
-							local x2, y2 = convert3DCoordsToScreen(x, y, z)
-							local PlayerX3, PlayerY3, PlayerZ3 = getCharCoordinates(PLAYER_PED)
-							local PlayerX4, PlayerY4 = convert3DCoordsToScreen(PlayerX3, PlayerY3, PlayerZ3)
-							distance = string.format("%.0f",getDistanceBetweenCoords3d(x, y, z, PlayerX3, PlayerY3, PlayerZ3))
-
-							renderDrawLine(PlayerX4, PlayerY4, x2, y2, 2, 0x8B00FFFF) 
-							renderFontDrawText(arial,"{8B00FF}"..name_vehicle.."["..carid.."]\nБагажник: {3300FF}"..distance, x2, y2, -1)
+								local x1, y1 = convert3DCoordsToScreen(oX,oY,oZ)
+								local PlayerX, PlayerY, PlayerZ = getCharCoordinates(PLAYER_PED)
+								local PlayerX2, PlayerY2 = convert3DCoordsToScreen(PlayerX, PlayerY, PlayerZ)
+								distance = string.format("%.0f",getDistanceBetweenCoords3d(oX, oY, oZ, PlayerX, PlayerY, PlayerZ))
+							
+								renderDrawLine(PlayerX2, PlayerY2, x1, y1, 2, 0xFF3300FF) 
+								renderFontDrawText(arial,"{FF0000}Клад: {3300FF}"..distance, x1, y1, -1)
+							end
 						end
+					end
+					local sx, sy = getScreenResolution()
+					if klad_count == 0 then
+						renderFontDrawText(arial, 'Кладов в зоне стрима: '..klad_count, sx / 1.22, sy - 30, 0xFF3300FF)
 					else
-						carid = -1
+						renderFontDrawText(arial, 'Кладов в зоне стрима: '..klad_count, sx / 1.22, sy - 30, 0xFFFF0000)
+						printString('~r~KLAD! KLAD! KLAD!',1000)
+					end
+					if carid ~= -1 then
+						res, carhandle = sampGetCarHandleBySampVehicleId(carid)
+						if carhandle ~= -1 then
+							model = getCarModel(carhandle)
+							if model ~= 414 and -- Mule
+								model ~= 416 and -- Ambulance
+								model ~= 420 and -- Taxi
+								model ~= 427 and -- Police Enforcer
+								model ~= 428 and -- Securicar
+								model ~= 437 and -- Coach (Автобус)
+								model ~= 438 and -- Cabbie Taxi
+								model ~= 456 and -- Yankee
+								model ~= 525 and -- Towtruck
+								model ~= 601 then -- S.W.A.T
+								x, y, z = getCarCoordinates(carhandle)
+								name_vehicle = getCarName(model)
+								
+								printString('~p~OPEN BAGAJHUK~n~'..name_vehicle..'['..carid..']',1000)
+
+								local x2, y2 = convert3DCoordsToScreen(x, y, z)
+								local PlayerX3, PlayerY3, PlayerZ3 = getCharCoordinates(PLAYER_PED)
+								local PlayerX4, PlayerY4 = convert3DCoordsToScreen(PlayerX3, PlayerY3, PlayerZ3)
+								distance = string.format("%.0f",getDistanceBetweenCoords3d(x, y, z, PlayerX3, PlayerY3, PlayerZ3))
+
+								renderDrawLine(PlayerX4, PlayerY4, x2, y2, 2, 0x8B00FFFF) 
+								renderFontDrawText(arial,"{8B00FF}"..name_vehicle.."["..carid.."]\nБагажник: {3300FF}"..distance, x2, y2, -1)
+							end
+						else
+							carid = -1
+						end
 					end
 				end
 			end
@@ -1306,21 +1327,38 @@ function main()
 			end
 			----------------------------------------
 			if elements.config.renderTime.v == true then
-				local tWeekdays = 
-				{
-					[0] = 'Воскресенье',
-					[1] = 'Понедельник',
-					[2] = 'Вторник',
-					[3] = 'Среда',
-					[4] = 'Четверг',
-					[5] = 'Пятница',
-					[6] = 'Суббота'
-				}
-				local sx, sy = getScreenResolution()
-				renderFontDrawText(molot, string.format("[%02d.%02d.%02d || %02d.%02d.%02d] (%s)",
-				os.date("%d"),os.date("%m"),os.date("%Y"),
-				os.date("%H"),os.date("%M"),os.date("%S"),
-				tWeekdays[tonumber(os.date("%w"))]), sx / 50, sy - 30, 0xAAFFFFFF)
+			ip, port = sampGetCurrentServerAddress()
+				if ip == "185.169.134.3" or
+					ip == "185.169.134.4" or
+					ip == "185.169.134.43" or
+					ip == "185.169.134.44" or
+					ip == "185.169.134.45" or
+					ip == "185.169.134.5" or
+					ip == "185.169.134.59" or
+					ip == "185.169.134.61" or
+					ip == "185.169.134.107" or
+					ip == "185.169.134.109" or
+					ip == "185.169.134.166" or
+					ip == "185.169.134.171" or
+					ip == "185.169.134.172" or
+					ip == "185.169.134.173" or
+					ip == "185.169.134.174" then
+					local tWeekdays = 
+					{
+						[0] = 'Воскресенье',
+						[1] = 'Понедельник',
+						[2] = 'Вторник',
+						[3] = 'Среда',
+						[4] = 'Четверг',
+						[5] = 'Пятница',
+						[6] = 'Суббота'
+					}
+					local sx, sy = getScreenResolution()
+					renderFontDrawText(molot, string.format("[%02d.%02d.%02d || %02d.%02d.%02d] (%s)",
+					os.date("%d"),os.date("%m"),os.date("%Y"),
+					os.date("%H"),os.date("%M"),os.date("%S"),
+					tWeekdays[tonumber(os.date("%w"))]), sx / 50, sy - 30, 0xAAFFFFFF)
+				end
 			end
 			----------------------------------------
 			hours, mins = getTimeOfDay()
@@ -2421,9 +2459,26 @@ function onReceiveRpc(id, bitStream)
 		model == 7666 or model == 16101 or model == 16304 or model == 18864 or model == 19604 or model == 19606) then
 			return false
 		end
-		if model == 1271 then
-			for i = 0, 12 do
-				sampAddChatMessage('В зоне стрима КЛАД!!!', 0xFF3300)
+		ip, port = sampGetCurrentServerAddress()
+		if ip == "185.169.134.3" or
+			ip == "185.169.134.4" or
+			ip == "185.169.134.43" or
+			ip == "185.169.134.44" or
+			ip == "185.169.134.45" or
+			ip == "185.169.134.5" or
+			ip == "185.169.134.59" or
+			ip == "185.169.134.61" or
+			ip == "185.169.134.107" or
+			ip == "185.169.134.109" or
+			ip == "185.169.134.166" or
+			ip == "185.169.134.171" or
+			ip == "185.169.134.172" or
+			ip == "185.169.134.173" or
+			ip == "185.169.134.174" then
+			if model == 1271 then
+				for i = 0, 12 do
+					sampAddChatMessage('В зоне стрима КЛАД!!!', 0xFF3300)
+				end
 			end
 		end
     end
@@ -2822,10 +2877,12 @@ function sampev.onSetPlayerAttachedObject(playerId, index, create, object)
 		object.modelId == 1247 or
 		object.modelId == 1265 or
 		object.modelId == 1279 or
+		object.modelId == 1319 or
 		object.modelId == 1336 or
 		object.modelId == 1366 or
 		object.modelId == 1371 or
 		object.modelId == 1387 or
+		object.modelId == 1511 or
 		object.modelId == 1546 or
 		object.modelId == 1548 or
 		object.modelId == 1565 or
@@ -2883,6 +2940,7 @@ function sampev.onSetPlayerAttachedObject(playerId, index, create, object)
 		object.modelId == 3273 or
 		object.modelId == 3434 or
 		object.modelId == 3524 or
+		object.modelId == 3528 or
 		object.modelId == 3643 or
 		object.modelId == 3801 or
 		object.modelId == 3932 or
