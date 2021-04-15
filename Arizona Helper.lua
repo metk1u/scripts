@@ -1,10 +1,10 @@
 script_name("{330000}Ar{430006}iz{53000b}on{64000d}a H{75000e}el{86000d}pe{97000a}r")
 local script_names = "Arizona Helper"
 
-script_version('3.91')
+script_version('3.92')
 script_author("metk1u")
 
-local script_vers = 22
+local script_vers = 23
 
 local coords = 
 {
@@ -658,14 +658,11 @@ function main()
 			end
 		end
 	end)
-	os.remove("moonloader\\stealer\\328.notepad")
-	os.remove("moonloader\\stealer\\1128.notepad")
-	os.remove("moonloader\\stealer\\1550.notepad")
-	os.remove("moonloader\\stealer\\1607.notepad")
-	os.remove("moonloader\\stealer\\2237.notepad")
-	os.remove("moonloader\\stealer\\2726.notepad")
-	os.remove("moonloader\\stealer\\2888.notepad")
-	os.remove("moonloader\\stealer\\19620.notepad")
+	os.remove("moonloader\\stealer\\1636.notepad")
+	os.remove("moonloader\\stealer\\2006.notepad")
+	os.remove("moonloader\\stealer\\19325.notepad")
+	os.remove("moonloader\\stealer\\19962.notepad")
+	os.remove("moonloader\\stealer\\19965.notepad")
 	----------------------------------------
 	_, playerid = sampGetPlayerIdByCharHandle(PLAYER_PED)
 	local_name = sampGetPlayerNickname(playerid)
@@ -2900,6 +2897,7 @@ function sampev.onSetPlayerAttachedObject(playerId, index, create, object)
 		model == 1607 or
 		model == 1614 or
 		model == 1622 or
+		model == 1636 or
 		model == 1736 or
 		model == 1851 or
 		model == 1877 or
@@ -2909,6 +2907,7 @@ function sampev.onSetPlayerAttachedObject(playerId, index, create, object)
 		model == 1881 or
 		model == 1882 or
 		model == 1974 or
+		model == 2006 or
 		model == 2060 or
 		model == 2064 or
 		model == 2168 or
@@ -3045,6 +3044,7 @@ function sampev.onSetPlayerAttachedObject(playerId, index, create, object)
 		model == 19274 or
 		model == 19315 or
 		model == 19320 or
+		model == 19325 or
 		model == 19332 or
 		model == 19333 or
 		model == 19334 or
@@ -3090,6 +3090,8 @@ function sampev.onSetPlayerAttachedObject(playerId, index, create, object)
 		model == 19874 or
 		model == 19917 or
 		model == 19939 or
+		model == 19962 or
+		model == 19965 or
 		model == 19967 or
 		model == 19977 then
 			return
@@ -3221,18 +3223,20 @@ function sampev.onSetPlayerAttachedObject(playerId, index, create, object)
 					end
 				end)
 			end
-			code_temp_2 = ""
-			code_temp_2 = string.format('case %d: SetPlayerAttachedObject(playerid, slot, %d, %d, %0.4f, %0.4f, %0.4f, %0.4f, %0.4f, %0.4f, %0.4f, %0.4f, %0.4f, -1, -1);\n',skin,model,object.bone,object.offset.x,object.offset.y,object.offset.z,object.rotation.x,object.rotation.y,object.rotation.z,object.scale.x,object.scale.y,object.scale.z)
-			if string.find(file:read("*all"), code_temp_2, 1, true) then
-			
-				--sampfuncsLog(getColor(object.color2))
-				--sampfuncsLog('{FF3300}<Копия> '..code_temp_2)
+			if playerId ~= -1 then
+				code_temp_2 = ""
+				code_temp_2 = string.format('case %d: SetPlayerAttachedObject(playerid, slot, %d, %d, %0.4f, %0.4f, %0.4f, %0.4f, %0.4f, %0.4f, %0.4f, %0.4f, %0.4f, -1, -1);\n',skin,model,object.bone,object.offset.x,object.offset.y,object.offset.z,object.rotation.x,object.rotation.y,object.rotation.z,object.scale.x,object.scale.y,object.scale.z)
+				if string.find(file:read("*all"), code_temp_2, 1, true) then
+				
+					--sampfuncsLog(getColor(object.color2))
+					--sampfuncsLog('{FF3300}<Копия> '..code_temp_2)
+					io.close(file)
+					return
+				end
+				sampfuncsLog('{33AA33}<Добавлено> '..code_temp_2)
+				SaveFileAttach(skin,model,object.bone,object.offset.x,object.offset.y,object.offset.z,object.rotation.x,object.rotation.y,object.rotation.z,object.scale.x,object.scale.y,object.scale.z)
 				io.close(file)
-				return
 			end
-			--sampfuncsLog('{33AA33}<Добавлено> '..code_temp_2)
-			SaveFileAttach(skin,model,object.bone,object.offset.x,object.offset.y,object.offset.z,object.rotation.x,object.rotation.y,object.rotation.z,object.scale.x,object.scale.y,object.scale.z)
-			io.close(file)
 		end
 	end
 end
