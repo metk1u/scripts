@@ -908,9 +908,9 @@ function main()
 			end
 			----------------------------------------
 			if denis_state == true and not sampIsChatInputActive() then
-				wait(100)
+				--wait(100)
 				setVirtualKeyDown(18, true)
-				wait(130)
+				wait(50)
 				setVirtualKeyDown(18, false)
 				setVirtualKeyDown(13, false)
 			end
