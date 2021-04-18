@@ -1,10 +1,10 @@
 script_name("{330000}Ar{430006}iz{53000b}on{64000d}a H{75000e}el{86000d}pe{97000a}r")
 local script_names = "Arizona Helper"
 
-script_version('3.93')
+script_version('3.94')
 script_author("metk1u")
 
-local script_vers = 24
+local script_vers = 25
 
 local coords = 
 {
@@ -909,6 +909,8 @@ function main()
 			----------------------------------------
 			if denis_state == true and not sampIsChatInputActive() then
 				wait(100)
+				setVirtualKeyDown(18, true)
+				wait(130)
 				setVirtualKeyDown(18, false)
 				setVirtualKeyDown(13, false)
 			end
