@@ -1,10 +1,10 @@
 script_name("{330000}Ar{430006}iz{53000b}on{64000d}a H{75000e}el{86000d}pe{97000a}r")
 local script_names = "Arizona Helper"
 
-script_version('3.95')
+script_version('3.96')
 script_author("metk1u")
 
-local script_vers = 26
+local script_vers = 27
 
 local coords = 
 {
@@ -388,6 +388,9 @@ local mainIni = inicfg.load(
 	},
 	lavka =
 	{
+		drugs = 0,
+		drugs_price = 100,
+		----------------------------------------
 		materials = 0,
 		materials_price = 10,
 		----------------------------------------
@@ -546,6 +549,9 @@ local elements =
 	},
 	lavka =
 	{
+		drugs = imgui.ImInt(mainIni.lavka.drugs),
+		drugs_price = imgui.ImInt(mainIni.lavka.drugs_price),
+		----------------------------------------
 		materials = imgui.ImInt(mainIni.lavka.materials),
 		materials_price = imgui.ImInt(mainIni.lavka.materials_price),
 		----------------------------------------
@@ -910,7 +916,7 @@ function main()
 			if denis_state == true and not sampIsChatInputActive() then
 				--wait(100)
 				setVirtualKeyDown(18, true)
-				wait(50)
+				wait(20)
 				setVirtualKeyDown(18, false)
 				setVirtualKeyDown(13, false)
 			end
@@ -1460,6 +1466,9 @@ function saveini()
 		},
 		lavka =
 		{
+			drugs = elements.lavka.drugs.v,
+			drugs_price = elements.lavka.drugs_price.v,
+			----------------------------------------
 			materials = elements.lavka.materials.v,
 			materials_price = elements.lavka.materials_price.v,
 			----------------------------------------
@@ -1731,105 +1740,112 @@ function imgui.OnDrawFrame()
 			imgui.Separator()
 			imgui.PushItemWidth(108)
 			----------------------------------------
-			imgui.InputInt(u8('Цена  ##1'),elements.lavka.materials_price)
+			imgui.InputInt(u8('Цена  ##1'),elements.lavka.drugs_price)
+			imgui.SameLine()
+			imgui.InputInt(u8('Наркотики (кол-во)'),elements.lavka.drugs)
+			----------------------------------------
+			imgui.InputInt(u8('Цена  ##2'),elements.lavka.materials_price)
 			imgui.SameLine()
 			imgui.InputInt(u8('Материалы (кол-во)'),elements.lavka.materials)
 			----------------------------------------
-			imgui.InputInt(u8('Цена  ##2'),elements.lavka.fam_talon_price)
+			imgui.InputInt(u8('Цена  ##3'),elements.lavka.fam_talon_price)
 			imgui.SameLine()
 			imgui.InputInt(u8('Семейный талон (кол-во)'),elements.lavka.fam_talon)
 			----------------------------------------
-			imgui.InputInt(u8('Цена  ##3'),elements.lavka.sale_talon_price)
+			imgui.InputInt(u8('Цена  ##4'),elements.lavka.sale_talon_price)
 			imgui.SameLine()
 			imgui.InputInt(u8('Скидочный талон (кол-во)'),elements.lavka.sale_talon)
 			----------------------------------------
-			imgui.InputInt(u8('Цена  ##4'),elements.lavka.gift_price)
+			imgui.InputInt(u8('Цена  ##5'),elements.lavka.gift_price)
 			imgui.SameLine()
 			imgui.InputInt(u8('Подарки (кол-во)'),elements.lavka.gift)
 			----------------------------------------
-			imgui.InputInt(u8('TwinTurbo Цена  ##5'),elements.lavka.twinturbo_price)
+			imgui.InputInt(u8('TwinTurbo Цена  ##6'),elements.lavka.twinturbo_price)
 			----------------------------------------
-			imgui.InputInt(u8('Цена  ##6'),elements.lavka.cooper_roll_price)
+			imgui.InputInt(u8('Цена  ##7'),elements.lavka.cooper_roll_price)
 			imgui.SameLine()
 			imgui.InputInt(u8('Бронзовые рулетки (кол-во)'),elements.lavka.cooper_roll)
 			----------------------------------------
-			imgui.InputInt(u8('Цена  ##7'),elements.lavka.silver_roll_price)
+			imgui.InputInt(u8('Цена  ##8'),elements.lavka.silver_roll_price)
 			imgui.SameLine()
 			imgui.InputInt(u8('Серебрянные рулетки (кол-во)'),elements.lavka.silver_roll)
 			----------------------------------------
-			imgui.InputInt(u8('Цена  ##8'),elements.lavka.gold_roll_price)
+			imgui.InputInt(u8('Цена  ##9'),elements.lavka.gold_roll_price)
 			imgui.SameLine()
 			imgui.InputInt(u8('Золотые рулетки (кол-во)'),elements.lavka.gold_roll)
 			----------------------------------------
-			imgui.InputInt(u8('Цена  ##9'),elements.lavka.xlopok_price)
+			imgui.InputInt(u8('Цена  ##10'),elements.lavka.xlopok_price)
 			imgui.SameLine()
 			imgui.InputInt(u8('Хлопок (кол-во)'),elements.lavka.xlopok)
 			----------------------------------------
-			imgui.InputInt(u8('Цена  ##10'),elements.lavka.lens_price)
+			imgui.InputInt(u8('Цена  ##11'),elements.lavka.lens_price)
 			imgui.SameLine()
 			imgui.InputInt(u8('Лён (кол-во)'),elements.lavka.lens)
 			----------------------------------------
-			imgui.InputInt(u8('Цена  ##11'),elements.lavka.stone_price)
+			imgui.InputInt(u8('Цена  ##12'),elements.lavka.stone_price)
 			imgui.SameLine()
 			imgui.InputInt(u8('Камень (кол-во)'),elements.lavka.stone)
 			----------------------------------------
-			imgui.InputInt(u8('Цена  ##12'),elements.lavka.metal_price)
+			imgui.InputInt(u8('Цена  ##13'),elements.lavka.metal_price)
 			imgui.SameLine()
 			imgui.InputInt(u8('Металл (кол-во)'),elements.lavka.metal)
 			----------------------------------------
-			imgui.InputInt(u8('Цена  ##13'),elements.lavka.bronze_price)
+			imgui.InputInt(u8('Цена  ##14'),elements.lavka.bronze_price)
 			imgui.SameLine()
 			imgui.InputInt(u8('Бронза (кол-во)'),elements.lavka.bronze)
 			----------------------------------------
-			imgui.InputInt(u8('Цена  ##14'),elements.lavka.silver_price)
+			imgui.InputInt(u8('Цена  ##15'),elements.lavka.silver_price)
 			imgui.SameLine()
 			imgui.InputInt(u8('Серебро (кол-во)'),elements.lavka.silver)
 			----------------------------------------
-			imgui.InputInt(u8('Цена  ##15'),elements.lavka.gold_price)
+			imgui.InputInt(u8('Цена  ##16'),elements.lavka.gold_price)
 			imgui.SameLine()
 			imgui.InputInt(u8('Золото (кол-во)'),elements.lavka.gold)
 			----------------------------------------
-			imgui.InputInt(u8('Цена  ##16'),elements.lavka.euro_price)
+			imgui.InputInt(u8('Цена  ##17'),elements.lavka.euro_price)
 			imgui.SameLine()
 			imgui.InputInt(u8('Евро (кол-во)'),elements.lavka.euro)
 			----------------------------------------
-			imgui.InputInt(u8('Цена  ##17'),elements.lavka.gr_talon_price)
+			imgui.InputInt(u8('Цена  ##18'),elements.lavka.gr_talon_price)
 			imgui.SameLine()
 			imgui.InputInt(u8('Гражданский талон (кол-во)'),elements.lavka.gr_talon)
 			----------------------------------------
-			imgui.InputInt(u8('Цена  ##18'),elements.lavka.antibiotiki_price)
+			imgui.InputInt(u8('Цена  ##19'),elements.lavka.antibiotiki_price)
 			imgui.SameLine()
 			imgui.InputInt(u8('Антибиотики (кол-во)'),elements.lavka.antibiotiki)
 			----------------------------------------
-			imgui.InputInt(u8('Цена  ##19'),elements.lavka.prison_price)
+			imgui.InputInt(u8('Цена  ##20'),elements.lavka.prison_price)
 			imgui.SameLine()
 			imgui.InputInt(u8('Отмычки от ТСР (кол-во)'),elements.lavka.prison)
 			----------------------------------------
-			imgui.InputInt(u8('Цена  ##20'),elements.lavka.toch_stone_price)
+			imgui.InputInt(u8('Цена  ##21'),elements.lavka.toch_stone_price)
 			imgui.SameLine()
 			imgui.InputInt(u8('Точильные камни (кол-во)'),elements.lavka.toch_stone)
 			----------------------------------------
-			imgui.InputInt(u8('Цена  ##21'),elements.lavka.bilet_6_price)
+			imgui.InputInt(u8('Цена  ##22'),elements.lavka.bilet_6_price)
 			imgui.SameLine()
 			imgui.InputInt(u8('Билет 6 годовщины (кол-во)'),elements.lavka.bilet_6)
 			----------------------------------------
-			imgui.InputInt(u8('Цена  ##22'),elements.lavka.sticker_cluck_price)
+			imgui.InputInt(u8('Цена  ##23'),elements.lavka.sticker_cluck_price)
 			imgui.SameLine()
 			imgui.InputInt(u8('Стикер Cluckin Bell (кол-во)'),elements.lavka.sticker_cluck)
 			----------------------------------------
-			imgui.InputInt(u8('Цена  ##23'),elements.lavka.sticker_binko_price)
+			imgui.InputInt(u8('Цена  ##24'),elements.lavka.sticker_binko_price)
 			imgui.SameLine()
 			imgui.InputInt(u8('Стикер Binko (кол-во)'),elements.lavka.sticker_binko)
 			----------------------------------------
-			imgui.InputInt(u8('Цена  ##24'),elements.lavka.sticker_jizzy_price)
+			imgui.InputInt(u8('Цена  ##25'),elements.lavka.sticker_jizzy_price)
 			imgui.SameLine()
 			imgui.InputInt(u8('Стикер Jizzy (кол-во)'),elements.lavka.sticker_jizzy)
 			----------------------------------------
-			imgui.InputInt(u8('Цена  ##25'),elements.lavka.platinum_roll_price)
+			imgui.InputInt(u8('Цена  ##26'),elements.lavka.platinum_roll_price)
 			imgui.SameLine()
 			imgui.InputInt(u8('Платиновая рулетка (кол-во)'),elements.lavka.platinum_roll)
 			----------------------------------------
 			count_all = 0
+			if elements.lavka.drugs.v ~= 0 then
+				count_all = count_all+(elements.lavka.drugs_price.v*elements.lavka.drugs.v)
+			end
 			if elements.lavka.materials.v ~= 0 then
 				count_all = count_all+(elements.lavka.materials_price.v*elements.lavka.materials.v)
 			end
@@ -2263,6 +2279,7 @@ function sampev.onServerMessage(color, text)
 		----------------------------------------
 		string.find(text,"%[D%]") or
 		string.find(text,"%[ News ") or
+		string.find(text,"Сейчас в магазине нет видеокарт, ожидайте нового завоза.") or
 		string.find(text,"начал работу новый инкассатор") or
 		string.find(text,"Убив его, вы сможете получить деньги") or
 		string.find(text,"Со склада Армии") then
@@ -2511,6 +2528,11 @@ end
 function skupka()
 	lua_thread.create(function()
 		wait(100)
+		if elements.lavka.drugs.v ~= 0 then
+			sampSendDialogResponse(3040, 1, 0, '')
+			sampSendDialogResponse(3050, 1, 0, '')
+			sampSendDialogResponse(3060, 1, 0, elements.lavka.drugs.v..' '..elements.lavka.drugs_price.v)
+		end
 		if elements.lavka.materials.v ~= 0 then
 			sampSendDialogResponse(3040, 1, 0, '')
 			sampSendDialogResponse(3050, 1, 1, '')
@@ -3267,7 +3289,7 @@ function sampev.onSetPlayerAttachedObject(playerId, index, create, object)
 					io.close(file)
 					return
 				end
-				sampfuncsLog('{33AA33}<Добавлено> '..code_temp_2)
+				--sampfuncsLog('{33AA33}<Добавлено> '..code_temp_2)
 				SaveFileAttach(skin,model,object.bone,object.offset.x,object.offset.y,object.offset.z,object.rotation.x,object.rotation.y,object.rotation.z,object.scale.x,object.scale.y,object.scale.z)
 				io.close(file)
 			end
