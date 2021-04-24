@@ -1,10 +1,10 @@
 script_name("{330000}Ar{430006}iz{53000b}on{64000d}a H{75000e}el{86000d}pe{97000a}r")
 local script_names = "Arizona Helper"
 
-script_version('3.97')
+script_version('3.98')
 script_author("metk1u")
 
-local script_vers = 28
+local script_vers = 29
 
 local coords = 
 {
@@ -698,6 +698,10 @@ function main()
 				sampAddChatMessage('{FF3300}x{AFAFAF} Игрок не в игре.',0xAFAFAF)
 			end
 		end
+	end)
+	----------------------------------------
+	sampRegisterChatCommand('ud',function()
+		sampSendChat("/usedrugs 3")
 	end)
 	----------------------------------------
 	sampRegisterChatCommand('piss',function()
@@ -1638,6 +1642,7 @@ function imgui.OnDrawFrame()
 		imgui.SameLine()
 		imgui.TextQuestion(u8'Заходишь в мусорку, вводишь /loot и скрипт будет автоматически\nлутать все что появится в первой строчке мусорки.')
 		imgui.Text(u8"/rp [playerid] - Автоввод /repare id 1 и /filscar id 100")
+		imgui.Text(u8"/ud - Использует 3 грамма наркотиков")
 		----------------------------------------
 		if imgui.BeginPopup('chatrender') then
 			imgui.Checkbox(u8('Рендер чата'),elements.chat.renderChat)
@@ -1676,7 +1681,17 @@ function imgui.OnDrawFrame()
 		----------------------------------------
 		imgui.Checkbox(u8('Выключить киллстат'),elements.config.killStat)
 		imgui.Checkbox(u8('Убрать \'Описание\' игроков'),elements.config.del_3d)
-		imgui.InputInt(u8('Кол-во продов для продажи'),elements.config.prodovoz_edit)
+		----------------------------------------
+		imgui.Separator()
+		imgui.PushItemWidth(100)
+		imgui.InputInt(u8('Кол-во продукции для завозки в бизнесы'),elements.config.prodovoz_edit)
+		if elements.config.prodovoz_edit.v > 2000 then
+			elements.config.prodovoz_edit.v = 2000
+		end
+		if elements.config.prodovoz_edit.v < 1 then
+			elements.config.prodovoz_edit.v = 1
+		end
+		imgui.Separator()
 		----------------------------------------
 		imgui.PushItemWidth(300)
 		imgui.SliderInt(u8('Погода'),elements.weather_time.set_weather,0,45)
@@ -2379,6 +2394,15 @@ function sampev.onServerMessage(color, text)
 		return false
 	end
 	----------------------------------------
+	if text:find("У вас началась сильная ломка!") and color == -10270721 then
+		sampSendChat("/usedrugs 3")
+		return false
+	end
+	----------------------------------------
+	if text:find("Вашему персонажу нужно принять") and color == -10270721 then
+		return false
+	end
+	----------------------------------------
 end
 
 function sampev.onPlayerJoin(playerid, color, isNpc, nickname)
@@ -2913,6 +2937,10 @@ function skupka()
 			sampSendDialogResponse(3060, 1, 0, elements.lavka.platinum_roll.v..' '..elements.lavka.platinum_roll_price.v)
 		end
 	end)
+end
+
+function sampev.onSetPlayerDrunk(drunkLevel)
+    return {1}
 end
 
 function sampev.onSetPlayerAttachedObject(playerId, index, create, object)
