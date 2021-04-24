@@ -1,10 +1,10 @@
 script_name("{330000}Ar{430006}iz{53000b}on{64000d}a H{75000e}el{86000d}pe{97000a}r")
 local script_names = "Arizona Helper"
 
-script_version('3.98')
+script_version('4.0')
 script_author("metk1u")
 
-local script_vers = 29
+local script_vers = 30
 
 local coords = 
 {
@@ -493,7 +493,8 @@ local elements =
 		killStat = imgui.ImBool(mainIni.config.killStat),
 		del_3d = imgui.ImBool(mainIni.config.del_3d),
 		prodovoz_edit = imgui.ImInt(mainIni.config.prodovoz_edit),
-		del_stream = imgui.ImBool(false)
+		del_stream = imgui.ImBool(false),
+		del_stream_pl = imgui.ImBool(false)
 	},
 	account =
 	{
@@ -693,7 +694,7 @@ function main()
 		else
 			if sampIsPlayerConnected(playerid) then
 				sampSendChat("/repare "..playerid.." 1")
-				sampSendChat("/filscar "..playerid.." 100")
+				sampSendChat("/filscar "..playerid.." 1 1")
 			else
 				sampAddChatMessage('{FF3300}x{AFAFAF} Игрок не в игре.',0xAFAFAF)
 			end
@@ -1636,12 +1637,12 @@ function imgui.OnDrawFrame()
 		imgui.Text(u8"/trash - Включить поиск мусорок в зоне стрима")
 		imgui.Text(u8"/olen - Включить поиск оленей в зоне стрима")
 		imgui.Text(u8"/waxta - Включить поиск руды в зоне стрима")
-		imgui.Text(u8"/klad - Включить поиск кладов и открытых багажников")
+		imgui.Text(u8"/klad или /on - Включить поиск кладов и открытых багажников")
 		imgui.Text(u8"/poisk - Показать места спавна кладов")
 		imgui.Text(u8"/loot - Автосбор с мусорки")
 		imgui.SameLine()
 		imgui.TextQuestion(u8'Заходишь в мусорку, вводишь /loot и скрипт будет автоматически\nлутать все что появится в первой строчке мусорки.')
-		imgui.Text(u8"/rp [playerid] - Автоввод /repare id 1 и /filscar id 100")
+		imgui.Text(u8"/rp [playerid] - Автоввод /repare id 1 и /filscar id 1 1")
 		imgui.Text(u8"/ud - Использует 3 грамма наркотиков")
 		----------------------------------------
 		if imgui.BeginPopup('chatrender') then
@@ -1994,10 +1995,10 @@ function imgui.OnDrawFrame()
 		end
 		imgui.Separator()
 		----------------------------------------
-		--if imgui.Button(u8(del_stream and 'Включить обновление зоны стрима' or 'Выключить обновление зоны стрима')) then
-			--del_stream = not del_stream
-		--end
-		
+		imgui.Checkbox(u8('Выключить игроков в зоне стрима'),elements.config.del_stream_pl)
+		imgui.SameLine()
+		imgui.TextQuestion(u8'Отключает появление ИГРОКОВ в зоне стрима.\nПосле отключения функции необходимо обновить зону стрима (достаточно зайти и выйти в любой интерьер).')
+		----------------------------------------
 		imgui.Checkbox(u8('Выключить обновление зоны стрима'),elements.config.del_stream)
 		----------------------------------------
 		imgui.SameLine()
@@ -2481,6 +2482,9 @@ end
 
 function sampev.onPlayerStreamIn(playerId, team, model, position, rotation, color, fightingStyle)
 	if elements.config.del_stream.v == true then
+		return false
+	end
+	if elements.config.del_stream_pl.v == true then
 		return false
 	end
 end
@@ -3634,7 +3638,7 @@ function imgui.CenterTextColored(text)
 	local text2 = text:gsub('{(......)}','') 
 	local width = imgui.GetWindowWidth()
 	local calc = imgui.CalcTextSize(text2)
-	imgui.SetCursorPosX( width / 2 - calc.x / 2 )
+	imgui.SetCursorPosX(width / 2 - calc.x / 2)
 	imgui.TextColoredRGB(text)
 end
 
