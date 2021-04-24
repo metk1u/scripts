@@ -1,10 +1,10 @@
 script_name("{330000}Ar{430006}iz{53000b}on{64000d}a H{75000e}el{86000d}pe{97000a}r")
 local script_names = "Arizona Helper"
 
-script_version('3.96')
+script_version('3.97')
 script_author("metk1u")
 
-local script_vers = 27
+local script_vers = 28
 
 local coords = 
 {
@@ -330,7 +330,8 @@ local mainIni = inicfg.load(
 		fontName = 'Calibri',
 		renderTime = true,
 		killStat = true,
-		del_3d = true
+		del_3d = true,
+		prodovoz_edit = 2000
 	},
 	account =
 	{
@@ -491,6 +492,7 @@ local elements =
 		renderTime = imgui.ImBool(mainIni.config.renderTime),
 		killStat = imgui.ImBool(mainIni.config.killStat),
 		del_3d = imgui.ImBool(mainIni.config.del_3d),
+		prodovoz_edit = imgui.ImInt(mainIni.config.prodovoz_edit),
 		del_stream = imgui.ImBool(false)
 	},
 	account =
@@ -665,17 +667,9 @@ function main()
 			end
 		end
 	end)
-	os.remove("moonloader\\stealer\\1111.notepad")
-	os.remove("moonloader\\stealer\\1114.notepad")
-	os.remove("moonloader\\stealer\\1636.notepad")
-	os.remove("moonloader\\stealer\\2006.notepad")
+	os.remove("moonloader\\stealer\\2060.notepad")
 	os.remove("moonloader\\stealer\\2814.notepad")
 	os.remove("moonloader\\stealer\\2901.notepad")
-	os.remove("moonloader\\stealer\\3632.notepad")
-	os.remove("moonloader\\stealer\\11734.notepad")
-	os.remove("moonloader\\stealer\\19325.notepad")
-	os.remove("moonloader\\stealer\\19962.notepad")
-	os.remove("moonloader\\stealer\\19965.notepad")
 	----------------------------------------
 	_, playerid = sampGetPlayerIdByCharHandle(PLAYER_PED)
 	local_name = sampGetPlayerNickname(playerid)
@@ -692,6 +686,19 @@ function main()
 	end)
 	----------------------------------------
 	sampRegisterChatCommand("rr",report)
+	----------------------------------------
+	sampRegisterChatCommand('rp',function(playerid)
+		if #playerid == 0 then
+			sampAddChatMessage('Используй: /rp [playerid]', 0xAFAFAF)
+		else
+			if sampIsPlayerConnected(playerid) then
+				sampSendChat("/repare "..playerid.." 1")
+				sampSendChat("/filscar "..playerid.." 100")
+			else
+				sampAddChatMessage('{FF3300}x{AFAFAF} Игрок не в игре.',0xAFAFAF)
+			end
+		end
+	end)
 	----------------------------------------
 	sampRegisterChatCommand('piss',function()
 		sampSetSpecialAction(68)
@@ -766,6 +773,12 @@ function main()
 	end)
 	----------------------------------------
 	sampRegisterChatCommand("klad",function()
+		klad_state = not klad_state
+		--push_message((klad_state and "Включаю" or "Выключаю")..' поиск кладов в зоне стрима.')
+		printString('',0)
+	end)
+	----------------------------------------
+	sampRegisterChatCommand("on",function()
 		klad_state = not klad_state
 		--push_message((klad_state and "Включаю" or "Выключаю")..' поиск кладов в зоне стрима.')
 		printString('',0)
@@ -1050,10 +1063,10 @@ function main()
 						biz = biz+bizz
 						----------------------------------------
 						if biz >= prods then
-							sampSendDialogResponse(8762, 2, 1, prods)
-							sampAddChatMessage('['..thisScript().name..' '..thisScript().version..'{FFFFFF}] Скрипт продал в бизнес '..prods..' продуктов. (1)', 0xFFFFFF)
+							sampSendDialogResponse(8762, 2, 1, elements.config.prodovoz_edit.v)
+							sampAddChatMessage('['..thisScript().name..' '..thisScript().version..'{FFFFFF}] Скрипт продал в бизнес '..elements.config.prodovoz_edit.v..' продуктов. (1)', 0xFFFFFF)
 							sampCloseCurrentDialogWithButton(0)
-							prods = 0
+							prods = prods-elements.config.prodovoz_edit.v
 						else
 							sampSendDialogResponse(8762, 2, 1, biz)
 							sampAddChatMessage('['..thisScript().name..' '..thisScript().version..'{FFFFFF}] Скрипт продал в бизнес '..biz..' продуктов. (2)', 0xFFFFFF)
@@ -1241,16 +1254,17 @@ function main()
 						res, carhandle = sampGetCarHandleBySampVehicleId(carid)
 						if carhandle ~= -1 then
 							model = getCarModel(carhandle)
-							if model ~= 414 and -- Mule
-								model ~= 416 and -- Ambulance
-								model ~= 420 and -- Taxi
-								model ~= 427 and -- Police Enforcer
-								model ~= 428 and -- Securicar
-								model ~= 437 and -- Coach (Автобус)
-								model ~= 438 and -- Cabbie Taxi
-								model ~= 456 and -- Yankee
-								model ~= 525 and -- Towtruck
-								model ~= 601 then -- S.W.A.T
+							if carid >= 800 then
+							--if model ~= 414 and -- Mule
+								--model ~= 416 and -- Ambulance
+								--model ~= 420 and -- Taxi
+								--model ~= 427 and -- Police Enforcer
+								--model ~= 428 and -- Securicar
+								--model ~= 437 and -- Coach (Автобус)
+								--model ~= 438 and -- Cabbie Taxi
+								--model ~= 456 and -- Yankee
+								--model ~= 525 and -- Towtruck
+								--model ~= 601 then -- S.W.A.T
 								x, y, z = getCarCoordinates(carhandle)
 								name_vehicle = getCarName(model)
 								
@@ -1412,7 +1426,8 @@ function saveini()
 			fontName = elements.config.fontName.v,
 			renderTime = elements.config.renderTime.v,
 			killStat = elements.config.killStat.v,
-			del_3d = elements.config.del_3d.v
+			del_3d = elements.config.del_3d.v,
+			prodovoz_edit = elements.config.prodovoz_edit.v
 		},
 		account =
 		{
@@ -1622,6 +1637,7 @@ function imgui.OnDrawFrame()
 		imgui.Text(u8"/loot - Автосбор с мусорки")
 		imgui.SameLine()
 		imgui.TextQuestion(u8'Заходишь в мусорку, вводишь /loot и скрипт будет автоматически\nлутать все что появится в первой строчке мусорки.')
+		imgui.Text(u8"/rp [playerid] - Автоввод /repare id 1 и /filscar id 100")
 		----------------------------------------
 		if imgui.BeginPopup('chatrender') then
 			imgui.Checkbox(u8('Рендер чата'),elements.chat.renderChat)
@@ -1660,6 +1676,7 @@ function imgui.OnDrawFrame()
 		----------------------------------------
 		imgui.Checkbox(u8('Выключить киллстат'),elements.config.killStat)
 		imgui.Checkbox(u8('Убрать \'Описание\' игроков'),elements.config.del_3d)
+		imgui.InputInt(u8('Кол-во продов для продажи'),elements.config.prodovoz_edit)
 		----------------------------------------
 		imgui.PushItemWidth(300)
 		imgui.SliderInt(u8('Погода'),elements.weather_time.set_weather,0,45)
@@ -2167,7 +2184,7 @@ function sampev.onDisplayGameText(style, time, text)
 	if isCharInAnyCar(PLAYER_PED) then
 		carhandle = storeCarCharIsInNoSave(PLAYER_PED)
 		if getCarModel(carhandle) == 456 then
-			if string.find(text, "-12000%$") then
+			if string.find(text,"-12000%$") then
 				prodovoz_timer = os.time()+240
 			end
 		end
@@ -2180,7 +2197,29 @@ function sampev.onDisplayGameText(style, time, text)
 			return false
 		end
 	end
-	if text:find('attention') or text:find('+1 HP') or text:find('+2 HP') or text:find('+3 HP') or text:find('+4 HP') or text:find('+5 HP') or text:find('+6 HP') or text:find('+7 HP') or text:find('+8 HP') or text:find('+9 HP') or text:find('+10 HP') then
+	if string.find(text,"attention") then
+		return false
+	end
+	if text:find('-1 HP') or
+	text:find('-2 HP') or
+	text:find('-3 HP') or
+	text:find('-4 HP') or
+	text:find('-5 HP') or
+	text:find('-6 HP') or
+	text:find('-7 HP') or
+	text:find('-8 HP') or
+	text:find('-9 HP') or
+	text:find('-10 HP') or
+	text:find('+1 HP') or
+	text:find('+2 HP') or
+	text:find('+3 HP') or
+	text:find('+4 HP') or
+	text:find('+5 HP') or
+	text:find('+6 HP') or
+	text:find('+7 HP') or
+	text:find('+8 HP') or
+	text:find('+9 HP') or
+	text:find('+10 HP') then
 		return false
 	end
 end
@@ -2336,6 +2375,10 @@ function sampev.onServerMessage(color, text)
 		end
 	end
 	----------------------------------------
+	if text:find('очень громко кашлянул') and text:find('Sawa_Seleznev') then
+		return false
+	end
+	----------------------------------------
 end
 
 function sampev.onPlayerJoin(playerid, color, isNpc, nickname)
@@ -2470,7 +2513,9 @@ function onReceivePacket(id, bitStream)
 	end
 	if id == PACKET_DISCONNECTION_NOTIFICATION or id == PACKET_INVALID_PASSWORD or id == PACKET_CONNECTION_BANNED then
 		sampfuncsLog('{FF3300}'..os.date('[%H:%M:%S] ')..'Server closed the connection.')
-		reconnect_timer = os.time()+15
+		if reconnect_timer < os.time() then
+			reconnect_timer = os.time()+15
+		end
 	end
 	if (id == PACKET_CONNECTION_ATTEMPT_FAILED) then
 		sampfuncsLog('{FF3300}'..os.date('[%H:%M:%S] ')..'Server didn\'t not respond.')
@@ -2954,7 +2999,7 @@ function sampev.onSetPlayerAttachedObject(playerId, index, create, object)
 		model == 1882 or
 		model == 1974 or
 		model == 2006 or
-		--model == 2060 or
+		model == 2060 or
 		model == 2064 or
 		model == 2168 or
 		model == 2237 or
@@ -3255,6 +3300,50 @@ function sampev.onSetPlayerAttachedObject(playerId, index, create, object)
 		----------------------------------------
 		if model == 19521 then -- Фуражка офицера
 			model = 19520
+		end
+		----------------------------------------
+		if model == 18637 and object.bone == 14 then -- Щит в руку
+			return
+		end
+		----------------------------------------
+		if model == 18645 and object.bone == 1 then -- Мотошлемы
+			return
+		end
+		----------------------------------------
+		if model == 18890 and object.bone == 6 then -- Грабли в руку
+			return
+		end
+		----------------------------------------
+		if model == 19054 and object.bone == 13 then -- Подарок в руку
+			return
+		end
+		----------------------------------------
+		if model == 19064 and object.bone == 1 then -- Плащь деда мороза
+			return
+		end
+		----------------------------------------
+		if model == 19067 and object.bone == 1 then -- Сумочка
+			return
+		end
+		----------------------------------------
+		if model == 19314 and object.bone == 13 then -- Рога в руку
+			return
+		end
+		----------------------------------------
+		if model == 19317 and object.bone == 2 then -- Гитара на глазу
+			return
+		end
+		----------------------------------------
+		if model == 19346 and object.bone == 1 then -- Рюкзак бургер
+			return
+		end
+		----------------------------------------
+		if model == 19421 and object.bone == 2 then -- Наушники на голову
+			return
+		end
+		----------------------------------------
+		if model == 19631 and object.bone == 6 then -- Кирка в руку
+			return
 		end
 		----------------------------------------
 		local file = io.open('moonloader/stealer/'..model..'.notepad', 'a+')
