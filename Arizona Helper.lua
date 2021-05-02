@@ -1,10 +1,10 @@
 script_name("{330000}Ar{430006}iz{53000b}on{64000d}a H{75000e}el{86000d}pe{97000a}r")
 local script_names = "Arizona Helper"
 
-script_version('4.0')
+script_version('4.1')
 script_author("metk1u")
 
-local script_vers = 30
+local script_vers = 31
 
 local coords = 
 {
@@ -331,6 +331,7 @@ local mainIni = inicfg.load(
 		renderTime = true,
 		killStat = true,
 		del_3d = true,
+		autousedrugs = true,
 		prodovoz_edit = 2000
 	},
 	account =
@@ -364,7 +365,10 @@ local mainIni = inicfg.load(
 		removevipchat = true,
 		
 		tosampfuncsjobchat = false,
-		removejobchat = false
+		removejobchat = false,
+		
+		tosampfuncsadv = false,
+		removeadv = false
 	},
 	hunger =
 	{
@@ -492,6 +496,7 @@ local elements =
 		renderTime = imgui.ImBool(mainIni.config.renderTime),
 		killStat = imgui.ImBool(mainIni.config.killStat),
 		del_3d = imgui.ImBool(mainIni.config.del_3d),
+		autousedrugs = imgui.ImBool(mainIni.config.autousedrugs),
 		prodovoz_edit = imgui.ImInt(mainIni.config.prodovoz_edit),
 		del_stream = imgui.ImBool(false),
 		del_stream_pl = imgui.ImBool(false)
@@ -527,7 +532,10 @@ local elements =
 		removevipchat = imgui.ImBool(mainIni.chat.removevipchat),
 
 		tosampfuncsjobchat = imgui.ImBool(mainIni.chat.tosampfuncsjobchat),
-		removejobchat = imgui.ImBool(mainIni.chat.removejobchat)
+		removejobchat = imgui.ImBool(mainIni.chat.removejobchat),
+
+		tosampfuncsadv = imgui.ImBool(mainIni.chat.tosampfuncsadv),
+		removeadv = imgui.ImBool(mainIni.chat.removeadv)
 	},
 	hunger =
 	{
@@ -668,9 +676,7 @@ function main()
 			end
 		end
 	end)
-	os.remove("moonloader\\stealer\\2060.notepad")
-	os.remove("moonloader\\stealer\\2814.notepad")
-	os.remove("moonloader\\stealer\\2901.notepad")
+	--os.remove("moonloader\\stealer\\2060.notepad")
 	----------------------------------------
 	_, playerid = sampGetPlayerIdByCharHandle(PLAYER_PED)
 	local_name = sampGetPlayerNickname(playerid)
@@ -1432,6 +1438,7 @@ function saveini()
 			renderTime = elements.config.renderTime.v,
 			killStat = elements.config.killStat.v,
 			del_3d = elements.config.del_3d.v,
+			autousedrugs = elements.config.autousedrugs.v,
 			prodovoz_edit = elements.config.prodovoz_edit.v
 		},
 		account =
@@ -1461,7 +1468,9 @@ function saveini()
 			tosampfuncsvipchat = elements.chat.tosampfuncsvipchat.v,
 			removevipchat = elements.chat.removevipchat.v,
 			tosampfuncsjobchat = elements.chat.tosampfuncsjobchat.v,
-			removejobchat = elements.chat.removejobchat.v
+			removejobchat = elements.chat.removejobchat.v,
+			tosampfuncsadv = elements.chat.tosampfuncsadv.v,
+			removeadv = elements.chat.removeadv.v
 		},
 		hunger =
 		{
@@ -1676,33 +1685,37 @@ function imgui.OnDrawFrame()
 		imgui.SameLine()
 		imgui.BeginGroup()
 		----------------------------------------
-		imgui.Checkbox(u8('Включить чатлог'),elements.chat.chatlog)
-		----------------------------------------
-		imgui.Checkbox(u8('Включить время в левом нижнем углу'),elements.config.renderTime)
-		----------------------------------------
-		imgui.Checkbox(u8('Выключить киллстат'),elements.config.killStat)
-		imgui.Checkbox(u8('Убрать \'Описание\' игроков'),elements.config.del_3d)
-		----------------------------------------
-		imgui.Separator()
-		imgui.PushItemWidth(100)
-		imgui.InputInt(u8('Кол-во продукции для завозки в бизнесы'),elements.config.prodovoz_edit)
-		if elements.config.prodovoz_edit.v > 2000 then
-			elements.config.prodovoz_edit.v = 2000
+		if imgui.CollapsingHeader(u8'Настройки') then
+			imgui.Separator()
+			imgui.Checkbox(u8('Включить чатлог'),elements.chat.chatlog)
+			----------------------------------------
+			imgui.Checkbox(u8('Включить время в левом нижнем углу'),elements.config.renderTime)
+			----------------------------------------
+			imgui.Checkbox(u8('Выключить киллстат'),elements.config.killStat)
+			imgui.Checkbox(u8('Убрать \'Описание\' игроков'),elements.config.del_3d)
+			imgui.Checkbox(u8('Автоматический /usedrugs 3 при ломке'),elements.config.autousedrugs)
+			----------------------------------------
+			imgui.Separator()
+			imgui.PushItemWidth(100)
+			imgui.InputInt(u8('Кол-во продукции для завозки в бизнесы'),elements.config.prodovoz_edit)
+			if elements.config.prodovoz_edit.v > 2000 then
+				elements.config.prodovoz_edit.v = 2000
+			end
+			if elements.config.prodovoz_edit.v < 1 then
+				elements.config.prodovoz_edit.v = 1
+			end
+			imgui.Separator()
+			----------------------------------------
+			imgui.PushItemWidth(300)
+			imgui.SliderInt(u8('Погода'),elements.weather_time.set_weather,0,45)
+			forceWeatherNow(elements.weather_time.set_weather.v)
+			imgui.Separator()
+			----------------------------------------
+			imgui.PushItemWidth(300)
+			imgui.SliderInt(u8('Время'),elements.weather_time.set_time,0,23)
+			setTimeOfDay(elements.weather_time.set_time.v, 0)
+			imgui.Separator()
 		end
-		if elements.config.prodovoz_edit.v < 1 then
-			elements.config.prodovoz_edit.v = 1
-		end
-		imgui.Separator()
-		----------------------------------------
-		imgui.PushItemWidth(300)
-		imgui.SliderInt(u8('Погода'),elements.weather_time.set_weather,0,45)
-		forceWeatherNow(elements.weather_time.set_weather.v)
-		imgui.Separator()
-		----------------------------------------
-		imgui.PushItemWidth(300)
-		imgui.SliderInt(u8('Время'),elements.weather_time.set_time,0,23)
-		setTimeOfDay(elements.weather_time.set_time.v, 0)
-		imgui.Separator()
 		----------------------------------------
 		if imgui.CollapsingHeader(u8'Настройки автологина') then
 			imgui.Separator()
@@ -1716,46 +1729,57 @@ function imgui.OnDrawFrame()
 			imgui.Separator()
 		end
 		----------------------------------------
-		if imgui.CollapsingHeader(u8'Сообщения о покупке') then
+		if imgui.CollapsingHeader(u8'Настройки чатов') then
 			imgui.Separator()
-			imgui.Checkbox(u8('Рендер сообщений о покупке'),elements.chat.renderchatbuy)
-			imgui.Checkbox(u8('Отключить в чате сообщения о покупке'),elements.chat.removechatbuy)
-			imgui.Checkbox(u8('Выводить сообщения о покупке в консоль SAMPFUNCS (~)'),elements.chat.tosampfuncsbuy)
-			imgui.Separator()
-		end
-		----------------------------------------
-		if imgui.CollapsingHeader(u8'SPAM сообщения') then
-			imgui.Separator()
-			imgui.Checkbox(u8('Отключить в чате SPAM сообщения'),elements.chat.removechatspam)
+			if imgui.CollapsingHeader(u8'Сообщения о покупке') then
+				imgui.Separator()
+				imgui.Checkbox(u8('Рендер сообщений о покупке'),elements.chat.renderchatbuy)
+				imgui.Checkbox(u8('Отключить в чате сообщения о покупке'),elements.chat.removechatbuy)
+				imgui.Checkbox(u8('Выводить сообщения о покупке в консоль SAMPFUNCS (~)'),elements.chat.tosampfuncsbuy)
+				imgui.Separator()
+			end
 			----------------------------------------
-			imgui.SameLine()
-			imgui.TextQuestion(u8'1. Удаляет рекламу от сервера.\n2. Удаляет репортажи СМИ (Гость, Репортёр).\n3. Удаляет сообщения News.\n4. Удаляет сообщения /d чата.\n5. Удаляет сообщение \'Недостаточно VKoin\'.\n6. Удаляет сообщения в бандах об инкассаторах.\n7. Сообщения о собеседованиях.')
+			if imgui.CollapsingHeader(u8'SPAM сообщения') then
+				imgui.Separator()
+				imgui.Checkbox(u8('Отключить в чате SPAM сообщения'),elements.chat.removechatspam)
+				----------------------------------------
+				imgui.SameLine()
+				imgui.TextQuestion(u8'1. Удаляет рекламу от сервера.\n2. Удаляет репортажи СМИ (Гость, Репортёр).\n3. Удаляет сообщения News.\n4. Удаляет сообщения /d чата.\n5. Удаляет сообщение \'Недостаточно VKoin\'.\n6. Удаляет сообщения в бандах об инкассаторах.\n7. Сообщения о собеседованиях.')
+				----------------------------------------
+				imgui.Checkbox(u8('Выводить SPAM сообщения в консоль SAMPFUNCS (~)'),elements.chat.tosampfuncsspam)
+				imgui.Separator()
+			end
 			----------------------------------------
-			imgui.Checkbox(u8('Выводить SPAM сообщения в консоль SAMPFUNCS (~)'),elements.chat.tosampfuncsspam)
-			imgui.Separator()
-		end
-		----------------------------------------
-		if imgui.CollapsingHeader(u8'Сообщения о подключении/отключении игроков') then
-			imgui.Separator()
-			imgui.Checkbox(u8('Сообщения о входе игроков'),elements.chat.sendconnect)
-			imgui.Checkbox(u8('Сообщения о выходе игроков'),elements.chat.senddisconnect)
-			imgui.Checkbox(u8('Сообщения о входе игроков в консоль SAMPFUNCS (~)'),elements.chat.tosampfuncsconnect)
-			imgui.Checkbox(u8('Сообщения о выходе игроков в консоль SAMPFUNCS (~)'),elements.chat.tosampfuncsdisconnect)
-			imgui.Separator()
-		end
-		----------------------------------------
-		if imgui.CollapsingHeader(u8'Настройки VIP чата') then
-			imgui.Separator()
-			imgui.Checkbox(u8('Рендер вип чата'),elements.chat.rendervipchat)
-			imgui.Checkbox(u8('Выводить вип чат в консоль SAMPFUNCS (~)'),elements.chat.tosampfuncsvipchat)
-			imgui.Checkbox(u8('Отключить вип чат'),elements.chat.removevipchat)
-			imgui.Separator()
-		end
-		----------------------------------------
-		if imgui.CollapsingHeader(u8'Настройки /j чата') then
-			imgui.Separator()
-			imgui.Checkbox(u8('Выводить /j чат в консоль SAMPFUNCS (~)'),elements.chat.tosampfuncsjobchat)
-			imgui.Checkbox(u8('Отключить /j чат'),elements.chat.removejobchat)
+			if imgui.CollapsingHeader(u8'Сообщения о подключении/отключении игроков') then
+				imgui.Separator()
+				imgui.Checkbox(u8('Сообщения о входе игроков'),elements.chat.sendconnect)
+				imgui.Checkbox(u8('Сообщения о выходе игроков'),elements.chat.senddisconnect)
+				imgui.Checkbox(u8('Сообщения о входе игроков в консоль SAMPFUNCS (~)'),elements.chat.tosampfuncsconnect)
+				imgui.Checkbox(u8('Сообщения о выходе игроков в консоль SAMPFUNCS (~)'),elements.chat.tosampfuncsdisconnect)
+				imgui.Separator()
+			end
+			----------------------------------------
+			if imgui.CollapsingHeader(u8'Настройки VIP чата') then
+				imgui.Separator()
+				imgui.Checkbox(u8('Рендер вип чата'),elements.chat.rendervipchat)
+				imgui.Checkbox(u8('Выводить вип чат в консоль SAMPFUNCS (~)'),elements.chat.tosampfuncsvipchat)
+				imgui.Checkbox(u8('Отключить вип чат'),elements.chat.removevipchat)
+				imgui.Separator()
+			end
+			----------------------------------------
+			if imgui.CollapsingHeader(u8'Настройки /j чата') then
+				imgui.Separator()
+				imgui.Checkbox(u8('Выводить /j чат в консоль SAMPFUNCS (~)'),elements.chat.tosampfuncsjobchat)
+				imgui.Checkbox(u8('Отключить /j чат'),elements.chat.removejobchat)
+				imgui.Separator()
+			end
+			----------------------------------------
+			if imgui.CollapsingHeader(u8'Настройки объявлений (/ad)') then
+				imgui.Separator()
+				imgui.Checkbox(u8('Выводить объявления в консоль SAMPFUNCS (~)'),elements.chat.tosampfuncsadv)
+				imgui.Checkbox(u8('Отключить объявления'),elements.chat.removeadv)
+				imgui.Separator()
+			end
 			imgui.Separator()
 		end
 		----------------------------------------
@@ -2310,6 +2334,17 @@ function sampev.onServerMessage(color, text)
 		end
 	end
 	----------------------------------------
+	if ((string.find(text,"Объявление") or
+	string.find(text,"Отредактировал сотрудник СМИ")) and color == 1941201407)
+	then
+		if elements.chat.tosampfuncsadv.v == true then
+			sampfuncsLog('{FFD700}'..os.date('[%H:%M:%S] ')..text)
+		end
+		if elements.chat.removeadv.v == true then
+			return false
+		end
+	end
+	----------------------------------------
 	if (text:find("В нашем магазине ты можешь приобрести нужное количество игровых денег и потратить") or
 		text:find("их на желаемый тобой") or
 		text:find("имеют большие возможности") or
@@ -2396,7 +2431,9 @@ function sampev.onServerMessage(color, text)
 	end
 	----------------------------------------
 	if text:find("У вас началась сильная ломка!") and color == -10270721 then
-		sampSendChat("/usedrugs 3")
+		if elements.config.autousedrugs.v == true then
+			sampSendChat("/usedrugs 3")
+		end
 		return false
 	end
 	----------------------------------------
@@ -2481,36 +2518,46 @@ function sampev.onVehicleStreamOut(vehicleId)
 end
 
 function sampev.onPlayerStreamIn(playerId, team, model, position, rotation, color, fightingStyle)
-	if elements.config.del_stream.v == true then
-		return false
+	local friend = false
+	nickname = sampGetPlayerNickname(playerId)
+	for id = 1, #friends do
+		if nickname == friends[id] then
+			friend = true
+		end
 	end
-	if elements.config.del_stream_pl.v == true then
-		return false
+	if friend == false then
+		if elements.config.del_stream.v == true then
+			return false
+		end
+		if elements.config.del_stream_pl.v == true then
+			return false
+		end
 	end
 end
 
---function sampev.onCreateObject(objectId, data)
-	--if data.attachToVehicleId ~= 65535 and data.modelId == 19476 then
-
-		--sampfuncsLog(objectId)
-		--sampfuncsLog(data.modelId)
-		--sampfuncsLog(data.attachToVehicleId)
-		
-
-		--res, carhandle = sampGetCarHandleBySampVehicleId(data.attachToVehicleId)
-		--if carhandle ~= -1 then
-			--model = getCarModel(carhandle)
-			--sampfuncsLog("AttachDynamicObjectToVehicle(supreme, "..model..", "..data.attachOffsets.x..", "..data.attachOffsets.y..", "..data.attachOffsets.z..", "..data.attachRotation.x..", "..data.attachRotation.x..", "..data.attachRotation.x..");")
-			--sampfuncsLog("AttachDynamicObjectToVehicle(supreme, "..model..", "..data.syncRotation.x..", "..data.syncRotation.y..", "..data.syncRotation.z..", "..data.attachRotation.x..", "..data.attachRotation.x..", "..data.attachRotation.x..");")
-		
-		--end
-	--end
---end
-
-function sampev.onVehicleStreamIn()
-	if elements.config.del_stream.v == true then
-		return false
-	end
+function sampev.onVehicleStreamIn(vehicleId, data)
+	lua_thread.create(function()
+        wait(200)
+        bool, hand = sampGetCarHandleBySampVehicleId(vehicleId)
+        if bool then
+            pPed = getDriverOfCar(hand)
+            result, pID = sampGetPlayerIdByCharHandle(pPed)
+            if result then
+                local friend = false
+                nickname = sampGetPlayerNickname(pID)
+				for id = 1, #friends do
+					if nickname == friends[id] then
+						friend = true
+					end
+				end
+				if friend == false then
+					if elements.config.del_stream.v == true then
+						return false
+					end
+				end
+            end
+        end
+    end)
 end
 
 function sampev.onPlayerDeathNotification(killerid, killedid, reason)
@@ -2948,6 +2995,10 @@ function sampev.onSetPlayerDrunk(drunkLevel)
 end
 
 function sampev.onSetPlayerAttachedObject(playerId, index, create, object)
+	--if playerId == 345 then
+		--model = object.modelId
+		--SaveFileAttach(345,model,object.bone,object.offset.x,object.offset.y,object.offset.z,object.rotation.x,object.rotation.y,object.rotation.z,object.scale.x,object.scale.y,object.scale.z)
+	--end
 	ip, port = sampGetCurrentServerAddress()
 	if ip == "185.169.134.3" or
 		ip == "185.169.134.4" or
@@ -3419,6 +3470,13 @@ function sampev.onSetPlayerAttachedObject(playerId, index, create, object)
 end
 
 function SaveFileAttach(skin,modelId,bone,offsetX,offsetY,offsetZ,rotationX,rotationY,rotationZ,scaleX,scaleY,scaleZ)
+	--if skin == 345 then
+		--local file = io.open('moonloader/stealer/dedpyl.notepad', 'a+')
+		--if file ~= -1 and file ~= nil then
+			--file:write(string.format('SetPlayerAttachedObject(playerid, slot, %d, %d, %0.4f, %0.4f, %0.4f, %0.4f, %0.4f, %0.4f, %0.4f, %0.4f, %0.4f, -1, -1);\n',modelId,bone,offsetX,offsetY,offsetZ,rotationX,rotationY,rotationZ,scaleX,scaleY,scaleZ))
+			--io.close(file)
+		--end
+	--end
 	local file = io.open('moonloader/stealer/'..modelId..'.notepad', 'a+')
 	if file ~= -1 and file ~= nil then
 		if skin == 0 or skin == 74 then
@@ -3436,9 +3494,15 @@ function SaveFileAttach(skin,modelId,bone,offsetX,offsetY,offsetZ,rotationX,rota
 		elseif skin == 80 or skin == 81 then
 			file:write(string.format('case 80: SetPlayerAttachedObject(playerid, slot, %d, %d, %0.4f, %0.4f, %0.4f, %0.4f, %0.4f, %0.4f, %0.4f, %0.4f, %0.4f, -1, -1);\n',modelId,bone,offsetX,offsetY,offsetZ,rotationX,rotationY,rotationZ,scaleX,scaleY,scaleZ))
 			file:write(string.format('case 81: SetPlayerAttachedObject(playerid, slot, %d, %d, %0.4f, %0.4f, %0.4f, %0.4f, %0.4f, %0.4f, %0.4f, %0.4f, %0.4f, -1, -1);\n',modelId,bone,offsetX,offsetY,offsetZ,rotationX,rotationY,rotationZ,scaleX,scaleY,scaleZ))
+		elseif skin == 78 or skin == 239 then
+			file:write(string.format('case 78: SetPlayerAttachedObject(playerid, slot, %d, %d, %0.4f, %0.4f, %0.4f, %0.4f, %0.4f, %0.4f, %0.4f, %0.4f, %0.4f, -1, -1);\n',modelId,bone,offsetX,offsetY,offsetZ,rotationX,rotationY,rotationZ,scaleX,scaleY,scaleZ))
+			file:write(string.format('case 239: SetPlayerAttachedObject(playerid, slot, %d, %d, %0.4f, %0.4f, %0.4f, %0.4f, %0.4f, %0.4f, %0.4f, %0.4f, %0.4f, -1, -1);\n',modelId,bone,offsetX,offsetY,offsetZ,rotationX,rotationY,rotationZ,scaleX,scaleY,scaleZ))
 		elseif skin == 224 or skin == 225 then
 			file:write(string.format('case 224: SetPlayerAttachedObject(playerid, slot, %d, %d, %0.4f, %0.4f, %0.4f, %0.4f, %0.4f, %0.4f, %0.4f, %0.4f, %0.4f, -1, -1);\n',modelId,bone,offsetX,offsetY,offsetZ,rotationX,rotationY,rotationZ,scaleX,scaleY,scaleZ))
 			file:write(string.format('case 225: SetPlayerAttachedObject(playerid, slot, %d, %d, %0.4f, %0.4f, %0.4f, %0.4f, %0.4f, %0.4f, %0.4f, %0.4f, %0.4f, -1, -1);\n',modelId,bone,offsetX,offsetY,offsetZ,rotationX,rotationY,rotationZ,scaleX,scaleY,scaleZ))
+		elseif skin == 247 or skin == 254 then
+			file:write(string.format('case 247: SetPlayerAttachedObject(playerid, slot, %d, %d, %0.4f, %0.4f, %0.4f, %0.4f, %0.4f, %0.4f, %0.4f, %0.4f, %0.4f, -1, -1);\n',modelId,bone,offsetX,offsetY,offsetZ,rotationX,rotationY,rotationZ,scaleX,scaleY,scaleZ))
+			file:write(string.format('case 254: SetPlayerAttachedObject(playerid, slot, %d, %d, %0.4f, %0.4f, %0.4f, %0.4f, %0.4f, %0.4f, %0.4f, %0.4f, %0.4f, -1, -1);\n',modelId,bone,offsetX,offsetY,offsetZ,rotationX,rotationY,rotationZ,scaleX,scaleY,scaleZ))
 		elseif skin == 280 or skin == 300 then
 			file:write(string.format('case 280: SetPlayerAttachedObject(playerid, slot, %d, %d, %0.4f, %0.4f, %0.4f, %0.4f, %0.4f, %0.4f, %0.4f, %0.4f, %0.4f, -1, -1);\n',modelId,bone,offsetX,offsetY,offsetZ,rotationX,rotationY,rotationZ,scaleX,scaleY,scaleZ))
 			file:write(string.format('case 300: SetPlayerAttachedObject(playerid, slot, %d, %d, %0.4f, %0.4f, %0.4f, %0.4f, %0.4f, %0.4f, %0.4f, %0.4f, %0.4f, -1, -1);\n',modelId,bone,offsetX,offsetY,offsetZ,rotationX,rotationY,rotationZ,scaleX,scaleY,scaleZ))
