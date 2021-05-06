@@ -1,10 +1,10 @@
 script_name("{330000}Ar{430006}iz{53000b}on{64000d}a H{75000e}el{86000d}pe{97000a}r")
 local script_names = "Arizona Helper"
 
-script_version('4.21')
+script_version('4.22')
 script_author("metk1u")
 
-local script_vers = 33
+local script_vers = 34
 
 local coords = 
 {
@@ -402,13 +402,14 @@ local mainIni = inicfg.load(
 		fam_talon = 0,
 		fam_talon_price = 8000,
 		----------------------------------------
+		cherepa = 0,
+		cherepa_price = 1000,
+		----------------------------------------
 		sale_talon = 0,
 		sale_talon_price = 300000,
 		----------------------------------------
 		gift = 0,
 		gift_price = 4000,
-		----------------------------------------
-		twinturbo_price = 0,
 		----------------------------------------
 		cooper_roll = 0,
 		cooper_roll_price = 6000,
@@ -451,6 +452,9 @@ local mainIni = inicfg.load(
 		----------------------------------------
 		prison = 0,
 		prison_price = 35000,
+		----------------------------------------
+		zlov_moneta = 0,
+		zlov_moneta_price = 200000,
 		----------------------------------------
 		toch_stone = 0,
 		toch_stone_price = 20000,
@@ -569,13 +573,14 @@ local elements =
 		fam_talon = imgui.ImInt(mainIni.lavka.fam_talon),
 		fam_talon_price = imgui.ImInt(mainIni.lavka.fam_talon_price),
 		----------------------------------------
+		cherepa = imgui.ImInt(mainIni.lavka.cherepa),
+		cherepa_price = imgui.ImInt(mainIni.lavka.cherepa_price),
+		----------------------------------------
 		sale_talon = imgui.ImInt(mainIni.lavka.sale_talon),
 		sale_talon_price = imgui.ImInt(mainIni.lavka.sale_talon_price),
 		----------------------------------------
 		gift = imgui.ImInt(mainIni.lavka.gift),
 		gift_price = imgui.ImInt(mainIni.lavka.gift_price),
-		----------------------------------------
-		twinturbo_price = imgui.ImInt(mainIni.lavka.twinturbo_price),
 		----------------------------------------
 		cooper_roll = imgui.ImInt(mainIni.lavka.cooper_roll),
 		cooper_roll_price = imgui.ImInt(mainIni.lavka.cooper_roll_price),
@@ -618,6 +623,9 @@ local elements =
 		----------------------------------------
 		prison = imgui.ImInt(mainIni.lavka.prison),
 		prison_price = imgui.ImInt(mainIni.lavka.prison_price),
+		----------------------------------------
+		zlov_moneta = imgui.ImInt(mainIni.lavka.zlov_moneta),
+		zlov_moneta_price = imgui.ImInt(mainIni.lavka.zlov_moneta_price),
 		----------------------------------------
 		toch_stone = imgui.ImInt(mainIni.lavka.toch_stone),
 		toch_stone_price = imgui.ImInt(mainIni.lavka.toch_stone_price),
@@ -1529,13 +1537,14 @@ function saveini()
 			fam_talon = elements.lavka.fam_talon.v,
 			fam_talon_price = elements.lavka.fam_talon_price.v,
 			----------------------------------------
+			cherepa = elements.lavka.cherepa.v,
+			cherepa_price = elements.lavka.cherepa_price.v,
+			----------------------------------------
 			sale_talon = elements.lavka.sale_talon.v,
 			sale_talon_price = elements.lavka.sale_talon_price.v,
 			----------------------------------------
 			gift = elements.lavka.gift.v,
 			gift_price = elements.lavka.gift_price.v,
-			----------------------------------------
-			twinturbo_price = elements.lavka.twinturbo_price.v,
 			----------------------------------------
 			cooper_roll = elements.lavka.cooper_roll.v,
 			cooper_roll_price = elements.lavka.cooper_roll_price.v,
@@ -1578,6 +1587,9 @@ function saveini()
 			----------------------------------------
 			prison = elements.lavka.prison.v,
 			prison_price = elements.lavka.prison_price.v,
+			----------------------------------------
+			zlov_moneta = elements.lavka.zlov_moneta.v,
+			zlov_moneta_price = elements.lavka.zlov_moneta_price.v,
 			----------------------------------------
 			toch_stone = elements.lavka.toch_stone.v,
 			toch_stone_price = elements.lavka.toch_stone_price.v,
@@ -1835,15 +1847,17 @@ function imgui.OnDrawFrame()
 			imgui.SameLine()
 			imgui.InputInt(u8('Семейный талон (кол-во)'),elements.lavka.fam_talon)
 			----------------------------------------
-			imgui.InputInt(u8('Цена  ##4'),elements.lavka.sale_talon_price)
+			imgui.InputInt(u8('Цена  ##4'),elements.lavka.cherepa_price)
+			imgui.SameLine()
+			imgui.InputInt(u8('Черепа (кол-во)'),elements.lavka.cherepa)
+			----------------------------------------
+			imgui.InputInt(u8('Цена  ##5'),elements.lavka.sale_talon_price)
 			imgui.SameLine()
 			imgui.InputInt(u8('Скидочный талон (кол-во)'),elements.lavka.sale_talon)
 			----------------------------------------
-			imgui.InputInt(u8('Цена  ##5'),elements.lavka.gift_price)
+			imgui.InputInt(u8('Цена  ##6'),elements.lavka.gift_price)
 			imgui.SameLine()
 			imgui.InputInt(u8('Подарки (кол-во)'),elements.lavka.gift)
-			----------------------------------------
-			imgui.InputInt(u8('TwinTurbo Цена  ##6'),elements.lavka.twinturbo_price)
 			----------------------------------------
 			imgui.InputInt(u8('Цена  ##7'),elements.lavka.cooper_roll_price)
 			imgui.SameLine()
@@ -1901,27 +1915,31 @@ function imgui.OnDrawFrame()
 			imgui.SameLine()
 			imgui.InputInt(u8('Отмычки от ТСР (кол-во)'),elements.lavka.prison)
 			----------------------------------------
-			imgui.InputInt(u8('Цена  ##21'),elements.lavka.toch_stone_price)
+			imgui.InputInt(u8('Цена  ##21'),elements.lavka.zlov_moneta_price)
+			imgui.SameLine()
+			imgui.InputInt(u8('Зловещая монета (кол-во)'),elements.lavka.zlov_moneta)
+			----------------------------------------
+			imgui.InputInt(u8('Цена  ##22'),elements.lavka.toch_stone_price)
 			imgui.SameLine()
 			imgui.InputInt(u8('Точильные камни (кол-во)'),elements.lavka.toch_stone)
 			----------------------------------------
-			imgui.InputInt(u8('Цена  ##22'),elements.lavka.bilet_6_price)
+			imgui.InputInt(u8('Цена  ##23'),elements.lavka.bilet_6_price)
 			imgui.SameLine()
 			imgui.InputInt(u8('Билет 6 годовщины (кол-во)'),elements.lavka.bilet_6)
 			----------------------------------------
-			imgui.InputInt(u8('Цена  ##23'),elements.lavka.sticker_cluck_price)
+			imgui.InputInt(u8('Цена  ##24'),elements.lavka.sticker_cluck_price)
 			imgui.SameLine()
 			imgui.InputInt(u8('Стикер Cluckin Bell (кол-во)'),elements.lavka.sticker_cluck)
 			----------------------------------------
-			imgui.InputInt(u8('Цена  ##24'),elements.lavka.sticker_binko_price)
+			imgui.InputInt(u8('Цена  ##25'),elements.lavka.sticker_binko_price)
 			imgui.SameLine()
 			imgui.InputInt(u8('Стикер Binko (кол-во)'),elements.lavka.sticker_binko)
 			----------------------------------------
-			imgui.InputInt(u8('Цена  ##25'),elements.lavka.sticker_jizzy_price)
+			imgui.InputInt(u8('Цена  ##26'),elements.lavka.sticker_jizzy_price)
 			imgui.SameLine()
 			imgui.InputInt(u8('Стикер Jizzy (кол-во)'),elements.lavka.sticker_jizzy)
 			----------------------------------------
-			imgui.InputInt(u8('Цена  ##26'),elements.lavka.platinum_roll_price)
+			imgui.InputInt(u8('Цена  ##27'),elements.lavka.platinum_roll_price)
 			imgui.SameLine()
 			imgui.InputInt(u8('Платиновая рулетка (кол-во)'),elements.lavka.platinum_roll)
 			----------------------------------------
@@ -1935,14 +1953,14 @@ function imgui.OnDrawFrame()
 			if elements.lavka.fam_talon.v ~= 0 then
 				count_all = count_all+(elements.lavka.fam_talon_price.v*elements.lavka.fam_talon.v)
 			end
+			if elements.lavka.cherepa.v ~= 0 then
+				count_all = count_all+(elements.lavka.cherepa_price.v*elements.lavka.cherepa.v)
+			end
 			if elements.lavka.sale_talon.v ~= 0 then
 				count_all = count_all+(elements.lavka.sale_talon_price.v*elements.lavka.sale_talon.v)
 			end
 			if elements.lavka.gift.v ~= 0 then
 				count_all = count_all+(elements.lavka.gift_price.v*elements.lavka.gift.v)
-			end
-			if elements.lavka.twinturbo_price.v ~= 0 then
-				count_all = count_all+elements.lavka.twinturbo_price.v
 			end
 			if elements.lavka.cooper_roll.v ~= 0 then
 				count_all = count_all+(elements.lavka.cooper_roll_price.v*elements.lavka.cooper_roll.v)
@@ -1985,6 +2003,9 @@ function imgui.OnDrawFrame()
 			end
 			if elements.lavka.prison.v ~= 0 then
 				count_all = count_all+(elements.lavka.prison_price.v*elements.lavka.prison.v)
+			end
+			if elements.lavka.zlov_moneta.v ~= 0 then
+				count_all = count_all+(elements.lavka.zlov_moneta_price.v*elements.lavka.zlov_moneta.v)
 			end
 			if elements.lavka.toch_stone.v ~= 0 then
 				count_all = count_all+(elements.lavka.toch_stone_price.v*elements.lavka.toch_stone.v)
@@ -2671,6 +2692,11 @@ function skupka()
 			sampSendDialogResponse(3050, 1, 12, '')
 			sampSendDialogResponse(3060, 1, 0, elements.lavka.fam_talon.v..' '..elements.lavka.fam_talon_price.v)
 		end
+		if elements.lavka.cherepa.v ~= 0 then
+			sampSendDialogResponse(3040, 1, 0, '')
+			sampSendDialogResponse(3050, 1, 18, '')
+			sampSendDialogResponse(3060, 1, 0, elements.lavka.cherepa.v..' '..elements.lavka.cherepa_price.v)
+		end
 		if elements.lavka.sale_talon.v ~= 0 then
 			sampSendDialogResponse(3040, 1, 0, '')
 			sampSendDialogResponse(3050, 1, 19, '')
@@ -2682,12 +2708,6 @@ function skupka()
 			sampSendDialogResponse(3050, 1, 19, '')
 			sampSendDialogResponse(3050, 1, 5, '')
 			sampSendDialogResponse(3060, 1, 0, elements.lavka.gift.v..' '..elements.lavka.gift_price.v)
-		end
-		if elements.lavka.twinturbo_price.v ~= 0 then
-			sampSendDialogResponse(3040, 1, 0, '')
-			sampSendDialogResponse(3050, 1, 19, '')
-			sampSendDialogResponse(3050, 1, 7, '')
-			sampSendDialogResponse(3060, 1, 0, elements.lavka.twinturbo_price.v)
 		end
 		if elements.lavka.cooper_roll.v ~= 0 then
 			sampSendDialogResponse(3040, 1, 0, '')
@@ -2845,6 +2865,30 @@ function skupka()
 			sampSendDialogResponse(3050, 1, 20, '')
 			sampSendDialogResponse(3050, 1, 7, '')
 			sampSendDialogResponse(3060, 1, 0, elements.lavka.prison.v..' '..elements.lavka.prison_price.v)
+		end
+		if elements.lavka.zlov_moneta.v ~= 0 then
+			sampSendDialogResponse(3040, 1, 0, '')
+			sampSendDialogResponse(3050, 1, 19, '')
+			sampSendDialogResponse(3050, 1, 20, '')
+			sampSendDialogResponse(3050, 1, 20, '')
+			sampSendDialogResponse(3050, 1, 20, '')
+			sampSendDialogResponse(3050, 1, 20, '')
+			sampSendDialogResponse(3050, 1, 20, '')
+			sampSendDialogResponse(3050, 1, 20, '')
+			sampSendDialogResponse(3050, 1, 20, '')
+			sampSendDialogResponse(3050, 1, 20, '')
+			sampSendDialogResponse(3050, 1, 20, '')
+			sampSendDialogResponse(3050, 1, 20, '')
+			sampSendDialogResponse(3050, 1, 20, '')
+			sampSendDialogResponse(3050, 1, 20, '')
+			sampSendDialogResponse(3050, 1, 20, '')
+			sampSendDialogResponse(3050, 1, 20, '')
+			sampSendDialogResponse(3050, 1, 20, '')
+			sampSendDialogResponse(3050, 1, 20, '')
+			sampSendDialogResponse(3050, 1, 20, '')
+			sampSendDialogResponse(3050, 1, 20, '')
+			sampSendDialogResponse(3050, 1, 17, '')
+			sampSendDialogResponse(3060, 1, 0, elements.lavka.zlov_moneta.v..' '..elements.lavka.zlov_moneta_price.v)
 		end
 		if elements.lavka.toch_stone.v ~= 0 then
 			sampSendDialogResponse(3040, 1, 0, '')
