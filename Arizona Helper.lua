@@ -1,10 +1,10 @@
 script_name("{330000}Ar{430006}iz{53000b}on{64000d}a H{75000e}el{86000d}pe{97000a}r")
 local script_names = "Arizona Helper"
 
-script_version('4.2')
+script_version('4.21')
 script_author("metk1u")
 
-local script_vers = 32
+local script_vers = 33
 
 local coords = 
 {
