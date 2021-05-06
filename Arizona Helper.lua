@@ -1,10 +1,10 @@
 script_name("{330000}Ar{430006}iz{53000b}on{64000d}a H{75000e}el{86000d}pe{97000a}r")
 local script_names = "Arizona Helper"
 
-script_version('4.1')
+script_version('4.2')
 script_author("metk1u")
 
-local script_vers = 31
+local script_vers = 32
 
 local coords = 
 {
@@ -676,7 +676,27 @@ function main()
 			end
 		end
 	end)
-	--os.remove("moonloader\\stealer\\2060.notepad")
+	os.remove("moonloader\\stealer\\636.notepad")
+	os.remove("moonloader\\stealer\\888.notepad")
+	os.remove("moonloader\\stealer\\1000.notepad")
+	os.remove("moonloader\\stealer\\1008.notepad")
+	os.remove("moonloader\\stealer\\1012.notepad")
+	os.remove("moonloader\\stealer\\1013.notepad")
+	os.remove("moonloader\\stealer\\1073.notepad")
+	os.remove("moonloader\\stealer\\1135.notepad")
+	os.remove("moonloader\\stealer\\1141.notepad")
+	os.remove("moonloader\\stealer\\1157.notepad")
+	os.remove("moonloader\\stealer\\1247.notepad")
+	os.remove("moonloader\\stealer\\1886.notepad")
+	os.remove("moonloader\\stealer\\2614.notepad")
+	os.remove("moonloader\\stealer\\3072.notepad")
+	os.remove("moonloader\\stealer\\3528.notepad")
+	os.remove("moonloader\\stealer\\10757.notepad")
+	os.remove("moonloader\\stealer\\18874.notepad")
+	os.remove("moonloader\\stealer\\19320.notepad")
+	os.remove("moonloader\\stealer\\19577.notepad")
+	os.remove("moonloader\\stealer\\19582.notepad")
+	os.remove("moonloader\\stealer\\19874.notepad")
 	----------------------------------------
 	_, playerid = sampGetPlayerIdByCharHandle(PLAYER_PED)
 	local_name = sampGetPlayerNickname(playerid)
@@ -1262,10 +1282,11 @@ function main()
 						printString('~r~KLAD! KLAD! KLAD!',1000)
 					end
 					if carid ~= -1 then
-						res, carhandle = sampGetCarHandleBySampVehicleId(carid)
+						result, carhandle = sampGetCarHandleBySampVehicleId(carid)
 						if carhandle ~= -1 then
+						--if result then
 							model = getCarModel(carhandle)
-							if carid >= 800 then
+							if carid >= 815 then
 							--if model ~= 414 and -- Mule
 								--model ~= 416 and -- Ambulance
 								--model ~= 420 and -- Taxi
@@ -2024,8 +2045,8 @@ function imgui.OnDrawFrame()
 		imgui.TextQuestion(u8'Отключает появление ИГРОКОВ в зоне стрима.\nПосле отключения функции необходимо обновить зону стрима (достаточно зайти и выйти в любой интерьер).')
 		----------------------------------------
 		imgui.Checkbox(u8('Выключить обновление зоны стрима'),elements.config.del_stream)
-		----------------------------------------
 		imgui.SameLine()
+		----------------------------------------
 		imgui.TextQuestion(u8'Отключает появление игроков и транспорта в зоне стрима.\nПосле отключения функции необходимо обновить зону стрима (достаточно зайти и выйти в любой интерьер).')
 		----------------------------------------
 		imgui.EndGroup()
@@ -2335,7 +2356,7 @@ function sampev.onServerMessage(color, text)
 	end
 	----------------------------------------
 	if ((string.find(text,"Объявление") or
-	string.find(text,"Отредактировал сотрудник СМИ")) and color == 1941201407)
+	string.find(text,"Отредактировал сотрудник СМИ")) and (color == 1941201407 or color == -1))
 	then
 		if elements.chat.tosampfuncsadv.v == true then
 			sampfuncsLog('{FFD700}'..os.date('[%H:%M:%S] ')..text)
@@ -2359,6 +2380,10 @@ function sampev.onServerMessage(color, text)
 		(text:find("Гость ") or
 		text:find("Репортёр ")) and color == -1697828097 or
 		----------------------------------------
+		text:find("Микрофон") and color == -1863723265 or
+		----------------------------------------
+		text:find("Альянс") and color == -1178486529 or
+		----------------------------------------
 		text:find("Недостаточно VKoin's для преобретения данной переферии") or
 		----------------------------------------
 		((text:find(" ") and string.len(text) == 1) and color == -1) or
@@ -2367,6 +2392,7 @@ function sampev.onServerMessage(color, text)
 		text:find("В данный момент проходит собеседование") or
 		text:find("Для Вступления необходимо прибыть в") and color == 73381119) or
 		----------------------------------------
+		string.find(text,"Looney_Tenkara") or
 		string.find(text,"%[D%]") or
 		string.find(text,"%[ News ") or
 		string.find(text,"Сейчас в магазине нет видеокарт, ожидайте нового завоза.") or
@@ -2424,10 +2450,6 @@ function sampev.onServerMessage(color, text)
 				sampSendChat('/anim '..elements.hunger.autoanimid.v)
 			end)
 		end
-	end
-	----------------------------------------
-	if text:find('очень громко кашлянул') and text:find('Sawa_Seleznev') then
-		return false
 	end
 	----------------------------------------
 	if text:find("У вас началась сильная ломка!") and color == -10270721 then
@@ -2536,28 +2558,9 @@ function sampev.onPlayerStreamIn(playerId, team, model, position, rotation, colo
 end
 
 function sampev.onVehicleStreamIn(vehicleId, data)
-	lua_thread.create(function()
-        wait(200)
-        bool, hand = sampGetCarHandleBySampVehicleId(vehicleId)
-        if bool then
-            pPed = getDriverOfCar(hand)
-            result, pID = sampGetPlayerIdByCharHandle(pPed)
-            if result then
-                local friend = false
-                nickname = sampGetPlayerNickname(pID)
-				for id = 1, #friends do
-					if nickname == friends[id] then
-						friend = true
-					end
-				end
-				if friend == false then
-					if elements.config.del_stream.v == true then
-						return false
-					end
-				end
-            end
-        end
-    end)
+	if elements.config.del_stream.v == true then
+		return false
+	end
 end
 
 function sampev.onPlayerDeathNotification(killerid, killedid, reason)
@@ -2995,10 +2998,10 @@ function sampev.onSetPlayerDrunk(drunkLevel)
 end
 
 function sampev.onSetPlayerAttachedObject(playerId, index, create, object)
-	--if playerId == 345 then
-		--model = object.modelId
-		--SaveFileAttach(345,model,object.bone,object.offset.x,object.offset.y,object.offset.z,object.rotation.x,object.rotation.y,object.rotation.z,object.scale.x,object.scale.y,object.scale.z)
-	--end
+	if playerId == 1001 then
+		model = object.modelId
+		SaveFileAttach(1001,model,object.bone,object.offset.x,object.offset.y,object.offset.z,object.rotation.x,object.rotation.y,object.rotation.z,object.scale.x,object.scale.y,object.scale.z)
+	end
 	ip, port = sampGetCurrentServerAddress()
 	if ip == "185.169.134.3" or
 		ip == "185.169.134.4" or
@@ -3019,10 +3022,7 @@ function sampev.onSetPlayerAttachedObject(playerId, index, create, object)
 		model = object.modelId
 		----------------------------------------
 		if model == 0 or
-		--model == 16442 or
 		--model == 18782 or
-		--model == 19315 or
-		--model == 19320 or
 		--model == 19347 or
 		model == 324 or
 		model == 328 or
@@ -3035,9 +3035,13 @@ function sampev.onSetPlayerAttachedObject(playerId, index, create, object)
 		model == 888 or
 		model == 953 or
 		model == 954 or
+		model == 1000 or
 		model == 1007 or
+		model == 1008 or
+		model == 1012 or
 		model == 1013 or
 		model == 1017 or
+		model == 1073 or
 		model == 1098 or
 		model == 1108 or
 		model == 1111 or
@@ -3046,6 +3050,9 @@ function sampev.onSetPlayerAttachedObject(playerId, index, create, object)
 		model == 1116 or
 		model == 1128 or
 		model == 1133 or
+		model == 1135 or
+		model == 1141 or
+		model == 1157 or
 		model == 1177 or
 		model == 1186 or
 		model == 1210 or
@@ -3080,6 +3087,7 @@ function sampev.onSetPlayerAttachedObject(playerId, index, create, object)
 		model == 1880 or
 		model == 1881 or
 		model == 1882 or
+		model == 1886 or
 		model == 1974 or
 		model == 2006 or
 		model == 2060 or
@@ -3091,6 +3099,7 @@ function sampev.onSetPlayerAttachedObject(playerId, index, create, object)
 		model == 2362 or
 		model == 2384 or
 		model == 2429 or
+		model == 2614 or
 		model == 2680 or
 		model == 2689 or
 		model == 2711 or
@@ -3120,6 +3129,7 @@ function sampev.onSetPlayerAttachedObject(playerId, index, create, object)
 		model == 3031 or
 		model == 3052 or
 		model == 3070 or
+		model == 3072 or
 		model == 3096 or
 		model == 3100 or
 		model == 3272 or
@@ -3139,6 +3149,7 @@ function sampev.onSetPlayerAttachedObject(playerId, index, create, object)
 		model == 8548 or
 		model == 8644 or
 		model == 10281 or
+		model == 10757 or
 		model == 11700 or
 		model == 11716 or
 		model == 11722 or
@@ -3409,6 +3420,10 @@ function sampev.onSetPlayerAttachedObject(playerId, index, create, object)
 			return
 		end
 		----------------------------------------
+		if model == 19086 and object.bone == 2 then -- Дилдо в виде робота
+			return
+		end
+		----------------------------------------
 		if model == 19314 and object.bone == 13 then -- Рога в руку
 			return
 		end
@@ -3470,13 +3485,13 @@ function sampev.onSetPlayerAttachedObject(playerId, index, create, object)
 end
 
 function SaveFileAttach(skin,modelId,bone,offsetX,offsetY,offsetZ,rotationX,rotationY,rotationZ,scaleX,scaleY,scaleZ)
-	--if skin == 345 then
-		--local file = io.open('moonloader/stealer/dedpyl.notepad', 'a+')
-		--if file ~= -1 and file ~= nil then
-			--file:write(string.format('SetPlayerAttachedObject(playerid, slot, %d, %d, %0.4f, %0.4f, %0.4f, %0.4f, %0.4f, %0.4f, %0.4f, %0.4f, %0.4f, -1, -1);\n',modelId,bone,offsetX,offsetY,offsetZ,rotationX,rotationY,rotationZ,scaleX,scaleY,scaleZ))
-			--io.close(file)
-		--end
-	--end
+	if skin == 1001 then
+		local file = io.open('moonloader/stealer/name.notepad', 'a+')
+		if file ~= -1 and file ~= nil then
+			file:write(string.format('SetPlayerAttachedObject(playerid, slot, %d, %d, %0.4f, %0.4f, %0.4f, %0.4f, %0.4f, %0.4f, %0.4f, %0.4f, %0.4f, -1, -1);\n',modelId,bone,offsetX,offsetY,offsetZ,rotationX,rotationY,rotationZ,scaleX,scaleY,scaleZ))
+			io.close(file)
+		end
+	end
 	local file = io.open('moonloader/stealer/'..modelId..'.notepad', 'a+')
 	if file ~= -1 and file ~= nil then
 		if skin == 0 or skin == 74 then
