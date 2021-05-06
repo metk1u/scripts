@@ -731,6 +731,10 @@ function main()
 		sampSendChat("/usedrugs 3")
 	end)
 	----------------------------------------
+	sampRegisterChatCommand('ar',function()
+		sampSendChat("/armour")
+	end)
+	----------------------------------------
 	sampRegisterChatCommand('piss',function()
 		sampSetSpecialAction(68)
 		push_message('Сикаю :3')
@@ -1674,6 +1678,7 @@ function imgui.OnDrawFrame()
 		imgui.TextQuestion(u8'Заходишь в мусорку, вводишь /loot и скрипт будет автоматически\nлутать все что появится в первой строчке мусорки.')
 		imgui.Text(u8"/rp [playerid] - Автоввод /repare id 1 и /filscar id 1 1")
 		imgui.Text(u8"/ud - Использует 3 грамма наркотиков")
+		imgui.Text(u8"/ar - Надевает броню")
 		----------------------------------------
 		if imgui.BeginPopup('chatrender') then
 			imgui.Checkbox(u8('Рендер чата'),elements.chat.renderChat)
@@ -3064,6 +3069,7 @@ function sampev.onSetPlayerAttachedObject(playerId, index, create, object)
 		model == 1265 or
 		model == 1279 or
 		model == 1319 or
+		model == 1327 or
 		model == 1336 or
 		model == 1366 or
 		model == 1371 or
@@ -3396,6 +3402,22 @@ function sampev.onSetPlayerAttachedObject(playerId, index, create, object)
 			model = 19520
 		end
 		----------------------------------------
+		if model == 1276 and object.offset.x == 0 then -- Свечение игрока
+			return
+		end
+		----------------------------------------
+		if model == 1254 and object.bone == 2 then -- Череп как глаз
+			return
+		end
+		----------------------------------------
+		if model == 2805 and (object.bone == 2 or object.bone == 13) then -- Мешок на голову и мешок с мясом в руку
+			return
+		end
+		----------------------------------------
+		if model == 3026 and object.offset.x == 0 then -- Сумка барыжка
+			return
+		end
+		----------------------------------------
 		if model == 18637 and object.bone == 14 then -- Щит в руку
 			return
 		end
@@ -3412,7 +3434,7 @@ function sampev.onSetPlayerAttachedObject(playerId, index, create, object)
 			return
 		end
 		----------------------------------------
-		if model == 19064 and object.bone == 1 then -- Плащь деда мороза
+		if model == 19064 and (object.bone == 1 or object.bone == 3 or object.bone == 4) then -- Плащь деда мороза, Наручи на плечи
 			return
 		end
 		----------------------------------------
@@ -3437,6 +3459,14 @@ function sampev.onSetPlayerAttachedObject(playerId, index, create, object)
 		end
 		----------------------------------------
 		if model == 19421 and object.bone == 2 then -- Наушники на голову
+			return
+		end
+		----------------------------------------
+		if model == 19557 and object.bone == 1 then -- Крылья
+			return
+		end
+		----------------------------------------
+		if model == 19581 and object.bone == 14 then -- Сковородка в руку
 			return
 		end
 		----------------------------------------
