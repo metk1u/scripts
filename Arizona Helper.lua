@@ -1,10 +1,10 @@
 script_name("{330000}Ar{430006}iz{53000b}on{64000d}a H{75000e}el{86000d}pe{97000a}r")
 local script_names = "Arizona Helper"
 
-script_version('4.22')
+script_version('4.23')
 script_author("metk1u")
 
-local script_vers = 34
+local script_vers = 35
 
 local coords = 
 {
@@ -303,6 +303,7 @@ local marker = {}
 local carid = -1
 local chest_state = false
 local chest_timer = 0
+local anti_shout = false
 ----------------------------------------
 local friends =
 {
@@ -312,7 +313,8 @@ local friends =
 	"Vartan_Germun",
 	"Mawka_Dvornyawka",
 	"Nikita_Bernoy",
-	"Kostya_Seleznev"
+	"Kostya_Seleznev",
+	"Anthony_Reyz"
 };
 ----------------------------------------
 local file = 'settings.ini'
@@ -472,7 +474,10 @@ local mainIni = inicfg.load(
 		sticker_jizzy_price = 5000,
 		----------------------------------------
 		platinum_roll = 0,
-		platinum_roll_price = 300000
+		platinum_roll_price = 300000,
+		----------------------------------------
+		eggs = 0,
+		eggs_price = 5000
 		----------------------------------------
 	},
 	weather_time =
@@ -503,6 +508,7 @@ local elements =
 		autousedrugs = imgui.ImBool(mainIni.config.autousedrugs),
 		prodovoz_edit = imgui.ImInt(mainIni.config.prodovoz_edit),
 		del_stream = imgui.ImBool(false),
+		del_shout = imgui.ImBool(false),
 		del_stream_pl = imgui.ImBool(false)
 	},
 	account =
@@ -643,7 +649,10 @@ local elements =
 		sticker_jizzy_price = imgui.ImInt(mainIni.lavka.sticker_jizzy_price),
 		----------------------------------------
 		platinum_roll = imgui.ImInt(mainIni.lavka.platinum_roll),
-		platinum_roll_price = imgui.ImInt(mainIni.lavka.platinum_roll_price)
+		platinum_roll_price = imgui.ImInt(mainIni.lavka.platinum_roll_price),
+		----------------------------------------
+		eggs = imgui.ImInt(mainIni.lavka.eggs),
+		eggs_price = imgui.ImInt(mainIni.lavka.eggs_price)
 		----------------------------------------
 	},
 	weather_time =
@@ -1482,7 +1491,6 @@ function saveini()
 			my_nick_2 = elements.account.my_nick_2.v,
 			my_password_2 = elements.account.my_password_2.v,
 			my_pincode_2 = elements.account.my_pincode_2.v
-			--nick = u8:decode(i_reconnect_nick.v)
 		},
 		chat =
 		{
@@ -1607,7 +1615,10 @@ function saveini()
 			sticker_jizzy_price = elements.lavka.sticker_jizzy_price.v,
 			----------------------------------------
 			platinum_roll = elements.lavka.platinum_roll.v,
-			platinum_roll_price = elements.lavka.platinum_roll_price.v
+			platinum_roll_price = elements.lavka.platinum_roll_price.v,
+			----------------------------------------
+			eggs = elements.lavka.eggs.v,
+			eggs_price = elements.lavka.eggs_price.v
 			----------------------------------------
 		},
 		weather_time =
@@ -1782,7 +1793,7 @@ function imgui.OnDrawFrame()
 				imgui.Checkbox(u8('Отключить в чате SPAM сообщения'),elements.chat.removechatspam)
 				----------------------------------------
 				imgui.SameLine()
-				imgui.TextQuestion(u8'1. Удаляет рекламу от сервера.\n2. Удаляет репортажи СМИ (Гость, Репортёр).\n3. Удаляет сообщения News.\n4. Удаляет сообщения /d чата.\n5. Удаляет сообщение \'Недостаточно VKoin\'.\n6. Удаляет сообщения в бандах об инкассаторах.\n7. Сообщения о собеседованиях.')
+				imgui.TextQuestion(u8'1. Удаляет рекламу от сервера.\n2. Удаляет репортажи СМИ (Гость, Репортёр).\n3. Удаляет сообщения News.\n4. Удаляет сообщения /d чата.\n5. Удаляет сообщение \'Недостаточно VKoin\'.\n6. Удаляет сообщения в бандах об инкассаторах.\n7. Сообщения о собеседованиях.\n8. Удаляет чат Альянса.\n9. Удаляет сообщения Микрофона.')
 				----------------------------------------
 				imgui.Checkbox(u8('Выводить SPAM сообщения в консоль SAMPFUNCS (~)'),elements.chat.tosampfuncsspam)
 				imgui.Separator()
@@ -1943,6 +1954,10 @@ function imgui.OnDrawFrame()
 			imgui.SameLine()
 			imgui.InputInt(u8('Платиновая рулетка (кол-во)'),elements.lavka.platinum_roll)
 			----------------------------------------
+			imgui.InputInt(u8('Цена  ##28'),elements.lavka.eggs_price)
+			imgui.SameLine()
+			imgui.InputInt(u8('Пасхальные яйца (кол-во)'),elements.lavka.eggs)
+			----------------------------------------
 			count_all = 0
 			if elements.lavka.drugs.v ~= 0 then
 				count_all = count_all+(elements.lavka.drugs_price.v*elements.lavka.drugs.v)
@@ -2025,6 +2040,9 @@ function imgui.OnDrawFrame()
 			if elements.lavka.platinum_roll.v ~= 0 then
 				count_all = count_all+(elements.lavka.platinum_roll_price.v*elements.lavka.platinum_roll.v)
 			end
+			if elements.lavka.eggs.v ~= 0 then
+				count_all = count_all+(elements.lavka.eggs_price.v*elements.lavka.eggs.v)
+			end
 			imgui.Text('')
 			imgui.Text(u8('Для покупки всех товаров необходимо $'..count_all))
 			if imgui.Button(u8"Начать скупку",imgui.ImVec2(250,25)) then skupka() end
@@ -2070,10 +2088,20 @@ function imgui.OnDrawFrame()
 		imgui.SameLine()
 		imgui.TextQuestion(u8'Отключает появление ИГРОКОВ в зоне стрима.\nПосле отключения функции необходимо обновить зону стрима (достаточно зайти и выйти в любой интерьер).')
 		----------------------------------------
-		imgui.Checkbox(u8('Выключить обновление зоны стрима'),elements.config.del_stream)
+		if imgui.Checkbox(u8('Выключить обновление зоны стрима'),elements.config.del_stream) then
+			if elements.config.del_stream.v == true then
+				elements.config.del_shout.v = true
+			end
+			if elements.config.del_stream.v == false then
+				elements.config.del_shout.v = false
+			end
+		end
 		imgui.SameLine()
 		----------------------------------------
 		imgui.TextQuestion(u8'Отключает появление игроков и транспорта в зоне стрима.\nПосле отключения функции необходимо обновить зону стрима (достаточно зайти и выйти в любой интерьер).')
+		----------------------------------------
+		imgui.SameLine()
+		imgui.Checkbox(u8('Выключить /s чат'),elements.config.del_shout)
 		----------------------------------------
 		imgui.EndGroup()
 		imgui.Separator()
@@ -2335,6 +2363,46 @@ function sampev.onServerMessage(color, text)
 		end
 	end
 	----------------------------------------
+	if (text:find("В нашем магазине ты можешь приобрести нужное количество игровых денег и потратить") or
+		text:find("их на желаемый тобой") or
+		text:find("имеют большие возможности") or
+		text:find("можно приобрести редкие") or
+		text:find("которые выделят тебя из толпы")) and color == 1687547391 or
+		----------------------------------------
+		(text:find("~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~") or
+		text:find("Основные команды сервера:") or
+		text:find("Пригласи друга и получи") or
+		text:find("Наш сайт:")) and color == -89368321 or
+		----------------------------------------
+		(text:find("Гость ") or
+		text:find("Репортёр ")) and color == -1697828097 or
+		----------------------------------------
+		text:find("Микрофон") and color == -1863723265 or
+		----------------------------------------
+		text:find("Альянс") and color == -1178486529 or
+		----------------------------------------
+		text:find("Недостаточно VKoin's для преобретения данной переферии") or
+		----------------------------------------
+		((text:find(" ") and string.len(text) == 1) and color == -1) or
+		----------------------------------------
+		(text:find("Уважаемые жители штата! Минуточку внимания") or
+		text:find("В данный момент проходит собеседование") or
+		text:find("Для Вступления необходимо прибыть в") and color == 73381119) or
+		----------------------------------------
+		string.find(text,"%[D%]") or
+		string.find(text,"%[ News ") or
+		string.find(text,"Сейчас в магазине нет видеокарт, ожидайте нового завоза.") or
+		string.find(text,"начал работу новый инкассатор") or
+		string.find(text,"Убив его, вы сможете получить деньги") or
+		string.find(text,"Со склада Армии") then
+		if elements.chat.tosampfuncsspam.v == true then
+			sampfuncsLog(os.date('[%H:%M:%S] ')..text)
+		end
+		if elements.chat.removechatspam.v == true then
+			return false
+		end
+	end
+	----------------------------------------
 	if string.find(text,"%[PREMIUM%]") or
 	(string.find(text,"%[VIP%]") and not string.find(text,"%[VIP%] Объявление")) or
 	string.find(text,"%[ADMIN%]") then
@@ -2348,7 +2416,6 @@ function sampev.onServerMessage(color, text)
 			return false
 		end
 	end
-	--sampfuncsLog(text..' | '..color)
 	----------------------------------------
 	if ((string.find(text,"%[Механик%]") or
 	string.find(text,"%[Развозчик продуктов%]") or
@@ -2381,9 +2448,7 @@ function sampev.onServerMessage(color, text)
 		end
 	end
 	----------------------------------------
-	if ((string.find(text,"Объявление") or
-	string.find(text,"Отредактировал сотрудник СМИ")) and (color == 1941201407 or color == -1))
-	then
+	if ((string.find(text,"Объявление") or string.find(text,"Отредактировал сотрудник СМИ")) and (color == 1941201407 or color == -1)) then
 		if elements.chat.tosampfuncsadv.v == true then
 			sampfuncsLog('{FFD700}'..os.date('[%H:%M:%S] ')..text)
 		end
@@ -2392,43 +2457,8 @@ function sampev.onServerMessage(color, text)
 		end
 	end
 	----------------------------------------
-	if (text:find("В нашем магазине ты можешь приобрести нужное количество игровых денег и потратить") or
-		text:find("их на желаемый тобой") or
-		text:find("имеют большие возможности") or
-		text:find("можно приобрести редкие") or
-		text:find("которые выделят тебя из толпы")) and color == 1687547391 or
-		----------------------------------------
-		(text:find("~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~") or
-		text:find("Основные команды сервера:") or
-		text:find("Пригласи друга и получи") or
-		text:find("Наш сайт:")) and color == -89368321 or
-		----------------------------------------
-		(text:find("Гость ") or
-		text:find("Репортёр ")) and color == -1697828097 or
-		----------------------------------------
-		text:find("Микрофон") and color == -1863723265 or
-		----------------------------------------
-		text:find("Альянс") and color == -1178486529 or
-		----------------------------------------
-		text:find("Недостаточно VKoin's для преобретения данной переферии") or
-		----------------------------------------
-		((text:find(" ") and string.len(text) == 1) and color == -1) or
-		----------------------------------------
-		(text:find("Уважаемые жители штата! Минуточку внимания") or
-		text:find("В данный момент проходит собеседование") or
-		text:find("Для Вступления необходимо прибыть в") and color == 73381119) or
-		----------------------------------------
-		string.find(text,"Looney_Tenkara") or
-		string.find(text,"%[D%]") or
-		string.find(text,"%[ News ") or
-		string.find(text,"Сейчас в магазине нет видеокарт, ожидайте нового завоза.") or
-		string.find(text,"начал работу новый инкассатор") or
-		string.find(text,"Убив его, вы сможете получить деньги") or
-		string.find(text,"Со склада Армии") then
-		if elements.chat.tosampfuncsspam.v == true then
-			sampfuncsLog(os.date('[%H:%M:%S] ')..text)
-		end
-		if elements.chat.removechatspam.v == true then
+	if (string.find(text,"кричит") and color == -253326081) then
+		if elements.config.del_stream.v == true then
 			return false
 		end
 	end
@@ -2612,7 +2642,7 @@ function getCarName(vehicleId)
 end
 
 function onReceivePacket(id, bitStream)
-	if reconnect_timer >= os.time() and (id ~= PACKET_DISCONNECTION_NOTIFICATION or id ~= PACKET_INVALID_PASSWORD or id ~= PACKET_CONNECTION_BANNED) then
+	if reconnect_timer >= os.time() and (id ~= PACKET_DISCONNECTION_NOTIFICATION and id ~= PACKET_INVALID_PASSWORD and id ~= PACKET_CONNECTION_BANNED) then
 		reconnect_timer = 0
 	end
 	if id == PACKET_DISCONNECTION_NOTIFICATION or id == PACKET_INVALID_PASSWORD or id == PACKET_CONNECTION_BANNED then
@@ -3039,6 +3069,36 @@ function skupka()
 			sampSendDialogResponse(3050, 1, 10, '')
 			sampSendDialogResponse(3060, 1, 0, elements.lavka.platinum_roll.v..' '..elements.lavka.platinum_roll_price.v)
 		end
+		if elements.lavka.eggs.v ~= 0 then
+			sampSendDialogResponse(3040, 1, 0, '')
+			sampSendDialogResponse(3050, 1, 19, '')
+			sampSendDialogResponse(3050, 1, 20, '')
+			sampSendDialogResponse(3050, 1, 20, '')
+			sampSendDialogResponse(3050, 1, 20, '')
+			sampSendDialogResponse(3050, 1, 20, '')
+			sampSendDialogResponse(3050, 1, 20, '')
+			sampSendDialogResponse(3050, 1, 20, '')
+			sampSendDialogResponse(3050, 1, 20, '')
+			sampSendDialogResponse(3050, 1, 20, '')
+			sampSendDialogResponse(3050, 1, 20, '')
+			sampSendDialogResponse(3050, 1, 20, '')
+			sampSendDialogResponse(3050, 1, 20, '')
+			sampSendDialogResponse(3050, 1, 20, '')
+			sampSendDialogResponse(3050, 1, 20, '')
+			sampSendDialogResponse(3050, 1, 20, '')
+			sampSendDialogResponse(3050, 1, 20, '')
+			sampSendDialogResponse(3050, 1, 20, '')
+			sampSendDialogResponse(3050, 1, 20, '')
+			sampSendDialogResponse(3050, 1, 20, '')
+			sampSendDialogResponse(3050, 1, 20, '')
+			sampSendDialogResponse(3050, 1, 20, '')
+			sampSendDialogResponse(3050, 1, 20, '')
+			sampSendDialogResponse(3050, 1, 20, '')
+			sampSendDialogResponse(3050, 1, 20, '')
+			sampSendDialogResponse(3050, 1, 20, '')
+			sampSendDialogResponse(3050, 1, 16, '')
+			sampSendDialogResponse(3060, 1, 0, elements.lavka.eggs.v..' '..elements.lavka.eggs_price.v)
+		end
 	end)
 end
 
@@ -3073,75 +3133,75 @@ function sampev.onSetPlayerAttachedObject(playerId, index, create, object)
 		if model == 0 or
 		--model == 18782 or
 		--model == 19347 or
-		model == 324 or
-		model == 328 or
-		model == 364 or
-		model == 635 or
-		model == 636 or
-		model == 701 or
-		model == 806 or
-		model == 815 or
-		model == 888 or
-		model == 953 or
-		model == 954 or
-		model == 1000 or
-		model == 1007 or
-		model == 1008 or
-		model == 1012 or
-		model == 1013 or
-		model == 1017 or
-		model == 1073 or
-		model == 1098 or
-		model == 1108 or
-		model == 1111 or
-		model == 1112 or
-		model == 1114 or
-		model == 1116 or
-		model == 1128 or
-		model == 1133 or
-		model == 1135 or
-		model == 1141 or
-		model == 1157 or
-		model == 1177 or
-		model == 1186 or
-		model == 1210 or
-		model == 1220 or
-		model == 1221 or
-		model == 1228 or
-		model == 1238 or
-		model == 1247 or
-		model == 1265 or
-		model == 1279 or
-		model == 1319 or
-		model == 1327 or
-		model == 1336 or
-		model == 1366 or
-		model == 1371 or
-		model == 1387 or
-		model == 1511 or
-		model == 1546 or
-		model == 1548 or
-		model == 1550 or
-		model == 1565 or
-		model == 1582 or
-		model == 1603 or
-		model == 1607 or
-		model == 1614 or
-		model == 1622 or
-		model == 1636 or
-		model == 1736 or
-		model == 1851 or
-		model == 1877 or
-		model == 1878 or
-		model == 1879 or
-		model == 1880 or
-		model == 1881 or
-		model == 1882 or
-		model == 1886 or
-		model == 1974 or
-		model == 2006 or
-		model == 2060 or
-		model == 2064 or
+		model == 324 or -- Черный дилдо
+		model == 328 or -- Розовый оружейный кейс
+		model == 364 or -- Пульт от бомбы
+		model == 635 or -- Трава
+		model == 636 or -- Трава
+		model == 701 or -- Трава
+		model == 806 or -- Трава
+		model == 815 or -- Трава
+		model == 888 or -- Трава
+		model == 953 or -- Устрица
+		model == 954 or -- Подкова
+		model == 1000 or -- Тюнинг
+		model == 1007 or -- Тюнинг
+		model == 1008 or -- Тюнинг
+		model == 1012 or -- Тюнинг
+		model == 1013 or -- Тюнинг
+		model == 1017 or -- Тюнинг
+		model == 1073 or -- Тюнинг
+		model == 1098 or -- Тюнинг
+		model == 1108 or -- Тюнинг
+		model == 1111 or -- Тюнинг
+		model == 1112 or -- Тюнинг
+		model == 1114 or -- Тюнинг
+		model == 1116 or -- Тюнинг
+		model == 1128 or -- Тюнинг
+		model == 1133 or -- Тюнинг
+		model == 1135 or -- Тюнинг
+		model == 1141 or -- Тюнинг
+		model == 1157 or -- Тюнинг
+		model == 1177 or -- Тюнинг
+		model == 1186 or -- Тюнинг
+		model == 1210 or -- Коричневый кейс
+		model == 1220 or -- Коробка
+		model == 1221 or -- Коробка
+		--model == 1228 or -- Ограда
+		--model == 1238 or -- Конус
+		model == 1247 or -- Звезда
+		model == 1265 or -- Пакет наркотиков
+		model == 1279 or -- Мусорный пакет
+		model == 1319 or -- Жезл ГАИ
+		model == 1327 or -- Колесо
+		model == 1336 or -- Синий контейнер
+		model == 1366 or -- Пожарный гидрант
+		model == 1371 or -- Бегемотик
+		--model == 1387 or -- Крюк какой то
+		model == 1511 or -- Бутылка на стене
+		model == 1546 or -- Спранк
+		model == 1548 or -- Печеньки какие-то
+		model == 1550 or -- Мешок денег
+		--model == 1565 or -- хз
+		model == 1582 or -- Пицца
+		model == 1603 or -- Медуза
+		model == 1607 or -- Дельфин
+		model == 1614 or -- Хз, синий треугольник
+		model == 1622 or -- Камера на плечо
+		model == 1636 or -- Торпеда
+		model == 1736 or -- Голова оленя
+		model == 1851 or -- Кости
+		model == 1877 or -- Фишки
+		model == 1878 or -- Фишки
+		model == 1879 or -- Фишки
+		model == 1880 or -- Фишки
+		model == 1881 or -- Фишки
+		model == 1882 or -- Фишки
+		--model == 1886 or
+		model == 1974 or -- Хз
+		model == 2006 or -- Хз
+		model == 2060 or -- Мешок грузчиков
+		model == 2064 or -- Пушка
 		model == 2168 or
 		model == 2237 or
 		model == 2238 or
@@ -3307,7 +3367,7 @@ function sampev.onSetPlayerAttachedObject(playerId, index, create, object)
 		model == 19525 or
 		model == 19527 or
 		model == 19555 or
-		model == 19556 or
+		--model == 19556 or
 		model == 19570 or
 		model == 19576 or
 		model == 19577 or
