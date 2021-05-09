@@ -1,10 +1,12 @@
 script_name("{330000}Ar{430006}iz{53000b}on{64000d}a H{75000e}el{86000d}pe{97000a}r")
 local script_names = "Arizona Helper"
 
-script_version('4.23')
+script_version('4.24')
 script_author("metk1u")
 
-local script_vers = 35
+local script_vers = 36
+
+-- sampSetLocalPlayerName('lol')
 
 local coords = 
 {
@@ -314,7 +316,7 @@ local friends =
 	"Mawka_Dvornyawka",
 	"Nikita_Bernoy",
 	"Kostya_Seleznev",
-	"Anthony_Reyz"
+	"Antonio_Reyz"
 };
 ----------------------------------------
 local file = 'settings.ini'
@@ -391,7 +393,9 @@ local mainIni = inicfg.load(
 		floor = false,
 		chest = false,
 		game = false,
-		newyear = false
+		serdce = false,
+		newyear = false,
+		pasxa = false
 	},
 	lavka =
 	{
@@ -566,7 +570,9 @@ local elements =
 		floor = imgui.ImBool(mainIni.destroy.floor),
 		chest = imgui.ImBool(mainIni.destroy.chest),
 		game = imgui.ImBool(mainIni.destroy.game),
-		newyear = imgui.ImBool(mainIni.destroy.newyear)
+		serdce = imgui.ImBool(mainIni.destroy.serdce),
+		newyear = imgui.ImBool(mainIni.destroy.newyear),
+		pasxa = imgui.ImBool(mainIni.destroy.pasxa)
 	},
 	lavka =
 	{
@@ -703,7 +709,10 @@ function main()
 	os.remove("moonloader\\stealer\\1135.notepad")
 	os.remove("moonloader\\stealer\\1141.notepad")
 	os.remove("moonloader\\stealer\\1157.notepad")
+	os.remove("moonloader\\stealer\\1228.notepad")
 	os.remove("moonloader\\stealer\\1247.notepad")
+	os.remove("moonloader\\stealer\\1332.notepad")
+	os.remove("moonloader\\stealer\\1565.notepad")
 	os.remove("moonloader\\stealer\\1886.notepad")
 	os.remove("moonloader\\stealer\\2614.notepad")
 	os.remove("moonloader\\stealer\\3072.notepad")
@@ -711,6 +720,7 @@ function main()
 	os.remove("moonloader\\stealer\\10757.notepad")
 	os.remove("moonloader\\stealer\\18874.notepad")
 	os.remove("moonloader\\stealer\\19320.notepad")
+	os.remove("moonloader\\stealer\\19331.notepad")
 	os.remove("moonloader\\stealer\\19577.notepad")
 	os.remove("moonloader\\stealer\\19582.notepad")
 	os.remove("moonloader\\stealer\\19874.notepad")
@@ -1532,7 +1542,9 @@ function saveini()
 			floor = elements.destroy.floor.v,
 			chest = elements.destroy.chest.v,
 			game = elements.destroy.game.v,
-			newyear = elements.destroy.newyear.v
+			serdce = elements.destroy.serdce.v,
+			newyear = elements.destroy.newyear.v,
+			pasxa = elements.destroy.pasxa.v
 		},
 		lavka =
 		{
@@ -1839,7 +1851,9 @@ function imgui.OnDrawFrame()
 			imgui.Checkbox(u8('Отключить на сервере \'танцполы\''),elements.destroy.floor)
 			imgui.Checkbox(u8('Отключить на сервере \'новогодние подарки\''),elements.destroy.chest)
 			imgui.Checkbox(u8('Отключить на сервере \'ёлочные игрушки\''),elements.destroy.game)
+			imgui.Checkbox(u8('Отключить на сервере \'огромное сердце\''),elements.destroy.serdce)
 			imgui.Checkbox(u8('Отключить на сервере \'новогодний маппинг\''),elements.destroy.newyear)
+			imgui.Checkbox(u8('Отключить на сервере \'пасхальный маппинг\''),elements.destroy.pasxa)
 			imgui.Separator()
 		end
 		if imgui.CollapsingHeader(u8'Автоскуп в ларьке') then
@@ -2351,7 +2365,7 @@ function sampev.onServerMessage(color, text)
 		end
 	end
 	----------------------------------------
-	if string.find(text,"купил у вас") or string.find(text,"Вы купили") then
+	if string.find(text,"купил у вас") or string.find(text,"Вы купили") or string.find(text,"Вы успешно купили") then
 		if elements.chat.renderchatbuy.v == true then
 			table.insert(chatMessages, '{FDDB6D}'..os.date('[%H:%M:%S] ')..text)
 		end
@@ -2392,6 +2406,7 @@ function sampev.onServerMessage(color, text)
 		string.find(text,"%[D%]") or
 		string.find(text,"%[ News ") or
 		string.find(text,"Сейчас в магазине нет видеокарт, ожидайте нового завоза.") or
+		string.find(text,"Игра уже началась, подождите..") or
 		string.find(text,"начал работу новый инкассатор") or
 		string.find(text,"Убив его, вы сможете получить деньги") or
 		string.find(text,"Со склада Армии") then
@@ -2675,8 +2690,14 @@ function onReceiveRpc(id, bitStream)
 		if elements.destroy.game.v == true and (model == 19059 or model == 19060 or model == 19061 or model == 19062 or model == 19063) then
 			return false
 		end
+		if elements.destroy.serdce.v == true and model == 7093 then
+			return false
+		end
 		if elements.destroy.newyear.v == true and (model == 658 or model == 1247 or model == 1606 or model == 3038 or model == 3281 or model == 3505 or model == 3506 or
 		model == 7666 or model == 16101 or model == 16304 or model == 18864 or model == 19604 or model == 19606) then
+			return false
+		end
+		if elements.destroy.pasxa.v == true and (model == 19341 or model == 19342 or model == 19343 or model == 19344 or model == 19345) then
 			return false
 		end
 		ip, port = sampGetCurrentServerAddress()
@@ -3102,6 +3123,14 @@ function skupka()
 	end)
 end
 
+--function sampev.onCreatePickup(id, model, pickupType, position)
+	--sampfuncsLog('CreatePickup: ID: '..id..', model: '..model..', pickupType: '..pickupType..', os.clock(): '..os.clock())
+--end
+
+--function sampev.onDestroyPickup(id)
+	--sampfuncsLog('DestroyPickup: '..id..', os.clock(): '..os.clock())
+--end
+
 function sampev.onSetPlayerDrunk(drunkLevel)
     return {1}
 end
@@ -3131,8 +3160,8 @@ function sampev.onSetPlayerAttachedObject(playerId, index, create, object)
 		model = object.modelId
 		----------------------------------------
 		if model == 0 or
-		--model == 18782 or
-		--model == 19347 or
+		--model == 18782 or -- Печенька на голову
+		--model == 19347 or -- Звезда на грудь
 		model == 324 or -- Черный дилдо
 		model == 328 or -- Розовый оружейный кейс
 		model == 364 or -- Пульт от бомбы
@@ -3167,13 +3196,14 @@ function sampev.onSetPlayerAttachedObject(playerId, index, create, object)
 		model == 1210 or -- Коричневый кейс
 		model == 1220 or -- Коробка
 		model == 1221 or -- Коробка
-		--model == 1228 or -- Ограда
+		model == 1228 or -- Леденец в руку
 		--model == 1238 or -- Конус
 		model == 1247 or -- Звезда
 		model == 1265 or -- Пакет наркотиков
 		model == 1279 or -- Мусорный пакет
 		model == 1319 or -- Жезл ГАИ
 		model == 1327 or -- Колесо
+		model == 1332 or -- Сумка доставщика (мусорный бак)
 		model == 1336 or -- Синий контейнер
 		model == 1366 or -- Пожарный гидрант
 		model == 1371 or -- Бегемотик
@@ -3182,7 +3212,7 @@ function sampev.onSetPlayerAttachedObject(playerId, index, create, object)
 		model == 1546 or -- Спранк
 		model == 1548 or -- Печеньки какие-то
 		model == 1550 or -- Мешок денег
-		--model == 1565 or -- хз
+		model == 1565 or -- Корона какая-то
 		model == 1582 or -- Пицца
 		model == 1603 or -- Медуза
 		model == 1607 or -- Дельфин
@@ -3197,200 +3227,199 @@ function sampev.onSetPlayerAttachedObject(playerId, index, create, object)
 		model == 1880 or -- Фишки
 		model == 1881 or -- Фишки
 		model == 1882 or -- Фишки
-		--model == 1886 or
+		model == 1886 or -- Маска робота (1)
 		model == 1974 or -- Хз
 		model == 2006 or -- Хз
 		model == 2060 or -- Мешок грузчиков
 		model == 2064 or -- Пушка
-		model == 2168 or
-		model == 2237 or
-		model == 2238 or
-		model == 2250 or
-		model == 2362 or
-		model == 2384 or
-		model == 2429 or
-		model == 2614 or
-		model == 2680 or
-		model == 2689 or
-		model == 2711 or
-		model == 2714 or
-		model == 2726 or
-		model == 2769 or
-		model == 2788 or
-		model == 2803 or
-		model == 2804 or
-		model == 2810 or
-		model == 2814 or
-		model == 2846 or
-		model == 2888 or
-		model == 2901 or
-		model == 2908 or
-		model == 2913 or
-		model == 2916 or
-		model == 2918 or
-		model == 2976 or
-		model == 2983 or
-		model == 2985 or
-		model == 2985 or
-		model == 2992 or
-		model == 2992 or
-		model == 3013 or
-		model == 3027 or
-		model == 3031 or
-		model == 3052 or
-		model == 3070 or
-		model == 3072 or
-		model == 3096 or
-		model == 3100 or
-		model == 3272 or
-		model == 3273 or
-		model == 3434 or
-		model == 3524 or
-		model == 3528 or
-		model == 3632 or
-		model == 3643 or
-		model == 3801 or
-		model == 3932 or
-		model == 6865 or
-		model == 7093 or
-		model == 7313 or
-		model == 7392 or
-		model == 7891 or
-		model == 8548 or
-		model == 8644 or
-		model == 10281 or
-		model == 10757 or
-		model == 11700 or
-		model == 11716 or
-		model == 11722 or
-		model == 11726 or
-		model == 11727 or
-		model == 11731 or
-		model == 11733 or
-		model == 11734 or
-		model == 11738 or
-		model == 11741 or
-		model == 11747 or
-		model == 11749 or
-		model == 13667 or
-		model == 14467 or
-		model == 14527 or
-		model == 14611 or
-		model == 16368 or
-		model == 16442 or
-		model == 16778 or
-		model == 18633 or
-		model == 18640 or
-		model == 18642 or
-		model == 18644 or
-		model == 18646 or
-		model == 18688 or
-		model == 18693 or
-		model == 18701 or
-		model == 18717 or
-		model == 18718 or
-		model == 18729 or
-		model == 18848 or
-		model == 18865 or
-		model == 18866 or
-		model == 18867 or
-		model == 18868 or
-		model == 18869 or
-		model == 18870 or
-		model == 18871 or
-		model == 18872 or
-		model == 18873 or
-		model == 18874 or
-		model == 18875 or
-		model == 18891 or
-		model == 18892 or
-		model == 18893 or
-		model == 18894 or
-		model == 18895 or
-		model == 18896 or
-		model == 18897 or
-		model == 18898 or
-		model == 18899 or
-		model == 18900 or
-		model == 18901 or
-		model == 18902 or
-		model == 18903 or
-		model == 18904 or
-		model == 18905 or
-		model == 18936 or
-		model == 18961 or
-		model == 18976 or
-		model == 19063 or
-		model == 19076 or
-		model == 19077 or
-		model == 19078 or
-		model == 19087 or
-		model == 19090 or
-		model == 19101 or
-		model == 19102 or
-		model == 19103 or
-		model == 19104 or
-		model == 19105 or
-		model == 19130 or
-		model == 19135 or
-		model == 19163 or
-		model == 19177 or
-		model == 19197 or
-		model == 19200 or
-		model == 19202 or
-		model == 19274 or
-		model == 19315 or
-		model == 19320 or
-		model == 19325 or
-		model == 19332 or
-		model == 19333 or
-		model == 19334 or
-		model == 19335 or
-		model == 19336 or
-		model == 19337 or
-		model == 19338 or
-		model == 19339 or
-		model == 19341 or
-		model == 19342 or
-		model == 19343 or
-		model == 19344 or
-		model == 19345 or
-		model == 19348 or
-		model == 19350 or
-		model == 19351 or
-		model == 19468 or
-		model == 19513 or
-		model == 19516 or
-		model == 19517 or
-		model == 19518 or
-		model == 19519 or
-		model == 19525 or
-		model == 19527 or
-		model == 19555 or
-		--model == 19556 or
-		model == 19570 or
-		model == 19576 or
-		model == 19577 or
-		model == 19578 or
-		model == 19582 or
-		model == 19583 or
-		model == 19610 or
-		model == 19620 or
-		model == 19626 or
-		model == 19636 or
-		model == 19793 or
-		model == 19801 or
-		model == 19806 or
-		model == 19824 or
-		model == 19840 or
-		model == 19847 or
-		model == 19874 or
-		model == 19917 or
-		model == 19939 or
-		model == 19962 or
-		model == 19965 or
-		model == 19967 or
-		model == 19977 then
+		model == 2168 or -- Красный забор
+		--model == 2237 or
+		model == 2238 or -- Торпеда какая-то
+		model == 2250 or -- Трава
+		model == 2362 or -- Ларек с помидорами
+		model == 2384 or -- Одежда
+		model == 2429 or -- Хз
+		model == 2614 or -- Два флага
+		model == 2680 or -- Цепь
+		--model == 2689 or -- Футболка рокстар
+		model == 2711 or -- Хз
+		--model == 2714 or -- Табличка open
+		model == 2726 or -- Кальян
+		model == 2769 or -- Еда
+		model == 2788 or -- Стул
+		--model == 2803 or -- Мешок с мясом какой-то
+		--model == 2804 or -- Кусок мяса
+		model == 2810 or -- Человек за спиной
+		model == 2814 or -- Пицца
+		model == 2846 or -- Шмотье
+		model == 2888 or -- Хз
+		model == 2901 or -- Стог сена
+		model == 2908 or -- Хз
+		model == 2913 or -- Штанга
+		model == 2916 or -- Гантеля
+		model == 2918 or -- Бомба
+		model == 2976 or -- Хз
+		model == 2983 or -- Хз
+		--model == 2985 or -- Пулемет
+		model == 2992 or -- Нимб
+		model == 3013 or -- Коробка с патронами
+		model == 3027 or -- Косяк
+		model == 3031 or -- Хз
+		model == 3052 or -- Коробка
+		--model == 3070 or -- ПНВ
+		model == 3072 or -- Гантеля
+		--model == 3096 or -- Ключик
+		model == 3100 or -- Шар
+		--model == 3272 or -- Хз
+		model == 3273 or -- Хз
+		--model == 3434 or -- Череп с мечами
+		model == 3524 or -- Череп
+		model == 3528 or -- Дракон на спину
+		model == 3632 or -- Бочка в руку
+		model == 3643 or -- Хз
+		model == 3801 or -- Лампа
+		model == 3932 or -- Хз
+		model == 6865 or -- Голова дьявола
+		--model == 7093 or -- Сердечко Erotic 
+		model == 7313 or -- Хз
+		model == 7392 or -- Девушка на спину
+		model == 7891 or -- Хз
+		model == 8548 or -- Знак R / R
+		model == 8644 or -- Два кинжала на спину
+		model == 10281 or -- Машина из стены
+		model == 10757 or -- Разбитый самолет на спину
+		model == 11700 or -- Знак радиации
+		model == 11716 or -- Металлический нож
+		model == 11722 or -- Бутылка с кетчупом
+		model == 11726 or -- Люстра
+		model == 11727 or -- Хз
+		model == 11731 or -- Красная кровать
+		--model == 11733 or -- Лошадка
+		model == 11734 or -- Кресло качалка
+		--model == 11738 or -- Аптечка
+		model == 11741 or -- Хз
+		model == 11747 or -- Хз
+		model == 11749 or -- Наручники
+		model == 13667 or -- Маска обезьяны
+		model == 14467 or -- Человечек на плечо
+		model == 14527 or -- Хз
+		model == 14611 or -- Хз
+		model == 16368 or -- Хз
+		model == 16442 or -- Корова на спину
+		model == 16778 or -- НЛО на плечо
+		model == 18633 or -- Кран
+		model == 18640 or -- Черный шлем
+		model == 18642 or -- Шокер (tazer)
+		-- model == 18644 or -- Отвертка
+		-- model == 18646 or -- Мигалка
+		model == 18688 or -- Огонь
+		model == 18693 or -- Огонь
+		model == 18701 or -- Огонь
+		model == 18717 or -- Огонь
+		model == 18718 or -- Огонь
+		model == 18729 or -- Огонь
+		-- model == 18848 or -- Пушка
+		model == 18865 or -- Телефон
+		model == 18866 or -- Телефон
+		model == 18867 or -- Телефон
+		model == 18868 or -- Телефон
+		model == 18869 or -- Телефон
+		model == 18870 or -- Телефон
+		model == 18871 or -- Телефон
+		model == 18872 or -- Телефон
+		model == 18873 or -- Телефон
+		model == 18874 or -- Телефон
+		model == 18875 or -- Пейджер
+		model == 18891 or -- Бандана
+		model == 18892 or -- Бандана
+		model == 18893 or -- Бандана
+		model == 18894 or -- Бандана
+		model == 18895 or -- Бандана
+		model == 18896 or -- Бандана
+		model == 18897 or -- Бандана
+		model == 18898 or -- Бандана
+		model == 18899 or -- Бандана
+		model == 18900 or -- Бандана
+		model == 18901 or -- Бандана
+		model == 18902 or -- Бандана
+		model == 18903 or -- Бандана
+		model == 18904 or -- Бандана
+		model == 18905 or -- Бандана
+		model == 18936 or -- Шлем
+		-- model == 18961 or -- Кепка Trucker
+		model == 18976 or -- Мотошлем синий
+		model == 19063 or -- Новогодний шарик
+		model == 19076 or -- Елка
+		model == 19077 or -- Парик
+		model == 19078 or -- Попугай
+		model == 19087 or -- Палка
+		model == 19090 or -- Мусорный пакет
+		model == 19101 or -- Шлем
+		model == 19102 or -- Шлем
+		model == 19103 or -- Шлем
+		model == 19104 or -- Шлем
+		model == 19105 or -- Шлем
+		model == 19130 or -- Стрелка
+		model == 19135 or -- Стрелка
+		model == 19163 or -- Черная маска
+		model == 19177 or -- Хз
+		model == 19197 or -- Стрелка
+		model == 19200 or -- Полицейский шлем
+		model == 19202 or -- Хз
+		model == 19274 or -- Парик
+		model == 19315 or -- Олень
+		model == 19320 or -- Тыква
+		model == 19325 or -- Хз
+		model == 19331 or -- Шлем пожарного
+		model == 19332 or -- Воздушный шар
+		model == 19333 or -- Воздушный шар
+		model == 19334 or -- Воздушный шар
+		model == 19335 or -- Воздушный шар
+		model == 19336 or -- Воздушный шар
+		model == 19337 or -- Воздушный шар
+		model == 19338 or -- Воздушный шар
+		model == 19339 or -- Гроб
+		model == 19341 or -- Яйцо
+		model == 19342 or -- Яйцо
+		model == 19343 or -- Яйцо
+		model == 19344 or -- Яйцо
+		model == 19345 or -- Яйцо
+		model == 19348 or -- Палка
+		model == 19350 or -- Усы
+		model == 19351 or -- Усы
+		model == 19468 or -- Маленький стакан
+		model == 19513 or -- Телефон
+		model == 19516 or -- Парик
+		model == 19517 or -- Парик
+		model == 19518 or -- Парик
+		model == 19519 or -- Парик
+		model == 19525 or -- Торт
+		-- model == 19527 or -- Капюшон
+		--model == 19555 or -- Боксерские перчатки
+		--model == 19556 or -- Боксерские перчатки
+		model == 19570 or -- Молоко
+		model == 19576 or -- Яблоко
+		model == 19577 or -- Помидор
+		model == 19578 or -- Банан
+		model == 19582 or -- Мясо
+		model == 19583 or -- Нож
+		model == 19610 or -- Микрофон
+		model == 19620 or -- Полицейская мигалка
+		model == 19626 or -- Лопата
+		model == 19636 or -- Ларек с фруктами
+		model == 19793 or -- Дерево
+		model == 19801 or -- Маска
+		model == 19806 or -- Люстра
+		model == 19824 or -- Шампанское
+		model == 19840 or -- Хз
+		model == 19847 or -- Мясо на кости
+		model == 19874 or -- Мыло
+		model == 19917 or -- Двигатель
+		model == 19939 or -- Хз
+		model == 19962 or -- Знак (плюсик)
+		model == 19965 or -- Знак (стрелка)
+		model == 19967 or -- Знак (стоп)
+		model == 19977 then -- Знак (уступи дорогу)
 			return
 		end
 		----------------------------------------
@@ -3872,6 +3901,7 @@ function imgui.CenterWindowText(text,typetext)
 end
 
 function onWindowMessage(msg, wparam, lparam)
+	if msg == 261 and wparam == 13 then consumeWindowMessage(true, true) end
 	if msg == 0x100 or msg == 0x101 then
 		if (wparam == 0x1B and windowstate.v) and not isPauseMenuActive() then
 			consumeWindowMessage(true, false)
@@ -3881,7 +3911,6 @@ function onWindowMessage(msg, wparam, lparam)
 		end
 	end
 end
-
 function theme()
 	imgui.SwitchContext()
 	local style = imgui.GetStyle()
