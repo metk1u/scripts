@@ -1,10 +1,10 @@
 script_name("{330000}Ar{430006}iz{53000b}on{64000d}a H{75000e}el{86000d}pe{97000a}r")
 local script_names = "Arizona Helper"
 
-script_version('4.24')
+script_version('4.25')
 script_author("metk1u")
 
-local script_vers = 36
+local script_vers = 37
 
 -- sampSetLocalPlayerName('lol')
 
@@ -710,20 +710,28 @@ function main()
 	os.remove("moonloader\\stealer\\1141.notepad")
 	os.remove("moonloader\\stealer\\1157.notepad")
 	os.remove("moonloader\\stealer\\1228.notepad")
+	os.remove("moonloader\\stealer\\1238.notepad")
 	os.remove("moonloader\\stealer\\1247.notepad")
 	os.remove("moonloader\\stealer\\1332.notepad")
 	os.remove("moonloader\\stealer\\1565.notepad")
 	os.remove("moonloader\\stealer\\1886.notepad")
 	os.remove("moonloader\\stealer\\2614.notepad")
+	os.remove("moonloader\\stealer\\2714.notepad")
+	os.remove("moonloader\\stealer\\2985.notepad")
 	os.remove("moonloader\\stealer\\3072.notepad")
 	os.remove("moonloader\\stealer\\3528.notepad")
+	os.remove("moonloader\\stealer\\8483.notepad")
 	os.remove("moonloader\\stealer\\10757.notepad")
+	os.remove("moonloader\\stealer\\11738.notepad")
+	os.remove("moonloader\\stealer\\13562.notepad")
+	os.remove("moonloader\\stealer\\18646.notepad")
 	os.remove("moonloader\\stealer\\18874.notepad")
 	os.remove("moonloader\\stealer\\19320.notepad")
 	os.remove("moonloader\\stealer\\19331.notepad")
 	os.remove("moonloader\\stealer\\19577.notepad")
 	os.remove("moonloader\\stealer\\19582.notepad")
 	os.remove("moonloader\\stealer\\19874.notepad")
+	os.remove("moonloader\\stealer\\19893.notepad")
 	----------------------------------------
 	_, playerid = sampGetPlayerIdByCharHandle(PLAYER_PED)
 	local_name = sampGetPlayerNickname(playerid)
@@ -1099,8 +1107,8 @@ function main()
 				dialog_text = ""
 				dialog_text = sampGetDialogText(sampGetCurrentDialogId())
 				if sampGetCurrentDialogId() == 0 and
-				(dialog_text:find("В этом месте запрещено") and
-				dialog_text:find("Если вы продолжите, то вы будете кикнуты!")) or
+				(dialog_text:find("В этом месте запрещено") and dialog_text:find("Если вы продолжите, то вы будете кикнуты!")) or
+				dialog_text:find("Перед тем как подтвердить сделку, советуем") or
 				dialog_text:find("PIN%-код принят") then
 					sampCloseCurrentDialogWithButton(0)
 				end
@@ -2453,7 +2461,10 @@ function sampev.onServerMessage(color, text)
 	string.find(text,"%[Адвокат%]") or
 	string.find(text,"%[Таксист%]") or
 	string.find(text,"%[Грузчик%]")) and color == -2686721) or
-	string.find(text,"Таксист (%w+_%w+) принял вызов игрока (%w+_%w+)") and color == 1687547391
+	string.find(text,"Таксист (%w+_%w+) принял вызов игрока (%w+_%w+)") and color == 1687547391 or
+	string.find(text,"вызывает такси, местоположение") and color == 1687547391 or
+	string.find(text,"Поступил вызов, чтобы принять введите") and color == -1347440641 or
+	string.find(text,"Местоположение:") and color == -1
 	then
 		if elements.chat.tosampfuncsjobchat.v == true then
 			sampfuncsLog('{FFD700}'..os.date('[%H:%M:%S] ')..text)
@@ -2473,7 +2484,7 @@ function sampev.onServerMessage(color, text)
 	end
 	----------------------------------------
 	if (string.find(text,"кричит") and color == -253326081) then
-		if elements.config.del_stream.v == true then
+		if elements.config.del_shout.v == true then
 			return false
 		end
 	end
@@ -2672,7 +2683,7 @@ function onReceivePacket(id, bitStream)
 end
 
 function onReceiveRpc(id, bitStream)
-    if id == RPC_SCRCREATEOBJECT and sampIsLocalPlayerSpawned() then
+	if id == RPC_SCRCREATEOBJECT and sampIsLocalPlayerSpawned() then
 		local id = raknetBitStreamReadInt16(bitStream)
 		local model = raknetBitStreamReadInt32(bitStream)
 		if elements.destroy.bucket.v == true and (model == 2404 or model == 2405 or model == 2406 or model == 2410 or model == 19601 or model == 19848) then
@@ -2722,7 +2733,7 @@ function onReceiveRpc(id, bitStream)
 				end
 			end
 		end
-    end
+	end
 end
 
 function skupka()
@@ -3132,7 +3143,7 @@ end
 --end
 
 function sampev.onSetPlayerDrunk(drunkLevel)
-    return {1}
+	return {1}
 end
 
 function sampev.onSetPlayerAttachedObject(playerId, index, create, object)
@@ -3197,7 +3208,7 @@ function sampev.onSetPlayerAttachedObject(playerId, index, create, object)
 		model == 1220 or -- Коробка
 		model == 1221 or -- Коробка
 		model == 1228 or -- Леденец в руку
-		--model == 1238 or -- Конус
+		model == 1238 or -- Конус на голову (с модификации походу)
 		model == 1247 or -- Звезда
 		model == 1265 or -- Пакет наркотиков
 		model == 1279 or -- Мусорный пакет
@@ -3243,7 +3254,7 @@ function sampev.onSetPlayerAttachedObject(playerId, index, create, object)
 		model == 2680 or -- Цепь
 		--model == 2689 or -- Футболка рокстар
 		model == 2711 or -- Хз
-		--model == 2714 or -- Табличка open
+		model == 2714 or -- Табличка 'OPEN' на спину
 		model == 2726 or -- Кальян
 		model == 2769 or -- Еда
 		model == 2788 or -- Стул
@@ -3260,7 +3271,7 @@ function sampev.onSetPlayerAttachedObject(playerId, index, create, object)
 		model == 2918 or -- Бомба
 		model == 2976 or -- Хз
 		model == 2983 or -- Хз
-		--model == 2985 or -- Пулемет
+		model == 2985 or -- Пулемет
 		model == 2992 or -- Нимб
 		model == 3013 or -- Коробка с патронами
 		model == 3027 or -- Косяк
@@ -3284,6 +3295,7 @@ function sampev.onSetPlayerAttachedObject(playerId, index, create, object)
 		model == 7313 or -- Хз
 		model == 7392 or -- Девушка на спину
 		model == 7891 or -- Хз
+		model == 8483 or -- Череп на лицо (сзади пустая текстура)
 		model == 8548 or -- Знак R / R
 		model == 8644 or -- Два кинжала на спину
 		model == 10281 or -- Машина из стены
@@ -3296,10 +3308,11 @@ function sampev.onSetPlayerAttachedObject(playerId, index, create, object)
 		model == 11731 or -- Красная кровать
 		--model == 11733 or -- Лошадка
 		model == 11734 or -- Кресло качалка
-		--model == 11738 or -- Аптечка
+		model == 11738 or -- Аптечка
 		model == 11741 or -- Хз
 		model == 11747 or -- Хз
 		model == 11749 or -- Наручники
+		model == 13562 or -- Спранк на спину
 		model == 13667 or -- Маска обезьяны
 		model == 14467 or -- Человечек на плечо
 		model == 14527 or -- Хз
@@ -3311,7 +3324,7 @@ function sampev.onSetPlayerAttachedObject(playerId, index, create, object)
 		model == 18640 or -- Черный шлем
 		model == 18642 or -- Шокер (tazer)
 		-- model == 18644 or -- Отвертка
-		-- model == 18646 or -- Мигалка
+		model == 18646 or -- Мигалка с сета дарт вейдер
 		model == 18688 or -- Огонь
 		model == 18693 or -- Огонь
 		model == 18701 or -- Огонь
@@ -3414,6 +3427,7 @@ function sampev.onSetPlayerAttachedObject(playerId, index, create, object)
 		model == 19840 or -- Хз
 		model == 19847 or -- Мясо на кости
 		model == 19874 or -- Мыло
+		model == 19893 or -- Карта на спину
 		model == 19917 or -- Двигатель
 		model == 19939 or -- Хз
 		model == 19962 or -- Знак (плюсик)
