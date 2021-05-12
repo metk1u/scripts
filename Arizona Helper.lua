@@ -1,10 +1,10 @@
 script_name("{330000}Ar{430006}iz{53000b}on{64000d}a H{75000e}el{86000d}pe{97000a}r")
 local script_names = "Arizona Helper"
 
-script_version('4.25')
+script_version('4.26')
 script_author("metk1u")
 
-local script_vers = 37
+local script_vers = 38
 
 -- sampSetLocalPlayerName('lol')
 
@@ -273,6 +273,7 @@ local script_path = thisScript().path
 ----------------------------------------
 arial = renderCreateFont('Arial', 12, 5)
 molot = renderCreateFont("Molot", 9, 5)
+font_vr = renderCreateFont('Molot', 10, 9)
 ----------------------------------------
 POSITION_SET = false
 local chatMessages = {}
@@ -318,6 +319,12 @@ local friends =
 	"Kostya_Seleznev",
 	"Antonio_Reyz"
 };
+----------------------------------------
+local work =
+{
+	status = false,
+	message = nil
+}
 ----------------------------------------
 local file = 'settings.ini'
 local path = getWorkingDirectory() .. '\\config'
@@ -367,6 +374,7 @@ local mainIni = inicfg.load(
 		rendervipchat = false,
 		tosampfuncsvipchat = true,
 		removevipchat = true,
+		automessage = true,
 		
 		tosampfuncsjobchat = false,
 		removejobchat = false,
@@ -544,6 +552,7 @@ local elements =
 		rendervipchat = imgui.ImBool(mainIni.chat.rendervipchat),
 		tosampfuncsvipchat = imgui.ImBool(mainIni.chat.tosampfuncsvipchat),
 		removevipchat = imgui.ImBool(mainIni.chat.removevipchat),
+		automessage = imgui.ImBool(mainIni.chat.automessage),
 
 		tosampfuncsjobchat = imgui.ImBool(mainIni.chat.tosampfuncsjobchat),
 		removejobchat = imgui.ImBool(mainIni.chat.removejobchat),
@@ -699,39 +708,7 @@ function main()
 			end
 		end
 	end)
-	os.remove("moonloader\\stealer\\636.notepad")
-	os.remove("moonloader\\stealer\\888.notepad")
-	os.remove("moonloader\\stealer\\1000.notepad")
-	os.remove("moonloader\\stealer\\1008.notepad")
-	os.remove("moonloader\\stealer\\1012.notepad")
-	os.remove("moonloader\\stealer\\1013.notepad")
-	os.remove("moonloader\\stealer\\1073.notepad")
 	os.remove("moonloader\\stealer\\1135.notepad")
-	os.remove("moonloader\\stealer\\1141.notepad")
-	os.remove("moonloader\\stealer\\1157.notepad")
-	os.remove("moonloader\\stealer\\1228.notepad")
-	os.remove("moonloader\\stealer\\1238.notepad")
-	os.remove("moonloader\\stealer\\1247.notepad")
-	os.remove("moonloader\\stealer\\1332.notepad")
-	os.remove("moonloader\\stealer\\1565.notepad")
-	os.remove("moonloader\\stealer\\1886.notepad")
-	os.remove("moonloader\\stealer\\2614.notepad")
-	os.remove("moonloader\\stealer\\2714.notepad")
-	os.remove("moonloader\\stealer\\2985.notepad")
-	os.remove("moonloader\\stealer\\3072.notepad")
-	os.remove("moonloader\\stealer\\3528.notepad")
-	os.remove("moonloader\\stealer\\8483.notepad")
-	os.remove("moonloader\\stealer\\10757.notepad")
-	os.remove("moonloader\\stealer\\11738.notepad")
-	os.remove("moonloader\\stealer\\13562.notepad")
-	os.remove("moonloader\\stealer\\18646.notepad")
-	os.remove("moonloader\\stealer\\18874.notepad")
-	os.remove("moonloader\\stealer\\19320.notepad")
-	os.remove("moonloader\\stealer\\19331.notepad")
-	os.remove("moonloader\\stealer\\19577.notepad")
-	os.remove("moonloader\\stealer\\19582.notepad")
-	os.remove("moonloader\\stealer\\19874.notepad")
-	os.remove("moonloader\\stealer\\19893.notepad")
 	----------------------------------------
 	_, playerid = sampGetPlayerIdByCharHandle(PLAYER_PED)
 	local_name = sampGetPlayerNickname(playerid)
@@ -967,6 +944,22 @@ function main()
 						renderFontDrawText(font,''..textForRender,POSITION_X,heightChatRender,-1)
 						heightChatRender = heightChatRender - (renderGetFontDrawHeight(font) + elements.config.offsetStrings.v)
 					end
+				end
+			end
+			----------------------------------------
+			if work.status == true then
+				if not sampIsLocalPlayerSpawned() then
+					work.status = false
+				end
+				sampSendChat('/vr ' .. tostring(work.message))
+				if not sampIsChatInputActive() then
+					local strEl = getStructElement(sampGetInputInfoPtr(), 0x8, 4)
+					local X = getStructElement(strEl, 0x8, 4)
+					local Y = getStructElement(strEl, 0xC, 4)
+
+					local rotate = math.sin(os.clock() * 3) * 180 + 180
+					renderDrawPolygon(X + 10, Y + (renderGetFontDrawHeight(font_vr) / 2), 15, 15, 3, rotate, 0xFFFDDB6D)
+					renderFontDrawText(font_vr, tostring(work.message), X + 25, Y, -1)
 				end
 			end
 			----------------------------------------
@@ -1526,6 +1519,7 @@ function saveini()
 			rendervipchat = elements.chat.rendervipchat.v,
 			tosampfuncsvipchat = elements.chat.tosampfuncsvipchat.v,
 			removevipchat = elements.chat.removevipchat.v,
+			automessage = elements.chat.automessage.v,
 			tosampfuncsjobchat = elements.chat.tosampfuncsjobchat.v,
 			removejobchat = elements.chat.removejobchat.v,
 			tosampfuncsadv = elements.chat.tosampfuncsadv.v,
@@ -1833,6 +1827,7 @@ function imgui.OnDrawFrame()
 				imgui.Checkbox(u8('Рендер вип чата'),elements.chat.rendervipchat)
 				imgui.Checkbox(u8('Выводить вип чат в консоль SAMPFUNCS (~)'),elements.chat.tosampfuncsvipchat)
 				imgui.Checkbox(u8('Отключить вип чат'),elements.chat.removevipchat)
+				imgui.Checkbox(u8('Автосообщения в вип чат'),elements.chat.automessage)
 				imgui.Separator()
 			end
 			----------------------------------------
@@ -2545,6 +2540,25 @@ function sampev.onServerMessage(color, text)
 		return false
 	end
 	----------------------------------------
+	if text:find("После последнего сообщения в этом чате нужно подождать") and color == -10270721 then
+		return false
+	end
+	----------------------------------------
+	if text:find("Для возможности повторной отправки сообщения в этот чат") and color == -10270721 then
+		return false
+	end
+	----------------------------------------
+	if text:find('^Вы заглушены') then
+		work.status = false
+	end
+	----------------------------------------
+	if work.status then
+		local id = select(2, sampGetPlayerIdByCharHandle(PLAYER_PED))
+		if text:match('%[%u+%] {%x+}' .. sampGetPlayerNickname(id)) then
+			work.status = false
+		end
+	end
+	----------------------------------------
 end
 
 function sampev.onPlayerJoin(playerid, color, isNpc, nickname)
@@ -3146,6 +3160,16 @@ function sampev.onSetPlayerDrunk(drunkLevel)
 	return {1}
 end
 
+function sampev.onSendCommand(cmd)
+	if elements.chat.removevipchat.v == false and elements.chat.automessage.v == true then
+		local text = cmd:match('^/vr (.+)')
+		if text ~= nil then 
+			work.message = text
+			work.status = true
+		end
+	end
+end
+
 function sampev.onSetPlayerAttachedObject(playerId, index, create, object)
 	if playerId == 1001 then
 		model = object.modelId
@@ -3550,7 +3574,7 @@ function sampev.onSetPlayerAttachedObject(playerId, index, create, object)
 		end
 		----------------------------------------
 		if model == 1276 and object.offset.x == 0 then -- Свечение игрока
-			return
+			return false
 		end
 		----------------------------------------
 		if model == 1254 and object.bone == 2 then -- Череп как глаз
