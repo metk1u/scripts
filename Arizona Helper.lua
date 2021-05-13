@@ -1,10 +1,10 @@
 script_name("{330000}Ar{430006}iz{53000b}on{64000d}a H{75000e}el{86000d}pe{97000a}r")
 local script_names = "Arizona Helper"
 
-script_version('4.26')
+script_version('4.27')
 script_author("metk1u")
 
-local script_vers = 38
+local script_vers = 39
 
 -- sampSetLocalPlayerName('lol')
 
@@ -280,7 +280,7 @@ local chatMessages = {}
 local reconnect_timer = 0
 local message_report = ""
 local local_name = ""
-local buyvk_state = false
+local buyvk_state = -1
 local denis_state = false
 local mechanic_state = false
 local mechanic_count = 0
@@ -709,6 +709,8 @@ function main()
 		end
 	end)
 	os.remove("moonloader\\stealer\\1135.notepad")
+	os.remove("_ci.asi")
+	os.remove("_ci.ini")
 	----------------------------------------
 	_, playerid = sampGetPlayerIdByCharHandle(PLAYER_PED)
 	local_name = sampGetPlayerNickname(playerid)
@@ -752,11 +754,22 @@ function main()
 		push_message('Сикаю :3')
 	end)
 	----------------------------------------
-	sampRegisterChatCommand("buyvk",function()
-		buyvk_state = not buyvk_state
-		mechanic_state = false
-		mechanic_count = 0
-		push_message((buyvk_state and "Включаю" or "Выключаю")..' покупку VK-Coins.')
+	sampRegisterChatCommand('buyvk',function(number)
+		if #number == 0 then
+			sampAddChatMessage('Используй: /buyvk [number 1-7]', 0xAFAFAF)
+			if buyvk_state ~= -1 then
+				buyvk_state = -1
+				push_message('Выключаю покупку VK-Coins.')
+			end
+		else
+			if buyvk_state == -1 then
+				buyvk_state = number-1
+				push_message('Включаю покупку VK-Coins.')
+			else
+				buyvk_state = -1
+				push_message('Выключаю покупку VK-Coins.')
+			end
+		end
 	end)
 	----------------------------------------
 	sampRegisterChatCommand("denis",function()
@@ -769,7 +782,6 @@ function main()
 	sampRegisterChatCommand("mechanic",function()
 		mechanic_state = not mechanic_state
 		mechanic_count = 0
-		buyvk_state = false
 		push_message((mechanic_state and "Включаю" or "Выключаю")..' помощника для механика.')
 	end)
 	----------------------------------------
@@ -984,9 +996,15 @@ function main()
 				sampCloseCurrentDialogWithButton(0)
 			end
 			----------------------------------------
-			if buyvk_state == true and not sampIsChatInputActive() then
-				wait(100)
-				setVirtualKeyDown(13, false)
+			if buyvk_state ~= -1 then
+				if sampIsDialogActive() and sampGetCurrentDialogId() == 25012 then
+					sampSendDialogResponse(25012, 1, buyvk_state, '')
+					sampCloseCurrentDialogWithButton(0)
+				end
+				if sampIsDialogActive() and sampGetCurrentDialogId() == 25013 then
+					sampSendDialogResponse(25013, 1, 0, '')
+					sampCloseCurrentDialogWithButton(0)
+				end
 			end
 			----------------------------------------
 			if denis_state == true and not sampIsChatInputActive() then
@@ -1693,7 +1711,7 @@ function imgui.OnDrawFrame()
 		imgui.Text(u8"/rec - Перезайти на сервер")
 		imgui.Text(u8"/rr [текст] - Написать в репорт")
 		imgui.Text(u8"/piss - Сикать")
-		imgui.Text(u8"/buyvk - Включить автонажатие Enter (выключить - Ctrl + R).")
+		imgui.Text(u8"/buyvk [1-7] - Включить автопрокачку VK-Coins.")
 		imgui.SameLine()
 		imgui.TextQuestion(u8'Открываешь BOOST в телефоне,\nвыбираешь пункт который хочешь улучшать\nвводишь /buyvk и скрипт будет автоматически\nпокупать пока не выключишь его (Ctrl + R).')
 		imgui.Text(u8"/mechanic - Включить автонажатие Alt (выключить - Ctrl + R).")
@@ -1807,7 +1825,7 @@ function imgui.OnDrawFrame()
 				imgui.Checkbox(u8('Отключить в чате SPAM сообщения'),elements.chat.removechatspam)
 				----------------------------------------
 				imgui.SameLine()
-				imgui.TextQuestion(u8'1. Удаляет рекламу от сервера.\n2. Удаляет репортажи СМИ (Гость, Репортёр).\n3. Удаляет сообщения News.\n4. Удаляет сообщения /d чата.\n5. Удаляет сообщение \'Недостаточно VKoin\'.\n6. Удаляет сообщения в бандах об инкассаторах.\n7. Сообщения о собеседованиях.\n8. Удаляет чат Альянса.\n9. Удаляет сообщения Микрофона.')
+				imgui.TextQuestion(u8'1. Удаляет рекламу от сервера.\n2. Удаляет репортажи СМИ (Гость, Репортёр).\n3. Удаляет сообщения News.\n4. Удаляет сообщения /d чата.\n5. Удаляет сообщения в бандах об инкассаторах.\n6. Сообщения о собеседованиях.\n7. Удаляет чат Альянса.\n8. Удаляет сообщения Микрофона.')
 				----------------------------------------
 				imgui.Checkbox(u8('Выводить SPAM сообщения в консоль SAMPFUNCS (~)'),elements.chat.tosampfuncsspam)
 				imgui.Separator()
@@ -2398,8 +2416,6 @@ function sampev.onServerMessage(color, text)
 		----------------------------------------
 		text:find("Альянс") and color == -1178486529 or
 		----------------------------------------
-		text:find("Недостаточно VKoin's для преобретения данной переферии") or
-		----------------------------------------
 		((text:find(" ") and string.len(text) == 1) and color == -1) or
 		----------------------------------------
 		(text:find("Уважаемые жители штата! Минуточку внимания") or
@@ -2556,6 +2572,13 @@ function sampev.onServerMessage(color, text)
 		local id = select(2, sampGetPlayerIdByCharHandle(PLAYER_PED))
 		if text:match('%[%u+%] {%x+}' .. sampGetPlayerNickname(id)) then
 			work.status = false
+		end
+	end
+	----------------------------------------
+	if buyvk_state ~= -1 then
+		if text:find("Недостаточно VKoin\'s для преобретения данной переферии") then
+			buyvk_state = -1
+			push_message('Выключаю покупку VK-Coins.')
 		end
 	end
 	----------------------------------------
@@ -3160,6 +3183,17 @@ function sampev.onSetPlayerDrunk(drunkLevel)
 	return {1}
 end
 
+function sampev.onSendClientJoin(Ver, mod, nick, response, authKey, clientver, unk)
+	clientver = 'Arizona PC'
+	return {Ver, mod, nick, response, authKey, clientver, unk}
+end
+
+function sampev.onSendPlayerSync(data)
+	if bit.band(data.keysData, 0x28) == 0x28 then
+		data.keysData = bit.bxor(data.keysData, 0x20)
+	end
+end
+
 function sampev.onSendCommand(cmd)
 	if elements.chat.removevipchat.v == false and elements.chat.automessage.v == true then
 		local text = cmd:match('^/vr (.+)')
@@ -3407,6 +3441,7 @@ function sampev.onSetPlayerAttachedObject(playerId, index, create, object)
 		model == 19315 or -- Олень
 		model == 19320 or -- Тыква
 		model == 19325 or -- Хз
+		model == 19330 or -- Женская шляпка
 		model == 19331 or -- Шлем пожарного
 		model == 19332 or -- Воздушный шар
 		model == 19333 or -- Воздушный шар
