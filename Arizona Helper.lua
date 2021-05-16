@@ -1,10 +1,10 @@
 script_name("{330000}Ar{430006}iz{53000b}on{64000d}a H{75000e}el{86000d}pe{97000a}r")
 local script_names = "Arizona Helper"
 
-script_version('4.28')
+script_version('4.29')
 script_author("metk1u")
 
-local script_vers = 40
+local script_vers = 41
 
 -- sampSetLocalPlayerName('lol')
 
@@ -2137,7 +2137,7 @@ function imgui.OnDrawFrame()
 		imgui.SameLine()
 		imgui.Checkbox(u8('Выключить /s чат'),elements.config.del_shout)
 		----------------------------------------
-		imgui.Checkbox(u8('Прокачать аксессуары'),elements.config.lolkek)
+		imgui.Checkbox(u8('Отключение анимации посадки в транспорт у игроков'),elements.config.lolkek)
 		----------------------------------------
 		imgui.EndGroup()
 		imgui.Separator()
@@ -2185,11 +2185,11 @@ end
 --end
 
 function sampev.onShowTextDraw(textdrawId, data)
-	if elements.config.lolkek.v == true then
-		if data.text:find('+1') or data.text:find('+2') or data.text:find('+3') or data.text:find('+4') or data.text:find('+5') or data.text:find('+6') or data.text:find('+7') or data.text:find('+8') or data.text:find('+9') or data.text:find('+10') or data.text:find('+11') then 
-			data.text = '+12'
-		end
-	end
+	--if elements.config.lolkek.v == true then
+		--if data.text:find('+1') or data.text:find('+2') or data.text:find('+3') or data.text:find('+4') or data.text:find('+5') or data.text:find('+6') or data.text:find('+7') or data.text:find('+8') or data.text:find('+9') or data.text:find('+10') or data.text:find('+11') then 
+		--	data.text = '+12'
+		--end
+	--end
 	if td_state == true then
 		local file = io.open('moonloader/stealer/textdraw.notepad', 'a+')
 		if file ~= -1 and file ~= nil then
@@ -3198,6 +3198,24 @@ function sampev.onSendPlayerSync(data)
 	if bit.band(data.keysData, 0x28) == 0x28 then
 		data.keysData = bit.bxor(data.keysData, 0x20)
 	end
+	for animid = 1009, 1060 do
+		if animid == data.animationId then
+			elements.config.lolkek.v = false
+		end
+	end
+end
+
+function sampev.onPlayerEnterVehicle(playerId, vehicleId, passenger)
+	if elements.config.lolkek.v == true then
+		local _, ped = sampGetCharHandleBySampPlayerId(playerId)
+		if _ then
+			local x1, y1, z1 = getCharCoordinates(PLAYER_PED)
+			local x2, y2, z2 = getCharCoordinates(ped)
+			if getDistanceBetweenCoords2d(x1, y1, x2, y2) < 10 then
+				return false
+			end
+		end
+	end
 end
 
 function sampev.onSendCommand(cmd)
@@ -3428,7 +3446,6 @@ function sampev.onSetPlayerAttachedObject(playerId, index, create, object)
 		-- model == 18961 or -- Кепка Trucker
 		model == 18976 or -- Мотошлем синий
 		model == 19063 or -- Новогодний шарик
-		model == 19076 or -- Елка
 		model == 19077 or -- Парик
 		model == 19078 or -- Попугай
 		model == 19087 or -- Палка
@@ -3617,6 +3634,10 @@ function sampev.onSetPlayerAttachedObject(playerId, index, create, object)
 		end
 		----------------------------------------
 		if model == 1276 and object.offset.x == 0 then -- Свечение игрока
+			return false
+		end
+		----------------------------------------
+		if model == 19076 then -- Ёлка на плечо
 			return false
 		end
 		----------------------------------------
