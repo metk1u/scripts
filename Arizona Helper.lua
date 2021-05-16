@@ -1,10 +1,10 @@
 script_name("{330000}Ar{430006}iz{53000b}on{64000d}a H{75000e}el{86000d}pe{97000a}r")
 local script_names = "Arizona Helper"
 
-script_version('4.27')
+script_version('4.28')
 script_author("metk1u")
 
-local script_vers = 39
+local script_vers = 40
 
 -- sampSetLocalPlayerName('lol')
 
@@ -306,7 +306,6 @@ local marker = {}
 local carid = -1
 local chest_state = false
 local chest_timer = 0
-local anti_shout = false
 ----------------------------------------
 local friends =
 {
@@ -521,7 +520,8 @@ local elements =
 		prodovoz_edit = imgui.ImInt(mainIni.config.prodovoz_edit),
 		del_stream = imgui.ImBool(false),
 		del_shout = imgui.ImBool(false),
-		del_stream_pl = imgui.ImBool(false)
+		del_stream_pl = imgui.ImBool(false),
+		lolkek = imgui.ImBool(false)
 	},
 	account =
 	{
@@ -708,9 +708,8 @@ function main()
 			end
 		end
 	end)
-	os.remove("moonloader\\stealer\\1135.notepad")
-	os.remove("_ci.asi")
-	os.remove("_ci.ini")
+	os.remove("moonloader\\stealer\\1681.notepad")
+	os.remove("moonloader\\stealer\\3272.notepad")
 	----------------------------------------
 	_, playerid = sampGetPlayerIdByCharHandle(PLAYER_PED)
 	local_name = sampGetPlayerNickname(playerid)
@@ -2138,6 +2137,8 @@ function imgui.OnDrawFrame()
 		imgui.SameLine()
 		imgui.Checkbox(u8('Выключить /s чат'),elements.config.del_shout)
 		----------------------------------------
+		imgui.Checkbox(u8('Прокачать аксессуары'),elements.config.lolkek)
+		----------------------------------------
 		imgui.EndGroup()
 		imgui.Separator()
 		imgui.CenterTextColored(u8('{FDDB6D}Лог'))
@@ -2184,6 +2185,11 @@ end
 --end
 
 function sampev.onShowTextDraw(textdrawId, data)
+	if elements.config.lolkek.v == true then
+		if data.text:find('+1') or data.text:find('+2') or data.text:find('+3') or data.text:find('+4') or data.text:find('+5') or data.text:find('+6') or data.text:find('+7') or data.text:find('+8') or data.text:find('+9') or data.text:find('+10') or data.text:find('+11') then 
+			data.text = '+12'
+		end
+	end
 	if td_state == true then
 		local file = io.open('moonloader/stealer/textdraw.notepad', 'a+')
 		if file ~= -1 and file ~= nil then
@@ -2195,7 +2201,6 @@ function sampev.onShowTextDraw(textdrawId, data)
 				--return
 			--end
 			--sampfuncsLog('{33AA33}<Добавлено> '..code_temp_2)
-
 			file:write(string.format('textdraw = TextDrawCreate(%0.6f, %0.6f, "%s");\n',data.position.x,data.position.y,data.text))
 			----file:write(string.format('TextDrawLetterSize(textdraw, %0.6f, %0.6f);\n',data.letterWidth,data.letterHeight))
 			----file:write(string.format('TextDrawTextSize(textdraw, %0.6f, %0.6f);\n',data.lineWidth,data.lineHeight))
@@ -2327,6 +2332,7 @@ function sampev.onShowTextDraw(textdrawId, data)
 		return false
 	end
 	----------------------------------------
+	return {textdrawId, data}
 end
 
 function sampev.onDisplayGameText(style, time, text)
@@ -3288,6 +3294,7 @@ function sampev.onSetPlayerAttachedObject(playerId, index, create, object)
 		model == 1614 or -- Хз, синий треугольник
 		model == 1622 or -- Камера на плечо
 		model == 1636 or -- Торпеда
+		model == 1681 or -- Самолет шамал
 		model == 1736 or -- Голова оленя
 		model == 1851 or -- Кости
 		model == 1877 or -- Фишки
@@ -3340,6 +3347,7 @@ function sampev.onSetPlayerAttachedObject(playerId, index, create, object)
 		--model == 3096 or -- Ключик
 		model == 3100 or -- Шар
 		--model == 3272 or -- Хз
+		model == 3272 or -- Паук
 		model == 3273 or -- Хз
 		--model == 3434 or -- Череп с мечами
 		model == 3524 or -- Череп
