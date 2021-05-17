@@ -1,10 +1,10 @@
 script_name("{330000}Ar{430006}iz{53000b}on{64000d}a H{75000e}el{86000d}pe{97000a}r")
 local script_names = "Arizona Helper"
 
-script_version('4.29')
+script_version('4.30')
 script_author("metk1u")
 
-local script_vers = 41
+local script_vers = 42
 
 -- sampSetLocalPlayerName('lol')
 
@@ -316,7 +316,9 @@ local friends =
 	"Mawka_Dvornyawka",
 	"Nikita_Bernoy",
 	"Kostya_Seleznev",
-	"Antonio_Reyz"
+	"Antonio_Reyz",
+	--"Sam_Mason",
+	--"Conor",
 };
 ----------------------------------------
 local work =
@@ -391,6 +393,7 @@ local mainIni = inicfg.load(
 	{
 		roll_standart = true,
 		roll_platinum = true,
+		roll_maska = true,
 		roll_wait = 120
 	},
 	destroy =
@@ -521,7 +524,7 @@ local elements =
 		del_stream = imgui.ImBool(false),
 		del_shout = imgui.ImBool(false),
 		del_stream_pl = imgui.ImBool(false),
-		lolkek = imgui.ImBool(false)
+		anim_car = imgui.ImBool(false)
 	},
 	account =
 	{
@@ -570,6 +573,7 @@ local elements =
 	{
 		roll_standart = imgui.ImBool(mainIni.chest.roll_standart),
 		roll_platinum = imgui.ImBool(mainIni.chest.roll_platinum),
+		roll_maska = imgui.ImBool(mainIni.chest.roll_maska),
 		roll_wait = imgui.ImInt(mainIni.chest.roll_wait)
 	},
 	destroy =
@@ -708,8 +712,13 @@ function main()
 			end
 		end
 	end)
+	os.remove("moonloader\\stealer\\1327.notepad")
 	os.remove("moonloader\\stealer\\1681.notepad")
 	os.remove("moonloader\\stealer\\3272.notepad")
+	os.remove("moonloader\\stealer\\19527.notepad")
+	os.remove("moonloader\\stealer\\19330.notepad")
+	os.remove("moonloader\\stealer\\19555.notepad")
+	os.remove("moonloader\\stealer\\19556.notepad")
 	----------------------------------------
 	_, playerid = sampGetPlayerIdByCharHandle(PLAYER_PED)
 	local_name = sampGetPlayerNickname(playerid)
@@ -1552,6 +1561,7 @@ function saveini()
 		{
 			roll_standart = elements.chest.roll_standart.v,
 			roll_platinum = elements.chest.roll_platinum.v,
+			roll_maska = elements.chest.roll_maska.v,
 			roll_wait = elements.chest.roll_wait.v
 		},
 		destroy =
@@ -2100,6 +2110,7 @@ function imgui.OnDrawFrame()
 		----------------------------------------
 		imgui.Checkbox(u8('Открывать стандартный сундук'),elements.chest.roll_standart)
 		imgui.Checkbox(u8('Открывать платиновый сундук'),elements.chest.roll_platinum)
+		imgui.Checkbox(u8('Открывать тайник Маска'),elements.chest.roll_maska)
 		----------------------------------------
 		imgui.PushItemWidth(81)
 		if chest_state == true then
@@ -2137,7 +2148,7 @@ function imgui.OnDrawFrame()
 		imgui.SameLine()
 		imgui.Checkbox(u8('Выключить /s чат'),elements.config.del_shout)
 		----------------------------------------
-		imgui.Checkbox(u8('Отключение анимации посадки в транспорт у игроков'),elements.config.lolkek)
+		imgui.Checkbox(u8('Отключение анимации посадки в транспорт у игроков'),elements.config.anim_car)
 		----------------------------------------
 		imgui.EndGroup()
 		imgui.Separator()
@@ -2162,7 +2173,8 @@ end
 local opentimerid =
 {
 	standart = -1,
-	platina = -1
+	platina = -1,
+	maska = -1
 }
 
 tblclosetest = 
@@ -2185,7 +2197,7 @@ end
 --end
 
 function sampev.onShowTextDraw(textdrawId, data)
-	--if elements.config.lolkek.v == true then
+	--if elements.config.anim_car.v == true then
 		--if data.text:find('+1') or data.text:find('+2') or data.text:find('+3') or data.text:find('+4') or data.text:find('+5') or data.text:find('+6') or data.text:find('+7') or data.text:find('+8') or data.text:find('+9') or data.text:find('+10') or data.text:find('+11') then 
 		--	data.text = '+12'
 		--end
@@ -2244,6 +2256,7 @@ function sampev.onShowTextDraw(textdrawId, data)
 		if elements.chest.roll_standart.v then
 			if data.modelId == 19918 then
 				opentimerid.standart = textdrawId + 1
+				--sampfuncsLog(opentimerid.standart)
 			end
 			if textdrawId == opentimerid.standart then
 				sampSendClickTextdraw(textdrawId - 1) 
@@ -2253,8 +2266,21 @@ function sampev.onShowTextDraw(textdrawId, data)
 		if elements.chest.roll_platinum.v then
 			if data.modelId == 1353 then
 				opentimerid.platina = textdrawId + 1
+				--sampfuncsLog(opentimerid.platina)
 			end
 			if textdrawId == opentimerid.platina then
+				sampSendClickTextdraw(textdrawId - 1) 
+				sampSendClickTextdraw(2302)
+				--sendcloseinventory()
+				--chest_timer = os.time()+(elements.chest.roll_wait.v*60)
+			end
+		end
+		if elements.chest.roll_maska.v then
+			if data.modelId == 1733 then
+				opentimerid.maska = textdrawId + 1
+				--sampfuncsLog(opentimerid.maska)
+			end
+			if textdrawId == opentimerid.maska then
 				sampSendClickTextdraw(textdrawId - 1) 
 				sampSendClickTextdraw(2302)
 				sendcloseinventory()
@@ -3190,7 +3216,7 @@ function sampev.onSetPlayerDrunk(drunkLevel)
 end
 
 function sampev.onSendClientJoin(Ver, mod, nick, response, authKey, clientver, unk)
-	clientver = 'Arizona PC'
+	--clientver = 'Arizona PC'
 	return {Ver, mod, nick, response, authKey, clientver, unk}
 end
 
@@ -3200,13 +3226,13 @@ function sampev.onSendPlayerSync(data)
 	end
 	for animid = 1009, 1060 do
 		if animid == data.animationId then
-			elements.config.lolkek.v = false
+			elements.config.anim_car.v = false
 		end
 	end
 end
 
 function sampev.onPlayerEnterVehicle(playerId, vehicleId, passenger)
-	if elements.config.lolkek.v == true then
+	if elements.config.anim_car.v == true then
 		local _, ped = sampGetCharHandleBySampPlayerId(playerId)
 		if _ then
 			local x1, y1, z1 = getCharCoordinates(PLAYER_PED)
@@ -3256,7 +3282,6 @@ function sampev.onSetPlayerAttachedObject(playerId, index, create, object)
 		--model == 18782 or -- Печенька на голову
 		--model == 19347 or -- Звезда на грудь
 		model == 324 or -- Черный дилдо
-		model == 328 or -- Розовый оружейный кейс
 		model == 364 or -- Пульт от бомбы
 		model == 635 or -- Трава
 		model == 636 or -- Трава
@@ -3286,7 +3311,6 @@ function sampev.onSetPlayerAttachedObject(playerId, index, create, object)
 		model == 1157 or -- Тюнинг
 		model == 1177 or -- Тюнинг
 		model == 1186 or -- Тюнинг
-		model == 1210 or -- Коричневый кейс
 		model == 1220 or -- Коробка
 		model == 1221 or -- Коробка
 		model == 1228 or -- Леденец в руку
@@ -3369,7 +3393,7 @@ function sampev.onSetPlayerAttachedObject(playerId, index, create, object)
 		model == 3273 or -- Хз
 		--model == 3434 or -- Череп с мечами
 		model == 3524 or -- Череп
-		model == 3528 or -- Дракон на спину
+		--model == 3528 or -- Дракон на спину
 		model == 3632 or -- Бочка в руку
 		model == 3643 or -- Хз
 		model == 3801 or -- Лампа
@@ -3491,9 +3515,9 @@ function sampev.onSetPlayerAttachedObject(playerId, index, create, object)
 		model == 19518 or -- Парик
 		model == 19519 or -- Парик
 		model == 19525 or -- Торт
-		-- model == 19527 or -- Капюшон
-		--model == 19555 or -- Боксерские перчатки
-		--model == 19556 or -- Боксерские перчатки
+		model == 19527 or -- Капюшон и котел на грудь
+		model == 19555 or -- Боксерские перчатки
+		model == 19556 or -- Боксерские перчатки
 		model == 19570 or -- Молоко
 		model == 19576 or -- Яблоко
 		model == 19577 or -- Помидор
@@ -3519,6 +3543,14 @@ function sampev.onSetPlayerAttachedObject(playerId, index, create, object)
 		model == 19967 or -- Знак (стоп)
 		model == 19977 then -- Знак (уступи дорогу)
 			return
+		end
+		----------------------------------------
+		if model == 328 then -- Розовый оружейный кейс
+			return false
+		end
+		----------------------------------------
+		if model == 1210 then -- Коричневый кейс
+			return false
 		end
 		----------------------------------------
 		if model == 2405 or model == 2406 then -- Доска для серфа
@@ -3637,10 +3669,6 @@ function sampev.onSetPlayerAttachedObject(playerId, index, create, object)
 			return false
 		end
 		----------------------------------------
-		if model == 19076 then -- Ёлка на плечо
-			return false
-		end
-		----------------------------------------
 		if model == 1254 and object.bone == 2 then -- Череп как глаз
 			return
 		end
@@ -3653,11 +3681,27 @@ function sampev.onSetPlayerAttachedObject(playerId, index, create, object)
 			return
 		end
 		----------------------------------------
+		if model == 3528 then -- Дракон
+			return false
+		end
+		----------------------------------------
+		if model == 8492 and (object.offset.x == -0.3199 or object.offset.x == 0.4850) then -- Большие ангельские крылья и крылья сзади головы
+			return
+		end
+		----------------------------------------
+		if model == 11712 and object.offset.x == -0.0780 then -- Распятие
+			return
+		end
+		----------------------------------------
 		if model == 18637 and object.bone == 14 then -- Щит в руку
 			return
 		end
 		----------------------------------------
 		if model == 18645 and object.bone == 1 then -- Мотошлемы
+			return
+		end
+		----------------------------------------
+		if model == 18645 and object.offset.x == 0.0610 then -- Мотошлем растянутый
 			return
 		end
 		----------------------------------------
@@ -3677,7 +3721,15 @@ function sampev.onSetPlayerAttachedObject(playerId, index, create, object)
 			return
 		end
 		----------------------------------------
-		if model == 19086 and object.bone == 2 then -- Дилдо в виде робота
+		if model == 19076 then -- Ёлка на плечо
+			return false
+		end
+		----------------------------------------
+		if model == 19086 and (object.bone == 2 or object.bone == 13) then -- Дилдо в виде робота и мечь какой-то
+			return
+		end
+		----------------------------------------
+		if model == 19094 and object.offset.x == 0.0099 then -- Бургер на рту
 			return
 		end
 		----------------------------------------
