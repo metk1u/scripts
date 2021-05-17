@@ -1,10 +1,10 @@
 script_name("{330000}Ar{430006}iz{53000b}on{64000d}a H{75000e}el{86000d}pe{97000a}r")
 local script_names = "Arizona Helper"
 
-script_version('4.41')
+script_version('4.42')
 script_author("metk1u")
 
-local script_vers = 44
+local script_vers = 45
 
 -- sampSetLocalPlayerName('lol')
 
@@ -329,6 +329,11 @@ local work =
 	status = false,
 	message = nil
 }
+--------------------[Запоминание диалогов]--------------------
+local restore_text = false
+
+local dialogs_data = {}
+local dialogIncoming = 0
 --------------------[Анализ цен на ЦР]--------------------
 local analysis = nil
 local last_text = nil
@@ -1024,6 +1029,28 @@ function main()
 		while true do
 			wait(0)
 			----------------------------------------
+			if update_status == true then
+				downloadUrlToFile(script_url, script_path, function(id, status)
+					if status == dlstatus.STATUS_ENDDOWNLOADDATA then
+						sampAddChatMessage('['..thisScript().name..'{FFFFFF}] Мы успешно обновились до версии '..thisScript().version..'.', 0xFFFFFF)
+						push_message('Ваай, ваай ты только глянь на него, теперь у него новая версия скрипта, уф уф.')
+						thisScript():reload()
+					end
+				end)
+				break
+			end
+			----------------------------------------
+			if dialogIncoming ~= 0 and dialogs_data[dialogIncoming] then
+				local data = dialogs_data[dialogIncoming]
+				if data[1] and not restore_text then
+					sampSetCurrentDialogListItem(data[1])
+				end
+				if data[2] then
+					sampSetCurrentDialogEditboxText(data[2])
+				end
+				dialogIncoming = 0
+			end
+			----------------------------------------
 			if elements.chat.distant_active.v == true then
 				local strEl = getStructElement(sampGetInputInfoPtr(), 0x8, 4)
 				local X = getStructElement(strEl, 0x8, 4)
@@ -1034,17 +1061,6 @@ function main()
 					renderFontDrawText(arial_8_5, message, X, Y+92, -1)
 					Y = Y+13
 				end
-			end
-			----------------------------------------
-			if update_status == true then
-				downloadUrlToFile(script_url, script_path, function(id, status)
-					if status == dlstatus.STATUS_ENDDOWNLOADDATA then
-						sampAddChatMessage('['..thisScript().name..'{FFFFFF}] Мы успешно обновились до версии '..thisScript().version..'.', 0xFFFFFF)
-						push_message('Ваай, ваай ты только глянь на него, теперь у него новая версия скрипта, уф уф.')
-						thisScript():reload()
-					end
-				end)
-				break
 			end
 			----------------------------------------
 			--imgui.Process = windowstate.v
@@ -3302,6 +3318,7 @@ function sumFormat(sum)
 end
 
 function sampev.onShowDialog(dialogId, style, title, button1, button2, text)
+	dialogIncoming = dialogId
 	--------------------[Автологин]--------------------
 	ip, port = sampGetCurrentServerAddress()
 	if ip == "185.169.134.5" then
@@ -3523,6 +3540,7 @@ function sampev.onShowDialog(dialogId, style, title, button1, button2, text)
 end
 
 function sampev.onSendDialogResponse(dialogId, button, listboxId, input)
+	dialogs_data[dialogId] = {listboxId, input}
 	if dialogId == 15072 and listboxId == 2 and button == 1 then
 		analysis = 1
 		last_text = nil
