@@ -1,10 +1,10 @@
 script_name("{330000}Ar{430006}iz{53000b}on{64000d}a H{75000e}el{86000d}pe{97000a}r")
 local script_names = "Arizona Helper"
 
-script_version('4.40')
+script_version('4.41')
 script_author("metk1u")
 
-local script_vers = 43
+local script_vers = 44
 
 -- sampSetLocalPlayerName('lol')
 
@@ -261,6 +261,7 @@ local inicfg = require("inicfg")
 local sampev = require("samp.events")
 local key = require 'vkeys'
 require "lib.moonloader"
+local memory = require'memory'
 local dlstatus = require("moonloader").download_status
 ----------------------------------------
 update_status = false
@@ -307,6 +308,7 @@ local marker = {}
 local carid = -1
 local chest_state = false
 local chest_timer = 0
+chatbuble = {}
 ----------------------------------------
 local friends =
 {
@@ -365,6 +367,7 @@ local mainIni = inicfg.load(
 		fontName = 'Calibri',
 		renderTime = true,
 		killStat = true,
+		HealthArmour = true,
 		del_opisanie_3d = true,
 		del_family_3d = true,
 		autousedrugs = true,
@@ -405,7 +408,10 @@ local mainIni = inicfg.load(
 		removejobchat = false,
 		
 		tosampfuncsadv = false,
-		removeadv = false
+		removeadv = false,
+		
+		distant_active = false,
+		distant_count = 10
 	},
 	hunger =
 	{
@@ -542,6 +548,7 @@ local elements =
 		fontName = imgui.ImBuffer(tostring(mainIni.config.fontName), 100),
 		renderTime = imgui.ImBool(mainIni.config.renderTime),
 		killStat = imgui.ImBool(mainIni.config.killStat),
+		HealthArmour = imgui.ImBool(mainIni.config.HealthArmour),
 		del_opisanie_3d = imgui.ImBool(mainIni.config.del_opisanie_3d),
 		del_family_3d = imgui.ImBool(mainIni.config.del_family_3d),
 		autousedrugs = imgui.ImBool(mainIni.config.autousedrugs),
@@ -586,7 +593,10 @@ local elements =
 		removejobchat = imgui.ImBool(mainIni.chat.removejobchat),
 
 		tosampfuncsadv = imgui.ImBool(mainIni.chat.tosampfuncsadv),
-		removeadv = imgui.ImBool(mainIni.chat.removeadv)
+		removeadv = imgui.ImBool(mainIni.chat.removeadv),
+		
+		distant_active = imgui.ImBool(mainIni.chat.distant_active),
+		distant_count = imgui.ImInt(mainIni.chat.distant_count)
 	},
 	hunger =
 	{
@@ -724,6 +734,13 @@ function main()
 	sampAddChatMessage('['..thisScript().name..' '..thisScript().version..'{FFFFFF}] {299800}Загружен{FFFFFF}. Настройки: /chat.', 0xFFFFFF)
 	push_message(script_names..' загружен.')
 	----------------------------------------
+	memory.setuint8(0x5700F7, 0xB8, true)
+    memory.copy(0x5700FB, memory.strptr('\x89\x96\xBC\x00\x00\x00'), 6, true)
+    memory.setuint8(0x570103, 0xEB, true)
+	----------------------------------------
+	sampHandle = sampGetBase()
+	writeMemory(sampHandle + 0x2D3C45, 4, 0, 1)
+	----------------------------------------
 	downloadUrlToFile(update_url, update_path, function(id, status)
 		if status == dlstatus.STATUS_ENDDOWNLOADDATA then
 			updateIni = inicfg.load(nil, update_path)
@@ -748,6 +765,7 @@ function main()
 	_, playerid = sampGetPlayerIdByCharHandle(PLAYER_PED)
 	local_name = sampGetPlayerNickname(playerid)
 	----------------------------------------
+	--sampfuncsRegisterConsoleCommand("showtdid", show) - Консоль SAMPFUNCS
 	sampRegisterChatCommand('chat',function() 
 		windowstate.v = not windowstate.v
 	end)
@@ -966,6 +984,18 @@ function main()
 		----------------------------------------
 	end)
 	----------------------------------------
+	sampRegisterChatCommand("minfo",function()
+		sampAddChatMessage(string.format('[{FDDB6D}'..script_names..' '..thisScript().version..'{FFFFFF}] Памяти используется: {FF3300}%d МБ',math.ceil(memory.read(0x8E4CB4, 4, true) / 1048576)), 0xFFFFFF)
+		sampAddChatMessage('[{FDDB6D}'..script_names..' '..thisScript().version..'{FFFFFF}] Автоматическая очистка при достижении 500 мб.', 0xFFFFFF)
+	end)
+	----------------------------------------
+	sampRegisterChatCommand("mclear",function()
+		cleanStreamMemoryBuffer()
+		--memory.fill(sampGetChatInfoPtr() + 306, 0x0, 25200)
+		memory.write(sampGetChatInfoPtr() + 306, 25562, 4, 0x0)
+		memory.write(sampGetChatInfoPtr() + 0x63DA, 1, 1)
+	end)
+	----------------------------------------
 	for i = 0, sampGetMaxPlayerId(true) do
 		if sampIsPlayerConnected(i) then
 			nickname = sampGetPlayerNickname(i)
@@ -993,6 +1023,18 @@ function main()
 	lua_thread.create(function()
 		while true do
 			wait(0)
+			----------------------------------------
+			if elements.chat.distant_active.v == true then
+				local strEl = getStructElement(sampGetInputInfoPtr(), 0x8, 4)
+				local X = getStructElement(strEl, 0x8, 4)
+				local Y = getStructElement(strEl, 0xC, 4)
+				renderFontDrawText(arial_8_5, "Дальний чат:", X, Y+80, -1)
+				----------------------------------------
+				for _, message in ipairs(chatbuble) do
+					renderFontDrawText(arial_8_5, message, X, Y+92, -1)
+					Y = Y+13
+				end
+			end
 			----------------------------------------
 			if update_status == true then
 				downloadUrlToFile(script_url, script_path, function(id, status)
@@ -1048,6 +1090,24 @@ function main()
 				end
 			end
 			----------------------------------------
+			if sampIsLocalPlayerSpawned() and elements.config.HealthArmour.v == true then
+				useRenderCommands(true)
+				setTextCentre(true)
+				setTextScale(0.3, 1.3)
+				setTextColour(255, 255, 255, 255)
+				setTextEdge(1, 0, 0, 0, 255)
+				displayTextWithNumber(578.0, 64.0, 'NUMBER', getCharHealth(PLAYER_PED))
+				
+				if getCharArmour(PLAYER_PED) > 0 then
+					useRenderCommands(true)
+					setTextCentre(true)
+					setTextScale(0.3, 1.3)
+					setTextColour(255, 255, 255, 255)
+					setTextEdge(1, 0, 0, 0, 255)
+					displayTextWithNumber(578.0, 41.5, 'NUMBER', getCharArmour(PLAYER_PED))
+				end
+			end
+			----------------------------------------
 			if isCharInAnyCar(playerPed) and getRadioChannel(playerPed) < 12 then
 				setRadioChannel(12)
 			end
@@ -1067,7 +1127,7 @@ function main()
 				setVirtualKeyDown(18, false)
 				setVirtualKeyDown(13, false)
 			end
-			----------------------------------------
+			--------------------[ID's текстдравов]--------------------
 			if toggleID == true then
 				for i = 0, 2304 do
 					if sampTextdrawIsExists(i) then
@@ -1077,7 +1137,7 @@ function main()
 					end
 				end
 			end
-			----------------------------------------
+			--------------------[MODEL's текстдравов]--------------------
 			if toggleMODEL == true then
 				for i = 0, 2304 do
 					if sampTextdrawIsExists(i) then
@@ -1087,6 +1147,10 @@ function main()
 						renderFontDrawText(arial_8_5, model, x1, y1, 0xFFBEBEBE)
 					end
 				end
+			end
+			--------------------[Очистка памяти]--------------------
+			if memory.read(0x8E4CB4, 4, true) > 524288000 then -- 500 МБайт
+				cleanStreamMemoryBuffer()
 			end
 			----------------------------------------
 			if mechanic_state == true then
@@ -1440,6 +1504,7 @@ function saveini()
 			fontName = elements.config.fontName.v,
 			renderTime = elements.config.renderTime.v,
 			killStat = elements.config.killStat.v,
+			HealthArmour = elements.config.HealthArmour.v,
 			del_opisanie_3d = elements.config.del_opisanie_3d.v,
 			del_family_3d = elements.config.del_family_3d.v,
 			autousedrugs = elements.config.autousedrugs.v,
@@ -1474,7 +1539,9 @@ function saveini()
 			tosampfuncsjobchat = elements.chat.tosampfuncsjobchat.v,
 			removejobchat = elements.chat.removejobchat.v,
 			tosampfuncsadv = elements.chat.tosampfuncsadv.v,
-			removeadv = elements.chat.removeadv.v
+			removeadv = elements.chat.removeadv.v,
+			distant_active = elements.chat.distant_active.v,
+			distant_count = elements.chat.distant_count.v
 		},
 		hunger =
 		{
@@ -1670,6 +1737,8 @@ function imgui.OnDrawFrame()
 		imgui.Text(u8"/ar - Надевает броню")
 		imgui.Text(u8"/showid - Показывает ID текстдравов")
 		imgui.Text(u8"/showmodel - Показывает MODEL текстдравов")
+		imgui.Text(u8"/minfo - Узнать сколько памяти используется")
+		imgui.Text(u8"/mclear - Очистить память игры")
 		imgui.Text(u8"/price [название] - Посмотреть цену на товар")
 		----------------------------------------
 		if imgui.BeginPopup('chatrender') then
@@ -1710,6 +1779,7 @@ function imgui.OnDrawFrame()
 			imgui.Checkbox(u8('Включить время в левом нижнем углу'),elements.config.renderTime)
 			----------------------------------------
 			imgui.Checkbox(u8('Выключить киллстат'),elements.config.killStat)
+			imgui.Checkbox(u8('Включить Health & Armour в цифрах'),elements.config.HealthArmour)
 			imgui.Checkbox(u8('Убрать \'Описание\' игроков'),elements.config.del_opisanie_3d)
 			imgui.Checkbox(u8('Убрать \'Название семей\' у игроков'),elements.config.del_family_3d)
 			imgui.Checkbox(u8('Автоматический /usedrugs 3 при ломке'),elements.config.autousedrugs)
@@ -1799,6 +1869,14 @@ function imgui.OnDrawFrame()
 				imgui.Separator()
 				imgui.Checkbox(u8('Выводить объявления в консоль SAMPFUNCS (~)'),elements.chat.tosampfuncsadv)
 				imgui.Checkbox(u8('Отключить объявления'),elements.chat.removeadv)
+				imgui.Separator()
+			end
+			----------------------------------------
+			if imgui.CollapsingHeader(u8'Настройки дальнего чата') then
+				imgui.Separator()
+				imgui.Checkbox(u8('Включить дальний чат'),elements.chat.distant_active)
+				imgui.PushItemWidth(370)
+				imgui.SliderInt(u8('Кол-во строк'),elements.chat.distant_count,3,15)
 				imgui.Separator()
 			end
 			imgui.Separator()
@@ -3147,7 +3225,7 @@ function sampev.onSetPlayerDrunk(drunkLevel)
 end
 
 function sampev.onSendClientJoin(Ver, mod, nick, response, authKey, clientver, unk)
-	--clientver = 'Arizona PC'
+	clientver = 'Arizona PC'
 	return {Ver, mod, nick, response, authKey, clientver, unk}
 end
 
@@ -3181,7 +3259,7 @@ function sampev.onSetObjectMaterialText(id, data)
 			})
 
 			if isInside then
-				sampAddChatMessage(string.format('['..thisScript().name..'{FFFFFF}] На продажу выставлен {FDDB6D}%s{FFFFFF} за {FDDB6D}$%d{FFFFFF}.', veh, price), 0xFFFFFF)
+				sampAddChatMessage('[{FDDB6D}'..script_names..' '..thisScript().version..'{FFFFFF}] На продажу выставлен {FDDB6D}'..veh..'{FFFFFF} за {FDDB6D}$'..price..'{FFFFFF}.', 0xFFFFFF)
 			end
 
 			data.text = data.text:gsub('%$%d+', '$' .. price)
@@ -3512,6 +3590,87 @@ function sampev.onSendCommand(cmd)
 			work.message = text
 			work.status = true
 		end
+	end
+end
+
+function sampev.onPlayerChatBubble(playerId, color, distance, duration, message)
+	if not sampIsPlayerPaused(playerId) and
+		not message:find("^Позвонил%(а%) в службу точного времени$") and
+		not message:find("^Продал%(а%) бочку!$") and
+		not message:find("^Заполняет документы$") and
+		not message:find("^Взял%(а%) бочку!$") and
+		not message:find("^Сильно кашляет$") and
+		not message:find("^Выключил%(а%) печку$") and
+		not message:find("^.+ сделал%(а%) себе оружие.$") and
+		not message:find("^Подобрал%(а%) оружие с земли") and
+		not message:find("^Достал%(а%) оружие из кармана$") and
+		not message:find("^Подобрал%(а%) что%-то с земли$") and
+		not message:find("^Включил%(а%) печку$") and
+		not message:find("^Включил%(а%) правый поворотник$") and
+		not message:find("^Включил%(а%) левый поворотник$") and
+		not message:find("^Взял%(а%) дубинку$") and
+		not message:find("^%* Закрывает организационный транспорт$") and
+		not message:find("^%* Открывает организационный транспорт$") and
+		not message:find("Положил%(а%) ящик с пиццой в багажник мопеда") and
+		not message:find("^Поцеловал%(a%) .+$") and
+		not message:find("^.+ достал%(а%) .+ из кармана$") and
+		not message:find("^Звонит телефон$") and
+		not message:find("^Открыл%(а%) дверь$") and
+		not message:find("^Украл%(а%) ингредиенты$") and
+		not message:find("^Положил%(а%) ящик$") and
+		not message:find("^Взял%(а%) ящик$") and
+		not message:find("^Собрал%(а%) мусор$") and
+		not message:find("^Выкинул%(а%) мусор$") and
+		not message:find("^Собрал%(а%) сено$") and
+		not message:find("^закончил%(а%) работу$") and
+		not message:find("^восстанавливает состояние %d+/%d+$") and
+		not message:find("^закрывает личный транспорт$") and
+		not message:find("^Получил%(а%) сообщение$") and
+		not message:find("^Двигатель успешно завелся %| %-  .+ .$") and
+		not message:find("^Пытается что%-то сказать.$") and
+		not message:find("^.+ пытается завести двигатель$") and
+		not message:find("^показывает своё удостоверение$") and
+		not message:find("^.+ показывает свой паспорт .+$") and
+		not message:find("^Собирает сено$") and
+		not message:find("^открывает личный транспорт$") and
+		not message:find("^Сообщение по рации$") and
+		not message:find("^Смотрит телефонную книгу$") and
+		not message:find("^Достал%(а%) из багажника ящик с пиццой.$") and
+		not message:find("^Открыл%(а%) шлагбаум$") and
+		not message:find("^%* Открывает рабочий транспорт$") and
+		not message:find("^%* Закрывает рабочий транспорт$") and
+		not message:find("^Просит деньги$") and
+		not message:find("^отбился%(ась%) .+%[.+%]$") and
+		not message:find("^затянул%(а%)$") and
+		not message:find("^бито$") and
+		not message:find("^отбился%(а%) .+%[.+%]$") and
+		not message:find("^походил%(а%) .+%[.+%]$") and
+		not message:find("^подкинул%(а%) .+%[.+%]$") and
+		not message:find("^Переоделся%(ась%)$") and
+		not message:find(".+ взглянул%(a%) на часы$") and
+		not message:find(".+ передаёт конверт с деньгами .+") and
+		not message:find("^Выпало: %d+$") and
+		not message:find("^Выпало: %d+$") and
+		not message:find("Смотрит на {FFFFFF}.*") and
+		not message:find("Сообщение по домашней рации") and
+		not message:find("Кушает {69B1E4}%( 5:00%+ %)") and
+		not message:find("Тянет рыбу!") and
+		not message:find("закидывает крючок и ловит рыбу") and
+		not message:find("Сильно держит удочку") and
+		not message:find("Поймал%(а%) рыбу") and
+		not message:find("Заглянул%(а%) в карман") and
+		not message:find("Отошел") and
+		not message:find("%-%s*%d+%.%d+ хп") then
+		----------------------------------------
+		r, g, b, a = explode_argb(color)
+		----------------------------------------
+		table.insert(chatbuble, string.format(
+		"{%06X}"..os.date("[%H:%M:%S] (D: " .. distance .. ") ") .. sampGetPlayerNickname(playerId) .. "[" .. playerId .. "]: " .. message, join_rgb(r,g,b)))
+		----------------------------------------
+		if #chatbuble > elements.chat.distant_count.v then
+			table.remove(chatbuble, 1)
+		end
+		----------------------------------------
 	end
 end
 
@@ -4121,6 +4280,35 @@ function SaveFileAttach(skin,modelId,bone,offsetX,offsetY,offsetZ,rotationX,rota
 	end
 end
 
+function cleanStreamMemoryBuffer()
+-- адреса памяти можно взять тут https://github.com/DK22Pac/plugin-sdk/blob/master/plugin_sa/game_sa/CGame.cpp
+	local clear1 = callFunction(0x53C500, 2, 2, true, true)
+	local clear2 = callFunction(0x53C810, 1, 1, true)
+	local clear3 = callFunction(0x40CF80, 0, 0)
+	local clear4 = callFunction(0x4090A0, 0, 0)
+	local clear5 = callFunction(0x5A18B0, 0, 0)
+	local clear6 = callFunction(0x707770, 0, 0)
+	local clear7 = callFunction(0x53BED0, 0, 0)
+	local clear8 = callFunction(0x53C440, 0, 0)
+	local clear9 = callFunction(0x53C4A0, 0, 0)
+	local clear10 = callFunction(0x53C240, 0, 0)
+	local clear11 = callFunction(0x409760, 0, 0)
+	local clear12 = callFunction(0x409210, 0, 0)
+	local clear13 = callFunction(0x40D7C0, 1, 1, -1)
+	local clear14 = callFunction(0x40E4E0, 0, 0)
+	local clear15 = callFunction(0x70C950, 0, 0)
+	local clear16 = callFunction(0x408CB0, 0, 0)
+	local clear17 = callFunction(0x40E460, 0, 0)
+	local clear18 = callFunction(0x407A10, 0, 0)
+	local clear19 = callFunction(0x40B3A0, 0, 0)
+	local clear20 = callFunction(0x5BA060, 0, 0)
+	memory.write(sampGetChatInfoPtr() + 306, 25562, 4, 0x0)
+	memory.write(sampGetChatInfoPtr() + 0x63DA, 1, 1)
+	local pX, pY, pZ = getCharCoordinates(PLAYER_PED)
+	requestCollision(pX, pY)
+	loadScene(pX, pY, pZ)
+end
+
 function onScriptTerminate(LuaScript, slot1)
 	if LuaScript == thisScript() then
 		showCursor(false)
@@ -4130,9 +4318,8 @@ end
 
 function rgbToHex(rgb)
 	slot1 = "0xFF"
-	for slot5, slot6 in pairs(rgb) do
+	for _, slot6 in pairs(rgb) do
 		slot7 = ""
-
 		while slot6 > 0 do
 			slot8 = math.fmod(slot6, 16) + 1
 			slot6 = math.floor(slot6 / 16)
@@ -4144,7 +4331,6 @@ function rgbToHex(rgb)
 		elseif string.len(slot7) == 1 then
 			slot7 = "0" .. slot7
 		end
-
 		slot1 = slot1 .. slot7
 	end
 	return slot1
@@ -4164,6 +4350,10 @@ end
 
 function explode_argb(color)
 	return bit.band(bit.rshift(color, 24), 255), bit.band(bit.rshift(color, 16), 255), bit.band(bit.rshift(color, 8), 255), bit.band(color, 255)
+end
+
+function join_rgb(r, g, b)
+	return bit.bor(bit.bor(b, bit.lshift(g, 8)), bit.lshift(r, 16))
 end
 
 local list = {}
@@ -4391,3 +4581,28 @@ function theme()
 	colors[clr.ModalWindowDarkening]	= ImVec4(0.26, 0.26, 0.26, 0.60);
 end
 theme()
+
+function patch()
+	if memory.getuint8(0x748C2B) == 0xE8 then
+		memory.fill(0x748C2B, 0x90, 5, true)
+	elseif memory.getuint8(0x748C7B) == 0xE8 then
+		memory.fill(0x748C7B, 0x90, 5, true)
+	end
+	if memory.getuint8(0x5909AA) == 0xBE then
+		memory.write(0x5909AB, 1, 1, true)
+	end
+	if memory.getuint8(0x590A1D) == 0xBE then
+		memory.write(0x590A1D, 0xE9, 1, true)
+		memory.write(0x590A1E, 0x8D, 4, true)
+	end
+	if memory.getuint8(0x748C6B) == 0xC6 then
+		memory.fill(0x748C6B, 0x90, 7, true)
+	elseif memory.getuint8(0x748CBB) == 0xC6 then
+		memory.fill(0x748CBB, 0x90, 7, true)
+	end
+	if memory.getuint8(0x590AF0) == 0xA1 then
+		memory.write(0x590AF0, 0xE9, 1, true)
+		memory.write(0x590AF1, 0x140, 4, true)
+	end
+end
+patch()
