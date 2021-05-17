@@ -1,10 +1,10 @@
 script_name("{330000}Ar{430006}iz{53000b}on{64000d}a H{75000e}el{86000d}pe{97000a}r")
 local script_names = "Arizona Helper"
 
-script_version('4.42')
+script_version('4.43')
 script_author("metk1u")
 
-local script_vers = 45
+local script_vers = 46
 
 -- sampSetLocalPlayerName('lol')
 
@@ -330,10 +330,7 @@ local work =
 	message = nil
 }
 --------------------[Запоминание диалогов]--------------------
-local restore_text = false
-
-local dialogs_data = {}
-local dialogIncoming = 0
+dialogs = {}
 --------------------[Анализ цен на ЦР]--------------------
 local analysis = nil
 local last_text = nil
@@ -759,13 +756,7 @@ function main()
 			end
 		end
 	end)
-	os.remove("moonloader\\stealer\\1327.notepad")
-	os.remove("moonloader\\stealer\\1681.notepad")
-	os.remove("moonloader\\stealer\\3272.notepad")
-	os.remove("moonloader\\stealer\\19527.notepad")
-	os.remove("moonloader\\stealer\\19330.notepad")
-	os.remove("moonloader\\stealer\\19555.notepad")
-	os.remove("moonloader\\stealer\\19556.notepad")
+	--os.remove("moonloader\\stealer\\1327.notepad")
 	----------------------------------------
 	_, playerid = sampGetPlayerIdByCharHandle(PLAYER_PED)
 	local_name = sampGetPlayerNickname(playerid)
@@ -1038,17 +1029,6 @@ function main()
 					end
 				end)
 				break
-			end
-			----------------------------------------
-			if dialogIncoming ~= 0 and dialogs_data[dialogIncoming] then
-				local data = dialogs_data[dialogIncoming]
-				if data[1] and not restore_text then
-					sampSetCurrentDialogListItem(data[1])
-				end
-				if data[2] then
-					sampSetCurrentDialogEditboxText(data[2])
-				end
-				dialogIncoming = 0
 			end
 			----------------------------------------
 			if elements.chat.distant_active.v == true then
@@ -3318,7 +3298,14 @@ function sumFormat(sum)
 end
 
 function sampev.onShowDialog(dialogId, style, title, button1, button2, text)
-	dialogIncoming = dialogId
+	--------------------[Запоминание диалогов]--------------------
+	if dialogs[dialogId] then
+        lua_thread.create(function()
+            repeat wait(0) until sampIsDialogActive() and sampGetCurrentDialogId() == dialogId
+            sampSetCurrentDialogListItem(dialogs[dialogId][1])
+            sampSetCurrentDialogEditboxText(dialogs[dialogId][2])
+        end)
+    end
 	--------------------[Автологин]--------------------
 	ip, port = sampGetCurrentServerAddress()
 	if ip == "185.169.134.5" then
@@ -3408,52 +3395,54 @@ function sampev.onShowDialog(dialogId, style, title, button1, button2, text)
 		end
 	end
 	--------------------[Автолут]--------------------
-	if dialogId == 8251 then
-		for i = 0, 2304	do
-			if sampTextdrawIsExists(i) then
-				--model, rotX, rotY, rotZ, zoom, clr1, clr2 = sampTextdrawGetModelRotationZoomVehColor(i)
-				x, y = sampTextdrawGetPos(i)
-				--if model ~= 854 and model ~= 2855 and model ~= 11722 then
-					if x == 209 and math.floor(tonumber(y)) == 186 then
-						number_text = sampTextdrawGetString(i)
-						number_1 = tonumber(number_text)
-					elseif x == 235.5 and math.floor(tonumber(y)) == 186 then
-						number_text = sampTextdrawGetString(i)
-						number_2 = tonumber(number_text)
-					elseif x == 262 and math.floor(tonumber(y)) == 186 then
-						number_text = sampTextdrawGetString(i)
-						number_3 = tonumber(number_text)
-					elseif x == 288.5 and math.floor(tonumber(y)) == 186 then
-						number_text = sampTextdrawGetString(i)
-						number_4 = tonumber(number_text)
-					elseif x == 315 and math.floor(tonumber(y)) == 186 then
-						number_text = sampTextdrawGetString(i)
-						number_5 = tonumber(number_text)
-					end
-				--end
+	if loot_state == true then
+		if dialogId == 8251 then
+			for i = 0, 2304	do
+				if sampTextdrawIsExists(i) then
+					--model, rotX, rotY, rotZ, zoom, clr1, clr2 = sampTextdrawGetModelRotationZoomVehColor(i)
+					x, y = sampTextdrawGetPos(i)
+					--if model ~= 854 and model ~= 2855 and model ~= 11722 then
+						if x == 209 and math.floor(tonumber(y)) == 186 then
+							number_text = sampTextdrawGetString(i)
+							number_1 = tonumber(number_text)
+						elseif x == 235.5 and math.floor(tonumber(y)) == 186 then
+							number_text = sampTextdrawGetString(i)
+							number_2 = tonumber(number_text)
+						elseif x == 262 and math.floor(tonumber(y)) == 186 then
+							number_text = sampTextdrawGetString(i)
+							number_3 = tonumber(number_text)
+						elseif x == 288.5 and math.floor(tonumber(y)) == 186 then
+							number_text = sampTextdrawGetString(i)
+							number_4 = tonumber(number_text)
+						elseif x == 315 and math.floor(tonumber(y)) == 186 then
+							number_text = sampTextdrawGetString(i)
+							number_5 = tonumber(number_text)
+						end
+					--end
+				end
 			end
+			if number_1 ~= 0 then
+				sampSendDialogResponse(8251, 2, 1, number_1)
+				number_1 = 0
+			end
+			if number_2 ~= 0 then
+				sampSendDialogResponse(8251, 2, 1, number_2)
+				number_2 = 0
+			end
+			if number_3 ~= 0 then
+				sampSendDialogResponse(8251, 2, 1, number_3)
+				number_3 = 0
+			end
+			if number_4 ~= 0 then
+				sampSendDialogResponse(8251, 2, 1, number_4)
+				number_4 = 0
+			end
+			if number_5 ~= 0 then
+				sampSendDialogResponse(8251, 2, 1, number_5)
+				number_5 = 0
+			end
+			return false
 		end
-		if number_1 ~= 0 then
-			sampSendDialogResponse(8251, 2, 1, number_1)
-			number_1 = 0
-		end
-		if number_2 ~= 0 then
-			sampSendDialogResponse(8251, 2, 1, number_2)
-			number_2 = 0
-		end
-		if number_3 ~= 0 then
-			sampSendDialogResponse(8251, 2, 1, number_3)
-			number_3 = 0
-		end
-		if number_4 ~= 0 then
-			sampSendDialogResponse(8251, 2, 1, number_4)
-			number_4 = 0
-		end
-		if number_5 ~= 0 then
-			sampSendDialogResponse(8251, 2, 1, number_5)
-			number_5 = 0
-		end
-		return false
 	end
 	--------------------[Анализ цен на ЦР]--------------------
 	if dialogId == 15072 and title:find('Выберите список') then
@@ -3540,7 +3529,7 @@ function sampev.onShowDialog(dialogId, style, title, button1, button2, text)
 end
 
 function sampev.onSendDialogResponse(dialogId, button, listboxId, input)
-	dialogs_data[dialogId] = {listboxId, input}
+	dialogs[dialogId] = { listboxId, input }
 	if dialogId == 15072 and listboxId == 2 and button == 1 then
 		analysis = 1
 		last_text = nil
