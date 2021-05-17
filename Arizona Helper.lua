@@ -1,10 +1,10 @@
 script_name("{330000}Ar{430006}iz{53000b}on{64000d}a H{75000e}el{86000d}pe{97000a}r")
 local script_names = "Arizona Helper"
 
-script_version('4.30')
+script_version('4.40')
 script_author("metk1u")
 
-local script_vers = 42
+local script_vers = 43
 
 -- sampSetLocalPlayerName('lol')
 
@@ -272,8 +272,9 @@ local script_url = "https://raw.githubusercontent.com/metk1u/scripts/main/Arizon
 local script_path = thisScript().path
 ----------------------------------------
 arial = renderCreateFont('Arial', 12, 5)
+arial_8_5 = renderCreateFont('Arial', 8, 5)
 molot = renderCreateFont("Molot", 9, 5)
-font_vr = renderCreateFont('Molot', 10, 9)
+molot_10_9 = renderCreateFont('Molot', 10, 9)
 ----------------------------------------
 POSITION_SET = false
 local chatMessages = {}
@@ -326,6 +327,28 @@ local work =
 	status = false,
 	message = nil
 }
+--------------------[Анализ цен на ЦР]--------------------
+local analysis = nil
+local last_text = nil
+local data_cr = {}
+local template = 
+{
+	last_update = nil,
+	sell = {},
+	buy = {}
+}
+local path_cr = getWorkingDirectory() .. '\\config\\cr_items.json'
+if not doesFileExist(path_cr) then
+	data_cr = template
+	createDirectory(getWorkingDirectory() .. '\\config\\')
+	local file_open_cr = io.open(path_cr, "w")
+	file_open_cr:write(encodeJson(data_cr))
+	file_open_cr:close()
+else
+	local file_open_cr = io.open(path_cr, "r")
+	data_cr = decodeJson(file_open_cr:read('*a'))
+	file_open_cr:close()
+end
 ----------------------------------------
 local file = 'settings.ini'
 local path = getWorkingDirectory() .. '\\config'
@@ -342,7 +365,8 @@ local mainIni = inicfg.load(
 		fontName = 'Calibri',
 		renderTime = true,
 		killStat = true,
-		del_3d = true,
+		del_opisanie_3d = true,
+		del_family_3d = true,
 		autousedrugs = true,
 		prodovoz_edit = 2000
 	},
@@ -518,7 +542,8 @@ local elements =
 		fontName = imgui.ImBuffer(tostring(mainIni.config.fontName), 100),
 		renderTime = imgui.ImBool(mainIni.config.renderTime),
 		killStat = imgui.ImBool(mainIni.config.killStat),
-		del_3d = imgui.ImBool(mainIni.config.del_3d),
+		del_opisanie_3d = imgui.ImBool(mainIni.config.del_opisanie_3d),
+		del_family_3d = imgui.ImBool(mainIni.config.del_family_3d),
 		autousedrugs = imgui.ImBool(mainIni.config.autousedrugs),
 		prodovoz_edit = imgui.ImInt(mainIni.config.prodovoz_edit),
 		del_stream = imgui.ImBool(false),
@@ -845,12 +870,6 @@ function main()
 		printString('',0)
 	end)
 	----------------------------------------
-	sampRegisterChatCommand("on",function()
-		klad_state = not klad_state
-		--push_message((klad_state and "Включаю" or "Выключаю")..' поиск кладов в зоне стрима.')
-		printString('',0)
-	end)
-	----------------------------------------
 	sampRegisterChatCommand("poisk",function()
 		MarkersState = not MarkersState
 		if MarkersState == true then
@@ -870,19 +889,6 @@ function main()
 			printString('~r~markers disable',3000)
 		end
 	end)
-	sampRegisterChatCommand("newstar",function()
-		lua_thread.create(function()
-			while true do
-				wait(50)
-				number = math.random(0, 49)
-				playerid = math.random(0, sampGetMaxPlayerId(false))
-				if sampIsPlayerConnected(playerid) then
-					sampSendDeathByPlayer(playerid, number)
-					playerid = 0
-				end
-			end
-		end)
-	end)
 	----------------------------------------
 	sampRegisterChatCommand("loot",function()
 		loot_state = not loot_state
@@ -899,6 +905,65 @@ function main()
 	sampRegisterChatCommand("td",function()
 		td_state = not td_state
 		push_message((td_state and "Включаю" or "Выключаю")..' стиллер ТД.')
+	end)
+	----------------------------------------
+	sampRegisterChatCommand('price',function(item)
+		item = string_to_lower(tostring(item))
+		if item ~= nil then
+			local temp = {}
+			for _, info_sell in ipairs(data_cr.sell) do
+				if string_to_lower(info_sell['i']):find(item, 1, true) then
+					local t = { name = nil, sell = 'Неизвестно', buy = 'Неизвестно' }
+					----------------------------------------
+					t.name = info_sell['i']
+					t.sell = sumFormat(tostring(info_sell['p']))
+					----------------------------------------
+					for _, info_buy in ipairs(data_cr.buy) do
+						if info_sell['i'] == info_buy['i'] then
+							t.buy = sumFormat(tostring(info_buy['p']))
+							break
+						end
+					end
+					----------------------------------------
+					temp[#temp + 1] = (' > {FFFFFF}Товар: {FDDB6D}%s{FFFFFF} | На продажу: {FDDB6D}%s{FFFFFF} | На покупку: {FDDB6D}%s'):format(t.name, t.sell, t.buy)
+				end
+			end
+			----------------------------------------
+			if #temp >= 1 then
+				sampAddChatMessage('[{FDDB6D}'..script_names..' '..thisScript().version..'{FFFFFF}] Найден'.. (#temp > 1 and 'о' or '') .. ' {FDDB6D}' .. #temp .. '{FFFFFF} товар' .. (#temp > 1 and 'ов' or '') .. ':', 0xFFFFFF)
+				for _, str in ipairs(temp) do
+					sampAddChatMessage(str, 0xFFFFFF)
+				end
+				local isOld = os.time() - data_cr.last_update >= 86400
+				sampAddChatMessage(('[{FDDB6D}'..script_names..' '..thisScript().version..'{FFFFFF}] Информация о цен' .. (#temp > 1 and 'ах' or 'е') .. ' от {FF3300}%s'):format(os.date('%d.%m.%Y ' .. (isOld and '( устарела )' or ''), data_cr.last_update)), 0xFFFFFF)
+				return
+			end
+			sampAddChatMessage('[{FDDB6D}'..script_names..' '..thisScript().version..'{FFFFFF}] Не удалось найти товар с похожим названием.', 0xFFFFFF)
+			return
+		end
+		sampAddChatMessage('Используй: /price [название товара]', 0xAFAFAF)
+	end)
+	----------------------------------------
+	sampRegisterChatCommand("showid",function()
+		toggleID = not toggleID
+		push_message((toggleID and "Включаю" or "Выключаю")..' ID текстдравов.')
+		----------------------------------------
+		if toggleMODEL == true then
+			toggleMODEL = false
+			push_message('Выключаю MODEL текстдравов.')
+		end
+		----------------------------------------
+	end)
+	----------------------------------------
+	sampRegisterChatCommand("showmodel",function()
+		toggleMODEL = not toggleMODEL
+		push_message((toggleMODEL and "Включаю" or "Выключаю")..' MODEL текстдравов.')
+		----------------------------------------
+		if toggleID == true then
+			toggleID = false
+			push_message('Выключаю ID текстдравов.')
+		end
+		----------------------------------------
 	end)
 	----------------------------------------
 	for i = 0, sampGetMaxPlayerId(true) do
@@ -978,8 +1043,8 @@ function main()
 					local Y = getStructElement(strEl, 0xC, 4)
 
 					local rotate = math.sin(os.clock() * 3) * 180 + 180
-					renderDrawPolygon(X + 10, Y + (renderGetFontDrawHeight(font_vr) / 2), 15, 15, 3, rotate, 0xFFFDDB6D)
-					renderFontDrawText(font_vr, tostring(work.message), X + 25, Y, -1)
+					renderDrawPolygon(X + 10, Y + (renderGetFontDrawHeight(molot_10_9) / 2), 15, 15, 3, rotate, 0xFFFDDB6D)
+					renderFontDrawText(molot_10_9, tostring(work.message), X + 25, Y, -1)
 				end
 			end
 			----------------------------------------
@@ -995,32 +1060,33 @@ function main()
 				end
 			end
 			----------------------------------------
-			if sampIsDialogActive() and sampGetCurrentDialogId() == 32 and #message_report > 0 then
-				sampSendDialogResponse(32, 1, 0, message_report)
-				message_report = ""
-				sampCloseCurrentDialogWithButton(0)
-			end
-			if sampIsDialogActive() and (sampGetCurrentDialogId() == 1332 or sampGetCurrentDialogId() == 1333) then
-				sampCloseCurrentDialogWithButton(0)
-			end
-			----------------------------------------
-			if buyvk_state ~= -1 then
-				if sampIsDialogActive() and sampGetCurrentDialogId() == 25012 then
-					sampSendDialogResponse(25012, 1, buyvk_state, '')
-					sampCloseCurrentDialogWithButton(0)
-				end
-				if sampIsDialogActive() and sampGetCurrentDialogId() == 25013 then
-					sampSendDialogResponse(25013, 1, 0, '')
-					sampCloseCurrentDialogWithButton(0)
-				end
-			end
-			----------------------------------------
 			if denis_state == true and not sampIsChatInputActive() then
 				--wait(100)
 				setVirtualKeyDown(18, true)
 				wait(20)
 				setVirtualKeyDown(18, false)
 				setVirtualKeyDown(13, false)
+			end
+			----------------------------------------
+			if toggleID == true then
+				for i = 0, 2304 do
+					if sampTextdrawIsExists(i) then
+						x, y = sampTextdrawGetPos(i)
+						x1, y1 = convertGameScreenCoordsToWindowScreenCoords(x, y)
+						renderFontDrawText(arial_8_5, i, x1, y1, 0xFFBEBEBE)
+					end
+				end
+			end
+			----------------------------------------
+			if toggleMODEL == true then
+				for i = 0, 2304 do
+					if sampTextdrawIsExists(i) then
+						x, y = sampTextdrawGetPos(i)
+						x1, y1 = convertGameScreenCoordsToWindowScreenCoords(x, y)
+						model, rotX, rotY, rotZ, zoom, clr1, clr2 = sampTextdrawGetModelRotationZoomVehColor(i)
+						renderFontDrawText(arial_8_5, model, x1, y1, 0xFFBEBEBE)
+					end
+				end
 			end
 			----------------------------------------
 			if mechanic_state == true then
@@ -1033,38 +1099,6 @@ function main()
 					mechanic_state = not mechanic_state
 					mechanic_count = 0
 					push_message((mechanic_state and "Включаю" or "Выключаю")..' помощника для механика.')
-				end
-			end
-			----------------------------------------
-			ip, port = sampGetCurrentServerAddress()
-			if ip == "185.169.134.5" then
-				if local_name == elements.account.my_nick.v then
-					if sampIsDialogActive() then
-						if sampGetCurrentDialogId() == 2 then
-							sampSendDialogResponse(2, 1, 0, elements.account.my_password.v)
-							wait(100)
-							sampCloseCurrentDialogWithButton(0)
-						end
-						if sampGetCurrentDialogId() == 991 then
-							sampSendDialogResponse(991, 1, 0, elements.account.my_pincode.v)
-							wait(100)
-							sampCloseCurrentDialogWithButton(0)
-						end
-					end
-				end
-				if local_name == elements.account.my_nick_2.v then
-					if sampIsDialogActive() then
-						if sampGetCurrentDialogId() == 2 then
-							sampSendDialogResponse(2, 1, 0, elements.account.my_password_2.v)
-							wait(100)
-							sampCloseCurrentDialogWithButton(0)
-						end
-						if sampGetCurrentDialogId() == 991 then
-							sampSendDialogResponse(991, 1, 0, elements.account.my_pincode_2.v)
-							wait(100)
-							sampCloseCurrentDialogWithButton(0)
-						end
-					end
 				end
 			end
 			----------------------------------------
@@ -1120,51 +1154,6 @@ function main()
 						renderFontDrawText(arial,string.format('%s[%d] [%d м.] %s',playername,players_state_finds,math.floor(tonumber(distance)),afk), x1, y1, getColor(color))
 					end
 				end
-			end
-			----------------------------------------
-			if sampIsDialogActive() then
-				dialog_text = ""
-				dialog_text = sampGetDialogText(sampGetCurrentDialogId())
-				if sampGetCurrentDialogId() == 0 and
-				(dialog_text:find("В этом месте запрещено") and dialog_text:find("Если вы продолжите, то вы будете кикнуты!")) or
-				dialog_text:find("Перед тем как подтвердить сделку, советуем") or
-				dialog_text:find("PIN%-код принят") then
-					sampCloseCurrentDialogWithButton(0)
-				end
-				----------------------------------------
-				if sampGetCurrentDialogId() == 2291 then
-					sampSendDialogResponse(2291, 1, 0, "Купить")
-				end
-				----------------------------------------
-				if sampGetCurrentDialogId() == 430 then
-					sampSendDialogResponse(430, 1, 0, "2000")
-					sampCloseCurrentDialogWithButton(0)
-					prods = 2000
-				end
-				----------------------------------------
-				if sampGetCurrentDialogId() == 8762 then
-					dialog_text = ""
-					dialog_text = sampGetDialogText(8762)
-					if dialog_text:match('которое хотите продать бизнесу.') then
-						bizz = string.match(dialog_text,'закупает {B7A51B}(%d+)')
-						----------------------------------------
-						biz = 0
-						biz = biz+bizz
-						----------------------------------------
-						if biz >= prods then
-							sampSendDialogResponse(8762, 2, 1, elements.config.prodovoz_edit.v)
-							sampAddChatMessage('['..thisScript().name..' '..thisScript().version..'{FFFFFF}] Скрипт продал в бизнес '..elements.config.prodovoz_edit.v..' продуктов. (1)', 0xFFFFFF)
-							sampCloseCurrentDialogWithButton(0)
-							prods = prods-elements.config.prodovoz_edit.v
-						else
-							sampSendDialogResponse(8762, 2, 1, biz)
-							sampAddChatMessage('['..thisScript().name..' '..thisScript().version..'{FFFFFF}] Скрипт продал в бизнес '..biz..' продуктов. (2)', 0xFFFFFF)
-							sampCloseCurrentDialogWithButton(0)
-							prods = prods-biz
-						end
-					end
-				end
-				----------------------------------------
 			end
 			----------------------------------------
 			if prodovoz_timer >= os.time() then
@@ -1299,22 +1288,6 @@ function main()
 				ip == "185.169.134.174" then
 				if klad_state == true then
 					----------------------------------------
-					if sampIsDialogActive() and sampGetCurrentDialogId() == 13101 then
-						dialogid = sampGetCurrentDialogId()
-						text = sampGetDialogText(dialogid)
-						----------------------------------------
-						for k, v in pairs(textklad) do
-							if string.match(text, k) then
-								sampAddChatMessage('', -1)
-								sampAddChatMessage('', -1)
-								sampAddChatMessage('', -1)
-								sampAddChatMessage('Ответ на вопрос: {FF3300}'..v, -1)
-								wait(10000)
-							end
-						end
-						----------------------------------------
-					end
-					----------------------------------------
 					klad_count = 0
 					for _, i in pairs(getAllObjects()) do
 						if getObjectModel(i) == 1271 then
@@ -1405,55 +1378,6 @@ function main()
 						end
 					end
 				--end
-				----------------------------------------
-				if sampIsDialogActive() and sampGetCurrentDialogId() == 8251 then
-					for i = 0, 2304	do
-						if sampTextdrawIsExists(i) then
-							--model, rotX, rotY, rotZ, zoom, clr1, clr2 = sampTextdrawGetModelRotationZoomVehColor(i)
-							x, y = sampTextdrawGetPos(i)
-							--if model ~= 854 and model ~= 2855 and model ~= 11722 then
-								if x == 209 and math.floor(tonumber(y)) == 186 then
-									number_text = sampTextdrawGetString(i)
-									number_1 = tonumber(number_text)
-								elseif x == 235.5 and math.floor(tonumber(y)) == 186 then
-									number_text = sampTextdrawGetString(i)
-									number_2 = tonumber(number_text)
-								elseif x == 262 and math.floor(tonumber(y)) == 186 then
-									number_text = sampTextdrawGetString(i)
-									number_3 = tonumber(number_text)
-								elseif x == 288.5 and math.floor(tonumber(y)) == 186 then
-									number_text = sampTextdrawGetString(i)
-									number_4 = tonumber(number_text)
-								elseif x == 315 and math.floor(tonumber(y)) == 186 then
-									number_text = sampTextdrawGetString(i)
-									number_5 = tonumber(number_text)
-								end
-							--end
-						end
-					end
-					if number_1 ~= 0 then
-						sampSendDialogResponse(8251, 2, 1, number_1)
-						number_1 = 0
-					end
-					if number_2 ~= 0 then
-						sampSendDialogResponse(8251, 2, 1, number_2)
-						number_2 = 0
-					end
-					if number_3 ~= 0 then
-						sampSendDialogResponse(8251, 2, 1, number_3)
-						number_3 = 0
-					end
-					if number_4 ~= 0 then
-						sampSendDialogResponse(8251, 2, 1, number_4)
-						number_4 = 0
-					end
-					if number_5 ~= 0 then
-						sampSendDialogResponse(8251, 2, 1, number_5)
-						number_5 = 0
-					end
-					sampCloseCurrentDialogWithButton(0)
-				end
-				----------------------------------------
 			end
 			----------------------------------------
 			if chest_state and chest_timer == os.time() then
@@ -1516,7 +1440,8 @@ function saveini()
 			fontName = elements.config.fontName.v,
 			renderTime = elements.config.renderTime.v,
 			killStat = elements.config.killStat.v,
-			del_3d = elements.config.del_3d.v,
+			del_opisanie_3d = elements.config.del_opisanie_3d.v,
+			del_family_3d = elements.config.del_family_3d.v,
 			autousedrugs = elements.config.autousedrugs.v,
 			prodovoz_edit = elements.config.prodovoz_edit.v
 		},
@@ -1735,7 +1660,7 @@ function imgui.OnDrawFrame()
 		imgui.Text(u8"/trash - Включить поиск мусорок в зоне стрима")
 		imgui.Text(u8"/olen - Включить поиск оленей в зоне стрима")
 		imgui.Text(u8"/waxta - Включить поиск руды в зоне стрима")
-		imgui.Text(u8"/klad или /on - Включить поиск кладов и открытых багажников")
+		imgui.Text(u8"/klad - Включить поиск кладов и открытых багажников")
 		imgui.Text(u8"/poisk - Показать места спавна кладов")
 		imgui.Text(u8"/loot - Автосбор с мусорки")
 		imgui.SameLine()
@@ -1743,6 +1668,9 @@ function imgui.OnDrawFrame()
 		imgui.Text(u8"/rp [playerid] - Автоввод /repare id 1 и /filscar id 1 1")
 		imgui.Text(u8"/ud - Использует 3 грамма наркотиков")
 		imgui.Text(u8"/ar - Надевает броню")
+		imgui.Text(u8"/showid - Показывает ID текстдравов")
+		imgui.Text(u8"/showmodel - Показывает MODEL текстдравов")
+		imgui.Text(u8"/price [название] - Посмотреть цену на товар")
 		----------------------------------------
 		if imgui.BeginPopup('chatrender') then
 			imgui.Checkbox(u8('Рендер чата'),elements.chat.renderChat)
@@ -1782,8 +1710,10 @@ function imgui.OnDrawFrame()
 			imgui.Checkbox(u8('Включить время в левом нижнем углу'),elements.config.renderTime)
 			----------------------------------------
 			imgui.Checkbox(u8('Выключить киллстат'),elements.config.killStat)
-			imgui.Checkbox(u8('Убрать \'Описание\' игроков'),elements.config.del_3d)
+			imgui.Checkbox(u8('Убрать \'Описание\' игроков'),elements.config.del_opisanie_3d)
+			imgui.Checkbox(u8('Убрать \'Название семей\' у игроков'),elements.config.del_family_3d)
 			imgui.Checkbox(u8('Автоматический /usedrugs 3 при ломке'),elements.config.autousedrugs)
+			imgui.Checkbox(u8('Отключение анимации посадки в транспорт у игроков'),elements.config.anim_car)
 			----------------------------------------
 			imgui.Separator()
 			imgui.PushItemWidth(100)
@@ -2147,8 +2077,6 @@ function imgui.OnDrawFrame()
 		----------------------------------------
 		imgui.SameLine()
 		imgui.Checkbox(u8('Выключить /s чат'),elements.config.del_shout)
-		----------------------------------------
-		imgui.Checkbox(u8('Отключение анимации посадки в транспорт у игроков'),elements.config.anim_car)
 		----------------------------------------
 		imgui.EndGroup()
 		imgui.Separator()
@@ -2721,7 +2649,10 @@ function sampev.onPlayerDeathNotification(killerid, killedid, reason)
 end
 
 function sampev.onCreate3DText(id, color, position, distance, testLOS, attachedPlayerId, attachedVehicleId, text)
-	if elements.config.del_3d.v == true and position.x == 0 and position.y == 0 and position.z == -1 and distance == 7 and attachedPlayerId ~= 65535 then
+	if elements.config.del_opisanie_3d.v == true and position.x == 0 and position.y == 0 and position.z == -1 and distance == 7 and attachedPlayerId ~= 65535 then
+		return false
+	end
+	if elements.config.del_family_3d.v == true and position.x == 0 and position.y == 0 and distance == 5 and attachedPlayerId ~= 65535 then
 		return false
 	end
 end
@@ -3229,6 +3160,336 @@ function sampev.onSendPlayerSync(data)
 			elements.config.anim_car.v = false
 		end
 	end
+end
+
+function sampev.onSetObjectMaterialText(id, data)
+	if data.align == 1 and data.fontSize == 40 then
+		local veh, price = data.text:match('^([^\n]+)\n{%x+}%$(%d+)')
+		if veh and price then
+			price = sumFormat(price)
+
+			local isInside = pointInRectangle(
+			{
+				x = select(1, getCharCoordinates(PLAYER_PED)), 
+				y = select(2, getCharCoordinates(PLAYER_PED))
+			},
+			{
+				A = {x = -2113.40, y = -975.00},
+				B = {x = -2154.30, y = -975.00},
+				C = {x = -2154.30, y = -744.65},
+				D = {x = -2113.40, y = -744.65}
+			})
+
+			if isInside then
+				sampAddChatMessage(string.format('['..thisScript().name..'{FFFFFF}] На продажу выставлен {FDDB6D}%s{FFFFFF} за {FDDB6D}$%d{FFFFFF}.', veh, price), 0xFFFFFF)
+			end
+
+			data.text = data.text:gsub('%$%d+', '$' .. price)
+			return { id, data }
+		end
+	end
+end
+
+function pointInRectangle(point, rect)
+	local vector = function(p1, p2)
+		return 
+		{
+			x = (p2.x - p1.x),
+			y = (p2.y - p1.y)
+		}
+	end
+	local dot = function(u, v)
+		return u.x * v.x + u.y * v.y
+	end
+
+	local AB = vector(rect.A, rect.B)
+	local AM = vector(rect.A, point)
+	local BC = vector(rect.B, rect.C)
+	local BM = vector(rect.B, point)
+	local dot_ABAM = dot(AB, AM)
+	local dot_ABAB = dot(AB, AB)
+	local dot_BCBM = dot(BC, BM)
+	local dot_BCBC = dot(BC, BC)
+	return 0 <= dot_ABAM and dot_ABAM <= dot_ABAB and 0 <= dot_BCBM and dot_BCBM <= dot_BCBC
+end
+
+function sumFormat(sum)
+	if #sum > 3 then
+		local b, e = ('%d'):format(sum):gsub('^%-', '')
+		local c = b:reverse():gsub('%d%d%d', '%1.')
+		local d = c:reverse():gsub('^%.', '')
+		return (e == 1 and '-' or '')..d
+	end
+	return sum
+end
+
+function sampev.onShowDialog(dialogId, style, title, button1, button2, text)
+	--------------------[Автологин]--------------------
+	ip, port = sampGetCurrentServerAddress()
+	if ip == "185.169.134.5" then
+		if local_name == elements.account.my_nick.v then
+			if dialogId == 2 then
+				sampSendDialogResponse(2, 1, 0, elements.account.my_password.v)
+				return false
+			end
+			if dialogId == 991 then
+				sampSendDialogResponse(991, 1, 0, elements.account.my_pincode.v)
+				return false
+			end
+		end
+		if local_name == elements.account.my_nick_2.v then
+			if dialogId == 2 then
+				sampSendDialogResponse(2, 1, 0, elements.account.my_password_2.v)
+				return false
+			end
+			if dialogId == 991 then
+				sampSendDialogResponse(991, 1, 0, elements.account.my_pincode_2.v)
+				return false
+			end
+		end
+	end
+	--------------------[Авторепорт]--------------------
+	if dialogId == 32 and #message_report > 0 then
+		sampSendDialogResponse(32, 1, 0, message_report)
+		message_report = ""
+		--sampCloseCurrentDialogWithButton(0)
+		return false
+	end
+	if dialogId == 1332 or dialogId == 1333 then
+		return false
+	end
+	--------------------[buyvk]--------------------
+	if buyvk_state ~= -1 then
+		if dialogId == 25012 then
+			sampSendDialogResponse(25012, 1, buyvk_state, '')
+			return false
+		end
+		if dialogId == 25013 then
+			sampSendDialogResponse(25013, 1, 0, '')
+			return false
+		end
+	end
+	--------------------[Продовоз]--------------------
+	if dialogId == 2291 then
+		sampSendDialogResponse(2291, 1, 0, "Купить")
+		return false
+	end
+	----------------------------------------
+	if dialogId == 430 then
+		sampSendDialogResponse(430, 1, 0, "2000")
+		prods = 2000
+		return false
+	end
+	----------------------------------------
+	if dialogId == 8762 then
+		if text:match('которое хотите продать бизнесу.') then
+			bizz = string.match(text,'закупает {B7A51B}(%d+)')
+			----------------------------------------
+			biz = 0
+			biz = biz+bizz
+			----------------------------------------
+			if biz >= prods then
+				sampSendDialogResponse(8762, 2, 1, elements.config.prodovoz_edit.v)
+				sampAddChatMessage('['..thisScript().name..' '..thisScript().version..'{FFFFFF}] Скрипт продал в бизнес '..elements.config.prodovoz_edit.v..' продуктов. (1)', 0xFFFFFF)
+				prods = prods-elements.config.prodovoz_edit.v
+				return false
+			else
+				sampSendDialogResponse(8762, 2, 1, biz)
+				sampAddChatMessage('['..thisScript().name..' '..thisScript().version..'{FFFFFF}] Скрипт продал в бизнес '..biz..' продуктов. (2)', 0xFFFFFF)
+				prods = prods-biz
+				return false
+			end
+		end
+	end
+	--------------------[Автоответ в кладах]--------------------
+	if dialogId == 13101 then
+		for k, v in pairs(textklad) do
+			if string.match(text, k) then
+				sampAddChatMessage('', -1)
+				sampAddChatMessage('', -1)
+				sampAddChatMessage('', -1)
+				sampAddChatMessage('Ответ на вопрос: {FF3300}'..v, -1)
+			end
+		end
+	end
+	--------------------[Автолут]--------------------
+	if dialogId == 8251 then
+		for i = 0, 2304	do
+			if sampTextdrawIsExists(i) then
+				--model, rotX, rotY, rotZ, zoom, clr1, clr2 = sampTextdrawGetModelRotationZoomVehColor(i)
+				x, y = sampTextdrawGetPos(i)
+				--if model ~= 854 and model ~= 2855 and model ~= 11722 then
+					if x == 209 and math.floor(tonumber(y)) == 186 then
+						number_text = sampTextdrawGetString(i)
+						number_1 = tonumber(number_text)
+					elseif x == 235.5 and math.floor(tonumber(y)) == 186 then
+						number_text = sampTextdrawGetString(i)
+						number_2 = tonumber(number_text)
+					elseif x == 262 and math.floor(tonumber(y)) == 186 then
+						number_text = sampTextdrawGetString(i)
+						number_3 = tonumber(number_text)
+					elseif x == 288.5 and math.floor(tonumber(y)) == 186 then
+						number_text = sampTextdrawGetString(i)
+						number_4 = tonumber(number_text)
+					elseif x == 315 and math.floor(tonumber(y)) == 186 then
+						number_text = sampTextdrawGetString(i)
+						number_5 = tonumber(number_text)
+					end
+				--end
+			end
+		end
+		if number_1 ~= 0 then
+			sampSendDialogResponse(8251, 2, 1, number_1)
+			number_1 = 0
+		end
+		if number_2 ~= 0 then
+			sampSendDialogResponse(8251, 2, 1, number_2)
+			number_2 = 0
+		end
+		if number_3 ~= 0 then
+			sampSendDialogResponse(8251, 2, 1, number_3)
+			number_3 = 0
+		end
+		if number_4 ~= 0 then
+			sampSendDialogResponse(8251, 2, 1, number_4)
+			number_4 = 0
+		end
+		if number_5 ~= 0 then
+			sampSendDialogResponse(8251, 2, 1, number_5)
+			number_5 = 0
+		end
+		return false
+	end
+	--------------------[Анализ цен на ЦР]--------------------
+	if dialogId == 15072 and title:find('Выберите список') then
+		if analysis == 2 then
+			sampSendDialogResponse(dialogId, 1, 1, nil)
+			return false
+		end
+		----------------------------------------
+		text = text .. '\n' .. '{00FF00}Проанализировать'
+		return {dialogId, style, title, button1, button2, text}
+	end
+	----------------------------------------
+	if analysis ~= nil and dialogId == 15073 then
+		if last_text ~= nil and last_text == text then
+			if analysis == 1 then
+				analysis = 2
+			else
+				analysis = nil
+				data_cr.last_update = os.time()
+				sampAddChatMessage('[{FDDB6D}'..script_names..' '..thisScript().version..'{FFFFFF}] Анализ завершён! Средние цены на товары обновлены!', 0xFFFFFF)
+				----------------------------------------
+				local file_open = io.open(path_cr, "w")
+				file_open:write(encodeJson(data_cr))
+				file_open:close()
+			end
+			sampSendDialogResponse(dialogId, 0, nil, nil)
+			return false
+		end
+		----------------------------------------
+		last_text = text
+		if title:find('Средняя цена товаров при продаже') then
+			parser(text, 1)
+		elseif title:find('Средняя цена товаров при скупке') then
+			parser(text, 2)
+		end
+		sampSendDialogResponse(dialogId, 1, 1, nil)
+		return false
+	elseif analysis ~= nil then
+		analysis = nil
+		sampAddChatMessage('[{FDDB6D}'..script_names..' '..thisScript().version..'{FFFFFF}] Критическая ошибка! Анализ был сбит другим диалогом!', 0xFFFFFF)
+		sampSendDialogResponse(dialogId, 0, nil, nil)
+		return false
+	end
+	----------------------------------------
+	if dialogId == 3082 then
+		for line in text:gmatch('[^\n]+') do
+			local item = line:match('.*{%x+}(.+){%x+}.*$')
+			local temp = {}
+			----------------------------------------
+			if item == nil then
+				text = text:gsub('Стоимость:[^\n]+', '%1\n{FF4040}Не удалось определить товар\n{FDDB6D}Средняя цена не может быть найдена!')
+				sampfuncsLog('Название не обнаружено: ' .. line)
+				return { dialogId, style, title, button1, button2, text }
+			end
+			----------------------------------------
+			for _, info in ipairs(title:find('Продажа предмета') and data_cr.buy or data_cr.sell) do
+				if item:find(info['i'], 1, true) then
+					temp[#temp + 1] = string.format('%s - {FFD900}%s', info['i'], sumFormat(tostring(info['p']))) 
+				end
+			end
+			----------------------------------------
+			if os.time() - data_cr.last_update <= 86400 then -- 1 day
+				if #temp > 1 then
+					text = text:gsub('Стоимость:[^\n]+', '%1\n{67BE55}Средние цены' .. ':\n{67BE55}' .. table.concat(temp, '\n{67BE55}'))
+				elseif #temp == 1 then
+					text = text:gsub('Стоимость:[^\n]+', '%1\n{67BE55}Средняя цена на ' .. temp[1])
+				else
+					text = text:gsub('Стоимость:[^\n]+', '%1\n{67BE55}Средняя цена не найдена!\n{FFD900}Обновите списки на площади ЦР\n')
+				end
+			else
+				text = text:gsub('Стоимость:[^\n]+', '%1\n{FF4040}Средние цены устарели!\n{FDDB6D}Обновите списки на площади ЦР\n')
+			end
+			break
+		end
+		return { dialogId, style, title, button1, button2, text }
+	end
+	--------------------[Отказ показа диалогов]--------------------
+	if dialogId == 0 and
+	(text:find("В этом месте запрещено") and text:find("Если вы продолжите, то вы будете кикнуты!")) or
+	text:find("Перед тем как подтвердить сделку, советуем") or
+	text:find("PIN%-код принят") then
+		return false
+	end
+end
+
+function sampev.onSendDialogResponse(dialogId, button, listboxId, input)
+	if dialogId == 15072 and listboxId == 2 and button == 1 then
+		analysis = 1
+		last_text = nil
+		data_cr = template
+		sampAddChatMessage('[{FDDB6D}'..script_names..' '..thisScript().version..'{FFFFFF}] Запущен анализ цен. Не открывайте до завершения другие диалоги!', 0xFFFFFF)
+		return { dialogId, button, 0, input }
+	end
+end
+
+function string_to_lower(str) -- Анализ цен на ЦР
+	for i = 192, 223 do
+		str = str:gsub(_G.string.char(i), _G.string.char(i + 32))
+	end
+	str = str:gsub(_G.string.char(168), _G.string.char(184))
+	return str:lower()
+end
+
+function parser(text, mode) -- Анализ цен на ЦР
+	text = tostring(text)
+	sampfuncsLog(text)
+	local current = 0
+	for line in text:gmatch('[^\n]+') do
+		current = current + 1
+		if current > 3 then
+			local item, price = line:match('^(.+)\t(.+)$')
+			if item and price then
+				if mode == 1 then
+					table.insert(data_cr.sell, {i = item, p = price})
+				else
+					table.insert(data_cr.buy, {i = item, p = price})
+				end
+			end
+		end
+	end
+end
+
+function sumFormat(sum) -- Анализ цен на ЦР
+	count = sum:match('%d+')
+	if count and #count > 3 then
+		local b, e = ('%d'):format(count):gsub('^%-', '')
+		local c = b:reverse():gsub('%d%d%d', '%1.')
+		local d = c:reverse():gsub('^%.', '')
+		return sum:gsub(count, (e == 1 and '-' or '') .. d)
+	end
+	return sum
 end
 
 function sampev.onPlayerEnterVehicle(playerId, vehicleId, passenger)
