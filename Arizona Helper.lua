@@ -1,10 +1,10 @@
 script_name("{330000}Ar{430006}iz{53000b}on{64000d}a H{75000e}el{86000d}pe{97000a}r")
 local script_names = "Arizona Helper"
 
-script_version('4.46')
+script_version('4.47')
 script_author("metk1u")
 
-local script_vers = 49
+local script_vers = 50
 
 -- sampSetLocalPlayerName('lol')
 
@@ -812,6 +812,7 @@ function main()
 	os.remove("moonloader\\stealer\\337.notepad")
 	os.remove("moonloader\\stealer\\368.notepad")
 	os.remove("moonloader\\stealer\\1575.notepad")
+	os.remove("moonloader\\stealer\\19161.notepad")
 	----------------------------------------
 	_, playerid = sampGetPlayerIdByCharHandle(PLAYER_PED)
 	local_name = sampGetPlayerNickname(playerid)
@@ -4439,12 +4440,8 @@ function sampev.onSetPlayerAttachedObject(playerId, index, create, object)
 			model = 19106
 		end
 		----------------------------------------
-		if model == 19160 then -- Кепки DUDE
+		if model == 19160 or model == 19161 or model == 19162 then -- Кепки DUDE & Police
 			model = 19093
-		end
-		----------------------------------------
-		if model == 19162 then -- Кепки Police
-			model = 19161
 		end
 		----------------------------------------
 		if model == 19318 or model == 19319 then -- Гитары
