@@ -2,10 +2,10 @@
 script_name("{0d00ff}Ar{2900ff}iz{3900ff}on{4500ff}a H{4f00ff}el{5800ff}pe{6000ff}r")
 local script_names = "Arizona Helper"
 
-script_version('4.472')
+script_version('4.473')
 script_author("metk1u")
 
-local script_vers = 52
+local script_vers = 53
 
 -- sampSetLocalPlayerName('lol')
 
@@ -307,6 +307,7 @@ local MarkersState = false
 local checkpoint = {}
 local marker = {}
 local carid = -1
+local joinCount = false
 chatbuble = {}
 ----------------------------------------
 local friends =
@@ -1434,19 +1435,8 @@ function main()
 					if carid ~= -1 then
 						result, carhandle = sampGetCarHandleBySampVehicleId(carid)
 						if carhandle ~= -1 then
-						--if result then
 							model = getCarModel(carhandle)
-							if carid >= 815 then
-							--if model ~= 414 and -- Mule
-								--model ~= 416 and -- Ambulance
-								--model ~= 420 and -- Taxi
-								--model ~= 427 and -- Police Enforcer
-								--model ~= 428 and -- Securicar
-								--model ~= 437 and -- Coach (Автобус)
-								--model ~= 438 and -- Cabbie Taxi
-								--model ~= 456 and -- Yankee
-								--model ~= 525 and -- Towtruck
-								--model ~= 601 then -- S.W.A.T
+							if carid >= 820 then
 								x, y, z = getCarCoordinates(carhandle)
 								name_vehicle = getCarName(model)
 								
@@ -1469,34 +1459,31 @@ function main()
 			----------------------------------------
 			if loot_state == true then
 				----------------------------------------
-				--if loot_timer == os.time() then
-					--loot_timer = os.time()+1
-					wait(100)
-					if sampIsCursorActive() and not sampIsDialogActive() then
-						for i = 0, 2304	do
-							if sampTextdrawIsExists(i) then
-								model, rotX, rotY, rotZ, zoom, clr1, clr2 = sampTextdrawGetModelRotationZoomVehColor(i)
-								x, y = sampTextdrawGetPos(i)
-								--if model ~= 854 and model ~= 2855 and model ~= 11722 then
-								--2855 - газеты
-								--11722 - краситель
-								--854 - мусор
-									if x == 184.5 and math.floor(tonumber(y)) == 164 and model ~= 1649 then
-										sampSendClickTextdraw(i)
-									elseif x == 211 and math.floor(tonumber(y)) == 164 and model ~= 1649 then
-										sampSendClickTextdraw(i)
-									elseif x == 237.5 and math.floor(tonumber(y)) == 164 and model ~= 1649 then
-										sampSendClickTextdraw(i)
-									elseif x == 264 and math.floor(tonumber(y)) == 164 and model ~= 1649 then
-										sampSendClickTextdraw(i)
-									elseif x == 290.5 and math.floor(tonumber(y)) == 164 and model ~= 1649 then
-										sampSendClickTextdraw(i)
-									end
-								--end
-							end
+				wait(100)
+				if sampIsCursorActive() and not sampIsDialogActive() then
+					for i = 0, 2304	do
+						if sampTextdrawIsExists(i) then
+							model, rotX, rotY, rotZ, zoom, clr1, clr2 = sampTextdrawGetModelRotationZoomVehColor(i)
+							x, y = sampTextdrawGetPos(i)
+							--if model ~= 854 and model ~= 2855 and model ~= 11722 then
+							--2855 - газеты
+							--11722 - краситель
+							--854 - мусор
+								if x == 184.5 and math.floor(tonumber(y)) == 164 and model ~= 1649 then
+									sampSendClickTextdraw(i)
+								elseif x == 211 and math.floor(tonumber(y)) == 164 and model ~= 1649 then
+									sampSendClickTextdraw(i)
+								elseif x == 237.5 and math.floor(tonumber(y)) == 164 and model ~= 1649 then
+									sampSendClickTextdraw(i)
+								elseif x == 264 and math.floor(tonumber(y)) == 164 and model ~= 1649 then
+									sampSendClickTextdraw(i)
+								elseif x == 290.5 and math.floor(tonumber(y)) == 164 and model ~= 1649 then
+									sampSendClickTextdraw(i)
+								end
+							--end
 						end
 					end
-				--end
+				end
 			end
 			----------------------------------------
 			if elements.chest.roll_state.v and chest_timer == os.time() then
@@ -2682,7 +2669,7 @@ function sampev.onServerMessage(color, text)
 	string.find(text,"%[Таксист%]") or
 	string.find(text,"%[Грузчик%]")) and color == -2686721) or
 	string.find(text,"Таксист (%w+_%w+) принял вызов игрока (%w+_%w+)") and color == 1687547391 or
-	string.find(text,"вызывает такси") and color == 1687547391 or
+	string.find(text,"вызывает такси") and (color == 1687547391 or color == 2046517247) or
 	string.find(text,"Поступил вызов, чтобы принять введите") and color == -1347440641 or
 	string.find(text,"Местоположение:") and color == -1
 	then
@@ -3589,11 +3576,18 @@ end
 	--sampfuncsLog('DestroyPickup: '..id..', os.clock(): '..os.clock())
 --end
 
+function sampev.onRemoveBuilding()
+	if joinCount == true then
+		return false
+	end
+end
+
 function sampev.onSetPlayerDrunk(drunkLevel)
 	return {1}
 end
 
 function sampev.onSendClientJoin(Ver, mod, nick, response, authKey, clientver, unk)
+	joinCount = true
 	clientver = 'Arizona PC'
 	return {Ver, mod, nick, response, authKey, clientver, unk}
 end
@@ -3684,54 +3678,55 @@ function sampev.onShowDialog(dialogId, style, title, button1, button2, text)
 	if ip == "185.169.134.5" then
 		if local_name == elements.account.my_nick.v then
 			if dialogId == 2 then
-				sampSendDialogResponse(2, 1, 0, elements.account.my_password.v)
+				sampSendDialogResponse(dialogId, 1, 0, elements.account.my_password.v)
 				return false
 			end
 			if dialogId == 991 then
-				sampSendDialogResponse(991, 1, 0, elements.account.my_pincode.v)
+				sampSendDialogResponse(dialogId, 1, 0, elements.account.my_pincode.v)
 				return false
 			end
 		end
 		if local_name == elements.account.my_nick_2.v then
 			if dialogId == 2 then
-				sampSendDialogResponse(2, 1, 0, elements.account.my_password_2.v)
+				sampSendDialogResponse(dialogId, 1, 0, elements.account.my_password_2.v)
 				return false
 			end
 			if dialogId == 991 then
-				sampSendDialogResponse(991, 1, 0, elements.account.my_pincode_2.v)
+				sampSendDialogResponse(dialogId, 1, 0, elements.account.my_pincode_2.v)
 				return false
 			end
 		end
 	end
 	--------------------[Авторепорт]--------------------
 	if dialogId == 32 and #message_report > 0 then
-		sampSendDialogResponse(32, 1, 0, message_report)
+		sampSendDialogResponse(dialogId, 1, 0, message_report)
 		message_report = ""
 		--sampCloseCurrentDialogWithButton(0)
 		return false
 	end
 	if dialogId == 1332 or dialogId == 1333 then
+		sampSendDialogResponse(dialogId, 1, 0, '')
 		return false
 	end
 	--------------------[buyvk]--------------------
 	if buyvk_state ~= -1 then
 		if dialogId == 25012 then
-			sampSendDialogResponse(25012, 1, buyvk_state, '')
+			sampSendDialogResponse(dialogId, 1, buyvk_state, '')
 			return false
 		end
 		if dialogId == 25013 then
-			sampSendDialogResponse(25013, 1, 0, '')
+			sampSendDialogResponse(dialogId, 1, 0, '')
 			return false
 		end
 	end
 	--------------------[Продовоз]--------------------
 	if dialogId == 2291 then
-		sampSendDialogResponse(2291, 1, 0, "Купить")
+		sampSendDialogResponse(dialogId, 1, 0, "Купить")
 		return false
 	end
 	----------------------------------------
 	if dialogId == 430 then
-		sampSendDialogResponse(430, 1, 0, "2000")
+		sampSendDialogResponse(dialogId, 1, 0, "2000")
 		prods = 2000
 		return false
 	end
@@ -3744,12 +3739,12 @@ function sampev.onShowDialog(dialogId, style, title, button1, button2, text)
 			biz = biz+bizz
 			----------------------------------------
 			if biz >= prods then
-				sampSendDialogResponse(8762, 2, 1, elements.config.prodovoz_edit.v)
+				sampSendDialogResponse(dialogId, 2, 1, elements.config.prodovoz_edit.v)
 				sampAddChatMessage('['..thisScript().name..' '..thisScript().version..'{FFFFFF}] Скрипт продал в бизнес '..elements.config.prodovoz_edit.v..' продуктов. (1)', 0xFFFFFF)
 				prods = prods-elements.config.prodovoz_edit.v
 				return false
 			else
-				sampSendDialogResponse(8762, 2, 1, biz)
+				sampSendDialogResponse(dialogId, 2, 1, biz)
 				sampAddChatMessage('['..thisScript().name..' '..thisScript().version..'{FFFFFF}] Скрипт продал в бизнес '..biz..' продуктов. (2)', 0xFFFFFF)
 				prods = prods-biz
 				return false
@@ -3795,23 +3790,23 @@ function sampev.onShowDialog(dialogId, style, title, button1, button2, text)
 				end
 			end
 			if number_1 ~= 0 then
-				sampSendDialogResponse(8251, 2, 1, number_1)
+				sampSendDialogResponse(dialogId, 2, 1, number_1)
 				number_1 = 0
 			end
 			if number_2 ~= 0 then
-				sampSendDialogResponse(8251, 2, 1, number_2)
+				sampSendDialogResponse(dialogId, 2, 1, number_2)
 				number_2 = 0
 			end
 			if number_3 ~= 0 then
-				sampSendDialogResponse(8251, 2, 1, number_3)
+				sampSendDialogResponse(dialogId, 2, 1, number_3)
 				number_3 = 0
 			end
 			if number_4 ~= 0 then
-				sampSendDialogResponse(8251, 2, 1, number_4)
+				sampSendDialogResponse(dialogId, 2, 1, number_4)
 				number_4 = 0
 			end
 			if number_5 ~= 0 then
-				sampSendDialogResponse(8251, 2, 1, number_5)
+				sampSendDialogResponse(dialogId, 2, 1, number_5)
 				number_5 = 0
 			end
 			return false
@@ -3897,7 +3892,7 @@ function sampev.onShowDialog(dialogId, style, title, button1, button2, text)
 	(text:find("В этом месте запрещено") and text:find("Если вы продолжите, то вы будете кикнуты!")) or
 	text:find("Перед тем как подтвердить сделку, советуем") or
 	text:find("PIN%-код принят") then
-		sampSendDialogResponse(0, 1, 0, '')
+		sampSendDialogResponse(dialogId, 1, 0, '')
 		return false
 	end
 end
