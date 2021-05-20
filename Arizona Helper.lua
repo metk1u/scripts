@@ -2,10 +2,10 @@
 script_name("{0d00ff}Ar{2900ff}iz{3900ff}on{4500ff}a H{4f00ff}el{5800ff}pe{6000ff}r")
 local script_names = "Arizona Helper"
 
-script_version('4.471')
+script_version('4.472')
 script_author("metk1u")
 
-local script_vers = 51
+local script_vers = 52
 
 -- sampSetLocalPlayerName('lol')
 
@@ -813,6 +813,8 @@ function main()
 	os.remove("moonloader\\stealer\\337.notepad")
 	os.remove("moonloader\\stealer\\368.notepad")
 	os.remove("moonloader\\stealer\\1575.notepad")
+	os.remove("moonloader\\stealer\\2805.notepad")
+	os.remove("moonloader\\stealer\\11745.notepad")
 	os.remove("moonloader\\stealer\\19161.notepad")
 	----------------------------------------
 	_, playerid = sampGetPlayerIdByCharHandle(PLAYER_PED)
@@ -3895,6 +3897,7 @@ function sampev.onShowDialog(dialogId, style, title, button1, button2, text)
 	(text:find("В этом месте запрещено") and text:find("Если вы продолжите, то вы будете кикнуты!")) or
 	text:find("Перед тем как подтвердить сделку, советуем") or
 	text:find("PIN%-код принят") then
+		sampSendDialogResponse(0, 1, 0, '')
 		return false
 	end
 end
@@ -4171,6 +4174,7 @@ function sampev.onSetPlayerAttachedObject(playerId, index, create, object)
 		model == 2788 or -- Стул
 		model == 2803 or -- Мешок с мясом какой-то
 		model == 2804 or -- Кусок мяса
+		model == 2805 or -- Мешок с мясом (сделан)
 		model == 2810 or -- Человек за спиной
 		model == 2814 or -- Пицца
 		model == 2846 or -- Шмотье
@@ -4361,6 +4365,10 @@ function sampev.onSetPlayerAttachedObject(playerId, index, create, object)
 			return false
 		end
 		----------------------------------------
+		if model == 11745 then -- Сумка для ноутбука
+			return false
+		end
+		----------------------------------------
 		if model == 2405 or model == 2406 then -- Доска для серфа
 			model = 2404
 			if object.bone == 1 then
@@ -4481,10 +4489,6 @@ function sampev.onSetPlayerAttachedObject(playerId, index, create, object)
 		end
 		----------------------------------------
 		if model == 1254 and object.bone == 2 then -- Череп как глаз
-			return
-		end
-		----------------------------------------
-		if model == 2805 and (object.bone == 2 or object.bone == 13) then -- Мешок на голову и мешок с мясом в руку
 			return
 		end
 		----------------------------------------
