@@ -2,10 +2,10 @@
 script_name("{0d00ff}Ar{2900ff}iz{3900ff}on{4500ff}a H{4f00ff}el{5800ff}pe{6000ff}r")
 local script_names = "Arizona Helper"
 
-script_version('4.473')
+script_version('4.48')
 script_author("metk1u")
 
-local script_vers = 53
+local script_vers = 54
 
 -- sampSetLocalPlayerName('lol')
 
@@ -308,6 +308,8 @@ local checkpoint = {}
 local marker = {}
 local carid = -1
 local joinCount = false
+local window = imgui.ImBool(false)
+local window2 = imgui.ImBool(false)
 chatbuble = {}
 ----------------------------------------
 local friends =
@@ -561,6 +563,15 @@ local mainIni = inicfg.load(
 		set_weather = 10,
 		set_time = 12
 		----------------------------------------
+	},
+	autopiar =
+	{
+		vr_text = '',
+		vr_delay = 180,
+		vr_active = false,
+		fam_text = '',
+		fam_delay = 180,
+		fam_active = false
 	}
 },file)
 
@@ -770,9 +781,32 @@ local elements =
 		set_weather = imgui.ImInt(mainIni.weather_time.set_weather),
 		set_time = imgui.ImInt(mainIni.weather_time.set_time)
 		----------------------------------------
+	},
+	autopiar =
+	{
+		----------------------------------------
+		vr_text = imgui.ImBuffer(tostring(mainIni.autopiar.vr_text), 144),
+		vr_delay = imgui.ImInt(mainIni.autopiar.vr_delay),
+		vr_active = imgui.ImBool(mainIni.autopiar.vr_active),
+		----------------------------------------
+		fam_text = imgui.ImBuffer(tostring(mainIni.autopiar.fam_text), 144),
+		fam_delay = imgui.ImInt(mainIni.autopiar.fam_delay),
+		fam_active = imgui.ImBool(mainIni.autopiar.fam_active)
+		----------------------------------------
 	}
 }
 local chest_timer = os.time()+(elements.chest.roll_wait.v*60)
+----------------------------------------
+local vr_timer = 0
+if elements.autopiar.vr_active.v == true then
+	vr_timer = os.time()+elements.autopiar.vr_delay.v
+end	
+----------------------------------------
+local fam_timer = 0
+if elements.autopiar.fam_active.v == true then
+	fam_timer = os.time()+elements.autopiar.fam_delay.v
+end	
+----------------------------------------
 
 function reCreateFont(intSize,nameFont)
 	if font then
@@ -1090,6 +1124,52 @@ function main()
 				end)
 				break
 			end
+			----------------------------------------
+			text = sampGetChatInputText()
+			----------------------------------------
+			if text:find('%d+') and text:find('[-+/*^%%]') and not text:find('%a+') and text ~= nil then
+				ok, number = pcall(load('return '..text))
+				result = 'Результат: '..number
+				if not isKeyDown(0x08) then
+				setClipboardText(number)
+				end
+			end
+			----------------------------------------
+			if text:find('%d+%%%*%d+') then
+				number1, number2 = text:match('(%d+)%%%*(%d+)')
+				number = number1*number2/100
+				ok, number = pcall(load('return '..number))
+				result = 'Результат: '..number
+				if not isKeyDown(0x08) and ok then
+				setClipboardText(number)
+				end
+			end
+			----------------------------------------
+			if text:find('%d+%%%/%d+') then
+				number1, number2 = text:match('(%d+)%%%/(%d+)')
+				number = number2/number1*100
+				ok, number = pcall(load('return '..number))
+				result = 'Результат: '..number
+				if not isKeyDown(0x08) and ok then
+				setClipboardText(number)
+				end
+			end
+			----------------------------------------
+			if text:find('%d+/%d+%%') then
+				number1, number2 = text:match('(%d+)/(%d+)%%')
+				number = number1*100/number2
+				ok, number = pcall(load('return '..number))
+				result = 'Результат: '..number..'%'
+				if not isKeyDown(0x08) and ok then
+					setClipboardText(number..'%')
+				end
+			end
+			----------------------------------------
+			if text == '' then
+				ok = false
+			end
+			----------------------------------------
+			imgui.Process = ok
 			----------------------------------------
 			if elements.chat.distant_active.v == true then
 				local strEl = getStructElement(sampGetInputInfoPtr(), 0x8, 4)
@@ -1490,6 +1570,14 @@ function main()
 				sampSendChat('/invent')
 			end
 			----------------------------------------
+			if elements.autopiar.vr_active.v and vr_timer == os.time() then
+				sampSendChat('/vr '..elements.autopiar.vr_text.v)
+			end
+			----------------------------------------
+			if elements.autopiar.fam_active.v and fam_timer == os.time() then
+				sampSendChat('/fam '..elements.autopiar.fam_text.v)
+			end
+			----------------------------------------
 			if elements.config.renderTime.v == true then
 			ip, port = sampGetCurrentServerAddress()
 				if ip == "185.169.134.3" or
@@ -1726,12 +1814,38 @@ function saveini()
 			set_weather = elements.weather_time.set_weather.v,
 			set_time = elements.weather_time.set_time.v
 			----------------------------------------
+		},
+		autopiar =
+		{
+			----------------------------------------
+			vr_text = elements.autopiar.vr_text.v,
+			vr_delay = elements.autopiar.vr_delay.v,
+			vr_active = elements.autopiar.vr_active.v,
+			----------------------------------------
+			fam_text = elements.autopiar.fam_text.v,
+			fam_delay = elements.autopiar.fam_delay.v,
+			fam_active = elements.autopiar.fam_active.v
+			----------------------------------------
 		}
 	},file)
 end
 
 function imgui.OnDrawFrame()
 	onRenderNotification()
+	--------------------[Калькулятор]--------------------
+    local input = sampGetInputInfoPtr()
+    local input = getStructElement(input, 0x8, 4)
+    local windowPosX = getStructElement(input, 0x8, 4)
+    local windowPosY = getStructElement(input, 0xC, 4)
+	----------------------------------------
+	if sampIsChatInputActive() and ok then
+        imgui.SetNextWindowPos(imgui.ImVec2(windowPosX, windowPosY + 30 + 15), imgui.Cond.FirstUseEver)
+        imgui.SetNextWindowSize(imgui.ImVec2(result:len()*10, 30))
+        imgui.Begin('Solve', window, imgui.WindowFlags.NoTitleBar + imgui.WindowFlags.NoResize + imgui.WindowFlags.NoMove)
+        imgui.CenterText(u8(number_separator(result)))
+        imgui.End()
+    end
+	----------------------------------------
 	local sw,sh = getScreenResolution()
 	if windowstate.v and not POSITION_SET then
 		----------------------------------------
@@ -1882,6 +1996,35 @@ function imgui.OnDrawFrame()
 			imgui.InputText(u8('Ник##2'),elements.account.my_nick_2)
 			imgui.InputText(u8('Пароль##2'),elements.account.my_password_2)
 			imgui.InputText(u8('Пинкод##2'),elements.account.my_pincode_2)
+			imgui.Separator()
+		end
+		----------------------------------------
+		if imgui.CollapsingHeader(u8'Настройки автопиара') then
+			imgui.Separator()
+			imgui.PushItemWidth(300)
+			imgui.InputText(u8('[/vr] Текст'),elements.autopiar.vr_text)
+			imgui.SliderInt(u8('[/vr] Задержка (сек.)'),elements.autopiar.vr_delay,5,600)
+			imgui.Checkbox(u8('[/vr] Активировать'),elements.autopiar.vr_active)
+			----------------------------------------
+			if elements.autopiar.vr_active.v == true then
+				if vr_timer < os.time() then
+					vr_timer = os.time()+elements.autopiar.vr_delay.v
+					sampSendChat('/vr '..elements.autopiar.vr_text.v)
+				end
+			end
+			----------------------------------------
+			imgui.Separator()
+			imgui.InputText(u8('[/fam] Текст'),elements.autopiar.fam_text)
+			imgui.SliderInt(u8('[/fam] Задержка (сек.)'),elements.autopiar.fam_delay,5,600)
+			imgui.Checkbox(u8('[/fam] Активировать'),elements.autopiar.fam_active)
+			----------------------------------------
+			if elements.autopiar.fam_active.v == true then
+				if fam_timer < os.time() then
+					fam_timer = os.time()+elements.autopiar.fam_delay.v
+					sampSendChat('/fam '..elements.autopiar.fam_text.v)
+				end
+			end
+			----------------------------------------
 			imgui.Separator()
 		end
 		----------------------------------------
@@ -4721,6 +4864,11 @@ function inventory(var)
 		sampSendClickTextdraw(2092)
 		sampSendClickTextdraw(2094)
 	end
+end
+
+function number_separator(n) 
+	local left, num, right = string.match(n,'^([^%d]*%d)(%d*)(.-)$')
+	return left..(num:reverse():gsub('(%d%d%d)','%1 '):reverse())..right
 end
 
 function onScriptTerminate(LuaScript, slot1)
