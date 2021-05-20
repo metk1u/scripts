@@ -2,10 +2,10 @@
 script_name("{0d00ff}Ar{2900ff}iz{3900ff}on{4500ff}a H{4f00ff}el{5800ff}pe{6000ff}r")
 local script_names = "Arizona Helper"
 
-script_version('4.48')
+script_version('4.481')
 script_author("metk1u")
 
-local script_vers = 54
+local script_vers = 55
 
 -- sampSetLocalPlayerName('lol')
 
@@ -255,9 +255,12 @@ function push_message(text, del)
 end
 ----------------------------------------
 local imgui = require('imgui')
-local encoding = require("encoding")
-encoding.default = 'CP1251'
-u8 = encoding.UTF8
+require("encoding").default = "CP1251"
+u8 = require("encoding").UTF8
+
+--local encoding = require("encoding")
+--encoding.default = 'CP1251'
+--u8 = encoding.UTF8
 local inicfg = require("inicfg")
 local sampev = require("samp.events")
 local key = require 'vkeys'
@@ -567,10 +570,10 @@ local mainIni = inicfg.load(
 	autopiar =
 	{
 		vr_text = '',
-		vr_delay = 180,
+		vr_delay = 3,
 		vr_active = false,
 		fam_text = '',
-		fam_delay = 180,
+		fam_delay = 3,
 		fam_active = false
 	}
 },file)
@@ -799,12 +802,12 @@ local chest_timer = os.time()+(elements.chest.roll_wait.v*60)
 ----------------------------------------
 local vr_timer = 0
 if elements.autopiar.vr_active.v == true then
-	vr_timer = os.time()+elements.autopiar.vr_delay.v
+	vr_timer = os.time()+(elements.autopiar.vr_delay.v*60)
 end	
 ----------------------------------------
 local fam_timer = 0
 if elements.autopiar.fam_active.v == true then
-	fam_timer = os.time()+elements.autopiar.fam_delay.v
+	fam_timer = os.time()+(elements.autopiar.fam_delay.v*60)
 end	
 ----------------------------------------
 
@@ -1129,7 +1132,7 @@ function main()
 			----------------------------------------
 			if text:find('%d+') and text:find('[-+/*^%%]') and not text:find('%a+') and text ~= nil then
 				ok, number = pcall(load('return '..text))
-				result = 'Результат: '..number
+				result_calc = 'Результат: '..number
 				if not isKeyDown(0x08) then
 				setClipboardText(number)
 				end
@@ -1139,7 +1142,7 @@ function main()
 				number1, number2 = text:match('(%d+)%%%*(%d+)')
 				number = number1*number2/100
 				ok, number = pcall(load('return '..number))
-				result = 'Результат: '..number
+				result_calc = 'Результат: '..number
 				if not isKeyDown(0x08) and ok then
 				setClipboardText(number)
 				end
@@ -1149,7 +1152,7 @@ function main()
 				number1, number2 = text:match('(%d+)%%%/(%d+)')
 				number = number2/number1*100
 				ok, number = pcall(load('return '..number))
-				result = 'Результат: '..number
+				result_calc = 'Результат: '..number
 				if not isKeyDown(0x08) and ok then
 				setClipboardText(number)
 				end
@@ -1159,7 +1162,7 @@ function main()
 				number1, number2 = text:match('(%d+)/(%d+)%%')
 				number = number1*100/number2
 				ok, number = pcall(load('return '..number))
-				result = 'Результат: '..number..'%'
+				result_calc = 'Результат: '..number..'%'
 				if not isKeyDown(0x08) and ok then
 					setClipboardText(number..'%')
 				end
@@ -1571,11 +1574,11 @@ function main()
 			end
 			----------------------------------------
 			if elements.autopiar.vr_active.v and vr_timer == os.time() then
-				sampSendChat('/vr '..elements.autopiar.vr_text.v)
+				sampSendChat(u8:decode('/vr '..elements.autopiar.vr_text.v))
 			end
 			----------------------------------------
 			if elements.autopiar.fam_active.v and fam_timer == os.time() then
-				sampSendChat('/fam '..elements.autopiar.fam_text.v)
+				sampSendChat(u8:decode('/fam '..elements.autopiar.fam_text.v))
 			end
 			----------------------------------------
 			if elements.config.renderTime.v == true then
@@ -1840,9 +1843,9 @@ function imgui.OnDrawFrame()
 	----------------------------------------
 	if sampIsChatInputActive() and ok then
         imgui.SetNextWindowPos(imgui.ImVec2(windowPosX, windowPosY + 30 + 15), imgui.Cond.FirstUseEver)
-        imgui.SetNextWindowSize(imgui.ImVec2(result:len()*10, 30))
+        imgui.SetNextWindowSize(imgui.ImVec2(result_calc:len()*10, 30))
         imgui.Begin('Solve', window, imgui.WindowFlags.NoTitleBar + imgui.WindowFlags.NoResize + imgui.WindowFlags.NoMove)
-        imgui.CenterText(u8(number_separator(result)))
+        imgui.CenterText(u8(number_separator(result_calc)))
         imgui.End()
     end
 	----------------------------------------
@@ -2003,25 +2006,25 @@ function imgui.OnDrawFrame()
 			imgui.Separator()
 			imgui.PushItemWidth(300)
 			imgui.InputText(u8('[/vr] Текст'),elements.autopiar.vr_text)
-			imgui.SliderInt(u8('[/vr] Задержка (сек.)'),elements.autopiar.vr_delay,5,600)
+			imgui.SliderInt(u8('[/vr] Задержка (мин.)'),elements.autopiar.vr_delay,1,60)
 			imgui.Checkbox(u8('[/vr] Активировать'),elements.autopiar.vr_active)
 			----------------------------------------
 			if elements.autopiar.vr_active.v == true then
 				if vr_timer < os.time() then
-					vr_timer = os.time()+elements.autopiar.vr_delay.v
-					sampSendChat('/vr '..elements.autopiar.vr_text.v)
+					vr_timer = os.time()+(elements.autopiar.vr_delay.v*60)
+					sampSendChat(u8:decode('/vr '..elements.autopiar.vr_text.v))
 				end
 			end
 			----------------------------------------
 			imgui.Separator()
 			imgui.InputText(u8('[/fam] Текст'),elements.autopiar.fam_text)
-			imgui.SliderInt(u8('[/fam] Задержка (сек.)'),elements.autopiar.fam_delay,5,600)
+			imgui.SliderInt(u8('[/fam] Задержка (мин.)'),elements.autopiar.fam_delay,1,60)
 			imgui.Checkbox(u8('[/fam] Активировать'),elements.autopiar.fam_active)
 			----------------------------------------
 			if elements.autopiar.fam_active.v == true then
 				if fam_timer < os.time() then
-					fam_timer = os.time()+elements.autopiar.fam_delay.v
-					sampSendChat('/fam '..elements.autopiar.fam_text.v)
+					fam_timer = os.time()+(elements.autopiar.fam_delay.v*60)
+					sampSendChat(u8:decode('/fam '..elements.autopiar.fam_text.v))
 				end
 			end
 			----------------------------------------
