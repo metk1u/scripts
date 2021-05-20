@@ -2,10 +2,10 @@
 script_name("{0d00ff}Ar{2900ff}iz{3900ff}on{4500ff}a H{4f00ff}el{5800ff}pe{6000ff}r")
 local script_names = "Arizona Helper"
 
-script_version('4.481')
+script_version('4.482')
 script_author("metk1u")
 
-local script_vers = 55
+local script_vers = 56
 
 -- sampSetLocalPlayerName('lol')
 
@@ -1575,10 +1575,12 @@ function main()
 			----------------------------------------
 			if elements.autopiar.vr_active.v and vr_timer == os.time() then
 				sampSendChat(u8:decode('/vr '..elements.autopiar.vr_text.v))
+				vr_timer = os.time()+(elements.autopiar.vr_delay.v*60)
 			end
 			----------------------------------------
 			if elements.autopiar.fam_active.v and fam_timer == os.time() then
 				sampSendChat(u8:decode('/fam '..elements.autopiar.fam_text.v))
+				fam_timer = os.time()+(elements.autopiar.fam_timer.v*60)
 			end
 			----------------------------------------
 			if elements.config.renderTime.v == true then
