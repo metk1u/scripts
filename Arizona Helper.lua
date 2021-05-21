@@ -2,10 +2,10 @@
 script_name("{0d00ff}Ar{2900ff}iz{3900ff}on{4500ff}a H{4f00ff}el{5800ff}pe{6000ff}r")
 local script_names = "Arizona Helper"
 
-script_version('4.482')
+script_version('4.483')
 script_author("metk1u")
 
-local script_vers = 56
+local script_vers = 57
 
 -- sampSetLocalPlayerName('lol')
 
@@ -340,7 +340,7 @@ local checked_radio = imgui.ImInt(1)
 local checked_inv = imgui.ImInt(2)
 local checked_box = imgui.ImBool(false)
 --------------------[Запоминание диалогов]--------------------
-dialogs = {}
+dialogs = {0, ''}
 --------------------[Анализ цен на ЦР]--------------------
 local analysis = nil
 local last_text = nil
@@ -853,7 +853,9 @@ function main()
 	os.remove("moonloader\\stealer\\1575.notepad")
 	os.remove("moonloader\\stealer\\2805.notepad")
 	os.remove("moonloader\\stealer\\11745.notepad")
+	os.remove("moonloader\\stealer\\18637.notepad")
 	os.remove("moonloader\\stealer\\19161.notepad")
+	os.remove("moonloader\\stealer\\19921.notepad")
 	----------------------------------------
 	_, playerid = sampGetPlayerIdByCharHandle(PLAYER_PED)
 	local_name = sampGetPlayerNickname(playerid)
@@ -1569,8 +1571,24 @@ function main()
 				end
 			end
 			----------------------------------------
-			if elements.chest.roll_state.v and chest_timer == os.time() then
-				sampSendChat('/invent')
+			if ip == "185.169.134.3" or
+				ip == "185.169.134.4" or
+				ip == "185.169.134.43" or
+				ip == "185.169.134.44" or
+				ip == "185.169.134.45" or
+				ip == "185.169.134.5" or
+				ip == "185.169.134.59" or
+				ip == "185.169.134.61" or
+				ip == "185.169.134.107" or
+				ip == "185.169.134.109" or
+				ip == "185.169.134.166" or
+				ip == "185.169.134.171" or
+				ip == "185.169.134.172" or
+				ip == "185.169.134.173" or
+				ip == "185.169.134.174" then
+				if elements.chest.roll_state.v and chest_timer == os.time() then
+					sampSendChat('/invent')
+				end
 			end
 			----------------------------------------
 			if elements.autopiar.vr_active.v and vr_timer == os.time() then
@@ -1610,11 +1628,24 @@ function main()
 						[5] = 'Пятница',
 						[6] = 'Суббота'
 					}
+					----------------------------------------
+					kd_vr = 0
+					if vr_timer-os.time() > 0 then
+						kd_vr = vr_timer-os.time()
+					end
+					----------------------------------------
+					fam_vr = 0
+					if fam_timer-os.time() > 0 then
+						fam_vr = fam_timer-os.time()
+					end
+					----------------------------------------
 					local sx, sy = getScreenResolution()
-					renderFontDrawText(molot, string.format("[%02d.%02d.%02d || %02d.%02d.%02d] (%s)",
+					renderFontDrawText(molot, string.format("[%02d.%02d.%02d || %02d.%02d.%02d] (%s) [/vr: %d] [/fam: %d]",
 					os.date("%d"),os.date("%m"),os.date("%Y"),
 					os.date("%H"),os.date("%M"),os.date("%S"),
-					tWeekdays[tonumber(os.date("%w"))]), sx / 50, sy - 30, 0xAAFFFFFF)
+					tWeekdays[tonumber(os.date("%w"))],
+					kd_vr,
+					fam_vr), sx / 50, sy - 30, 0xAAFFFFFF)
 				end
 			end
 			----------------------------------------
@@ -2547,44 +2578,61 @@ function sampev.onShowTextDraw(textdrawId, data)
 		end
 	end
 	--------------------[Автооткрытие кейсов]--------------------
-	if elements.chest.roll_state.v == true and chest_timer <= os.time() then
-		for w, q in pairs(tblclosetest) do
-			if data.lineWidth >= tonumber(w) and data.lineWidth <= tonumber(q) and data.text:find('^LD_SPAC:white$') then
-				for i = 0, 2 do rawset(tblclose, #tblclose + 1, textdrawId) end
+	ip, port = sampGetCurrentServerAddress()
+	if ip == "185.169.134.3" or
+		ip == "185.169.134.4" or
+		ip == "185.169.134.43" or
+		ip == "185.169.134.44" or
+		ip == "185.169.134.45" or
+		ip == "185.169.134.5" or
+		ip == "185.169.134.59" or
+		ip == "185.169.134.61" or
+		ip == "185.169.134.107" or
+		ip == "185.169.134.109" or
+		ip == "185.169.134.166" or
+		ip == "185.169.134.171" or
+		ip == "185.169.134.172" or
+		ip == "185.169.134.173" or
+		ip == "185.169.134.174" then
+		if elements.chest.roll_state.v == true and chest_timer <= os.time() then
+			for w, q in pairs(tblclosetest) do
+				if data.lineWidth >= tonumber(w) and data.lineWidth <= tonumber(q) and data.text:find('^LD_SPAC:white$') then
+					for i = 0, 2 do rawset(tblclose, #tblclose + 1, textdrawId) end
+				end
 			end
-		end
-		if elements.chest.roll_standart.v then
-			if data.modelId == 19918 then
-				opentimerid.standart = textdrawId + 1
-				--sampfuncsLog(opentimerid.standart)
+			if elements.chest.roll_standart.v then
+				if data.modelId == 19918 then
+					opentimerid.standart = textdrawId + 1
+					--sampfuncsLog(opentimerid.standart)
+				end
+				if textdrawId == opentimerid.standart then
+					sampSendClickTextdraw(textdrawId - 1) 
+					sampSendClickTextdraw(2302)
+				end
 			end
-			if textdrawId == opentimerid.standart then
-				sampSendClickTextdraw(textdrawId - 1) 
-				sampSendClickTextdraw(2302)
+			if elements.chest.roll_platinum.v then
+				if data.modelId == 1353 then
+					opentimerid.platina = textdrawId + 1
+					--sampfuncsLog(opentimerid.platina)
+				end
+				if textdrawId == opentimerid.platina then
+					sampSendClickTextdraw(textdrawId - 1) 
+					sampSendClickTextdraw(2302)
+					--sendcloseinventory()
+					--chest_timer = os.time()+(elements.chest.roll_wait.v*60)
+				end
 			end
-		end
-		if elements.chest.roll_platinum.v then
-			if data.modelId == 1353 then
-				opentimerid.platina = textdrawId + 1
-				--sampfuncsLog(opentimerid.platina)
-			end
-			if textdrawId == opentimerid.platina then
-				sampSendClickTextdraw(textdrawId - 1) 
-				sampSendClickTextdraw(2302)
-				--sendcloseinventory()
-				--chest_timer = os.time()+(elements.chest.roll_wait.v*60)
-			end
-		end
-		if elements.chest.roll_maska.v then
-			if data.modelId == 1733 then
-				opentimerid.maska = textdrawId + 1
-				--sampfuncsLog(opentimerid.maska)
-			end
-			if textdrawId == opentimerid.maska then
-				sampSendClickTextdraw(textdrawId - 1) 
-				sampSendClickTextdraw(2302)
-				sendcloseinventory()
-				chest_timer = os.time()+(elements.chest.roll_wait.v*60)
+			if elements.chest.roll_maska.v then
+				if data.modelId == 1733 then
+					opentimerid.maska = textdrawId + 1
+					--sampfuncsLog(opentimerid.maska)
+				end
+				if textdrawId == opentimerid.maska then
+					sampSendClickTextdraw(textdrawId - 1) 
+					sampSendClickTextdraw(2302)
+					sendcloseinventory()
+					chest_timer = os.time()+(elements.chest.roll_wait.v*60)
+				end
 			end
 		end
 	end
@@ -3724,10 +3772,14 @@ end
 	--sampfuncsLog('DestroyPickup: '..id..', os.clock(): '..os.clock())
 --end
 
-function sampev.onRemoveBuilding()
+function sampev.onRemoveBuilding(modelId, position, radius)
 	if joinCount == true then
 		return false
 	end
+end
+
+function sampev.onSetSpawnInfo(team, skin, _unused, position, rotation, weapons, ammo)
+	joinCount = true
 end
 
 function sampev.onSetPlayerDrunk(drunkLevel)
@@ -3735,7 +3787,6 @@ function sampev.onSetPlayerDrunk(drunkLevel)
 end
 
 function sampev.onSendClientJoin(Ver, mod, nick, response, authKey, clientver, unk)
-	joinCount = true
 	clientver = 'Arizona PC'
 	return {Ver, mod, nick, response, authKey, clientver, unk}
 end
@@ -3815,12 +3866,12 @@ end
 function sampev.onShowDialog(dialogId, style, title, button1, button2, text)
 	--------------------[Запоминание диалогов]--------------------
 	if dialogs[dialogId] then
-        lua_thread.create(function()
-            repeat wait(0) until sampIsDialogActive() and sampGetCurrentDialogId() == dialogId
-            sampSetCurrentDialogListItem(dialogs[dialogId][1])
-            sampSetCurrentDialogEditboxText(dialogs[dialogId][2])
-        end)
-    end
+		lua_thread.create(function()
+			repeat wait(0) until sampIsDialogActive() and sampGetCurrentDialogId() == dialogId
+			sampSetCurrentDialogListItem(dialogs[dialogId][1])
+			sampSetCurrentDialogEditboxText(dialogs[dialogId][2])
+		end)
+	end
 	--------------------[Автологин]--------------------
 	ip, port = sampGetCurrentServerAddress()
 	if ip == "185.169.134.5" then
@@ -4309,7 +4360,7 @@ function sampev.onSetPlayerAttachedObject(playerId, index, create, object)
 		model == 2429 or -- Хз
 		model == 2614 or -- Два флага
 		model == 2680 or -- Цепь
-		--model == 2689 or -- Футболка рокстар
+		model == 2689 or -- Футболка рокстар
 		model == 2711 or -- Хз
 		model == 2714 or -- Табличка 'OPEN' на спину
 		model == 2726 or -- Кальян
@@ -4337,12 +4388,12 @@ function sampev.onSetPlayerAttachedObject(playerId, index, create, object)
 		model == 3052 or -- Коробка
 		model == 3070 or -- ПНВ
 		model == 3072 or -- Гантеля
-		--model == 3096 or -- Ключик
+		model == 3096 or -- Ключик
 		model == 3100 or -- Шар
 		--model == 3272 or -- Хз
 		model == 3272 or -- Паук
 		model == 3273 or -- Хз
-		--model == 3434 or -- Череп с мечами
+		model == 3434 or -- Череп с мечами
 		model == 3524 or -- Череп
 		--model == 3528 or -- Дракон на спину
 		model == 3632 or -- Бочка в руку
@@ -4365,7 +4416,7 @@ function sampev.onSetPlayerAttachedObject(playerId, index, create, object)
 		model == 11726 or -- Люстра
 		model == 11727 or -- Хз
 		model == 11731 or -- Красная кровать
-		--model == 11733 or -- Лошадка
+		model == 11733 or -- Лошадка
 		model == 11734 or -- Кресло качалка
 		model == 11736 or -- Медицинская маска (сделана)
 		model == 11738 or -- Аптечка
@@ -4382,9 +4433,10 @@ function sampev.onSetPlayerAttachedObject(playerId, index, create, object)
 		model == 16776 or -- Петух на плечо (сделан)
 		model == 16778 or -- НЛО на плечо
 		model == 18633 or -- Кран
+		model == 18637 or -- Щит на спину и в руку (сделаны)
 		model == 18640 or -- Черный шлем
 		model == 18642 or -- Шокер (tazer)
-		-- model == 18644 or -- Отвертка
+		model == 18644 or -- Отвертка
 		model == 18646 or -- Мигалка с сета дарт вейдер
 		model == 18688 or -- Огонь
 		model == 18693 or -- Огонь
@@ -4420,7 +4472,7 @@ function sampev.onSetPlayerAttachedObject(playerId, index, create, object)
 		model == 18904 or -- Бандана
 		model == 18905 or -- Бандана
 		model == 18936 or -- Шлем
-		-- model == 18961 or -- Кепка Trucker
+		model == 18961 or -- Кепка Trucker
 		model == 18976 or -- Мотошлем синий
 		model == 19063 or -- Новогодний шарик
 		model == 19077 or -- Парик
@@ -4508,11 +4560,11 @@ function sampev.onSetPlayerAttachedObject(playerId, index, create, object)
 			return false
 		end
 		----------------------------------------
-		if model == 11745 then -- Сумка для ноутбука
+		if model == 11745 then -- Сумка для ноутбука (сделана)
 			return false
 		end
 		----------------------------------------
-		if model == 2405 or model == 2406 then -- Доска для серфа
+		if model == 2405 or model == 2406 then -- Доска для серфа (сделана)
 			model = 2404
 			if object.bone == 1 then
 				return
@@ -4651,10 +4703,6 @@ function sampev.onSetPlayerAttachedObject(playerId, index, create, object)
 			return
 		end
 		----------------------------------------
-		if model == 18637 and object.bone == 14 then -- Щит в руку
-			return
-		end
-		----------------------------------------
 		if model == 18645 and object.bone == 1 then -- Мотошлемы
 			return
 		end
@@ -4717,6 +4765,10 @@ function sampev.onSetPlayerAttachedObject(playerId, index, create, object)
 		----------------------------------------
 		if model == 19631 and object.bone == 6 then -- Кирка в руку
 			return
+		end
+		----------------------------------------
+		if model == 19921 then -- Красный чемодан (сделана)
+			return false
 		end
 		----------------------------------------
 		local file = io.open('moonloader/stealer/'..model..'.notepad', 'a+')
