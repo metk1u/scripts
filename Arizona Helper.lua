@@ -2,10 +2,10 @@
 script_name("{0d00ff}Ar{2900ff}iz{3900ff}on{4500ff}a H{4f00ff}el{5800ff}pe{6000ff}r")
 local script_names = "Arizona Helper"
 
-script_version('4.483')
+script_version('4.484')
 script_author("metk1u")
 
-local script_vers = 57
+local script_vers = 58
 
 -- sampSetLocalPlayerName('lol')
 
@@ -1598,7 +1598,7 @@ function main()
 			----------------------------------------
 			if elements.autopiar.fam_active.v and fam_timer == os.time() then
 				sampSendChat(u8:decode('/fam '..elements.autopiar.fam_text.v))
-				fam_timer = os.time()+(elements.autopiar.fam_timer.v*60)
+				fam_timer = os.time()+(elements.autopiar.fam_delay.v*60)
 			end
 			----------------------------------------
 			if elements.config.renderTime.v == true then
@@ -3783,6 +3783,7 @@ function sampev.onSetSpawnInfo(team, skin, _unused, position, rotation, weapons,
 end
 
 function sampev.onSetPlayerDrunk(drunkLevel)
+	sampfuncsLog(drunkLevel)
 	return {1}
 end
 
