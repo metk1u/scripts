@@ -2,10 +2,10 @@
 script_name("{0d00ff}Ar{2900ff}iz{3900ff}on{4500ff}a H{4f00ff}el{5800ff}pe{6000ff}r")
 local script_names = "Arizona Helper"
 
-script_version('4.484')
+script_version('4.485')
 script_author("metk1u")
 
-local script_vers = 58
+local script_vers = 59
 
 -- sampSetLocalPlayerName('lol')
 
@@ -310,7 +310,7 @@ local MarkersState = false
 local checkpoint = {}
 local marker = {}
 local carid = -1
-local joinCount = false
+--local joinCount = false
 local window = imgui.ImBool(false)
 local window2 = imgui.ImBool(false)
 chatbuble = {}
@@ -574,7 +574,10 @@ local mainIni = inicfg.load(
 		vr_active = false,
 		fam_text = '',
 		fam_delay = 3,
-		fam_active = false
+		fam_active = false,
+		al_text = '',
+		al_delay = 3,
+		al_active = false
 	}
 },file)
 
@@ -794,7 +797,11 @@ local elements =
 		----------------------------------------
 		fam_text = imgui.ImBuffer(tostring(mainIni.autopiar.fam_text), 144),
 		fam_delay = imgui.ImInt(mainIni.autopiar.fam_delay),
-		fam_active = imgui.ImBool(mainIni.autopiar.fam_active)
+		fam_active = imgui.ImBool(mainIni.autopiar.fam_active),
+		----------------------------------------
+		al_text = imgui.ImBuffer(tostring(mainIni.autopiar.al_text), 144),
+		al_delay = imgui.ImInt(mainIni.autopiar.al_delay),
+		al_active = imgui.ImBool(mainIni.autopiar.al_active)
 		----------------------------------------
 	}
 }
@@ -803,12 +810,17 @@ local chest_timer = os.time()+(elements.chest.roll_wait.v*60)
 local vr_timer = 0
 if elements.autopiar.vr_active.v == true then
 	vr_timer = os.time()+(elements.autopiar.vr_delay.v*60)
-end	
+end
 ----------------------------------------
 local fam_timer = 0
 if elements.autopiar.fam_active.v == true then
 	fam_timer = os.time()+(elements.autopiar.fam_delay.v*60)
-end	
+end
+----------------------------------------
+local al_timer = 0
+if elements.autopiar.al_active.v == true then
+	al_timer = os.time()+(elements.autopiar.al_delay.v*60)
+end
 ----------------------------------------
 
 function reCreateFont(intSize,nameFont)
@@ -852,6 +864,9 @@ function main()
 	os.remove("moonloader\\stealer\\368.notepad")
 	os.remove("moonloader\\stealer\\1575.notepad")
 	os.remove("moonloader\\stealer\\2805.notepad")
+	os.remove("moonloader\\stealer\\3785.notepad")
+	os.remove("moonloader\\stealer\\8492.notepad")
+	os.remove("moonloader\\stealer\\11712.notepad")
 	os.remove("moonloader\\stealer\\11745.notepad")
 	os.remove("moonloader\\stealer\\18637.notepad")
 	os.remove("moonloader\\stealer\\19161.notepad")
@@ -1130,6 +1145,39 @@ function main()
 				break
 			end
 			----------------------------------------
+			-- if getActiveInterior() == 2 then
+				-- local zavod_coord =
+				-- {
+					-- { 2564.28, -1292.99, 1044.13}, 
+					-- { 2558.47, -1291.01, 1044.13}, 
+					-- { 2558.47, -1295.85, 1044.13}, 
+					-- { 2560.05, -1284.69, 1044.13}, 
+					-- { 2560.05, -1282.76, 1044.13}, 
+					-- { 2556.17, -1291.01, 1044.13}, 
+					-- { 2556.17, -1295.85, 1044.13}, 
+					-- { 2553.83, -1291.01, 1044.13}, 
+					-- { 2553.77, -1295.85, 1044.13}, 
+					-- { 2552.04, -1284.82, 1044.13}, 
+					-- { 2552.04, -1282.82, 1044.13}, 
+					-- { 2544.36, -1295.85, 1044.13}, 
+					-- { 2544.29, -1291.01, 1044.13}, 
+					-- { 2544.06, -1284.78, 1044.13}, 
+					-- { 2544.06, -1282.78, 1044.13}, 
+					-- { 2542.06, -1295.85, 1044.13}, 
+					-- { 2542.02, -1291.00, 1044.13}
+				-- }
+				-- local x, y, z = getCharCoordinates(PLAYER_PED)
+				-- for i = 1, #zavod_coord do
+					-- if getDistanceBetweenCoords3d(x, y, z, zavod_coord[i][1], zavod_coord[i][2], zavod_coord[i][3]) < 1 then
+						-- setVirtualKeyDown(18, true)
+						-- wait(20)
+						-- setVirtualKeyDown(18, false)
+						-- setVirtualKeyDown(13, false)
+						-- wait(1000)
+					-- end
+				-- end
+			-- end
+			----------------------------------------
 			text = sampGetChatInputText()
 			----------------------------------------
 			if text:find('%d+') and text:find('[-+/*^%%]') and not text:find('%a+') and text ~= nil then
@@ -1314,11 +1362,11 @@ function main()
 					if result and doesCharExist(ped) then
 						players_count = players_count + 1
 						--if isCharOnScreen(ped) then
-							local mypos = {getCharCoordinates(PLAYER_PED)}
-							local PlayerX2, PlayerY2 = convert3DCoordsToScreen(mypos[1], mypos[2], mypos[3])
+							local mypos_x, mypos_y, mypos_z = getCharCoordinates(PLAYER_PED)
+							local PlayerX2, PlayerY2 = convert3DCoordsToScreen(mypos_x, mypos_y, mypos_z)
 							local enpos = {getCharCoordinates(ped)}
 							local x1, y1 = convert3DCoordsToScreen(enpos[1], enpos[2], enpos[3])
-							local distance = getDistanceBetweenCoords3d(enpos[1], enpos[2], enpos[3], mypos[1], mypos[2], mypos[3])
+							local distance = getDistanceBetweenCoords3d(enpos[1], enpos[2], enpos[3], mypos_x, mypos_y, mypos_z)
 							playername = sampGetPlayerNickname(i)
 							color = sampGetPlayerColor(i)
 							----------------------------------------
@@ -1343,11 +1391,11 @@ function main()
 				if sampIsPlayerConnected(players_state_finds) then
 					local result, ped = sampGetCharHandleBySampPlayerId(players_state_finds) 
 					if result and doesCharExist(ped) then
-						local mypos = {getCharCoordinates(PLAYER_PED)}
-						local PlayerX2, PlayerY2 = convert3DCoordsToScreen(mypos[1], mypos[2], mypos[3])
+						local mypos_x, mypos_y, mypos_z = getCharCoordinates(PLAYER_PED)
+						local PlayerX2, PlayerY2 = convert3DCoordsToScreen(mypos_x, mypos_y, mypos_z)
 						local enpos = {getCharCoordinates(ped)}
 						local x1, y1 = convert3DCoordsToScreen(enpos[1], enpos[2], enpos[3])
-						local distance = getDistanceBetweenCoords3d(enpos[1], enpos[2], enpos[3], mypos[1], mypos[2], mypos[3])
+						local distance = getDistanceBetweenCoords3d(enpos[1], enpos[2], enpos[3], mypos_x, mypos_y, mypos_z)
 						playername = sampGetPlayerNickname(players_state_finds)
 						color = sampGetPlayerColor(players_state_finds)
 						----------------------------------------
@@ -1601,6 +1649,11 @@ function main()
 				fam_timer = os.time()+(elements.autopiar.fam_delay.v*60)
 			end
 			----------------------------------------
+			if elements.autopiar.al_active.v and al_timer == os.time() then
+				sampSendChat(u8:decode('/al '..elements.autopiar.al_text.v))
+				al_timer = os.time()+(elements.autopiar.al_delay.v*60)
+			end
+			----------------------------------------
 			if elements.config.renderTime.v == true then
 			ip, port = sampGetCurrentServerAddress()
 				if ip == "185.169.134.3" or
@@ -1634,18 +1687,24 @@ function main()
 						kd_vr = vr_timer-os.time()
 					end
 					----------------------------------------
-					fam_vr = 0
+					kd_fam = 0
 					if fam_timer-os.time() > 0 then
-						fam_vr = fam_timer-os.time()
+						kd_fam = fam_timer-os.time()
+					end
+					----------------------------------------
+					kd_al = 0
+					if al_timer-os.time() > 0 then
+						kd_al = al_timer-os.time()
 					end
 					----------------------------------------
 					local sx, sy = getScreenResolution()
-					renderFontDrawText(molot, string.format("[%02d.%02d.%02d || %02d.%02d.%02d] (%s) [/vr: %d] [/fam: %d]",
+					renderFontDrawText(molot, string.format("[%02d.%02d.%02d || %02d.%02d.%02d] (%s) [/vr: %d] [/fam: %d] [/al: %d]",
 					os.date("%d"),os.date("%m"),os.date("%Y"),
 					os.date("%H"),os.date("%M"),os.date("%S"),
 					tWeekdays[tonumber(os.date("%w"))],
 					kd_vr,
-					fam_vr), sx / 50, sy - 30, 0xAAFFFFFF)
+					kd_fam,
+					kd_al), sx / 50, sy - 30, 0xAAFFFFFF)
 				end
 			end
 			----------------------------------------
@@ -1860,7 +1919,11 @@ function saveini()
 			----------------------------------------
 			fam_text = elements.autopiar.fam_text.v,
 			fam_delay = elements.autopiar.fam_delay.v,
-			fam_active = elements.autopiar.fam_active.v
+			fam_active = elements.autopiar.fam_active.v,
+			----------------------------------------
+			al_text = elements.autopiar.al_text.v,
+			al_delay = elements.autopiar.al_delay.v,
+			al_active = elements.autopiar.al_active.v
 			----------------------------------------
 		}
 	},file)
@@ -2058,6 +2121,18 @@ function imgui.OnDrawFrame()
 				if fam_timer < os.time() then
 					fam_timer = os.time()+(elements.autopiar.fam_delay.v*60)
 					sampSendChat(u8:decode('/fam '..elements.autopiar.fam_text.v))
+				end
+			end
+			----------------------------------------
+			imgui.Separator()
+			imgui.InputText(u8('[/al] Текст'),elements.autopiar.al_text)
+			imgui.SliderInt(u8('[/al] Задержка (мин.)'),elements.autopiar.al_delay,1,60)
+			imgui.Checkbox(u8('[/al] Активировать'),elements.autopiar.al_active)
+			----------------------------------------
+			if elements.autopiar.al_active.v == true then
+				if al_timer < os.time() then
+					al_timer = os.time()+(elements.autopiar.al_delay.v*60)
+					sampSendChat(u8:decode('/al '..elements.autopiar.al_text.v))
 				end
 			end
 			----------------------------------------
@@ -2518,6 +2593,12 @@ function sampev.onShowTextDraw(textdrawId, data)
 		--	data.text = '+12'
 		--end
 	--end
+	--------------------[Помощь на заводе]--------------------
+	if getActiveInterior() == 2 then
+		if data.modelId == 7891 or data.modelId == 18644 then
+			sampSendClickTextdraw(textdrawId)
+		end
+	end
 	--------------------[Автоточилка]--------------------
 	if data.modelId == 16112 or data.modelId == 1615 then
 		if checktochilki then
@@ -3081,6 +3162,7 @@ function sampev.onPlayerDeathNotification(killerid, killedid, reason)
 end
 
 function sampev.onCreate3DText(id, color, position, distance, testLOS, attachedPlayerId, attachedVehicleId, text)
+	--sampfuncsLog(string.format("%s | x == %0.2f and y == %0.2f and z == %0.2f",text,position.x,position.y,position.z))
 	if elements.config.del_opisanie_3d.v == true and position.x == 0 and position.y == 0 and position.z == -1 and distance == 7 and attachedPlayerId ~= 65535 then
 		return false
 	end
@@ -3772,18 +3854,18 @@ end
 	--sampfuncsLog('DestroyPickup: '..id..', os.clock(): '..os.clock())
 --end
 
-function sampev.onRemoveBuilding(modelId, position, radius)
-	if joinCount == true then
-		return false
-	end
-end
+--function sampev.onRemoveBuilding(modelId, position, radius)
+	--if joinCount == true then
+		--return false
+	--end
+--end
 
-function sampev.onSetSpawnInfo(team, skin, _unused, position, rotation, weapons, ammo)
-	joinCount = true
-end
+--function sampev.onSetSpawnInfo(team, skin, _unused, position, rotation, weapons, ammo)
+	--joinCount = true
+--end
 
 function sampev.onSetPlayerDrunk(drunkLevel)
-	sampfuncsLog(drunkLevel)
+	--sampfuncsLog(drunkLevel)
 	return {1}
 end
 
@@ -4333,9 +4415,9 @@ function sampev.onSetPlayerAttachedObject(playerId, index, create, object)
 		model == 1565 or -- Корона какая-то
 		model == 1575 or -- Белый пакет с наркотиками на спину (сделан)
 		model == 1582 or -- Пицца
-		model == 1603 or -- Медуза
+		--model == 1603 or -- Золотая шапка
 		model == 1607 or -- Дельфин
-		model == 1614 or -- Хз, синий треугольник
+		--model == 1614 or -- Треугольник
 		model == 1622 or -- Камера на плечо
 		model == 1636 or -- Торпеда
 		model == 1681 or -- Самолет шамал
@@ -4399,6 +4481,7 @@ function sampev.onSetPlayerAttachedObject(playerId, index, create, object)
 		--model == 3528 or -- Дракон на спину
 		model == 3632 or -- Бочка в руку
 		model == 3643 or -- Хз
+		model == 3785 or -- Светящийся рюкзак
 		model == 3801 or -- Лампа
 		model == 3932 or -- Хз
 		model == 6865 or -- Голова дьявола
@@ -4407,11 +4490,13 @@ function sampev.onSetPlayerAttachedObject(playerId, index, create, object)
 		model == 7392 or -- Девушка на спину
 		model == 7891 or -- Хз
 		model == 8483 or -- Череп на лицо (сзади пустая текстура)
+		model == 8492 or -- Крылья феи (сделаны)
 		model == 8548 or -- Знак R / R
 		model == 8644 or -- Два кинжала на спину
 		model == 10281 or -- Машина из стены
 		model == 10757 or -- Разбитый самолет на спину
 		model == 11700 or -- Знак радиации
+		model == 11712 or -- Крест на грудь и Распятие (сделаны)
 		model == 11716 or -- Металлический нож
 		model == 11722 or -- Бутылка с кетчупом
 		model == 11726 or -- Люстра
@@ -4694,14 +4779,6 @@ function sampev.onSetPlayerAttachedObject(playerId, index, create, object)
 		----------------------------------------
 		if model == 3528 then -- Дракон
 			return false
-		end
-		----------------------------------------
-		if model == 8492 and (object.offset.x == -0.3199 or object.offset.x == 0.4850) then -- Большие ангельские крылья и крылья сзади головы
-			return
-		end
-		----------------------------------------
-		if model == 11712 and object.offset.x == -0.0780 then -- Распятие
-			return
 		end
 		----------------------------------------
 		if model == 18645 and object.bone == 1 then -- Мотошлемы
