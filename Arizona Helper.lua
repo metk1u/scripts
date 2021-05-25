@@ -2,10 +2,10 @@
 script_name("{0d00ff}Ar{2900ff}iz{3900ff}on{4500ff}a H{4f00ff}el{5800ff}pe{6000ff}r")
 local script_names = "Arizona Helper"
 
-script_version('4.485')
+script_version('4.486')
 script_author("metk1u")
 
-local script_vers = 59
+local script_vers = 60
 
 -- sampSetLocalPlayerName('lol')
 
@@ -257,10 +257,6 @@ end
 local imgui = require('imgui')
 require("encoding").default = "CP1251"
 u8 = require("encoding").UTF8
-
---local encoding = require("encoding")
---encoding.default = 'CP1251'
---u8 = encoding.UTF8
 local inicfg = require("inicfg")
 local sampev = require("samp.events")
 local key = require 'vkeys'
@@ -902,6 +898,10 @@ function main()
 		end
 	end)
 	----------------------------------------
+	--sampRegisterChatCommand('test',function()
+	--	memory.write(0x53C159, 5, 0x90)
+	--end)
+	----------------------------------------
 	sampRegisterChatCommand('ud',function()
 		sampSendChat("/usedrugs 3")
 	end)
@@ -994,7 +994,6 @@ function main()
 	----------------------------------------
 	sampRegisterChatCommand("klad",function()
 		klad_state = not klad_state
-		--push_message((klad_state and "Включаю" or "Выключаю")..' поиск кладов в зоне стрима.')
 		printString('',0)
 	end)
 	----------------------------------------
@@ -1340,6 +1339,7 @@ function main()
 			--------------------[Очистка памяти]--------------------
 			if memory.read(0x8E4CB4, 4, true) > 524288000 then -- 500 МБайт
 				cleanStreamMemoryBuffer()
+				push_message('Произвелась очистка памяти!')
 			end
 			----------------------------------------
 			if mechanic_state == true then
@@ -1560,16 +1560,16 @@ function main()
 					end
 					local sx, sy = getScreenResolution()
 					if klad_count == 0 then
-						renderFontDrawText(arial, 'Кладов в зоне стрима: '..klad_count, sx / 1.22, sy - 30, 0xFF3300FF)
+						--renderFontDrawText(arial, 'Кладов в зоне стрима: '..klad_count, sx / 1.22, sy - 30, 0xFF3300FF)
 					else
-						renderFontDrawText(arial, 'Кладов в зоне стрима: '..klad_count, sx / 1.22, sy - 30, 0xFFFF0000)
+						--renderFontDrawText(arial, 'Кладов в зоне стрима: '..klad_count, sx / 1.22, sy - 30, 0xFFFF0000)
 						printString('~r~KLAD! KLAD! KLAD!',1000)
 					end
 					if carid ~= -1 then
 						result, carhandle = sampGetCarHandleBySampVehicleId(carid)
 						if carhandle ~= -1 then
 							model = getCarModel(carhandle)
-							if carid >= 820 then
+							if carid >= 828 then
 								x, y, z = getCarCoordinates(carhandle)
 								name_vehicle = getCarName(model)
 								
@@ -1993,7 +1993,7 @@ function imgui.OnDrawFrame()
 		imgui.Text(u8"/piss - Сикать")
 		imgui.Text(u8"/buyvk [1-7] - Включить автопрокачку VK-Coins.")
 		imgui.SameLine()
-		imgui.TextQuestion(u8'Открываешь BOOST в телефоне,\nвыбираешь пункт который хочешь улучшать\nвводишь /buyvk и скрипт будет автоматически\nпокупать пока не выключишь его (Ctrl + R).')
+		imgui.TextQuestion(u8'Открываешь BOOST в телефоне,\nвводишь /buyvk [1-7] и скрипт будет автоматически покупать.')
 		imgui.Text(u8"/mechanic - Включить автонажатие Alt (выключить - Ctrl + R).")
 		imgui.SameLine()
 		imgui.TextQuestion(u8'Автоматически нажимает ALT 90 раз.\nПринимаешь заказ механиком вводишь /mechanic и скрипт\nавтоматически нажмет ALT 90 раз. Прервать работу скрипта (Ctrl + R)')
@@ -2580,13 +2580,6 @@ sendcloseinventory = function()
 	sampSendClickTextdraw(tblclose[1])
 end
 
---function sampev.onSendClickTextDraw(textdrawId)
-	--x, y = sampTextdrawGetPos(textdrawId)
-	--model, rotX, rotY, rotZ, zoom, clr1, clr2 = sampTextdrawGetModelRotationZoomVehColor(textdrawId)
-	--sampAddChatMessage(model,0xFDDB6D)
-	--sampAddChatMessage(x..' '..math.floor(tonumber(y)),0xFDDB6D)
---end
-
 function sampev.onShowTextDraw(textdrawId, data)
 	--if elements.config.anim_car.v == true then
 		--if data.text:find('+1') or data.text:find('+2') or data.text:find('+3') or data.text:find('+4') or data.text:find('+5') or data.text:find('+6') or data.text:find('+7') or data.text:find('+8') or data.text:find('+9') or data.text:find('+10') or data.text:find('+11') then 
@@ -2684,7 +2677,6 @@ function sampev.onShowTextDraw(textdrawId, data)
 			if elements.chest.roll_standart.v then
 				if data.modelId == 19918 then
 					opentimerid.standart = textdrawId + 1
-					--sampfuncsLog(opentimerid.standart)
 				end
 				if textdrawId == opentimerid.standart then
 					sampSendClickTextdraw(textdrawId - 1) 
@@ -2694,19 +2686,15 @@ function sampev.onShowTextDraw(textdrawId, data)
 			if elements.chest.roll_platinum.v then
 				if data.modelId == 1353 then
 					opentimerid.platina = textdrawId + 1
-					--sampfuncsLog(opentimerid.platina)
 				end
 				if textdrawId == opentimerid.platina then
 					sampSendClickTextdraw(textdrawId - 1) 
 					sampSendClickTextdraw(2302)
-					--sendcloseinventory()
-					--chest_timer = os.time()+(elements.chest.roll_wait.v*60)
 				end
 			end
 			if elements.chest.roll_maska.v then
 				if data.modelId == 1733 then
 					opentimerid.maska = textdrawId + 1
-					--sampfuncsLog(opentimerid.maska)
 				end
 				if textdrawId == opentimerid.maska then
 					sampSendClickTextdraw(textdrawId - 1) 
@@ -2808,9 +2796,7 @@ function sampev.onDisplayGameText(style, time, text)
 			return false
 		end
 	end
-	if string.find(text,"attention") then
-		return false
-	end
+	----------------------------------------
 	if text:find('-1 HP') or
 	text:find('-2 HP') or
 	text:find('-3 HP') or
@@ -2830,14 +2816,16 @@ function sampev.onDisplayGameText(style, time, text)
 	text:find('+7 HP') or
 	text:find('+8 HP') or
 	text:find('+9 HP') or
-	text:find('+10 HP') then
+	text:find('+10 HP') or
+	text:find('attention') then
 		return false
 	end
 end
 
 function sampev.onServerMessage(color, text)
 	----------------------------------------
-	if elements.chat.chatlog.v == true and text ~= ' ' then
+	ip, port = sampGetCurrentServerAddress()
+	if elements.chat.chatlog.v == true and text ~= ' ' and ip ~= "127.0.0.1" then
 		local file_logs = io.open('moonloader/logs/'..sampGetCurrentServerAddress()..'.txt', 'a+')
 		if file_logs ~= -1 then
 			if file_logs ~= nil then
@@ -3162,7 +3150,6 @@ function sampev.onPlayerDeathNotification(killerid, killedid, reason)
 end
 
 function sampev.onCreate3DText(id, color, position, distance, testLOS, attachedPlayerId, attachedVehicleId, text)
-	--sampfuncsLog(string.format("%s | x == %0.2f and y == %0.2f and z == %0.2f",text,position.x,position.y,position.z))
 	if elements.config.del_opisanie_3d.v == true and position.x == 0 and position.y == 0 and position.z == -1 and distance == 7 and attachedPlayerId ~= 65535 then
 		return false
 	end
@@ -3846,14 +3833,6 @@ function skupka()
 	end)
 end
 
---function sampev.onCreatePickup(id, model, pickupType, position)
-	--sampfuncsLog('CreatePickup: ID: '..id..', model: '..model..', pickupType: '..pickupType..', os.clock(): '..os.clock())
---end
-
---function sampev.onDestroyPickup(id)
-	--sampfuncsLog('DestroyPickup: '..id..', os.clock(): '..os.clock())
---end
-
 --function sampev.onRemoveBuilding(modelId, position, radius)
 	--if joinCount == true then
 		--return false
@@ -4171,9 +4150,11 @@ function sampev.onShowDialog(dialogId, style, title, button1, button2, text)
 	end
 	--------------------[Отказ показа диалогов]--------------------
 	if dialogId == 0 and
-	(text:find("В этом месте запрещено") and text:find("Если вы продолжите, то вы будете кикнуты!")) or
+	((text:find("В этом месте запрещено") and text:find("Если вы продолжите, то вы будете кикнуты!")) or
 	text:find("Перед тем как подтвердить сделку, советуем") or
-	text:find("PIN%-код принят") then
+	text:find("Приятной игры на arizona") or
+	text:find("Аз Монет при пополнении счета на нашем сайте") or
+	text:find("PIN%-код принят")) then
 		sampSendDialogResponse(dialogId, 1, 0, '')
 		return false
 	end
