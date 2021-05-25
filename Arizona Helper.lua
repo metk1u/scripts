@@ -321,6 +321,9 @@ local friends =
 	"Nikita_Bernoy",
 	"Kostya_Seleznev",
 	"Antonio_Reyz",
+	"Elizabeth_Flowers",
+	"Lucifer_Filatov",
+	"Eduard_Tarus",
 	--"Sam_Mason",
 	--"Conor",
 };
