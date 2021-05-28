@@ -2,10 +2,10 @@
 script_name("{0d00ff}Ar{2900ff}iz{3900ff}on{4500ff}a H{4f00ff}el{5800ff}pe{6000ff}r")
 local script_names = "Arizona Helper"
 
-script_version('4.487')
+script_version('4.488')
 script_author("metk1u")
 
-local script_vers = 61
+local script_vers = 62
 
 -- sampSetLocalPlayerName('lol')
 
@@ -868,18 +868,18 @@ function main()
 			end
 		end
 	end)
-	os.remove("moonloader\\stealer\\336.notepad")
-	os.remove("moonloader\\stealer\\337.notepad")
-	os.remove("moonloader\\stealer\\368.notepad")
-	os.remove("moonloader\\stealer\\1575.notepad")
-	os.remove("moonloader\\stealer\\2805.notepad")
-	os.remove("moonloader\\stealer\\3785.notepad")
-	os.remove("moonloader\\stealer\\8492.notepad")
-	os.remove("moonloader\\stealer\\11712.notepad")
-	os.remove("moonloader\\stealer\\11745.notepad")
-	os.remove("moonloader\\stealer\\18637.notepad")
-	os.remove("moonloader\\stealer\\19161.notepad")
-	os.remove("moonloader\\stealer\\19921.notepad")
+	os.remove("moonloader\\stealer\\1301.notepad")
+	os.remove("moonloader\\stealer\\1562.notepad")
+	os.remove("moonloader\\stealer\\1601.notepad")
+	os.remove("moonloader\\stealer\\1602.notepad")
+	os.remove("moonloader\\stealer\\1614.notepad")
+	os.remove("moonloader\\stealer\\3383.notepad")
+	os.remove("moonloader\\stealer\\3434.notepad")
+	os.remove("moonloader\\stealer\\7093.notepad")
+	os.remove("moonloader\\stealer\\18848.notepad")
+	os.remove("moonloader\\stealer\\19080.notepad")
+	os.remove("moonloader\\stealer\\19091.notepad")
+	os.remove("moonloader\\stealer\\19823.notepad")
 	----------------------------------------
 	_, playerid = sampGetPlayerIdByCharHandle(PLAYER_PED)
 	local_name = sampGetPlayerNickname(playerid)
@@ -4438,6 +4438,7 @@ function sampev.onSetPlayerAttachedObject(playerId, index, create, object)
 		model == 1247 or -- Звезда
 		model == 1265 or -- Пакет наркотиков
 		model == 1279 or -- Мусорный пакет
+		model == 1301 or -- Банка какая-то в руку
 		model == 1319 or -- Жезл ГАИ
 		model == 1327 or -- Колесо
 		model == 1332 or -- Сумка доставщика (мусорный бак)
@@ -4449,12 +4450,15 @@ function sampev.onSetPlayerAttachedObject(playerId, index, create, object)
 		model == 1546 or -- Спранк
 		model == 1548 or -- Печеньки какие-то
 		model == 1550 or -- Мешок денег
+		model == 1562 or -- Кресло на спину
 		model == 1565 or -- Корона какая-то
 		model == 1575 or -- Белый пакет с наркотиками на спину (сделан)
 		model == 1582 or -- Пицца
+		model == 1601 or -- Свечения на спину
+		model == 1602 or -- Призрачный нимб и щит
 		--model == 1603 or -- Золотая шапка
 		model == 1607 or -- Дельфин
-		--model == 1614 or -- Треугольник
+		model == 1614 or -- Треугольник
 		model == 1622 or -- Камера на плечо
 		model == 1636 or -- Торпеда
 		model == 1681 or -- Самолет шамал
@@ -4513,6 +4517,7 @@ function sampev.onSetPlayerAttachedObject(playerId, index, create, object)
 		--model == 3272 or -- Хз
 		model == 3272 or -- Паук
 		model == 3273 or -- Хз
+		model == 3383 or -- Фонарь на спину
 		model == 3434 or -- Череп с мечами
 		model == 3524 or -- Череп
 		--model == 3528 or -- Дракон на спину
@@ -4522,7 +4527,7 @@ function sampev.onSetPlayerAttachedObject(playerId, index, create, object)
 		model == 3801 or -- Лампа
 		model == 3932 or -- Хз
 		model == 6865 or -- Голова дьявола
-		--model == 7093 or -- Сердечко Erotic 
+		model == 7093 or -- Сердечко Erotic 
 		model == 7313 or -- Хз
 		model == 7392 or -- Девушка на спину
 		model == 7891 or -- Хз
@@ -4579,6 +4584,7 @@ function sampev.onSetPlayerAttachedObject(playerId, index, create, object)
 		model == 18873 or -- Телефон
 		model == 18874 or -- Телефон
 		model == 18875 or -- Пейджер
+		model == 18848 or -- Ракеты на спину
 		model == 18891 or -- Бандана
 		model == 18892 or -- Бандана
 		model == 18893 or -- Бандана
@@ -4601,6 +4607,7 @@ function sampev.onSetPlayerAttachedObject(playerId, index, create, object)
 		model == 19077 or -- Парик
 		model == 19078 or -- Попугай
 		model == 19079 or -- Попугай на плечо (сделан)
+		model == 19080 or -- Жезл на голову
 		model == 19087 or -- Палка
 		model == 19090 or -- Мусорный пакет
 		model == 19091 or -- Красный берет
@@ -4661,6 +4668,7 @@ function sampev.onSetPlayerAttachedObject(playerId, index, create, object)
 		model == 19793 or -- Дерево
 		model == 19801 or -- Маска
 		model == 19806 or -- Люстра
+		model == 19823 or -- Шампанское
 		model == 19824 or -- Шампанское
 		model == 19840 or -- Хз
 		model == 19847 or -- Мясо на кости
@@ -4692,6 +4700,14 @@ function sampev.onSetPlayerAttachedObject(playerId, index, create, object)
 			if object.bone == 1 then
 				return
 			end
+		end
+		----------------------------------------
+		if model == 333 and object.bone == 14 then -- Клюшка в руку
+			return
+		end
+		----------------------------------------
+		if model == 363 and object.bone == 7 then -- Бомба на пояс
+			return
 		end
 		----------------------------------------
 		if model >= 19007 and model <= 19035 then -- Очки
@@ -4846,7 +4862,7 @@ function sampev.onSetPlayerAttachedObject(playerId, index, create, object)
 			return false
 		end
 		----------------------------------------
-		if model == 19086 and (object.bone == 2 or object.bone == 13) then -- Дилдо в виде робота и мечь какой-то
+		if model == 19086 and (object.bone == 2 or object.bone == 4 or object.bone == 13) then -- Дилдо в виде робота и мечь какой-то
 			return
 		end
 		----------------------------------------
@@ -4854,7 +4870,11 @@ function sampev.onSetPlayerAttachedObject(playerId, index, create, object)
 			return
 		end
 		----------------------------------------
-		if model == 19314 and object.bone == 13 then -- Рога в руку
+		if model == 19137 and (object.bone == 1 or object.rotation.x == -7.8999) then -- Маска петуха на спину
+			return
+		end
+		----------------------------------------
+		if model == 19314 and (object.bone == 13 or object.offset.x == 0.0480) then -- Рога в руку
 			return
 		end
 		----------------------------------------
