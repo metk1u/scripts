@@ -2,10 +2,10 @@
 script_name("{0d00ff}Ar{2900ff}iz{3900ff}on{4500ff}a H{4f00ff}el{5800ff}pe{6000ff}r")
 local script_names = "Arizona Helper"
 
-script_version('4.486')
+script_version('4.487')
 script_author("metk1u")
 
-local script_vers = 60
+local script_vers = 61
 
 -- sampSetLocalPlayerName('lol')
 
@@ -289,6 +289,7 @@ local mechanic_count = 0
 local players_state = false
 local players_count = 0
 local players_state_finds = 65535
+local pidori_state = false
 local prodovoz_timer = 0
 local prods = 2000
 local prodovoz_count = 0
@@ -324,8 +325,17 @@ local friends =
 	"Elizabeth_Flowers",
 	"Lucifer_Filatov",
 	"Eduard_Tarus",
+	"Uzi_Devega",
 	--"Sam_Mason",
 	--"Conor",
+};
+----------------------------------------
+local pidors =
+{
+	"Elizabeth_Flowers",
+	"Lucifer_Filatov",
+	"Eduard_Tarus",
+	"Uzi_Devega",
 };
 ----------------------------------------
 local work =
@@ -954,6 +964,11 @@ function main()
 		push_message((players_state and "Включаю" or "Выключаю")..' поиск игроков в зоне стрима.')
 	end)
 	----------------------------------------
+	sampRegisterChatCommand("pidori",function()
+		pidori_state = not pidori_state
+		push_message((pidori_state and "Включаю" or "Выключаю")..' поиск пидоров.')
+	end)
+	----------------------------------------
 	sampRegisterChatCommand('finds',function(playerid)
 		if #playerid == 0 then
 			sampAddChatMessage('Используй: /finds [playerid]', 0xAFAFAF)
@@ -1387,6 +1402,33 @@ function main()
 					renderFontDrawText(arial,'Игроков в зоне стрима: '..players_count, sx / 5, sy - 30, 0xFF3300FF)
 				else
 					renderFontDrawText(arial,'Игроков в зоне стрима: '..players_count, sx / 5, sy - 30, 0xFFFF0000)
+				end
+			end
+			----------------------------------------
+			if pidori_state == true then
+				for i = 0, sampGetMaxPlayerId(true) do
+					local result, ped = sampGetCharHandleBySampPlayerId(i)
+					if result and doesCharExist(ped) then
+						nickname = sampGetPlayerNickname(i)
+						for id = 1, #pidors do
+							if nickname == pidors[id] then
+								local mypos_x, mypos_y, mypos_z = getCharCoordinates(PLAYER_PED)
+								local PlayerX2, PlayerY2 = convert3DCoordsToScreen(mypos_x, mypos_y, mypos_z)
+								local enpos = {getCharCoordinates(ped)}
+								local x1, y1 = convert3DCoordsToScreen(enpos[1], enpos[2], enpos[3])
+								local distance = getDistanceBetweenCoords3d(enpos[1], enpos[2], enpos[3], mypos_x, mypos_y, mypos_z)
+								playername = sampGetPlayerNickname(i)
+								color = sampGetPlayerColor(i)
+								----------------------------------------
+								afk = ""
+								if sampIsPlayerPaused(i) then
+									afk = "{FF3300}(AFK)"
+								end
+								renderDrawLine(PlayerX2, PlayerY2, x1, y1, 2, getColor(color))
+								renderFontDrawText(arial,string.format('%s[%d] [%d м.] %s',playername,i,math.floor(tonumber(distance)),afk), x1, y1, getColor(color))
+							end
+						end
+					end
 				end
 			end
 			----------------------------------------
@@ -2936,7 +2978,8 @@ function sampev.onServerMessage(color, text)
 	string.find(text,"%[Адвокат%]") or
 	string.find(text,"%[Таксист%]") or
 	string.find(text,"%[Грузчик%]")) and color == -2686721) or
-	string.find(text,"Таксист (%w+_%w+) принял вызов игрока (%w+_%w+)") and color == 1687547391 or
+	-- string.find(text,"Таксист (%w+_%w+) принял вызов игрока (%w+_%w+)") and color == 1687547391 or
+	string.find(text,"принял вызов игрока") and color == 1687547391 or
 	string.find(text,"вызывает такси") and (color == 1687547391 or color == 2046517247) or
 	string.find(text,"Поступил вызов, чтобы принять введите") and color == -1347440641 or
 	string.find(text,"Местоположение:") and color == -1
@@ -3183,6 +3226,16 @@ function onReceivePacket(id, bitStream)
 	end
 	if (id == PACKET_CONNECTION_ATTEMPT_FAILED) then
 		sampfuncsLog('{FF3300}'..os.date('[%H:%M:%S] ')..'Server didn\'t not respond.')
+	end
+end
+
+function sampev.onCreateObject(objectId, data)
+	if data.modelId == 854 then
+		local file = io.open('moonloader/waxta.notepad', 'a+')
+		if file ~= -1 and file ~= nil then
+			file:write(string.format('{120,{%0.6f,%0.6f,%0.6f,%0.6f,%0.6f,%0.6f}},\n',data.position.x,data.position.y,data.position.z,data.rotation.x,data.rotation.y,data.rotation.z))
+			io.close(file)
+		end
 	end
 end
 
