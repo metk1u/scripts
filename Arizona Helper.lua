@@ -2,10 +2,10 @@
 script_name("{0d00ff}Ar{2900ff}iz{3900ff}on{4500ff}a H{4f00ff}el{5800ff}pe{6000ff}r")
 local script_names = "Arizona Helper"
 
-script_version('4.488')
+script_version('4.489')
 script_author("metk1u")
 
-local script_vers = 62
+local script_vers = 63
 
 -- sampSetLocalPlayerName('lol')
 
@@ -876,6 +876,7 @@ function main()
 	os.remove("moonloader\\stealer\\3383.notepad")
 	os.remove("moonloader\\stealer\\3434.notepad")
 	os.remove("moonloader\\stealer\\7093.notepad")
+	os.remove("moonloader\\stealer\\18643.notepad")
 	os.remove("moonloader\\stealer\\18848.notepad")
 	os.remove("moonloader\\stealer\\19080.notepad")
 	os.remove("moonloader\\stealer\\19091.notepad")
@@ -890,9 +891,10 @@ function main()
 	end)
 	----------------------------------------
 	sampRegisterChatCommand('rec',function() 
-		ip, port = sampGetCurrentServerAddress()
+		--ip, port = sampGetCurrentServerAddress()
 		sampDisconnectWithReason(false)
-		sampConnectToServer(ip, port)
+		sampSetGamestate(1)
+		--sampConnectToServer(ip, port)
 		push_message('Перезахожу...')
 	end)
 	----------------------------------------
@@ -2021,9 +2023,10 @@ function imgui.OnDrawFrame()
 		end
 		----------------------------------------
 		if imgui.Button(u8('Переподключиться (/rec)'),imgui.ImVec2(170,20)) then
-			ip, port = sampGetCurrentServerAddress()
+			--ip, port = sampGetCurrentServerAddress()
 			sampDisconnectWithReason(false)
-			sampConnectToServer(ip, port)
+			sampSetGamestate(1)
+			--sampConnectToServer(ip, port)
 		end
 		imgui.SameLine()
 		----------------------------------------
@@ -4564,6 +4567,7 @@ function sampev.onSetPlayerAttachedObject(playerId, index, create, object)
 		model == 18637 or -- Щит на спину и в руку (сделаны)
 		model == 18640 or -- Черный шлем
 		model == 18642 or -- Шокер (tazer)
+		model == 18643 or -- Лазер на голове
 		model == 18644 or -- Отвертка
 		model == 18646 or -- Мигалка с сета дарт вейдер
 		model == 18688 or -- Огонь
@@ -4732,6 +4736,9 @@ function sampev.onSetPlayerAttachedObject(playerId, index, create, object)
 		----------------------------------------
 		if model >= 18948 and model <= 18951 then -- Шляпы
 			model = 18947
+			if object.offset.x == 0.0729 then
+				return
+			end
 		end
 		----------------------------------------
 		if model == 18954 then -- Шапки
@@ -4748,6 +4755,9 @@ function sampev.onSetPlayerAttachedObject(playerId, index, create, object)
 		----------------------------------------
 		if model >= 18968 and model <= 18969 then -- Панамки
 			model = 18967
+			if object.offset.x == 0.0439 then
+				return
+			end
 		end
 		----------------------------------------
 		if model >= 18971 and model <= 18973 then -- Большие шляпы
@@ -4862,7 +4872,7 @@ function sampev.onSetPlayerAttachedObject(playerId, index, create, object)
 			return false
 		end
 		----------------------------------------
-		if model == 19086 and (object.bone == 2 or object.bone == 4 or object.bone == 13) then -- Дилдо в виде робота и мечь какой-то
+		if model == 19086 and (object.bone == 2 or object.bone == 4 or object.bone == 13 or object.offset.x == 0.0000) then -- Дилдо в виде робота и мечь какой-то
 			return
 		end
 		----------------------------------------
