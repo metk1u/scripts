@@ -2,10 +2,10 @@
 script_name("{0d00ff}Ar{2900ff}iz{3900ff}on{4500ff}a H{4f00ff}el{5800ff}pe{6000ff}r")
 local script_names = "Arizona Helper"
 
-script_version('4.489')
+script_version('4.49')
 script_author("metk1u")
 
-local script_vers = 63
+local script_vers = 64
 
 -- sampSetLocalPlayerName('lol')
 
@@ -326,6 +326,7 @@ local friends =
 	"Lucifer_Filatov",
 	"Eduard_Tarus",
 	"Uzi_Devega",
+	"Hardwick_Flashlight",
 	--"Sam_Mason",
 	--"Conor",
 };
@@ -336,6 +337,7 @@ local pidors =
 	"Lucifer_Filatov",
 	"Eduard_Tarus",
 	"Uzi_Devega",
+	"Hardwick_Flashlight",
 };
 ----------------------------------------
 local work =
@@ -350,6 +352,8 @@ local checked_inv = imgui.ImInt(2)
 local checked_box = imgui.ImBool(false)
 --------------------[Запоминание диалогов]--------------------
 dialogs = {0, ''}
+--------------------[Автоввод текста в лавку]--------------------
+dialogs_lavka = -1
 --------------------[Анализ цен на ЦР]--------------------
 local analysis = nil
 local last_text = nil
@@ -868,16 +872,18 @@ function main()
 			end
 		end
 	end)
+	os.remove("moonloader\\stealer\\322.notepad")
 	os.remove("moonloader\\stealer\\1301.notepad")
 	os.remove("moonloader\\stealer\\1562.notepad")
 	os.remove("moonloader\\stealer\\1601.notepad")
 	os.remove("moonloader\\stealer\\1602.notepad")
+	os.remove("moonloader\\stealer\\1603.notepad")
 	os.remove("moonloader\\stealer\\1614.notepad")
-	os.remove("moonloader\\stealer\\3383.notepad")
 	os.remove("moonloader\\stealer\\3434.notepad")
 	os.remove("moonloader\\stealer\\7093.notepad")
 	os.remove("moonloader\\stealer\\18643.notepad")
 	os.remove("moonloader\\stealer\\18848.notepad")
+	os.remove("moonloader\\stealer\\18978.notepad")
 	os.remove("moonloader\\stealer\\19080.notepad")
 	os.remove("moonloader\\stealer\\19091.notepad")
 	os.remove("moonloader\\stealer\\19823.notepad")
@@ -2634,6 +2640,33 @@ function sampev.onShowTextDraw(textdrawId, data)
 		--	data.text = '+12'
 		--end
 	--end
+	if data.modelId == 1562 then
+		sampAddChatMessage("Кресло на спину - заскринить название предмета!", 0xFF3300)
+	end
+	if data.modelId == 1603 then
+		sampAddChatMessage("Плащ медуза - заскринить название предмета!", 0xFF3300)
+	end
+	if data.modelId == 3026 then
+		sampAddChatMessage("Сумка-барыжка - своровать текстдрав (/td)!", 0xFF3300)
+	end
+	if data.modelId == 7093 then
+		sampAddChatMessage("Если сердце в руку то заскринить название предмета! + (/td)", 0xFF3300)
+	end
+	if data.modelId == 13562 then
+		sampAddChatMessage("Спранк на спину - заскринить название предмета!", 0xFF3300)
+	end
+	if data.modelId == 18848 then
+		sampAddChatMessage("Ракеты на спину - заскринить название предмета!", 0xFF3300)
+	end
+	if data.modelId == 19137 then
+		sampAddChatMessage("Если гребень на голову то заскринить название предмета!", 0xFF3300)
+	end
+	if data.modelId == 19555 or data.modelId == 19556 then
+		sampAddChatMessage("Модификация клешни краба - своровать текстдрав (/td)!", 0xFF3300)
+	end
+	if data.modelId == 19893 then
+		sampAddChatMessage("Карта на спину - заскринить название предмета!", 0xFF3300)
+	end
 	--------------------[Помощь на заводе]--------------------
 	if getActiveInterior() == 2 then
 		if data.modelId == 7891 or data.modelId == 18644 then
@@ -2658,6 +2691,7 @@ function sampev.onShowTextDraw(textdrawId, data)
 		local file = io.open('moonloader/stealer/textdraw.notepad', 'a+')
 		if file ~= -1 and file ~= nil then
 			code_temp_2 = ""
+			file:write('////////////////////['..os.date('%d-%m-%Y || %H:%M:%S')..']////////////////////\n')
 			code_temp_2 = string.format('textdraw = TextDrawCreate(%0.6f, %0.6f, "%s");\n',data.position.x,data.position.y,data.text)
 			--if string.find(file:read("*all"), code_temp_2, 1, true) then
 				--sampfuncsLog('{FF3300}<Копия> '..code_temp_2)
@@ -2695,7 +2729,6 @@ function sampev.onShowTextDraw(textdrawId, data)
 			----file:write(string.format('TextDrawSetSelectable(textdraw, %d);\n',data.selectable))
 			file:write(string.format('TextDrawSetPreviewModel(textdraw, %d);\n',data.modelId))
 			file:write(string.format('TextDrawSetPreviewRot(textdraw, %0.6f, %0.6f, %0.6f, %0.6f);\n',data.rotation.x,data.rotation.y,data.rotation.z,data.zoom))
-			file:write('////////////////////////////////////////\n')
 			io.close(file)
 		end
 	end
@@ -3989,9 +4022,27 @@ function sampev.onShowDialog(dialogId, style, title, button1, button2, text)
 	if dialogs[dialogId] then
 		lua_thread.create(function()
 			repeat wait(0) until sampIsDialogActive() and sampGetCurrentDialogId() == dialogId
+			if text:find("Загрузить машину") then
+				dialogs[dialogId] = { 0, "" }
+			end
 			sampSetCurrentDialogListItem(dialogs[dialogId][1])
 			sampSetCurrentDialogEditboxText(dialogs[dialogId][2])
 		end)
+	end
+	--------------------[Автоввод текста в лавку]--------------------
+	if dialogId == 3020 then
+		if dialogs_lavka == 0 then
+			sampSendDialogResponse(dialogId, 1, 0, "Продажа")
+			return false
+		else
+			sampSendDialogResponse(dialogId, 1, 0, "Скуп")
+			return false
+		end
+		dialogs_lavka = -1
+	end
+	if dialogId == 3030 then
+		sampSendDialogResponse(dialogId, 1, 13, "")
+		return false
 	end
 	--------------------[Автологин]--------------------
 	ip, port = sampGetCurrentServerAddress()
@@ -4220,7 +4271,13 @@ function sampev.onShowDialog(dialogId, style, title, button1, button2, text)
 end
 
 function sampev.onSendDialogResponse(dialogId, button, listboxId, input)
+	--------------------[Запоминание диалогов]--------------------
 	dialogs[dialogId] = { listboxId, input }
+	--------------------[Автоввод текста в лавку]--------------------
+	if dialogId == 3021 then
+		dialogs_lavka = listboxId
+	end
+	--------------------[Анализ цен на ЦР]--------------------
 	if dialogId == 15072 and listboxId == 2 and button == 1 then
 		analysis = 1
 		last_text = nil
@@ -4399,6 +4456,7 @@ function sampev.onSetPlayerAttachedObject(playerId, index, create, object)
 		if model == 0 or
 		--model == 18782 or -- Печенька на голову
 		--model == 19347 or -- Звезда на грудь
+		model == 322 or -- Дилдо на спину (сделано)
 		model == 324 or -- Черный дилдо
 		model == 336 or -- Бита на спину (сделана)
 		model == 337 or -- Лопата на спину (сделана)
@@ -4457,9 +4515,9 @@ function sampev.onSetPlayerAttachedObject(playerId, index, create, object)
 		model == 1565 or -- Корона какая-то
 		model == 1575 or -- Белый пакет с наркотиками на спину (сделан)
 		model == 1582 or -- Пицца
-		model == 1601 or -- Свечения на спину
+		model == 1601 or -- Молнии Зевса
 		model == 1602 or -- Призрачный нимб и щит
-		--model == 1603 or -- Золотая шапка
+		model == 1603 or -- Плащ
 		model == 1607 or -- Дельфин
 		model == 1614 or -- Треугольник
 		model == 1622 or -- Камера на плечо
@@ -4520,7 +4578,7 @@ function sampev.onSetPlayerAttachedObject(playerId, index, create, object)
 		--model == 3272 or -- Хз
 		model == 3272 or -- Паук
 		model == 3273 or -- Хз
-		model == 3383 or -- Фонарь на спину
+		--model == 3383 or -- Усы таракана
 		model == 3434 or -- Череп с мечами
 		model == 3524 or -- Череп
 		--model == 3528 or -- Дракон на спину
@@ -4567,7 +4625,7 @@ function sampev.onSetPlayerAttachedObject(playerId, index, create, object)
 		model == 18637 or -- Щит на спину и в руку (сделаны)
 		model == 18640 or -- Черный шлем
 		model == 18642 or -- Шокер (tazer)
-		model == 18643 or -- Лазер на голове
+		model == 18643 or -- Красная шляпа маяк
 		model == 18644 or -- Отвертка
 		model == 18646 or -- Мигалка с сета дарт вейдер
 		model == 18688 or -- Огонь
@@ -4588,7 +4646,6 @@ function sampev.onSetPlayerAttachedObject(playerId, index, create, object)
 		model == 18873 or -- Телефон
 		model == 18874 or -- Телефон
 		model == 18875 or -- Пейджер
-		model == 18848 or -- Ракеты на спину
 		model == 18891 or -- Бандана
 		model == 18892 or -- Бандана
 		model == 18893 or -- Бандана
@@ -4607,11 +4664,12 @@ function sampev.onSetPlayerAttachedObject(playerId, index, create, object)
 		model == 18936 or -- Шлем
 		model == 18961 or -- Кепка Trucker
 		model == 18976 or -- Мотошлем синий
+		model == 18978 or -- Майка
 		model == 19063 or -- Новогодний шарик
 		model == 19077 or -- Парик
 		model == 19078 or -- Попугай
 		model == 19079 or -- Попугай на плечо (сделан)
-		model == 19080 or -- Жезл на голову
+		model == 19080 or -- Синяя шляпа маяк
 		model == 19087 or -- Палка
 		model == 19090 or -- Мусорный пакет
 		model == 19091 or -- Красный берет
@@ -4840,6 +4898,10 @@ function sampev.onSetPlayerAttachedObject(playerId, index, create, object)
 			return
 		end
 		----------------------------------------
+		if model == 3383 and object.offset.x == -0.4009 then -- Усы таракана
+			return
+		end
+		----------------------------------------
 		if model == 3528 then -- Дракон
 			return false
 		end
@@ -4978,6 +5040,9 @@ function SaveFileAttach(skin,modelId,bone,offsetX,offsetY,offsetZ,rotationX,rota
 		elseif skin == 51 or skin == 52 then
 			file:write(string.format('case 51: SetPlayerAttachedObject(playerid, slot, %d, %d, %0.4f, %0.4f, %0.4f, %0.4f, %0.4f, %0.4f, %0.4f, %0.4f, %0.4f, -1, -1);\n',modelId,bone,offsetX,offsetY,offsetZ,rotationX,rotationY,rotationZ,scaleX,scaleY,scaleZ))
 			file:write(string.format('case 52: SetPlayerAttachedObject(playerid, slot, %d, %d, %0.4f, %0.4f, %0.4f, %0.4f, %0.4f, %0.4f, %0.4f, %0.4f, %0.4f, -1, -1);\n',modelId,bone,offsetX,offsetY,offsetZ,rotationX,rotationY,rotationZ,scaleX,scaleY,scaleZ))
+		elseif skin == 66 or skin == 67 then
+			file:write(string.format('case 66: SetPlayerAttachedObject(playerid, slot, %d, %d, %0.4f, %0.4f, %0.4f, %0.4f, %0.4f, %0.4f, %0.4f, %0.4f, %0.4f, -1, -1);\n',modelId,bone,offsetX,offsetY,offsetZ,rotationX,rotationY,rotationZ,scaleX,scaleY,scaleZ))
+			file:write(string.format('case 67: SetPlayerAttachedObject(playerid, slot, %d, %d, %0.4f, %0.4f, %0.4f, %0.4f, %0.4f, %0.4f, %0.4f, %0.4f, %0.4f, -1, -1);\n',modelId,bone,offsetX,offsetY,offsetZ,rotationX,rotationY,rotationZ,scaleX,scaleY,scaleZ))
 		elseif skin == 80 or skin == 81 then
 			file:write(string.format('case 80: SetPlayerAttachedObject(playerid, slot, %d, %d, %0.4f, %0.4f, %0.4f, %0.4f, %0.4f, %0.4f, %0.4f, %0.4f, %0.4f, -1, -1);\n',modelId,bone,offsetX,offsetY,offsetZ,rotationX,rotationY,rotationZ,scaleX,scaleY,scaleZ))
 			file:write(string.format('case 81: SetPlayerAttachedObject(playerid, slot, %d, %d, %0.4f, %0.4f, %0.4f, %0.4f, %0.4f, %0.4f, %0.4f, %0.4f, %0.4f, -1, -1);\n',modelId,bone,offsetX,offsetY,offsetZ,rotationX,rotationY,rotationZ,scaleX,scaleY,scaleZ))
@@ -4991,6 +5056,9 @@ function SaveFileAttach(skin,modelId,bone,offsetX,offsetY,offsetZ,rotationX,rota
 		elseif skin == 117 or skin == 118 then
 			file:write(string.format('case 117: SetPlayerAttachedObject(playerid, slot, %d, %d, %0.4f, %0.4f, %0.4f, %0.4f, %0.4f, %0.4f, %0.4f, %0.4f, %0.4f, -1, -1);\n',modelId,bone,offsetX,offsetY,offsetZ,rotationX,rotationY,rotationZ,scaleX,scaleY,scaleZ))
 			file:write(string.format('case 118: SetPlayerAttachedObject(playerid, slot, %d, %d, %0.4f, %0.4f, %0.4f, %0.4f, %0.4f, %0.4f, %0.4f, %0.4f, %0.4f, -1, -1);\n',modelId,bone,offsetX,offsetY,offsetZ,rotationX,rotationY,rotationZ,scaleX,scaleY,scaleZ))
+		elseif skin == 203 or skin == 204 then
+			file:write(string.format('case 203: SetPlayerAttachedObject(playerid, slot, %d, %d, %0.4f, %0.4f, %0.4f, %0.4f, %0.4f, %0.4f, %0.4f, %0.4f, %0.4f, -1, -1);\n',modelId,bone,offsetX,offsetY,offsetZ,rotationX,rotationY,rotationZ,scaleX,scaleY,scaleZ))
+			file:write(string.format('case 204: SetPlayerAttachedObject(playerid, slot, %d, %d, %0.4f, %0.4f, %0.4f, %0.4f, %0.4f, %0.4f, %0.4f, %0.4f, %0.4f, -1, -1);\n',modelId,bone,offsetX,offsetY,offsetZ,rotationX,rotationY,rotationZ,scaleX,scaleY,scaleZ))
 		elseif skin == 224 or skin == 225 then
 			file:write(string.format('case 224: SetPlayerAttachedObject(playerid, slot, %d, %d, %0.4f, %0.4f, %0.4f, %0.4f, %0.4f, %0.4f, %0.4f, %0.4f, %0.4f, -1, -1);\n',modelId,bone,offsetX,offsetY,offsetZ,rotationX,rotationY,rotationZ,scaleX,scaleY,scaleZ))
 			file:write(string.format('case 225: SetPlayerAttachedObject(playerid, slot, %d, %d, %0.4f, %0.4f, %0.4f, %0.4f, %0.4f, %0.4f, %0.4f, %0.4f, %0.4f, -1, -1);\n',modelId,bone,offsetX,offsetY,offsetZ,rotationX,rotationY,rotationZ,scaleX,scaleY,scaleZ))
