@@ -2,10 +2,10 @@
 script_name("{0d00ff}Ar{2900ff}iz{3900ff}on{4500ff}a H{4f00ff}el{5800ff}pe{6000ff}r")
 local script_names = "Arizona Helper"
 
-script_version('4.49')
+script_version('4.491')
 script_author("metk1u")
 
-local script_vers = 64
+local script_vers = 65
 
 -- sampSetLocalPlayerName('lol')
 
@@ -302,7 +302,6 @@ local waxta_count = 0
 local klad_state = true
 local klad_count = 0
 local loot_state = false
-local loot_timer = 0
 local MarkersState = false
 local checkpoint = {}
 local marker = {}
@@ -1045,13 +1044,6 @@ function main()
 	----------------------------------------
 	sampRegisterChatCommand("loot",function()
 		loot_state = not loot_state
-		printString('',0)
-		if loot_state == true then
-			loot_timer = os.time()+1
-			printString('~g~loot enable',3000)
-		else
-			printString('~r~loot disable',3000)
-		end
 		push_message((loot_state and "Включаю" or "Выключаю")..' пылесос.')
 	end)
 	----------------------------------------
@@ -1106,6 +1098,27 @@ function main()
 			push_message('Выключаю MODEL текстдравов.')
 		end
 		----------------------------------------
+		if togglePOS == true then
+			togglePOS = false
+			push_message('Выключаю X / Y текстдравов.')
+		end
+		----------------------------------------
+	end)
+	----------------------------------------
+	sampRegisterChatCommand("showpos",function()
+		togglePOS = not togglePOS
+		push_message((togglePOS and "Включаю" or "Выключаю")..' X / Y текстдравов.')
+		----------------------------------------
+		if toggleMODEL == true then
+			toggleMODEL = false
+			push_message('Выключаю MODEL текстдравов.')
+		end
+		----------------------------------------
+		if toggleID == true then
+			toggleID = false
+			push_message('Выключаю ID текстдравов.')
+		end
+		----------------------------------------
 	end)
 	----------------------------------------
 	sampRegisterChatCommand("showmodel",function()
@@ -1115,6 +1128,11 @@ function main()
 		if toggleID == true then
 			toggleID = false
 			push_message('Выключаю ID текстдравов.')
+		end
+		----------------------------------------
+		if togglePOS == true then
+			togglePOS = false
+			push_message('Выключаю X / Y текстдравов.')
 		end
 		----------------------------------------
 	end)
@@ -1170,202 +1188,12 @@ function main()
 				break
 			end
 			----------------------------------------
-			-- if getActiveInterior() == 2 then
-				-- local zavod_coord =
-				-- {
-					-- { 2564.28, -1292.99, 1044.13}, 
-					-- { 2558.47, -1291.01, 1044.13}, 
-					-- { 2558.47, -1295.85, 1044.13}, 
-					-- { 2560.05, -1284.69, 1044.13}, 
-					-- { 2560.05, -1282.76, 1044.13}, 
-					-- { 2556.17, -1291.01, 1044.13}, 
-					-- { 2556.17, -1295.85, 1044.13}, 
-					-- { 2553.83, -1291.01, 1044.13}, 
-					-- { 2553.77, -1295.85, 1044.13}, 
-					-- { 2552.04, -1284.82, 1044.13}, 
-					-- { 2552.04, -1282.82, 1044.13}, 
-					-- { 2544.36, -1295.85, 1044.13}, 
-					-- { 2544.29, -1291.01, 1044.13}, 
-					-- { 2544.06, -1284.78, 1044.13}, 
-					-- { 2544.06, -1282.78, 1044.13}, 
-					-- { 2542.06, -1295.85, 1044.13}, 
-					-- { 2542.02, -1291.00, 1044.13}
-				-- }
-				-- local x, y, z = getCharCoordinates(PLAYER_PED)
-				-- for i = 1, #zavod_coord do
-					-- if getDistanceBetweenCoords3d(x, y, z, zavod_coord[i][1], zavod_coord[i][2], zavod_coord[i][3]) < 1 then
-						-- setVirtualKeyDown(18, true)
-						-- wait(20)
-						-- setVirtualKeyDown(18, false)
-						-- setVirtualKeyDown(13, false)
-						-- wait(1000)
-					-- end
-				-- end
-			-- end
-			----------------------------------------
-			text = sampGetChatInputText()
-			----------------------------------------
-			if text:find('%d+') and text:find('[-+/*^%%]') and not text:find('%a+') and text ~= nil then
-				ok, number = pcall(load('return '..text))
-				result_calc = 'Результат: '..number
-				if not isKeyDown(0x08) then
-				setClipboardText(number)
-				end
-			end
-			----------------------------------------
-			if text:find('%d+%%%*%d+') then
-				number1, number2 = text:match('(%d+)%%%*(%d+)')
-				number = number1*number2/100
-				ok, number = pcall(load('return '..number))
-				result_calc = 'Результат: '..number
-				if not isKeyDown(0x08) and ok then
-				setClipboardText(number)
-				end
-			end
-			----------------------------------------
-			if text:find('%d+%%%/%d+') then
-				number1, number2 = text:match('(%d+)%%%/(%d+)')
-				number = number2/number1*100
-				ok, number = pcall(load('return '..number))
-				result_calc = 'Результат: '..number
-				if not isKeyDown(0x08) and ok then
-				setClipboardText(number)
-				end
-			end
-			----------------------------------------
-			if text:find('%d+/%d+%%') then
-				number1, number2 = text:match('(%d+)/(%d+)%%')
-				number = number1*100/number2
-				ok, number = pcall(load('return '..number))
-				result_calc = 'Результат: '..number..'%'
-				if not isKeyDown(0x08) and ok then
-					setClipboardText(number..'%')
-				end
-			end
-			----------------------------------------
-			if text == '' then
-				ok = false
-			end
-			----------------------------------------
-			imgui.Process = ok
-			----------------------------------------
-			if elements.chat.distant_active.v == true then
-				local strEl = getStructElement(sampGetInputInfoPtr(), 0x8, 4)
-				local X = getStructElement(strEl, 0x8, 4)
-				local Y = getStructElement(strEl, 0xC, 4)
-				renderFontDrawText(arial_8_5, "Дальний чат:", X, Y+80, -1)
-				----------------------------------------
-				for _, message in ipairs(chatbuble) do
-					renderFontDrawText(arial_8_5, message, X, Y+92, -1)
-					Y = Y+13
-				end
-			end
-			----------------------------------------
-			--imgui.Process = windowstate.v
-			imgui.Process = true
-			imgui.ShowCursor = windowstate.v
-			if elements.chat.renderChat.v then
-				local POSITION_X, POSITION_Y
-				if POSITION_SET then
-					POSITION_X, POSITION_Y = getCursorPos()
-					if isKeyJustPressed(0x01) then
-						mainIni.config.posRenderX = POSITION_X
-						mainIni.config.posRenderY = POSITION_Y
-						POSITION_SET = false
-					end
-				else 
-					POSITION_X = mainIni.config.posRenderX
-					POSITION_Y = mainIni.config.posRenderY
-				end
-				local heightChatRender = POSITION_Y
-				for i = 0, elements.config.stringsCount.v -1  do
-					local message = table.maxn(chatMessages) - i
-					local textForRender = chatMessages[message]
-					if table.maxn(chatMessages) > 0 and message >= 1 then
-						renderFontDrawText(font,''..textForRender,POSITION_X,heightChatRender,-1)
-						heightChatRender = heightChatRender - (renderGetFontDrawHeight(font) + elements.config.offsetStrings.v)
-					end
-				end
-			end
-			----------------------------------------
-			if work.status == true then
-				if not sampIsLocalPlayerSpawned() then
-					work.status = false
-				end
-				sampSendChat('/vr ' .. tostring(work.message))
-				if not sampIsChatInputActive() then
-					local strEl = getStructElement(sampGetInputInfoPtr(), 0x8, 4)
-					local X = getStructElement(strEl, 0x8, 4)
-					local Y = getStructElement(strEl, 0xC, 4)
-
-					local rotate = math.sin(os.clock() * 3) * 180 + 180
-					renderDrawPolygon(X + 10, Y + (renderGetFontDrawHeight(molot_10_9) / 2), 15, 15, 3, rotate, 0xFFFDDB6D)
-					renderFontDrawText(molot_10_9, tostring(work.message), X + 25, Y, -1)
-				end
-			end
-			----------------------------------------
-			if sampIsLocalPlayerSpawned() and elements.config.HealthArmour.v == true then
-				useRenderCommands(true)
-				setTextCentre(true)
-				setTextScale(0.3, 1.3)
-				setTextColour(255, 255, 255, 255)
-				setTextEdge(1, 0, 0, 0, 255)
-				displayTextWithNumber(578.0, 64.0, 'NUMBER', getCharHealth(PLAYER_PED))
-				
-				if getCharArmour(PLAYER_PED) > 0 then
-					useRenderCommands(true)
-					setTextCentre(true)
-					setTextScale(0.3, 1.3)
-					setTextColour(255, 255, 255, 255)
-					setTextEdge(1, 0, 0, 0, 255)
-					displayTextWithNumber(578.0, 41.5, 'NUMBER', getCharArmour(PLAYER_PED))
-				end
-			end
-			----------------------------------------
-			if isCharInAnyCar(playerPed) and getRadioChannel(playerPed) < 12 then
-				setRadioChannel(12)
-			end
-			----------------------------------------
-			if reconnect_timer >= os.time() then
-				printString(string.format('~r~RECONNECT: %d cek',reconnect_timer-os.time()),100)
-				if reconnect_timer == os.time() then
-					sampConnectToServer(ip, port)				
-					reconnect_timer = 0
-				end
-			end
-			----------------------------------------
 			if denis_state == true and not sampIsChatInputActive() then
 				--wait(100)
 				setVirtualKeyDown(18, true)
 				wait(20)
 				setVirtualKeyDown(18, false)
 				setVirtualKeyDown(13, false)
-			end
-			--------------------[ID's текстдравов]--------------------
-			if toggleID == true then
-				for i = 0, 2304 do
-					if sampTextdrawIsExists(i) then
-						x, y = sampTextdrawGetPos(i)
-						x1, y1 = convertGameScreenCoordsToWindowScreenCoords(x, y)
-						renderFontDrawText(arial_8_5, i, x1, y1, 0xFFBEBEBE)
-					end
-				end
-			end
-			--------------------[MODEL's текстдравов]--------------------
-			if toggleMODEL == true then
-				for i = 0, 2304 do
-					if sampTextdrawIsExists(i) then
-						x, y = sampTextdrawGetPos(i)
-						x1, y1 = convertGameScreenCoordsToWindowScreenCoords(x, y)
-						model, rotX, rotY, rotZ, zoom, clr1, clr2 = sampTextdrawGetModelRotationZoomVehColor(i)
-						renderFontDrawText(arial_8_5, model, x1, y1, 0xFFBEBEBE)
-					end
-				end
-			end
-			--------------------[Очистка памяти]--------------------
-			if memory.read(0x8E4CB4, 4, true) > 524288000 then -- 500 МБайт
-				cleanStreamMemoryBuffer()
-				push_message('Произвелась очистка памяти!')
 			end
 			----------------------------------------
 			if mechanic_state == true then
@@ -1381,18 +1209,332 @@ function main()
 				end
 			end
 			----------------------------------------
-			if players_state == true then
-				players_count = 0
-				for i = 0, sampGetMaxPlayerId(true) do
-					local result, ped = sampGetCharHandleBySampPlayerId(i)
-					if result and doesCharExist(ped) then
-						players_count = players_count + 1
-						--if isCharOnScreen(ped) then
+		end
+	end)
+	----------------------------------------
+	while true do
+		wait(0)
+		ip, port = sampGetCurrentServerAddress()
+		--------------------[Очистка памяти]--------------------
+		if memory.read(0x8E4CB4, 4, true) > 524288000 then -- 500 МБайт
+			cleanStreamMemoryBuffer()
+			push_message('Произвелась очистка памяти!')
+		end
+		--------------------[Реконнект]--------------------
+		if reconnect_timer >= os.time() then
+			printString(string.format('~r~RECONNECT: %d cek',reconnect_timer-os.time()),100)
+			if reconnect_timer == os.time() then
+				sampConnectToServer(ip, port)				
+				reconnect_timer = 0
+			end
+		end
+		--------------------[Погода и время]--------------------
+		hours, mins = getTimeOfDay()
+		if hours ~= elements.weather_time.set_time.v then
+			setTimeOfDay(elements.weather_time.set_time.v, 0)
+			forceWeatherNow(elements.weather_time.set_weather.v)
+		end
+		--------------------[Автопиар]--------------------
+		if elements.autopiar.vr_active.v and vr_timer == os.time() then
+			sampSendChat(u8:decode('/vr '..elements.autopiar.vr_text.v))
+			vr_timer = os.time()+(elements.autopiar.vr_delay.v*60)
+		end
+		----------------------------------------
+		if elements.autopiar.fam_active.v and fam_timer == os.time() then
+			sampSendChat(u8:decode('/fam '..elements.autopiar.fam_text.v))
+			fam_timer = os.time()+(elements.autopiar.fam_delay.v*60)
+		end
+		----------------------------------------
+		if elements.autopiar.al_active.v and al_timer == os.time() then
+			sampSendChat(u8:decode('/al '..elements.autopiar.al_text.v))
+			al_timer = os.time()+(elements.autopiar.al_delay.v*60)
+		end
+		--------------------[Дата и время под радаром]--------------------
+		if elements.config.renderTime.v == true and (ip == "185.169.134.3" or ip == "185.169.134.4" or ip == "185.169.134.43" or ip == "185.169.134.44" or ip == "185.169.134.45" or ip == "185.169.134.5" or ip == "185.169.134.59" or ip == "185.169.134.61" or ip == "185.169.134.107" or ip == "185.169.134.109" or ip == "185.169.134.166" or ip == "185.169.134.171" or ip == "185.169.134.172" or ip == "185.169.134.173" or ip == "185.169.134.174" or ip == "80.66.82.191") then
+			local tWeekdays = 
+			{
+				[0] = 'Воскресенье',
+				[1] = 'Понедельник',
+				[2] = 'Вторник',
+				[3] = 'Среда',
+				[4] = 'Четверг',
+				[5] = 'Пятница',
+				[6] = 'Суббота'
+			}
+			----------------------------------------
+			kd_vr = 0
+			if vr_timer-os.time() > 0 then
+				kd_vr = vr_timer-os.time()
+			end
+			----------------------------------------
+			kd_fam = 0
+			if fam_timer-os.time() > 0 then
+				kd_fam = fam_timer-os.time()
+			end
+			----------------------------------------
+			kd_al = 0
+			if al_timer-os.time() > 0 then
+				kd_al = al_timer-os.time()
+			end
+			----------------------------------------
+			local sx, sy = getScreenResolution()
+			renderFontDrawText(molot, string.format("[%02d.%02d.%02d || %02d.%02d.%02d] (%s) [/vr: %d] [/fam: %d] [/al: %d]",
+			os.date("%d"),os.date("%m"),os.date("%Y"),
+			os.date("%H"),os.date("%M"),os.date("%S"),
+			tWeekdays[tonumber(os.date("%w"))],
+			kd_vr,
+			kd_fam,
+			kd_al), sx / 50, sy - 30, 0xAAFFFFFF)
+		end
+		--------------------[Health and Armour]--------------------
+		if sampIsLocalPlayerSpawned() and elements.config.HealthArmour.v == true then
+			useRenderCommands(true)
+			setTextCentre(true)
+			setTextScale(0.3, 1.3)
+			setTextColour(255, 255, 255, 255)
+			setTextEdge(1, 0, 0, 0, 255)
+			displayTextWithNumber(578.0, 64.0, 'NUMBER', getCharHealth(PLAYER_PED))
+			----------------------------------------
+			if getCharArmour(PLAYER_PED) > 0 then
+				useRenderCommands(true)
+				setTextCentre(true)
+				setTextScale(0.3, 1.3)
+				setTextColour(255, 255, 255, 255)
+				setTextEdge(1, 0, 0, 0, 255)
+				displayTextWithNumber(578.0, 41.5, 'NUMBER', getCharArmour(PLAYER_PED))
+			end
+		end
+		--------------------[Radio Off]--------------------
+		if isCharInAnyCar(playerPed) and getRadioChannel(playerPed) < 12 then
+			setRadioChannel(12)
+		end
+		--------------------[Автооткрытие сундуков]--------------------
+		if ip == "185.169.134.3" or ip == "185.169.134.4" or ip == "185.169.134.43" or ip == "185.169.134.44" or ip == "185.169.134.45" or ip == "185.169.134.5" or ip == "185.169.134.59" or ip == "185.169.134.61" or ip == "185.169.134.107" or ip == "185.169.134.109" or ip == "185.169.134.166" or ip == "185.169.134.171" or ip == "185.169.134.172" or ip == "185.169.134.173" or ip == "185.169.134.174" or ip == "80.66.82.191" then
+			if elements.chest.roll_state.v and chest_timer == os.time() then
+				sampSendChat('/invent')
+			end
+		end
+		--------------------[Автолут]--------------------
+		if loot_state == true and sampIsCursorActive() and not sampIsDialogActive() then
+			--for i = 0, 2304 do
+			for i = 2000, 2160 do
+				if sampTextdrawIsExists(i) then
+					model, rotX, rotY, rotZ, zoom, clr1, clr2 = sampTextdrawGetModelRotationZoomVehColor(i)
+					if model ~= 1649 then
+						x, y = sampTextdrawGetPos(i)
+						if x == 184.5 and math.floor(y) == 164 then
+							sampSendClickTextdraw(i)
+						elseif x == 211 and math.floor(y) == 164 then
+							sampSendClickTextdraw(i)
+						elseif x == 237.5 and math.floor(y) == 164 then
+							sampSendClickTextdraw(i)
+						elseif x == 264 and math.floor(y) == 164 then
+							sampSendClickTextdraw(i)
+						elseif x == 290.5 and math.floor(y) == 164 then
+							sampSendClickTextdraw(i)
+						end
+					end
+				end
+			end
+		end
+		--------------------[Поиск кладов и открытых багажников]--------------------
+		if klad_state == true and (ip == "185.169.134.3" or ip == "185.169.134.4" or ip == "185.169.134.43" or ip == "185.169.134.44" or ip == "185.169.134.45" or ip == "185.169.134.5" or ip == "185.169.134.59" or ip == "185.169.134.61" or ip == "185.169.134.107" or ip == "185.169.134.109" or ip == "185.169.134.166" or ip == "185.169.134.171" or ip == "185.169.134.172" or ip == "185.169.134.173" or ip == "185.169.134.174" or ip == "80.66.82.191") then
+			for _, i in pairs(getAllObjects()) do
+				if getObjectModel(i) == 1271 and isObjectOnScreen(i) then
+					local result, oX, oY, oZ = getObjectCoordinates(i)
+					----------------------------------------
+					local x1, y1 = convert3DCoordsToScreen(oX,oY,oZ)
+					local PlayerX, PlayerY, PlayerZ = getCharCoordinates(PLAYER_PED)
+					local PlayerX2, PlayerY2 = convert3DCoordsToScreen(PlayerX, PlayerY, PlayerZ)
+					distance = string.format("%.0f",getDistanceBetweenCoords3d(oX, oY, oZ, PlayerX, PlayerY, PlayerZ))
+					----------------------------------------
+					renderDrawLine(PlayerX2, PlayerY2, x1, y1, 2, 0xFF3300FF) 
+					renderFontDrawText(arial,"{FF0000}Клад: {3300FF}"..distance, x1, y1, -1)
+				end
+			end
+			if carid ~= -1 then
+				result, carhandle = sampGetCarHandleBySampVehicleId(carid)
+				if carhandle ~= -1 then
+					model = getCarModel(carhandle)
+					if carid >= 828 then
+						x, y, z = getCarCoordinates(carhandle)
+						name_vehicle = getCarName(model)
+						----------------------------------------
+						printString('~p~OPEN BAGAJHUK~n~'..name_vehicle..'['..carid..']',1000)
+						----------------------------------------
+						local x2, y2 = convert3DCoordsToScreen(x, y, z)
+						local PlayerX3, PlayerY3, PlayerZ3 = getCharCoordinates(PLAYER_PED)
+						local PlayerX4, PlayerY4 = convert3DCoordsToScreen(PlayerX3, PlayerY3, PlayerZ3)
+						distance = string.format("%.0f",getDistanceBetweenCoords3d(x, y, z, PlayerX3, PlayerY3, PlayerZ3))
+						----------------------------------------
+						renderDrawLine(PlayerX4, PlayerY4, x2, y2, 2, 0x8B00FFFF) 
+						renderFontDrawText(arial,"{8B00FF}"..name_vehicle.."["..carid.."]\nБагажник: {3300FF}"..distance, x2, y2, -1)
+					end
+				else
+					carid = -1
+				end
+			end
+		end
+		--------------------[Поиск руды на шахте]--------------------
+		if waxta_state == true then
+			waxta_count = 0
+			for _, i in pairs(getAllObjects()) do
+				if getObjectModel(i) == 854 then
+					waxta_count = waxta_count + 1
+					if isObjectOnScreen(i) then
+						local result, oX, oY, oZ = getObjectCoordinates(i)
+						----------------------------------------
+						local x1, y1 = convert3DCoordsToScreen(oX,oY,oZ)
+						local PlayerX, PlayerY, PlayerZ = getCharCoordinates(PLAYER_PED)
+						local PlayerX2, PlayerY2 = convert3DCoordsToScreen(PlayerX, PlayerY, PlayerZ)
+						distance = string.format("%.0f",getDistanceBetweenCoords3d(oX, oY, oZ, PlayerX, PlayerY, PlayerZ))
+						----------------------------------------
+						renderDrawLine(PlayerX2, PlayerY2, x1, y1, 2, 0xFF3300FF) 
+						renderFontDrawText(arial,"{FF0000}Руда: {3300FF}"..distance, x1, y1, -1)
+					end
+				end
+			end
+			local sx, sy = getScreenResolution()
+			if waxta_count == 0 then
+				renderFontDrawText(arial,'Руды в зоне стрима: '..waxta_count, sx / 2.5, sy - 30, 0xFF3300FF)
+			else
+				renderFontDrawText(arial,'Руды в зоне стрима: '..waxta_count, sx / 2.5, sy - 30, 0xFFFF0000)
+			end
+		end
+		--------------------[Поиск оленей]--------------------
+		if olen_state == true then
+			olen_count = 0
+			for _, i in pairs(getAllObjects()) do
+				if getObjectModel(i) == 19315 then
+					olen_count = olen_count + 1
+					if isObjectOnScreen(i) then
+						local result, oX, oY, oZ = getObjectCoordinates(i)
+						----------------------------------------
+						local x1, y1 = convert3DCoordsToScreen(oX,oY,oZ)
+						local PlayerX, PlayerY, PlayerZ = getCharCoordinates(PLAYER_PED)
+						local PlayerX2, PlayerY2 = convert3DCoordsToScreen(PlayerX, PlayerY, PlayerZ)
+						distance = string.format("%.0f",getDistanceBetweenCoords3d(oX, oY, oZ, PlayerX, PlayerY, PlayerZ))
+						----------------------------------------
+						renderDrawLine(PlayerX2, PlayerY2, x1, y1, 2, 0xFF3300FF) 
+						renderFontDrawText(arial,"{FF0000}Олень: {3300FF}"..distance, x1, y1, -1)
+					end
+				end
+			end
+			local sx, sy = getScreenResolution()
+			if olen_count == 0 then
+				renderFontDrawText(arial,'Оленей в зоне стрима: '..olen_count, sx / 2.5, sy - 30, 0xFF3300FF)
+			else
+				renderFontDrawText(arial,'Оленей в зоне стрима: '..olen_count, sx / 2.5, sy - 30, 0xFFFF0000)
+			end
+		end
+		--------------------[Поиск мусорок]--------------------
+		if trasher_state == true then
+			trasher_count = 0
+			for i = 0, 2048 do
+				if sampIs3dTextDefined(i) then
+					local text, color, posX, posY, posZ, distance, ignoreWalls, player, vehicle = sampGet3dTextInfoById(i)
+					if text:find('Загружено:') then
+						trasher_count = trasher_count + 1
+						if isPointOnScreen(posX, posY, posZ, 1) then
+							----------------------------------------
+							local x10, y10 = convert3DCoordsToScreen(posX, posY, posZ)
+							local PlayerX, PlayerY, PlayerZ = getCharCoordinates(PLAYER_PED)
+							local PlayerX2, PlayerY2 = convert3DCoordsToScreen(PlayerX, PlayerY, PlayerZ)
+							distance = string.format("%.0f",getDistanceBetweenCoords3d(posX, posY, posZ, PlayerX, PlayerY, PlayerZ))
+							----------------------------------------
+							renderDrawLine(PlayerX2, PlayerY2, x10, y10, 2, 0xFF3300FF)
+							renderFontDrawText(arial,"{FF0000}Мусорка: {3300FF}"..distance, x10, y10, -1)	
+						end
+					end
+				end
+			end
+			local sx, sy = getScreenResolution()
+			renderFontDrawText(arial,'Мусорок в зоне стрима: '..trasher_count, sx / 1.22, sy - 50, 0xFF3300FF)
+		end
+		--------------------[Продовоз]--------------------
+		if prodovoz_timer >= os.time() then
+			printString(string.format('~g~OTKAT: %d cek',prodovoz_timer-os.time()),2000)
+			if prodovoz_timer == os.time() then
+				sampAddChatMessage('['..thisScript().name..' '..thisScript().version..'{FFFFFF}] Ты снова можешь закупить продукты.', 0xFFFFFF)
+				prodovoz_timer = 0
+			end
+		end
+		----------------------------------------
+		if isCharInAnyCar(PLAYER_PED) and getCarModel( storeCarCharIsInNoSave(PLAYER_PED) ) == 456 then
+			prodovoz_count = 0
+			for i = 0, 2048 do
+				if sampIs3dTextDefined(i) then
+					local text, color, posX, posY, posZ, distance, ignoreWalls, player, vehicle = sampGet3dTextInfoById(i)
+					if text:find('{73B461}Тип бизнеса: {FFFFFF}Магазин 24/7') and text:find('продуктов с разгрузочной станции.') or
+						text:find('{73B461}Тип бизнеса: {FFFFFF}Магазин аксессуаров') and text:find('продуктов с разгрузочной станции.') or
+						text:find('{73B461}Тип бизнеса: {FFFFFF}Магазин одежды') and text:find('продуктов с разгрузочной станции.') then
+						prodovoz_count = prodovoz_count + 1
+						----------------------------------------
+						buy_prods = string.match(text,'Скупает {CBB42F}(%d+)')
+						price_prods = string.match(text,'предмета: {CBB42F}(%d+)')
+						----------------------------------------
+						local x10, y10 = convert3DCoordsToScreen(posX, posY, posZ)
+						local PlayerX, PlayerY, PlayerZ = getCharCoordinates(PLAYER_PED)
+						local PlayerX2, PlayerY2 = convert3DCoordsToScreen(PlayerX, PlayerY, PlayerZ)
+						distance = string.format("%.0f",getDistanceBetweenCoords3d(posX, posY, posZ, PlayerX, PlayerY, PlayerZ))
+						----------------------------------------
+						renderDrawLine(PlayerX2, PlayerY2, x10, y10, 2, 0xFF3300FF)
+						renderFontDrawText(arial,'{CBB42F}Бизнес скупает {33AA33}'..buy_prods..'{CBB42F} продуктов\nСтоимость 1 продукта {33AA33}'..price_prods..'${CBB42F}\nДистанция: {3300FF}'..distance..'м.', x10, y10, -1)	
+					end
+				end
+			end
+			local sx, sy = getScreenResolution()
+			if prodovoz_count == 0 then
+				renderFontDrawText(arial,'Магазинов: '..prodovoz_count, sx / 1.22, sy - 50, 0xFFCBB42F)
+			else
+				renderFontDrawText(arial,'Магазинов: '..prodovoz_count, sx / 1.22, sy - 50, 0xFFFF3300)
+			end
+		end
+		--------------------[Игроки в зоне стрима]--------------------
+		if players_state == true then
+			players_count = 0
+			for i = 0, sampGetMaxPlayerId(true) do
+				local result, ped = sampGetCharHandleBySampPlayerId(i)
+				if result and doesCharExist(ped) then
+					players_count = players_count + 1
+					local mypos_x, mypos_y, mypos_z = getCharCoordinates(PLAYER_PED)
+					local PlayerX2, PlayerY2 = convert3DCoordsToScreen(mypos_x, mypos_y, mypos_z)
+					local PlayerX, PlayerY, PlayerZ = getCharCoordinates(ped)
+					local x1, y1 = convert3DCoordsToScreen(PlayerX, PlayerY, PlayerZ)
+					distance = string.format("%.0f",getDistanceBetweenCoords3d(PlayerX, PlayerY, PlayerZ, mypos_x, mypos_y, mypos_z))
+					
+					playername = sampGetPlayerNickname(i)
+					color = sampGetPlayerColor(i)
+					----------------------------------------
+					afk = ""
+					if sampIsPlayerPaused(i) then
+						afk = "{FF3300}(AFK)"
+					end
+					----------------------------------------
+					renderDrawLine(PlayerX2, PlayerY2, x1, y1, 2, getColor(color))
+					renderFontDrawText(arial, playername..'['..i..'] ['..distance..' м.] '..afk, x1, y1, getColor(color))
+				end
+			end
+			local sx, sy = getScreenResolution()
+			if players_count < 2 then
+				renderFontDrawText(arial,'Игроков в зоне стрима: '..players_count, sx / 5, sy - 30, 0xFF3300FF)
+			else
+				renderFontDrawText(arial,'Игроков в зоне стрима: '..players_count, sx / 5, sy - 30, 0xFFFF0000)
+			end
+		end
+		--------------------[Пидоры в зоне стрима]--------------------
+		if pidori_state == true then
+			for i = 0, sampGetMaxPlayerId(true) do
+				local result, ped = sampGetCharHandleBySampPlayerId(i)
+				if result and doesCharExist(ped) then
+					nickname = sampGetPlayerNickname(i)
+					for id = 1, #pidors do
+						if nickname == pidors[id] then
 							local mypos_x, mypos_y, mypos_z = getCharCoordinates(PLAYER_PED)
 							local PlayerX2, PlayerY2 = convert3DCoordsToScreen(mypos_x, mypos_y, mypos_z)
-							local enpos = {getCharCoordinates(ped)}
-							local x1, y1 = convert3DCoordsToScreen(enpos[1], enpos[2], enpos[3])
-							local distance = getDistanceBetweenCoords3d(enpos[1], enpos[2], enpos[3], mypos_x, mypos_y, mypos_z)
+							local PlayerX, PlayerY, PlayerZ = getCharCoordinates(ped)
+							local x1, y1 = convert3DCoordsToScreen(PlayerX, PlayerY, PlayerZ)
+							distance = string.format("%.0f",getDistanceBetweenCoords3d(PlayerX, PlayerY, PlayerZ, mypos_x, mypos_y, mypos_z))
 							playername = sampGetPlayerNickname(i)
 							color = sampGetPlayerColor(i)
 							----------------------------------------
@@ -1400,375 +1542,169 @@ function main()
 							if sampIsPlayerPaused(i) then
 								afk = "{FF3300}(AFK)"
 							end
+							----------------------------------------
 							renderDrawLine(PlayerX2, PlayerY2, x1, y1, 2, getColor(color))
-							renderFontDrawText(arial,string.format('%s[%d] [%d м.] %s',playername,i,math.floor(tonumber(distance)),afk), x1, y1, getColor(color))
-						--end
-					end
-				end
-				local sx, sy = getScreenResolution()
-				if players_count < 2 then
-					renderFontDrawText(arial,'Игроков в зоне стрима: '..players_count, sx / 5, sy - 30, 0xFF3300FF)
-				else
-					renderFontDrawText(arial,'Игроков в зоне стрима: '..players_count, sx / 5, sy - 30, 0xFFFF0000)
-				end
-			end
-			----------------------------------------
-			if pidori_state == true then
-				for i = 0, sampGetMaxPlayerId(true) do
-					local result, ped = sampGetCharHandleBySampPlayerId(i)
-					if result and doesCharExist(ped) then
-						nickname = sampGetPlayerNickname(i)
-						for id = 1, #pidors do
-							if nickname == pidors[id] then
-								local mypos_x, mypos_y, mypos_z = getCharCoordinates(PLAYER_PED)
-								local PlayerX2, PlayerY2 = convert3DCoordsToScreen(mypos_x, mypos_y, mypos_z)
-								local enpos = {getCharCoordinates(ped)}
-								local x1, y1 = convert3DCoordsToScreen(enpos[1], enpos[2], enpos[3])
-								local distance = getDistanceBetweenCoords3d(enpos[1], enpos[2], enpos[3], mypos_x, mypos_y, mypos_z)
-								playername = sampGetPlayerNickname(i)
-								color = sampGetPlayerColor(i)
-								----------------------------------------
-								afk = ""
-								if sampIsPlayerPaused(i) then
-									afk = "{FF3300}(AFK)"
-								end
-								renderDrawLine(PlayerX2, PlayerY2, x1, y1, 2, getColor(color))
-								renderFontDrawText(arial,string.format('%s[%d] [%d м.] %s',playername,i,math.floor(tonumber(distance)),afk), x1, y1, getColor(color))
-							end
+							renderFontDrawText(arial, playername..'['..i..'] ['..distance..' м.] '..afk, x1, y1, getColor(color))
 						end
 					end
 				end
 			end
-			----------------------------------------
-			if players_state_finds ~= 65535 then
-				if sampIsPlayerConnected(players_state_finds) then
-					local result, ped = sampGetCharHandleBySampPlayerId(players_state_finds) 
-					if result and doesCharExist(ped) then
-						local mypos_x, mypos_y, mypos_z = getCharCoordinates(PLAYER_PED)
-						local PlayerX2, PlayerY2 = convert3DCoordsToScreen(mypos_x, mypos_y, mypos_z)
-						local enpos = {getCharCoordinates(ped)}
-						local x1, y1 = convert3DCoordsToScreen(enpos[1], enpos[2], enpos[3])
-						local distance = getDistanceBetweenCoords3d(enpos[1], enpos[2], enpos[3], mypos_x, mypos_y, mypos_z)
-						playername = sampGetPlayerNickname(players_state_finds)
-						color = sampGetPlayerColor(players_state_finds)
-						----------------------------------------
-						afk = ""
-						if sampIsPlayerPaused(players_state_finds) then
-							afk = "{FF3300}(AFK)"
-						end
-						renderDrawLine(PlayerX2, PlayerY2, x1, y1, 2, getColor(color))
-						renderFontDrawText(arial,string.format('%s[%d] [%d м.] %s',playername,players_state_finds,math.floor(tonumber(distance)),afk), x1, y1, getColor(color))
-					end
-				end
-			end
-			----------------------------------------
-			if prodovoz_timer >= os.time() then
-				printString(string.format('~g~OTKAT: %d cek',prodovoz_timer-os.time()),2000)
-				if prodovoz_timer == os.time() then
-					sampAddChatMessage('['..thisScript().name..' '..thisScript().version..'{FFFFFF}] Ты снова можешь закупить продукты.', 0xFFFFFF)
-					prodovoz_timer = 0
-				end
-			end
-			----------------------------------------
-			if isCharInAnyCar(PLAYER_PED) then
-				carhandle = storeCarCharIsInNoSave(PLAYER_PED)
-				if getCarModel(carhandle) == 456 then
-					prodovoz_count = 0
-					for i = 0, 2048 do
-						if sampIs3dTextDefined(i) then
-							local text, color, posX, posY, posZ, distance, ignoreWalls, player, vehicle = sampGet3dTextInfoById(i)
-							if  text:find('{73B461}Тип бизнеса: {FFFFFF}Магазин 24/7') and text:find('продуктов с разгрузочной станции.') or
-								text:find('{73B461}Тип бизнеса: {FFFFFF}Магазин аксессуаров') and text:find('продуктов с разгрузочной станции.') or
-								text:find('{73B461}Тип бизнеса: {FFFFFF}Магазин одежды') and text:find('продуктов с разгрузочной станции.') then
-								prodovoz_count = prodovoz_count + 1
-								----------------------------------------
-								buy_prods = string.match(text,'Скупает {CBB42F}(%d+)')
-								price_prods = string.match(text,'предмета: {CBB42F}(%d+)')
-								----------------------------------------
-								--if isPointOnScreen(posX, posY, posZ, 1) then
-								x10, y10 = convert3DCoordsToScreen(posX, posY, posZ)
-								local PlayerX, PlayerY, PlayerZ = getCharCoordinates(PLAYER_PED)
-								PlayerX2, PlayerY2 = convert3DCoordsToScreen(PlayerX, PlayerY, PlayerZ)
-								renderDrawLine(PlayerX2, PlayerY2, x10, y10, 2, 0xFF3300FF)
-								distance = string.format("%.0f",getDistanceBetweenCoords3d(posX, posY, posZ, PlayerX, PlayerY, PlayerZ))
-								renderFontDrawText(arial,'{CBB42F}Бизнес скупает {33AA33}'..buy_prods..'{CBB42F} продуктов\nСтоимость 1 продукта {33AA33}'..price_prods..'${CBB42F}\nДистанция: {3300FF}'..distance..'м.', x10, y10, -1)	
-								--end
-							end
-						end
-					end
-					local sx, sy = getScreenResolution()
-					if prodovoz_count == 0 then renderFontDrawText(arial,'Магазинов: '..prodovoz_count, sx / 1.22, sy - 50, 0xFFCBB42F)
-					else renderFontDrawText(arial,'Магазинов: '..prodovoz_count, sx / 1.22, sy - 50, 0xFFFF3300) end
-				end
-			end
-			----------------------------------------
-			if trasher_state == true then
-				trasher_count = 0
-				for i = 0, 2048 do
-					if sampIs3dTextDefined(i) then
-						local text, color, posX, posY, posZ, distance, ignoreWalls, player, vehicle = sampGet3dTextInfoById(i)
-						if text:find('Загружено:') then
-							trasher_count = trasher_count + 1
-							if isPointOnScreen(posX, posY, posZ, 1) then
-								x10, y10 = convert3DCoordsToScreen(posX, posY, posZ)
-								local PlayerX, PlayerY, PlayerZ = getCharCoordinates(PLAYER_PED)
-								PlayerX2, PlayerY2 = convert3DCoordsToScreen(PlayerX, PlayerY, PlayerZ)
-								renderDrawLine(PlayerX2, PlayerY2, x10, y10, 2, 0xFF3300FF)
-								distance = string.format("%.0f",getDistanceBetweenCoords3d(posX, posY, posZ, PlayerX, PlayerY, PlayerZ))
-								renderFontDrawText(arial,"{FF0000}Мусорка: {3300FF}"..distance, x10, y10, -1)	
-							end
-						end
-					end
-				end
-				local sx, sy = getScreenResolution()
-				renderFontDrawText(arial,'Мусорок в зоне стрима: '..trasher_count, sx / 1.22, sy - 50, 0xFF3300FF)
-			end
-			----------------------------------------
-			if olen_state == true then
-				olen_count = 0
-				for _, i in pairs(getAllObjects()) do
-					if getObjectModel(i) == 19315 then
-						olen_count = olen_count + 1
-						if isObjectOnScreen(i) then
-							local result, oX, oY, oZ = getObjectCoordinates(i)
-						
-							local x1, y1 = convert3DCoordsToScreen(oX,oY,oZ)
-							local PlayerX, PlayerY, PlayerZ = getCharCoordinates(PLAYER_PED)
-							local PlayerX2, PlayerY2 = convert3DCoordsToScreen(PlayerX, PlayerY, PlayerZ)
-							distance = string.format("%.0f",getDistanceBetweenCoords3d(oX, oY, oZ, PlayerX, PlayerY, PlayerZ))
-						
-							renderDrawLine(PlayerX2, PlayerY2, x1, y1, 2, 0xFF3300FF) 
-							renderFontDrawText(arial,"{FF0000}Олень: {3300FF}"..distance, x1, y1, -1)
-						end
-					end
-				end
-				local sx, sy = getScreenResolution()
-				if olen_count == 0 then
-					renderFontDrawText(arial,'Оленей в зоне стрима: '..olen_count, sx / 2.5, sy - 30, 0xFF3300FF)
-				else
-					renderFontDrawText(arial,'Оленей в зоне стрима: '..olen_count, sx / 2.5, sy - 30, 0xFFFF0000)
-				end
-			end
-			----------------------------------------
-			if waxta_state == true then
-				waxta_count = 0
-				for _, i in pairs(getAllObjects()) do
-					if getObjectModel(i) == 854 then
-						waxta_count = waxta_count + 1
-						if isObjectOnScreen(i) then
-							local result, oX, oY, oZ = getObjectCoordinates(i)
-						
-							local x1, y1 = convert3DCoordsToScreen(oX,oY,oZ)
-							local PlayerX, PlayerY, PlayerZ = getCharCoordinates(PLAYER_PED)
-							local PlayerX2, PlayerY2 = convert3DCoordsToScreen(PlayerX, PlayerY, PlayerZ)
-							distance = string.format("%.0f",getDistanceBetweenCoords3d(oX, oY, oZ, PlayerX, PlayerY, PlayerZ))
-						
-							renderDrawLine(PlayerX2, PlayerY2, x1, y1, 2, 0xFF3300FF) 
-							renderFontDrawText(arial,"{FF0000}Руда: {3300FF}"..distance, x1, y1, -1)
-						end
-					end
-				end
-				local sx, sy = getScreenResolution()
-				if waxta_count == 0 then
-					renderFontDrawText(arial,'Руды в зоне стрима: '..waxta_count, sx / 2.5, sy - 30, 0xFF3300FF)
-				else
-					renderFontDrawText(arial,'Руды в зоне стрима: '..waxta_count, sx / 2.5, sy - 30, 0xFFFF0000)
-				end
-			end
-			----------------------------------------
-			ip, port = sampGetCurrentServerAddress()
-			if ip == "185.169.134.3" or
-				ip == "185.169.134.4" or
-				ip == "185.169.134.43" or
-				ip == "185.169.134.44" or
-				ip == "185.169.134.45" or
-				ip == "185.169.134.5" or
-				ip == "185.169.134.59" or
-				ip == "185.169.134.61" or
-				ip == "185.169.134.107" or
-				ip == "185.169.134.109" or
-				ip == "185.169.134.166" or
-				ip == "185.169.134.171" or
-				ip == "185.169.134.172" or
-				ip == "185.169.134.173" or
-				ip == "185.169.134.174" then
-				if klad_state == true then
-					----------------------------------------
-					klad_count = 0
-					for _, i in pairs(getAllObjects()) do
-						if getObjectModel(i) == 1271 then
-							klad_count = klad_count + 1
-							if isObjectOnScreen(i) then
-								local result, oX, oY, oZ = getObjectCoordinates(i)
-							
-								local x1, y1 = convert3DCoordsToScreen(oX,oY,oZ)
-								local PlayerX, PlayerY, PlayerZ = getCharCoordinates(PLAYER_PED)
-								local PlayerX2, PlayerY2 = convert3DCoordsToScreen(PlayerX, PlayerY, PlayerZ)
-								distance = string.format("%.0f",getDistanceBetweenCoords3d(oX, oY, oZ, PlayerX, PlayerY, PlayerZ))
-							
-								renderDrawLine(PlayerX2, PlayerY2, x1, y1, 2, 0xFF3300FF) 
-								renderFontDrawText(arial,"{FF0000}Клад: {3300FF}"..distance, x1, y1, -1)
-							end
-						end
-					end
-					local sx, sy = getScreenResolution()
-					if klad_count == 0 then
-						--renderFontDrawText(arial, 'Кладов в зоне стрима: '..klad_count, sx / 1.22, sy - 30, 0xFF3300FF)
-					else
-						--renderFontDrawText(arial, 'Кладов в зоне стрима: '..klad_count, sx / 1.22, sy - 30, 0xFFFF0000)
-						printString('~r~KLAD! KLAD! KLAD!',1000)
-					end
-					if carid ~= -1 then
-						result, carhandle = sampGetCarHandleBySampVehicleId(carid)
-						if carhandle ~= -1 then
-							model = getCarModel(carhandle)
-							if carid >= 828 then
-								x, y, z = getCarCoordinates(carhandle)
-								name_vehicle = getCarName(model)
-								
-								printString('~p~OPEN BAGAJHUK~n~'..name_vehicle..'['..carid..']',1000)
-
-								local x2, y2 = convert3DCoordsToScreen(x, y, z)
-								local PlayerX3, PlayerY3, PlayerZ3 = getCharCoordinates(PLAYER_PED)
-								local PlayerX4, PlayerY4 = convert3DCoordsToScreen(PlayerX3, PlayerY3, PlayerZ3)
-								distance = string.format("%.0f",getDistanceBetweenCoords3d(x, y, z, PlayerX3, PlayerY3, PlayerZ3))
-
-								renderDrawLine(PlayerX4, PlayerY4, x2, y2, 2, 0x8B00FFFF) 
-								renderFontDrawText(arial,"{8B00FF}"..name_vehicle.."["..carid.."]\nБагажник: {3300FF}"..distance, x2, y2, -1)
-							end
-						else
-							carid = -1
-						end
-					end
-				end
-			end
-			----------------------------------------
-			if loot_state == true then
-				----------------------------------------
-				wait(100)
-				if sampIsCursorActive() and not sampIsDialogActive() then
-					for i = 0, 2304	do
-						if sampTextdrawIsExists(i) then
-							model, rotX, rotY, rotZ, zoom, clr1, clr2 = sampTextdrawGetModelRotationZoomVehColor(i)
-							x, y = sampTextdrawGetPos(i)
-							--if model ~= 854 and model ~= 2855 and model ~= 11722 then
-							--2855 - газеты
-							--11722 - краситель
-							--854 - мусор
-								if x == 184.5 and math.floor(tonumber(y)) == 164 and model ~= 1649 then
-									sampSendClickTextdraw(i)
-								elseif x == 211 and math.floor(tonumber(y)) == 164 and model ~= 1649 then
-									sampSendClickTextdraw(i)
-								elseif x == 237.5 and math.floor(tonumber(y)) == 164 and model ~= 1649 then
-									sampSendClickTextdraw(i)
-								elseif x == 264 and math.floor(tonumber(y)) == 164 and model ~= 1649 then
-									sampSendClickTextdraw(i)
-								elseif x == 290.5 and math.floor(tonumber(y)) == 164 and model ~= 1649 then
-									sampSendClickTextdraw(i)
-								end
-							--end
-						end
-					end
-				end
-			end
-			----------------------------------------
-			if ip == "185.169.134.3" or
-				ip == "185.169.134.4" or
-				ip == "185.169.134.43" or
-				ip == "185.169.134.44" or
-				ip == "185.169.134.45" or
-				ip == "185.169.134.5" or
-				ip == "185.169.134.59" or
-				ip == "185.169.134.61" or
-				ip == "185.169.134.107" or
-				ip == "185.169.134.109" or
-				ip == "185.169.134.166" or
-				ip == "185.169.134.171" or
-				ip == "185.169.134.172" or
-				ip == "185.169.134.173" or
-				ip == "185.169.134.174" then
-				if elements.chest.roll_state.v and chest_timer == os.time() then
-					sampSendChat('/invent')
-				end
-			end
-			----------------------------------------
-			if elements.autopiar.vr_active.v and vr_timer == os.time() then
-				sampSendChat(u8:decode('/vr '..elements.autopiar.vr_text.v))
-				vr_timer = os.time()+(elements.autopiar.vr_delay.v*60)
-			end
-			----------------------------------------
-			if elements.autopiar.fam_active.v and fam_timer == os.time() then
-				sampSendChat(u8:decode('/fam '..elements.autopiar.fam_text.v))
-				fam_timer = os.time()+(elements.autopiar.fam_delay.v*60)
-			end
-			----------------------------------------
-			if elements.autopiar.al_active.v and al_timer == os.time() then
-				sampSendChat(u8:decode('/al '..elements.autopiar.al_text.v))
-				al_timer = os.time()+(elements.autopiar.al_delay.v*60)
-			end
-			----------------------------------------
-			if elements.config.renderTime.v == true then
-			ip, port = sampGetCurrentServerAddress()
-				if ip == "185.169.134.3" or
-					ip == "185.169.134.4" or
-					ip == "185.169.134.43" or
-					ip == "185.169.134.44" or
-					ip == "185.169.134.45" or
-					ip == "185.169.134.5" or
-					ip == "185.169.134.59" or
-					ip == "185.169.134.61" or
-					ip == "185.169.134.107" or
-					ip == "185.169.134.109" or
-					ip == "185.169.134.166" or
-					ip == "185.169.134.171" or
-					ip == "185.169.134.172" or
-					ip == "185.169.134.173" or
-					ip == "185.169.134.174" then
-					local tWeekdays = 
-					{
-						[0] = 'Воскресенье',
-						[1] = 'Понедельник',
-						[2] = 'Вторник',
-						[3] = 'Среда',
-						[4] = 'Четверг',
-						[5] = 'Пятница',
-						[6] = 'Суббота'
-					}
-					----------------------------------------
-					kd_vr = 0
-					if vr_timer-os.time() > 0 then
-						kd_vr = vr_timer-os.time()
-					end
-					----------------------------------------
-					kd_fam = 0
-					if fam_timer-os.time() > 0 then
-						kd_fam = fam_timer-os.time()
-					end
-					----------------------------------------
-					kd_al = 0
-					if al_timer-os.time() > 0 then
-						kd_al = al_timer-os.time()
-					end
-					----------------------------------------
-					local sx, sy = getScreenResolution()
-					renderFontDrawText(molot, string.format("[%02d.%02d.%02d || %02d.%02d.%02d] (%s) [/vr: %d] [/fam: %d] [/al: %d]",
-					os.date("%d"),os.date("%m"),os.date("%Y"),
-					os.date("%H"),os.date("%M"),os.date("%S"),
-					tWeekdays[tonumber(os.date("%w"))],
-					kd_vr,
-					kd_fam,
-					kd_al), sx / 50, sy - 30, 0xAAFFFFFF)
-				end
-			end
-			----------------------------------------
-			hours, mins = getTimeOfDay()
-			if hours ~= elements.weather_time.set_time.v then
-				setTimeOfDay(elements.weather_time.set_time.v, 0)
-				forceWeatherNow(elements.weather_time.set_weather.v)
-			end
-			----------------------------------------
 		end
-	end)
+		--------------------[Поиск игрока]--------------------
+		if players_state_finds ~= 65535 then
+			if sampIsPlayerConnected(players_state_finds) then
+				local result, ped = sampGetCharHandleBySampPlayerId(players_state_finds) 
+				if result and doesCharExist(ped) then
+					local mypos_x, mypos_y, mypos_z = getCharCoordinates(PLAYER_PED)
+					local PlayerX2, PlayerY2 = convert3DCoordsToScreen(mypos_x, mypos_y, mypos_z)
+					local PlayerX, PlayerY, PlayerZ = getCharCoordinates(ped)
+					local x1, y1 = convert3DCoordsToScreen(PlayerX, PlayerY, PlayerZ)
+					distance = string.format("%.0f",getDistanceBetweenCoords3d(PlayerX, PlayerY, PlayerZ, mypos_x, mypos_y, mypos_z))
+					playername = sampGetPlayerNickname(players_state_finds)
+					color = sampGetPlayerColor(players_state_finds)
+					----------------------------------------
+					afk = ""
+					if sampIsPlayerPaused(players_state_finds) then
+						afk = "{FF3300}(AFK)"
+					end
+					----------------------------------------
+					renderDrawLine(PlayerX2, PlayerY2, x1, y1, 2, getColor(color))
+					renderFontDrawText(arial, playername..'['..players_state_finds..'] ['..distance..' м.] '..afk, x1, y1, getColor(color))
+				end
+			end
+		end
+		--------------------[ID's текстдравов]--------------------
+		if toggleID == true then
+			for i = 0, 2304 do
+				if sampTextdrawIsExists(i) then
+					x, y = sampTextdrawGetPos(i)
+					x1, y1 = convertGameScreenCoordsToWindowScreenCoords(x, y)
+					renderFontDrawText(arial_8_5, i, x1, y1, 0xFFBEBEBE)
+				end
+			end
+		end
+		--------------------[X / Y текстдравов]--------------------
+		if togglePOS == true then
+			for i = 0, 2304 do
+				if sampTextdrawIsExists(i) then
+					x, y = sampTextdrawGetPos(i)
+					x1, y1 = convertGameScreenCoordsToWindowScreenCoords(x, y)
+					renderFontDrawText(arial_8_5, 'x: '..math.floor(x)..'\ny: '..math.floor(y), x1, y1, 0xFFBEBEBE)
+				end
+			end
+		end
+		--------------------[MODEL's текстдравов]--------------------
+		if toggleMODEL == true then
+			for i = 0, 2304 do
+				if sampTextdrawIsExists(i) then
+					x, y = sampTextdrawGetPos(i)
+					x1, y1 = convertGameScreenCoordsToWindowScreenCoords(x, y)
+					model, rotX, rotY, rotZ, zoom, clr1, clr2 = sampTextdrawGetModelRotationZoomVehColor(i)
+					renderFontDrawText(arial_8_5, model, x1, y1, 0xFFBEBEBE)
+				end
+			end
+		end
+		--------------------[Автосообщения в /vr]--------------------
+		if work.status == true then
+			if not sampIsLocalPlayerSpawned() then
+				work.status = false
+			end
+			sampSendChat('/vr ' .. tostring(work.message))
+			if not sampIsChatInputActive() then
+				local strEl = getStructElement(sampGetInputInfoPtr(), 0x8, 4)
+				local X = getStructElement(strEl, 0x8, 4)
+				local Y = getStructElement(strEl, 0xC, 4)
+				----------------------------------------
+				local rotate = math.sin(os.clock() * 3) * 180 + 180
+				renderDrawPolygon(X + 10, Y + (renderGetFontDrawHeight(molot_10_9) / 2), 15, 15, 3, rotate, 0xFFFDDB6D)
+				renderFontDrawText(molot_10_9, tostring(work.message), X + 25, Y, -1)
+			end
+		end
+		--------------------[Математика]--------------------
+		text = sampGetChatInputText()
+		----------------------------------------
+		if text:find('%d+') and text:find('[-+/*^%%]') and not text:find('%a+') and text ~= nil then
+			ok, number = pcall(load('return '..text))
+			result_calc = 'Результат: '..number
+			if not isKeyDown(0x08) then
+			setClipboardText(number)
+			end
+		end
+		----------------------------------------
+		if text:find('%d+%%%*%d+') then
+			number1, number2 = text:match('(%d+)%%%*(%d+)')
+			number = number1*number2/100
+			ok, number = pcall(load('return '..number))
+			result_calc = 'Результат: '..number
+			if not isKeyDown(0x08) and ok then
+			setClipboardText(number)
+			end
+		end
+		----------------------------------------
+		if text:find('%d+%%%/%d+') then
+			number1, number2 = text:match('(%d+)%%%/(%d+)')
+			number = number2/number1*100
+			ok, number = pcall(load('return '..number))
+			result_calc = 'Результат: '..number
+			if not isKeyDown(0x08) and ok then
+			setClipboardText(number)
+			end
+		end
+		----------------------------------------
+		if text:find('%d+/%d+%%') then
+			number1, number2 = text:match('(%d+)/(%d+)%%')
+			number = number1*100/number2
+			ok, number = pcall(load('return '..number))
+			result_calc = 'Результат: '..number..'%'
+			if not isKeyDown(0x08) and ok then
+				setClipboardText(number..'%')
+			end
+		end
+		----------------------------------------
+		if text == '' then
+			ok = false
+		end
+		imgui.Process = ok
+		--------------------[Дальний чат]--------------------
+		if elements.chat.distant_active.v == true then
+			local strEl = getStructElement(sampGetInputInfoPtr(), 0x8, 4)
+			local X = getStructElement(strEl, 0x8, 4)
+			local Y = getStructElement(strEl, 0xC, 4)
+			renderFontDrawText(arial_8_5, "Дальний чат:", X, Y+80, -1)
+			----------------------------------------
+			for _, message in ipairs(chatbuble) do
+				renderFontDrawText(arial_8_5, message, X, Y+92, -1)
+				Y = Y+13
+			end
+		end
+		--------------------[Главный ImGui]--------------------
+		imgui.Process = true
+		imgui.ShowCursor = windowstate.v
+		if elements.chat.renderChat.v then
+			local POSITION_X, POSITION_Y
+			if POSITION_SET then
+				POSITION_X, POSITION_Y = getCursorPos()
+				if isKeyJustPressed(0x01) then
+					mainIni.config.posRenderX = POSITION_X
+					mainIni.config.posRenderY = POSITION_Y
+					POSITION_SET = false
+				end
+			else 
+				POSITION_X = mainIni.config.posRenderX
+				POSITION_Y = mainIni.config.posRenderY
+			end
+			local heightChatRender = POSITION_Y
+			for i = 0, elements.config.stringsCount.v -1  do
+				local message = table.maxn(chatMessages) - i
+				local textForRender = chatMessages[message]
+				if table.maxn(chatMessages) > 0 and message >= 1 then
+					renderFontDrawText(font,''..textForRender,POSITION_X,heightChatRender,-1)
+					heightChatRender = heightChatRender - (renderGetFontDrawHeight(font) + elements.config.offsetStrings.v)
+				end
+			end
+		end
+		----------------------------------------
+	end
 end
 
 function saveini()
@@ -2643,9 +2579,6 @@ function sampev.onShowTextDraw(textdrawId, data)
 	if data.modelId == 1562 then
 		sampAddChatMessage("Кресло на спину - заскринить название предмета!", 0xFF3300)
 	end
-	if data.modelId == 1603 then
-		sampAddChatMessage("Плащ медуза - заскринить название предмета!", 0xFF3300)
-	end
 	if data.modelId == 3026 then
 		sampAddChatMessage("Сумка-барыжка - своровать текстдрав (/td)!", 0xFF3300)
 	end
@@ -2904,6 +2837,10 @@ function sampev.onDisplayGameText(style, time, text)
 end
 
 function sampev.onServerMessage(color, text)
+	----------------------------------------
+	if loot_state == true and text:find('Подождите немного...') then
+		return false
+	end
 	----------------------------------------
 	ip, port = sampGetCurrentServerAddress()
 	if elements.chat.chatlog.v == true and text ~= ' ' and ip ~= "127.0.0.1" then
@@ -4018,6 +3955,8 @@ function sumFormat(sum)
 end
 
 function sampev.onShowDialog(dialogId, style, title, button1, button2, text)
+	--sampAddChatMessage(dialogId,-1)
+	--sampAddChatMessage(text,-1)
 	--------------------[Запоминание диалогов]--------------------
 	if dialogs[dialogId] then
 		lua_thread.create(function()
@@ -4028,6 +3967,11 @@ function sampev.onShowDialog(dialogId, style, title, button1, button2, text)
 			sampSetCurrentDialogListItem(dialogs[dialogId][1])
 			sampSetCurrentDialogEditboxText(dialogs[dialogId][2])
 		end)
+	end
+	--------------------[Автоподтверждение на открытие сим-карты]--------------------
+	if dialogId == 9208 then
+		sampSendDialogResponse(dialogId, 1, 0, "")
+		return false
 	end
 	--------------------[Автоввод текста в лавку]--------------------
 	if dialogId == 3020 then
@@ -4136,28 +4080,26 @@ function sampev.onShowDialog(dialogId, style, title, button1, button2, text)
 	--------------------[Автолут]--------------------
 	if loot_state == true then
 		if dialogId == 8251 then
-			for i = 0, 2304	do
+			--for i = 0, 2304 do
+			for i = 2000, 2160 do
 				if sampTextdrawIsExists(i) then
-					--model, rotX, rotY, rotZ, zoom, clr1, clr2 = sampTextdrawGetModelRotationZoomVehColor(i)
 					x, y = sampTextdrawGetPos(i)
-					--if model ~= 854 and model ~= 2855 and model ~= 11722 then
-						if x == 209 and math.floor(tonumber(y)) == 186 then
-							number_text = sampTextdrawGetString(i)
-							number_1 = tonumber(number_text)
-						elseif x == 235.5 and math.floor(tonumber(y)) == 186 then
-							number_text = sampTextdrawGetString(i)
-							number_2 = tonumber(number_text)
-						elseif x == 262 and math.floor(tonumber(y)) == 186 then
-							number_text = sampTextdrawGetString(i)
-							number_3 = tonumber(number_text)
-						elseif x == 288.5 and math.floor(tonumber(y)) == 186 then
-							number_text = sampTextdrawGetString(i)
-							number_4 = tonumber(number_text)
-						elseif x == 315 and math.floor(tonumber(y)) == 186 then
-							number_text = sampTextdrawGetString(i)
-							number_5 = tonumber(number_text)
-						end
-					--end
+					if x == 209 and math.floor(y) == 186 then
+						number_text = sampTextdrawGetString(i)
+						number_1 = tonumber(number_text)
+					elseif x == 235.5 and math.floor(y) == 186 then
+						number_text = sampTextdrawGetString(i)
+						number_2 = tonumber(number_text)
+					elseif x == 262 and math.floor(y) == 186 then
+						number_text = sampTextdrawGetString(i)
+						number_3 = tonumber(number_text)
+					elseif x == 288.5 and math.floor(y) == 186 then
+						number_text = sampTextdrawGetString(i)
+						number_4 = tonumber(number_text)
+					elseif x == 315 and math.floor(y) == 186 then
+						number_text = sampTextdrawGetString(i)
+						number_5 = tonumber(number_text)
+					end
 				end
 			end
 			if number_1 ~= 0 then
@@ -4264,6 +4206,7 @@ function sampev.onShowDialog(dialogId, style, title, button1, button2, text)
 	text:find("Перед тем как подтвердить сделку, советуем") or
 	text:find("Приятной игры на arizona") or
 	text:find("Аз Монет при пополнении счета на нашем сайте") or
+	text:find("Вы успешно купили ") or
 	text:find("PIN%-код принят")) then
 		sampSendDialogResponse(dialogId, 1, 0, '')
 		return false
@@ -4579,7 +4522,7 @@ function sampev.onSetPlayerAttachedObject(playerId, index, create, object)
 		model == 3272 or -- Паук
 		model == 3273 or -- Хз
 		--model == 3383 or -- Усы таракана
-		model == 3434 or -- Череп с мечами
+		model == 3434 or -- Рюкзак пират
 		model == 3524 or -- Череп
 		--model == 3528 or -- Дракон на спину
 		model == 3632 or -- Бочка в руку
