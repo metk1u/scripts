@@ -2,11 +2,12 @@
 script_name("{0d00ff}Ar{2900ff}iz{3900ff}on{4500ff}a H{4f00ff}el{5800ff}pe{6000ff}r")
 local script_names = "Arizona Helper"
 
-script_version('4.491')
+script_version('4.492')
 script_author("metk1u")
 
-local script_vers = 65
+local script_vers = 66
 
+local attach_id = 1001
 -- sampSetLocalPlayerName('lol')
 
 local coords = 
@@ -325,7 +326,6 @@ local friends =
 	"Lucifer_Filatov",
 	"Eduard_Tarus",
 	"Uzi_Devega",
-	"Hardwick_Flashlight",
 	--"Sam_Mason",
 	--"Conor",
 };
@@ -336,7 +336,6 @@ local pidors =
 	"Lucifer_Filatov",
 	"Eduard_Tarus",
 	"Uzi_Devega",
-	"Hardwick_Flashlight",
 };
 ----------------------------------------
 local work =
@@ -854,6 +853,8 @@ function main()
 	memory.setuint8(0x5700F7, 0xB8, true)
     memory.copy(0x5700FB, memory.strptr('\x89\x96\xBC\x00\x00\x00'), 6, true)
     memory.setuint8(0x570103, 0xEB, true)
+	--------------------[Продолжительность взрывов воздушного транспорта]--------------------
+	memory.setuint32(0x736F88, 0, true)
 	----------------------------------------
 	sampHandle = sampGetBase()
 	writeMemory(sampHandle + 0x2D3C45, 4, 0, 1)
@@ -4373,9 +4374,9 @@ function sampev.onPlayerChatBubble(playerId, color, distance, duration, message)
 end
 
 function sampev.onSetPlayerAttachedObject(playerId, index, create, object)
-	if playerId == 1001 then
+	if playerId == attach_id then
 		model = object.modelId
-		SaveFileAttach(1001,model,object.bone,object.offset.x,object.offset.y,object.offset.z,object.rotation.x,object.rotation.y,object.rotation.z,object.scale.x,object.scale.y,object.scale.z)
+		SaveFileAttach(attach_id,model,object.bone,object.offset.x,object.offset.y,object.offset.z,object.rotation.x,object.rotation.y,object.rotation.z,object.scale.x,object.scale.y,object.scale.z)
 	end
 	ip, port = sampGetCurrentServerAddress()
 	if ip == "185.169.134.3" or
@@ -4962,7 +4963,7 @@ function sampev.onSetPlayerAttachedObject(playerId, index, create, object)
 end
 
 function SaveFileAttach(skin,modelId,bone,offsetX,offsetY,offsetZ,rotationX,rotationY,rotationZ,scaleX,scaleY,scaleZ)
-	if skin == 1001 then
+	if skin == attach_id then
 		local file = io.open('moonloader/stealer/name.notepad', 'a+')
 		if file ~= -1 and file ~= nil then
 			file:write(string.format('SetPlayerAttachedObject(playerid, slot, %d, %d, %0.4f, %0.4f, %0.4f, %0.4f, %0.4f, %0.4f, %0.4f, %0.4f, %0.4f, -1, -1);\n',modelId,bone,offsetX,offsetY,offsetZ,rotationX,rotationY,rotationZ,scaleX,scaleY,scaleZ))
