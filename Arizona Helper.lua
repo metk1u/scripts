@@ -2,10 +2,10 @@
 script_name("{0d00ff}Ar{2900ff}iz{3900ff}on{4500ff}a H{4f00ff}el{5800ff}pe{6000ff}r")
 local script_names = "Arizona Helper"
 
-script_version('4.492')
+script_version('4.493')
 script_author("metk1u")
 
-local script_vers = 66
+local script_vers = 67
 
 local attach_id = 1001
 -- sampSetLocalPlayerName('lol')
@@ -283,31 +283,11 @@ local chatMessages = {}
 local reconnect_timer = 0
 local message_report = ""
 local local_name = ""
-local buyvk_state = -1
-local denis_state = false
-local mechanic_state = false
-local mechanic_count = 0
-local players_state = false
-local players_count = 0
-local players_state_finds = 65535
-local pidori_state = false
 local prodovoz_timer = 0
 local prods = 2000
-local prodovoz_count = 0
-local trasher_state = false
-local trasher_count = 0
-local olen_state = false
-local olen_count = 0
-local waxta_state = false
-local waxta_count = 0
-local klad_state = true
-local klad_count = 0
-local loot_state = false
-local MarkersState = false
 local checkpoint = {}
 local marker = {}
 local carid = -1
---local joinCount = false
 local window = imgui.ImBool(false)
 local window2 = imgui.ImBool(false)
 chatbuble = {}
@@ -374,6 +354,8 @@ else
 	data_cr = decodeJson(file_open_cr:read('*a'))
 	file_open_cr:close()
 end
+--------------------[Новый автолут]--------------------
+autoloot_td = {''}
 ----------------------------------------
 local file = 'settings.ini'
 local path = getWorkingDirectory() .. '\\config'
@@ -459,7 +441,8 @@ local mainIni = inicfg.load(
 		game = false,
 		serdce = false,
 		newyear = false,
-		pasxa = false
+		pasxa = false,
+		xlam = true
 	},
 	lavka =
 	{
@@ -569,7 +552,10 @@ local mainIni = inicfg.load(
 		box_moto_price = 50000,
 		----------------------------------------
 		box_car = 0,
-		box_car_price = 50000
+		box_car_price = 50000,
+		----------------------------------------
+		larec_premium = 0,
+		larec_premium_price = 50000
 	},
 	weather_time =
 	{
@@ -680,7 +666,8 @@ local elements =
 		game = imgui.ImBool(mainIni.destroy.game),
 		serdce = imgui.ImBool(mainIni.destroy.serdce),
 		newyear = imgui.ImBool(mainIni.destroy.newyear),
-		pasxa = imgui.ImBool(mainIni.destroy.pasxa)
+		pasxa = imgui.ImBool(mainIni.destroy.pasxa),
+		xlam = imgui.ImBool(mainIni.destroy.xlam)
 	},
 	lavka =
 	{
@@ -790,7 +777,10 @@ local elements =
 		box_moto_price = imgui.ImInt(mainIni.lavka.box_moto_price),
 		----------------------------------------
 		box_car = imgui.ImInt(mainIni.lavka.box_car),
-		box_car_price = imgui.ImInt(mainIni.lavka.box_car_price)
+		box_car_price = imgui.ImInt(mainIni.lavka.box_car_price),
+		----------------------------------------
+		larec_premium = imgui.ImInt(mainIni.lavka.larec_premium),
+		larec_premium_price = imgui.ImInt(mainIni.lavka.larec_premium_price)
 	},
 	weather_time =
 	{
@@ -813,6 +803,42 @@ local elements =
 		al_text = imgui.ImBuffer(tostring(mainIni.autopiar.al_text), 144),
 		al_delay = imgui.ImInt(mainIni.autopiar.al_delay),
 		al_active = imgui.ImBool(mainIni.autopiar.al_active)
+		----------------------------------------
+	},
+	state =
+	{
+		----------------------------------------
+		buyvk = -1,
+		----------------------------------------
+		mechanic = false,
+		mechanic_count = 0,
+		----------------------------------------
+		nicks = false,
+		----------------------------------------
+		finds = 65535,
+		----------------------------------------
+		pidori = false,
+		----------------------------------------
+		trasher = false,
+		----------------------------------------
+		olen = false,
+		----------------------------------------
+		waxta = false,
+		----------------------------------------
+		klad = true,
+		----------------------------------------
+		poisk = false,
+		----------------------------------------
+		autoloot = false,
+		autoloot_number = 0,
+		----------------------------------------
+		showid = false,
+		showpos = false,
+		showmodel = false,
+		----------------------------------------
+		stealer_td = false,
+		----------------------------------------
+		denis = false
 		----------------------------------------
 	}
 }
@@ -873,20 +899,6 @@ function main()
 		end
 	end)
 	os.remove("moonloader\\stealer\\322.notepad")
-	os.remove("moonloader\\stealer\\1301.notepad")
-	os.remove("moonloader\\stealer\\1562.notepad")
-	os.remove("moonloader\\stealer\\1601.notepad")
-	os.remove("moonloader\\stealer\\1602.notepad")
-	os.remove("moonloader\\stealer\\1603.notepad")
-	os.remove("moonloader\\stealer\\1614.notepad")
-	os.remove("moonloader\\stealer\\3434.notepad")
-	os.remove("moonloader\\stealer\\7093.notepad")
-	os.remove("moonloader\\stealer\\18643.notepad")
-	os.remove("moonloader\\stealer\\18848.notepad")
-	os.remove("moonloader\\stealer\\18978.notepad")
-	os.remove("moonloader\\stealer\\19080.notepad")
-	os.remove("moonloader\\stealer\\19091.notepad")
-	os.remove("moonloader\\stealer\\19823.notepad")
 	----------------------------------------
 	_, playerid = sampGetPlayerIdByCharHandle(PLAYER_PED)
 	local_name = sampGetPlayerNickname(playerid)
@@ -906,31 +918,6 @@ function main()
 	----------------------------------------
 	sampRegisterChatCommand("rr",report)
 	----------------------------------------
-	sampRegisterChatCommand('rp',function(playerid)
-		if #playerid == 0 then
-			sampAddChatMessage('Используй: /rp [playerid]', 0xAFAFAF)
-		else
-			if sampIsPlayerConnected(playerid) then
-				sampSendChat("/repare "..playerid.." 1")
-				sampSendChat("/filscar "..playerid.." 1 1")
-			else
-				sampAddChatMessage('{FF3300}x{AFAFAF} Игрок не в игре.',0xAFAFAF)
-			end
-		end
-	end)
-	----------------------------------------
-	--sampRegisterChatCommand('test',function()
-	--	memory.write(0x53C159, 5, 0x90)
-	--end)
-	----------------------------------------
-	sampRegisterChatCommand('ud',function()
-		sampSendChat("/usedrugs 3")
-	end)
-	----------------------------------------
-	sampRegisterChatCommand('ar',function()
-		sampSendChat("/armour")
-	end)
-	----------------------------------------
 	sampRegisterChatCommand('piss',function()
 		sampSetSpecialAction(68)
 		push_message('Сикаю :3')
@@ -939,63 +926,51 @@ function main()
 	sampRegisterChatCommand('buyvk',function(number)
 		if #number == 0 then
 			sampAddChatMessage('Используй: /buyvk [number 1-7]', 0xAFAFAF)
-			if buyvk_state ~= -1 then
-				buyvk_state = -1
+			if elements.state.buyvk ~= -1 then
+				elements.state.buyvk = -1
 				push_message('Выключаю покупку VK-Coins.')
 			end
 		else
-			if buyvk_state == -1 then
-				buyvk_state = number-1
+			if elements.state.buyvk == -1 then
+				elements.state.buyvk = number-1
 				push_message('Включаю покупку VK-Coins.')
 			else
-				buyvk_state = -1
+				elements.state.buyvk = -1
 				push_message('Выключаю покупку VK-Coins.')
 			end
 		end
 	end)
 	----------------------------------------
-	sampRegisterChatCommand("denis",function()
-		denis_state = not denis_state
-		mechanic_state = false
-		mechanic_count = 0
-		push_message((denis_state and "Включаю" or "Выключаю")..' покупку.')
-	end)
-	----------------------------------------
 	sampRegisterChatCommand("mechanic",function()
-		mechanic_state = not mechanic_state
-		mechanic_count = 0
-		push_message((mechanic_state and "Включаю" or "Выключаю")..' помощника для механика.')
+		elements.state.mechanic = not elements.state.mechanic
+		elements.state.mechanic_count = 0
+		push_message((elements.state.mechanic and "Включаю" or "Выключаю")..' помощника для механика.')
 	end)
 	----------------------------------------
 	sampRegisterChatCommand("nicks",function()
-		players_state = not players_state
-		push_message((players_state and "Включаю" or "Выключаю")..' поиск игроков в зоне стрима.')
-	end)
-	----------------------------------------
-	sampRegisterChatCommand("pidori",function()
-		pidori_state = not pidori_state
-		push_message((pidori_state and "Включаю" or "Выключаю")..' поиск пидоров.')
+		elements.state.nicks = not elements.state.nicks
+		push_message((elements.state.nicks and "Включаю" or "Выключаю")..' поиск игроков в зоне стрима.')
 	end)
 	----------------------------------------
 	sampRegisterChatCommand('finds',function(playerid)
 		if #playerid == 0 then
 			sampAddChatMessage('Используй: /finds [playerid]', 0xAFAFAF)
-			if players_state_finds ~= 65535 then
-				players_state_finds = 65535
+			if elements.state.finds ~= 65535 then
+				elements.state.finds = 65535
 				printString('~r~Find disable',2000)
 				push_message('Выключаю поиск игрока.')
 			end
 		else
 			if sampIsPlayerConnected(playerid) then
-				if players_state_finds == playerid then
-					players_state_finds = 65535
+				if elements.state.finds == playerid then
+					elements.state.finds = 65535
 					printString('~r~Find disable',2000)
 					push_message('Выключаю поиск игрока.')
 				else
 					sampSendChat("/id "..playerid)
-					players_state_finds = playerid
+					elements.state.finds = playerid
 					printString('~g~Find enable',2000)
-					push_message('Поиск ID:'..players_state_finds..' активирован.')
+					push_message('Поиск ID:'..elements.state.finds..' активирован.')
 				end
 			else
 				sampAddChatMessage('{FF3300}x{AFAFAF} Игрок не в игре.',0xAFAFAF)
@@ -1003,29 +978,35 @@ function main()
 		end
 	end)
 	----------------------------------------
+	sampRegisterChatCommand("pidori",function()
+		elements.state.pidori = not elements.state.pidori
+		push_message((elements.state.pidori and "Включаю" or "Выключаю")..' поиск пидоров.')
+	end)
+	----------------------------------------
 	sampRegisterChatCommand("trash",function()
-		trasher_state = not trasher_state
-		push_message((trasher_state and "Включаю" or "Выключаю")..' поиск мусорок в зоне стрима.')
+		elements.state.trasher = not elements.state.trasher
+		push_message((elements.state.trasher and "Включаю" or "Выключаю")..' поиск мусорок в зоне стрима.')
 	end)
 	----------------------------------------
 	sampRegisterChatCommand("olen",function()
-		olen_state = not olen_state
-		push_message((olen_state and "Включаю" or "Выключаю")..' поиск оленей в зоне стрима.')
+		elements.state.olen = not elements.state.olen
+		push_message((elements.state.olen and "Включаю" or "Выключаю")..' поиск оленей в зоне стрима.')
 	end)
 	----------------------------------------
 	sampRegisterChatCommand("waxta",function()
-		waxta_state = not waxta_state
-		push_message((waxta_state and "Включаю" or "Выключаю")..' поиск руды в зоне стрима.')
+		elements.state.waxta = not elements.state.waxta
+		push_message((elements.state.waxta and "Включаю" or "Выключаю")..' поиск руды в зоне стрима.')
 	end)
 	----------------------------------------
 	sampRegisterChatCommand("klad",function()
-		klad_state = not klad_state
+		elements.state.klad = not elements.state.klad
+		push_message((elements.state.klad and "Включаю" or "Выключаю")..' поиск кладов и открытых багажников в зоне стрима.')
 		printString('',0)
 	end)
 	----------------------------------------
 	sampRegisterChatCommand("poisk",function()
-		MarkersState = not MarkersState
-		if MarkersState == true then
+		elements.state.poisk = not elements.state.poisk
+		if elements.state.poisk == true then
 			for i = 1, #coords do
 				checkpoint[i] = addBlipForCoord(coords[i][1], coords[i][2], coords[i][3])
 				changeBlipColour(checkpoint[i], 0xFF3300FF)
@@ -1044,13 +1025,89 @@ function main()
 	end)
 	----------------------------------------
 	sampRegisterChatCommand("loot",function()
-		loot_state = not loot_state
-		push_message((loot_state and "Включаю" or "Выключаю")..' пылесос.')
+		elements.state.autoloot = not elements.state.autoloot
+		push_message((elements.state.autoloot and "Включаю" or "Выключаю")..' пылесос.')
 	end)
 	----------------------------------------
-	sampRegisterChatCommand("td",function()
-		td_state = not td_state
-		push_message((td_state and "Включаю" or "Выключаю")..' стиллер ТД.')
+	sampRegisterChatCommand('rp',function(playerid)
+		if #playerid == 0 then
+			sampAddChatMessage('Используй: /rp [playerid]', 0xAFAFAF)
+		else
+			if sampIsPlayerConnected(playerid) then
+				sampSendChat("/repare "..playerid.." 1")
+				sampSendChat("/filscar "..playerid.." 1 1")
+			else
+				sampAddChatMessage('{FF3300}x{AFAFAF} Игрок не в игре.',0xAFAFAF)
+			end
+		end
+	end)
+	----------------------------------------
+	sampRegisterChatCommand('ud',function()
+		sampSendChat("/usedrugs 3")
+	end)
+	----------------------------------------
+	sampRegisterChatCommand('ar',function()
+		sampSendChat("/armour")
+	end)
+	----------------------------------------
+	sampRegisterChatCommand("showid",function()
+		elements.state.showid = not elements.state.showid
+		push_message((elements.state.showid and "Включаю" or "Выключаю")..' ID текстдравов.')
+		----------------------------------------
+		if elements.state.showmodel == true then
+			elements.state.showmodel = false
+			push_message('Выключаю MODEL текстдравов.')
+		end
+		----------------------------------------
+		if elements.state.showpos == true then
+			elements.state.showpos = false
+			push_message('Выключаю X / Y текстдравов.')
+		end
+		----------------------------------------
+	end)
+	----------------------------------------
+	sampRegisterChatCommand("showpos",function()
+		elements.state.showpos = not elements.state.showpos
+		push_message((elements.state.showpos and "Включаю" or "Выключаю")..' X / Y текстдравов.')
+		----------------------------------------
+		if elements.state.showmodel == true then
+			elements.state.showmodel = false
+			push_message('Выключаю MODEL текстдравов.')
+		end
+		----------------------------------------
+		if elements.state.showid == true then
+			elements.state.showid = false
+			push_message('Выключаю ID текстдравов.')
+		end
+		----------------------------------------
+	end)
+	----------------------------------------
+	sampRegisterChatCommand("showmodel",function()
+		elements.state.showmodel = not elements.state.showmodel
+		push_message((elements.state.showmodel and "Включаю" or "Выключаю")..' MODEL текстдравов.')
+		----------------------------------------
+		if elements.state.showid == true then
+			elements.state.showid = false
+			push_message('Выключаю ID текстдравов.')
+		end
+		----------------------------------------
+		if elements.state.showpos == true then
+			elements.state.showpos = false
+			push_message('Выключаю X / Y текстдравов.')
+		end
+		----------------------------------------
+	end)
+	----------------------------------------
+	sampRegisterChatCommand("minfo",function()
+		sampAddChatMessage(string.format('[{FDDB6D}'..script_names..' '..thisScript().version..'{FFFFFF}] Памяти используется: {FF3300}%d МБ',math.ceil(memory.read(0x8E4CB4, 4, true) / 1048576)), 0xFFFFFF)
+		sampAddChatMessage('[{FDDB6D}'..script_names..' '..thisScript().version..'{FFFFFF}] Автоматическая очистка при достижении 500 мб.', 0xFFFFFF)
+	end)
+	----------------------------------------
+	sampRegisterChatCommand("mclear",function()
+		cleanStreamMemoryBuffer()
+		--memory.fill(sampGetChatInfoPtr() + 306, 0x0, 25200)
+		memory.write(sampGetChatInfoPtr() + 306, 25562, 4, 0x0)
+		memory.write(sampGetChatInfoPtr() + 0x63DA, 1, 1)
 	end)
 	----------------------------------------
 	sampRegisterChatCommand('price',function(item)
@@ -1090,64 +1147,16 @@ function main()
 		sampAddChatMessage('Используй: /price [название товара]', 0xAFAFAF)
 	end)
 	----------------------------------------
-	sampRegisterChatCommand("showid",function()
-		toggleID = not toggleID
-		push_message((toggleID and "Включаю" or "Выключаю")..' ID текстдравов.')
-		----------------------------------------
-		if toggleMODEL == true then
-			toggleMODEL = false
-			push_message('Выключаю MODEL текстдравов.')
-		end
-		----------------------------------------
-		if togglePOS == true then
-			togglePOS = false
-			push_message('Выключаю X / Y текстдравов.')
-		end
-		----------------------------------------
+	sampRegisterChatCommand("denis",function()
+		elements.state.denis = not elements.state.denis
+		elements.state.mechanic = false
+		elements.state.mechanic_count = 0
+		push_message((elements.state.denis and "Включаю" or "Выключаю")..' покупку.')
 	end)
 	----------------------------------------
-	sampRegisterChatCommand("showpos",function()
-		togglePOS = not togglePOS
-		push_message((togglePOS and "Включаю" or "Выключаю")..' X / Y текстдравов.')
-		----------------------------------------
-		if toggleMODEL == true then
-			toggleMODEL = false
-			push_message('Выключаю MODEL текстдравов.')
-		end
-		----------------------------------------
-		if toggleID == true then
-			toggleID = false
-			push_message('Выключаю ID текстдравов.')
-		end
-		----------------------------------------
-	end)
-	----------------------------------------
-	sampRegisterChatCommand("showmodel",function()
-		toggleMODEL = not toggleMODEL
-		push_message((toggleMODEL and "Включаю" or "Выключаю")..' MODEL текстдравов.')
-		----------------------------------------
-		if toggleID == true then
-			toggleID = false
-			push_message('Выключаю ID текстдравов.')
-		end
-		----------------------------------------
-		if togglePOS == true then
-			togglePOS = false
-			push_message('Выключаю X / Y текстдравов.')
-		end
-		----------------------------------------
-	end)
-	----------------------------------------
-	sampRegisterChatCommand("minfo",function()
-		sampAddChatMessage(string.format('[{FDDB6D}'..script_names..' '..thisScript().version..'{FFFFFF}] Памяти используется: {FF3300}%d МБ',math.ceil(memory.read(0x8E4CB4, 4, true) / 1048576)), 0xFFFFFF)
-		sampAddChatMessage('[{FDDB6D}'..script_names..' '..thisScript().version..'{FFFFFF}] Автоматическая очистка при достижении 500 мб.', 0xFFFFFF)
-	end)
-	----------------------------------------
-	sampRegisterChatCommand("mclear",function()
-		cleanStreamMemoryBuffer()
-		--memory.fill(sampGetChatInfoPtr() + 306, 0x0, 25200)
-		memory.write(sampGetChatInfoPtr() + 306, 25562, 4, 0x0)
-		memory.write(sampGetChatInfoPtr() + 0x63DA, 1, 1)
+	sampRegisterChatCommand("td",function()
+		elements.state.stealer_td = not elements.state.stealer_td
+		push_message((elements.state.stealer_td and "Включаю" or "Выключаю")..' стиллер ТД.')
 	end)
 	----------------------------------------
 	for i = 0, sampGetMaxPlayerId(true) do
@@ -1189,25 +1198,25 @@ function main()
 				break
 			end
 			----------------------------------------
-			if denis_state == true and not sampIsChatInputActive() then
+			if elements.state.mechanic == true then
+				if elements.state.mechanic_count < 90 then
+					setVirtualKeyDown(18, true)
+					wait(130)
+					setVirtualKeyDown(18, false)
+					elements.state.mechanic_count = elements.state.mechanic_count+1
+				else
+					elements.state.mechanic = not elements.state.mechanic
+					elements.state.mechanic_count = 0
+					push_message((elements.state.mechanic and "Включаю" or "Выключаю")..' помощника для механика.')
+				end
+			end
+			----------------------------------------
+			if elements.state.denis == true and not sampIsChatInputActive() then
 				--wait(100)
 				setVirtualKeyDown(18, true)
 				wait(20)
 				setVirtualKeyDown(18, false)
 				setVirtualKeyDown(13, false)
-			end
-			----------------------------------------
-			if mechanic_state == true then
-				if mechanic_count < 90 then
-					setVirtualKeyDown(18, true)
-					wait(130)
-					setVirtualKeyDown(18, false)
-					mechanic_count = mechanic_count+1
-				else
-					mechanic_state = not mechanic_state
-					mechanic_count = 0
-					push_message((mechanic_state and "Включаю" or "Выключаю")..' помощника для механика.')
-				end
 			end
 			----------------------------------------
 		end
@@ -1216,6 +1225,7 @@ function main()
 	while true do
 		wait(0)
 		ip, port = sampGetCurrentServerAddress()
+		local sx, sy = getScreenResolution()
 		--------------------[Очистка памяти]--------------------
 		if memory.read(0x8E4CB4, 4, true) > 524288000 then -- 500 МБайт
 			cleanStreamMemoryBuffer()
@@ -1278,7 +1288,6 @@ function main()
 				kd_al = al_timer-os.time()
 			end
 			----------------------------------------
-			local sx, sy = getScreenResolution()
 			renderFontDrawText(molot, string.format("[%02d.%02d.%02d || %02d.%02d.%02d] (%s) [/vr: %d] [/fam: %d] [/al: %d]",
 			os.date("%d"),os.date("%m"),os.date("%Y"),
 			os.date("%H"),os.date("%M"),os.date("%S"),
@@ -1316,30 +1325,295 @@ function main()
 			end
 		end
 		--------------------[Автолут]--------------------
-		if loot_state == true and sampIsCursorActive() and not sampIsDialogActive() then
+		-- if elements.state.autoloot == true and sampIsCursorActive() and not sampIsDialogActive() then
+			-- for i = 0, 2304 do
+			-- for i = 2000, 2160 do
+				-- if sampTextdrawIsExists(i) then
+					-- model, rotX, rotY, rotZ, zoom, clr1, clr2 = sampTextdrawGetModelRotationZoomVehColor(i)
+					-- if model ~= 1649 then
+						-- x, y = sampTextdrawGetPos(i)
+						-- if x == 184.5 and math.floor(y) == 164 then
+							-- sampSendClickTextdraw(i)
+						-- elseif x == 211 and math.floor(y) == 164 then
+							-- sampSendClickTextdraw(i)
+						-- elseif x == 237.5 and math.floor(y) == 164 then
+							-- sampSendClickTextdraw(i)
+						-- elseif x == 264 and math.floor(y) == 164 then
+							-- sampSendClickTextdraw(i)
+						-- elseif x == 290.5 and math.floor(y) == 164 then
+							-- sampSendClickTextdraw(i)
+						-- end
+					-- end
+				-- end
+			-- end
+		-- end
+		--------------------[Новый автолут]--------------------
+		if elements.state.autoloot == true and not sampIsCursorActive() and not sampIsDialogActive() then
 			--for i = 0, 2304 do
+			renderFontDrawText(arial,'autoloot {33AA33}enable', sx / 20, sy - 260, 0xFF3300FF)
 			for i = 2000, 2160 do
 				if sampTextdrawIsExists(i) then
 					model, rotX, rotY, rotZ, zoom, clr1, clr2 = sampTextdrawGetModelRotationZoomVehColor(i)
 					if model ~= 1649 then
 						x, y = sampTextdrawGetPos(i)
+						--------------------[Первая строка]--------------------
 						if x == 184.5 and math.floor(y) == 164 then
 							sampSendClickTextdraw(i)
+							elements.state.autoloot_number = 1
 						elseif x == 211 and math.floor(y) == 164 then
 							sampSendClickTextdraw(i)
+							elements.state.autoloot_number = 2
 						elseif x == 237.5 and math.floor(y) == 164 then
 							sampSendClickTextdraw(i)
+							elements.state.autoloot_number = 3
 						elseif x == 264 and math.floor(y) == 164 then
 							sampSendClickTextdraw(i)
+							elements.state.autoloot_number = 4
 						elseif x == 290.5 and math.floor(y) == 164 then
 							sampSendClickTextdraw(i)
+							elements.state.autoloot_number = 5
+						--------------------[Вторая строка]--------------------
+						elseif x == 184.5 and math.floor(y) == 195 then
+							sampSendClickTextdraw(i)
+							elements.state.autoloot_number = 6
+						elseif x == 211 and math.floor(y) == 195 then
+							sampSendClickTextdraw(i)
+							elements.state.autoloot_number = 7
+						elseif x == 237.5 and math.floor(y) == 195 then
+							sampSendClickTextdraw(i)
+							elements.state.autoloot_number = 8
+						elseif x == 264 and math.floor(y) == 195 then
+							sampSendClickTextdraw(i)
+							elements.state.autoloot_number = 9
+						elseif x == 290.5 and math.floor(y) == 195 then
+							sampSendClickTextdraw(i)
+							elements.state.autoloot_number = 10
+						--------------------[Третья строка]--------------------
+						elseif x == 184.5 and math.floor(y) == 225 then
+							sampSendClickTextdraw(i)
+							elements.state.autoloot_number = 11
+						elseif x == 211 and math.floor(y) == 225 then
+							sampSendClickTextdraw(i)
+							elements.state.autoloot_number = 12
+						elseif x == 237.5 and math.floor(y) == 225 then
+							sampSendClickTextdraw(i)
+							elements.state.autoloot_number = 13
+						elseif x == 264 and math.floor(y) == 225 then
+							sampSendClickTextdraw(i)
+							elements.state.autoloot_number = 14
+						elseif x == 290.5 and math.floor(y) == 225 then
+							sampSendClickTextdraw(i)
+							elements.state.autoloot_number = 15
+						--------------------[Четвертая строка]--------------------
+						elseif x == 184.5 and math.floor(y) == 256 then
+							sampSendClickTextdraw(i)
+							elements.state.autoloot_number = 16
+						elseif x == 211 and math.floor(y) == 256 then
+							sampSendClickTextdraw(i)
+							elements.state.autoloot_number = 17
+						elseif x == 237.5 and math.floor(y) == 256 then
+							sampSendClickTextdraw(i)
+							elements.state.autoloot_number = 18
+						elseif x == 264 and math.floor(y) == 256 then
+							sampSendClickTextdraw(i)
+							elements.state.autoloot_number = 19
+						elseif x == 290.5 and math.floor(y) == 256 then
+							sampSendClickTextdraw(i)
+							elements.state.autoloot_number = 20
+						--------------------[Пятая строка]--------------------
+						elseif x == 184.5 and math.floor(y) == 286 then
+							sampSendClickTextdraw(i)
+							elements.state.autoloot_number = 21
+						elseif x == 211 and math.floor(y) == 286 then
+							sampSendClickTextdraw(i)
+							elements.state.autoloot_number = 22
+						elseif x == 237.5 and math.floor(y) == 286 then
+							sampSendClickTextdraw(i)
+							elements.state.autoloot_number = 23
+						elseif x == 264 and math.floor(y) == 286 then
+							sampSendClickTextdraw(i)
+							elements.state.autoloot_number = 24
+						elseif x == 290.5 and math.floor(y) == 286 then
+							sampSendClickTextdraw(i)
+							elements.state.autoloot_number = 25
+						--------------------[Шестая строка]--------------------
+						elseif x == 184.5 and math.floor(y) == 317 then
+							sampSendClickTextdraw(i)
+							elements.state.autoloot_number = 26
+						elseif x == 211 and math.floor(y) == 317 then
+							sampSendClickTextdraw(i)
+							elements.state.autoloot_number = 27
+						elseif x == 237.5 and math.floor(y) == 317 then
+							sampSendClickTextdraw(i)
+							elements.state.autoloot_number = 28
+						elseif x == 264 and math.floor(y) == 317 then
+							sampSendClickTextdraw(i)
+							elements.state.autoloot_number = 29
+						elseif x == 290.5 and math.floor(y) == 317 then
+							sampSendClickTextdraw(i)
+							elements.state.autoloot_number = 30
 						end
 					end
 				end
 			end
 		end
+		--------------------[Игроки в зоне стрима]--------------------
+		if elements.state.nicks == true then
+			players_count = 0
+			for i = 0, sampGetMaxPlayerId(true) do
+				local result, ped = sampGetCharHandleBySampPlayerId(i)
+				if result and doesCharExist(ped) then
+					players_count = players_count + 1
+					local mypos_x, mypos_y, mypos_z = getCharCoordinates(PLAYER_PED)
+					local PlayerX2, PlayerY2 = convert3DCoordsToScreen(mypos_x, mypos_y, mypos_z)
+					local PlayerX, PlayerY, PlayerZ = getCharCoordinates(ped)
+					local x1, y1 = convert3DCoordsToScreen(PlayerX, PlayerY, PlayerZ)
+					distance = string.format("%.0f",getDistanceBetweenCoords3d(PlayerX, PlayerY, PlayerZ, mypos_x, mypos_y, mypos_z))
+					
+					playername = sampGetPlayerNickname(i)
+					color = sampGetPlayerColor(i)
+					----------------------------------------
+					afk = ""
+					if sampIsPlayerPaused(i) then
+						afk = "{FF3300}(AFK)"
+					end
+					----------------------------------------
+					renderDrawLine(PlayerX2, PlayerY2, x1, y1, 2, getColor(color))
+					renderFontDrawText(arial, playername..'['..i..'] ['..distance..' м.] '..afk, x1, y1, getColor(color))
+				end
+			end
+			if players_count < 2 then
+				renderFontDrawText(arial,'Игроков в зоне стрима: '..players_count, sx / 5, sy - 30, 0xFF3300FF)
+			else
+				renderFontDrawText(arial,'Игроков в зоне стрима: '..players_count, sx / 5, sy - 30, 0xFFFF0000)
+			end
+		end
+		--------------------[Поиск игрока]--------------------
+		if elements.state.finds ~= 65535 then
+			if sampIsPlayerConnected(elements.state.finds) then
+				local result, ped = sampGetCharHandleBySampPlayerId(elements.state.finds) 
+				if result and doesCharExist(ped) then
+					local mypos_x, mypos_y, mypos_z = getCharCoordinates(PLAYER_PED)
+					local PlayerX2, PlayerY2 = convert3DCoordsToScreen(mypos_x, mypos_y, mypos_z)
+					local PlayerX, PlayerY, PlayerZ = getCharCoordinates(ped)
+					local x1, y1 = convert3DCoordsToScreen(PlayerX, PlayerY, PlayerZ)
+					distance = string.format("%.0f",getDistanceBetweenCoords3d(PlayerX, PlayerY, PlayerZ, mypos_x, mypos_y, mypos_z))
+					playername = sampGetPlayerNickname(elements.state.finds)
+					color = sampGetPlayerColor(elements.state.finds)
+					----------------------------------------
+					afk = ""
+					if sampIsPlayerPaused(elements.state.finds) then
+						afk = "{FF3300}(AFK)"
+					end
+					----------------------------------------
+					renderDrawLine(PlayerX2, PlayerY2, x1, y1, 2, getColor(color))
+					renderFontDrawText(arial, playername..'['..elements.state.finds..'] ['..distance..' м.] '..afk, x1, y1, getColor(color))
+				end
+			end
+		end
+		--------------------[Пидоры в зоне стрима]--------------------
+		if elements.state.pidori == true then
+			for i = 0, sampGetMaxPlayerId(true) do
+				local result, ped = sampGetCharHandleBySampPlayerId(i)
+				if result and doesCharExist(ped) then
+					nickname = sampGetPlayerNickname(i)
+					for id = 1, #pidors do
+						if nickname == pidors[id] then
+							local mypos_x, mypos_y, mypos_z = getCharCoordinates(PLAYER_PED)
+							local PlayerX2, PlayerY2 = convert3DCoordsToScreen(mypos_x, mypos_y, mypos_z)
+							local PlayerX, PlayerY, PlayerZ = getCharCoordinates(ped)
+							local x1, y1 = convert3DCoordsToScreen(PlayerX, PlayerY, PlayerZ)
+							distance = string.format("%.0f",getDistanceBetweenCoords3d(PlayerX, PlayerY, PlayerZ, mypos_x, mypos_y, mypos_z))
+							playername = sampGetPlayerNickname(i)
+							color = sampGetPlayerColor(i)
+							----------------------------------------
+							afk = ""
+							if sampIsPlayerPaused(i) then
+								afk = "{FF3300}(AFK)"
+							end
+							----------------------------------------
+							renderDrawLine(PlayerX2, PlayerY2, x1, y1, 2, getColor(color))
+							renderFontDrawText(arial, playername..'['..i..'] ['..distance..' м.] '..afk, x1, y1, getColor(color))
+						end
+					end
+				end
+			end
+		end
+		--------------------[Поиск мусорок]--------------------
+		if elements.state.trasher == true then
+			trasher_count = 0
+			for i = 0, 2048 do
+				if sampIs3dTextDefined(i) then
+					local text, color, posX, posY, posZ, distance, ignoreWalls, player, vehicle = sampGet3dTextInfoById(i)
+					if text:find('Загружено:') then
+						trasher_count = trasher_count + 1
+						if isPointOnScreen(posX, posY, posZ, 1) then
+							------------------------------------
+							local x10, y10 = convert3DCoordsToScreen(posX, posY, posZ)
+							local PlayerX, PlayerY, PlayerZ = getCharCoordinates(PLAYER_PED)
+							local PlayerX2, PlayerY2 = convert3DCoordsToScreen(PlayerX, PlayerY, PlayerZ)
+							distance = string.format("%.0f",getDistanceBetweenCoords3d(posX, posY, posZ, PlayerX, PlayerY, PlayerZ))
+							------------------------------------
+							renderDrawLine(PlayerX2, PlayerY2, x10, y10, 2, 0xFF3300FF)
+							renderFontDrawText(arial,"{FF0000}Мусорка: {3300FF}"..distance, x10, y10, -1)	
+						end
+					end
+				end
+			end
+			renderFontDrawText(arial,'Мусорок в зоне стрима: '..trasher_count, sx / 1.22, sy - 50, 0xFF3300FF)
+		end
+		--------------------[Поиск оленей]--------------------
+		if elements.state.olen == true then
+			olen_count = 0
+			for _, i in pairs(getAllObjects()) do
+				if getObjectModel(i) == 19315 then
+					olen_count = olen_count + 1
+					if isObjectOnScreen(i) then
+						local result, oX, oY, oZ = getObjectCoordinates(i)
+						------------------------------------
+						local x1, y1 = convert3DCoordsToScreen(oX,oY,oZ)
+						local PlayerX, PlayerY, PlayerZ = getCharCoordinates(PLAYER_PED)
+						local PlayerX2, PlayerY2 = convert3DCoordsToScreen(PlayerX, PlayerY, PlayerZ)
+						distance = string.format("%.0f",getDistanceBetweenCoords3d(oX, oY, oZ, PlayerX, PlayerY, PlayerZ))
+						------------------------------------
+						renderDrawLine(PlayerX2, PlayerY2, x1, y1, 2, 0xFF3300FF) 
+						renderFontDrawText(arial,"{FF0000}Олень: {3300FF}"..distance, x1, y1, -1)
+					end
+				end
+			end
+			if olen_count == 0 then
+				renderFontDrawText(arial,'Оленей в зоне стрима: '..olen_count, sx / 2.5, sy - 30, 0xFF3300FF)
+			else
+				renderFontDrawText(arial,'Оленей в зоне стрима: '..olen_count, sx / 2.5, sy - 30, 0xFFFF0000)
+			end
+		end
+		--------------------[Поиск руды на шахте]--------------------
+		if elements.state.waxta == true then
+			waxta_count = 0
+			for _, i in pairs(getAllObjects()) do
+				if getObjectModel(i) == 854 then
+					waxta_count = waxta_count + 1
+					if isObjectOnScreen(i) then
+						local result, oX, oY, oZ = getObjectCoordinates(i)
+						----------------------------------------
+						local x1, y1 = convert3DCoordsToScreen(oX,oY,oZ)
+						local PlayerX, PlayerY, PlayerZ = getCharCoordinates(PLAYER_PED)
+						local PlayerX2, PlayerY2 = convert3DCoordsToScreen(PlayerX, PlayerY, PlayerZ)
+						distance = string.format("%.0f",getDistanceBetweenCoords3d(oX, oY, oZ, PlayerX, PlayerY, PlayerZ))
+						----------------------------------------
+						renderDrawLine(PlayerX2, PlayerY2, x1, y1, 2, 0xFF3300FF) 
+						renderFontDrawText(arial,"{FF0000}Руда: {3300FF}"..distance, x1, y1, -1)
+					end
+				end
+			end
+			if waxta_count == 0 then
+				renderFontDrawText(arial,'Руды в зоне стрима: '..waxta_count, sx / 2.5, sy - 30, 0xFF3300FF)
+			else
+				renderFontDrawText(arial,'Руды в зоне стрима: '..waxta_count, sx / 2.5, sy - 30, 0xFFFF0000)
+			end
+		end
 		--------------------[Поиск кладов и открытых багажников]--------------------
-		if klad_state == true and (ip == "185.169.134.3" or ip == "185.169.134.4" or ip == "185.169.134.43" or ip == "185.169.134.44" or ip == "185.169.134.45" or ip == "185.169.134.5" or ip == "185.169.134.59" or ip == "185.169.134.61" or ip == "185.169.134.107" or ip == "185.169.134.109" or ip == "185.169.134.166" or ip == "185.169.134.171" or ip == "185.169.134.172" or ip == "185.169.134.173" or ip == "185.169.134.174" or ip == "80.66.82.191") then
+		if elements.state.klad == true and (ip == "185.169.134.3" or ip == "185.169.134.4" or ip == "185.169.134.43" or ip == "185.169.134.44" or ip == "185.169.134.45" or ip == "185.169.134.5" or ip == "185.169.134.59" or ip == "185.169.134.61" or ip == "185.169.134.107" or ip == "185.169.134.109" or ip == "185.169.134.166" or ip == "185.169.134.171" or ip == "185.169.134.172" or ip == "185.169.134.173" or ip == "185.169.134.174" or ip == "80.66.82.191") then
 			for _, i in pairs(getAllObjects()) do
 				if getObjectModel(i) == 1271 and isObjectOnScreen(i) then
 					local result, oX, oY, oZ = getObjectCoordinates(i)
@@ -1376,81 +1650,36 @@ function main()
 				end
 			end
 		end
-		--------------------[Поиск руды на шахте]--------------------
-		if waxta_state == true then
-			waxta_count = 0
-			for _, i in pairs(getAllObjects()) do
-				if getObjectModel(i) == 854 then
-					waxta_count = waxta_count + 1
-					if isObjectOnScreen(i) then
-						local result, oX, oY, oZ = getObjectCoordinates(i)
-						----------------------------------------
-						local x1, y1 = convert3DCoordsToScreen(oX,oY,oZ)
-						local PlayerX, PlayerY, PlayerZ = getCharCoordinates(PLAYER_PED)
-						local PlayerX2, PlayerY2 = convert3DCoordsToScreen(PlayerX, PlayerY, PlayerZ)
-						distance = string.format("%.0f",getDistanceBetweenCoords3d(oX, oY, oZ, PlayerX, PlayerY, PlayerZ))
-						----------------------------------------
-						renderDrawLine(PlayerX2, PlayerY2, x1, y1, 2, 0xFF3300FF) 
-						renderFontDrawText(arial,"{FF0000}Руда: {3300FF}"..distance, x1, y1, -1)
-					end
+		--------------------[ID's текстдравов]--------------------
+		if elements.state.showid == true then
+			for i = 0, 2304 do
+				if sampTextdrawIsExists(i) then
+					x, y = sampTextdrawGetPos(i)
+					x1, y1 = convertGameScreenCoordsToWindowScreenCoords(x, y)
+					renderFontDrawText(arial_8_5, i, x1, y1, 0xFFBEBEBE)
 				end
-			end
-			local sx, sy = getScreenResolution()
-			if waxta_count == 0 then
-				renderFontDrawText(arial,'Руды в зоне стрима: '..waxta_count, sx / 2.5, sy - 30, 0xFF3300FF)
-			else
-				renderFontDrawText(arial,'Руды в зоне стрима: '..waxta_count, sx / 2.5, sy - 30, 0xFFFF0000)
 			end
 		end
-		--------------------[Поиск оленей]--------------------
-		if olen_state == true then
-			olen_count = 0
-			for _, i in pairs(getAllObjects()) do
-				if getObjectModel(i) == 19315 then
-					olen_count = olen_count + 1
-					if isObjectOnScreen(i) then
-						local result, oX, oY, oZ = getObjectCoordinates(i)
-						----------------------------------------
-						local x1, y1 = convert3DCoordsToScreen(oX,oY,oZ)
-						local PlayerX, PlayerY, PlayerZ = getCharCoordinates(PLAYER_PED)
-						local PlayerX2, PlayerY2 = convert3DCoordsToScreen(PlayerX, PlayerY, PlayerZ)
-						distance = string.format("%.0f",getDistanceBetweenCoords3d(oX, oY, oZ, PlayerX, PlayerY, PlayerZ))
-						----------------------------------------
-						renderDrawLine(PlayerX2, PlayerY2, x1, y1, 2, 0xFF3300FF) 
-						renderFontDrawText(arial,"{FF0000}Олень: {3300FF}"..distance, x1, y1, -1)
-					end
+		--------------------[X / Y текстдравов]--------------------
+		if elements.state.showpos == true then
+			for i = 0, 2304 do
+				if sampTextdrawIsExists(i) then
+					x, y = sampTextdrawGetPos(i)
+					x1, y1 = convertGameScreenCoordsToWindowScreenCoords(x, y)
+					renderFontDrawText(arial_8_5, 'x: '..math.floor(x)..'\ny: '..math.floor(y), x1, y1, 0xFFBEBEBE)
 				end
-			end
-			local sx, sy = getScreenResolution()
-			if olen_count == 0 then
-				renderFontDrawText(arial,'Оленей в зоне стрима: '..olen_count, sx / 2.5, sy - 30, 0xFF3300FF)
-			else
-				renderFontDrawText(arial,'Оленей в зоне стрима: '..olen_count, sx / 2.5, sy - 30, 0xFFFF0000)
 			end
 		end
-		--------------------[Поиск мусорок]--------------------
-		if trasher_state == true then
-			trasher_count = 0
-			for i = 0, 2048 do
-				if sampIs3dTextDefined(i) then
-					local text, color, posX, posY, posZ, distance, ignoreWalls, player, vehicle = sampGet3dTextInfoById(i)
-					if text:find('Загружено:') then
-						trasher_count = trasher_count + 1
-						if isPointOnScreen(posX, posY, posZ, 1) then
-							----------------------------------------
-							local x10, y10 = convert3DCoordsToScreen(posX, posY, posZ)
-							local PlayerX, PlayerY, PlayerZ = getCharCoordinates(PLAYER_PED)
-							local PlayerX2, PlayerY2 = convert3DCoordsToScreen(PlayerX, PlayerY, PlayerZ)
-							distance = string.format("%.0f",getDistanceBetweenCoords3d(posX, posY, posZ, PlayerX, PlayerY, PlayerZ))
-							----------------------------------------
-							renderDrawLine(PlayerX2, PlayerY2, x10, y10, 2, 0xFF3300FF)
-							renderFontDrawText(arial,"{FF0000}Мусорка: {3300FF}"..distance, x10, y10, -1)	
-						end
-					end
+		--------------------[MODEL's текстдравов]--------------------
+		if elements.state.showmodel == true then
+			for i = 0, 2304 do
+				if sampTextdrawIsExists(i) then
+					x, y = sampTextdrawGetPos(i)
+					x1, y1 = convertGameScreenCoordsToWindowScreenCoords(x, y)
+					model, rotX, rotY, rotZ, zoom, clr1, clr2 = sampTextdrawGetModelRotationZoomVehColor(i)
+					renderFontDrawText(arial_8_5, model, x1, y1, 0xFFBEBEBE)
 				end
 			end
-			local sx, sy = getScreenResolution()
-			renderFontDrawText(arial,'Мусорок в зоне стрима: '..trasher_count, sx / 1.22, sy - 50, 0xFF3300FF)
 		end
 		--------------------[Продовоз]--------------------
 		if prodovoz_timer >= os.time() then
@@ -1484,125 +1713,10 @@ function main()
 					end
 				end
 			end
-			local sx, sy = getScreenResolution()
 			if prodovoz_count == 0 then
 				renderFontDrawText(arial,'Магазинов: '..prodovoz_count, sx / 1.22, sy - 50, 0xFFCBB42F)
 			else
 				renderFontDrawText(arial,'Магазинов: '..prodovoz_count, sx / 1.22, sy - 50, 0xFFFF3300)
-			end
-		end
-		--------------------[Игроки в зоне стрима]--------------------
-		if players_state == true then
-			players_count = 0
-			for i = 0, sampGetMaxPlayerId(true) do
-				local result, ped = sampGetCharHandleBySampPlayerId(i)
-				if result and doesCharExist(ped) then
-					players_count = players_count + 1
-					local mypos_x, mypos_y, mypos_z = getCharCoordinates(PLAYER_PED)
-					local PlayerX2, PlayerY2 = convert3DCoordsToScreen(mypos_x, mypos_y, mypos_z)
-					local PlayerX, PlayerY, PlayerZ = getCharCoordinates(ped)
-					local x1, y1 = convert3DCoordsToScreen(PlayerX, PlayerY, PlayerZ)
-					distance = string.format("%.0f",getDistanceBetweenCoords3d(PlayerX, PlayerY, PlayerZ, mypos_x, mypos_y, mypos_z))
-					
-					playername = sampGetPlayerNickname(i)
-					color = sampGetPlayerColor(i)
-					----------------------------------------
-					afk = ""
-					if sampIsPlayerPaused(i) then
-						afk = "{FF3300}(AFK)"
-					end
-					----------------------------------------
-					renderDrawLine(PlayerX2, PlayerY2, x1, y1, 2, getColor(color))
-					renderFontDrawText(arial, playername..'['..i..'] ['..distance..' м.] '..afk, x1, y1, getColor(color))
-				end
-			end
-			local sx, sy = getScreenResolution()
-			if players_count < 2 then
-				renderFontDrawText(arial,'Игроков в зоне стрима: '..players_count, sx / 5, sy - 30, 0xFF3300FF)
-			else
-				renderFontDrawText(arial,'Игроков в зоне стрима: '..players_count, sx / 5, sy - 30, 0xFFFF0000)
-			end
-		end
-		--------------------[Пидоры в зоне стрима]--------------------
-		if pidori_state == true then
-			for i = 0, sampGetMaxPlayerId(true) do
-				local result, ped = sampGetCharHandleBySampPlayerId(i)
-				if result and doesCharExist(ped) then
-					nickname = sampGetPlayerNickname(i)
-					for id = 1, #pidors do
-						if nickname == pidors[id] then
-							local mypos_x, mypos_y, mypos_z = getCharCoordinates(PLAYER_PED)
-							local PlayerX2, PlayerY2 = convert3DCoordsToScreen(mypos_x, mypos_y, mypos_z)
-							local PlayerX, PlayerY, PlayerZ = getCharCoordinates(ped)
-							local x1, y1 = convert3DCoordsToScreen(PlayerX, PlayerY, PlayerZ)
-							distance = string.format("%.0f",getDistanceBetweenCoords3d(PlayerX, PlayerY, PlayerZ, mypos_x, mypos_y, mypos_z))
-							playername = sampGetPlayerNickname(i)
-							color = sampGetPlayerColor(i)
-							----------------------------------------
-							afk = ""
-							if sampIsPlayerPaused(i) then
-								afk = "{FF3300}(AFK)"
-							end
-							----------------------------------------
-							renderDrawLine(PlayerX2, PlayerY2, x1, y1, 2, getColor(color))
-							renderFontDrawText(arial, playername..'['..i..'] ['..distance..' м.] '..afk, x1, y1, getColor(color))
-						end
-					end
-				end
-			end
-		end
-		--------------------[Поиск игрока]--------------------
-		if players_state_finds ~= 65535 then
-			if sampIsPlayerConnected(players_state_finds) then
-				local result, ped = sampGetCharHandleBySampPlayerId(players_state_finds) 
-				if result and doesCharExist(ped) then
-					local mypos_x, mypos_y, mypos_z = getCharCoordinates(PLAYER_PED)
-					local PlayerX2, PlayerY2 = convert3DCoordsToScreen(mypos_x, mypos_y, mypos_z)
-					local PlayerX, PlayerY, PlayerZ = getCharCoordinates(ped)
-					local x1, y1 = convert3DCoordsToScreen(PlayerX, PlayerY, PlayerZ)
-					distance = string.format("%.0f",getDistanceBetweenCoords3d(PlayerX, PlayerY, PlayerZ, mypos_x, mypos_y, mypos_z))
-					playername = sampGetPlayerNickname(players_state_finds)
-					color = sampGetPlayerColor(players_state_finds)
-					----------------------------------------
-					afk = ""
-					if sampIsPlayerPaused(players_state_finds) then
-						afk = "{FF3300}(AFK)"
-					end
-					----------------------------------------
-					renderDrawLine(PlayerX2, PlayerY2, x1, y1, 2, getColor(color))
-					renderFontDrawText(arial, playername..'['..players_state_finds..'] ['..distance..' м.] '..afk, x1, y1, getColor(color))
-				end
-			end
-		end
-		--------------------[ID's текстдравов]--------------------
-		if toggleID == true then
-			for i = 0, 2304 do
-				if sampTextdrawIsExists(i) then
-					x, y = sampTextdrawGetPos(i)
-					x1, y1 = convertGameScreenCoordsToWindowScreenCoords(x, y)
-					renderFontDrawText(arial_8_5, i, x1, y1, 0xFFBEBEBE)
-				end
-			end
-		end
-		--------------------[X / Y текстдравов]--------------------
-		if togglePOS == true then
-			for i = 0, 2304 do
-				if sampTextdrawIsExists(i) then
-					x, y = sampTextdrawGetPos(i)
-					x1, y1 = convertGameScreenCoordsToWindowScreenCoords(x, y)
-					renderFontDrawText(arial_8_5, 'x: '..math.floor(x)..'\ny: '..math.floor(y), x1, y1, 0xFFBEBEBE)
-				end
-			end
-		end
-		--------------------[MODEL's текстдравов]--------------------
-		if toggleMODEL == true then
-			for i = 0, 2304 do
-				if sampTextdrawIsExists(i) then
-					x, y = sampTextdrawGetPos(i)
-					x1, y1 = convertGameScreenCoordsToWindowScreenCoords(x, y)
-					model, rotX, rotY, rotZ, zoom, clr1, clr2 = sampTextdrawGetModelRotationZoomVehColor(i)
-					renderFontDrawText(arial_8_5, model, x1, y1, 0xFFBEBEBE)
-				end
 			end
 		end
 		--------------------[Автосообщения в /vr]--------------------
@@ -1781,7 +1895,8 @@ function saveini()
 			game = elements.destroy.game.v,
 			serdce = elements.destroy.serdce.v,
 			newyear = elements.destroy.newyear.v,
-			pasxa = elements.destroy.pasxa.v
+			pasxa = elements.destroy.pasxa.v,
+			xlam = elements.destroy.xlam.v
 		},
 		lavka =
 		{
@@ -1891,7 +2006,10 @@ function saveini()
 			box_moto_price = elements.lavka.box_moto_price.v,
 			----------------------------------------
 			box_car = elements.lavka.box_car.v,
-			box_car_price = elements.lavka.box_car_price.v
+			box_car_price = elements.lavka.box_car_price.v,
+			----------------------------------------
+			larec_premium = elements.lavka.larec_premium.v,
+			larec_premium_price = elements.lavka.larec_premium_price.v
 		},
 		weather_time =
 		{
@@ -1994,6 +2112,9 @@ function imgui.OnDrawFrame()
 		imgui.Text(u8"/finds [playerid] - Включить поиск игрока в зоне стрима")
 		imgui.SameLine()
 		imgui.TextQuestion(u8'Чтобы отключить введи /finds ещё раз.')
+		imgui.Text(u8"/pidori - Включить поиск пидоров в зоне стрима")
+		imgui.SameLine()
+		imgui.TextQuestion(u8'Чтобы отключить введи /pidori ещё раз.')
 		imgui.Text(u8"/trash - Включить поиск мусорок в зоне стрима")
 		imgui.Text(u8"/olen - Включить поиск оленей в зоне стрима")
 		imgui.Text(u8"/waxta - Включить поиск руды в зоне стрима")
@@ -2074,6 +2195,21 @@ function imgui.OnDrawFrame()
 			imgui.PushItemWidth(300)
 			imgui.SliderInt(u8('Время'),elements.weather_time.set_time,0,23)
 			setTimeOfDay(elements.weather_time.set_time.v, 0)
+			imgui.Separator()
+			----------------------------------------
+			imgui.Checkbox(u8('Кушать чипсы'),elements.hunger.eatenable)
+			----------------------------------------
+			imgui.SameLine()
+			imgui.TextQuestion(u8'Кушает чипсы при появлении надписи You are hungry! или\nYou are very hungry!')
+			----------------------------------------
+			imgui.SameLine()
+			imgui.Checkbox(u8('Автоматическая анимация'),elements.hunger.autoanim)
+			----------------------------------------
+			imgui.SameLine()
+			imgui.TextQuestion(u8'После еды чипсов автоматически включает /anim '..elements.hunger.autoanimid.v..'.')
+			----------------------------------------
+			imgui.PushItemWidth(300)
+			imgui.SliderInt(u8('Анимация'),elements.hunger.autoanimid,1,103)
 			imgui.Separator()
 		end
 		----------------------------------------
@@ -2203,6 +2339,7 @@ function imgui.OnDrawFrame()
 			imgui.Checkbox(u8('Отключить на сервере \'огромное сердце\''),elements.destroy.serdce)
 			imgui.Checkbox(u8('Отключить на сервере \'новогодний маппинг\''),elements.destroy.newyear)
 			imgui.Checkbox(u8('Отключить на сервере \'пасхальный маппинг\''),elements.destroy.pasxa)
+			imgui.Checkbox(u8('Отключить на сервере \'хлам\''),elements.destroy.xlam)
 			imgui.Separator()
 		end
 		if imgui.CollapsingHeader(u8'Авто-точилка аксессуаров') then
@@ -2362,6 +2499,10 @@ function imgui.OnDrawFrame()
 			imgui.SameLine()
 			imgui.InputInt(u8('Ящик авто-ящик (кол-во)'),elements.lavka.box_car)
 			----------------------------------------
+			imgui.InputInt(u8('Цена  ##37'),elements.lavka.larec_premium_price)
+			imgui.SameLine()
+			imgui.InputInt(u8('Ларец с премией (кол-во)'),elements.lavka.larec_premium)
+			----------------------------------------
 			count_all = 0
 			if elements.lavka.drugs.v ~= 0 then
 				count_all = count_all+(elements.lavka.drugs_price.v*elements.lavka.drugs.v)
@@ -2471,26 +2612,14 @@ function imgui.OnDrawFrame()
 			if elements.lavka.box_car.v ~= 0 then
 				count_all = count_all+(elements.lavka.box_car_price.v*elements.lavka.box_car.v)
 			end
+			if elements.lavka.larec_premium.v ~= 0 then
+				count_all = count_all+(elements.lavka.larec_premium_price.v*elements.lavka.larec_premium.v)
+			end
 			imgui.Text('')
 			imgui.Text(u8('Для покупки всех товаров необходимо $'..count_all))
 			if imgui.Button(u8"Начать скупку",imgui.ImVec2(250,25)) then skupka() end
 			imgui.Separator()
 		end
-		----------------------------------------
-		imgui.Checkbox(u8('Кушать чипсы'),elements.hunger.eatenable)
-		----------------------------------------
-		imgui.SameLine()
-		imgui.TextQuestion(u8'Кушает чипсы при появлении надписи You are hungry! или\nYou are very hungry!')
-		----------------------------------------
-		imgui.SameLine()
-		imgui.Checkbox(u8('Автоматическая анимация'),elements.hunger.autoanim)
-		----------------------------------------
-		imgui.SameLine()
-		imgui.TextQuestion(u8'После еды чипсов автоматически включает /anim '..elements.hunger.autoanimid.v..'.')
-		----------------------------------------
-		imgui.PushItemWidth(300)
-		imgui.SliderInt(u8('Анимация'),elements.hunger.autoanimid,1,103)
-		imgui.Separator()
 		----------------------------------------
 		imgui.Checkbox(u8('Открывать стандартный сундук'),elements.chest.roll_standart)
 		imgui.Checkbox(u8('Открывать платиновый сундук'),elements.chest.roll_platinum)
@@ -2577,8 +2706,79 @@ function sampev.onShowTextDraw(textdrawId, data)
 		--	data.text = '+12'
 		--end
 	--end
+	--------------------[Первая строка]--------------------
+	if data.position.x == 209 and math.floor(data.position.y) == 186 then
+		autoloot_td[1] = data.text
+	elseif data.position.x == 235.5 and math.floor(data.position.y) == 186 then
+		autoloot_td[2] = data.text
+	elseif data.position.x == 262 and math.floor(data.position.y) == 186 then
+		autoloot_td[3] = data.text
+	elseif data.position.x == 288.5 and math.floor(data.position.y) == 186 then
+		autoloot_td[4] = data.text
+	elseif data.position.x == 315 and math.floor(data.position.y) == 186 then
+		autoloot_td[5] = data.text
+	--------------------[Вторая строка]--------------------
+	elseif data.position.x == 209 and math.floor(data.position.y) == 217 then
+		autoloot_td[6] = data.text
+	elseif data.position.x == 235.5 and math.floor(data.position.y) == 217 then
+		autoloot_td[7] = data.text
+	elseif data.position.x == 262 and math.floor(data.position.y) == 217 then
+		autoloot_td[8] = data.text
+	elseif data.position.x == 288.5 and math.floor(data.position.y) == 217 then
+		autoloot_td[9] = data.text
+	elseif data.position.x == 315 and math.floor(data.position.y) == 217 then
+		autoloot_td[10] = data.text
+	--------------------[Третья строка]--------------------
+	elseif data.position.x == 209 and math.floor(data.position.y) == 247 then
+		autoloot_td[11] = data.text
+	elseif data.position.x == 235.5 and math.floor(data.position.y) == 247 then
+		autoloot_td[12] = data.text
+	elseif data.position.x == 262 and math.floor(data.position.y) == 247 then
+		autoloot_td[13] = data.text
+	elseif data.position.x == 288.5 and math.floor(data.position.y) == 247 then
+		autoloot_td[14] = data.text
+	elseif data.position.x == 315 and math.floor(data.position.y) == 247 then
+		autoloot_td[15] = data.text
+	--------------------[Четвертая строка]--------------------
+	elseif data.position.x == 209 and math.floor(data.position.y) == 278 then
+		autoloot_td[16] = data.text
+	elseif data.position.x == 235.5 and math.floor(data.position.y) == 278 then
+		autoloot_td[17] = data.text
+	elseif data.position.x == 262 and math.floor(data.position.y) == 278 then
+		autoloot_td[18] = data.text
+	elseif data.position.x == 288.5 and math.floor(data.position.y) == 278 then
+		autoloot_td[19] = data.text
+	elseif data.position.x == 315 and math.floor(data.position.y) == 278 then
+		autoloot_td[20] = data.text
+	--------------------[Пятая строка]--------------------
+	elseif data.position.x == 209 and math.floor(data.position.y) == 308 then
+		autoloot_td[21] = data.text
+	elseif data.position.x == 235.5 and math.floor(data.position.y) == 308 then
+		autoloot_td[22] = data.text
+	elseif data.position.x == 262 and math.floor(data.position.y) == 308 then
+		autoloot_td[23] = data.text
+	elseif data.position.x == 288.5 and math.floor(data.position.y) == 308 then
+		autoloot_td[24] = data.text
+	elseif data.position.x == 315 and math.floor(data.position.y) == 308 then
+		autoloot_td[25] = data.text
+	--------------------[Шестая строка]--------------------
+	elseif data.position.x == 209 and math.floor(data.position.y) == 339 then
+		autoloot_td[26] = data.text
+	elseif data.position.x == 235.5 and math.floor(data.position.y) == 339 then
+		autoloot_td[27] = data.text
+	elseif data.position.x == 262 and math.floor(data.position.y) == 339 then
+		autoloot_td[28] = data.text
+	elseif data.position.x == 288.5 and math.floor(data.position.y) == 339 then
+		autoloot_td[29] = data.text
+	elseif data.position.x == 315 and math.floor(data.position.y) == 339 then
+		autoloot_td[30] = data.text
+	end
+	--------------------[Прочее]--------------------
 	if data.modelId == 1562 then
 		sampAddChatMessage("Кресло на спину - заскринить название предмета!", 0xFF3300)
+	end
+	if data.modelId == 1681 then
+		sampAddChatMessage("Самолет на спину - заскринить название предмета!", 0xFF3300)
 	end
 	if data.modelId == 3026 then
 		sampAddChatMessage("Сумка-барыжка - своровать текстдрав (/td)!", 0xFF3300)
@@ -2621,7 +2821,7 @@ function sampev.onShowTextDraw(textdrawId, data)
 		end
 	end
 	--------------------[Стиллер текстдравов]--------------------
-	if td_state == true then
+	if elements.state.stealer_td == true then
 		local file = io.open('moonloader/stealer/textdraw.notepad', 'a+')
 		if file ~= -1 and file ~= nil then
 			code_temp_2 = ""
@@ -2839,7 +3039,7 @@ end
 
 function sampev.onServerMessage(color, text)
 	----------------------------------------
-	if loot_state == true and text:find('Подождите немного...') then
+	if elements.state.autoloot == true and text:find('Подождите немного...') then
 		return false
 	end
 	----------------------------------------
@@ -3056,9 +3256,9 @@ function sampev.onServerMessage(color, text)
 		end
 	end
 	----------------------------------------
-	if buyvk_state ~= -1 then
+	if elements.state.buyvk ~= -1 then
 		if text:find("Недостаточно VKoin\'s для преобретения данной переферии") then
-			buyvk_state = -1
+			elements.state.buyvk = -1
 			push_message('Выключаю покупку VK-Coins.')
 		end
 	end
@@ -3106,8 +3306,8 @@ function sampev.onPlayerQuit(playerid, reason)
 		end
 	end
 	----------------------------------------
-	if playerid == players_state_finds then
-		players_state_finds = 65535
+	if playerid == elements.state.finds then
+		elements.state.finds = 65535
 		push_message('Выключаю поиск игрока (disconnect).')
 	end
 	----------------------------------------
@@ -3240,6 +3440,9 @@ function onReceiveRpc(id, bitStream)
 			return false
 		end
 		if elements.destroy.pasxa.v == true and (model == 19341 or model == 19342 or model == 19343 or model == 19344 or model == 19345) then
+			return false
+		end
+		if elements.destroy.xlam.v == true and (model == 823) then
 			return false
 		end
 		ip, port = sampGetCurrentServerAddress()
@@ -3860,18 +4063,39 @@ function skupka()
 			sampSendDialogResponse(3050, 1, 3, '')
 			sampSendDialogResponse(3060, 1, 0, elements.lavka.box_car.v..' '..elements.lavka.box_car_price.v)
 		end
+		if elements.lavka.larec_premium.v ~= 0 then
+			sampSendDialogResponse(3040, 1, 0, '')
+			sampSendDialogResponse(3050, 1, 19, '')
+			sampSendDialogResponse(3050, 1, 20, '')
+			sampSendDialogResponse(3050, 1, 20, '')
+			sampSendDialogResponse(3050, 1, 20, '')
+			sampSendDialogResponse(3050, 1, 20, '')
+			sampSendDialogResponse(3050, 1, 20, '')
+			sampSendDialogResponse(3050, 1, 20, '')
+			sampSendDialogResponse(3050, 1, 20, '')
+			sampSendDialogResponse(3050, 1, 20, '')
+			sampSendDialogResponse(3050, 1, 20, '')
+			sampSendDialogResponse(3050, 1, 20, '')
+			sampSendDialogResponse(3050, 1, 20, '')
+			sampSendDialogResponse(3050, 1, 20, '')
+			sampSendDialogResponse(3050, 1, 20, '')
+			sampSendDialogResponse(3050, 1, 20, '')
+			sampSendDialogResponse(3050, 1, 20, '')
+			sampSendDialogResponse(3050, 1, 20, '')
+			sampSendDialogResponse(3050, 1, 20, '')
+			sampSendDialogResponse(3050, 1, 20, '')
+			sampSendDialogResponse(3050, 1, 20, '')
+			sampSendDialogResponse(3050, 1, 20, '')
+			sampSendDialogResponse(3050, 1, 20, '')
+			sampSendDialogResponse(3050, 1, 20, '')
+			sampSendDialogResponse(3050, 1, 20, '')
+			sampSendDialogResponse(3050, 1, 20, '')
+			sampSendDialogResponse(3050, 1, 20, '')
+			sampSendDialogResponse(3050, 1, 0, '')
+			sampSendDialogResponse(3060, 1, 0, elements.lavka.larec_premium.v..' '..elements.lavka.larec_premium_price.v)
+		end
 	end)
 end
-
---function sampev.onRemoveBuilding(modelId, position, radius)
-	--if joinCount == true then
-		--return false
-	--end
---end
-
---function sampev.onSetSpawnInfo(team, skin, _unused, position, rotation, weapons, ammo)
-	--joinCount = true
---end
 
 function sampev.onSetPlayerDrunk(drunkLevel)
 	--sampfuncsLog(drunkLevel)
@@ -4025,9 +4249,9 @@ function sampev.onShowDialog(dialogId, style, title, button1, button2, text)
 		return false
 	end
 	--------------------[buyvk]--------------------
-	if buyvk_state ~= -1 then
+	if elements.state.buyvk ~= -1 then
 		if dialogId == 25012 then
-			sampSendDialogResponse(dialogId, 1, buyvk_state, '')
+			sampSendDialogResponse(dialogId, 1, elements.state.buyvk, '')
 			return false
 		end
 		if dialogId == 25013 then
@@ -4079,50 +4303,62 @@ function sampev.onShowDialog(dialogId, style, title, button1, button2, text)
 		end
 	end
 	--------------------[Автолут]--------------------
-	if loot_state == true then
-		if dialogId == 8251 then
+	-- if elements.state.autoloot == true then
+		-- if dialogId == 8251 then
 			--for i = 0, 2304 do
-			for i = 2000, 2160 do
-				if sampTextdrawIsExists(i) then
-					x, y = sampTextdrawGetPos(i)
-					if x == 209 and math.floor(y) == 186 then
-						number_text = sampTextdrawGetString(i)
-						number_1 = tonumber(number_text)
-					elseif x == 235.5 and math.floor(y) == 186 then
-						number_text = sampTextdrawGetString(i)
-						number_2 = tonumber(number_text)
-					elseif x == 262 and math.floor(y) == 186 then
-						number_text = sampTextdrawGetString(i)
-						number_3 = tonumber(number_text)
-					elseif x == 288.5 and math.floor(y) == 186 then
-						number_text = sampTextdrawGetString(i)
-						number_4 = tonumber(number_text)
-					elseif x == 315 and math.floor(y) == 186 then
-						number_text = sampTextdrawGetString(i)
-						number_5 = tonumber(number_text)
-					end
-				end
-			end
-			if number_1 ~= 0 then
-				sampSendDialogResponse(dialogId, 2, 1, number_1)
-				number_1 = 0
-			end
-			if number_2 ~= 0 then
-				sampSendDialogResponse(dialogId, 2, 1, number_2)
-				number_2 = 0
-			end
-			if number_3 ~= 0 then
-				sampSendDialogResponse(dialogId, 2, 1, number_3)
-				number_3 = 0
-			end
-			if number_4 ~= 0 then
-				sampSendDialogResponse(dialogId, 2, 1, number_4)
-				number_4 = 0
-			end
-			if number_5 ~= 0 then
-				sampSendDialogResponse(dialogId, 2, 1, number_5)
-				number_5 = 0
-			end
+			-- for i = 2000, 2160 do
+				-- if sampTextdrawIsExists(i) then
+					-- x, y = sampTextdrawGetPos(i)
+					-- if x == 209 and math.floor(y) == 186 then
+						-- number_text = sampTextdrawGetString(i)
+						-- number_1 = tonumber(number_text)
+					-- elseif x == 235.5 and math.floor(y) == 186 then
+						-- number_text = sampTextdrawGetString(i)
+						-- number_2 = tonumber(number_text)
+					-- elseif x == 262 and math.floor(y) == 186 then
+						-- number_text = sampTextdrawGetString(i)
+						-- number_3 = tonumber(number_text)
+					-- elseif x == 288.5 and math.floor(y) == 186 then
+						-- number_text = sampTextdrawGetString(i)
+						-- number_4 = tonumber(number_text)
+					-- elseif x == 315 and math.floor(y) == 186 then
+						-- number_text = sampTextdrawGetString(i)
+						-- number_5 = tonumber(number_text)
+					-- end
+				-- end
+			-- end
+			-- if number_1 ~= 0 then
+				-- sampSendDialogResponse(dialogId, 2, 1, number_1)
+				-- number_1 = 0
+			-- end
+			-- if number_2 ~= 0 then
+				-- sampSendDialogResponse(dialogId, 2, 1, number_2)
+				-- number_2 = 0
+			-- end
+			-- if number_3 ~= 0 then
+				-- sampSendDialogResponse(dialogId, 2, 1, number_3)
+				-- number_3 = 0
+			-- end
+			-- if number_4 ~= 0 then
+				-- sampSendDialogResponse(dialogId, 2, 1, number_4)
+				-- number_4 = 0
+			-- end
+			-- if number_5 ~= 0 then
+				-- sampSendDialogResponse(dialogId, 2, 1, number_5)
+				-- number_5 = 0
+			-- end
+			-- return false
+		-- end
+	-- end
+	--------------------[Новый автолут]--------------------
+	if elements.state.autoloot == true then
+		if dialogId == 8251 then
+			sampSendDialogResponse(dialogId, 2, 1, autoloot_td[elements.state.autoloot_number])
+			elements.state.autoloot_number = 0
+			return false
+		end
+		if dialogId == 1966 then
+			sampSendDialogResponse(dialogId, 1, 1, nil)
 			return false
 		end
 	end
