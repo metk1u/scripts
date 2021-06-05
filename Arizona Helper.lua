@@ -2,12 +2,11 @@
 script_name("{0d00ff}Ar{2900ff}iz{3900ff}on{4500ff}a H{4f00ff}el{5800ff}pe{6000ff}r")
 local script_names = "Arizona Helper"
 
-script_version('4.493')
+script_version('4.5')
 script_author("metk1u")
 
-local script_vers = 67
+local script_vers = 68
 
-local attach_id = 1001
 -- sampSetLocalPlayerName('lol')
 
 local coords = 
@@ -376,7 +375,7 @@ local mainIni = inicfg.load(
 		del_opisanie_3d = true,
 		del_family_3d = true,
 		autousedrugs = true,
-		prodovoz_edit = 2000
+		prodovoz_edit = 2000,
 	},
 	account =
 	{
@@ -497,6 +496,9 @@ local mainIni = inicfg.load(
 		alyminiu = 0,
 		alyminiu_price = 5000,
 		----------------------------------------
+		tywka = 0,
+		tywka_price = 500,
+		----------------------------------------
 		euro = 0,
 		euro_price = 4000,
 		----------------------------------------
@@ -598,6 +600,7 @@ local elements =
 		del_family_3d = imgui.ImBool(mainIni.config.del_family_3d),
 		autousedrugs = imgui.ImBool(mainIni.config.autousedrugs),
 		prodovoz_edit = imgui.ImInt(mainIni.config.prodovoz_edit),
+		attach_id = imgui.ImInt(1001),
 		del_stream = imgui.ImBool(false),
 		del_shout = imgui.ImBool(false),
 		del_stream_pl = imgui.ImBool(false),
@@ -721,6 +724,9 @@ local elements =
 		----------------------------------------
 		alyminiu = imgui.ImInt(mainIni.lavka.alyminiu),
 		alyminiu_price = imgui.ImInt(mainIni.lavka.alyminiu_price),
+		----------------------------------------
+		tywka = imgui.ImInt(mainIni.lavka.tywka),
+		tywka_price = imgui.ImInt(mainIni.lavka.tywka_price),
 		----------------------------------------
 		euro = imgui.ImInt(mainIni.lavka.euro),
 		euro_price = imgui.ImInt(mainIni.lavka.euro_price),
@@ -1348,7 +1354,7 @@ function main()
 			-- end
 		-- end
 		--------------------[Новый автолут]--------------------
-		if elements.state.autoloot == true and not sampIsCursorActive() and not sampIsDialogActive() then
+		if elements.state.autoloot == true then
 			--for i = 0, 2304 do
 			renderFontDrawText(arial,'autoloot {33AA33}enable', sx / 20, sy - 260, 0xFF3300FF)
 			for i = 2000, 2160 do
@@ -1357,99 +1363,99 @@ function main()
 					if model ~= 1649 then
 						x, y = sampTextdrawGetPos(i)
 						--------------------[Первая строка]--------------------
-						if x == 184.5 and math.floor(y) == 164 then
+						if x == 184.5 and math.floor(y) == 164 and elements.state.autoloot_number == 0 then
 							sampSendClickTextdraw(i)
 							elements.state.autoloot_number = 1
-						elseif x == 211 and math.floor(y) == 164 then
+						elseif x == 211 and math.floor(y) == 164 and elements.state.autoloot_number == 0 then
 							sampSendClickTextdraw(i)
 							elements.state.autoloot_number = 2
-						elseif x == 237.5 and math.floor(y) == 164 then
+						elseif x == 237.5 and math.floor(y) == 164 and elements.state.autoloot_number == 0 then
 							sampSendClickTextdraw(i)
 							elements.state.autoloot_number = 3
-						elseif x == 264 and math.floor(y) == 164 then
+						elseif x == 264 and math.floor(y) == 164 and elements.state.autoloot_number == 0 then
 							sampSendClickTextdraw(i)
 							elements.state.autoloot_number = 4
-						elseif x == 290.5 and math.floor(y) == 164 then
+						elseif x == 290.5 and math.floor(y) == 164 and elements.state.autoloot_number == 0 then
 							sampSendClickTextdraw(i)
 							elements.state.autoloot_number = 5
 						--------------------[Вторая строка]--------------------
-						elseif x == 184.5 and math.floor(y) == 195 then
+						elseif x == 184.5 and math.floor(y) == 195 and elements.state.autoloot_number == 0 then
 							sampSendClickTextdraw(i)
 							elements.state.autoloot_number = 6
-						elseif x == 211 and math.floor(y) == 195 then
+						elseif x == 211 and math.floor(y) == 195 and elements.state.autoloot_number == 0 then
 							sampSendClickTextdraw(i)
 							elements.state.autoloot_number = 7
-						elseif x == 237.5 and math.floor(y) == 195 then
+						elseif x == 237.5 and math.floor(y) == 195 and elements.state.autoloot_number == 0 then
 							sampSendClickTextdraw(i)
 							elements.state.autoloot_number = 8
-						elseif x == 264 and math.floor(y) == 195 then
+						elseif x == 264 and math.floor(y) == 195 and elements.state.autoloot_number == 0 then
 							sampSendClickTextdraw(i)
 							elements.state.autoloot_number = 9
-						elseif x == 290.5 and math.floor(y) == 195 then
+						elseif x == 290.5 and math.floor(y) == 195 and elements.state.autoloot_number == 0 then
 							sampSendClickTextdraw(i)
 							elements.state.autoloot_number = 10
 						--------------------[Третья строка]--------------------
-						elseif x == 184.5 and math.floor(y) == 225 then
+						elseif x == 184.5 and math.floor(y) == 225 and elements.state.autoloot_number == 0 then
 							sampSendClickTextdraw(i)
 							elements.state.autoloot_number = 11
-						elseif x == 211 and math.floor(y) == 225 then
+						elseif x == 211 and math.floor(y) == 225 and elements.state.autoloot_number == 0 then
 							sampSendClickTextdraw(i)
 							elements.state.autoloot_number = 12
-						elseif x == 237.5 and math.floor(y) == 225 then
+						elseif x == 237.5 and math.floor(y) == 225 and elements.state.autoloot_number == 0 then
 							sampSendClickTextdraw(i)
 							elements.state.autoloot_number = 13
-						elseif x == 264 and math.floor(y) == 225 then
+						elseif x == 264 and math.floor(y) == 225 and elements.state.autoloot_number == 0 then
 							sampSendClickTextdraw(i)
 							elements.state.autoloot_number = 14
-						elseif x == 290.5 and math.floor(y) == 225 then
+						elseif x == 290.5 and math.floor(y) == 225 and elements.state.autoloot_number == 0 then
 							sampSendClickTextdraw(i)
 							elements.state.autoloot_number = 15
 						--------------------[Четвертая строка]--------------------
-						elseif x == 184.5 and math.floor(y) == 256 then
+						elseif x == 184.5 and math.floor(y) == 256 and elements.state.autoloot_number == 0 then
 							sampSendClickTextdraw(i)
 							elements.state.autoloot_number = 16
-						elseif x == 211 and math.floor(y) == 256 then
+						elseif x == 211 and math.floor(y) == 256 and elements.state.autoloot_number == 0 then
 							sampSendClickTextdraw(i)
 							elements.state.autoloot_number = 17
-						elseif x == 237.5 and math.floor(y) == 256 then
+						elseif x == 237.5 and math.floor(y) == 256 and elements.state.autoloot_number == 0 then
 							sampSendClickTextdraw(i)
 							elements.state.autoloot_number = 18
-						elseif x == 264 and math.floor(y) == 256 then
+						elseif x == 264 and math.floor(y) == 256 and elements.state.autoloot_number == 0 then
 							sampSendClickTextdraw(i)
 							elements.state.autoloot_number = 19
-						elseif x == 290.5 and math.floor(y) == 256 then
+						elseif x == 290.5 and math.floor(y) == 256 and elements.state.autoloot_number == 0 then
 							sampSendClickTextdraw(i)
 							elements.state.autoloot_number = 20
 						--------------------[Пятая строка]--------------------
-						elseif x == 184.5 and math.floor(y) == 286 then
+						elseif x == 184.5 and math.floor(y) == 286 and elements.state.autoloot_number == 0 then
 							sampSendClickTextdraw(i)
 							elements.state.autoloot_number = 21
-						elseif x == 211 and math.floor(y) == 286 then
+						elseif x == 211 and math.floor(y) == 286 and elements.state.autoloot_number == 0 then
 							sampSendClickTextdraw(i)
 							elements.state.autoloot_number = 22
-						elseif x == 237.5 and math.floor(y) == 286 then
+						elseif x == 237.5 and math.floor(y) == 286 and elements.state.autoloot_number == 0 then
 							sampSendClickTextdraw(i)
 							elements.state.autoloot_number = 23
-						elseif x == 264 and math.floor(y) == 286 then
+						elseif x == 264 and math.floor(y) == 286 and elements.state.autoloot_number == 0 then
 							sampSendClickTextdraw(i)
 							elements.state.autoloot_number = 24
-						elseif x == 290.5 and math.floor(y) == 286 then
+						elseif x == 290.5 and math.floor(y) == 286 and elements.state.autoloot_number == 0 then
 							sampSendClickTextdraw(i)
 							elements.state.autoloot_number = 25
 						--------------------[Шестая строка]--------------------
-						elseif x == 184.5 and math.floor(y) == 317 then
+						elseif x == 184.5 and math.floor(y) == 317 and elements.state.autoloot_number == 0 then
 							sampSendClickTextdraw(i)
 							elements.state.autoloot_number = 26
-						elseif x == 211 and math.floor(y) == 317 then
+						elseif x == 211 and math.floor(y) == 317 and elements.state.autoloot_number == 0 then
 							sampSendClickTextdraw(i)
 							elements.state.autoloot_number = 27
-						elseif x == 237.5 and math.floor(y) == 317 then
+						elseif x == 237.5 and math.floor(y) == 317 and elements.state.autoloot_number == 0 then
 							sampSendClickTextdraw(i)
 							elements.state.autoloot_number = 28
-						elseif x == 264 and math.floor(y) == 317 then
+						elseif x == 264 and math.floor(y) == 317 and elements.state.autoloot_number == 0 then
 							sampSendClickTextdraw(i)
 							elements.state.autoloot_number = 29
-						elseif x == 290.5 and math.floor(y) == 317 then
+						elseif x == 290.5 and math.floor(y) == 317 and elements.state.autoloot_number == 0 then
 							sampSendClickTextdraw(i)
 							elements.state.autoloot_number = 30
 						end
@@ -1951,6 +1957,9 @@ function saveini()
 			alyminiu = elements.lavka.alyminiu.v,
 			alyminiu_price = elements.lavka.alyminiu_price.v,
 			----------------------------------------
+			tywka = elements.lavka.tywka.v,
+			tywka_price = elements.lavka.tywka_price.v,
+			----------------------------------------
 			euro = elements.lavka.euro.v,
 			euro_price = elements.lavka.euro_price.v,
 			----------------------------------------
@@ -2142,7 +2151,6 @@ function imgui.OnDrawFrame()
 					POSITION_SET = true
 				end
 				imgui.InputFloat(u8('Размер шрифта'),elements.config.fontSize)
-				--imgui.SliderFloat(u8('Размер шрифта'),elements.config.fontSize,1,20)  
 				imgui.SliderInt(u8('Расстояние между строками'),elements.config.offsetStrings,0,20)
 				imgui.InputText(u8('Название шрифта'),elements.config.fontName)
 				if imgui.Button(u8('Обновить шрифт'),imgui.ImVec2(imgui.GetWindowWidth() - 16,20)) then
@@ -2423,83 +2431,87 @@ function imgui.OnDrawFrame()
 			imgui.SameLine()
 			imgui.InputInt(u8('Алюминий (кол-во)'),elements.lavka.alyminiu)
 			----------------------------------------
-			imgui.InputInt(u8('Цена  ##18'),elements.lavka.euro_price)
+			imgui.InputInt(u8('Цена  ##18'),elements.lavka.tywka_price)
+			imgui.SameLine()
+			imgui.InputInt(u8('Тушка оленя (кол-во)'),elements.lavka.tywka)
+			----------------------------------------
+			imgui.InputInt(u8('Цена  ##19'),elements.lavka.euro_price)
 			imgui.SameLine()
 			imgui.InputInt(u8('Евро (кол-во)'),elements.lavka.euro)
 			----------------------------------------
-			imgui.InputInt(u8('Цена  ##19'),elements.lavka.gr_talon_price)
+			imgui.InputInt(u8('Цена  ##20'),elements.lavka.gr_talon_price)
 			imgui.SameLine()
 			imgui.InputInt(u8('Гражданский талон (кол-во)'),elements.lavka.gr_talon)
 			----------------------------------------
-			imgui.InputInt(u8('Цена  ##20'),elements.lavka.antibiotiki_price)
+			imgui.InputInt(u8('Цена  ##21'),elements.lavka.antibiotiki_price)
 			imgui.SameLine()
 			imgui.InputInt(u8('Антибиотики (кол-во)'),elements.lavka.antibiotiki)
 			----------------------------------------
-			imgui.InputInt(u8('Цена  ##21'),elements.lavka.prison_price)
+			imgui.InputInt(u8('Цена  ##22'),elements.lavka.prison_price)
 			imgui.SameLine()
 			imgui.InputInt(u8('Отмычки от ТСР (кол-во)'),elements.lavka.prison)
 			----------------------------------------
-			imgui.InputInt(u8('Цена  ##22'),elements.lavka.zlov_moneta_price)
+			imgui.InputInt(u8('Цена  ##23'),elements.lavka.zlov_moneta_price)
 			imgui.SameLine()
 			imgui.InputInt(u8('Зловещая монета (кол-во)'),elements.lavka.zlov_moneta)
 			----------------------------------------
-			imgui.InputInt(u8('Цена  ##23'),elements.lavka.toch_stone_price)
+			imgui.InputInt(u8('Цена  ##24'),elements.lavka.toch_stone_price)
 			imgui.SameLine()
 			imgui.InputInt(u8('Точильные камни (кол-во)'),elements.lavka.toch_stone)
 			----------------------------------------
-			imgui.InputInt(u8('Цена  ##24'),elements.lavka.bilet_6_price)
+			imgui.InputInt(u8('Цена  ##25'),elements.lavka.bilet_6_price)
 			imgui.SameLine()
 			imgui.InputInt(u8('Билет 6 годовщины (кол-во)'),elements.lavka.bilet_6)
 			----------------------------------------
-			imgui.InputInt(u8('Цена  ##25'),elements.lavka.sticker_cluck_price)
+			imgui.InputInt(u8('Цена  ##26'),elements.lavka.sticker_cluck_price)
 			imgui.SameLine()
 			imgui.InputInt(u8('Стикер Cluckin Bell (кол-во)'),elements.lavka.sticker_cluck)
 			----------------------------------------
-			imgui.InputInt(u8('Цена  ##26'),elements.lavka.sticker_binko_price)
+			imgui.InputInt(u8('Цена  ##27'),elements.lavka.sticker_binko_price)
 			imgui.SameLine()
 			imgui.InputInt(u8('Стикер Binko (кол-во)'),elements.lavka.sticker_binko)
 			----------------------------------------
-			imgui.InputInt(u8('Цена  ##27'),elements.lavka.sticker_jizzy_price)
+			imgui.InputInt(u8('Цена  ##28'),elements.lavka.sticker_jizzy_price)
 			imgui.SameLine()
 			imgui.InputInt(u8('Стикер Jizzy (кол-во)'),elements.lavka.sticker_jizzy)
 			----------------------------------------
-			imgui.InputInt(u8('Цена  ##28'),elements.lavka.platinum_roll_price)
+			imgui.InputInt(u8('Цена  ##29'),elements.lavka.platinum_roll_price)
 			imgui.SameLine()
 			imgui.InputInt(u8('Платиновая рулетка (кол-во)'),elements.lavka.platinum_roll)
 			----------------------------------------
-			imgui.InputInt(u8('Цена  ##29'),elements.lavka.rare_yellow_price)
+			imgui.InputInt(u8('Цена  ##30'),elements.lavka.rare_yellow_price)
 			imgui.SameLine()
 			imgui.InputInt(u8('Rare Box Yellow (кол-во)'),elements.lavka.rare_yellow)
 			----------------------------------------
-			imgui.InputInt(u8('Цена  ##30'),elements.lavka.rare_red_price)
+			imgui.InputInt(u8('Цена  ##31'),elements.lavka.rare_red_price)
 			imgui.SameLine()
 			imgui.InputInt(u8('Rare Box Red (кол-во)'),elements.lavka.rare_red)
 			----------------------------------------
-			imgui.InputInt(u8('Цена  ##31'),elements.lavka.rare_blue_price)
+			imgui.InputInt(u8('Цена  ##32'),elements.lavka.rare_blue_price)
 			imgui.SameLine()
 			imgui.InputInt(u8('Rare Box Blue (кол-во)'),elements.lavka.rare_blue)
 			----------------------------------------
-			imgui.InputInt(u8('Цена  ##32'),elements.lavka.box_marvel_price)
+			imgui.InputInt(u8('Цена  ##33'),elements.lavka.box_marvel_price)
 			imgui.SameLine()
 			imgui.InputInt(u8('Ящик \'Marvel\' (кол-во)'),elements.lavka.box_marvel)
 			----------------------------------------
-			imgui.InputInt(u8('Цена  ##33'),elements.lavka.box_djent_price)
+			imgui.InputInt(u8('Цена  ##34'),elements.lavka.box_djent_price)
 			imgui.SameLine()
 			imgui.InputInt(u8('Ящик \'Джентельменов\' (кол-во)'),elements.lavka.box_djent)
 			----------------------------------------
-			imgui.InputInt(u8('Цена  ##34'),elements.lavka.box_minecraft_price)
+			imgui.InputInt(u8('Цена  ##35'),elements.lavka.box_minecraft_price)
 			imgui.SameLine()
 			imgui.InputInt(u8('Ящик \'Minecraft\' (кол-во)'),elements.lavka.box_minecraft)
 			----------------------------------------
-			imgui.InputInt(u8('Цена  ##35'),elements.lavka.box_moto_price)
+			imgui.InputInt(u8('Цена  ##36'),elements.lavka.box_moto_price)
 			imgui.SameLine()
 			imgui.InputInt(u8('Супер мото-ящик (кол-во)'),elements.lavka.box_moto)
 			----------------------------------------
-			imgui.InputInt(u8('Цена  ##36'),elements.lavka.box_car_price)
+			imgui.InputInt(u8('Цена  ##37'),elements.lavka.box_car_price)
 			imgui.SameLine()
 			imgui.InputInt(u8('Ящик авто-ящик (кол-во)'),elements.lavka.box_car)
 			----------------------------------------
-			imgui.InputInt(u8('Цена  ##37'),elements.lavka.larec_premium_price)
+			imgui.InputInt(u8('Цена  ##38'),elements.lavka.larec_premium_price)
 			imgui.SameLine()
 			imgui.InputInt(u8('Ларец с премией (кол-во)'),elements.lavka.larec_premium)
 			----------------------------------------
@@ -2554,6 +2566,9 @@ function imgui.OnDrawFrame()
 			end
 			if elements.lavka.alyminiu.v ~= 0 then
 				count_all = count_all+(elements.lavka.alyminiu_price.v*elements.lavka.alyminiu.v)
+			end
+			if elements.lavka.tywka.v ~= 0 then
+				count_all = count_all+(elements.lavka.tywka_price.v*elements.lavka.tywka.v)
 			end
 			if elements.lavka.euro.v ~= 0 then
 				count_all = count_all+(elements.lavka.euro_price.v*elements.lavka.euro.v)
@@ -2617,8 +2632,17 @@ function imgui.OnDrawFrame()
 			end
 			imgui.Text('')
 			imgui.Text(u8('Для покупки всех товаров необходимо $'..count_all))
+			if count_all > getPlayerMoney(Player) then
+				imgui.TextColoredRGB(u8('{FF3300}Тебе нехватает $'..count_all-getPlayerMoney(Player)))
+			end
 			if imgui.Button(u8"Начать скупку",imgui.ImVec2(250,25)) then skupka() end
 			imgui.Separator()
+		end
+		----------------------------------------
+		imgui.PushItemWidth(90)
+		imgui.InputInt(u8('Своровать модификацию с указанного ID'),elements.config.attach_id)
+		if elements.config.attach_id.v < 0 or elements.config.attach_id.v > 1001 then
+			elements.config.attach_id.v = 1001
 		end
 		----------------------------------------
 		imgui.Checkbox(u8('Открывать стандартный сундук'),elements.chest.roll_standart)
@@ -2706,6 +2730,75 @@ function sampev.onShowTextDraw(textdrawId, data)
 		--	data.text = '+12'
 		--end
 	--end
+	if data.modelId == 1649 then
+		--------------------[Первая строка]--------------------
+		if data.position.x == 184.5 and math.floor(data.position.y) == 164 and elements.state.autoloot_number == 1 then
+			elements.state.autoloot_number = 0
+		elseif data.position.x == 211 and math.floor(data.position.y) == 164 and elements.state.autoloot_number == 2 then
+			elements.state.autoloot_number = 0
+		elseif data.position.x == 237.5 and math.floor(data.position.y) == 164 and elements.state.autoloot_number == 3 then
+			elements.state.autoloot_number = 0
+		elseif data.position.x == 264 and math.floor(data.position.y) == 164 and elements.state.autoloot_number == 4 then
+			elements.state.autoloot_number = 0
+		elseif data.position.x == 290.5 and math.floor(data.position.y) == 164 and elements.state.autoloot_number == 5 then
+			elements.state.autoloot_number = 0
+			--------------------[Вторая строка]--------------------
+		elseif data.position.x == 184.5 and math.floor(data.position.y) == 195 and elements.state.autoloot_number == 6 then
+			elements.state.autoloot_number = 0
+		elseif data.position.x == 211 and math.floor(data.position.y) == 195 and elements.state.autoloot_number == 7 then
+			elements.state.autoloot_number = 0
+		elseif data.position.x == 237.5 and math.floor(data.position.y) == 195 and elements.state.autoloot_number == 8 then
+			elements.state.autoloot_number = 0
+		elseif data.position.x == 264 and math.floor(data.position.y) == 195 and elements.state.autoloot_number == 9 then
+			elements.state.autoloot_number = 0
+		elseif data.position.x == 290.5 and math.floor(data.position.y) == 195 and elements.state.autoloot_number == 10 then
+			elements.state.autoloot_number = 0
+		--------------------[Третья строка]--------------------
+		elseif data.position.x == 184.5 and math.floor(data.position.y) == 225 and elements.state.autoloot_number == 11 then
+			elements.state.autoloot_number = 0
+		elseif data.position.x == 211 and math.floor(data.position.y) == 225 and elements.state.autoloot_number == 12 then
+			elements.state.autoloot_number = 0
+		elseif data.position.x == 237.5 and math.floor(data.position.y) == 225 and elements.state.autoloot_number == 13 then
+			elements.state.autoloot_number = 0
+		elseif data.position.x == 264 and math.floor(data.position.y) == 225 and elements.state.autoloot_number == 14 then
+			elements.state.autoloot_number = 0
+		elseif data.position.x == 290.5 and math.floor(data.position.y) == 225 and elements.state.autoloot_number == 15 then
+			elements.state.autoloot_number = 0
+		--------------------[Четвертая строка]--------------------
+		elseif data.position.x == 184.5 and math.floor(data.position.y) == 256 and elements.state.autoloot_number == 16 then
+			elements.state.autoloot_number = 0
+		elseif data.position.x == 211 and math.floor(data.position.y) == 256 and elements.state.autoloot_number == 17 then
+			elements.state.autoloot_number = 0
+		elseif data.position.x == 237.5 and math.floor(data.position.y) == 256 and elements.state.autoloot_number == 18 then
+			elements.state.autoloot_number = 0
+		elseif data.position.x == 264 and math.floor(data.position.y) == 256 and elements.state.autoloot_number == 19 then
+			elements.state.autoloot_number = 0
+		elseif data.position.x == 290.5 and math.floor(data.position.y) == 256 and elements.state.autoloot_number == 20 then
+			elements.state.autoloot_number = 0
+		--------------------[Пятая строка]--------------------
+		elseif data.position.x == 184.5 and math.floor(data.position.y) == 286 and elements.state.autoloot_number == 21 then
+			elements.state.autoloot_number = 0
+		elseif data.position.x == 211 and math.floor(data.position.y) == 286 and elements.state.autoloot_number == 22 then
+			elements.state.autoloot_number = 0
+		elseif data.position.x == 237.5 and math.floor(data.position.y) == 286 and elements.state.autoloot_number == 23 then
+			elements.state.autoloot_number = 0
+		elseif data.position.x == 264 and math.floor(data.position.y) == 286 and elements.state.autoloot_number == 24 then
+			elements.state.autoloot_number = 0
+		elseif data.position.x == 290.5 and math.floor(data.position.y) == 286 and elements.state.autoloot_number == 25 then
+			elements.state.autoloot_number = 0
+		--------------------[Шестая строка]--------------------
+		elseif data.position.x == 184.5 and math.floor(data.position.y) == 317 and elements.state.autoloot_number == 26 then
+			elements.state.autoloot_number = 0
+		elseif data.position.x == 211 and math.floor(data.position.y) == 317 and elements.state.autoloot_number == 27 then
+			elements.state.autoloot_number = 0
+		elseif data.position.x == 237.5 and math.floor(data.position.y) == 317 and elements.state.autoloot_number == 28 then
+			elements.state.autoloot_number = 0
+		elseif data.position.x == 264 and math.floor(data.position.y) == 317 and elements.state.autoloot_number == 29 then
+			elements.state.autoloot_number = 0
+		elseif data.position.x == 290.5 and math.floor(data.position.y) == 317 and elements.state.autoloot_number == 30 then
+			elements.state.autoloot_number = 0
+		end
+	end
 	--------------------[Первая строка]--------------------
 	if data.position.x == 209 and math.floor(data.position.y) == 186 then
 		autoloot_td[1] = data.text
@@ -3580,6 +3673,19 @@ function skupka()
 			sampSendDialogResponse(3050, 1, 18, '')
 			sampSendDialogResponse(3060, 1, 0, elements.lavka.alyminiu.v..' '..elements.lavka.alyminiu_price.v)
 		end
+		if elements.lavka.tywka.v ~= 0 then
+			sampSendDialogResponse(3040, 1, 0, '')
+			sampSendDialogResponse(3050, 1, 19, '')
+			sampSendDialogResponse(3050, 1, 20, '')
+			sampSendDialogResponse(3050, 1, 20, '')
+			sampSendDialogResponse(3050, 1, 20, '')
+			sampSendDialogResponse(3050, 1, 20, '')
+			sampSendDialogResponse(3050, 1, 20, '')
+			sampSendDialogResponse(3050, 1, 20, '')
+			sampSendDialogResponse(3050, 1, 20, '')
+			sampSendDialogResponse(3050, 1, 12, '')
+			sampSendDialogResponse(3060, 1, 0, elements.lavka.tywka.v..' '..elements.lavka.tywka_price.v)
+		end
 		if elements.lavka.euro.v ~= 0 then
 			sampSendDialogResponse(3040, 1, 0, '')
 			sampSendDialogResponse(3050, 1, 19, '')
@@ -4352,7 +4458,7 @@ function sampev.onShowDialog(dialogId, style, title, button1, button2, text)
 	-- end
 	--------------------[Новый автолут]--------------------
 	if elements.state.autoloot == true then
-		if dialogId == 8251 then
+		if dialogId == 8251 and elements.state.autoloot_number ~= 0 then
 			sampSendDialogResponse(dialogId, 2, 1, autoloot_td[elements.state.autoloot_number])
 			elements.state.autoloot_number = 0
 			return false
@@ -4610,9 +4716,9 @@ function sampev.onPlayerChatBubble(playerId, color, distance, duration, message)
 end
 
 function sampev.onSetPlayerAttachedObject(playerId, index, create, object)
-	if playerId == attach_id then
+	if playerId == elements.config.attach_id.v then
 		model = object.modelId
-		SaveFileAttach(attach_id,model,object.bone,object.offset.x,object.offset.y,object.offset.z,object.rotation.x,object.rotation.y,object.rotation.z,object.scale.x,object.scale.y,object.scale.z)
+		SaveFileAttach(elements.config.attach_id.v,model,object.bone,object.offset.x,object.offset.y,object.offset.z,object.rotation.x,object.rotation.y,object.rotation.z,object.scale.x,object.scale.y,object.scale.z)
 	end
 	ip, port = sampGetCurrentServerAddress()
 	if ip == "185.169.134.3" or
@@ -5199,12 +5305,13 @@ function sampev.onSetPlayerAttachedObject(playerId, index, create, object)
 end
 
 function SaveFileAttach(skin,modelId,bone,offsetX,offsetY,offsetZ,rotationX,rotationY,rotationZ,scaleX,scaleY,scaleZ)
-	if skin == attach_id then
-		local file = io.open('moonloader/stealer/name.notepad', 'a+')
+	if skin == elements.config.attach_id.v then
+		local file = io.open('moonloader/stealer/mod_'..elements.config.attach_id.v..'.notepad', 'a+')
 		if file ~= -1 and file ~= nil then
 			file:write(string.format('SetPlayerAttachedObject(playerid, slot, %d, %d, %0.4f, %0.4f, %0.4f, %0.4f, %0.4f, %0.4f, %0.4f, %0.4f, %0.4f, -1, -1);\n',modelId,bone,offsetX,offsetY,offsetZ,rotationX,rotationY,rotationZ,scaleX,scaleY,scaleZ))
 			io.close(file)
 		end
+		return
 	end
 	local file = io.open('moonloader/stealer/'..modelId..'.notepad', 'a+')
 	if file ~= -1 and file ~= nil then
