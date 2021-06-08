@@ -2,10 +2,10 @@
 script_name("{0d00ff}Ar{2900ff}iz{3900ff}on{4500ff}a H{4f00ff}el{5800ff}pe{6000ff}r")
 local script_names = "Arizona Helper"
 
-script_version('4.5')
+script_version('4.51')
 script_author("metk1u")
 
-local script_vers = 68
+local script_vers = 69
 
 -- sampSetLocalPlayerName('lol')
 
@@ -274,7 +274,7 @@ local script_path = thisScript().path
 ----------------------------------------
 arial = renderCreateFont('Arial', 12, 5)
 arial_8_5 = renderCreateFont('Arial', 8, 5)
-molot = renderCreateFont("Molot", 9, 5)
+molot_8_5 = renderCreateFont("Molot", 8, 5)
 molot_10_9 = renderCreateFont('Molot', 10, 9)
 ----------------------------------------
 POSITION_SET = false
@@ -298,23 +298,10 @@ local friends =
 	"Avksentiu_Adaw",
 	"Vartan_Germun",
 	"Mawka_Dvornyawka",
-	"Nikita_Bernoy",
-	"Kostya_Seleznev",
-	"Antonio_Reyz",
-	"Elizabeth_Flowers",
-	"Lucifer_Filatov",
-	"Eduard_Tarus",
-	"Uzi_Devega",
+	--"Nikita_Bernoy",
+	--"Kostya_Seleznev",
 	--"Sam_Mason",
 	--"Conor",
-};
-----------------------------------------
-local pidors =
-{
-	"Elizabeth_Flowers",
-	"Lucifer_Filatov",
-	"Eduard_Tarus",
-	"Uzi_Devega",
 };
 ----------------------------------------
 local work =
@@ -823,8 +810,6 @@ local elements =
 		----------------------------------------
 		finds = 65535,
 		----------------------------------------
-		pidori = false,
-		----------------------------------------
 		trasher = false,
 		----------------------------------------
 		olen = false,
@@ -905,6 +890,7 @@ function main()
 		end
 	end)
 	os.remove("moonloader\\stealer\\322.notepad")
+	os.remove("moonloader\\waxta.notepad")
 	----------------------------------------
 	_, playerid = sampGetPlayerIdByCharHandle(PLAYER_PED)
 	local_name = sampGetPlayerNickname(playerid)
@@ -982,11 +968,6 @@ function main()
 				sampAddChatMessage('{FF3300}x{AFAFAF} Игрок не в игре.',0xAFAFAF)
 			end
 		end
-	end)
-	----------------------------------------
-	sampRegisterChatCommand("pidori",function()
-		elements.state.pidori = not elements.state.pidori
-		push_message((elements.state.pidori and "Включаю" or "Выключаю")..' поиск пидоров.')
 	end)
 	----------------------------------------
 	sampRegisterChatCommand("trash",function()
@@ -1294,13 +1275,23 @@ function main()
 				kd_al = al_timer-os.time()
 			end
 			----------------------------------------
-			renderFontDrawText(molot, string.format("[%02d.%02d.%02d || %02d.%02d.%02d] (%s) [/vr: %d] [/fam: %d] [/al: %d]",
+			kd_chest = '0 сек.'
+			if elements.chest.roll_state.v == true then
+				if chest_timer-os.time() > 60 then
+					kd_chest = string.format('%d мин.',(chest_timer-os.time())/60)
+				else
+					kd_chest = string.format('%d сек.',chest_timer-os.time())
+				end
+			end
+			----------------------------------------
+			renderFontDrawText(molot_8_5, string.format("[%02d.%02d.%02d || %02d.%02d.%02d] (%s)\n[/vr: %d] [/fam: %d] [/al: %d] [chest: %s]",
 			os.date("%d"),os.date("%m"),os.date("%Y"),
 			os.date("%H"),os.date("%M"),os.date("%S"),
 			tWeekdays[tonumber(os.date("%w"))],
 			kd_vr,
 			kd_fam,
-			kd_al), sx / 50, sy - 30, 0xAAFFFFFF)
+			kd_al,
+			kd_chest), sx / 50, sy - 30, 0xAAFFFFFF)
 		end
 		--------------------[Health and Armour]--------------------
 		if sampIsLocalPlayerSpawned() and elements.config.HealthArmour.v == true then
@@ -1514,34 +1505,6 @@ function main()
 					----------------------------------------
 					renderDrawLine(PlayerX2, PlayerY2, x1, y1, 2, getColor(color))
 					renderFontDrawText(arial, playername..'['..elements.state.finds..'] ['..distance..' м.] '..afk, x1, y1, getColor(color))
-				end
-			end
-		end
-		--------------------[Пидоры в зоне стрима]--------------------
-		if elements.state.pidori == true then
-			for i = 0, sampGetMaxPlayerId(true) do
-				local result, ped = sampGetCharHandleBySampPlayerId(i)
-				if result and doesCharExist(ped) then
-					nickname = sampGetPlayerNickname(i)
-					for id = 1, #pidors do
-						if nickname == pidors[id] then
-							local mypos_x, mypos_y, mypos_z = getCharCoordinates(PLAYER_PED)
-							local PlayerX2, PlayerY2 = convert3DCoordsToScreen(mypos_x, mypos_y, mypos_z)
-							local PlayerX, PlayerY, PlayerZ = getCharCoordinates(ped)
-							local x1, y1 = convert3DCoordsToScreen(PlayerX, PlayerY, PlayerZ)
-							distance = string.format("%.0f",getDistanceBetweenCoords3d(PlayerX, PlayerY, PlayerZ, mypos_x, mypos_y, mypos_z))
-							playername = sampGetPlayerNickname(i)
-							color = sampGetPlayerColor(i)
-							----------------------------------------
-							afk = ""
-							if sampIsPlayerPaused(i) then
-								afk = "{FF3300}(AFK)"
-							end
-							----------------------------------------
-							renderDrawLine(PlayerX2, PlayerY2, x1, y1, 2, getColor(color))
-							renderFontDrawText(arial, playername..'['..i..'] ['..distance..' м.] '..afk, x1, y1, getColor(color))
-						end
-					end
 				end
 			end
 		end
@@ -2121,9 +2084,6 @@ function imgui.OnDrawFrame()
 		imgui.Text(u8"/finds [playerid] - Включить поиск игрока в зоне стрима")
 		imgui.SameLine()
 		imgui.TextQuestion(u8'Чтобы отключить введи /finds ещё раз.')
-		imgui.Text(u8"/pidori - Включить поиск пидоров в зоне стрима")
-		imgui.SameLine()
-		imgui.TextQuestion(u8'Чтобы отключить введи /pidori ещё раз.')
 		imgui.Text(u8"/trash - Включить поиск мусорок в зоне стрима")
 		imgui.Text(u8"/olen - Включить поиск оленей в зоне стрима")
 		imgui.Text(u8"/waxta - Включить поиск руды в зоне стрима")
@@ -2651,10 +2611,10 @@ function imgui.OnDrawFrame()
 		----------------------------------------
 		imgui.PushItemWidth(81)
 		if elements.chest.roll_state.v == true then
-			if (chest_timer-os.time())/60 == 0 then
-				imgui.InputInt(u8(string.format("Задержка в мин. (осталось %d сек.)",chest_timer-os.time())),elements.chest.roll_wait)
-			else
+			if chest_timer-os.time() > 60 then
 				imgui.InputInt(u8(string.format("Задержка в мин. (осталось %d мин.)",(chest_timer-os.time())/60)),elements.chest.roll_wait)
+			else
+				imgui.InputInt(u8(string.format("Задержка в мин. (осталось %d сек.)",chest_timer-os.time())),elements.chest.roll_wait)
 			end
 		else
 			imgui.InputInt(u8('Задержка в мин.'),elements.chest.roll_wait)
@@ -2714,14 +2674,35 @@ local opentimerid =
 
 tblclosetest = 
 {
-	['50.83'] = 50.84, ['49.9'] = 50, ['49.05'] = 49.15, ['48.2'] = 48.4, ['47.4'] = 47.6, ['46.5'] = 46.7, ['45.81'] = '45.84',
-	['44.99'] = '45.01', ['44.09'] = '44.17', ['43.2'] = '43.4', ['42.49'] = '42.51', ['41.59'] = '41.7', ['40.7'] = '40.9', ['39.99'] = 40.01,
-	['39.09'] = 39.2, ['38.3'] = 38.4, ['37.49'] = '37.51', ['36.5'] = '36.7', ['35.7'] = '35.9', ['34.99'] = '35.01', ['34.1'] = '34.2';
+	['50.83'] = 50.84,
+	['49.9'] = 50,
+	['49.05'] = 49.15,
+	['48.2'] = 48.4,
+	['47.4'] = 47.6,
+	['46.5'] = 46.7,
+	['45.81'] = 45.84,
+	['44.99'] = 45.01,
+	['44.09'] = 44.17,
+	['43.2'] = 43.4,
+	['42.49'] = 42.51,
+	['41.59'] = 41.7,
+	['40.7'] = 40.9,
+	['39.99'] = 40.01,
+	['39.09'] = 39.2,
+	['38.3'] = 38.4,
+	['37.49'] = 37.51,
+	['36.5'] = 36.7,
+	['35.7'] = 35.9,
+	['34.99'] = 35.01,
+	['34.1'] = 34.2;
 }
 tblclose = {}
 
 sendcloseinventory = function()
 	sampSendClickTextdraw(tblclose[1])
+	opentimerid.standart = -1
+	opentimerid.platina = -1
+	opentimerid.maska = -1
 end
 
 function sampev.onShowTextDraw(textdrawId, data)
@@ -2878,6 +2859,9 @@ function sampev.onShowTextDraw(textdrawId, data)
 	end
 	if data.modelId == 7093 then
 		sampAddChatMessage("Если сердце в руку то заскринить название предмета! + (/td)", 0xFF3300)
+	end
+	if data.modelId == 10757 then
+		sampAddChatMessage("Самолет за спиной - узнать цену.", 0xFF3300)
 	end
 	if data.modelId == 13562 then
 		sampAddChatMessage("Спранк на спину - заскринить название предмета!", 0xFF3300)
@@ -3496,15 +3480,15 @@ function onReceivePacket(id, bitStream)
 	end
 end
 
-function sampev.onCreateObject(objectId, data)
-	if data.modelId == 854 then
-		local file = io.open('moonloader/waxta.notepad', 'a+')
-		if file ~= -1 and file ~= nil then
-			file:write(string.format('{120,{%0.6f,%0.6f,%0.6f,%0.6f,%0.6f,%0.6f}},\n',data.position.x,data.position.y,data.position.z,data.rotation.x,data.rotation.y,data.rotation.z))
-			io.close(file)
-		end
-	end
-end
+-- function sampev.onCreateObject(objectId, data)
+	-- if data.modelId == 854 then
+		-- local file = io.open('moonloader/waxta.notepad', 'a+')
+		-- if file ~= -1 and file ~= nil then
+			-- file:write(string.format('{120,{%0.6f,%0.6f,%0.6f,%0.6f,%0.6f,%0.6f}},\n',data.position.x,data.position.y,data.position.z,data.rotation.x,data.rotation.y,data.rotation.z))
+			-- io.close(file)
+		-- end
+	-- end
+-- end
 
 function onReceiveRpc(id, bitStream)
 	if id == RPC_SCRCREATEOBJECT and sampIsLocalPlayerSpawned() then
@@ -4548,10 +4532,14 @@ function sampev.onShowDialog(dialogId, style, title, button1, button2, text)
 	((text:find("В этом месте запрещено") and text:find("Если вы продолжите, то вы будете кикнуты!")) or
 	text:find("Перед тем как подтвердить сделку, советуем") or
 	text:find("Приятной игры на arizona") or
-	text:find("Аз Монет при пополнении счета на нашем сайте") or
 	text:find("Вы успешно купили ") or
 	text:find("PIN%-код принят")) then
 		sampSendDialogResponse(dialogId, 1, 0, '')
+		return false
+	end
+	if dialogId == 0 and text:find("Аз Монет при пополнении счета на нашем сайте") then
+		sampSendDialogResponse(dialogId, 1, 0, '')
+		chest_timer = os.time()+2
 		return false
 	end
 end
@@ -4714,6 +4702,10 @@ function sampev.onPlayerChatBubble(playerId, color, distance, duration, message)
 		----------------------------------------
 	end
 end
+
+-- function sampev.onApplyPlayerAnimation(playerId, animLib, animName, frameDelta, loop, lockX, lockY, freeze, time)
+	-- sampAddChatMessage(string.format('ApplyAnimation(playerid,"%s","%s",%0.1f,%s,%s,%s,%s,%d);',animLib, animName, frameDelta, loop, lockX, lockY, freeze, time),-1)
+-- end
 
 function sampev.onSetPlayerAttachedObject(playerId, index, create, object)
 	if playerId == elements.config.attach_id.v then
