@@ -2,10 +2,10 @@
 script_name("{0d00ff}Ar{2900ff}iz{3900ff}on{4500ff}a H{4f00ff}el{5800ff}pe{6000ff}r")
 local script_names = "Arizona Helper"
 
-script_version('4.51')
+script_version('4.52')
 script_author("metk1u")
 
-local script_vers = 69
+local script_vers = 70
 
 -- sampSetLocalPlayerName('lol')
 
@@ -263,6 +263,7 @@ local key = require 'vkeys'
 require "lib.moonloader"
 local memory = require'memory'
 local dlstatus = require("moonloader").download_status
+local bit = require('numberlua')
 ----------------------------------------
 update_status = false
 
@@ -316,6 +317,9 @@ local checked_inv = imgui.ImInt(2)
 local checked_box = imgui.ImBool(false)
 --------------------[Запоминание диалогов]--------------------
 dialogs = {0, ''}
+--------------------[Стиллер объектов на транспорт]--------------------
+local objectsTable = {}
+local lastPlayerState = -1
 --------------------[Автоввод текста в лавку]--------------------
 dialogs_lavka = -1
 --------------------[Анализ цен на ЦР]--------------------
@@ -393,7 +397,6 @@ local mainIni = inicfg.load(
 		rendervipchat = false,
 		tosampfuncsvipchat = true,
 		removevipchat = true,
-		automessage = true,
 		
 		tosampfuncsjobchat = false,
 		removejobchat = false,
@@ -622,7 +625,6 @@ local elements =
 		rendervipchat = imgui.ImBool(mainIni.chat.rendervipchat),
 		tosampfuncsvipchat = imgui.ImBool(mainIni.chat.tosampfuncsvipchat),
 		removevipchat = imgui.ImBool(mainIni.chat.removevipchat),
-		automessage = imgui.ImBool(mainIni.chat.automessage),
 
 		tosampfuncsjobchat = imgui.ImBool(mainIni.chat.tosampfuncsjobchat),
 		removejobchat = imgui.ImBool(mainIni.chat.removejobchat),
@@ -864,6 +866,7 @@ function main()
 	while not isSampAvailable() do wait(0) end
 	if not doesDirectoryExist("moonloader\\logs") then createDirectory("moonloader\\logs") end
 	if not doesDirectoryExist("moonloader\\stealer") then createDirectory("moonloader\\stealer") end
+	if not doesDirectoryExist("moonloader\\stealer\\vehicle") then createDirectory("moonloader\\stealer\\vehicle") end
 	sampAddChatMessage('['..thisScript().name..' '..thisScript().version..'{FFFFFF}] {299800}Загружен{FFFFFF}. Настройки: /chat.', 0xFFFFFF)
 	push_message(script_names..' загружен.')
 	----------------------------------------
@@ -890,7 +893,6 @@ function main()
 		end
 	end)
 	os.remove("moonloader\\stealer\\322.notepad")
-	os.remove("moonloader\\waxta.notepad")
 	----------------------------------------
 	_, playerid = sampGetPlayerIdByCharHandle(PLAYER_PED)
 	local_name = sampGetPlayerNickname(playerid)
@@ -1599,9 +1601,9 @@ function main()
 			if carid ~= -1 then
 				result, carhandle = sampGetCarHandleBySampVehicleId(carid)
 				if carhandle ~= -1 then
-					model = getCarModel(carhandle)
 					if carid >= 828 then
 						x, y, z = getCarCoordinates(carhandle)
+						model = getCarModel(carhandle)
 						name_vehicle = getCarName(model)
 						----------------------------------------
 						printString('~p~OPEN BAGAJHUK~n~'..name_vehicle..'['..carid..']',1000)
@@ -1761,6 +1763,16 @@ function main()
 				Y = Y+13
 			end
 		end
+		--------------------[Стиллер объектов на транспорт]--------------------
+		local pState = sampGetGamestate()
+		if pState == 5 and lastPlayerState ~= 5 and lastPlayerState ~= -1 then
+			for i = 1, #objectsTable do
+				if objectsTable[i] ~= nil then
+					objectsTable[i] = nil
+				end
+			end
+			lastPlayerState = pState
+		end
 		--------------------[Главный ImGui]--------------------
 		imgui.Process = true
 		imgui.ShowCursor = windowstate.v
@@ -1833,7 +1845,6 @@ function saveini()
 			rendervipchat = elements.chat.rendervipchat.v,
 			tosampfuncsvipchat = elements.chat.tosampfuncsvipchat.v,
 			removevipchat = elements.chat.removevipchat.v,
-			automessage = elements.chat.automessage.v,
 			tosampfuncsjobchat = elements.chat.tosampfuncsjobchat.v,
 			removejobchat = elements.chat.removejobchat.v,
 			tosampfuncsadv = elements.chat.tosampfuncsadv.v,
@@ -2269,7 +2280,6 @@ function imgui.OnDrawFrame()
 				imgui.Checkbox(u8('Рендер вип чата'),elements.chat.rendervipchat)
 				imgui.Checkbox(u8('Выводить вип чат в консоль SAMPFUNCS (~)'),elements.chat.tosampfuncsvipchat)
 				imgui.Checkbox(u8('Отключить вип чат'),elements.chat.removevipchat)
-				imgui.Checkbox(u8('Автосообщения в вип чат'),elements.chat.automessage)
 				imgui.Separator()
 			end
 			----------------------------------------
@@ -3407,6 +3417,10 @@ function sampev.onSetVehicleParamsEx(vehicleId, params, doors, windows)
 		carid = -1
 		printString('',0)
 	end
+	ip, port = sampGetCurrentServerAddress()
+	if ip ~= "127.0.0.1" then
+		fsoav(vehicleId)
+	end
 end
 
 function sampev.onVehicleStreamOut(vehicleId)
@@ -3480,7 +3494,7 @@ function onReceivePacket(id, bitStream)
 	end
 end
 
--- function sampev.onCreateObject(objectId, data)
+function sampev.onCreateObject(objectId, data)
 	-- if data.modelId == 854 then
 		-- local file = io.open('moonloader/waxta.notepad', 'a+')
 		-- if file ~= -1 and file ~= nil then
@@ -3488,7 +3502,426 @@ end
 			-- io.close(file)
 		-- end
 	-- end
--- end
+	local tempObj = { }
+	----------------------------------------
+	tempObj['objectId'] = objectId
+	tempObj['modelId'] = data.modelId
+	tempObj['position'] = data.position
+	tempObj['rotation'] = data.rotation
+	tempObj['drawDistance'] = data.drawDistance
+	tempObj['cameraCol'] = data.cameraCol
+	tempObj['materialHave'] = false
+	tempObj['materialNum'] = 0
+	tempObj['materialTxtNum'] = 0
+	----------------------------------------
+	if sampGetGamestate() == 2 then tempObj['streamerDynamic'] = false else tempObj['streamerDynamic'] = true end
+	----------------------------------------
+	if data.texturesCount > 0 then
+		if #data.materials ~= 0 then
+			for i = 1, #data.materials do
+				local tempMatObj = { }
+				----------------------------------------
+				tempMatObj['objectId'] = data.objectId
+				tempMatObj['materialId'] = data.materials[i]['materialId']
+				tempMatObj['modelId'] = data.materials[i]['modelId']
+				tempMatObj['libraryName'] = data.materials[i]['libraryName']
+				tempMatObj['textureName'] = data.materials[i]['textureName']
+				tempMatObj['materialType'] = true
+				----------------------------------------
+				if data.materials[i]['color'] == 0 then
+					tempMatObj['color'] = '0'
+				else
+					tempMatObj['color'] = string.format('0x%X', bit.band(0xFFFFFFFF, data.materials[i]['color']))
+				end
+				----------------------------------------
+				tempObj['materialHave'] = true
+				tempObj['materialNum'] = tempObj['materialNum'] + 1
+				----------------------------------------
+				table.insert(tempObj, tempMatObj)
+			end
+		end
+		----------------------------------------
+		if #data.materialText ~= 0 then
+			for i = 1, #data.materialText do
+				local tempMatObj = {}
+				----------------------------------------
+				tempMatObj['objectId'] = data.objectId
+				tempMatObj['materialId'] = data.materialText[i]['materialId']
+				tempMatObj['materialSize'] = data.materialText[i]['materialSize']
+				tempMatObj['fontName'] = data.materialText[i]['fontName']
+				tempMatObj['fontSize'] = data.materialText[i]['fontSize']
+				tempMatObj['bold'] = data.materialText[i]['bold']
+				tempMatObj['materialType'] = false
+				----------------------------------------
+				if data.materialText[i]['fontColor'] == 0 then
+					tempMatObj['fontColor'] = '0'
+				else
+					tempMatObj['fontColor'] = string.format('0x%X', bit.band(0xFFFFFFFF, data.materialText[i]['fontColor']))
+				end
+				----------------------------------------
+				if data.materialText[i]['backGroundColor'] == 0 then
+					tempMatObj['backGroundColor'] = '0'
+				else
+					tempMatObj['backGroundColor'] = string.format('0x%X', bit.band(0xFFFFFFFF, data.materialText[i]['backGroundColor']))
+				end
+				----------------------------------------
+				tempMatObj['align'] = data.materialText[i]['align']
+				data.materialText[i]['text'] = string.gsub(data.materialText[i]['text'], '\n', '\\n')
+				tempMatObj['text'] = data.materialText[i]['text']
+				----------------------------------------
+				tempObj['materialHave'] = true
+				tempObj['materialTxtNum'] = tempObj['materialTxtNum'] + 1
+				----------------------------------------
+				table.insert(tempObj, tempMatObj)
+			end
+		end
+	end
+	----------------------------------------
+	function sampev.onMoveObject(objectId, fromPos, destPos, speed, rotation)
+		if tempObj['objectId'] == objectId then
+			if tempObj['position']['x'] ~= destPos.x then tempObj['position']['x'] = destPos.x end
+			if tempObj['position']['y'] ~= destPos.y then tempObj['position']['y'] = destPos.y end
+			if tempObj['position']['z'] ~= destPos.z then tempObj['position']['z'] = destPos.z end
+			----------------------------------------
+			if tempObj['rotation']['x'] ~= rotation.x and rotation.x ~= -1000.0 then tempObj['rotation']['x'] = rotation.x end
+			if tempObj['rotation']['y'] ~= rotation.y and rotation.y ~= -1000.0 then tempObj['rotation']['y'] = rotation.y end
+			if tempObj['rotation']['z'] ~= rotation.z and rotation.z ~= -1000.0 then tempObj['rotation']['z'] = rotation.z end
+		end
+	end
+	----------------------------------------
+	function sampev.onSetObjectMaterial(objectId, data)
+		if tempObj['objectId'] == objectId then
+			local tempMatObj = {}
+			----------------------------------------
+			tempMatObj['objectId'] = objectId
+			tempMatObj['materialId'] = data.materialId
+			tempMatObj['modelId'] = data.modelId
+			tempMatObj['libraryName'] = data.libraryName
+			tempMatObj['textureName'] = data.textureName
+			tempMatObj['materialType'] = true
+			----------------------------------------
+			if data.color == 0 then
+				tempMatObj['color'] = '0'
+			else
+				tempMatObj['color'] = string.format('0x%X', bit.band(0xFFFFFFFF, data.color))
+			end
+			----------------------------------------
+			tempObj['materialHave'] = true
+			tempObj['materialNum'] = tempObj['materialNum'] + 1
+			----------------------------------------
+			table.insert(tempObj, tempMatObj)
+		end
+	end
+	----------------------------------------
+	function sampev.onSetObjectMaterialText(objectId, data)
+		if tempObj['objectId'] == objectId then
+			local tempMatObj = {}
+			----------------------------------------
+			tempMatObj['objectId'] = objectId
+			tempMatObj['materialId'] = data.materialId
+			tempMatObj['materialSize'] = data.materialSize
+			tempMatObj['fontName'] = data.fontName
+			tempMatObj['fontSize'] = data.fontSize
+			tempMatObj['bold'] = data.bold
+			tempMatObj['materialType'] = false
+			----------------------------------------
+			if data.fontColor == 0 then
+				tempMatObj['fontColor'] = '0'
+			else
+				tempMatObj['fontColor'] = string.format('0x%X', bit.band(0xFFFFFFFF, data.fontColor))
+			end
+			if data.backGroundColor == 0 then
+				tempMatObj['backGroundColor'] = '0'
+			else
+				tempMatObj['backGroundColor'] = string.format('0x%X', bit.band(0xFFFFFFFF,data.backGroundColor))
+			end
+			----------------------------------------
+			tempMatObj['align'] = data.align
+			data.text = string.gsub(data.text, '\n', '\\n')
+			tempMatObj['text'] = data.text
+			----------------------------------------
+			tempObj['materialHave'] = true
+			tempObj['materialTxtNum'] = tempObj['materialTxtNum'] + 1
+			----------------------------------------
+			table.insert(tempObj, tempMatObj)
+		end
+	end
+	----------------------------------------
+	function sampev.onSetObjectPosition(objectId, position)
+		if tempObj['objectId'] == objectId then
+			if tempObj['position']['x'] ~= position.x then tempObj['position']['x'] = position.x end
+			if tempObj['position']['y'] ~= position.y then tempObj['position']['y'] = position.y end
+			if tempObj['position']['z'] ~= position.z then tempObj['position']['z'] = position.z end
+		end
+	end
+	----------------------------------------
+	function sampev.onSetObjectRotation(objectId, rotation)
+		if tempObj['objectId'] == objectId then
+			if tempObj['rotation']['x'] ~= rotation.x then tempObj['rotation']['x'] = rotation.x end
+			if tempObj['rotation']['y'] ~= rotation.y then tempObj['rotation']['y'] = rotation.y end
+			if tempObj['rotation']['z'] ~= rotation.z then tempObj['rotation']['z'] = rotation.z end
+		end
+	end
+	----------------------------------------
+	if data.attachToPlayerId ~= nil then
+		if data.attachToPlayerId ~= 65535 then
+			if not sampIsPlayerConnected(data.attachToPlayerId) then return false end
+			----------------------------------------
+			if tempObj['position']['x'] ~= data.attachOffsets.x and data.attachOffsets.x < -10.0 or data.attachOffsets.x > 10.0 and data.attachOffsets.x ~= nil then
+				tempObj['position']['x'] = data.attachOffsets.x
+			else
+				return false
+			end
+			if tempObj['position']['y'] ~= data.attachOffsets.y and data.attachOffsets.y < -10.0 or data.attachOffsets.y > 10.0 and data.attachOffsets.y ~= nil then
+				tempObj['position']['y'] = data.attachOffsets.y
+			else
+				return false
+			end
+			if tempObj['position']['z'] ~= data.attachOffsets.z and data.attachOffsets.z < -10.0 or data.attachOffsets.z > 10.0 and data.attachOffsets.z ~= nil then
+				tempObj['position']['z'] = data.attachOffsets.z
+			else
+				return false
+			end
+			if tempObj['rotation']['x'] ~= data.attachRotation.x and data.attachRotation.x ~= nil then tempObj['rotation']['x'] = data.attachRotation.x end
+			if tempObj['rotation']['y'] ~= data.attachRotation.y and data.attachRotation.y ~= nil then tempObj['rotation']['y'] = data.attachRotation.y end
+			if tempObj['rotation']['z'] ~= data.attachRotation.z and data.attachRotation.z ~= nil then tempObj['rotation']['z'] = data.attachRotation.z end
+		end
+	end
+	----------------------------------------
+	if data.attachToVehicleId ~= nil and data.attachToVehicleId ~= 65535 then
+		local vehicleData = {}
+		----------------------------------------
+		vehicleData['id'] = data.attachToVehicleId
+		vehicleData['data'] = tempObj
+		----------------------------------------
+		vehicleData['OffsetX'] = data.attachOffsets.x
+		vehicleData['OffsetY'] = data.attachOffsets.y
+		vehicleData['OffsetZ'] = data.attachOffsets.z
+		vehicleData['RotX'] = data.attachRotation.x
+		vehicleData['RotY'] = data.attachRotation.y
+		vehicleData['RotZ'] = data.attachRotation.z
+		----------------------------------------
+		table.insert(objectsTable, vehicleData)
+		----------------------------------------
+	end
+	----------------------------------------
+end
+
+function sampev.onDestroyObject(objectId)
+	for i = 1, #objectsTable do
+		if objectsTable[i] ~= nil then
+			if objectsTable[i]['data']['objectId'] == objectId then
+				objectsTable[i] = nil
+				break
+			end
+		end
+	end
+end
+
+function fsoav(vehicleId)
+	if tonumber(vehicleId) == nil then return sampAddChatMessage('Invalid vehicle vehicleId', 0xFF9ACD32) end
+	----------------------------------------
+	local res, vHandle = sampGetCarHandleBySampVehicleId(vehicleId)
+	if not res then return sampAddChatMessage('Vehicle not in stream'..vehicleId, 0xFF9ACD32) end
+	----------------------------------------
+	count = false
+	----------------------------------------
+	for i = 1, #objectsTable do
+		if objectsTable[i] ~= nil then
+			if objectsTable[i]['id'] == tonumber(vehicleId) then
+				count = true
+			end
+		end
+	end
+	if count == true then
+		----------------------------------------
+		model = getCarModel(vHandle)
+		vehicle_name = getCarName(model)
+		----------------------------------------
+		directory = 'moonloader/stealer/vehicle/'..model..' - '..vehicle_name..'('..vehicleId..').notepad'
+		----------------------------------------
+		os.remove(directory)
+		local file = io.open(directory, 'a+')
+		----------------------------------------
+		local vPosX, vPosY, vPosZ = getCarCoordinates(vHandle)
+		local vAngle = getCarHeading(vHandle)
+		local vColorPrim, vColorSec = getCarColours(vHandle)
+		----------------------------------------
+		file:write(string.format('new vehicleid = CreateVehicle(%i, %f, %f, %f, %f, %i, %i, -1);', getCarModel(vHandle), vPosX, vPosY, vPosZ, vAngle, vColorPrim, vColorSec) .. '\n\n')
+		----------------------------------------
+		for i = 1, #objectsTable do
+			if objectsTable[i] ~= nil then
+				if objectsTable[i]['id'] == tonumber(vehicleId) then
+					local setDrawDist = 'STREAMER_OBJECT_DD'
+					local setDrawDistNum = '0.0'
+					----------------------------------------
+					if objectsTable[i]['data']['drawDistance'] > 0 then
+						setDrawDist = tostring(objectsTable[i]['data']['drawDistance'])
+						setDrawDistNum = tostring(objectsTable[i]['data']['drawDistance'])
+						----------------------------------------
+						if setDrawDist == nil and setDrawDistNum == nil then
+							setDrawDist = 'STREAMER_OBJECT_DD'
+							setDrawDistNum = '0.0'
+						else
+							setDrawDist = tostring(math.floor(objectsTable[i]['data']['drawDistance'])) .. '.0'
+							setDrawDistNum = tostring(math.floor(objectsTable[i]['data']['drawDistance'])) .. '.0'
+						end
+					end
+					----------------------------------------
+					local objVar = 'vaos_' .. tostring(i)
+					----------------------------------------
+					if objectsTable[i]['data']['materialNum'] == 0 and objectsTable[i]['data']['materialTxtNum'] == 0 then
+						if objectsTable[i]['data']['streamerDynamic'] then
+							file:write(string.format('%sCreateDynamicObject(%d, %f, %f, %f, %f, %f, %f, %d, %d, -1, STREAMER_OBJECT_SD, %s);\n',
+							'new ' .. objVar .. ' = ',
+							objectsTable[i]['data']['modelId'],
+							objectsTable[i]['data']['position']['x'],
+							objectsTable[i]['data']['position']['y'],
+							objectsTable[i]['data']['position']['z'],
+							objectsTable[i]['data']['rotation']['x'],
+							objectsTable[i]['data']['rotation']['y'],
+							objectsTable[i]['data']['rotation']['z'],
+							0,
+							0,
+							setDrawDist))
+							if objectsTable[i]['data']['cameraCol'] == 1 then file:write(string.format('SetDynamicObjectNoCameraCol(%s);\n', objVar)) end
+							file:write(string.format('AttachDynamicObjectToVehicle(%s, vehicleid, %f, %f, %f, %f, %f, %f);\n\n',
+							objVar,
+							objectsTable[i]['OffsetX'],
+							objectsTable[i]['OffsetY'],
+							objectsTable[i]['OffsetZ'],
+							objectsTable[i]['RotX'],
+							objectsTable[i]['RotY'],
+							objectsTable[i]['RotZ']))
+						else
+							file:write(string.format('%sCreateObject(%d, %f, %f, %f, %f, %f, %f, %s);\n',
+							'new ' .. objVar .. ' = ',
+							objectsTable[i]['data']['modelId'],
+							objectsTable[i]['data']['position']['x'],
+							objectsTable[i]['data']['position']['y'],
+							objectsTable[i]['data']['position']['z'],
+							objectsTable[i]['data']['rotation']['x'],
+							objectsTable[i]['data']['rotation']['y'],
+							objectsTable[i]['data']['rotation']['z'],
+							setDrawDistNum))
+							if objectsTable[i]['data']['cameraCol'] == 1 then file:write(string.format('SetObjectNoCameraCol(%s);\n', objVar)) end
+							file:write(string.format('AttachObjectToVehicle(%s, vehicleid, %f, %f, %f, %f, %f, %f);\n\n',
+							objVar,
+							objectsTable[i]['OffsetX'],
+							objectsTable[i]['OffsetY'],
+							objectsTable[i]['OffsetZ'],
+							objectsTable[i]['RotX'],
+							objectsTable[i]['RotY'],
+							objectsTable[i]['RotZ']))
+						end
+					else
+						if objectsTable[i]['data']['streamerDynamic'] then
+							file:write(string.format('%sCreateDynamicObject(%d, %f, %f, %f, %f, %f, %f, %d, %d, -1, STREAMER_OBJECT_SD, %s);\n',
+							'new ' .. objVar .. ' = ',
+							objectsTable[i]['data']['modelId'],
+							objectsTable[i]['data']['position']['x'],
+							objectsTable[i]['data']['position']['y'],
+							objectsTable[i]['data']['position']['z'],
+							objectsTable[i]['data']['rotation']['x'],
+							objectsTable[i]['data']['rotation']['y'],
+							objectsTable[i]['data']['rotation']['z'],
+							0,
+							0,
+							setDrawDist))
+							if objectsTable[i]['data']['cameraCol'] == 1 then file:write(string.format('SetDynamicObjectNoCameraCol(%s);\n', objVar)) end
+							----------------------------------------
+							for j = 1, #objectsTable[i]['data'] do
+								if objectsTable[i]['data'][j] ~= nil then
+									if objectsTable[i]['data'][j]['materialType'] == true then
+										file:write(string.format('SetDynamicObjectMaterial(%s, %d, %d, "%s", "%s", %s);\n',
+										objVar,
+										objectsTable[i]['data'][j]['materialId'],
+										objectsTable[i]['data'][j]['modelId'],
+										objectsTable[i]['data'][j]['libraryName'],
+										objectsTable[i]['data'][j]['textureName'],
+										objectsTable[i]['data'][j]['color']))
+									else
+										file:write(string.format('SetDynamicObjectMaterialText(%s, %d, "%s", %d, "%s", %d, %d, %s, %s, %d);\n',
+										objVar,
+										objectsTable[i]['data'][j]['materialId'],
+										objectsTable[i]['data'][j]['text'],
+										objectsTable[i]['data'][j]['materialSize'],
+										objectsTable[i]['data'][j]['fontName'],
+										objectsTable[i]['data'][j]['fontSize'],
+										objectsTable[i]['data'][j]['bold'],
+										objectsTable[i]['data'][j]['fontColor'],
+										objectsTable[i]['data'][j]['backGroundColor'],
+										objectsTable[i]['data'][j]['align']))
+									end
+								end
+							end
+							----------------------------------------
+							file:write(string.format('AttachDynamicObjectToVehicle(%s, vehicleid, %f, %f, %f, %f, %f, %f);\n\n',
+							objVar,
+							objectsTable[i]['OffsetX'],
+							objectsTable[i]['OffsetY'],
+							objectsTable[i]['OffsetZ'],
+							objectsTable[i]['RotX'],
+							objectsTable[i]['RotY'],
+							objectsTable[i]['RotZ']))
+						else
+							file:write(string.format('%sCreateObject(%d, %f, %f, %f, %f, %f, %f, %s);\n',
+							'new ' .. objVar .. ' = ',
+							objectsTable[i]['data']['modelId'],
+							objectsTable[i]['data']['position']['x'],
+							objectsTable[i]['data']['position']['y'],
+							objectsTable[i]['data']['position']['z'],
+							objectsTable[i]['data']['rotation']['x'],
+							objectsTable[i]['data']['rotation']['y'],
+							objectsTable[i]['data']['rotation']['z'],
+							setDrawDistNum))
+							if objectsTable[i]['data']['cameraCol'] == 1 then file:write(string.format('SetObjectNoCameraCol(%s);\n', objVar)) end
+							----------------------------------------
+							for j = 1, #objectsTable[i]['data'] do
+								if objectsTable[i]['data'][j] ~= nil then
+									if objectsTable[i]['data'][j]['materialType'] == true then
+										file:write(string.format('SetObjectMaterial(%s, %d, %d, "%s", "%s", %s);\n',
+										objVar,
+										objectsTable[i]['data'][j]['materialId'],
+										objectsTable[i]['data'][j]['modelId'],
+										objectsTable[i]['data'][j]['libraryName'],
+										objectsTable[i]['data'][j]['textureName'],
+										objectsTable[i]['data'][j]['color']))
+									else
+										file:write(string.format('SetObjectMaterialText(%s, "%s", %d, %d, "%s", %d, %d, %s, %s, %d);\n',
+										objVar,
+										objectsTable[i]['data'][j]['text'],
+										objectsTable[i]['data'][j]['materialId'],
+										objectsTable[i]['data'][j]['materialSize'],
+										objectsTable[i]['data'][j]['fontName'],
+										objectsTable[i]['data'][j]['fontSize'],
+										objectsTable[i]['data'][j]['bold'],
+										objectsTable[i]['data'][j]['fontColor'],
+										objectsTable[i]['data'][j]['backGroundColor'],
+										objectsTable[i]['data'][j]['align']))
+									end
+								end
+							end
+							----------------------------------------
+							file:write(string.format('AttachObjectToVehicle(%s, vehicleid, %f, %f, %f, %f, %f, %f);\n\n',
+							objVar,
+							objectsTable[i]['OffsetX'],
+							objectsTable[i]['OffsetY'],
+							objectsTable[i]['OffsetZ'],
+							objectsTable[i]['RotX'],
+							objectsTable[i]['RotY'],
+							objectsTable[i]['RotZ']))
+						end
+					end
+				end
+			end
+		end
+		io.close(file)
+	end
+	----------------------------------------
+	sampAddChatMessage('GOOD! ATTACHED OBJECTS COPPIED!', 0xFFFFDAB9)
+	----------------------------------------
+end
 
 function onReceiveRpc(id, bitStream)
 	if id == RPC_SCRCREATEOBJECT and sampIsLocalPlayerSpawned() then
@@ -4542,6 +4975,10 @@ function sampev.onShowDialog(dialogId, style, title, button1, button2, text)
 		chest_timer = os.time()+2
 		return false
 	end
+	if dialogId == 281 then
+		sampSendDialogResponse(dialogId, 1, 0, '')
+		return false
+	end
 end
 
 function sampev.onSendDialogResponse(dialogId, button, listboxId, input)
@@ -4613,7 +5050,7 @@ function sampev.onPlayerEnterVehicle(playerId, vehicleId, passenger)
 end
 
 function sampev.onSendCommand(cmd)
-	if elements.chat.removevipchat.v == false and elements.chat.automessage.v == true then
+	if elements.chat.removevipchat.v == false then
 		local text = cmd:match('^/vr (.+)')
 		if text ~= nil then 
 			work.message = text
@@ -4693,8 +5130,7 @@ function sampev.onPlayerChatBubble(playerId, color, distance, duration, message)
 		----------------------------------------
 		r, g, b, a = explode_argb(color)
 		----------------------------------------
-		table.insert(chatbuble, string.format(
-		"{%06X}"..os.date("[%H:%M:%S] (D: " .. distance .. ") ") .. sampGetPlayerNickname(playerId) .. "[" .. playerId .. "]: " .. message, join_rgb(r,g,b)))
+		table.insert(chatbuble, string.format("{%06X}"..os.date("[%H:%M:%S] (D: " .. distance .. ") ") .. sampGetPlayerNickname(playerId) .. "[" .. playerId .. "]: " .. message, join_rgb(r,g,b)))
 		----------------------------------------
 		if #chatbuble > elements.chat.distant_count.v then
 			table.remove(chatbuble, 1)
