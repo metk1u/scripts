@@ -3719,10 +3719,10 @@ function sampev.onDestroyObject(objectId)
 end
 
 function fsoav(vehicleId)
-	if tonumber(vehicleId) == nil then return sampAddChatMessage('Invalid vehicle vehicleId', 0xFF9ACD32) end
+	if tonumber(vehicleId) == nil then return sampAddChatMessage('Invalid vehicleId', 0xFF9ACD32) end
 	----------------------------------------
 	local res, vHandle = sampGetCarHandleBySampVehicleId(vehicleId)
-	if not res then return sampAddChatMessage('Vehicle not in stream'..vehicleId, 0xFF9ACD32) end
+	if not res then return sampAddChatMessage('Vehicle not in stream', 0xFF9ACD32) end
 	----------------------------------------
 	count = false
 	----------------------------------------
@@ -3918,9 +3918,6 @@ function fsoav(vehicleId)
 		end
 		io.close(file)
 	end
-	----------------------------------------
-	sampAddChatMessage('GOOD! ATTACHED OBJECTS COPPIED!', 0xFFFFDAB9)
-	----------------------------------------
 end
 
 function onReceiveRpc(id, bitStream)
