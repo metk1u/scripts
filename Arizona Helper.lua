@@ -3722,7 +3722,9 @@ function fsoav(vehicleId)
 	if tonumber(vehicleId) == nil then return sampAddChatMessage('Invalid vehicleId', 0xFF9ACD32) end
 	----------------------------------------
 	local res, vHandle = sampGetCarHandleBySampVehicleId(vehicleId)
-	if not res then return sampAddChatMessage('Vehicle not in stream', 0xFF9ACD32) end
+	if not res then
+		return
+	end
 	----------------------------------------
 	count = false
 	----------------------------------------
