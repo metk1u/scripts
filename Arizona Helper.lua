@@ -1235,17 +1235,17 @@ function main()
 			forceWeatherNow(elements.weather_time.set_weather.v)
 		end
 		--------------------[Автопиар]--------------------
-		if elements.autopiar.vr_active.v and vr_timer == os.time() then
+		if elements.autopiar.vr_active.v and vr_timer == os.time() and (ip == "185.169.134.3" or ip == "185.169.134.4" or ip == "185.169.134.43" or ip == "185.169.134.44" or ip == "185.169.134.45" or ip == "185.169.134.5" or ip == "185.169.134.59" or ip == "185.169.134.61" or ip == "185.169.134.107" or ip == "185.169.134.109" or ip == "185.169.134.166" or ip == "185.169.134.171" or ip == "185.169.134.172" or ip == "185.169.134.173" or ip == "185.169.134.174" or ip == "80.66.82.191") then
 			sampSendChat(u8:decode('/vr '..elements.autopiar.vr_text.v))
 			vr_timer = os.time()+(elements.autopiar.vr_delay.v*60)
 		end
 		----------------------------------------
-		if elements.autopiar.fam_active.v and fam_timer == os.time() then
+		if elements.autopiar.fam_active.v and fam_timer == os.time() and (ip == "185.169.134.3" or ip == "185.169.134.4" or ip == "185.169.134.43" or ip == "185.169.134.44" or ip == "185.169.134.45" or ip == "185.169.134.5" or ip == "185.169.134.59" or ip == "185.169.134.61" or ip == "185.169.134.107" or ip == "185.169.134.109" or ip == "185.169.134.166" or ip == "185.169.134.171" or ip == "185.169.134.172" or ip == "185.169.134.173" or ip == "185.169.134.174" or ip == "80.66.82.191") then
 			sampSendChat(u8:decode('/fam '..elements.autopiar.fam_text.v))
 			fam_timer = os.time()+(elements.autopiar.fam_delay.v*60)
 		end
 		----------------------------------------
-		if elements.autopiar.al_active.v and al_timer == os.time() then
+		if elements.autopiar.al_active.v and al_timer == os.time() and (ip == "185.169.134.3" or ip == "185.169.134.4" or ip == "185.169.134.43" or ip == "185.169.134.44" or ip == "185.169.134.45" or ip == "185.169.134.5" or ip == "185.169.134.59" or ip == "185.169.134.61" or ip == "185.169.134.107" or ip == "185.169.134.109" or ip == "185.169.134.166" or ip == "185.169.134.171" or ip == "185.169.134.172" or ip == "185.169.134.173" or ip == "185.169.134.174" or ip == "80.66.82.191") then
 			sampSendChat(u8:decode('/al '..elements.autopiar.al_text.v))
 			al_timer = os.time()+(elements.autopiar.al_delay.v*60)
 		end
@@ -3410,6 +3410,9 @@ function report(arg)
 end
 
 function sampev.onSetVehicleParamsEx(vehicleId, params, doors, windows)
+	if elements.config.del_stream.v == true then
+		return false
+	end
 	if params.boot == 1 then
 		carid = vehicleId
 	end
@@ -3418,7 +3421,7 @@ function sampev.onSetVehicleParamsEx(vehicleId, params, doors, windows)
 		printString('',0)
 	end
 	ip, port = sampGetCurrentServerAddress()
-	if ip ~= "127.0.0.1" then
+	if ip ~= "127.0.0.1" and vehicleId >= 828 then
 		fsoav(vehicleId)
 	end
 end
