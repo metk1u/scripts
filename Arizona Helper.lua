@@ -3054,16 +3054,18 @@ function sampev.onShowTextDraw(textdrawId, data)
 			end
 			local file = io.open('moonloader/stealer/textdraws/'..data.modelId..'.notepad', 'a+')
 			if file ~= -1 and file ~= nil then
-				file:write('////////////////////['..os.date('%d-%m-%Y || %H:%M:%S')..']////////////////////\n')
 				code_temp_3 = ""
-				code_temp_3 = string.format('textdraw = TextDrawCreate(%0.6f, %0.6f, "%s");\n',data.position.x,data.position.y,data.text)
-				-- if string.find(file:read("*all"), code_temp_2, 1, true) then
-					-- sampfuncsLog('{FF3300}<Копия> '..code_temp_2)
-					-- io.close(file)
-					-- return
-				-- end
+				code_temp_3 = string.format(string.format('Model: %d | Rotation: %0.6f, %0.6f, %0.6f, %0.6f | Color: 0x%s\n',data.modelId,data.rotation.x,data.rotation.y,data.rotation.z,data.zoom,bit.tohex(argb_to_rgba(data.backgroundColor))))
+				if string.find(file:read("*all"), code_temp_3, 1, true) then
+					--sampfuncsLog('{FF3300}<Копия> '..code_temp_3)
+					io.close(file)
+					return
+				end
+				file:write('////////////////////['..os.date('%d-%m-%Y || %H:%M:%S')..']////////////////////\n')
+				file:write(string.format('Model: %d | Rotation: %0.6f, %0.6f, %0.6f, %0.6f | Color: 0x%s\n',data.modelId,data.rotation.x,data.rotation.y,data.rotation.z,data.zoom,bit.tohex(argb_to_rgba(data.backgroundColor))))
+				
 				--sampfuncsLog('{33AA33}<Добавлено> '..code_temp_2)
-				file:write(string.format('textdraw = TextDrawCreate(%0.6f, %0.6f, "%s");\n',data.position.x,data.position.y,data.text))
+				--file:write(string.format('textdraw = TextDrawCreate(%0.6f, %0.6f, "%s");\n',data.position.x,data.position.y,data.text))
 				----file:write(string.format('TextDrawLetterSize(textdraw, %0.6f, %0.6f);\n',data.letterWidth,data.letterHeight))
 				----file:write(string.format('TextDrawTextSize(textdraw, %0.6f, %0.6f);\n',data.lineWidth,data.lineHeight))
 				----file:write(string.format('TextDrawAlignment(textdraw, 0);\n'))
@@ -3083,19 +3085,19 @@ function sampev.onShowTextDraw(textdrawId, data)
 				----file:write(string.format('TextDrawSetShadow(textdraw, %d);\n',data.shadow))
 				----file:write(string.format('TextDrawSetOutline(textdraw, %d);\n',data.outline))
 				----file:write('TextDrawBackgroundColor(textdraw, 0);\n')
-				if data.backgroundColor == 0 then
-					file:write('TextDrawBackgroundColor(textdraw, 0);\n')
-				else
-					file:write(string.format('TextDrawBackgroundColor(textdraw, 0x%s);\n',
-					bit.tohex(argb_to_rgba(data.backgroundColor))
-					--string.format("0x%08X", bit.bor(bit.rshift(argb_to_rgba(data.backgroundColor), 24), bit.lshift(argb_to_rgba(data.backgroundColor), 8)))
-					))
-				end
+				-- if data.backgroundColor == 0 then
+					-- file:write('TextDrawBackgroundColor(textdraw, 0);\n')
+				-- else
+					-- file:write(string.format('TextDrawBackgroundColor(textdraw, 0x%s);\n',
+					-- bit.tohex(argb_to_rgba(data.backgroundColor))
+					----string.format("0x%08X", bit.bor(bit.rshift(argb_to_rgba(data.backgroundColor), 24), bit.lshift(argb_to_rgba(data.backgroundColor), 8)))
+					-- ))
+				-- end
 				----file:write(string.format('TextDrawFont(textdraw, %d);\n',data.style))
 				----file:write(string.format('TextDrawSetProportional(textdraw, 0);\n'))
 				----file:write(string.format('TextDrawSetSelectable(textdraw, %d);\n',data.selectable))
-				file:write(string.format('TextDrawSetPreviewModel(textdraw, %d);\n',data.modelId))
-				file:write(string.format('TextDrawSetPreviewRot(textdraw, %0.6f, %0.6f, %0.6f, %0.6f);\n',data.rotation.x,data.rotation.y,data.rotation.z,data.zoom))
+				-- file:write(string.format('TextDrawSetPreviewModel(textdraw, %d);\n',data.modelId))
+				-- file:write(string.format('TextDrawSetPreviewRot(textdraw, %0.6f, %0.6f, %0.6f, %0.6f);\n',data.rotation.x,data.rotation.y,data.rotation.z,data.zoom))
 				io.close(file)
 			end
 		end
