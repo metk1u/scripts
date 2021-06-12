@@ -2,10 +2,10 @@
 script_name("{0d00ff}Ar{2900ff}iz{3900ff}on{4500ff}a H{4f00ff}el{5800ff}pe{6000ff}r")
 local script_names = "Arizona Helper"
 
-script_version('4.53')
+script_version('4.54')
 script_author("metk1u")
 
-local script_vers = 71
+local script_vers = 72
 
 -- sampSetLocalPlayerName('lol')
 
@@ -303,6 +303,21 @@ local friends =
 	--"Kostya_Seleznev",
 	--"Sam_Mason",
 	--"Conor",
+};
+----------------------------------------
+local pidori =
+{
+	"Yuma_Tanaka",
+	"Miguel_Guevara",
+	"Fernando_Klyn",
+	"Vartan_Germun",
+	"Fabio_Vistero",
+	"Denis_Watcon",
+	"Yuta_Takeda",
+	"Hun_Aoto",
+	"Taiga_Aoto",
+	"Toby_Weilong",
+	"Underground_Monster",
 };
 ----------------------------------------
 local work =
@@ -816,6 +831,8 @@ local elements =
 		----------------------------------------
 		nicks = false,
 		----------------------------------------
+		pidors = false,
+		----------------------------------------
 		finds = 65535,
 		----------------------------------------
 		trasher = false,
@@ -951,6 +968,24 @@ function main()
 	sampRegisterChatCommand("nicks",function()
 		elements.state.nicks = not elements.state.nicks
 		push_message((elements.state.nicks and "Включаю" or "Выключаю")..' поиск игроков в зоне стрима.')
+	end)
+	----------------------------------------
+	sampRegisterChatCommand("pp",function()
+		elements.state.pidors = not elements.state.pidors
+		push_message((elements.state.pidors and "Включаю" or "Выключаю")..' поиск пидоров в зоне стрима.')
+	end)
+	----------------------------------------
+	sampRegisterChatCommand("p",function()
+		for i = 0, sampGetMaxPlayerId() do
+			if sampIsPlayerConnected(i) then
+				nickname = sampGetPlayerNickname(i)
+				for id = 1, #pidori do
+					if nickname == pidori[id] then
+						sampAddChatMessage('Пидор '..nickname..'['..i..'] находится на сервере.', 0xFF3300)
+					end
+				end
+			end
+		end
 	end)
 	----------------------------------------
 	sampRegisterChatCommand('finds',function(playerid)
@@ -1150,7 +1185,7 @@ function main()
 		push_message((elements.state.denis and "Включаю" or "Выключаю")..' покупку.')
 	end)
 	----------------------------------------
-	for i = 0, sampGetMaxPlayerId(true) do
+	for i = 0, sampGetMaxPlayerId() do
 		if sampIsPlayerConnected(i) then
 			nickname = sampGetPlayerNickname(i)
 			for id = 1, #friends do
@@ -1461,7 +1496,7 @@ function main()
 		--------------------[Игроки в зоне стрима]--------------------
 		if elements.state.nicks == true then
 			players_count = 0
-			for i = 0, sampGetMaxPlayerId(true) do
+			for i = 0, sampGetMaxPlayerId(true) do -- true - максимальный ID в зоне стрима
 				local result, ped = sampGetCharHandleBySampPlayerId(i)
 				if result and doesCharExist(ped) then
 					players_count = players_count + 1
@@ -1487,6 +1522,34 @@ function main()
 				renderFontDrawText(arial,'Игроков в зоне стрима: '..players_count, sx / 5, sy - 30, 0xFF3300FF)
 			else
 				renderFontDrawText(arial,'Игроков в зоне стрима: '..players_count, sx / 5, sy - 30, 0xFFFF0000)
+			end
+		end
+		--------------------[Пидоры в зоне стрима]--------------------
+		if elements.state.pidors == true then
+			for i = 0, sampGetMaxPlayerId(true) do -- true - максимальный ID в зоне стрима
+				local result, ped = sampGetCharHandleBySampPlayerId(i)
+				if result and doesCharExist(ped) then
+					playername = sampGetPlayerNickname(i)
+					for id = 1, #pidori do
+						if playername == pidori[id] then
+							local mypos_x, mypos_y, mypos_z = getCharCoordinates(PLAYER_PED)
+							local PlayerX2, PlayerY2 = convert3DCoordsToScreen(mypos_x, mypos_y, mypos_z)
+							local PlayerX, PlayerY, PlayerZ = getCharCoordinates(ped)
+							local x1, y1 = convert3DCoordsToScreen(PlayerX, PlayerY, PlayerZ)
+							distance = string.format("%.0f",getDistanceBetweenCoords3d(PlayerX, PlayerY, PlayerZ, mypos_x, mypos_y, mypos_z))
+							
+							color = sampGetPlayerColor(i)
+							----------------------------------------
+							afk = ""
+							if sampIsPlayerPaused(i) then
+								afk = "{FF3300}(AFK)"
+							end
+							----------------------------------------
+							renderDrawLine(PlayerX2, PlayerY2, x1, y1, 2, getColor(color))
+							renderFontDrawText(arial, playername..'['..i..'] ['..distance..' м.] '..afk, x1, y1, getColor(color))
+						end
+					end
+				end
 			end
 		end
 		--------------------[Поиск игрока]--------------------
@@ -2116,6 +2179,8 @@ function imgui.OnDrawFrame()
 		imgui.Text(u8"/minfo - Узнать сколько памяти используется")
 		imgui.Text(u8"/mclear - Очистить память игры")
 		imgui.Text(u8"/price [название] - Посмотреть цену на товар")
+		imgui.Text(u8"/pp - Поиск пидоров")
+		imgui.Text(u8"/p - Посмотреть пидоров онлайн")
 		----------------------------------------
 		if imgui.BeginPopup('chatrender') then
 			imgui.Checkbox(u8('Рендер чата'),elements.chat.renderChat)
