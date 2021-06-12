@@ -2,10 +2,10 @@
 script_name("{0d00ff}Ar{2900ff}iz{3900ff}on{4500ff}a H{4f00ff}el{5800ff}pe{6000ff}r")
 local script_names = "Arizona Helper"
 
-script_version('4.52')
+script_version('4.53')
 script_author("metk1u")
 
-local script_vers = 70
+local script_vers = 71
 
 -- sampSetLocalPlayerName('lol')
 
@@ -316,7 +316,7 @@ local checked_radio = imgui.ImInt(1)
 local checked_inv = imgui.ImInt(2)
 local checked_box = imgui.ImBool(false)
 --------------------[Запоминание диалогов]--------------------
-dialogs = {0, ''}
+dialogs = {}
 --------------------[Стиллер объектов на транспорт]--------------------
 local objectsTable = {}
 local lastPlayerState = -1
@@ -546,6 +546,9 @@ local mainIni = inicfg.load(
 		box_car = 0,
 		box_car_price = 50000,
 		----------------------------------------
+		band_respect = 0,
+		band_respect_price = 500,
+		----------------------------------------
 		larec_premium = 0,
 		larec_premium_price = 50000
 	},
@@ -774,6 +777,9 @@ local elements =
 		box_car = imgui.ImInt(mainIni.lavka.box_car),
 		box_car_price = imgui.ImInt(mainIni.lavka.box_car_price),
 		----------------------------------------
+		band_respect = imgui.ImInt(mainIni.lavka.band_respect),
+		band_respect_price = imgui.ImInt(mainIni.lavka.band_respect_price),
+		----------------------------------------
 		larec_premium = imgui.ImInt(mainIni.lavka.larec_premium),
 		larec_premium_price = imgui.ImInt(mainIni.lavka.larec_premium_price)
 	},
@@ -829,7 +835,7 @@ local elements =
 		showpos = false,
 		showmodel = false,
 		----------------------------------------
-		stealer_td = false,
+		stealer_td = true,
 		----------------------------------------
 		denis = false
 		----------------------------------------
@@ -867,6 +873,7 @@ function main()
 	if not doesDirectoryExist("moonloader\\logs") then createDirectory("moonloader\\logs") end
 	if not doesDirectoryExist("moonloader\\stealer") then createDirectory("moonloader\\stealer") end
 	if not doesDirectoryExist("moonloader\\stealer\\vehicle") then createDirectory("moonloader\\stealer\\vehicle") end
+	if not doesDirectoryExist("moonloader\\stealer\\textdraws") then createDirectory("moonloader\\stealer\\textdraws") end
 	sampAddChatMessage('['..thisScript().name..' '..thisScript().version..'{FFFFFF}] {299800}Загружен{FFFFFF}. Настройки: /chat.', 0xFFFFFF)
 	push_message(script_names..' загружен.')
 	----------------------------------------
@@ -1601,7 +1608,7 @@ function main()
 			if carid ~= -1 then
 				result, carhandle = sampGetCarHandleBySampVehicleId(carid)
 				if carhandle ~= -1 then
-					if carid >= 828 then
+					if carid >= 836 then
 						x, y, z = getCarCoordinates(carhandle)
 						model = getCarModel(carhandle)
 						name_vehicle = getCarName(model)
@@ -1990,6 +1997,9 @@ function saveini()
 			----------------------------------------
 			box_car = elements.lavka.box_car.v,
 			box_car_price = elements.lavka.box_car_price.v,
+			----------------------------------------
+			band_respect = elements.lavka.band_respect.v,
+			band_respect_price = elements.lavka.band_respect_price.v,
 			----------------------------------------
 			larec_premium = elements.lavka.larec_premium.v,
 			larec_premium_price = elements.lavka.larec_premium_price.v
@@ -2481,7 +2491,11 @@ function imgui.OnDrawFrame()
 			imgui.SameLine()
 			imgui.InputInt(u8('Ящик авто-ящик (кол-во)'),elements.lavka.box_car)
 			----------------------------------------
-			imgui.InputInt(u8('Цена  ##38'),elements.lavka.larec_premium_price)
+			imgui.InputInt(u8('Цена  ##38'),elements.lavka.band_respect_price)
+			imgui.SameLine()
+			imgui.InputInt(u8('Бандитские респекты (кол-во)'),elements.lavka.band_respect)
+			----------------------------------------
+			imgui.InputInt(u8('Цена  ##39'),elements.lavka.larec_premium_price)
 			imgui.SameLine()
 			imgui.InputInt(u8('Ларец с премией (кол-во)'),elements.lavka.larec_premium)
 			----------------------------------------
@@ -2596,6 +2610,9 @@ function imgui.OnDrawFrame()
 			end
 			if elements.lavka.box_car.v ~= 0 then
 				count_all = count_all+(elements.lavka.box_car_price.v*elements.lavka.box_car.v)
+			end
+			if elements.lavka.band_respect.v ~= 0 then
+				count_all = count_all+(elements.lavka.band_respect_price.v*elements.lavka.band_respect.v)
 			end
 			if elements.lavka.larec_premium.v ~= 0 then
 				count_all = count_all+(elements.lavka.larec_premium_price.v*elements.lavka.larec_premium.v)
@@ -2867,9 +2884,6 @@ function sampev.onShowTextDraw(textdrawId, data)
 	if data.modelId == 3026 then
 		sampAddChatMessage("Сумка-барыжка - своровать текстдрав (/td)!", 0xFF3300)
 	end
-	if data.modelId == 7093 then
-		sampAddChatMessage("Если сердце в руку то заскринить название предмета! + (/td)", 0xFF3300)
-	end
 	if data.modelId == 10757 then
 		sampAddChatMessage("Самолет за спиной - узнать цену.", 0xFF3300)
 	end
@@ -2881,9 +2895,6 @@ function sampev.onShowTextDraw(textdrawId, data)
 	end
 	if data.modelId == 19137 then
 		sampAddChatMessage("Если гребень на голову то заскринить название предмета!", 0xFF3300)
-	end
-	if data.modelId == 19555 or data.modelId == 19556 then
-		sampAddChatMessage("Модификация клешни краба - своровать текстдрав (/td)!", 0xFF3300)
 	end
 	if data.modelId == 19893 then
 		sampAddChatMessage("Карта на спину - заскринить название предмета!", 0xFF3300)
@@ -2908,49 +2919,185 @@ function sampev.onShowTextDraw(textdrawId, data)
 		end
 	end
 	--------------------[Стиллер текстдравов]--------------------
-	if elements.state.stealer_td == true then
-		local file = io.open('moonloader/stealer/textdraw.notepad', 'a+')
-		if file ~= -1 and file ~= nil then
-			code_temp_2 = ""
-			file:write('////////////////////['..os.date('%d-%m-%Y || %H:%M:%S')..']////////////////////\n')
-			code_temp_2 = string.format('textdraw = TextDrawCreate(%0.6f, %0.6f, "%s");\n',data.position.x,data.position.y,data.text)
-			--if string.find(file:read("*all"), code_temp_2, 1, true) then
-				--sampfuncsLog('{FF3300}<Копия> '..code_temp_2)
-				--io.close(file)
-				--return
-			--end
-			--sampfuncsLog('{33AA33}<Добавлено> '..code_temp_2)
-			file:write(string.format('textdraw = TextDrawCreate(%0.6f, %0.6f, "%s");\n',data.position.x,data.position.y,data.text))
-			----file:write(string.format('TextDrawLetterSize(textdraw, %0.6f, %0.6f);\n',data.letterWidth,data.letterHeight))
-			----file:write(string.format('TextDrawTextSize(textdraw, %0.6f, %0.6f);\n',data.lineWidth,data.lineHeight))
-			----file:write(string.format('TextDrawAlignment(textdraw, 0);\n'))
-			----file:write('TextDrawColor(textdraw, 0);\n')
-			--if data.color == 0 then
-			--	file:write('TextDrawColor(textdraw, 0);\n')
-			--else
-			--	file:write(string.format('TextDrawColor(textdraw, 0x%s);\n',bit.tohex(argb_to_rgba(data.color))))
-			--end
-			----file:write(string.format('TextDrawUseBox(textdraw, 0);\n'))
-			----file:write('TextDrawBoxColor(textdraw, 0);\n')
-			--if data.boxColor == 0 then
-			--	file:write('TextDrawBoxColor(textdraw, 0);\n')
-			--else
-			--	file:write(string.format('TextDrawBoxColor(textdraw, 0x%s);\n',bit.tohex(argb_to_rgba(data.boxColor))))
-			--end
-			----file:write(string.format('TextDrawSetShadow(textdraw, %d);\n',data.shadow))
-			----file:write(string.format('TextDrawSetOutline(textdraw, %d);\n',data.outline))
-			----file:write('TextDrawBackgroundColor(textdraw, 0);\n')
-			--if data.backgroundColor == 0 then
-			--	file:write('TextDrawBackgroundColor(textdraw, 0);\n')
-			--else
-			--	file:write(string.format('TextDrawBackgroundColor(textdraw, 0x%s);\n',bit.tohex(argb_to_rgba(data.backgroundColor))))
-			--end
-			----file:write(string.format('TextDrawFont(textdraw, %d);\n',data.style))
-			----file:write(string.format('TextDrawSetProportional(textdraw, 0);\n'))
-			----file:write(string.format('TextDrawSetSelectable(textdraw, %d);\n',data.selectable))
-			file:write(string.format('TextDrawSetPreviewModel(textdraw, %d);\n',data.modelId))
-			file:write(string.format('TextDrawSetPreviewRot(textdraw, %0.6f, %0.6f, %0.6f, %0.6f);\n',data.rotation.x,data.rotation.y,data.rotation.z,data.zoom))
-			io.close(file)
+	ip, port = sampGetCurrentServerAddress()
+	if ip == "185.169.134.3" or
+		ip == "185.169.134.4" or
+		ip == "185.169.134.43" or
+		ip == "185.169.134.44" or
+		ip == "185.169.134.45" or
+		ip == "185.169.134.5" or
+		ip == "185.169.134.59" or
+		ip == "185.169.134.61" or
+		ip == "185.169.134.107" or
+		ip == "185.169.134.109" or
+		ip == "185.169.134.166" or
+		ip == "185.169.134.171" or
+		ip == "185.169.134.172" or
+		ip == "185.169.134.173" or
+		ip == "185.169.134.174" then
+		if elements.state.stealer_td == true and data.modelId ~= 0 and data.modelId ~= 1649 then
+			if (data.modelId >= 0 and data.modelId <= 311) or  -- Скины
+				data.modelId == 336 or -- Бита на спину
+				data.modelId == 337 or -- Лопата на спину
+				data.modelId == 339 or -- Катана на спину
+				data.modelId == 346 or -- Colt 45
+				data.modelId == 347 or -- Silenced 9mm
+				data.modelId == 348 or -- Desert Eagle
+				data.modelId == 349 or -- Shotgun
+				data.modelId == 352 or -- Micro Uzi
+				data.modelId == 353 or -- MP5
+				data.modelId == 355 or -- AK-47
+				data.modelId == 356 or -- M4
+				data.modelId == 357 or -- Country Rifle
+				data.modelId == 358 or -- Sniper Rifle
+				data.modelId == 361 or -- Огнемёт на спину
+				data.modelId == 362 or -- Миниган на спину
+				data.modelId == 372 or -- Tec-9
+				(data.modelId >= 400 and data.modelId <= 611) or -- Транспорт
+				data.modelId == 826 or -- Хлопок
+				data.modelId == 854 or -- Мусор
+				data.modelId == 871 or -- Лен
+				data.modelId == 888 or -- Язык Венома
+				data.modelId == 1013 or -- Ушки бэтмена
+				data.modelId == 1210 or -- Коричневый чемодан
+				data.modelId == 1212 or -- Пачка денег на спину
+				data.modelId == 1277 or -- Талон +1 Exp
+				data.modelId == 1304 or -- Металл
+				data.modelId == 1328 or -- Платиновая рулетка
+				data.modelId == 1353 or -- Сундук платиновой рулетки
+				data.modelId == 1463 or -- Дерево
+				data.modelId == 1575 or -- Белый пакет с наркотиками на спину
+				data.modelId == 1602 or -- Плазменный щит & Призрачный нимб
+				data.modelId == 1607 or -- Дельфин на спину
+				data.modelId == 1609 or -- Черепаха на спину
+				data.modelId == 1622 or -- Регистратор на плечо
+				data.modelId == 1650 or -- Канистра (/fillcar)
+				data.modelId == 1733 or -- Тайник Илона Маска
+				data.modelId == 1895 or -- Серебрянная рулетка
+				data.modelId == 1979 or -- Бронзовая рулетка
+				data.modelId == 2045 or -- Бита с шипами
+				data.modelId == 2386 or -- Скин
+				data.modelId == 2684 or -- Лицензии
+				data.modelId == 2714 or -- Табличка 'OPEN' на спину
+				data.modelId == 2806 or -- Сырое мясо оленины
+				data.modelId == 2894 or -- Телефонная книга
+				data.modelId == 2936 or -- Бронза
+				data.modelId == 3027 or -- Самокрутка на спину
+				data.modelId == 3056 or -- Магнит на спину
+				data.modelId == 3929 or -- Камень
+				data.modelId == 7093 or -- Рюкзак 'Erotic'
+				data.modelId == 7392 or -- Девушка на спину
+				data.modelId == 11745 or -- Сумка для ноутбука
+				data.modelId == 13646 or -- Золотая рулетка
+				data.modelId == 13667 or -- Маска обезьяны
+				data.modelId == 14467 or -- Человечек на плечо
+				data.modelId == 16776 or -- Петух на плечо
+				data.modelId == 16778 or -- НЛО на плечо
+				data.modelId == 17027 or -- Серебро
+				data.modelId == 18634 or -- Монтажка на спину
+				data.modelId == 18635 or -- Молоток на спину
+				data.modelId == 18636 or -- Кепка Police чёрная
+				data.modelId == 18637 or -- Щит на спину
+				data.modelId == 18638 or -- Каска строителя
+				data.modelId == 18643 or -- Красная шляпа маяк
+				data.modelId == 18782 or -- Печенька на голову
+				(data.modelId >= 18865 and data.modelId <= 18874) or -- Телефоны
+				data.modelId == 18890 or -- Грабли на спину
+				(data.modelId >= 18906 and data.modelId <= 18910) or -- Повязка на голову
+				(data.modelId >= 18911 and data.modelId <= 18920) or -- Бандана
+				(data.modelId >= 18921 and data.modelId <= 18925) or -- Берет
+				(data.modelId >= 18926 and data.modelId <= 18935) or -- Кепка
+				(data.modelId >= 18947 and data.modelId <= 18951) or -- Шляпка
+				(data.modelId >= 18953 and data.modelId <= 18954) or -- Шапка
+				(data.modelId >= 18955 and data.modelId <= 18959) or -- Обратная кепка
+				data.modelId == 18963 or -- Голова CJ
+				(data.modelId >= 18964 and data.modelId <= 18966) or -- Бандитская шапка
+				(data.modelId >= 18967 and data.modelId <= 18969) or -- Панамка
+				(data.modelId >= 18970 and data.modelId <= 18973) or -- Большая шляпа
+				(data.modelId >= 19006 and data.modelId <= 19035) or -- Очки
+				(data.modelId >= 19039 and data.modelId <= 19053) or -- Часы
+				data.modelId == 19078 or -- Костюм попугая
+				(data.modelId >= 19095 and data.modelId <= 19100) or -- Ковбойская шляпа
+				(data.modelId >= 19106 and data.modelId <= 19120) or -- Каска
+				data.modelId == 19136 or -- Шляпа с дредами
+				data.modelId == 19141 or -- Каска спецназа (черная)
+				data.modelId == 19142 or -- Бронежилет (черный)
+				data.modelId == 19160 or -- Кепка DUDE жёлтая
+				data.modelId == 19161 or -- Кепка Police серая
+				data.modelId == 19162 or -- Кепка Police синяя
+				(data.modelId >= 19317 and data.modelId <= 19319) or -- Гитары
+				data.modelId == 19330 or -- Женская шляпка
+				(data.modelId >= 19332 and data.modelId <= 19338) or -- Воздушные шары
+				data.modelId == 19349 or -- Монокль
+				(data.modelId >= 19421 and data.modelId <= 19424) or -- Наушники
+				data.modelId == 19472 or -- Респиратор
+				data.modelId == 19513 or -- Samsung Galaxy S10 (Серебрянный)
+				data.modelId == 19514 or -- Каска спецназа (белая)
+				data.modelId == 19515 or -- Бронежилет (белый)
+				(data.modelId >= 19520 and data.modelId <= 19521) or -- Фуражка офицера
+				data.modelId == 19553 or -- Фермерская шляпа
+				data.modelId == 19554 or -- Шапка баллас
+				data.modelId == 19558 or -- Кепка (развозчика пиццы)
+				data.modelId == 19620 or -- Полицейский ранец & Палка красно-синяя
+				data.modelId == 19621 or -- Канистра на пояс
+				data.modelId == 19623 or -- Фотоаппарат на грудь
+				data.modelId == 19624 or -- Большой чемодан
+				data.modelId == 19627 or -- Ремонтный набор (/repcar)
+				data.modelId == 19631 or -- Кирка на спину
+				data.modelId == 19792 or -- Сим.карты
+				data.modelId == 19801 or -- Маска (/mask)
+				data.modelId == 19878 or -- Скейт на спину
+				data.modelId == 19882 or -- Жареное мясо оленины
+				data.modelId == 19918 or -- Сундук рулетки
+				data.modelId == 19941 then -- Золото
+				return
+			end
+			local file = io.open('moonloader/stealer/textdraws/'..data.modelId..'.notepad', 'a+')
+			if file ~= -1 and file ~= nil then
+				file:write('////////////////////['..os.date('%d-%m-%Y || %H:%M:%S')..']////////////////////\n')
+				code_temp_3 = ""
+				code_temp_3 = string.format('textdraw = TextDrawCreate(%0.6f, %0.6f, "%s");\n',data.position.x,data.position.y,data.text)
+				-- if string.find(file:read("*all"), code_temp_2, 1, true) then
+					-- sampfuncsLog('{FF3300}<Копия> '..code_temp_2)
+					-- io.close(file)
+					-- return
+				-- end
+				--sampfuncsLog('{33AA33}<Добавлено> '..code_temp_2)
+				file:write(string.format('textdraw = TextDrawCreate(%0.6f, %0.6f, "%s");\n',data.position.x,data.position.y,data.text))
+				----file:write(string.format('TextDrawLetterSize(textdraw, %0.6f, %0.6f);\n',data.letterWidth,data.letterHeight))
+				----file:write(string.format('TextDrawTextSize(textdraw, %0.6f, %0.6f);\n',data.lineWidth,data.lineHeight))
+				----file:write(string.format('TextDrawAlignment(textdraw, 0);\n'))
+				----file:write('TextDrawColor(textdraw, 0);\n')
+				--if data.color == 0 then
+				--	file:write('TextDrawColor(textdraw, 0);\n')
+				--else
+				--	file:write(string.format('TextDrawColor(textdraw, 0x%s);\n',bit.tohex(argb_to_rgba(data.color))))
+				--end
+				----file:write(string.format('TextDrawUseBox(textdraw, 0);\n'))
+				----file:write('TextDrawBoxColor(textdraw, 0);\n')
+				--if data.boxColor == 0 then
+				--	file:write('TextDrawBoxColor(textdraw, 0);\n')
+				--else
+				--	file:write(string.format('TextDrawBoxColor(textdraw, 0x%s);\n',bit.tohex(argb_to_rgba(data.boxColor))))
+				--end
+				----file:write(string.format('TextDrawSetShadow(textdraw, %d);\n',data.shadow))
+				----file:write(string.format('TextDrawSetOutline(textdraw, %d);\n',data.outline))
+				----file:write('TextDrawBackgroundColor(textdraw, 0);\n')
+				if data.backgroundColor == 0 then
+					file:write('TextDrawBackgroundColor(textdraw, 0);\n')
+				else
+					file:write(string.format('TextDrawBackgroundColor(textdraw, 0x%s);\n',
+					bit.tohex(argb_to_rgba(data.backgroundColor))
+					--string.format("0x%08X", bit.bor(bit.rshift(argb_to_rgba(data.backgroundColor), 24), bit.lshift(argb_to_rgba(data.backgroundColor), 8)))
+					))
+				end
+				----file:write(string.format('TextDrawFont(textdraw, %d);\n',data.style))
+				----file:write(string.format('TextDrawSetProportional(textdraw, 0);\n'))
+				----file:write(string.format('TextDrawSetSelectable(textdraw, %d);\n',data.selectable))
+				file:write(string.format('TextDrawSetPreviewModel(textdraw, %d);\n',data.modelId))
+				file:write(string.format('TextDrawSetPreviewRot(textdraw, %0.6f, %0.6f, %0.6f, %0.6f);\n',data.rotation.x,data.rotation.y,data.rotation.z,data.zoom))
+				io.close(file)
+			end
 		end
 	end
 	--------------------[Автооткрытие кейсов]--------------------
@@ -3421,7 +3568,7 @@ function sampev.onSetVehicleParamsEx(vehicleId, params, doors, windows)
 		printString('',0)
 	end
 	ip, port = sampGetCurrentServerAddress()
-	if ip ~= "127.0.0.1" and vehicleId >= 828 then
+	if ip ~= "127.0.0.1" and vehicleId >= 836 then
 		fsoav(vehicleId)
 	end
 end
@@ -3517,7 +3664,11 @@ function sampev.onCreateObject(objectId, data)
 	tempObj['materialNum'] = 0
 	tempObj['materialTxtNum'] = 0
 	----------------------------------------
-	if sampGetGamestate() == 2 then tempObj['streamerDynamic'] = false else tempObj['streamerDynamic'] = true end
+	if sampGetGamestate() == 2 then
+		tempObj['streamerDynamic'] = false
+	else
+		tempObj['streamerDynamic'] = true
+	end
 	----------------------------------------
 	if data.texturesCount > 0 then
 		if #data.materials ~= 0 then
@@ -3617,6 +3768,33 @@ function sampev.onCreateObject(objectId, data)
 	end
 	----------------------------------------
 	function sampev.onSetObjectMaterialText(objectId, data)
+		--------------------[Автобазар]--------------------
+		if data.align == 1 and data.fontSize == 40 then
+			local veh, price = data.text:match('^([^\n]+)\n{%x+}%$(%d+)')
+			if veh and price then
+				price = sumFormat(price)
+
+				local isInside = pointInRectangle(
+				{
+					x = select(1, getCharCoordinates(PLAYER_PED)), 
+					y = select(2, getCharCoordinates(PLAYER_PED))
+				},
+				{
+					A = {x = -2113.40, y = -975.00},
+					B = {x = -2154.30, y = -975.00},
+					C = {x = -2154.30, y = -744.65},
+					D = {x = -2113.40, y = -744.65}
+				})
+
+				if isInside then
+					sampAddChatMessage('[{FDDB6D}'..script_names..' '..thisScript().version..'{FFFFFF}] На продажу выставлен {FDDB6D}'..veh..'{FFFFFF} за {FDDB6D}$'..price..'{FFFFFF}.', 0xFFFFFF)
+				end
+
+				data.text = data.text:gsub('%$%d+', '$' .. price)
+				return { objectId, data }
+			end
+		end
+		----------------------------------------
 		if tempObj['objectId'] == objectId then
 			local tempMatObj = {}
 			----------------------------------------
@@ -4588,6 +4766,36 @@ function skupka()
 			sampSendDialogResponse(3050, 1, 3, '')
 			sampSendDialogResponse(3060, 1, 0, elements.lavka.box_car.v..' '..elements.lavka.box_car_price.v)
 		end
+		if elements.lavka.band_respect.v ~= 0 then
+			sampSendDialogResponse(3040, 1, 0, '')
+			sampSendDialogResponse(3050, 1, 19, '')
+			sampSendDialogResponse(3050, 1, 20, '')
+			sampSendDialogResponse(3050, 1, 20, '')
+			sampSendDialogResponse(3050, 1, 20, '')
+			sampSendDialogResponse(3050, 1, 20, '')
+			sampSendDialogResponse(3050, 1, 20, '')
+			sampSendDialogResponse(3050, 1, 20, '')
+			sampSendDialogResponse(3050, 1, 20, '')
+			sampSendDialogResponse(3050, 1, 20, '')
+			sampSendDialogResponse(3050, 1, 20, '')
+			sampSendDialogResponse(3050, 1, 20, '')
+			sampSendDialogResponse(3050, 1, 20, '')
+			sampSendDialogResponse(3050, 1, 20, '')
+			sampSendDialogResponse(3050, 1, 20, '')
+			sampSendDialogResponse(3050, 1, 20, '')
+			sampSendDialogResponse(3050, 1, 20, '')
+			sampSendDialogResponse(3050, 1, 20, '')
+			sampSendDialogResponse(3050, 1, 20, '')
+			sampSendDialogResponse(3050, 1, 20, '')
+			sampSendDialogResponse(3050, 1, 20, '')
+			sampSendDialogResponse(3050, 1, 20, '')
+			sampSendDialogResponse(3050, 1, 20, '')
+			sampSendDialogResponse(3050, 1, 20, '')
+			sampSendDialogResponse(3050, 1, 20, '')
+			sampSendDialogResponse(3050, 1, 20, '')
+			sampSendDialogResponse(3050, 1, 15, '')
+			sampSendDialogResponse(3060, 1, 0, elements.lavka.band_respect.v..' '..elements.lavka.band_respect_price.v)
+		end
 		if elements.lavka.larec_premium.v ~= 0 then
 			sampSendDialogResponse(3040, 1, 0, '')
 			sampSendDialogResponse(3050, 1, 19, '')
@@ -4643,34 +4851,6 @@ function sampev.onSendPlayerSync(data)
 	end
 end
 
-function sampev.onSetObjectMaterialText(id, data)
-	if data.align == 1 and data.fontSize == 40 then
-		local veh, price = data.text:match('^([^\n]+)\n{%x+}%$(%d+)')
-		if veh and price then
-			price = sumFormat(price)
-
-			local isInside = pointInRectangle(
-			{
-				x = select(1, getCharCoordinates(PLAYER_PED)), 
-				y = select(2, getCharCoordinates(PLAYER_PED))
-			},
-			{
-				A = {x = -2113.40, y = -975.00},
-				B = {x = -2154.30, y = -975.00},
-				C = {x = -2154.30, y = -744.65},
-				D = {x = -2113.40, y = -744.65}
-			})
-
-			if isInside then
-				sampAddChatMessage('[{FDDB6D}'..script_names..' '..thisScript().version..'{FFFFFF}] На продажу выставлен {FDDB6D}'..veh..'{FFFFFF} за {FDDB6D}$'..price..'{FFFFFF}.', 0xFFFFFF)
-			end
-
-			data.text = data.text:gsub('%$%d+', '$' .. price)
-			return { id, data }
-		end
-	end
-end
-
 function pointInRectangle(point, rect)
 	local vector = function(p1, p2)
 		return 
@@ -4705,7 +4885,7 @@ function sumFormat(sum)
 end
 
 function sampev.onShowDialog(dialogId, style, title, button1, button2, text)
-	--sampAddChatMessage(dialogId,-1)
+	--ampAddChatMessage(dialogId,-1)
 	--sampAddChatMessage(text,-1)
 	--------------------[Запоминание диалогов]--------------------
 	if dialogs[dialogId] then
@@ -5145,6 +5325,16 @@ end
 	-- sampAddChatMessage(string.format('ApplyAnimation(playerid,"%s","%s",%0.1f,%s,%s,%s,%s,%d);',animLib, animName, frameDelta, loop, lockX, lockY, freeze, time),-1)
 -- end
 
+-- function sampev.onCreateGangZone(zoneId, squareStart, squareEnd, color)
+	-- color_2 = string.format('0x%X', bit.band(0xFFFFFFFF, color))
+	-- sampAddChatMessage(string.format('%d | %f, %f | %f, %f | %s',zoneId,squareStart.x,squareStart.y,squareEnd.x,squareEnd.y,color_2), -1)
+-- end
+
+-- function sampev.onGangZoneFlash(zoneId, color)
+	-- color_2 = string.format('0x%X', bit.band(0xFFFFFFFF, color))
+	-- sampAddChatMessage(string.format('%d | %s',zoneId,color_2), -1)
+-- end
+
 function sampev.onSetPlayerAttachedObject(playerId, index, create, object)
 	if playerId == elements.config.attach_id.v then
 		model = object.modelId
@@ -5228,12 +5418,12 @@ function sampev.onSetPlayerAttachedObject(playerId, index, create, object)
 		model == 1548 or -- Печеньки какие-то
 		model == 1550 or -- Мешок денег
 		model == 1562 or -- Кресло на спину
-		model == 1565 or -- Корона какая-то
+		--model == 1565 or -- Корона
 		model == 1575 or -- Белый пакет с наркотиками на спину (сделан)
 		model == 1582 or -- Пицца
 		model == 1601 or -- Молнии Зевса
 		model == 1602 or -- Призрачный нимб и щит
-		model == 1603 or -- Плащ
+		--model == 1603 or -- Золотая шапка
 		model == 1607 or -- Дельфин
 		model == 1614 or -- Треугольник
 		model == 1622 or -- Камера на плечо
@@ -5258,7 +5448,7 @@ function sampev.onSetPlayerAttachedObject(playerId, index, create, object)
 		model == 2250 or -- Трава
 		model == 2362 or -- Ларек с помидорами
 		model == 2384 or -- Одежда
-		model == 2429 or -- Хз
+		--model == 2429 or -- Реактивный ранец
 		model == 2614 or -- Два флага
 		model == 2680 or -- Цепь
 		model == 2689 or -- Футболка рокстар
@@ -5283,7 +5473,7 @@ function sampev.onSetPlayerAttachedObject(playerId, index, create, object)
 		model == 2983 or -- Хз
 		model == 2985 or -- Пулемет
 		model == 2992 or -- Нимб
-		model == 3013 or -- Коробка с патронами
+		--model == 3013 or -- Ящик за спиной
 		model == 3027 or -- Косяк
 		model == 3031 or -- Хз
 		model == 3052 or -- Коробка
@@ -5331,7 +5521,7 @@ function sampev.onSetPlayerAttachedObject(playerId, index, create, object)
 		model == 13562 or -- Спранк на спину
 		model == 13667 or -- Маска обезьяны
 		model == 14467 or -- Человечек на плечо
-		model == 14527 or -- Хз
+		--model == 14527 or -- Крылья стрекозы
 		model == 14611 or -- Хз
 		model == 16368 or -- Хз
 		model == 16442 or -- Корова на спину
@@ -5903,6 +6093,19 @@ end
 
 function join_rgb(r, g, b)
 	return bit.bor(bit.bor(b, bit.lshift(g, 8)), bit.lshift(r, 16))
+end
+
+function join_argb(a, r, g, b)
+	local argb = b
+	argb = bit.bor(argb, bit.lshift(g, 8))
+	argb = bit.bor(argb, bit.lshift(r, 16))
+	argb = bit.bor(argb, bit.lshift(a, 24))
+	return argb
+end
+
+function argb_to_rgba(argb)
+	local a, r, g, b = explode_argb(argb)
+	return join_argb(r, g, b, a)
 end
 
 local list = {}
