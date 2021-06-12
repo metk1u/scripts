@@ -1150,11 +1150,6 @@ function main()
 		push_message((elements.state.denis and "Включаю" or "Выключаю")..' покупку.')
 	end)
 	----------------------------------------
-	sampRegisterChatCommand("td",function()
-		elements.state.stealer_td = not elements.state.stealer_td
-		push_message((elements.state.stealer_td and "Включаю" or "Выключаю")..' стиллер ТД.')
-	end)
-	----------------------------------------
 	for i = 0, sampGetMaxPlayerId(true) do
 		if sampIsPlayerConnected(i) then
 			nickname = sampGetPlayerNickname(i)
@@ -2882,7 +2877,7 @@ function sampev.onShowTextDraw(textdrawId, data)
 		sampAddChatMessage("Самолет на спину - заскринить название предмета!", 0xFF3300)
 	end
 	if data.modelId == 3026 then
-		sampAddChatMessage("Сумка-барыжка - своровать текстдрав (/td)!", 0xFF3300)
+		sampAddChatMessage("Сумка-барыжка - своровать текстдрав!", 0xFF3300)
 	end
 	if data.modelId == 10757 then
 		sampAddChatMessage("Самолет за спиной - узнать цену.", 0xFF3300)
@@ -2917,6 +2912,129 @@ function sampev.onShowTextDraw(textdrawId, data)
 				checktochilki = false
 			end
 		end
+	end
+	--------------------[Автооткрытие кейсов]--------------------
+	ip, port = sampGetCurrentServerAddress()
+	if ip == "185.169.134.3" or
+		ip == "185.169.134.4" or
+		ip == "185.169.134.43" or
+		ip == "185.169.134.44" or
+		ip == "185.169.134.45" or
+		ip == "185.169.134.5" or
+		ip == "185.169.134.59" or
+		ip == "185.169.134.61" or
+		ip == "185.169.134.107" or
+		ip == "185.169.134.109" or
+		ip == "185.169.134.166" or
+		ip == "185.169.134.171" or
+		ip == "185.169.134.172" or
+		ip == "185.169.134.173" or
+		ip == "185.169.134.174" then
+		if elements.chest.roll_state.v == true and chest_timer <= os.time() then
+			for w, q in pairs(tblclosetest) do
+				if data.lineWidth >= tonumber(w) and data.lineWidth <= tonumber(q) and data.text:find('^LD_SPAC:white$') then
+					for i = 0, 2 do rawset(tblclose, #tblclose + 1, textdrawId) end
+				end
+			end
+			if elements.chest.roll_standart.v then
+				if data.modelId == 19918 then
+					opentimerid.standart = textdrawId + 1
+				end
+				if textdrawId == opentimerid.standart then
+					sampSendClickTextdraw(textdrawId - 1) 
+					sampSendClickTextdraw(2302)
+				end
+			end
+			if elements.chest.roll_platinum.v then
+				if data.modelId == 1353 then
+					opentimerid.platina = textdrawId + 1
+				end
+				if textdrawId == opentimerid.platina then
+					sampSendClickTextdraw(textdrawId - 1) 
+					sampSendClickTextdraw(2302)
+				end
+			end
+			if elements.chest.roll_maska.v then
+				if data.modelId == 1733 then
+					opentimerid.maska = textdrawId + 1
+				end
+				if textdrawId == opentimerid.maska then
+					sampSendClickTextdraw(textdrawId - 1) 
+					sampSendClickTextdraw(2302)
+					sendcloseinventory()
+					chest_timer = os.time()+(elements.chest.roll_wait.v*60)
+				end
+			end
+		end
+	end
+	--------------------[Удаление текстдравов]--------------------
+	if data.position.x == 34 and data.position.y == 230 then
+		return false
+	end
+	if data.position.x == 37 and data.position.y == 233 then
+		return false
+	end
+	if data.position.x == 39 and data.position.y == 235 then
+		return false
+	end
+	if data.position.x == 18 and data.position.y == 182 then
+		return false
+	end
+	if data.position.x == 66 and data.position.y == 232 then
+		return false
+	end
+	if data.position.x == 66 and data.position.y == 240 then
+		return false
+	end
+	if data.position.x == 79 and data.position.y == 248 then
+		return false
+	end
+	if data.position.x == 85 and data.position.y == 256 then
+		return false
+	end
+	----------------------------------------
+	if data.position.x == 29 and data.position.y == 200 then
+		return false
+	end
+	if data.position.x == 32 and data.position.y == 204 then
+		return false
+	end
+	if data.position.x == -8 and data.position.y == 198 then
+		return false
+	end
+	if data.position.x == 70 and data.position.y == 204 then
+		return false
+	end
+	if data.position.x == 29 and data.position.y == 200 then
+		return false
+	end
+	if data.position.x == 71 and data.position.y == 215 then
+		return false
+	end
+	if data.position.x == 72 and data.position.y == 224 then
+		return false
+	end
+	----------------------------------------
+	if data.position.x == 29 and data.position.y == 200 then
+		return false
+	end
+	if data.position.x == 32 and data.position.y == 204 then
+		return false
+	end
+	if data.position.x == 36 and data.position.y == 208 then
+		return false
+	end
+	if data.position.x == -9 and data.position.y == 198 then
+		return false
+	end
+	if data.position.x == 74 and data.position.y == 204 then
+		return false
+	end
+	if data.position.x == 74 and data.position.y == 215 then
+		return false
+	end
+	if data.position.x == 74 and data.position.y == 224 then
+		return false
 	end
 	--------------------[Стиллер текстдравов]--------------------
 	ip, port = sampGetCurrentServerAddress()
@@ -3063,167 +3181,9 @@ function sampev.onShowTextDraw(textdrawId, data)
 				end
 				file:write('////////////////////['..os.date('%d-%m-%Y || %H:%M:%S')..']////////////////////\n')
 				file:write(string.format('Model: %d | Rotation: %0.6f, %0.6f, %0.6f, %0.6f | Color: 0x%s\n',data.modelId,data.rotation.x,data.rotation.y,data.rotation.z,data.zoom,bit.tohex(argb_to_rgba(data.backgroundColor))))
-				
-				--sampfuncsLog('{33AA33}<Добавлено> '..code_temp_2)
-				--file:write(string.format('textdraw = TextDrawCreate(%0.6f, %0.6f, "%s");\n',data.position.x,data.position.y,data.text))
-				----file:write(string.format('TextDrawLetterSize(textdraw, %0.6f, %0.6f);\n',data.letterWidth,data.letterHeight))
-				----file:write(string.format('TextDrawTextSize(textdraw, %0.6f, %0.6f);\n',data.lineWidth,data.lineHeight))
-				----file:write(string.format('TextDrawAlignment(textdraw, 0);\n'))
-				----file:write('TextDrawColor(textdraw, 0);\n')
-				--if data.color == 0 then
-				--	file:write('TextDrawColor(textdraw, 0);\n')
-				--else
-				--	file:write(string.format('TextDrawColor(textdraw, 0x%s);\n',bit.tohex(argb_to_rgba(data.color))))
-				--end
-				----file:write(string.format('TextDrawUseBox(textdraw, 0);\n'))
-				----file:write('TextDrawBoxColor(textdraw, 0);\n')
-				--if data.boxColor == 0 then
-				--	file:write('TextDrawBoxColor(textdraw, 0);\n')
-				--else
-				--	file:write(string.format('TextDrawBoxColor(textdraw, 0x%s);\n',bit.tohex(argb_to_rgba(data.boxColor))))
-				--end
-				----file:write(string.format('TextDrawSetShadow(textdraw, %d);\n',data.shadow))
-				----file:write(string.format('TextDrawSetOutline(textdraw, %d);\n',data.outline))
-				----file:write('TextDrawBackgroundColor(textdraw, 0);\n')
-				-- if data.backgroundColor == 0 then
-					-- file:write('TextDrawBackgroundColor(textdraw, 0);\n')
-				-- else
-					-- file:write(string.format('TextDrawBackgroundColor(textdraw, 0x%s);\n',
-					-- bit.tohex(argb_to_rgba(data.backgroundColor))
-					----string.format("0x%08X", bit.bor(bit.rshift(argb_to_rgba(data.backgroundColor), 24), bit.lshift(argb_to_rgba(data.backgroundColor), 8)))
-					-- ))
-				-- end
-				----file:write(string.format('TextDrawFont(textdraw, %d);\n',data.style))
-				----file:write(string.format('TextDrawSetProportional(textdraw, 0);\n'))
-				----file:write(string.format('TextDrawSetSelectable(textdraw, %d);\n',data.selectable))
-				-- file:write(string.format('TextDrawSetPreviewModel(textdraw, %d);\n',data.modelId))
-				-- file:write(string.format('TextDrawSetPreviewRot(textdraw, %0.6f, %0.6f, %0.6f, %0.6f);\n',data.rotation.x,data.rotation.y,data.rotation.z,data.zoom))
 				io.close(file)
 			end
 		end
-	end
-	--------------------[Автооткрытие кейсов]--------------------
-	ip, port = sampGetCurrentServerAddress()
-	if ip == "185.169.134.3" or
-		ip == "185.169.134.4" or
-		ip == "185.169.134.43" or
-		ip == "185.169.134.44" or
-		ip == "185.169.134.45" or
-		ip == "185.169.134.5" or
-		ip == "185.169.134.59" or
-		ip == "185.169.134.61" or
-		ip == "185.169.134.107" or
-		ip == "185.169.134.109" or
-		ip == "185.169.134.166" or
-		ip == "185.169.134.171" or
-		ip == "185.169.134.172" or
-		ip == "185.169.134.173" or
-		ip == "185.169.134.174" then
-		if elements.chest.roll_state.v == true and chest_timer <= os.time() then
-			for w, q in pairs(tblclosetest) do
-				if data.lineWidth >= tonumber(w) and data.lineWidth <= tonumber(q) and data.text:find('^LD_SPAC:white$') then
-					for i = 0, 2 do rawset(tblclose, #tblclose + 1, textdrawId) end
-				end
-			end
-			if elements.chest.roll_standart.v then
-				if data.modelId == 19918 then
-					opentimerid.standart = textdrawId + 1
-				end
-				if textdrawId == opentimerid.standart then
-					sampSendClickTextdraw(textdrawId - 1) 
-					sampSendClickTextdraw(2302)
-				end
-			end
-			if elements.chest.roll_platinum.v then
-				if data.modelId == 1353 then
-					opentimerid.platina = textdrawId + 1
-				end
-				if textdrawId == opentimerid.platina then
-					sampSendClickTextdraw(textdrawId - 1) 
-					sampSendClickTextdraw(2302)
-				end
-			end
-			if elements.chest.roll_maska.v then
-				if data.modelId == 1733 then
-					opentimerid.maska = textdrawId + 1
-				end
-				if textdrawId == opentimerid.maska then
-					sampSendClickTextdraw(textdrawId - 1) 
-					sampSendClickTextdraw(2302)
-					sendcloseinventory()
-					chest_timer = os.time()+(elements.chest.roll_wait.v*60)
-				end
-			end
-		end
-	end
-	--------------------[Удаление текстдравов]--------------------
-	if data.position.x == 34 and data.position.y == 230 then
-		return false
-	end
-	if data.position.x == 37 and data.position.y == 233 then
-		return false
-	end
-	if data.position.x == 39 and data.position.y == 235 then
-		return false
-	end
-	if data.position.x == 18 and data.position.y == 182 then
-		return false
-	end
-	if data.position.x == 66 and data.position.y == 232 then
-		return false
-	end
-	if data.position.x == 66 and data.position.y == 240 then
-		return false
-	end
-	if data.position.x == 79 and data.position.y == 248 then
-		return false
-	end
-	if data.position.x == 85 and data.position.y == 256 then
-		return false
-	end
-	----------------------------------------
-	if data.position.x == 29 and data.position.y == 200 then
-		return false
-	end
-	if data.position.x == 32 and data.position.y == 204 then
-		return false
-	end
-	if data.position.x == -8 and data.position.y == 198 then
-		return false
-	end
-	if data.position.x == 70 and data.position.y == 204 then
-		return false
-	end
-	if data.position.x == 29 and data.position.y == 200 then
-		return false
-	end
-	if data.position.x == 71 and data.position.y == 215 then
-		return false
-	end
-	if data.position.x == 72 and data.position.y == 224 then
-		return false
-	end
-	----------------------------------------
-	if data.position.x == 29 and data.position.y == 200 then
-		return false
-	end
-	if data.position.x == 32 and data.position.y == 204 then
-		return false
-	end
-	if data.position.x == 36 and data.position.y == 208 then
-		return false
-	end
-	if data.position.x == -9 and data.position.y == 198 then
-		return false
-	end
-	if data.position.x == 74 and data.position.y == 204 then
-		return false
-	end
-	if data.position.x == 74 and data.position.y == 215 then
-		return false
-	end
-	if data.position.x == 74 and data.position.y == 224 then
-		return false
 	end
 	----------------------------------------
 	return {textdrawId, data}
