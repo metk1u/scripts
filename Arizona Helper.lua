@@ -320,6 +320,7 @@ local pidori =
 	"Taiga_Aoto",
 	"Toby_Weilong",
 	"Underground_Monster",
+	"Tiz_Cartier",
 };
 ----------------------------------------
 local work =
