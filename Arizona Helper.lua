@@ -2,10 +2,10 @@
 script_name("{0d00ff}Ar{2900ff}iz{3900ff}on{4500ff}a H{4f00ff}el{5800ff}pe{6000ff}r")
 local script_names = "Arizona Helper"
 
-script_version('4.55')
+script_version('4.56')
 script_author("metk1u")
 
-local script_vers = 73
+local script_vers = 74
 
 -- sampSetLocalPlayerName('lol')
 --¬ы использовали сундук с рулетками и получили
@@ -5422,13 +5422,13 @@ function sampev.onPlayerEnterVehicle(playerId, vehicleId, passenger)
 end
 
 function sampev.onSendCommand(cmd)
-	if elements.chat.removevipchat.v == false then
-		local text = cmd:match('^/vr (.+)')
-		if text ~= nil then 
-			work.message = text
-			work.status = true
-		end
-	end
+	-- if elements.chat.removevipchat.v == false then
+		-- local text = cmd:match('^/vr (.+)')
+		-- if text ~= nil then 
+			-- work.message = text
+			-- work.status = true
+		-- end
+	-- end
 end
 
 function sampev.onPlayerChatBubble(playerId, color, distance, duration, message)
