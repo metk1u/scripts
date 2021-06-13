@@ -2,10 +2,10 @@
 script_name("{0d00ff}Ar{2900ff}iz{3900ff}on{4500ff}a H{4f00ff}el{5800ff}pe{6000ff}r")
 local script_names = "Arizona Helper"
 
-script_version('4.56')
+script_version('4.58')
 script_author("metk1u")
 
-local script_vers = 74
+local script_vers = 76
 
 -- sampSetLocalPlayerName('lol')
 --Вы использовали сундук с рулетками и получили
@@ -438,7 +438,7 @@ local mainIni = inicfg.load(
 		roll_platinum = true,
 		roll_maska = true,
 		roll_state = true,
-		roll_wait = 120,
+		roll_wait = 118,
 	},
 	destroy =
 	{
@@ -669,7 +669,7 @@ local elements =
 		roll_platinum = imgui.ImBool(mainIni.chest.roll_platinum),
 		roll_maska = imgui.ImBool(mainIni.chest.roll_maska),
 		roll_state = imgui.ImBool(mainIni.chest.roll_state),
-		roll_wait = imgui.ImInt(mainIni.chest.roll_wait)
+		roll_wait = imgui.ImInt(mainIni.chest.roll_wait),
 	},
 	destroy =
 	{
@@ -863,6 +863,9 @@ local elements =
 	}
 }
 local chest_timer = os.time()+(elements.chest.roll_wait.v*60)
+local chest_timer_2 = os.time()+(elements.chest.roll_wait.v*60)+5
+local chest_timer_3 = os.time()+(elements.chest.roll_wait.v*60)+10
+local cmd_active = false
 ----------------------------------------
 local vr_timer = 0
 if elements.autopiar.vr_active.v == true then
@@ -1329,14 +1332,34 @@ function main()
 				end
 			end
 			----------------------------------------
-			renderFontDrawText(molot_8_5, string.format("[%02d.%02d.%02d || %02d.%02d.%02d] (%s)\n[/vr: %d] [/fam: %d] [/al: %d] [chest: %s]",
+			kd_chest_2 = '0 сек.'
+			if elements.chest.roll_state.v == true then
+				if chest_timer_2-os.time() > 60 then
+					kd_chest_2 = string.format('%d мин.',(chest_timer_2-os.time())/60)
+				else
+					kd_chest_2 = string.format('%d сек.',chest_timer_2-os.time())
+				end
+			end
+			----------------------------------------
+			kd_chest_3 = '0 сек.'
+			if elements.chest.roll_state.v == true then
+				if chest_timer_3-os.time() > 60 then
+					kd_chest_3 = string.format('%d мин.',(chest_timer_3-os.time())/60)
+				else
+					kd_chest_3 = string.format('%d сек.',chest_timer_3-os.time())
+				end
+			end
+			----------------------------------------
+			renderFontDrawText(molot_8_5, string.format("[%02d.%02d.%02d || %02d.%02d.%02d] (%s)\n[/vr: %d] [/fam: %d] [/al: %d] [chest: %s / %s / %s]",
 			os.date("%d"),os.date("%m"),os.date("%Y"),
 			os.date("%H"),os.date("%M"),os.date("%S"),
 			tWeekdays[tonumber(os.date("%w"))],
 			kd_vr,
 			kd_fam,
 			kd_al,
-			kd_chest), sx / 50, sy - 30, 0xAAFFFFFF)
+			kd_chest,
+			kd_chest_2,
+			kd_chest_3), sx / 50, sy - 30, 0xAAFFFFFF)
 		end
 		--------------------[Health and Armour]--------------------
 		if sampIsLocalPlayerSpawned() and elements.config.HealthArmour.v == true then
@@ -1362,8 +1385,20 @@ function main()
 		end
 		--------------------[Автооткрытие сундуков]--------------------
 		if ip == "185.169.134.3" or ip == "185.169.134.4" or ip == "185.169.134.43" or ip == "185.169.134.44" or ip == "185.169.134.45" or ip == "185.169.134.5" or ip == "185.169.134.59" or ip == "185.169.134.61" or ip == "185.169.134.107" or ip == "185.169.134.109" or ip == "185.169.134.166" or ip == "185.169.134.171" or ip == "185.169.134.172" or ip == "185.169.134.173" or ip == "185.169.134.174" or ip == "80.66.82.191" then
-			if elements.chest.roll_state.v and chest_timer == os.time() then
+			if elements.chest.roll_state.v and chest_timer == os.time() and cmd_active == false then
 				sampSendChat('/invent')
+				cmd_active = true
+				sampAddChatMessage("1",-1)
+			end
+			if elements.chest.roll_state.v and chest_timer_2 == os.time() and cmd_active == false then
+				sampSendChat('/invent')
+				cmd_active = true
+				sampAddChatMessage("2",-1)
+			end
+			if elements.chest.roll_state.v and chest_timer_3 == os.time() and cmd_active == false then
+				sampSendChat('/invent')
+				cmd_active = true
+				sampAddChatMessage("3",-1)
 			end
 		end
 		--------------------[Автолут]--------------------
@@ -1935,7 +1970,7 @@ function saveini()
 			roll_platinum = elements.chest.roll_platinum.v,
 			roll_maska = elements.chest.roll_maska.v,
 			roll_state = elements.chest.roll_state.v,
-			roll_wait = elements.chest.roll_wait.v
+			roll_wait = elements.chest.roll_wait.v,
 		},
 		destroy =
 		{
@@ -2712,10 +2747,15 @@ function imgui.OnDrawFrame()
 		else
 			imgui.InputInt(u8('Задержка в мин.'),elements.chest.roll_wait)
 		end
+		if chest_timer < 0 then chest_timer = 0 end
+		if chest_timer_2 < 0 then chest_timer_2 = 5 end
+		if chest_timer_3 < 0 then chest_timer_3 = 10 end
 		----------------------------------------
 		if imgui.Button(u8(elements.chest.roll_state.v and 'Выключить автооткрытие сундуков' or 'Включить автооткрытие сундуков')) then
 			elements.chest.roll_state.v = not elements.chest.roll_state.v
 			chest_timer = os.time()
+			chest_timer_2 = os.time()+5
+			chest_timer_3 = os.time()+10
 		end
 		imgui.Separator()
 		----------------------------------------
@@ -2792,6 +2832,7 @@ tblclosetest =
 tblclose = {}
 
 sendcloseinventory = function()
+	cmd_active = false
 	sampSendClickTextdraw(tblclose[1])
 	opentimerid.standart = -1
 	opentimerid.platina = -1
@@ -2982,58 +3023,179 @@ function sampev.onShowTextDraw(textdrawId, data)
 		end
 	end
 	--------------------[Автооткрытие кейсов]--------------------
+	-- ip, port = sampGetCurrentServerAddress()
+	-- if ip == "185.169.134.3" or ip == "185.169.134.4" or ip == "185.169.134.43" or ip == "185.169.134.44" or ip == "185.169.134.45" or ip == "185.169.134.5" or ip == "185.169.134.59" or ip == "185.169.134.61" or ip == "185.169.134.107" or ip == "185.169.134.109" or ip == "185.169.134.166" or ip == "185.169.134.171" or ip == "185.169.134.172" or ip == "185.169.134.173" or ip == "185.169.134.174" or ip == "80.66.82.191" then
+		-- if elements.chest.roll_state.v == true and chest_timer <= os.time() then
+			-- for w, q in pairs(tblclosetest) do
+				-- if data.lineWidth >= tonumber(w) and data.lineWidth <= tonumber(q) and data.text:find('^LD_SPAC:white$') then
+					-- for i = 0, 2 do rawset(tblclose, #tblclose + 1, textdrawId) end
+				-- end
+			-- end
+			-- if elements.chest.roll_standart.v then
+				-- if data.modelId == 19918 then
+					-- opentimerid.standart = textdrawId + 1
+				-- end
+				-- if textdrawId == opentimerid.standart then
+					-- sampSendClickTextdraw(textdrawId - 1) 
+					-- sampSendClickTextdraw(2302)
+				-- end
+			-- end
+			-- if elements.chest.roll_platinum.v then
+				-- if data.modelId == 1353 then
+					-- opentimerid.platina = textdrawId + 1
+				-- end
+				-- if textdrawId == opentimerid.platina then
+					-- sampSendClickTextdraw(textdrawId - 1) 
+					-- sampSendClickTextdraw(2302)
+				-- end
+			-- end
+			-- if elements.chest.roll_maska.v then
+				-- if data.modelId == 1733 then
+					-- opentimerid.maska = textdrawId + 1
+				-- end
+				-- if textdrawId == opentimerid.maska then
+					-- sampSendClickTextdraw(textdrawId - 1) 
+					-- sampSendClickTextdraw(2302)
+					-- sendcloseinventory()
+					-- chest_timer = os.time()+(elements.chest.roll_wait.v*60)
+				-- end
+			-- end
+		-- end
+	-- end
+	-- ip, port = sampGetCurrentServerAddress()
+	-- if ip == "185.169.134.3" or ip == "185.169.134.4" or ip == "185.169.134.43" or ip == "185.169.134.44" or ip == "185.169.134.45" or ip == "185.169.134.5" or ip == "185.169.134.59" or ip == "185.169.134.61" or ip == "185.169.134.107" or ip == "185.169.134.109" or ip == "185.169.134.166" or ip == "185.169.134.171" or ip == "185.169.134.172" or ip == "185.169.134.173" or ip == "185.169.134.174" or ip == "80.66.82.191" then
+		-- if elements.chest.roll_state.v == true and chest_timer <= os.time() then
+			-- for w, q in pairs(tblclosetest) do
+				-- if data.lineWidth >= tonumber(w) and data.lineWidth <= tonumber(q) and data.text:find('^LD_SPAC:white$') then
+					-- for i = 0, 2 do rawset(tblclose, #tblclose + 1, textdrawId) end
+				-- end
+			-- end
+			
+			-- if elements.chest.roll_standart.v then
+				-- if data.modelId == 19918 then
+					-- opentimerid.standart = textdrawId + 1
+				-- end
+				-- if textdrawId == opentimerid.standart then
+					-- lua_thread.create(function()
+						--wait(500)
+						-- sampSendClickTextdraw(textdrawId - 1) 
+						-- wait(500)
+						-- sampSendClickTextdraw(2302)
+					-- end)
+				-- end
+			-- end
+			-- if elements.chest.roll_platinum.v then
+				-- if data.modelId == 1353 then
+					-- opentimerid.platina = textdrawId + 1
+				-- end
+				-- if textdrawId == opentimerid.platina then
+					-- lua_thread.create(function()
+						-- wait(500)
+						-- sampSendClickTextdraw(textdrawId - 1) 
+						-- wait(500)
+						-- sampSendClickTextdraw(2302)
+					-- end)
+				-- end
+			-- end
+			-- if elements.chest.roll_maska.v then
+				-- if data.modelId == 1733 then
+					-- opentimerid.maska = textdrawId + 1
+				-- end
+				-- if textdrawId == opentimerid.maska then
+					-- lua_thread.create(function()
+						-- wait(500)
+						-- sampSendClickTextdraw(textdrawId - 1)
+						-- wait(500)
+						-- sampSendClickTextdraw(2302)
+						-- wait(500)
+						-- sendcloseinventory()
+						-- chest_timer = os.time()+(elements.chest.roll_wait.v*60)
+					-- end)
+				-- end
+			-- end
+		-- end
+	-- end
 	ip, port = sampGetCurrentServerAddress()
-	if ip == "185.169.134.3" or
-		ip == "185.169.134.4" or
-		ip == "185.169.134.43" or
-		ip == "185.169.134.44" or
-		ip == "185.169.134.45" or
-		ip == "185.169.134.5" or
-		ip == "185.169.134.59" or
-		ip == "185.169.134.61" or
-		ip == "185.169.134.107" or
-		ip == "185.169.134.109" or
-		ip == "185.169.134.166" or
-		ip == "185.169.134.171" or
-		ip == "185.169.134.172" or
-		ip == "185.169.134.173" or
-		ip == "185.169.134.174" then
+	if ip == "185.169.134.3" or ip == "185.169.134.4" or ip == "185.169.134.43" or ip == "185.169.134.44" or ip == "185.169.134.45" or ip == "185.169.134.5" or ip == "185.169.134.59" or ip == "185.169.134.61" or ip == "185.169.134.107" or ip == "185.169.134.109" or ip == "185.169.134.166" or ip == "185.169.134.171" or ip == "185.169.134.172" or ip == "185.169.134.173" or ip == "185.169.134.174" or ip == "80.66.82.191" then
+		------------------------------------
 		if elements.chest.roll_state.v == true and chest_timer <= os.time() then
+		------------------------------------
 			for w, q in pairs(tblclosetest) do
 				if data.lineWidth >= tonumber(w) and data.lineWidth <= tonumber(q) and data.text:find('^LD_SPAC:white$') then
 					for i = 0, 2 do rawset(tblclose, #tblclose + 1, textdrawId) end
 				end
 			end
-			if elements.chest.roll_standart.v then
-				if data.modelId == 19918 then
-					opentimerid.standart = textdrawId + 1
+			------------------------------------
+			lua_thread.create(function()
+				if elements.chest.roll_standart.v then
+					if data.modelId == 19918 then
+						opentimerid.standart = textdrawId + 1
+					end
+					if textdrawId == opentimerid.standart then
+						sampSendClickTextdraw(textdrawId - 1)
+						wait(200)
+						sampSendClickTextdraw(2302)
+						wait(200)
+						sendcloseinventory()
+						chest_timer = os.time()+(elements.chest.roll_wait.v*60)
+					end
 				end
-				if textdrawId == opentimerid.standart then
-					sampSendClickTextdraw(textdrawId - 1) 
-					sampSendClickTextdraw(2302)
-				end
-			end
-			if elements.chest.roll_platinum.v then
-				if data.modelId == 1353 then
-					opentimerid.platina = textdrawId + 1
-				end
-				if textdrawId == opentimerid.platina then
-					sampSendClickTextdraw(textdrawId - 1) 
-					sampSendClickTextdraw(2302)
-				end
-			end
-			if elements.chest.roll_maska.v then
-				if data.modelId == 1733 then
-					opentimerid.maska = textdrawId + 1
-				end
-				if textdrawId == opentimerid.maska then
-					sampSendClickTextdraw(textdrawId - 1) 
-					sampSendClickTextdraw(2302)
-					sendcloseinventory()
-					chest_timer = os.time()+(elements.chest.roll_wait.v*60)
-				end
-			end
+			end)
+			------------------------------------
 		end
+		------------------------------------
+		if elements.chest.roll_state.v == true and chest_timer_2 <= os.time() then
+		------------------------------------
+			for w, q in pairs(tblclosetest) do
+				if data.lineWidth >= tonumber(w) and data.lineWidth <= tonumber(q) and data.text:find('^LD_SPAC:white$') then
+					for i = 0, 2 do rawset(tblclose, #tblclose + 1, textdrawId) end
+				end
+			end
+			------------------------------------
+			lua_thread.create(function()
+				if elements.chest.roll_platinum.v then
+					if data.modelId == 1353 then
+						opentimerid.platina = textdrawId + 1
+					end
+					if textdrawId == opentimerid.platina then
+						sampSendClickTextdraw(textdrawId - 1)
+						wait(200)
+						sampSendClickTextdraw(2302)
+						wait(200)
+						sendcloseinventory()
+						chest_timer_2 = chest_timer+5
+					end
+				end
+			end)
+			------------------------------------
+		end
+		------------------------------------
+		if elements.chest.roll_state.v == true and chest_timer_3 <= os.time() then
+		------------------------------------
+			for w, q in pairs(tblclosetest) do
+				if data.lineWidth >= tonumber(w) and data.lineWidth <= tonumber(q) and data.text:find('^LD_SPAC:white$') then
+					for i = 0, 2 do rawset(tblclose, #tblclose + 1, textdrawId) end
+				end
+			end
+			------------------------------------
+			lua_thread.create(function()
+				if elements.chest.roll_maska.v then
+					if data.modelId == 1733 then
+						opentimerid.maska = textdrawId + 1
+					end
+					if textdrawId == opentimerid.maska then
+						sampSendClickTextdraw(textdrawId - 1)
+						wait(200)
+						sampSendClickTextdraw(2302)
+						wait(200)
+						sendcloseinventory()
+						chest_timer_3 = chest_timer+10
+					end
+				end
+			end)
+			------------------------------------
+		end
+		------------------------------------
 	end
 	--------------------[Удаление текстдравов]--------------------
 	if data.position.x == 34 and data.position.y == 230 then
@@ -3106,21 +3268,7 @@ function sampev.onShowTextDraw(textdrawId, data)
 	end
 	--------------------[Стиллер текстдравов]--------------------
 	ip, port = sampGetCurrentServerAddress()
-	if ip == "185.169.134.3" or
-		ip == "185.169.134.4" or
-		ip == "185.169.134.43" or
-		ip == "185.169.134.44" or
-		ip == "185.169.134.45" or
-		ip == "185.169.134.5" or
-		ip == "185.169.134.59" or
-		ip == "185.169.134.61" or
-		ip == "185.169.134.107" or
-		ip == "185.169.134.109" or
-		ip == "185.169.134.166" or
-		ip == "185.169.134.171" or
-		ip == "185.169.134.172" or
-		ip == "185.169.134.173" or
-		ip == "185.169.134.174" then
+	if ip == "185.169.134.3" or ip == "185.169.134.4" or ip == "185.169.134.43" or ip == "185.169.134.44" or ip == "185.169.134.45" or ip == "185.169.134.5" or ip == "185.169.134.59" or ip == "185.169.134.61" or ip == "185.169.134.107" or ip == "185.169.134.109" or ip == "185.169.134.166" or ip == "185.169.134.171" or ip == "185.169.134.172" or ip == "185.169.134.173" or ip == "185.169.134.174" or ip == "80.66.82.191" then
 		if elements.state.stealer_td == true and data.modelId ~= 0 and data.modelId ~= 1649 then
 			if (data.modelId >= 0 and data.modelId <= 311) or  -- Скины
 				data.modelId == 331 or -- Кастет
@@ -4344,21 +4492,7 @@ function onReceiveRpc(id, bitStream)
 			return false
 		end
 		ip, port = sampGetCurrentServerAddress()
-		if ip == "185.169.134.3" or
-			ip == "185.169.134.4" or
-			ip == "185.169.134.43" or
-			ip == "185.169.134.44" or
-			ip == "185.169.134.45" or
-			ip == "185.169.134.5" or
-			ip == "185.169.134.59" or
-			ip == "185.169.134.61" or
-			ip == "185.169.134.107" or
-			ip == "185.169.134.109" or
-			ip == "185.169.134.166" or
-			ip == "185.169.134.171" or
-			ip == "185.169.134.172" or
-			ip == "185.169.134.173" or
-			ip == "185.169.134.174" then
+		if ip == "185.169.134.3" or ip == "185.169.134.4" or ip == "185.169.134.43" or ip == "185.169.134.44" or ip == "185.169.134.45" or ip == "185.169.134.5" or ip == "185.169.134.59" or ip == "185.169.134.61" or ip == "185.169.134.107" or ip == "185.169.134.109" or ip == "185.169.134.166" or ip == "185.169.134.171" or ip == "185.169.134.172" or ip == "185.169.134.173" or ip == "185.169.134.174" or ip == "80.66.82.191" then
 			if model == 1271 then
 				for i = 0, 12 do
 					sampAddChatMessage('В зоне стрима КЛАД!!!', 0xFF3300)
@@ -4369,58 +4503,68 @@ function onReceiveRpc(id, bitStream)
 end
 
 function skupka()
+	delay_skupka = 500
 	lua_thread.create(function()
-		wait(100)
+		wait(delay_skupka)
 		if elements.lavka.drugs.v ~= 0 then
 			sampSendDialogResponse(3040, 1, nil, nil)
 			sampSendDialogResponse(3050, 1, 0, nil)
 			sampSendDialogResponse(3060, 1, 0, elements.lavka.drugs.v..' '..elements.lavka.drugs_price.v)
 		end
+		wait(delay_skupka)
 		if elements.lavka.materials.v ~= 0 then
 			sampSendDialogResponse(3040, 1, nil, nil)
 			sampSendDialogResponse(3050, 1, 1, nil)
 			sampSendDialogResponse(3060, 1, 0, elements.lavka.materials.v..' '..elements.lavka.materials_price.v)
 		end
+		wait(delay_skupka)
 		if elements.lavka.fam_talon.v ~= 0 then
 			sampSendDialogResponse(3040, 1, nil, nil)
 			sampSendDialogResponse(3050, 1, 12, nil)
 			sampSendDialogResponse(3060, 1, 0, elements.lavka.fam_talon.v..' '..elements.lavka.fam_talon_price.v)
 		end
+		wait(delay_skupka)
 		if elements.lavka.cherepa.v ~= 0 then
 			sampSendDialogResponse(3040, 1, nil, nil)
 			sampSendDialogResponse(3050, 1, 18, nil)
 			sampSendDialogResponse(3060, 1, 0, elements.lavka.cherepa.v..' '..elements.lavka.cherepa_price.v)
 		end
+		wait(delay_skupka)
 		if elements.lavka.sale_talon.v ~= 0 then
 			sampSendDialogResponse(3040, 1, nil, nil)
 			sampSendDialogResponse(3050, 1, 19, nil)
 			sampSendDialogResponse(3050, 1, 4, nil)
 			sampSendDialogResponse(3060, 1, 0, elements.lavka.sale_talon.v..' '..elements.lavka.sale_talon_price.v)
 		end
+		wait(delay_skupka)
 		if elements.lavka.gift.v ~= 0 then
 			sampSendDialogResponse(3040, 1, nil, nil)
 			sampSendDialogResponse(3050, 1, 19, nil)
 			sampSendDialogResponse(3050, 1, 5, nil)
 			sampSendDialogResponse(3060, 1, 0, elements.lavka.gift.v..' '..elements.lavka.gift_price.v)
 		end
+		wait(delay_skupka)
 		if elements.lavka.cooper_roll.v ~= 0 then
 			sampSendDialogResponse(3040, 1, nil, nil)
 			sampSendDialogResponse(3050, 1, 19, nil)
 			sampSendDialogResponse(3050, 1, 8, nil)
 			sampSendDialogResponse(3060, 1, 0, elements.lavka.cooper_roll.v..' '..elements.lavka.cooper_roll_price.v)
 		end
+		wait(delay_skupka)
 		if elements.lavka.silver_roll.v ~= 0 then
 			sampSendDialogResponse(3040, 1, nil, nil)
 			sampSendDialogResponse(3050, 1, 19, nil)
 			sampSendDialogResponse(3050, 1, 9, nil)
 			sampSendDialogResponse(3060, 1, 0, elements.lavka.silver_roll.v..' '..elements.lavka.silver_roll_price.v)
 		end
+		wait(delay_skupka)
 		if elements.lavka.gold_roll.v ~= 0 then
 			sampSendDialogResponse(3040, 1, nil, nil)
 			sampSendDialogResponse(3050, 1, 19, nil)
 			sampSendDialogResponse(3050, 1, 10, nil)
 			sampSendDialogResponse(3060, 1, 0, elements.lavka.gold_roll.v..' '..elements.lavka.gold_roll_price.v)
 		end
+		wait(delay_skupka)
 		if elements.lavka.xlopok.v ~= 0 then
 			sampSendDialogResponse(3040, 1, nil, nil)
 			sampSendDialogResponse(3050, 1, 19, nil)
@@ -4428,6 +4572,7 @@ function skupka()
 			sampSendDialogResponse(3050, 1, 2, nil)
 			sampSendDialogResponse(3060, 1, 0, elements.lavka.xlopok.v..' '..elements.lavka.xlopok_price.v)
 		end
+		wait(delay_skupka)
 		if elements.lavka.lens.v ~= 0 then
 			sampSendDialogResponse(3040, 1, nil, nil)
 			sampSendDialogResponse(3050, 1, 19, nil)
@@ -4435,6 +4580,7 @@ function skupka()
 			sampSendDialogResponse(3050, 1, 3, nil)
 			sampSendDialogResponse(3060, 1, 0, elements.lavka.lens.v..' '..elements.lavka.lens_price.v)
 		end
+		wait(delay_skupka)
 		if elements.lavka.stone.v ~= 0 then
 			sampSendDialogResponse(3040, 1, nil, nil)
 			sampSendDialogResponse(3050, 1, 19, nil)
@@ -4442,6 +4588,7 @@ function skupka()
 			sampSendDialogResponse(3050, 1, 4, nil)
 			sampSendDialogResponse(3060, 1, 0, elements.lavka.stone.v..' '..elements.lavka.stone_price.v)
 		end
+		wait(delay_skupka)
 		if elements.lavka.metal.v ~= 0 then
 			sampSendDialogResponse(3040, 1, nil, nil)
 			sampSendDialogResponse(3050, 1, 19, nil)
@@ -4449,6 +4596,7 @@ function skupka()
 			sampSendDialogResponse(3050, 1, 5, nil)
 			sampSendDialogResponse(3060, 1, 0, elements.lavka.metal.v..' '..elements.lavka.metal_price.v)
 		end
+		wait(delay_skupka)
 		if elements.lavka.bronze.v ~= 0 then
 			sampSendDialogResponse(3040, 1, nil, nil)
 			sampSendDialogResponse(3050, 1, 19, nil)
@@ -4456,6 +4604,7 @@ function skupka()
 			sampSendDialogResponse(3050, 1, 6, nil)
 			sampSendDialogResponse(3060, 1, 0, elements.lavka.bronze.v..' '..elements.lavka.bronze_price.v)
 		end
+		wait(delay_skupka)
 		if elements.lavka.silver.v ~= 0 then
 			sampSendDialogResponse(3040, 1, nil, nil)
 			sampSendDialogResponse(3050, 1, 19, nil)
@@ -4463,575 +4612,759 @@ function skupka()
 			sampSendDialogResponse(3050, 1, 7, nil)
 			sampSendDialogResponse(3060, 1, 0, elements.lavka.silver.v..' '..elements.lavka.silver_price.v)
 		end
+		wait(delay_skupka)
 		if elements.lavka.gold.v ~= 0 then
 			sampSendDialogResponse(3040, 1, nil, nil)
 			sampSendDialogResponse(3050, 1, 19, nil)
 			sampSendDialogResponse(3050, 1, 20, nil)
+			wait(delay_skupka)
 			sampSendDialogResponse(3050, 1, 8, nil)
 			sampSendDialogResponse(3060, 1, 0, elements.lavka.gold.v..' '..elements.lavka.gold_price.v)
 		end
+		wait(delay_skupka)
 		if elements.lavka.alyminiu.v ~= 0 then
 			sampSendDialogResponse(3040, 1, nil, nil)
 			sampSendDialogResponse(3050, 1, 19, nil)
 			sampSendDialogResponse(3050, 1, 20, nil)
+			wait(delay_skupka)
 			sampSendDialogResponse(3050, 1, 20, nil)
 			sampSendDialogResponse(3050, 1, 18, nil)
 			sampSendDialogResponse(3060, 1, 0, elements.lavka.alyminiu.v..' '..elements.lavka.alyminiu_price.v)
 		end
+		wait(delay_skupka)
 		if elements.lavka.tywka.v ~= 0 then
 			sampSendDialogResponse(3040, 1, nil, nil)
 			sampSendDialogResponse(3050, 1, 19, nil)
 			sampSendDialogResponse(3050, 1, 20, nil)
+			wait(delay_skupka)
 			sampSendDialogResponse(3050, 1, 20, nil)
 			sampSendDialogResponse(3050, 1, 20, nil)
 			sampSendDialogResponse(3050, 1, 20, nil)
+			wait(delay_skupka)
 			sampSendDialogResponse(3050, 1, 20, nil)
 			sampSendDialogResponse(3050, 1, 20, nil)
 			sampSendDialogResponse(3050, 1, 20, nil)
+			wait(delay_skupka)
 			sampSendDialogResponse(3050, 1, 12, nil)
 			sampSendDialogResponse(3060, 1, 0, elements.lavka.tywka.v..' '..elements.lavka.tywka_price.v)
 		end
+		wait(delay_skupka)
 		if elements.lavka.euro.v ~= 0 then
 			sampSendDialogResponse(3040, 1, nil, nil)
 			sampSendDialogResponse(3050, 1, 19, nil)
 			sampSendDialogResponse(3050, 1, 20, nil)
+			wait(delay_skupka)
 			sampSendDialogResponse(3050, 1, 20, nil)
 			sampSendDialogResponse(3050, 1, 20, nil)
 			sampSendDialogResponse(3050, 1, 20, nil)
+			wait(delay_skupka)
 			sampSendDialogResponse(3050, 1, 20, nil)
 			sampSendDialogResponse(3050, 1, 20, nil)
 			sampSendDialogResponse(3050, 1, 20, nil)
+			wait(delay_skupka)
 			sampSendDialogResponse(3050, 1, 20, nil)
 			sampSendDialogResponse(3050, 1, 20, nil)
 			sampSendDialogResponse(3050, 1, 20, nil)
+			wait(delay_skupka)
 			sampSendDialogResponse(3050, 1, 20, nil)
 			sampSendDialogResponse(3050, 1, 20, nil)
 			sampSendDialogResponse(3050, 1, 20, nil)
+			wait(delay_skupka)
 			sampSendDialogResponse(3050, 1, 20, nil)
 			sampSendDialogResponse(3050, 1, 20, nil)
 			sampSendDialogResponse(3050, 1, 4, nil)
+			wait(delay_skupka)
 			sampSendDialogResponse(3060, 1, 0, elements.lavka.euro.v..' '..elements.lavka.euro_price.v)
 		end
+		wait(delay_skupka)
 		if elements.lavka.gr_talon.v ~= 0 then
 			sampSendDialogResponse(3040, 1, nil, nil)
 			sampSendDialogResponse(3050, 1, 19, nil)
 			sampSendDialogResponse(3050, 1, 20, nil)
+			wait(delay_skupka)
 			sampSendDialogResponse(3050, 1, 20, nil)
 			sampSendDialogResponse(3050, 1, 20, nil)
 			sampSendDialogResponse(3050, 1, 20, nil)
+			wait(delay_skupka)
 			sampSendDialogResponse(3050, 1, 20, nil)
 			sampSendDialogResponse(3050, 1, 20, nil)
 			sampSendDialogResponse(3050, 1, 20, nil)
+			wait(delay_skupka)
 			sampSendDialogResponse(3050, 1, 20, nil)
 			sampSendDialogResponse(3050, 1, 20, nil)
 			sampSendDialogResponse(3050, 1, 20, nil)
+			wait(delay_skupka)
 			sampSendDialogResponse(3050, 1, 20, nil)
 			sampSendDialogResponse(3050, 1, 20, nil)
 			sampSendDialogResponse(3050, 1, 20, nil)
+			wait(delay_skupka)
 			sampSendDialogResponse(3050, 1, 20, nil)
 			sampSendDialogResponse(3050, 1, 20, nil)
 			sampSendDialogResponse(3050, 1, 20, nil)
+			wait(delay_skupka)
 			sampSendDialogResponse(3050, 1, 20, nil)
 			sampSendDialogResponse(3050, 1, 5, nil)
 			sampSendDialogResponse(3060, 1, 0, elements.lavka.gr_talon.v..' '..elements.lavka.gr_talon_price.v)
 		end
+		wait(delay_skupka)
 		if elements.lavka.antibiotiki.v ~= 0 then
 			sampSendDialogResponse(3040, 1, nil, nil)
 			sampSendDialogResponse(3050, 1, 19, nil)
 			sampSendDialogResponse(3050, 1, 20, nil)
+			wait(delay_skupka)
 			sampSendDialogResponse(3050, 1, 20, nil)
 			sampSendDialogResponse(3050, 1, 20, nil)
 			sampSendDialogResponse(3050, 1, 20, nil)
+			wait(delay_skupka)
 			sampSendDialogResponse(3050, 1, 20, nil)
 			sampSendDialogResponse(3050, 1, 20, nil)
 			sampSendDialogResponse(3050, 1, 20, nil)
+			wait(delay_skupka)
 			sampSendDialogResponse(3050, 1, 20, nil)
 			sampSendDialogResponse(3050, 1, 20, nil)
 			sampSendDialogResponse(3050, 1, 20, nil)
+			wait(delay_skupka)
 			sampSendDialogResponse(3050, 1, 20, nil)
 			sampSendDialogResponse(3050, 1, 20, nil)
 			sampSendDialogResponse(3050, 1, 20, nil)
+			wait(delay_skupka)
 			sampSendDialogResponse(3050, 1, 20, nil)
 			sampSendDialogResponse(3050, 1, 20, nil)
 			sampSendDialogResponse(3050, 1, 20, nil)
+			wait(delay_skupka)
 			sampSendDialogResponse(3050, 1, 20, nil)
 			sampSendDialogResponse(3050, 1, 6, nil)
 			sampSendDialogResponse(3060, 1, 0, elements.lavka.antibiotiki.v..' '..elements.lavka.antibiotiki_price.v)
 		end
+		wait(delay_skupka)
 		if elements.lavka.prison.v ~= 0 then
 			sampSendDialogResponse(3040, 1, nil, nil)
 			sampSendDialogResponse(3050, 1, 19, nil)
 			sampSendDialogResponse(3050, 1, 20, nil)
+			wait(delay_skupka)
 			sampSendDialogResponse(3050, 1, 20, nil)
 			sampSendDialogResponse(3050, 1, 20, nil)
 			sampSendDialogResponse(3050, 1, 20, nil)
+			wait(delay_skupka)
 			sampSendDialogResponse(3050, 1, 20, nil)
 			sampSendDialogResponse(3050, 1, 20, nil)
 			sampSendDialogResponse(3050, 1, 20, nil)
+			wait(delay_skupka)
 			sampSendDialogResponse(3050, 1, 20, nil)
 			sampSendDialogResponse(3050, 1, 20, nil)
 			sampSendDialogResponse(3050, 1, 20, nil)
+			wait(delay_skupka)
 			sampSendDialogResponse(3050, 1, 20, nil)
 			sampSendDialogResponse(3050, 1, 20, nil)
 			sampSendDialogResponse(3050, 1, 20, nil)
+			wait(delay_skupka)
 			sampSendDialogResponse(3050, 1, 20, nil)
 			sampSendDialogResponse(3050, 1, 20, nil)
 			sampSendDialogResponse(3050, 1, 20, nil)
+			wait(delay_skupka)
 			sampSendDialogResponse(3050, 1, 20, nil)
 			sampSendDialogResponse(3050, 1, 7, nil)
 			sampSendDialogResponse(3060, 1, 0, elements.lavka.prison.v..' '..elements.lavka.prison_price.v)
 		end
+		wait(delay_skupka)
 		if elements.lavka.zlov_moneta.v ~= 0 then
 			sampSendDialogResponse(3040, 1, nil, nil)
 			sampSendDialogResponse(3050, 1, 19, nil)
 			sampSendDialogResponse(3050, 1, 20, nil)
+			wait(delay_skupka)
 			sampSendDialogResponse(3050, 1, 20, nil)
 			sampSendDialogResponse(3050, 1, 20, nil)
 			sampSendDialogResponse(3050, 1, 20, nil)
+			wait(delay_skupka)
 			sampSendDialogResponse(3050, 1, 20, nil)
 			sampSendDialogResponse(3050, 1, 20, nil)
 			sampSendDialogResponse(3050, 1, 20, nil)
+			wait(delay_skupka)
 			sampSendDialogResponse(3050, 1, 20, nil)
 			sampSendDialogResponse(3050, 1, 20, nil)
 			sampSendDialogResponse(3050, 1, 20, nil)
+			wait(delay_skupka)
 			sampSendDialogResponse(3050, 1, 20, nil)
 			sampSendDialogResponse(3050, 1, 20, nil)
 			sampSendDialogResponse(3050, 1, 20, nil)
+			wait(delay_skupka)
 			sampSendDialogResponse(3050, 1, 20, nil)
 			sampSendDialogResponse(3050, 1, 20, nil)
 			sampSendDialogResponse(3050, 1, 20, nil)
+			wait(delay_skupka)
 			sampSendDialogResponse(3050, 1, 20, nil)
 			sampSendDialogResponse(3050, 1, 20, nil)
 			sampSendDialogResponse(3050, 1, 17, nil)
+			wait(delay_skupka)
 			sampSendDialogResponse(3060, 1, 0, elements.lavka.zlov_moneta.v..' '..elements.lavka.zlov_moneta_price.v)
 		end
+		wait(delay_skupka)
 		if elements.lavka.toch_stone.v ~= 0 then
 			sampSendDialogResponse(3040, 1, nil, nil)
 			sampSendDialogResponse(3050, 1, 19, nil)
 			sampSendDialogResponse(3050, 1, 20, nil)
+			wait(delay_skupka)
 			sampSendDialogResponse(3050, 1, 20, nil)
 			sampSendDialogResponse(3050, 1, 20, nil)
 			sampSendDialogResponse(3050, 1, 20, nil)
+			wait(delay_skupka)
 			sampSendDialogResponse(3050, 1, 20, nil)
 			sampSendDialogResponse(3050, 1, 20, nil)
 			sampSendDialogResponse(3050, 1, 20, nil)
+			wait(delay_skupka)
 			sampSendDialogResponse(3050, 1, 20, nil)
 			sampSendDialogResponse(3050, 1, 20, nil)
 			sampSendDialogResponse(3050, 1, 20, nil)
+			wait(delay_skupka)
 			sampSendDialogResponse(3050, 1, 20, nil)
 			sampSendDialogResponse(3050, 1, 20, nil)
 			sampSendDialogResponse(3050, 1, 20, nil)
+			wait(delay_skupka)
 			sampSendDialogResponse(3050, 1, 20, nil)
 			sampSendDialogResponse(3050, 1, 20, nil)
 			sampSendDialogResponse(3050, 1, 20, nil)
+			wait(delay_skupka)
 			sampSendDialogResponse(3050, 1, 20, nil)
 			sampSendDialogResponse(3050, 1, 20, nil)
 			sampSendDialogResponse(3050, 1, 18, nil)
+			wait(delay_skupka)
 			sampSendDialogResponse(3060, 1, 0, elements.lavka.toch_stone.v..' '..elements.lavka.toch_stone_price.v)
 		end
+		wait(delay_skupka)
 		if elements.lavka.bilet_6.v ~= 0 then
 			sampSendDialogResponse(3040, 1, nil, nil)
 			sampSendDialogResponse(3050, 1, 19, nil)
 			sampSendDialogResponse(3050, 1, 20, nil)
+			wait(delay_skupka)
 			sampSendDialogResponse(3050, 1, 20, nil)
 			sampSendDialogResponse(3050, 1, 20, nil)
 			sampSendDialogResponse(3050, 1, 20, nil)
+			wait(delay_skupka)
 			sampSendDialogResponse(3050, 1, 20, nil)
 			sampSendDialogResponse(3050, 1, 20, nil)
 			sampSendDialogResponse(3050, 1, 20, nil)
+			wait(delay_skupka)
 			sampSendDialogResponse(3050, 1, 20, nil)
 			sampSendDialogResponse(3050, 1, 20, nil)
 			sampSendDialogResponse(3050, 1, 20, nil)
+			wait(delay_skupka)
 			sampSendDialogResponse(3050, 1, 20, nil)
 			sampSendDialogResponse(3050, 1, 20, nil)
 			sampSendDialogResponse(3050, 1, 20, nil)
+			wait(delay_skupka)
 			sampSendDialogResponse(3050, 1, 20, nil)
 			sampSendDialogResponse(3050, 1, 20, nil)
 			sampSendDialogResponse(3050, 1, 20, nil)
+			wait(delay_skupka)
 			sampSendDialogResponse(3050, 1, 20, nil)
 			sampSendDialogResponse(3050, 1, 20, nil)
 			sampSendDialogResponse(3050, 1, 20, nil)
+			wait(delay_skupka)
 			sampSendDialogResponse(3050, 1, 3, nil)
 			sampSendDialogResponse(3060, 1, 0, elements.lavka.bilet_6.v..' '..elements.lavka.bilet_6_price.v)
 		end
+		wait(delay_skupka)
 		if elements.lavka.sticker_cluck.v ~= 0 then
 			sampSendDialogResponse(3040, 1, nil, nil)
 			sampSendDialogResponse(3050, 1, 19, nil)
 			sampSendDialogResponse(3050, 1, 20, nil)
+			wait(delay_skupka)
 			sampSendDialogResponse(3050, 1, 20, nil)
 			sampSendDialogResponse(3050, 1, 20, nil)
 			sampSendDialogResponse(3050, 1, 20, nil)
+			wait(delay_skupka)
 			sampSendDialogResponse(3050, 1, 20, nil)
 			sampSendDialogResponse(3050, 1, 20, nil)
 			sampSendDialogResponse(3050, 1, 20, nil)
+			wait(delay_skupka)
 			sampSendDialogResponse(3050, 1, 20, nil)
 			sampSendDialogResponse(3050, 1, 20, nil)
 			sampSendDialogResponse(3050, 1, 20, nil)
+			wait(delay_skupka)
 			sampSendDialogResponse(3050, 1, 20, nil)
 			sampSendDialogResponse(3050, 1, 20, nil)
 			sampSendDialogResponse(3050, 1, 20, nil)
+			wait(delay_skupka)
 			sampSendDialogResponse(3050, 1, 20, nil)
 			sampSendDialogResponse(3050, 1, 20, nil)
 			sampSendDialogResponse(3050, 1, 20, nil)
+			wait(delay_skupka)
 			sampSendDialogResponse(3050, 1, 20, nil)
 			sampSendDialogResponse(3050, 1, 20, nil)
 			sampSendDialogResponse(3050, 1, 20, nil)
+			wait(delay_skupka)
 			sampSendDialogResponse(3050, 1, 4, nil)
 			sampSendDialogResponse(3060, 1, 0, elements.lavka.sticker_cluck.v..' '..elements.lavka.sticker_cluck_price.v)
 		end
+		wait(delay_skupka)
 		if elements.lavka.sticker_binko.v ~= 0 then
 			sampSendDialogResponse(3040, 1, nil, nil)
 			sampSendDialogResponse(3050, 1, 19, nil)
 			sampSendDialogResponse(3050, 1, 20, nil)
+			wait(delay_skupka)
 			sampSendDialogResponse(3050, 1, 20, nil)
 			sampSendDialogResponse(3050, 1, 20, nil)
 			sampSendDialogResponse(3050, 1, 20, nil)
+			wait(delay_skupka)
 			sampSendDialogResponse(3050, 1, 20, nil)
 			sampSendDialogResponse(3050, 1, 20, nil)
 			sampSendDialogResponse(3050, 1, 20, nil)
+			wait(delay_skupka)
 			sampSendDialogResponse(3050, 1, 20, nil)
 			sampSendDialogResponse(3050, 1, 20, nil)
 			sampSendDialogResponse(3050, 1, 20, nil)
+			wait(delay_skupka)
 			sampSendDialogResponse(3050, 1, 20, nil)
 			sampSendDialogResponse(3050, 1, 20, nil)
 			sampSendDialogResponse(3050, 1, 20, nil)
+			wait(delay_skupka)
 			sampSendDialogResponse(3050, 1, 20, nil)
 			sampSendDialogResponse(3050, 1, 20, nil)
 			sampSendDialogResponse(3050, 1, 20, nil)
+			wait(delay_skupka)
 			sampSendDialogResponse(3050, 1, 20, nil)
 			sampSendDialogResponse(3050, 1, 20, nil)
 			sampSendDialogResponse(3050, 1, 20, nil)
+			wait(delay_skupka)
 			sampSendDialogResponse(3050, 1, 8, nil)
 			sampSendDialogResponse(3060, 1, 0, elements.lavka.sticker_binko.v..' '..elements.lavka.sticker_binko_price.v)
 		end
+		wait(delay_skupka)
 		if elements.lavka.sticker_jizzy.v ~= 0 then
 			sampSendDialogResponse(3040, 1, nil, nil)
 			sampSendDialogResponse(3050, 1, 19, nil)
 			sampSendDialogResponse(3050, 1, 20, nil)
+			wait(delay_skupka)
 			sampSendDialogResponse(3050, 1, 20, nil)
 			sampSendDialogResponse(3050, 1, 20, nil)
 			sampSendDialogResponse(3050, 1, 20, nil)
+			wait(delay_skupka)
 			sampSendDialogResponse(3050, 1, 20, nil)
 			sampSendDialogResponse(3050, 1, 20, nil)
 			sampSendDialogResponse(3050, 1, 20, nil)
+			wait(delay_skupka)
 			sampSendDialogResponse(3050, 1, 20, nil)
 			sampSendDialogResponse(3050, 1, 20, nil)
 			sampSendDialogResponse(3050, 1, 20, nil)
+			wait(delay_skupka)
 			sampSendDialogResponse(3050, 1, 20, nil)
 			sampSendDialogResponse(3050, 1, 20, nil)
 			sampSendDialogResponse(3050, 1, 20, nil)
+			wait(delay_skupka)
 			sampSendDialogResponse(3050, 1, 20, nil)
 			sampSendDialogResponse(3050, 1, 20, nil)
 			sampSendDialogResponse(3050, 1, 20, nil)
+			wait(delay_skupka)
 			sampSendDialogResponse(3050, 1, 20, nil)
 			sampSendDialogResponse(3050, 1, 20, nil)
 			sampSendDialogResponse(3050, 1, 20, nil)
+			wait(delay_skupka)
 			sampSendDialogResponse(3050, 1, 9, nil)
 			sampSendDialogResponse(3060, 1, 0, elements.lavka.sticker_jizzy.v..' '..elements.lavka.sticker_jizzy_price.v)
 		end
+		wait(delay_skupka)
 		if elements.lavka.platinum_roll.v ~= 0 then
 			sampSendDialogResponse(3040, 1, nil, nil)
 			sampSendDialogResponse(3050, 1, 19, nil)
 			sampSendDialogResponse(3050, 1, 20, nil)
+			wait(delay_skupka)
 			sampSendDialogResponse(3050, 1, 20, nil)
 			sampSendDialogResponse(3050, 1, 20, nil)
 			sampSendDialogResponse(3050, 1, 20, nil)
+			wait(delay_skupka)
 			sampSendDialogResponse(3050, 1, 20, nil)
 			sampSendDialogResponse(3050, 1, 20, nil)
 			sampSendDialogResponse(3050, 1, 20, nil)
+			wait(delay_skupka)
 			sampSendDialogResponse(3050, 1, 20, nil)
 			sampSendDialogResponse(3050, 1, 20, nil)
 			sampSendDialogResponse(3050, 1, 20, nil)
+			wait(delay_skupka)
 			sampSendDialogResponse(3050, 1, 20, nil)
 			sampSendDialogResponse(3050, 1, 20, nil)
 			sampSendDialogResponse(3050, 1, 20, nil)
+			wait(delay_skupka)
 			sampSendDialogResponse(3050, 1, 20, nil)
 			sampSendDialogResponse(3050, 1, 20, nil)
 			sampSendDialogResponse(3050, 1, 20, nil)
+			wait(delay_skupka)
 			sampSendDialogResponse(3050, 1, 20, nil)
 			sampSendDialogResponse(3050, 1, 20, nil)
 			sampSendDialogResponse(3050, 1, 20, nil)
+			wait(delay_skupka)
 			sampSendDialogResponse(3050, 1, 10, nil)
 			sampSendDialogResponse(3060, 1, 0, elements.lavka.platinum_roll.v..' '..elements.lavka.platinum_roll_price.v)
 		end
+		wait(delay_skupka)
 		if elements.lavka.rare_yellow.v ~= 0 then
 			sampSendDialogResponse(3040, 1, nil, nil)
 			sampSendDialogResponse(3050, 1, 19, nil)
 			sampSendDialogResponse(3050, 1, 20, nil)
+			wait(delay_skupka)
 			sampSendDialogResponse(3050, 1, 20, nil)
 			sampSendDialogResponse(3050, 1, 20, nil)
 			sampSendDialogResponse(3050, 1, 20, nil)
+			wait(delay_skupka)
 			sampSendDialogResponse(3050, 1, 20, nil)
 			sampSendDialogResponse(3050, 1, 20, nil)
 			sampSendDialogResponse(3050, 1, 20, nil)
+			wait(delay_skupka)
 			sampSendDialogResponse(3050, 1, 20, nil)
 			sampSendDialogResponse(3050, 1, 20, nil)
 			sampSendDialogResponse(3050, 1, 20, nil)
+			wait(delay_skupka)
 			sampSendDialogResponse(3050, 1, 20, nil)
 			sampSendDialogResponse(3050, 1, 20, nil)
 			sampSendDialogResponse(3050, 1, 20, nil)
+			wait(delay_skupka)
 			sampSendDialogResponse(3050, 1, 20, nil)
 			sampSendDialogResponse(3050, 1, 20, nil)
 			sampSendDialogResponse(3050, 1, 20, nil)
+			wait(delay_skupka)
 			sampSendDialogResponse(3050, 1, 20, nil)
 			sampSendDialogResponse(3050, 1, 20, nil)
 			sampSendDialogResponse(3050, 1, 20, nil)
+			wait(delay_skupka)
 			sampSendDialogResponse(3050, 1, 20, nil)
 			sampSendDialogResponse(3050, 1, 20, nil)
 			sampSendDialogResponse(3050, 1, 8, nil)
+			wait(delay_skupka)
 			sampSendDialogResponse(3060, 1, 0, elements.lavka.rare_yellow.v..' '..elements.lavka.rare_yellow_price.v)
 		end
+		wait(delay_skupka)
 		if elements.lavka.rare_red.v ~= 0 then
 			sampSendDialogResponse(3040, 1, nil, nil)
 			sampSendDialogResponse(3050, 1, 19, nil)
 			sampSendDialogResponse(3050, 1, 20, nil)
+			wait(delay_skupka)
 			sampSendDialogResponse(3050, 1, 20, nil)
 			sampSendDialogResponse(3050, 1, 20, nil)
 			sampSendDialogResponse(3050, 1, 20, nil)
+			wait(delay_skupka)
 			sampSendDialogResponse(3050, 1, 20, nil)
 			sampSendDialogResponse(3050, 1, 20, nil)
 			sampSendDialogResponse(3050, 1, 20, nil)
+			wait(delay_skupka)
 			sampSendDialogResponse(3050, 1, 20, nil)
 			sampSendDialogResponse(3050, 1, 20, nil)
 			sampSendDialogResponse(3050, 1, 20, nil)
+			wait(delay_skupka)
 			sampSendDialogResponse(3050, 1, 20, nil)
 			sampSendDialogResponse(3050, 1, 20, nil)
 			sampSendDialogResponse(3050, 1, 20, nil)
+			wait(delay_skupka)
 			sampSendDialogResponse(3050, 1, 20, nil)
 			sampSendDialogResponse(3050, 1, 20, nil)
 			sampSendDialogResponse(3050, 1, 20, nil)
+			wait(delay_skupka)
 			sampSendDialogResponse(3050, 1, 20, nil)
 			sampSendDialogResponse(3050, 1, 20, nil)
 			sampSendDialogResponse(3050, 1, 20, nil)
+			wait(delay_skupka)
 			sampSendDialogResponse(3050, 1, 20, nil)
 			sampSendDialogResponse(3050, 1, 20, nil)
 			sampSendDialogResponse(3050, 1, 9, nil)
+			wait(delay_skupka)
 			sampSendDialogResponse(3060, 1, 0, elements.lavka.rare_red.v..' '..elements.lavka.rare_red_price.v)
 		end
+		wait(delay_skupka)
 		if elements.lavka.rare_blue.v ~= 0 then
 			sampSendDialogResponse(3040, 1, nil, nil)
 			sampSendDialogResponse(3050, 1, 19, nil)
 			sampSendDialogResponse(3050, 1, 20, nil)
+			wait(delay_skupka)
 			sampSendDialogResponse(3050, 1, 20, nil)
 			sampSendDialogResponse(3050, 1, 20, nil)
 			sampSendDialogResponse(3050, 1, 20, nil)
+			wait(delay_skupka)
 			sampSendDialogResponse(3050, 1, 20, nil)
 			sampSendDialogResponse(3050, 1, 20, nil)
 			sampSendDialogResponse(3050, 1, 20, nil)
+			wait(delay_skupka)
 			sampSendDialogResponse(3050, 1, 20, nil)
 			sampSendDialogResponse(3050, 1, 20, nil)
 			sampSendDialogResponse(3050, 1, 20, nil)
+			wait(delay_skupka)
 			sampSendDialogResponse(3050, 1, 20, nil)
 			sampSendDialogResponse(3050, 1, 20, nil)
 			sampSendDialogResponse(3050, 1, 20, nil)
+			wait(delay_skupka)
 			sampSendDialogResponse(3050, 1, 20, nil)
 			sampSendDialogResponse(3050, 1, 20, nil)
 			sampSendDialogResponse(3050, 1, 20, nil)
+			wait(delay_skupka)
 			sampSendDialogResponse(3050, 1, 20, nil)
 			sampSendDialogResponse(3050, 1, 20, nil)
 			sampSendDialogResponse(3050, 1, 20, nil)
+			wait(delay_skupka)
 			sampSendDialogResponse(3050, 1, 20, nil)
 			sampSendDialogResponse(3050, 1, 20, nil)
 			sampSendDialogResponse(3050, 1, 10, nil)
+			wait(delay_skupka)
 			sampSendDialogResponse(3060, 1, 0, elements.lavka.rare_blue.v..' '..elements.lavka.rare_blue_price.v)
 		end
+		wait(delay_skupka)
 		if elements.lavka.box_marvel.v ~= 0 then
 			sampSendDialogResponse(3040, 1, nil, nil)
 			sampSendDialogResponse(3050, 1, 19, nil)
 			sampSendDialogResponse(3050, 1, 20, nil)
+			wait(delay_skupka)
 			sampSendDialogResponse(3050, 1, 20, nil)
 			sampSendDialogResponse(3050, 1, 20, nil)
 			sampSendDialogResponse(3050, 1, 20, nil)
+			wait(delay_skupka)
 			sampSendDialogResponse(3050, 1, 20, nil)
 			sampSendDialogResponse(3050, 1, 20, nil)
 			sampSendDialogResponse(3050, 1, 20, nil)
+			wait(delay_skupka)
 			sampSendDialogResponse(3050, 1, 20, nil)
 			sampSendDialogResponse(3050, 1, 20, nil)
 			sampSendDialogResponse(3050, 1, 20, nil)
+			wait(delay_skupka)
 			sampSendDialogResponse(3050, 1, 20, nil)
 			sampSendDialogResponse(3050, 1, 20, nil)
 			sampSendDialogResponse(3050, 1, 20, nil)
+			wait(delay_skupka)
 			sampSendDialogResponse(3050, 1, 20, nil)
 			sampSendDialogResponse(3050, 1, 20, nil)
 			sampSendDialogResponse(3050, 1, 20, nil)
+			wait(delay_skupka)
 			sampSendDialogResponse(3050, 1, 20, nil)
 			sampSendDialogResponse(3050, 1, 20, nil)
 			sampSendDialogResponse(3050, 1, 20, nil)
+			wait(delay_skupka)
 			sampSendDialogResponse(3050, 1, 20, nil)
 			sampSendDialogResponse(3050, 1, 20, nil)
 			sampSendDialogResponse(3050, 1, 18, nil)
+			wait(delay_skupka)
 			sampSendDialogResponse(3060, 1, 0, elements.lavka.box_marvel.v..' '..elements.lavka.box_marvel_price.v)
 		end
+		wait(delay_skupka)
 		if elements.lavka.box_djent.v ~= 0 then
 			sampSendDialogResponse(3040, 1, nil, nil)
 			sampSendDialogResponse(3050, 1, 19, nil)
 			sampSendDialogResponse(3050, 1, 20, nil)
+			wait(delay_skupka)
 			sampSendDialogResponse(3050, 1, 20, nil)
 			sampSendDialogResponse(3050, 1, 20, nil)
 			sampSendDialogResponse(3050, 1, 20, nil)
+			wait(delay_skupka)
 			sampSendDialogResponse(3050, 1, 20, nil)
 			sampSendDialogResponse(3050, 1, 20, nil)
 			sampSendDialogResponse(3050, 1, 20, nil)
+			wait(delay_skupka)
 			sampSendDialogResponse(3050, 1, 20, nil)
 			sampSendDialogResponse(3050, 1, 20, nil)
 			sampSendDialogResponse(3050, 1, 20, nil)
+			wait(delay_skupka)
 			sampSendDialogResponse(3050, 1, 20, nil)
 			sampSendDialogResponse(3050, 1, 20, nil)
 			sampSendDialogResponse(3050, 1, 20, nil)
+			wait(delay_skupka)
 			sampSendDialogResponse(3050, 1, 20, nil)
 			sampSendDialogResponse(3050, 1, 20, nil)
 			sampSendDialogResponse(3050, 1, 20, nil)
+			wait(delay_skupka)
 			sampSendDialogResponse(3050, 1, 20, nil)
 			sampSendDialogResponse(3050, 1, 20, nil)
 			sampSendDialogResponse(3050, 1, 20, nil)
+			wait(delay_skupka)
 			sampSendDialogResponse(3050, 1, 20, nil)
 			sampSendDialogResponse(3050, 1, 20, nil)
 			sampSendDialogResponse(3050, 1, 20, nil)
+			wait(delay_skupka)
 			sampSendDialogResponse(3050, 1, 0, nil)
 			sampSendDialogResponse(3060, 1, 0, elements.lavka.box_djent.v..' '..elements.lavka.box_djent_price.v)
 		end
+		wait(delay_skupka)
 		if elements.lavka.box_minecraft.v ~= 0 then
 			sampSendDialogResponse(3040, 1, nil, nil)
 			sampSendDialogResponse(3050, 1, 19, nil)
 			sampSendDialogResponse(3050, 1, 20, nil)
+			wait(delay_skupka)
 			sampSendDialogResponse(3050, 1, 20, nil)
 			sampSendDialogResponse(3050, 1, 20, nil)
 			sampSendDialogResponse(3050, 1, 20, nil)
+			wait(delay_skupka)
 			sampSendDialogResponse(3050, 1, 20, nil)
 			sampSendDialogResponse(3050, 1, 20, nil)
 			sampSendDialogResponse(3050, 1, 20, nil)
+			wait(delay_skupka)
 			sampSendDialogResponse(3050, 1, 20, nil)
 			sampSendDialogResponse(3050, 1, 20, nil)
 			sampSendDialogResponse(3050, 1, 20, nil)
+			wait(delay_skupka)
 			sampSendDialogResponse(3050, 1, 20, nil)
 			sampSendDialogResponse(3050, 1, 20, nil)
 			sampSendDialogResponse(3050, 1, 20, nil)
+			wait(delay_skupka)
 			sampSendDialogResponse(3050, 1, 20, nil)
 			sampSendDialogResponse(3050, 1, 20, nil)
 			sampSendDialogResponse(3050, 1, 20, nil)
+			wait(delay_skupka)
 			sampSendDialogResponse(3050, 1, 20, nil)
 			sampSendDialogResponse(3050, 1, 20, nil)
 			sampSendDialogResponse(3050, 1, 20, nil)
+			wait(delay_skupka)
 			sampSendDialogResponse(3050, 1, 20, nil)
 			sampSendDialogResponse(3050, 1, 20, nil)
 			sampSendDialogResponse(3050, 1, 20, nil)
+			wait(delay_skupka)
 			sampSendDialogResponse(3050, 1, 1, nil)
 			sampSendDialogResponse(3060, 1, 0, elements.lavka.box_minecraft.v..' '..elements.lavka.box_minecraft_price.v)
 		end
+		wait(delay_skupka)
 		if elements.lavka.box_moto.v ~= 0 then
 			sampSendDialogResponse(3040, 1, nil, nil)
 			sampSendDialogResponse(3050, 1, 19, nil)
 			sampSendDialogResponse(3050, 1, 20, nil)
+			wait(delay_skupka)
 			sampSendDialogResponse(3050, 1, 20, nil)
 			sampSendDialogResponse(3050, 1, 20, nil)
 			sampSendDialogResponse(3050, 1, 20, nil)
+			wait(delay_skupka)
 			sampSendDialogResponse(3050, 1, 20, nil)
 			sampSendDialogResponse(3050, 1, 20, nil)
 			sampSendDialogResponse(3050, 1, 20, nil)
+			wait(delay_skupka)
 			sampSendDialogResponse(3050, 1, 20, nil)
 			sampSendDialogResponse(3050, 1, 20, nil)
 			sampSendDialogResponse(3050, 1, 20, nil)
+			wait(delay_skupka)
 			sampSendDialogResponse(3050, 1, 20, nil)
 			sampSendDialogResponse(3050, 1, 20, nil)
 			sampSendDialogResponse(3050, 1, 20, nil)
+			wait(delay_skupka)
 			sampSendDialogResponse(3050, 1, 20, nil)
 			sampSendDialogResponse(3050, 1, 20, nil)
 			sampSendDialogResponse(3050, 1, 20, nil)
+			wait(delay_skupka)
 			sampSendDialogResponse(3050, 1, 20, nil)
 			sampSendDialogResponse(3050, 1, 20, nil)
 			sampSendDialogResponse(3050, 1, 20, nil)
+			wait(delay_skupka)
 			sampSendDialogResponse(3050, 1, 20, nil)
 			sampSendDialogResponse(3050, 1, 20, nil)
 			sampSendDialogResponse(3050, 1, 20, nil)
+			wait(delay_skupka)
 			sampSendDialogResponse(3050, 1, 2, nil)
 			sampSendDialogResponse(3060, 1, 0, elements.lavka.box_moto.v..' '..elements.lavka.box_moto_price.v)
 		end
+		wait(delay_skupka)
 		if elements.lavka.box_car.v ~= 0 then
 			sampSendDialogResponse(3040, 1, nil, nil)
 			sampSendDialogResponse(3050, 1, 19, nil)
 			sampSendDialogResponse(3050, 1, 20, nil)
+			wait(delay_skupka)
 			sampSendDialogResponse(3050, 1, 20, nil)
 			sampSendDialogResponse(3050, 1, 20, nil)
 			sampSendDialogResponse(3050, 1, 20, nil)
+			wait(delay_skupka)
 			sampSendDialogResponse(3050, 1, 20, nil)
 			sampSendDialogResponse(3050, 1, 20, nil)
 			sampSendDialogResponse(3050, 1, 20, nil)
+			wait(delay_skupka)
 			sampSendDialogResponse(3050, 1, 20, nil)
 			sampSendDialogResponse(3050, 1, 20, nil)
 			sampSendDialogResponse(3050, 1, 20, nil)
+			wait(delay_skupka)
 			sampSendDialogResponse(3050, 1, 20, nil)
 			sampSendDialogResponse(3050, 1, 20, nil)
 			sampSendDialogResponse(3050, 1, 20, nil)
+			wait(delay_skupka)
 			sampSendDialogResponse(3050, 1, 20, nil)
 			sampSendDialogResponse(3050, 1, 20, nil)
 			sampSendDialogResponse(3050, 1, 20, nil)
+			wait(delay_skupka)
 			sampSendDialogResponse(3050, 1, 20, nil)
 			sampSendDialogResponse(3050, 1, 20, nil)
 			sampSendDialogResponse(3050, 1, 20, nil)
+			wait(delay_skupka)
 			sampSendDialogResponse(3050, 1, 20, nil)
 			sampSendDialogResponse(3050, 1, 20, nil)
 			sampSendDialogResponse(3050, 1, 20, nil)
+			wait(delay_skupka)
 			sampSendDialogResponse(3050, 1, 3, nil)
 			sampSendDialogResponse(3060, 1, 0, elements.lavka.box_car.v..' '..elements.lavka.box_car_price.v)
 		end
+		wait(delay_skupka)
 		if elements.lavka.band_respect.v ~= 0 then
 			sampSendDialogResponse(3040, 1, nil, nil)
 			sampSendDialogResponse(3050, 1, 19, nil)
 			sampSendDialogResponse(3050, 1, 20, nil)
+			wait(delay_skupka)
 			sampSendDialogResponse(3050, 1, 20, nil)
 			sampSendDialogResponse(3050, 1, 20, nil)
 			sampSendDialogResponse(3050, 1, 20, nil)
+			wait(delay_skupka)
 			sampSendDialogResponse(3050, 1, 20, nil)
 			sampSendDialogResponse(3050, 1, 20, nil)
 			sampSendDialogResponse(3050, 1, 20, nil)
+			wait(delay_skupka)
 			sampSendDialogResponse(3050, 1, 20, nil)
 			sampSendDialogResponse(3050, 1, 20, nil)
 			sampSendDialogResponse(3050, 1, 20, nil)
+			wait(delay_skupka)
 			sampSendDialogResponse(3050, 1, 20, nil)
 			sampSendDialogResponse(3050, 1, 20, nil)
 			sampSendDialogResponse(3050, 1, 20, nil)
+			wait(delay_skupka)
 			sampSendDialogResponse(3050, 1, 20, nil)
 			sampSendDialogResponse(3050, 1, 20, nil)
 			sampSendDialogResponse(3050, 1, 20, nil)
+			wait(delay_skupka)
 			sampSendDialogResponse(3050, 1, 20, nil)
 			sampSendDialogResponse(3050, 1, 20, nil)
 			sampSendDialogResponse(3050, 1, 20, nil)
+			wait(delay_skupka)
 			sampSendDialogResponse(3050, 1, 20, nil)
 			sampSendDialogResponse(3050, 1, 20, nil)
 			sampSendDialogResponse(3050, 1, 20, nil)
+			wait(delay_skupka)
 			sampSendDialogResponse(3050, 1, 20, nil)
 			sampSendDialogResponse(3050, 1, 20, nil)
 			sampSendDialogResponse(3050, 1, 15, nil)
+			wait(delay_skupka)
 			sampSendDialogResponse(3060, 1, 0, elements.lavka.band_respect.v..' '..elements.lavka.band_respect_price.v)
 		end
+		wait(delay_skupka)
 		if elements.lavka.larec_premium.v ~= 0 then
 			sampSendDialogResponse(3040, 1, nil, nil)
 			sampSendDialogResponse(3050, 1, 19, nil)
 			sampSendDialogResponse(3050, 1, 20, nil)
+			wait(delay_skupka)
 			sampSendDialogResponse(3050, 1, 20, nil)
 			sampSendDialogResponse(3050, 1, 20, nil)
 			sampSendDialogResponse(3050, 1, 20, nil)
+			wait(delay_skupka)
 			sampSendDialogResponse(3050, 1, 20, nil)
 			sampSendDialogResponse(3050, 1, 20, nil)
 			sampSendDialogResponse(3050, 1, 20, nil)
+			wait(delay_skupka)
 			sampSendDialogResponse(3050, 1, 20, nil)
 			sampSendDialogResponse(3050, 1, 20, nil)
 			sampSendDialogResponse(3050, 1, 20, nil)
+			wait(delay_skupka)
 			sampSendDialogResponse(3050, 1, 20, nil)
 			sampSendDialogResponse(3050, 1, 20, nil)
 			sampSendDialogResponse(3050, 1, 20, nil)
+			wait(delay_skupka)
 			sampSendDialogResponse(3050, 1, 20, nil)
 			sampSendDialogResponse(3050, 1, 20, nil)
 			sampSendDialogResponse(3050, 1, 20, nil)
+			wait(delay_skupka)
 			sampSendDialogResponse(3050, 1, 20, nil)
 			sampSendDialogResponse(3050, 1, 20, nil)
 			sampSendDialogResponse(3050, 1, 20, nil)
+			wait(delay_skupka)
 			sampSendDialogResponse(3050, 1, 20, nil)
 			sampSendDialogResponse(3050, 1, 20, nil)
 			sampSendDialogResponse(3050, 1, 20, nil)
+			wait(delay_skupka)
 			sampSendDialogResponse(3050, 1, 20, nil)
 			sampSendDialogResponse(3050, 1, 20, nil)
 			sampSendDialogResponse(3050, 1, 20, nil)
+			wait(delay_skupka)
 			sampSendDialogResponse(3050, 1, 0, nil)
 			sampSendDialogResponse(3060, 1, 0, elements.lavka.larec_premium.v..' '..elements.lavka.larec_premium_price.v)
 		end
@@ -5363,6 +5696,8 @@ function sampev.onShowDialog(dialogId, style, title, button1, button2, text)
 	if dialogId == 0 and text:find("Аз Монет при пополнении счета на нашем сайте") then
 		sampSendDialogResponse(dialogId, 1, nil, nil)
 		chest_timer = os.time()+2
+		chest_timer_2 = os.time()+2+5
+		chest_timer_3 = os.time()+2+10
 		return false
 	end
 	--------------------[Отказ показа диалогов Аренды транспорта]--------------------
@@ -5574,21 +5909,7 @@ function sampev.onSetPlayerAttachedObject(playerId, index, create, object)
 		SaveFileAttach(elements.config.attach_id.v,model,object.bone,object.offset.x,object.offset.y,object.offset.z,object.rotation.x,object.rotation.y,object.rotation.z,object.scale.x,object.scale.y,object.scale.z)
 	end
 	ip, port = sampGetCurrentServerAddress()
-	if ip == "185.169.134.3" or
-		ip == "185.169.134.4" or
-		ip == "185.169.134.43" or
-		ip == "185.169.134.44" or
-		ip == "185.169.134.45" or
-		ip == "185.169.134.5" or
-		ip == "185.169.134.59" or
-		ip == "185.169.134.61" or
-		ip == "185.169.134.107" or
-		ip == "185.169.134.109" or
-		ip == "185.169.134.166" or
-		ip == "185.169.134.171" or
-		ip == "185.169.134.172" or
-		ip == "185.169.134.173" or
-		ip == "185.169.134.174" then
+	if ip == "185.169.134.3" or ip == "185.169.134.4" or ip == "185.169.134.43" or ip == "185.169.134.44" or ip == "185.169.134.45" or ip == "185.169.134.5" or ip == "185.169.134.59" or ip == "185.169.134.61" or ip == "185.169.134.107" or ip == "185.169.134.109" or ip == "185.169.134.166" or ip == "185.169.134.171" or ip == "185.169.134.172" or ip == "185.169.134.173" or ip == "185.169.134.174" or ip == "80.66.82.191" then
 		----------------------------------------
 		model = object.modelId
 		----------------------------------------
