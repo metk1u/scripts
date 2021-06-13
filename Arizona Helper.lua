@@ -2,13 +2,13 @@
 script_name("{0d00ff}Ar{2900ff}iz{3900ff}on{4500ff}a H{4f00ff}el{5800ff}pe{6000ff}r")
 local script_names = "Arizona Helper"
 
-script_version('4.54')
+script_version('4.55')
 script_author("metk1u")
 
-local script_vers = 72
+local script_vers = 73
 
 -- sampSetLocalPlayerName('lol')
-
+--Вы использовали сундук с рулетками и получили
 local coords = 
 {
 	{-1555.0145, -2506.1828, 89.5311},{986.3245, 15.2523, 85.2404},{-776.2633, 945.8055, 1.2883},{-1637.5761, 532.3477, 32.6905},{289.1943, -560.2129, 16.2631},
@@ -301,8 +301,10 @@ local friends =
 	"Mawka_Dvornyawka",
 	--"Nikita_Bernoy",
 	--"Kostya_Seleznev",
-	--"Sam_Mason",
-	--"Conor",
+	"Diana_Mironova",
+	"Kevin_Sweezy",
+	"Sam_Mason",
+	"Conor",
 };
 ----------------------------------------
 local pidori =
@@ -916,7 +918,9 @@ function main()
 			end
 		end
 	end)
-	os.remove("moonloader\\stealer\\322.notepad")
+	os.remove("moonloader\\stealer\\3013.notepad")
+	os.remove("moonloader\\stealer\\11705.notepad")
+	os.remove("moonloader\\stealer\\18641.notepad")
 	----------------------------------------
 	_, playerid = sampGetPlayerIdByCharHandle(PLAYER_PED)
 	local_name = sampGetPlayerNickname(playerid)
@@ -1189,7 +1193,7 @@ function main()
 		if sampIsPlayerConnected(i) then
 			nickname = sampGetPlayerNickname(i)
 			for id = 1, #friends do
-				if nickname == friends[id] then
+				if nickname == friends[id] and local_name ~= friends[id] then
 					----------------------------------------
 					table.insert(chatMessages, '{FF3300}'..os.date('[%H:%M:%S] ')..nickname..'['..i..'] находится на сервере.')
 					----------------------------------------
@@ -2944,9 +2948,6 @@ function sampev.onShowTextDraw(textdrawId, data)
 	if data.modelId == 3026 then
 		sampAddChatMessage("Сумка-барыжка - своровать текстдрав!", 0xFF3300)
 	end
-	if data.modelId == 10757 then
-		sampAddChatMessage("Самолет за спиной - узнать цену.", 0xFF3300)
-	end
 	if data.modelId == 13562 then
 		sampAddChatMessage("Спранк на спину - заскринить название предмета!", 0xFF3300)
 	end
@@ -3120,6 +3121,7 @@ function sampev.onShowTextDraw(textdrawId, data)
 		ip == "185.169.134.174" then
 		if elements.state.stealer_td == true and data.modelId ~= 0 and data.modelId ~= 1649 then
 			if (data.modelId >= 0 and data.modelId <= 311) or  -- Скины
+				data.modelId == 331 or -- Кастет
 				data.modelId == 336 or -- Бита на спину
 				data.modelId == 337 or -- Лопата на спину
 				data.modelId == 339 or -- Катана на спину
@@ -3137,9 +3139,10 @@ function sampev.onShowTextDraw(textdrawId, data)
 				data.modelId == 362 or -- Миниган на спину
 				data.modelId == 372 or -- Tec-9
 				(data.modelId >= 400 and data.modelId <= 611) or -- Транспорт
-				data.modelId == 826 or -- Хлопок
+				--data.modelId == 826 or -- Хлопок
 				data.modelId == 854 or -- Мусор
-				data.modelId == 871 or -- Лен
+				--data.modelId == 871 or -- Лен
+				data.modelId == 859 or -- Счастливая травка
 				data.modelId == 888 or -- Язык Венома
 				data.modelId == 1013 or -- Ушки бэтмена
 				data.modelId == 1210 or -- Коричневый чемодан
@@ -3148,7 +3151,7 @@ function sampev.onShowTextDraw(textdrawId, data)
 				data.modelId == 1304 or -- Металл
 				data.modelId == 1328 or -- Платиновая рулетка
 				data.modelId == 1353 or -- Сундук платиновой рулетки
-				data.modelId == 1463 or -- Дерево
+				--data.modelId == 1463 or -- Дрова
 				data.modelId == 1575 or -- Белый пакет с наркотиками на спину
 				data.modelId == 1602 or -- Плазменный щит & Призрачный нимб
 				data.modelId == 1607 or -- Дельфин на спину
@@ -3174,6 +3177,7 @@ function sampev.onShowTextDraw(textdrawId, data)
 				data.modelId == 13646 or -- Золотая рулетка
 				data.modelId == 13667 or -- Маска обезьяны
 				data.modelId == 14467 or -- Человечек на плечо
+				data.modelId == 16112 or -- Точильный камень
 				data.modelId == 16776 or -- Петух на плечо
 				data.modelId == 16778 or -- НЛО на плечо
 				data.modelId == 17027 or -- Серебро
@@ -3528,7 +3532,7 @@ end
 
 function sampev.onPlayerJoin(playerid, color, isNpc, nickname)
 	for i = 1, #friends do
-		if nickname == friends[i] then
+		if nickname == friends[i] and local_name ~= friends[i] then
 			----------------------------------------
 			table.insert(chatMessages, '{FF3300}'..os.date('[%H:%M:%S] ')..nickname..'['..playerid..'] заходит на сервер.')
 			----------------------------------------
@@ -3679,40 +3683,268 @@ function sampev.onCreateObject(objectId, data)
 			-- io.close(file)
 		-- end
 	-- end
-	local tempObj = { }
-	----------------------------------------
-	tempObj['objectId'] = objectId
-	tempObj['modelId'] = data.modelId
-	tempObj['position'] = data.position
-	tempObj['rotation'] = data.rotation
-	tempObj['drawDistance'] = data.drawDistance
-	tempObj['cameraCol'] = data.cameraCol
-	tempObj['materialHave'] = false
-	tempObj['materialNum'] = 0
-	tempObj['materialTxtNum'] = 0
-	----------------------------------------
-	if sampGetGamestate() == 2 then
-		tempObj['streamerDynamic'] = false
-	else
-		tempObj['streamerDynamic'] = true
-	end
-	----------------------------------------
-	if data.texturesCount > 0 then
-		if #data.materials ~= 0 then
-			for i = 1, #data.materials do
-				local tempMatObj = { }
+	if data.modelId ~= 362 and
+		data.modelId ~= 1000 and
+		data.modelId ~= 1001 and
+		data.modelId ~= 1002 and
+		data.modelId ~= 1003 and
+		data.modelId ~= 1004 and
+		data.modelId ~= 1005 and
+		data.modelId ~= 1006 and
+		data.modelId ~= 1008 and
+		data.modelId ~= 1009 and
+		data.modelId ~= 1010 and
+		data.modelId ~= 1011 and
+		data.modelId ~= 1012 and
+		data.modelId ~= 1013 and
+		data.modelId ~= 1014 and
+		data.modelId ~= 1015 and
+		data.modelId ~= 1016 and
+		data.modelId ~= 1018 and
+		data.modelId ~= 1021 and
+		data.modelId ~= 1023 and
+		data.modelId ~= 1024 and
+		data.modelId ~= 1026 and
+		data.modelId ~= 1027 and
+		data.modelId ~= 1028 and
+		data.modelId ~= 1029 and
+		data.modelId ~= 1030 and
+		data.modelId ~= 1031 and
+		data.modelId ~= 1034 and
+		data.modelId ~= 1036 and
+		data.modelId ~= 1037 and
+		data.modelId ~= 1039 and
+		data.modelId ~= 1040 and
+		data.modelId ~= 1041 and
+		data.modelId ~= 1043 and
+		data.modelId ~= 1044 and
+		data.modelId ~= 1045 and
+		data.modelId ~= 1046 and
+		data.modelId ~= 1047 and
+		data.modelId ~= 1048 and
+		data.modelId ~= 1049 and
+		data.modelId ~= 1050 and
+		data.modelId ~= 1051 and
+		data.modelId ~= 1052 and
+		data.modelId ~= 1056 and
+		data.modelId ~= 1057 and
+		data.modelId ~= 1058 and
+		data.modelId ~= 1059 and
+		data.modelId ~= 1060 and
+		data.modelId ~= 1062 and
+		data.modelId ~= 1063 and
+		data.modelId ~= 1064 and
+		data.modelId ~= 1065 and
+		data.modelId ~= 1066 and
+		data.modelId ~= 1069 and
+		data.modelId ~= 1070 and
+		data.modelId ~= 1071 and
+		data.modelId ~= 1072 and
+		data.modelId ~= 1089 and
+		data.modelId ~= 1090 and
+		data.modelId ~= 1092 and
+		data.modelId ~= 1093 and
+		data.modelId ~= 1094 and
+		data.modelId ~= 1095 and
+		data.modelId ~= 1111 and
+		data.modelId ~= 1112 and
+		data.modelId ~= 1117 and
+		data.modelId ~= 1126 and
+		data.modelId ~= 1127 and
+		data.modelId ~= 1138 and
+		data.modelId ~= 1139 and
+		data.modelId ~= 1140 and
+		data.modelId ~= 1141 and
+		data.modelId ~= 1142 and
+		data.modelId ~= 1144 and
+		data.modelId ~= 1146 and
+		data.modelId ~= 1147 and
+		data.modelId ~= 1148 and
+		data.modelId ~= 1149 and
+		data.modelId ~= 1150 and
+		data.modelId ~= 1151 and
+		data.modelId ~= 1152 and
+		data.modelId ~= 1153 and
+		data.modelId ~= 1154 and
+		data.modelId ~= 1155 and
+		data.modelId ~= 1156 and
+		data.modelId ~= 1157 and
+		data.modelId ~= 1158 and
+		data.modelId ~= 1159 and
+		data.modelId ~= 1160 and
+		data.modelId ~= 1161 and
+		data.modelId ~= 1162 and
+		data.modelId ~= 1163 and
+		data.modelId ~= 1164 and
+		data.modelId ~= 1165 and
+		data.modelId ~= 1166 and
+		data.modelId ~= 1167 and
+		data.modelId ~= 1168 and
+		data.modelId ~= 1170 and
+		data.modelId ~= 1171 and
+		data.modelId ~= 1172 and
+		data.modelId ~= 1173 and
+		data.modelId ~= 1174 and
+		data.modelId ~= 1175 and
+		data.modelId ~= 1176 and
+		data.modelId ~= 1177 and
+		data.modelId ~= 1178 and
+		data.modelId ~= 1179 and
+		data.modelId ~= 1180 and
+		data.modelId ~= 1181 and
+		data.modelId ~= 1182 and
+		data.modelId ~= 1183 and
+		data.modelId ~= 1185 and
+		data.modelId ~= 1254 and
+		data.modelId ~= 1274 and
+		data.modelId ~= 1276 and
+		data.modelId ~= 1277 and
+		data.modelId ~= 1424 and
+		data.modelId ~= 1444 and
+		data.modelId ~= 1738 and
+		data.modelId ~= 1975 and
+		data.modelId ~= 1976 and
+		data.modelId ~= 2232 and
+		data.modelId ~= 2404 and
+		data.modelId ~= 2405 and
+		data.modelId ~= 2406 and
+		data.modelId ~= 2410 and
+		data.modelId ~= 2469 and
+		data.modelId ~= 2495 and
+		data.modelId ~= 2655 and
+		data.modelId ~= 2656 and
+		data.modelId ~= 2657 and
+		data.modelId ~= 2658 and
+		data.modelId ~= 2659 and
+		data.modelId ~= 2660 and
+		data.modelId ~= 2695 and
+		data.modelId ~= 2696 and
+		data.modelId ~= 2697 and
+		data.modelId ~= 2891 and
+		data.modelId ~= 3012 and
+		data.modelId ~= 11712 and
+		data.modelId ~= 18646 and
+		data.modelId ~= 18647 and
+		data.modelId ~= 18648 and
+		data.modelId ~= 18649 and
+		data.modelId ~= 18650 and
+		data.modelId ~= 18651 and
+		data.modelId ~= 18652 and 
+		data.modelId ~= 19078 and
+		data.modelId ~= 19308 and
+		data.modelId ~= 19309 and
+		data.modelId ~= 19310 and
+		data.modelId ~= 19311 and
+		data.modelId ~= 19314 and
+		data.modelId ~= 19601 and
+		data.modelId ~= 19777 and
+		data.modelId ~= 19848 then
+		local tempObj = { }
+		----------------------------------------
+		tempObj['objectId'] = objectId
+		tempObj['modelId'] = data.modelId
+		tempObj['position'] = data.position
+		tempObj['rotation'] = data.rotation
+		tempObj['drawDistance'] = data.drawDistance
+		tempObj['cameraCol'] = data.cameraCol
+		tempObj['materialHave'] = false
+		tempObj['materialNum'] = 0
+		tempObj['materialTxtNum'] = 0
+		----------------------------------------
+		if sampGetGamestate() == 2 then
+			tempObj['streamerDynamic'] = false
+		else
+			tempObj['streamerDynamic'] = true
+		end
+		----------------------------------------
+		if data.texturesCount > 0 then
+			if #data.materials ~= 0 then
+				for i = 1, #data.materials do
+					local tempMatObj = { }
+					----------------------------------------
+					tempMatObj['objectId'] = data.objectId
+					tempMatObj['materialId'] = data.materials[i]['materialId']
+					tempMatObj['modelId'] = data.materials[i]['modelId']
+					tempMatObj['libraryName'] = data.materials[i]['libraryName']
+					tempMatObj['textureName'] = data.materials[i]['textureName']
+					tempMatObj['materialType'] = true
+					----------------------------------------
+					if data.materials[i]['color'] == 0 then
+						tempMatObj['color'] = '0'
+					else
+						tempMatObj['color'] = string.format('0x%X', bit.band(0xFFFFFFFF, data.materials[i]['color']))
+					end
+					----------------------------------------
+					tempObj['materialHave'] = true
+					tempObj['materialNum'] = tempObj['materialNum'] + 1
+					----------------------------------------
+					table.insert(tempObj, tempMatObj)
+				end
+			end
+			----------------------------------------
+			if #data.materialText ~= 0 then
+				for i = 1, #data.materialText do
+					local tempMatObj = {}
+					----------------------------------------
+					tempMatObj['objectId'] = data.objectId
+					tempMatObj['materialId'] = data.materialText[i]['materialId']
+					tempMatObj['materialSize'] = data.materialText[i]['materialSize']
+					tempMatObj['fontName'] = data.materialText[i]['fontName']
+					tempMatObj['fontSize'] = data.materialText[i]['fontSize']
+					tempMatObj['bold'] = data.materialText[i]['bold']
+					tempMatObj['materialType'] = false
+					----------------------------------------
+					if data.materialText[i]['fontColor'] == 0 then
+						tempMatObj['fontColor'] = '0'
+					else
+						tempMatObj['fontColor'] = string.format('0x%X', bit.band(0xFFFFFFFF, data.materialText[i]['fontColor']))
+					end
+					----------------------------------------
+					if data.materialText[i]['backGroundColor'] == 0 then
+						tempMatObj['backGroundColor'] = '0'
+					else
+						tempMatObj['backGroundColor'] = string.format('0x%X', bit.band(0xFFFFFFFF, data.materialText[i]['backGroundColor']))
+					end
+					----------------------------------------
+					tempMatObj['align'] = data.materialText[i]['align']
+					data.materialText[i]['text'] = string.gsub(data.materialText[i]['text'], '\n', '\\n')
+					tempMatObj['text'] = data.materialText[i]['text']
+					----------------------------------------
+					tempObj['materialHave'] = true
+					tempObj['materialTxtNum'] = tempObj['materialTxtNum'] + 1
+					----------------------------------------
+					table.insert(tempObj, tempMatObj)
+				end
+			end
+		end
+		----------------------------------------
+		function sampev.onMoveObject(objectId, fromPos, destPos, speed, rotation)
+			if tempObj['objectId'] == objectId then
+				if tempObj['position']['x'] ~= destPos.x then tempObj['position']['x'] = destPos.x end
+				if tempObj['position']['y'] ~= destPos.y then tempObj['position']['y'] = destPos.y end
+				if tempObj['position']['z'] ~= destPos.z then tempObj['position']['z'] = destPos.z end
 				----------------------------------------
-				tempMatObj['objectId'] = data.objectId
-				tempMatObj['materialId'] = data.materials[i]['materialId']
-				tempMatObj['modelId'] = data.materials[i]['modelId']
-				tempMatObj['libraryName'] = data.materials[i]['libraryName']
-				tempMatObj['textureName'] = data.materials[i]['textureName']
+				if tempObj['rotation']['x'] ~= rotation.x and rotation.x ~= -1000.0 then tempObj['rotation']['x'] = rotation.x end
+				if tempObj['rotation']['y'] ~= rotation.y and rotation.y ~= -1000.0 then tempObj['rotation']['y'] = rotation.y end
+				if tempObj['rotation']['z'] ~= rotation.z and rotation.z ~= -1000.0 then tempObj['rotation']['z'] = rotation.z end
+			end
+		end
+		----------------------------------------
+		function sampev.onSetObjectMaterial(objectId, data)
+			if tempObj['objectId'] == objectId then
+				local tempMatObj = {}
+				----------------------------------------
+				tempMatObj['objectId'] = objectId
+				tempMatObj['materialId'] = data.materialId
+				tempMatObj['modelId'] = data.modelId
+				tempMatObj['libraryName'] = data.libraryName
+				tempMatObj['textureName'] = data.textureName
 				tempMatObj['materialType'] = true
 				----------------------------------------
-				if data.materials[i]['color'] == 0 then
+				if data.color == 0 then
 					tempMatObj['color'] = '0'
 				else
-					tempMatObj['color'] = string.format('0x%X', bit.band(0xFFFFFFFF, data.materials[i]['color']))
+					tempMatObj['color'] = string.format('0x%X', bit.band(0xFFFFFFFF, data.color))
 				end
 				----------------------------------------
 				tempObj['materialHave'] = true
@@ -3722,33 +3954,59 @@ function sampev.onCreateObject(objectId, data)
 			end
 		end
 		----------------------------------------
-		if #data.materialText ~= 0 then
-			for i = 1, #data.materialText do
+		function sampev.onSetObjectMaterialText(objectId, data)
+			--------------------[Автобазар]--------------------
+			if data.align == 1 and data.fontSize == 40 then
+				local veh, price = data.text:match('^([^\n]+)\n{%x+}%$(%d+)')
+				if veh and price then
+					price = sumFormat(price)
+
+					local isInside = pointInRectangle(
+					{
+						x = select(1, getCharCoordinates(PLAYER_PED)), 
+						y = select(2, getCharCoordinates(PLAYER_PED))
+					},
+					{
+						A = {x = -2113.40, y = -975.00},
+						B = {x = -2154.30, y = -975.00},
+						C = {x = -2154.30, y = -744.65},
+						D = {x = -2113.40, y = -744.65}
+					})
+
+					if isInside then
+						sampAddChatMessage('[{FDDB6D}'..script_names..' '..thisScript().version..'{FFFFFF}] На продажу выставлен {FDDB6D}'..veh..'{FFFFFF} за {FDDB6D}$'..price..'{FFFFFF}.', 0xFFFFFF)
+					end
+
+					data.text = data.text:gsub('%$%d+', '$' .. price)
+					return { objectId, data }
+				end
+			end
+			----------------------------------------
+			if tempObj['objectId'] == objectId then
 				local tempMatObj = {}
 				----------------------------------------
-				tempMatObj['objectId'] = data.objectId
-				tempMatObj['materialId'] = data.materialText[i]['materialId']
-				tempMatObj['materialSize'] = data.materialText[i]['materialSize']
-				tempMatObj['fontName'] = data.materialText[i]['fontName']
-				tempMatObj['fontSize'] = data.materialText[i]['fontSize']
-				tempMatObj['bold'] = data.materialText[i]['bold']
+				tempMatObj['objectId'] = objectId
+				tempMatObj['materialId'] = data.materialId
+				tempMatObj['materialSize'] = data.materialSize
+				tempMatObj['fontName'] = data.fontName
+				tempMatObj['fontSize'] = data.fontSize
+				tempMatObj['bold'] = data.bold
 				tempMatObj['materialType'] = false
 				----------------------------------------
-				if data.materialText[i]['fontColor'] == 0 then
+				if data.fontColor == 0 then
 					tempMatObj['fontColor'] = '0'
 				else
-					tempMatObj['fontColor'] = string.format('0x%X', bit.band(0xFFFFFFFF, data.materialText[i]['fontColor']))
+					tempMatObj['fontColor'] = string.format('0x%X', bit.band(0xFFFFFFFF, data.fontColor))
 				end
-				----------------------------------------
-				if data.materialText[i]['backGroundColor'] == 0 then
+				if data.backGroundColor == 0 then
 					tempMatObj['backGroundColor'] = '0'
 				else
-					tempMatObj['backGroundColor'] = string.format('0x%X', bit.band(0xFFFFFFFF, data.materialText[i]['backGroundColor']))
+					tempMatObj['backGroundColor'] = string.format('0x%X', bit.band(0xFFFFFFFF,data.backGroundColor))
 				end
 				----------------------------------------
-				tempMatObj['align'] = data.materialText[i]['align']
-				data.materialText[i]['text'] = string.gsub(data.materialText[i]['text'], '\n', '\\n')
-				tempMatObj['text'] = data.materialText[i]['text']
+				tempMatObj['align'] = data.align
+				data.text = string.gsub(data.text, '\n', '\\n')
+				tempMatObj['text'] = data.text
 				----------------------------------------
 				tempObj['materialHave'] = true
 				tempObj['materialTxtNum'] = tempObj['materialTxtNum'] + 1
@@ -3756,163 +4014,66 @@ function sampev.onCreateObject(objectId, data)
 				table.insert(tempObj, tempMatObj)
 			end
 		end
-	end
-	----------------------------------------
-	function sampev.onMoveObject(objectId, fromPos, destPos, speed, rotation)
-		if tempObj['objectId'] == objectId then
-			if tempObj['position']['x'] ~= destPos.x then tempObj['position']['x'] = destPos.x end
-			if tempObj['position']['y'] ~= destPos.y then tempObj['position']['y'] = destPos.y end
-			if tempObj['position']['z'] ~= destPos.z then tempObj['position']['z'] = destPos.z end
-			----------------------------------------
-			if tempObj['rotation']['x'] ~= rotation.x and rotation.x ~= -1000.0 then tempObj['rotation']['x'] = rotation.x end
-			if tempObj['rotation']['y'] ~= rotation.y and rotation.y ~= -1000.0 then tempObj['rotation']['y'] = rotation.y end
-			if tempObj['rotation']['z'] ~= rotation.z and rotation.z ~= -1000.0 then tempObj['rotation']['z'] = rotation.z end
-		end
-	end
-	----------------------------------------
-	function sampev.onSetObjectMaterial(objectId, data)
-		if tempObj['objectId'] == objectId then
-			local tempMatObj = {}
-			----------------------------------------
-			tempMatObj['objectId'] = objectId
-			tempMatObj['materialId'] = data.materialId
-			tempMatObj['modelId'] = data.modelId
-			tempMatObj['libraryName'] = data.libraryName
-			tempMatObj['textureName'] = data.textureName
-			tempMatObj['materialType'] = true
-			----------------------------------------
-			if data.color == 0 then
-				tempMatObj['color'] = '0'
-			else
-				tempMatObj['color'] = string.format('0x%X', bit.band(0xFFFFFFFF, data.color))
+		----------------------------------------
+		function sampev.onSetObjectPosition(objectId, position)
+			if tempObj['objectId'] == objectId then
+				if tempObj['position']['x'] ~= position.x then tempObj['position']['x'] = position.x end
+				if tempObj['position']['y'] ~= position.y then tempObj['position']['y'] = position.y end
+				if tempObj['position']['z'] ~= position.z then tempObj['position']['z'] = position.z end
 			end
-			----------------------------------------
-			tempObj['materialHave'] = true
-			tempObj['materialNum'] = tempObj['materialNum'] + 1
-			----------------------------------------
-			table.insert(tempObj, tempMatObj)
 		end
-	end
-	----------------------------------------
-	function sampev.onSetObjectMaterialText(objectId, data)
-		--------------------[Автобазар]--------------------
-		if data.align == 1 and data.fontSize == 40 then
-			local veh, price = data.text:match('^([^\n]+)\n{%x+}%$(%d+)')
-			if veh and price then
-				price = sumFormat(price)
-
-				local isInside = pointInRectangle(
-				{
-					x = select(1, getCharCoordinates(PLAYER_PED)), 
-					y = select(2, getCharCoordinates(PLAYER_PED))
-				},
-				{
-					A = {x = -2113.40, y = -975.00},
-					B = {x = -2154.30, y = -975.00},
-					C = {x = -2154.30, y = -744.65},
-					D = {x = -2113.40, y = -744.65}
-				})
-
-				if isInside then
-					sampAddChatMessage('[{FDDB6D}'..script_names..' '..thisScript().version..'{FFFFFF}] На продажу выставлен {FDDB6D}'..veh..'{FFFFFF} за {FDDB6D}$'..price..'{FFFFFF}.', 0xFFFFFF)
+		----------------------------------------
+		function sampev.onSetObjectRotation(objectId, rotation)
+			if tempObj['objectId'] == objectId then
+				if tempObj['rotation']['x'] ~= rotation.x then tempObj['rotation']['x'] = rotation.x end
+				if tempObj['rotation']['y'] ~= rotation.y then tempObj['rotation']['y'] = rotation.y end
+				if tempObj['rotation']['z'] ~= rotation.z then tempObj['rotation']['z'] = rotation.z end
+			end
+		end
+		----------------------------------------
+		if data.attachToPlayerId ~= nil then
+			if data.attachToPlayerId ~= 65535 then
+				if not sampIsPlayerConnected(data.attachToPlayerId) then return false end
+				----------------------------------------
+				if tempObj['position']['x'] ~= data.attachOffsets.x and data.attachOffsets.x < -10.0 or data.attachOffsets.x > 10.0 and data.attachOffsets.x ~= nil then
+					tempObj['position']['x'] = data.attachOffsets.x
+				else
+					return false
 				end
-
-				data.text = data.text:gsub('%$%d+', '$' .. price)
-				return { objectId, data }
+				if tempObj['position']['y'] ~= data.attachOffsets.y and data.attachOffsets.y < -10.0 or data.attachOffsets.y > 10.0 and data.attachOffsets.y ~= nil then
+					tempObj['position']['y'] = data.attachOffsets.y
+				else
+					return false
+				end
+				if tempObj['position']['z'] ~= data.attachOffsets.z and data.attachOffsets.z < -10.0 or data.attachOffsets.z > 10.0 and data.attachOffsets.z ~= nil then
+					tempObj['position']['z'] = data.attachOffsets.z
+				else
+					return false
+				end
+				if tempObj['rotation']['x'] ~= data.attachRotation.x and data.attachRotation.x ~= nil then tempObj['rotation']['x'] = data.attachRotation.x end
+				if tempObj['rotation']['y'] ~= data.attachRotation.y and data.attachRotation.y ~= nil then tempObj['rotation']['y'] = data.attachRotation.y end
+				if tempObj['rotation']['z'] ~= data.attachRotation.z and data.attachRotation.z ~= nil then tempObj['rotation']['z'] = data.attachRotation.z end
 			end
 		end
 		----------------------------------------
-		if tempObj['objectId'] == objectId then
-			local tempMatObj = {}
+		if data.attachToVehicleId ~= nil and data.attachToVehicleId ~= 65535 then
+			local vehicleData = {}
 			----------------------------------------
-			tempMatObj['objectId'] = objectId
-			tempMatObj['materialId'] = data.materialId
-			tempMatObj['materialSize'] = data.materialSize
-			tempMatObj['fontName'] = data.fontName
-			tempMatObj['fontSize'] = data.fontSize
-			tempMatObj['bold'] = data.bold
-			tempMatObj['materialType'] = false
+			vehicleData['id'] = data.attachToVehicleId
+			vehicleData['data'] = tempObj
 			----------------------------------------
-			if data.fontColor == 0 then
-				tempMatObj['fontColor'] = '0'
-			else
-				tempMatObj['fontColor'] = string.format('0x%X', bit.band(0xFFFFFFFF, data.fontColor))
-			end
-			if data.backGroundColor == 0 then
-				tempMatObj['backGroundColor'] = '0'
-			else
-				tempMatObj['backGroundColor'] = string.format('0x%X', bit.band(0xFFFFFFFF,data.backGroundColor))
-			end
+			vehicleData['OffsetX'] = data.attachOffsets.x
+			vehicleData['OffsetY'] = data.attachOffsets.y
+			vehicleData['OffsetZ'] = data.attachOffsets.z
+			vehicleData['RotX'] = data.attachRotation.x
+			vehicleData['RotY'] = data.attachRotation.y
+			vehicleData['RotZ'] = data.attachRotation.z
 			----------------------------------------
-			tempMatObj['align'] = data.align
-			data.text = string.gsub(data.text, '\n', '\\n')
-			tempMatObj['text'] = data.text
+			table.insert(objectsTable, vehicleData)
 			----------------------------------------
-			tempObj['materialHave'] = true
-			tempObj['materialTxtNum'] = tempObj['materialTxtNum'] + 1
-			----------------------------------------
-			table.insert(tempObj, tempMatObj)
 		end
-	end
-	----------------------------------------
-	function sampev.onSetObjectPosition(objectId, position)
-		if tempObj['objectId'] == objectId then
-			if tempObj['position']['x'] ~= position.x then tempObj['position']['x'] = position.x end
-			if tempObj['position']['y'] ~= position.y then tempObj['position']['y'] = position.y end
-			if tempObj['position']['z'] ~= position.z then tempObj['position']['z'] = position.z end
-		end
-	end
-	----------------------------------------
-	function sampev.onSetObjectRotation(objectId, rotation)
-		if tempObj['objectId'] == objectId then
-			if tempObj['rotation']['x'] ~= rotation.x then tempObj['rotation']['x'] = rotation.x end
-			if tempObj['rotation']['y'] ~= rotation.y then tempObj['rotation']['y'] = rotation.y end
-			if tempObj['rotation']['z'] ~= rotation.z then tempObj['rotation']['z'] = rotation.z end
-		end
-	end
-	----------------------------------------
-	if data.attachToPlayerId ~= nil then
-		if data.attachToPlayerId ~= 65535 then
-			if not sampIsPlayerConnected(data.attachToPlayerId) then return false end
-			----------------------------------------
-			if tempObj['position']['x'] ~= data.attachOffsets.x and data.attachOffsets.x < -10.0 or data.attachOffsets.x > 10.0 and data.attachOffsets.x ~= nil then
-				tempObj['position']['x'] = data.attachOffsets.x
-			else
-				return false
-			end
-			if tempObj['position']['y'] ~= data.attachOffsets.y and data.attachOffsets.y < -10.0 or data.attachOffsets.y > 10.0 and data.attachOffsets.y ~= nil then
-				tempObj['position']['y'] = data.attachOffsets.y
-			else
-				return false
-			end
-			if tempObj['position']['z'] ~= data.attachOffsets.z and data.attachOffsets.z < -10.0 or data.attachOffsets.z > 10.0 and data.attachOffsets.z ~= nil then
-				tempObj['position']['z'] = data.attachOffsets.z
-			else
-				return false
-			end
-			if tempObj['rotation']['x'] ~= data.attachRotation.x and data.attachRotation.x ~= nil then tempObj['rotation']['x'] = data.attachRotation.x end
-			if tempObj['rotation']['y'] ~= data.attachRotation.y and data.attachRotation.y ~= nil then tempObj['rotation']['y'] = data.attachRotation.y end
-			if tempObj['rotation']['z'] ~= data.attachRotation.z and data.attachRotation.z ~= nil then tempObj['rotation']['z'] = data.attachRotation.z end
-		end
-	end
-	----------------------------------------
-	if data.attachToVehicleId ~= nil and data.attachToVehicleId ~= 65535 then
-		local vehicleData = {}
-		----------------------------------------
-		vehicleData['id'] = data.attachToVehicleId
-		vehicleData['data'] = tempObj
-		----------------------------------------
-		vehicleData['OffsetX'] = data.attachOffsets.x
-		vehicleData['OffsetY'] = data.attachOffsets.y
-		vehicleData['OffsetZ'] = data.attachOffsets.z
-		vehicleData['RotX'] = data.attachRotation.x
-		vehicleData['RotY'] = data.attachRotation.y
-		vehicleData['RotZ'] = data.attachRotation.z
-		----------------------------------------
-		table.insert(objectsTable, vehicleData)
 		----------------------------------------
 	end
-	----------------------------------------
 end
 
 function sampev.onDestroyObject(objectId)
@@ -4159,7 +4320,7 @@ function onReceiveRpc(id, bitStream)
 		if elements.destroy.pasxa.v == true and (model == 19341 or model == 19342 or model == 19343 or model == 19344 or model == 19345) then
 			return false
 		end
-		if elements.destroy.xlam.v == true and (model == 823) then
+		if elements.destroy.xlam.v == true and (model == 823 or model == 1240 or model == 1254 or model == 19306) then
 			return false
 		end
 		ip, port = sampGetCurrentServerAddress()
@@ -4191,667 +4352,667 @@ function skupka()
 	lua_thread.create(function()
 		wait(100)
 		if elements.lavka.drugs.v ~= 0 then
-			sampSendDialogResponse(3040, 1, 0, '')
-			sampSendDialogResponse(3050, 1, 0, '')
+			sampSendDialogResponse(3040, 1, nil, nil)
+			sampSendDialogResponse(3050, 1, 0, nil)
 			sampSendDialogResponse(3060, 1, 0, elements.lavka.drugs.v..' '..elements.lavka.drugs_price.v)
 		end
 		if elements.lavka.materials.v ~= 0 then
-			sampSendDialogResponse(3040, 1, 0, '')
-			sampSendDialogResponse(3050, 1, 1, '')
+			sampSendDialogResponse(3040, 1, nil, nil)
+			sampSendDialogResponse(3050, 1, 1, nil)
 			sampSendDialogResponse(3060, 1, 0, elements.lavka.materials.v..' '..elements.lavka.materials_price.v)
 		end
 		if elements.lavka.fam_talon.v ~= 0 then
-			sampSendDialogResponse(3040, 1, 0, '')
-			sampSendDialogResponse(3050, 1, 12, '')
+			sampSendDialogResponse(3040, 1, nil, nil)
+			sampSendDialogResponse(3050, 1, 12, nil)
 			sampSendDialogResponse(3060, 1, 0, elements.lavka.fam_talon.v..' '..elements.lavka.fam_talon_price.v)
 		end
 		if elements.lavka.cherepa.v ~= 0 then
-			sampSendDialogResponse(3040, 1, 0, '')
-			sampSendDialogResponse(3050, 1, 18, '')
+			sampSendDialogResponse(3040, 1, nil, nil)
+			sampSendDialogResponse(3050, 1, 18, nil)
 			sampSendDialogResponse(3060, 1, 0, elements.lavka.cherepa.v..' '..elements.lavka.cherepa_price.v)
 		end
 		if elements.lavka.sale_talon.v ~= 0 then
-			sampSendDialogResponse(3040, 1, 0, '')
-			sampSendDialogResponse(3050, 1, 19, '')
-			sampSendDialogResponse(3050, 1, 4, '')
+			sampSendDialogResponse(3040, 1, nil, nil)
+			sampSendDialogResponse(3050, 1, 19, nil)
+			sampSendDialogResponse(3050, 1, 4, nil)
 			sampSendDialogResponse(3060, 1, 0, elements.lavka.sale_talon.v..' '..elements.lavka.sale_talon_price.v)
 		end
 		if elements.lavka.gift.v ~= 0 then
-			sampSendDialogResponse(3040, 1, 0, '')
-			sampSendDialogResponse(3050, 1, 19, '')
-			sampSendDialogResponse(3050, 1, 5, '')
+			sampSendDialogResponse(3040, 1, nil, nil)
+			sampSendDialogResponse(3050, 1, 19, nil)
+			sampSendDialogResponse(3050, 1, 5, nil)
 			sampSendDialogResponse(3060, 1, 0, elements.lavka.gift.v..' '..elements.lavka.gift_price.v)
 		end
 		if elements.lavka.cooper_roll.v ~= 0 then
-			sampSendDialogResponse(3040, 1, 0, '')
-			sampSendDialogResponse(3050, 1, 19, '')
-			sampSendDialogResponse(3050, 1, 8, '')
+			sampSendDialogResponse(3040, 1, nil, nil)
+			sampSendDialogResponse(3050, 1, 19, nil)
+			sampSendDialogResponse(3050, 1, 8, nil)
 			sampSendDialogResponse(3060, 1, 0, elements.lavka.cooper_roll.v..' '..elements.lavka.cooper_roll_price.v)
 		end
 		if elements.lavka.silver_roll.v ~= 0 then
-			sampSendDialogResponse(3040, 1, 0, '')
-			sampSendDialogResponse(3050, 1, 19, '')
-			sampSendDialogResponse(3050, 1, 9, '')
+			sampSendDialogResponse(3040, 1, nil, nil)
+			sampSendDialogResponse(3050, 1, 19, nil)
+			sampSendDialogResponse(3050, 1, 9, nil)
 			sampSendDialogResponse(3060, 1, 0, elements.lavka.silver_roll.v..' '..elements.lavka.silver_roll_price.v)
 		end
 		if elements.lavka.gold_roll.v ~= 0 then
-			sampSendDialogResponse(3040, 1, 0, '')
-			sampSendDialogResponse(3050, 1, 19, '')
-			sampSendDialogResponse(3050, 1, 10, '')
+			sampSendDialogResponse(3040, 1, nil, nil)
+			sampSendDialogResponse(3050, 1, 19, nil)
+			sampSendDialogResponse(3050, 1, 10, nil)
 			sampSendDialogResponse(3060, 1, 0, elements.lavka.gold_roll.v..' '..elements.lavka.gold_roll_price.v)
 		end
 		if elements.lavka.xlopok.v ~= 0 then
-			sampSendDialogResponse(3040, 1, 0, '')
-			sampSendDialogResponse(3050, 1, 19, '')
-			sampSendDialogResponse(3050, 1, 20, '')
-			sampSendDialogResponse(3050, 1, 2, '')
+			sampSendDialogResponse(3040, 1, nil, nil)
+			sampSendDialogResponse(3050, 1, 19, nil)
+			sampSendDialogResponse(3050, 1, 20, nil)
+			sampSendDialogResponse(3050, 1, 2, nil)
 			sampSendDialogResponse(3060, 1, 0, elements.lavka.xlopok.v..' '..elements.lavka.xlopok_price.v)
 		end
 		if elements.lavka.lens.v ~= 0 then
-			sampSendDialogResponse(3040, 1, 0, '')
-			sampSendDialogResponse(3050, 1, 19, '')
-			sampSendDialogResponse(3050, 1, 20, '')
-			sampSendDialogResponse(3050, 1, 3, '')
+			sampSendDialogResponse(3040, 1, nil, nil)
+			sampSendDialogResponse(3050, 1, 19, nil)
+			sampSendDialogResponse(3050, 1, 20, nil)
+			sampSendDialogResponse(3050, 1, 3, nil)
 			sampSendDialogResponse(3060, 1, 0, elements.lavka.lens.v..' '..elements.lavka.lens_price.v)
 		end
 		if elements.lavka.stone.v ~= 0 then
-			sampSendDialogResponse(3040, 1, 0, '')
-			sampSendDialogResponse(3050, 1, 19, '')
-			sampSendDialogResponse(3050, 1, 20, '')
-			sampSendDialogResponse(3050, 1, 4, '')
+			sampSendDialogResponse(3040, 1, nil, nil)
+			sampSendDialogResponse(3050, 1, 19, nil)
+			sampSendDialogResponse(3050, 1, 20, nil)
+			sampSendDialogResponse(3050, 1, 4, nil)
 			sampSendDialogResponse(3060, 1, 0, elements.lavka.stone.v..' '..elements.lavka.stone_price.v)
 		end
 		if elements.lavka.metal.v ~= 0 then
-			sampSendDialogResponse(3040, 1, 0, '')
-			sampSendDialogResponse(3050, 1, 19, '')
-			sampSendDialogResponse(3050, 1, 20, '')
-			sampSendDialogResponse(3050, 1, 5, '')
+			sampSendDialogResponse(3040, 1, nil, nil)
+			sampSendDialogResponse(3050, 1, 19, nil)
+			sampSendDialogResponse(3050, 1, 20, nil)
+			sampSendDialogResponse(3050, 1, 5, nil)
 			sampSendDialogResponse(3060, 1, 0, elements.lavka.metal.v..' '..elements.lavka.metal_price.v)
 		end
 		if elements.lavka.bronze.v ~= 0 then
-			sampSendDialogResponse(3040, 1, 0, '')
-			sampSendDialogResponse(3050, 1, 19, '')
-			sampSendDialogResponse(3050, 1, 20, '')
-			sampSendDialogResponse(3050, 1, 6, '')
+			sampSendDialogResponse(3040, 1, nil, nil)
+			sampSendDialogResponse(3050, 1, 19, nil)
+			sampSendDialogResponse(3050, 1, 20, nil)
+			sampSendDialogResponse(3050, 1, 6, nil)
 			sampSendDialogResponse(3060, 1, 0, elements.lavka.bronze.v..' '..elements.lavka.bronze_price.v)
 		end
 		if elements.lavka.silver.v ~= 0 then
-			sampSendDialogResponse(3040, 1, 0, '')
-			sampSendDialogResponse(3050, 1, 19, '')
-			sampSendDialogResponse(3050, 1, 20, '')
-			sampSendDialogResponse(3050, 1, 7, '')
+			sampSendDialogResponse(3040, 1, nil, nil)
+			sampSendDialogResponse(3050, 1, 19, nil)
+			sampSendDialogResponse(3050, 1, 20, nil)
+			sampSendDialogResponse(3050, 1, 7, nil)
 			sampSendDialogResponse(3060, 1, 0, elements.lavka.silver.v..' '..elements.lavka.silver_price.v)
 		end
 		if elements.lavka.gold.v ~= 0 then
-			sampSendDialogResponse(3040, 1, 0, '')
-			sampSendDialogResponse(3050, 1, 19, '')
-			sampSendDialogResponse(3050, 1, 20, '')
-			sampSendDialogResponse(3050, 1, 8, '')
+			sampSendDialogResponse(3040, 1, nil, nil)
+			sampSendDialogResponse(3050, 1, 19, nil)
+			sampSendDialogResponse(3050, 1, 20, nil)
+			sampSendDialogResponse(3050, 1, 8, nil)
 			sampSendDialogResponse(3060, 1, 0, elements.lavka.gold.v..' '..elements.lavka.gold_price.v)
 		end
 		if elements.lavka.alyminiu.v ~= 0 then
-			sampSendDialogResponse(3040, 1, 0, '')
-			sampSendDialogResponse(3050, 1, 19, '')
-			sampSendDialogResponse(3050, 1, 20, '')
-			sampSendDialogResponse(3050, 1, 20, '')
-			sampSendDialogResponse(3050, 1, 18, '')
+			sampSendDialogResponse(3040, 1, nil, nil)
+			sampSendDialogResponse(3050, 1, 19, nil)
+			sampSendDialogResponse(3050, 1, 20, nil)
+			sampSendDialogResponse(3050, 1, 20, nil)
+			sampSendDialogResponse(3050, 1, 18, nil)
 			sampSendDialogResponse(3060, 1, 0, elements.lavka.alyminiu.v..' '..elements.lavka.alyminiu_price.v)
 		end
 		if elements.lavka.tywka.v ~= 0 then
-			sampSendDialogResponse(3040, 1, 0, '')
-			sampSendDialogResponse(3050, 1, 19, '')
-			sampSendDialogResponse(3050, 1, 20, '')
-			sampSendDialogResponse(3050, 1, 20, '')
-			sampSendDialogResponse(3050, 1, 20, '')
-			sampSendDialogResponse(3050, 1, 20, '')
-			sampSendDialogResponse(3050, 1, 20, '')
-			sampSendDialogResponse(3050, 1, 20, '')
-			sampSendDialogResponse(3050, 1, 20, '')
-			sampSendDialogResponse(3050, 1, 12, '')
+			sampSendDialogResponse(3040, 1, nil, nil)
+			sampSendDialogResponse(3050, 1, 19, nil)
+			sampSendDialogResponse(3050, 1, 20, nil)
+			sampSendDialogResponse(3050, 1, 20, nil)
+			sampSendDialogResponse(3050, 1, 20, nil)
+			sampSendDialogResponse(3050, 1, 20, nil)
+			sampSendDialogResponse(3050, 1, 20, nil)
+			sampSendDialogResponse(3050, 1, 20, nil)
+			sampSendDialogResponse(3050, 1, 20, nil)
+			sampSendDialogResponse(3050, 1, 12, nil)
 			sampSendDialogResponse(3060, 1, 0, elements.lavka.tywka.v..' '..elements.lavka.tywka_price.v)
 		end
 		if elements.lavka.euro.v ~= 0 then
-			sampSendDialogResponse(3040, 1, 0, '')
-			sampSendDialogResponse(3050, 1, 19, '')
-			sampSendDialogResponse(3050, 1, 20, '')
-			sampSendDialogResponse(3050, 1, 20, '')
-			sampSendDialogResponse(3050, 1, 20, '')
-			sampSendDialogResponse(3050, 1, 20, '')
-			sampSendDialogResponse(3050, 1, 20, '')
-			sampSendDialogResponse(3050, 1, 20, '')
-			sampSendDialogResponse(3050, 1, 20, '')
-			sampSendDialogResponse(3050, 1, 20, '')
-			sampSendDialogResponse(3050, 1, 20, '')
-			sampSendDialogResponse(3050, 1, 20, '')
-			sampSendDialogResponse(3050, 1, 20, '')
-			sampSendDialogResponse(3050, 1, 20, '')
-			sampSendDialogResponse(3050, 1, 20, '')
-			sampSendDialogResponse(3050, 1, 20, '')
-			sampSendDialogResponse(3050, 1, 20, '')
-			sampSendDialogResponse(3050, 1, 4, '')
+			sampSendDialogResponse(3040, 1, nil, nil)
+			sampSendDialogResponse(3050, 1, 19, nil)
+			sampSendDialogResponse(3050, 1, 20, nil)
+			sampSendDialogResponse(3050, 1, 20, nil)
+			sampSendDialogResponse(3050, 1, 20, nil)
+			sampSendDialogResponse(3050, 1, 20, nil)
+			sampSendDialogResponse(3050, 1, 20, nil)
+			sampSendDialogResponse(3050, 1, 20, nil)
+			sampSendDialogResponse(3050, 1, 20, nil)
+			sampSendDialogResponse(3050, 1, 20, nil)
+			sampSendDialogResponse(3050, 1, 20, nil)
+			sampSendDialogResponse(3050, 1, 20, nil)
+			sampSendDialogResponse(3050, 1, 20, nil)
+			sampSendDialogResponse(3050, 1, 20, nil)
+			sampSendDialogResponse(3050, 1, 20, nil)
+			sampSendDialogResponse(3050, 1, 20, nil)
+			sampSendDialogResponse(3050, 1, 20, nil)
+			sampSendDialogResponse(3050, 1, 4, nil)
 			sampSendDialogResponse(3060, 1, 0, elements.lavka.euro.v..' '..elements.lavka.euro_price.v)
 		end
 		if elements.lavka.gr_talon.v ~= 0 then
-			sampSendDialogResponse(3040, 1, 0, '')
-			sampSendDialogResponse(3050, 1, 19, '')
-			sampSendDialogResponse(3050, 1, 20, '')
-			sampSendDialogResponse(3050, 1, 20, '')
-			sampSendDialogResponse(3050, 1, 20, '')
-			sampSendDialogResponse(3050, 1, 20, '')
-			sampSendDialogResponse(3050, 1, 20, '')
-			sampSendDialogResponse(3050, 1, 20, '')
-			sampSendDialogResponse(3050, 1, 20, '')
-			sampSendDialogResponse(3050, 1, 20, '')
-			sampSendDialogResponse(3050, 1, 20, '')
-			sampSendDialogResponse(3050, 1, 20, '')
-			sampSendDialogResponse(3050, 1, 20, '')
-			sampSendDialogResponse(3050, 1, 20, '')
-			sampSendDialogResponse(3050, 1, 20, '')
-			sampSendDialogResponse(3050, 1, 20, '')
-			sampSendDialogResponse(3050, 1, 20, '')
-			sampSendDialogResponse(3050, 1, 20, '')
-			sampSendDialogResponse(3050, 1, 20, '')
-			sampSendDialogResponse(3050, 1, 5, '')
+			sampSendDialogResponse(3040, 1, nil, nil)
+			sampSendDialogResponse(3050, 1, 19, nil)
+			sampSendDialogResponse(3050, 1, 20, nil)
+			sampSendDialogResponse(3050, 1, 20, nil)
+			sampSendDialogResponse(3050, 1, 20, nil)
+			sampSendDialogResponse(3050, 1, 20, nil)
+			sampSendDialogResponse(3050, 1, 20, nil)
+			sampSendDialogResponse(3050, 1, 20, nil)
+			sampSendDialogResponse(3050, 1, 20, nil)
+			sampSendDialogResponse(3050, 1, 20, nil)
+			sampSendDialogResponse(3050, 1, 20, nil)
+			sampSendDialogResponse(3050, 1, 20, nil)
+			sampSendDialogResponse(3050, 1, 20, nil)
+			sampSendDialogResponse(3050, 1, 20, nil)
+			sampSendDialogResponse(3050, 1, 20, nil)
+			sampSendDialogResponse(3050, 1, 20, nil)
+			sampSendDialogResponse(3050, 1, 20, nil)
+			sampSendDialogResponse(3050, 1, 20, nil)
+			sampSendDialogResponse(3050, 1, 20, nil)
+			sampSendDialogResponse(3050, 1, 5, nil)
 			sampSendDialogResponse(3060, 1, 0, elements.lavka.gr_talon.v..' '..elements.lavka.gr_talon_price.v)
 		end
 		if elements.lavka.antibiotiki.v ~= 0 then
-			sampSendDialogResponse(3040, 1, 0, '')
-			sampSendDialogResponse(3050, 1, 19, '')
-			sampSendDialogResponse(3050, 1, 20, '')
-			sampSendDialogResponse(3050, 1, 20, '')
-			sampSendDialogResponse(3050, 1, 20, '')
-			sampSendDialogResponse(3050, 1, 20, '')
-			sampSendDialogResponse(3050, 1, 20, '')
-			sampSendDialogResponse(3050, 1, 20, '')
-			sampSendDialogResponse(3050, 1, 20, '')
-			sampSendDialogResponse(3050, 1, 20, '')
-			sampSendDialogResponse(3050, 1, 20, '')
-			sampSendDialogResponse(3050, 1, 20, '')
-			sampSendDialogResponse(3050, 1, 20, '')
-			sampSendDialogResponse(3050, 1, 20, '')
-			sampSendDialogResponse(3050, 1, 20, '')
-			sampSendDialogResponse(3050, 1, 20, '')
-			sampSendDialogResponse(3050, 1, 20, '')
-			sampSendDialogResponse(3050, 1, 20, '')
-			sampSendDialogResponse(3050, 1, 20, '')
-			sampSendDialogResponse(3050, 1, 6, '')
+			sampSendDialogResponse(3040, 1, nil, nil)
+			sampSendDialogResponse(3050, 1, 19, nil)
+			sampSendDialogResponse(3050, 1, 20, nil)
+			sampSendDialogResponse(3050, 1, 20, nil)
+			sampSendDialogResponse(3050, 1, 20, nil)
+			sampSendDialogResponse(3050, 1, 20, nil)
+			sampSendDialogResponse(3050, 1, 20, nil)
+			sampSendDialogResponse(3050, 1, 20, nil)
+			sampSendDialogResponse(3050, 1, 20, nil)
+			sampSendDialogResponse(3050, 1, 20, nil)
+			sampSendDialogResponse(3050, 1, 20, nil)
+			sampSendDialogResponse(3050, 1, 20, nil)
+			sampSendDialogResponse(3050, 1, 20, nil)
+			sampSendDialogResponse(3050, 1, 20, nil)
+			sampSendDialogResponse(3050, 1, 20, nil)
+			sampSendDialogResponse(3050, 1, 20, nil)
+			sampSendDialogResponse(3050, 1, 20, nil)
+			sampSendDialogResponse(3050, 1, 20, nil)
+			sampSendDialogResponse(3050, 1, 20, nil)
+			sampSendDialogResponse(3050, 1, 6, nil)
 			sampSendDialogResponse(3060, 1, 0, elements.lavka.antibiotiki.v..' '..elements.lavka.antibiotiki_price.v)
 		end
 		if elements.lavka.prison.v ~= 0 then
-			sampSendDialogResponse(3040, 1, 0, '')
-			sampSendDialogResponse(3050, 1, 19, '')
-			sampSendDialogResponse(3050, 1, 20, '')
-			sampSendDialogResponse(3050, 1, 20, '')
-			sampSendDialogResponse(3050, 1, 20, '')
-			sampSendDialogResponse(3050, 1, 20, '')
-			sampSendDialogResponse(3050, 1, 20, '')
-			sampSendDialogResponse(3050, 1, 20, '')
-			sampSendDialogResponse(3050, 1, 20, '')
-			sampSendDialogResponse(3050, 1, 20, '')
-			sampSendDialogResponse(3050, 1, 20, '')
-			sampSendDialogResponse(3050, 1, 20, '')
-			sampSendDialogResponse(3050, 1, 20, '')
-			sampSendDialogResponse(3050, 1, 20, '')
-			sampSendDialogResponse(3050, 1, 20, '')
-			sampSendDialogResponse(3050, 1, 20, '')
-			sampSendDialogResponse(3050, 1, 20, '')
-			sampSendDialogResponse(3050, 1, 20, '')
-			sampSendDialogResponse(3050, 1, 20, '')
-			sampSendDialogResponse(3050, 1, 7, '')
+			sampSendDialogResponse(3040, 1, nil, nil)
+			sampSendDialogResponse(3050, 1, 19, nil)
+			sampSendDialogResponse(3050, 1, 20, nil)
+			sampSendDialogResponse(3050, 1, 20, nil)
+			sampSendDialogResponse(3050, 1, 20, nil)
+			sampSendDialogResponse(3050, 1, 20, nil)
+			sampSendDialogResponse(3050, 1, 20, nil)
+			sampSendDialogResponse(3050, 1, 20, nil)
+			sampSendDialogResponse(3050, 1, 20, nil)
+			sampSendDialogResponse(3050, 1, 20, nil)
+			sampSendDialogResponse(3050, 1, 20, nil)
+			sampSendDialogResponse(3050, 1, 20, nil)
+			sampSendDialogResponse(3050, 1, 20, nil)
+			sampSendDialogResponse(3050, 1, 20, nil)
+			sampSendDialogResponse(3050, 1, 20, nil)
+			sampSendDialogResponse(3050, 1, 20, nil)
+			sampSendDialogResponse(3050, 1, 20, nil)
+			sampSendDialogResponse(3050, 1, 20, nil)
+			sampSendDialogResponse(3050, 1, 20, nil)
+			sampSendDialogResponse(3050, 1, 7, nil)
 			sampSendDialogResponse(3060, 1, 0, elements.lavka.prison.v..' '..elements.lavka.prison_price.v)
 		end
 		if elements.lavka.zlov_moneta.v ~= 0 then
-			sampSendDialogResponse(3040, 1, 0, '')
-			sampSendDialogResponse(3050, 1, 19, '')
-			sampSendDialogResponse(3050, 1, 20, '')
-			sampSendDialogResponse(3050, 1, 20, '')
-			sampSendDialogResponse(3050, 1, 20, '')
-			sampSendDialogResponse(3050, 1, 20, '')
-			sampSendDialogResponse(3050, 1, 20, '')
-			sampSendDialogResponse(3050, 1, 20, '')
-			sampSendDialogResponse(3050, 1, 20, '')
-			sampSendDialogResponse(3050, 1, 20, '')
-			sampSendDialogResponse(3050, 1, 20, '')
-			sampSendDialogResponse(3050, 1, 20, '')
-			sampSendDialogResponse(3050, 1, 20, '')
-			sampSendDialogResponse(3050, 1, 20, '')
-			sampSendDialogResponse(3050, 1, 20, '')
-			sampSendDialogResponse(3050, 1, 20, '')
-			sampSendDialogResponse(3050, 1, 20, '')
-			sampSendDialogResponse(3050, 1, 20, '')
-			sampSendDialogResponse(3050, 1, 20, '')
-			sampSendDialogResponse(3050, 1, 20, '')
-			sampSendDialogResponse(3050, 1, 17, '')
+			sampSendDialogResponse(3040, 1, nil, nil)
+			sampSendDialogResponse(3050, 1, 19, nil)
+			sampSendDialogResponse(3050, 1, 20, nil)
+			sampSendDialogResponse(3050, 1, 20, nil)
+			sampSendDialogResponse(3050, 1, 20, nil)
+			sampSendDialogResponse(3050, 1, 20, nil)
+			sampSendDialogResponse(3050, 1, 20, nil)
+			sampSendDialogResponse(3050, 1, 20, nil)
+			sampSendDialogResponse(3050, 1, 20, nil)
+			sampSendDialogResponse(3050, 1, 20, nil)
+			sampSendDialogResponse(3050, 1, 20, nil)
+			sampSendDialogResponse(3050, 1, 20, nil)
+			sampSendDialogResponse(3050, 1, 20, nil)
+			sampSendDialogResponse(3050, 1, 20, nil)
+			sampSendDialogResponse(3050, 1, 20, nil)
+			sampSendDialogResponse(3050, 1, 20, nil)
+			sampSendDialogResponse(3050, 1, 20, nil)
+			sampSendDialogResponse(3050, 1, 20, nil)
+			sampSendDialogResponse(3050, 1, 20, nil)
+			sampSendDialogResponse(3050, 1, 20, nil)
+			sampSendDialogResponse(3050, 1, 17, nil)
 			sampSendDialogResponse(3060, 1, 0, elements.lavka.zlov_moneta.v..' '..elements.lavka.zlov_moneta_price.v)
 		end
 		if elements.lavka.toch_stone.v ~= 0 then
-			sampSendDialogResponse(3040, 1, 0, '')
-			sampSendDialogResponse(3050, 1, 19, '')
-			sampSendDialogResponse(3050, 1, 20, '')
-			sampSendDialogResponse(3050, 1, 20, '')
-			sampSendDialogResponse(3050, 1, 20, '')
-			sampSendDialogResponse(3050, 1, 20, '')
-			sampSendDialogResponse(3050, 1, 20, '')
-			sampSendDialogResponse(3050, 1, 20, '')
-			sampSendDialogResponse(3050, 1, 20, '')
-			sampSendDialogResponse(3050, 1, 20, '')
-			sampSendDialogResponse(3050, 1, 20, '')
-			sampSendDialogResponse(3050, 1, 20, '')
-			sampSendDialogResponse(3050, 1, 20, '')
-			sampSendDialogResponse(3050, 1, 20, '')
-			sampSendDialogResponse(3050, 1, 20, '')
-			sampSendDialogResponse(3050, 1, 20, '')
-			sampSendDialogResponse(3050, 1, 20, '')
-			sampSendDialogResponse(3050, 1, 20, '')
-			sampSendDialogResponse(3050, 1, 20, '')
-			sampSendDialogResponse(3050, 1, 20, '')
-			sampSendDialogResponse(3050, 1, 18, '')
+			sampSendDialogResponse(3040, 1, nil, nil)
+			sampSendDialogResponse(3050, 1, 19, nil)
+			sampSendDialogResponse(3050, 1, 20, nil)
+			sampSendDialogResponse(3050, 1, 20, nil)
+			sampSendDialogResponse(3050, 1, 20, nil)
+			sampSendDialogResponse(3050, 1, 20, nil)
+			sampSendDialogResponse(3050, 1, 20, nil)
+			sampSendDialogResponse(3050, 1, 20, nil)
+			sampSendDialogResponse(3050, 1, 20, nil)
+			sampSendDialogResponse(3050, 1, 20, nil)
+			sampSendDialogResponse(3050, 1, 20, nil)
+			sampSendDialogResponse(3050, 1, 20, nil)
+			sampSendDialogResponse(3050, 1, 20, nil)
+			sampSendDialogResponse(3050, 1, 20, nil)
+			sampSendDialogResponse(3050, 1, 20, nil)
+			sampSendDialogResponse(3050, 1, 20, nil)
+			sampSendDialogResponse(3050, 1, 20, nil)
+			sampSendDialogResponse(3050, 1, 20, nil)
+			sampSendDialogResponse(3050, 1, 20, nil)
+			sampSendDialogResponse(3050, 1, 20, nil)
+			sampSendDialogResponse(3050, 1, 18, nil)
 			sampSendDialogResponse(3060, 1, 0, elements.lavka.toch_stone.v..' '..elements.lavka.toch_stone_price.v)
 		end
 		if elements.lavka.bilet_6.v ~= 0 then
-			sampSendDialogResponse(3040, 1, 0, '')
-			sampSendDialogResponse(3050, 1, 19, '')
-			sampSendDialogResponse(3050, 1, 20, '')
-			sampSendDialogResponse(3050, 1, 20, '')
-			sampSendDialogResponse(3050, 1, 20, '')
-			sampSendDialogResponse(3050, 1, 20, '')
-			sampSendDialogResponse(3050, 1, 20, '')
-			sampSendDialogResponse(3050, 1, 20, '')
-			sampSendDialogResponse(3050, 1, 20, '')
-			sampSendDialogResponse(3050, 1, 20, '')
-			sampSendDialogResponse(3050, 1, 20, '')
-			sampSendDialogResponse(3050, 1, 20, '')
-			sampSendDialogResponse(3050, 1, 20, '')
-			sampSendDialogResponse(3050, 1, 20, '')
-			sampSendDialogResponse(3050, 1, 20, '')
-			sampSendDialogResponse(3050, 1, 20, '')
-			sampSendDialogResponse(3050, 1, 20, '')
-			sampSendDialogResponse(3050, 1, 20, '')
-			sampSendDialogResponse(3050, 1, 20, '')
-			sampSendDialogResponse(3050, 1, 20, '')
-			sampSendDialogResponse(3050, 1, 20, '')
-			sampSendDialogResponse(3050, 1, 3, '')
+			sampSendDialogResponse(3040, 1, nil, nil)
+			sampSendDialogResponse(3050, 1, 19, nil)
+			sampSendDialogResponse(3050, 1, 20, nil)
+			sampSendDialogResponse(3050, 1, 20, nil)
+			sampSendDialogResponse(3050, 1, 20, nil)
+			sampSendDialogResponse(3050, 1, 20, nil)
+			sampSendDialogResponse(3050, 1, 20, nil)
+			sampSendDialogResponse(3050, 1, 20, nil)
+			sampSendDialogResponse(3050, 1, 20, nil)
+			sampSendDialogResponse(3050, 1, 20, nil)
+			sampSendDialogResponse(3050, 1, 20, nil)
+			sampSendDialogResponse(3050, 1, 20, nil)
+			sampSendDialogResponse(3050, 1, 20, nil)
+			sampSendDialogResponse(3050, 1, 20, nil)
+			sampSendDialogResponse(3050, 1, 20, nil)
+			sampSendDialogResponse(3050, 1, 20, nil)
+			sampSendDialogResponse(3050, 1, 20, nil)
+			sampSendDialogResponse(3050, 1, 20, nil)
+			sampSendDialogResponse(3050, 1, 20, nil)
+			sampSendDialogResponse(3050, 1, 20, nil)
+			sampSendDialogResponse(3050, 1, 20, nil)
+			sampSendDialogResponse(3050, 1, 3, nil)
 			sampSendDialogResponse(3060, 1, 0, elements.lavka.bilet_6.v..' '..elements.lavka.bilet_6_price.v)
 		end
 		if elements.lavka.sticker_cluck.v ~= 0 then
-			sampSendDialogResponse(3040, 1, 0, '')
-			sampSendDialogResponse(3050, 1, 19, '')
-			sampSendDialogResponse(3050, 1, 20, '')
-			sampSendDialogResponse(3050, 1, 20, '')
-			sampSendDialogResponse(3050, 1, 20, '')
-			sampSendDialogResponse(3050, 1, 20, '')
-			sampSendDialogResponse(3050, 1, 20, '')
-			sampSendDialogResponse(3050, 1, 20, '')
-			sampSendDialogResponse(3050, 1, 20, '')
-			sampSendDialogResponse(3050, 1, 20, '')
-			sampSendDialogResponse(3050, 1, 20, '')
-			sampSendDialogResponse(3050, 1, 20, '')
-			sampSendDialogResponse(3050, 1, 20, '')
-			sampSendDialogResponse(3050, 1, 20, '')
-			sampSendDialogResponse(3050, 1, 20, '')
-			sampSendDialogResponse(3050, 1, 20, '')
-			sampSendDialogResponse(3050, 1, 20, '')
-			sampSendDialogResponse(3050, 1, 20, '')
-			sampSendDialogResponse(3050, 1, 20, '')
-			sampSendDialogResponse(3050, 1, 20, '')
-			sampSendDialogResponse(3050, 1, 20, '')
-			sampSendDialogResponse(3050, 1, 4, '')
+			sampSendDialogResponse(3040, 1, nil, nil)
+			sampSendDialogResponse(3050, 1, 19, nil)
+			sampSendDialogResponse(3050, 1, 20, nil)
+			sampSendDialogResponse(3050, 1, 20, nil)
+			sampSendDialogResponse(3050, 1, 20, nil)
+			sampSendDialogResponse(3050, 1, 20, nil)
+			sampSendDialogResponse(3050, 1, 20, nil)
+			sampSendDialogResponse(3050, 1, 20, nil)
+			sampSendDialogResponse(3050, 1, 20, nil)
+			sampSendDialogResponse(3050, 1, 20, nil)
+			sampSendDialogResponse(3050, 1, 20, nil)
+			sampSendDialogResponse(3050, 1, 20, nil)
+			sampSendDialogResponse(3050, 1, 20, nil)
+			sampSendDialogResponse(3050, 1, 20, nil)
+			sampSendDialogResponse(3050, 1, 20, nil)
+			sampSendDialogResponse(3050, 1, 20, nil)
+			sampSendDialogResponse(3050, 1, 20, nil)
+			sampSendDialogResponse(3050, 1, 20, nil)
+			sampSendDialogResponse(3050, 1, 20, nil)
+			sampSendDialogResponse(3050, 1, 20, nil)
+			sampSendDialogResponse(3050, 1, 20, nil)
+			sampSendDialogResponse(3050, 1, 4, nil)
 			sampSendDialogResponse(3060, 1, 0, elements.lavka.sticker_cluck.v..' '..elements.lavka.sticker_cluck_price.v)
 		end
 		if elements.lavka.sticker_binko.v ~= 0 then
-			sampSendDialogResponse(3040, 1, 0, '')
-			sampSendDialogResponse(3050, 1, 19, '')
-			sampSendDialogResponse(3050, 1, 20, '')
-			sampSendDialogResponse(3050, 1, 20, '')
-			sampSendDialogResponse(3050, 1, 20, '')
-			sampSendDialogResponse(3050, 1, 20, '')
-			sampSendDialogResponse(3050, 1, 20, '')
-			sampSendDialogResponse(3050, 1, 20, '')
-			sampSendDialogResponse(3050, 1, 20, '')
-			sampSendDialogResponse(3050, 1, 20, '')
-			sampSendDialogResponse(3050, 1, 20, '')
-			sampSendDialogResponse(3050, 1, 20, '')
-			sampSendDialogResponse(3050, 1, 20, '')
-			sampSendDialogResponse(3050, 1, 20, '')
-			sampSendDialogResponse(3050, 1, 20, '')
-			sampSendDialogResponse(3050, 1, 20, '')
-			sampSendDialogResponse(3050, 1, 20, '')
-			sampSendDialogResponse(3050, 1, 20, '')
-			sampSendDialogResponse(3050, 1, 20, '')
-			sampSendDialogResponse(3050, 1, 20, '')
-			sampSendDialogResponse(3050, 1, 20, '')
-			sampSendDialogResponse(3050, 1, 8, '')
+			sampSendDialogResponse(3040, 1, nil, nil)
+			sampSendDialogResponse(3050, 1, 19, nil)
+			sampSendDialogResponse(3050, 1, 20, nil)
+			sampSendDialogResponse(3050, 1, 20, nil)
+			sampSendDialogResponse(3050, 1, 20, nil)
+			sampSendDialogResponse(3050, 1, 20, nil)
+			sampSendDialogResponse(3050, 1, 20, nil)
+			sampSendDialogResponse(3050, 1, 20, nil)
+			sampSendDialogResponse(3050, 1, 20, nil)
+			sampSendDialogResponse(3050, 1, 20, nil)
+			sampSendDialogResponse(3050, 1, 20, nil)
+			sampSendDialogResponse(3050, 1, 20, nil)
+			sampSendDialogResponse(3050, 1, 20, nil)
+			sampSendDialogResponse(3050, 1, 20, nil)
+			sampSendDialogResponse(3050, 1, 20, nil)
+			sampSendDialogResponse(3050, 1, 20, nil)
+			sampSendDialogResponse(3050, 1, 20, nil)
+			sampSendDialogResponse(3050, 1, 20, nil)
+			sampSendDialogResponse(3050, 1, 20, nil)
+			sampSendDialogResponse(3050, 1, 20, nil)
+			sampSendDialogResponse(3050, 1, 20, nil)
+			sampSendDialogResponse(3050, 1, 8, nil)
 			sampSendDialogResponse(3060, 1, 0, elements.lavka.sticker_binko.v..' '..elements.lavka.sticker_binko_price.v)
 		end
 		if elements.lavka.sticker_jizzy.v ~= 0 then
-			sampSendDialogResponse(3040, 1, 0, '')
-			sampSendDialogResponse(3050, 1, 19, '')
-			sampSendDialogResponse(3050, 1, 20, '')
-			sampSendDialogResponse(3050, 1, 20, '')
-			sampSendDialogResponse(3050, 1, 20, '')
-			sampSendDialogResponse(3050, 1, 20, '')
-			sampSendDialogResponse(3050, 1, 20, '')
-			sampSendDialogResponse(3050, 1, 20, '')
-			sampSendDialogResponse(3050, 1, 20, '')
-			sampSendDialogResponse(3050, 1, 20, '')
-			sampSendDialogResponse(3050, 1, 20, '')
-			sampSendDialogResponse(3050, 1, 20, '')
-			sampSendDialogResponse(3050, 1, 20, '')
-			sampSendDialogResponse(3050, 1, 20, '')
-			sampSendDialogResponse(3050, 1, 20, '')
-			sampSendDialogResponse(3050, 1, 20, '')
-			sampSendDialogResponse(3050, 1, 20, '')
-			sampSendDialogResponse(3050, 1, 20, '')
-			sampSendDialogResponse(3050, 1, 20, '')
-			sampSendDialogResponse(3050, 1, 20, '')
-			sampSendDialogResponse(3050, 1, 20, '')
-			sampSendDialogResponse(3050, 1, 9, '')
+			sampSendDialogResponse(3040, 1, nil, nil)
+			sampSendDialogResponse(3050, 1, 19, nil)
+			sampSendDialogResponse(3050, 1, 20, nil)
+			sampSendDialogResponse(3050, 1, 20, nil)
+			sampSendDialogResponse(3050, 1, 20, nil)
+			sampSendDialogResponse(3050, 1, 20, nil)
+			sampSendDialogResponse(3050, 1, 20, nil)
+			sampSendDialogResponse(3050, 1, 20, nil)
+			sampSendDialogResponse(3050, 1, 20, nil)
+			sampSendDialogResponse(3050, 1, 20, nil)
+			sampSendDialogResponse(3050, 1, 20, nil)
+			sampSendDialogResponse(3050, 1, 20, nil)
+			sampSendDialogResponse(3050, 1, 20, nil)
+			sampSendDialogResponse(3050, 1, 20, nil)
+			sampSendDialogResponse(3050, 1, 20, nil)
+			sampSendDialogResponse(3050, 1, 20, nil)
+			sampSendDialogResponse(3050, 1, 20, nil)
+			sampSendDialogResponse(3050, 1, 20, nil)
+			sampSendDialogResponse(3050, 1, 20, nil)
+			sampSendDialogResponse(3050, 1, 20, nil)
+			sampSendDialogResponse(3050, 1, 20, nil)
+			sampSendDialogResponse(3050, 1, 9, nil)
 			sampSendDialogResponse(3060, 1, 0, elements.lavka.sticker_jizzy.v..' '..elements.lavka.sticker_jizzy_price.v)
 		end
 		if elements.lavka.platinum_roll.v ~= 0 then
-			sampSendDialogResponse(3040, 1, 0, '')
-			sampSendDialogResponse(3050, 1, 19, '')
-			sampSendDialogResponse(3050, 1, 20, '')
-			sampSendDialogResponse(3050, 1, 20, '')
-			sampSendDialogResponse(3050, 1, 20, '')
-			sampSendDialogResponse(3050, 1, 20, '')
-			sampSendDialogResponse(3050, 1, 20, '')
-			sampSendDialogResponse(3050, 1, 20, '')
-			sampSendDialogResponse(3050, 1, 20, '')
-			sampSendDialogResponse(3050, 1, 20, '')
-			sampSendDialogResponse(3050, 1, 20, '')
-			sampSendDialogResponse(3050, 1, 20, '')
-			sampSendDialogResponse(3050, 1, 20, '')
-			sampSendDialogResponse(3050, 1, 20, '')
-			sampSendDialogResponse(3050, 1, 20, '')
-			sampSendDialogResponse(3050, 1, 20, '')
-			sampSendDialogResponse(3050, 1, 20, '')
-			sampSendDialogResponse(3050, 1, 20, '')
-			sampSendDialogResponse(3050, 1, 20, '')
-			sampSendDialogResponse(3050, 1, 20, '')
-			sampSendDialogResponse(3050, 1, 20, '')
-			sampSendDialogResponse(3050, 1, 10, '')
+			sampSendDialogResponse(3040, 1, nil, nil)
+			sampSendDialogResponse(3050, 1, 19, nil)
+			sampSendDialogResponse(3050, 1, 20, nil)
+			sampSendDialogResponse(3050, 1, 20, nil)
+			sampSendDialogResponse(3050, 1, 20, nil)
+			sampSendDialogResponse(3050, 1, 20, nil)
+			sampSendDialogResponse(3050, 1, 20, nil)
+			sampSendDialogResponse(3050, 1, 20, nil)
+			sampSendDialogResponse(3050, 1, 20, nil)
+			sampSendDialogResponse(3050, 1, 20, nil)
+			sampSendDialogResponse(3050, 1, 20, nil)
+			sampSendDialogResponse(3050, 1, 20, nil)
+			sampSendDialogResponse(3050, 1, 20, nil)
+			sampSendDialogResponse(3050, 1, 20, nil)
+			sampSendDialogResponse(3050, 1, 20, nil)
+			sampSendDialogResponse(3050, 1, 20, nil)
+			sampSendDialogResponse(3050, 1, 20, nil)
+			sampSendDialogResponse(3050, 1, 20, nil)
+			sampSendDialogResponse(3050, 1, 20, nil)
+			sampSendDialogResponse(3050, 1, 20, nil)
+			sampSendDialogResponse(3050, 1, 20, nil)
+			sampSendDialogResponse(3050, 1, 10, nil)
 			sampSendDialogResponse(3060, 1, 0, elements.lavka.platinum_roll.v..' '..elements.lavka.platinum_roll_price.v)
 		end
 		if elements.lavka.rare_yellow.v ~= 0 then
-			sampSendDialogResponse(3040, 1, 0, '')
-			sampSendDialogResponse(3050, 1, 19, '')
-			sampSendDialogResponse(3050, 1, 20, '')
-			sampSendDialogResponse(3050, 1, 20, '')
-			sampSendDialogResponse(3050, 1, 20, '')
-			sampSendDialogResponse(3050, 1, 20, '')
-			sampSendDialogResponse(3050, 1, 20, '')
-			sampSendDialogResponse(3050, 1, 20, '')
-			sampSendDialogResponse(3050, 1, 20, '')
-			sampSendDialogResponse(3050, 1, 20, '')
-			sampSendDialogResponse(3050, 1, 20, '')
-			sampSendDialogResponse(3050, 1, 20, '')
-			sampSendDialogResponse(3050, 1, 20, '')
-			sampSendDialogResponse(3050, 1, 20, '')
-			sampSendDialogResponse(3050, 1, 20, '')
-			sampSendDialogResponse(3050, 1, 20, '')
-			sampSendDialogResponse(3050, 1, 20, '')
-			sampSendDialogResponse(3050, 1, 20, '')
-			sampSendDialogResponse(3050, 1, 20, '')
-			sampSendDialogResponse(3050, 1, 20, '')
-			sampSendDialogResponse(3050, 1, 20, '')
-			sampSendDialogResponse(3050, 1, 20, '')
-			sampSendDialogResponse(3050, 1, 20, '')
-			sampSendDialogResponse(3050, 1, 8, '')
+			sampSendDialogResponse(3040, 1, nil, nil)
+			sampSendDialogResponse(3050, 1, 19, nil)
+			sampSendDialogResponse(3050, 1, 20, nil)
+			sampSendDialogResponse(3050, 1, 20, nil)
+			sampSendDialogResponse(3050, 1, 20, nil)
+			sampSendDialogResponse(3050, 1, 20, nil)
+			sampSendDialogResponse(3050, 1, 20, nil)
+			sampSendDialogResponse(3050, 1, 20, nil)
+			sampSendDialogResponse(3050, 1, 20, nil)
+			sampSendDialogResponse(3050, 1, 20, nil)
+			sampSendDialogResponse(3050, 1, 20, nil)
+			sampSendDialogResponse(3050, 1, 20, nil)
+			sampSendDialogResponse(3050, 1, 20, nil)
+			sampSendDialogResponse(3050, 1, 20, nil)
+			sampSendDialogResponse(3050, 1, 20, nil)
+			sampSendDialogResponse(3050, 1, 20, nil)
+			sampSendDialogResponse(3050, 1, 20, nil)
+			sampSendDialogResponse(3050, 1, 20, nil)
+			sampSendDialogResponse(3050, 1, 20, nil)
+			sampSendDialogResponse(3050, 1, 20, nil)
+			sampSendDialogResponse(3050, 1, 20, nil)
+			sampSendDialogResponse(3050, 1, 20, nil)
+			sampSendDialogResponse(3050, 1, 20, nil)
+			sampSendDialogResponse(3050, 1, 8, nil)
 			sampSendDialogResponse(3060, 1, 0, elements.lavka.rare_yellow.v..' '..elements.lavka.rare_yellow_price.v)
 		end
 		if elements.lavka.rare_red.v ~= 0 then
-			sampSendDialogResponse(3040, 1, 0, '')
-			sampSendDialogResponse(3050, 1, 19, '')
-			sampSendDialogResponse(3050, 1, 20, '')
-			sampSendDialogResponse(3050, 1, 20, '')
-			sampSendDialogResponse(3050, 1, 20, '')
-			sampSendDialogResponse(3050, 1, 20, '')
-			sampSendDialogResponse(3050, 1, 20, '')
-			sampSendDialogResponse(3050, 1, 20, '')
-			sampSendDialogResponse(3050, 1, 20, '')
-			sampSendDialogResponse(3050, 1, 20, '')
-			sampSendDialogResponse(3050, 1, 20, '')
-			sampSendDialogResponse(3050, 1, 20, '')
-			sampSendDialogResponse(3050, 1, 20, '')
-			sampSendDialogResponse(3050, 1, 20, '')
-			sampSendDialogResponse(3050, 1, 20, '')
-			sampSendDialogResponse(3050, 1, 20, '')
-			sampSendDialogResponse(3050, 1, 20, '')
-			sampSendDialogResponse(3050, 1, 20, '')
-			sampSendDialogResponse(3050, 1, 20, '')
-			sampSendDialogResponse(3050, 1, 20, '')
-			sampSendDialogResponse(3050, 1, 20, '')
-			sampSendDialogResponse(3050, 1, 20, '')
-			sampSendDialogResponse(3050, 1, 20, '')
-			sampSendDialogResponse(3050, 1, 9, '')
+			sampSendDialogResponse(3040, 1, nil, nil)
+			sampSendDialogResponse(3050, 1, 19, nil)
+			sampSendDialogResponse(3050, 1, 20, nil)
+			sampSendDialogResponse(3050, 1, 20, nil)
+			sampSendDialogResponse(3050, 1, 20, nil)
+			sampSendDialogResponse(3050, 1, 20, nil)
+			sampSendDialogResponse(3050, 1, 20, nil)
+			sampSendDialogResponse(3050, 1, 20, nil)
+			sampSendDialogResponse(3050, 1, 20, nil)
+			sampSendDialogResponse(3050, 1, 20, nil)
+			sampSendDialogResponse(3050, 1, 20, nil)
+			sampSendDialogResponse(3050, 1, 20, nil)
+			sampSendDialogResponse(3050, 1, 20, nil)
+			sampSendDialogResponse(3050, 1, 20, nil)
+			sampSendDialogResponse(3050, 1, 20, nil)
+			sampSendDialogResponse(3050, 1, 20, nil)
+			sampSendDialogResponse(3050, 1, 20, nil)
+			sampSendDialogResponse(3050, 1, 20, nil)
+			sampSendDialogResponse(3050, 1, 20, nil)
+			sampSendDialogResponse(3050, 1, 20, nil)
+			sampSendDialogResponse(3050, 1, 20, nil)
+			sampSendDialogResponse(3050, 1, 20, nil)
+			sampSendDialogResponse(3050, 1, 20, nil)
+			sampSendDialogResponse(3050, 1, 9, nil)
 			sampSendDialogResponse(3060, 1, 0, elements.lavka.rare_red.v..' '..elements.lavka.rare_red_price.v)
 		end
 		if elements.lavka.rare_blue.v ~= 0 then
-			sampSendDialogResponse(3040, 1, 0, '')
-			sampSendDialogResponse(3050, 1, 19, '')
-			sampSendDialogResponse(3050, 1, 20, '')
-			sampSendDialogResponse(3050, 1, 20, '')
-			sampSendDialogResponse(3050, 1, 20, '')
-			sampSendDialogResponse(3050, 1, 20, '')
-			sampSendDialogResponse(3050, 1, 20, '')
-			sampSendDialogResponse(3050, 1, 20, '')
-			sampSendDialogResponse(3050, 1, 20, '')
-			sampSendDialogResponse(3050, 1, 20, '')
-			sampSendDialogResponse(3050, 1, 20, '')
-			sampSendDialogResponse(3050, 1, 20, '')
-			sampSendDialogResponse(3050, 1, 20, '')
-			sampSendDialogResponse(3050, 1, 20, '')
-			sampSendDialogResponse(3050, 1, 20, '')
-			sampSendDialogResponse(3050, 1, 20, '')
-			sampSendDialogResponse(3050, 1, 20, '')
-			sampSendDialogResponse(3050, 1, 20, '')
-			sampSendDialogResponse(3050, 1, 20, '')
-			sampSendDialogResponse(3050, 1, 20, '')
-			sampSendDialogResponse(3050, 1, 20, '')
-			sampSendDialogResponse(3050, 1, 20, '')
-			sampSendDialogResponse(3050, 1, 20, '')
-			sampSendDialogResponse(3050, 1, 10, '')
+			sampSendDialogResponse(3040, 1, nil, nil)
+			sampSendDialogResponse(3050, 1, 19, nil)
+			sampSendDialogResponse(3050, 1, 20, nil)
+			sampSendDialogResponse(3050, 1, 20, nil)
+			sampSendDialogResponse(3050, 1, 20, nil)
+			sampSendDialogResponse(3050, 1, 20, nil)
+			sampSendDialogResponse(3050, 1, 20, nil)
+			sampSendDialogResponse(3050, 1, 20, nil)
+			sampSendDialogResponse(3050, 1, 20, nil)
+			sampSendDialogResponse(3050, 1, 20, nil)
+			sampSendDialogResponse(3050, 1, 20, nil)
+			sampSendDialogResponse(3050, 1, 20, nil)
+			sampSendDialogResponse(3050, 1, 20, nil)
+			sampSendDialogResponse(3050, 1, 20, nil)
+			sampSendDialogResponse(3050, 1, 20, nil)
+			sampSendDialogResponse(3050, 1, 20, nil)
+			sampSendDialogResponse(3050, 1, 20, nil)
+			sampSendDialogResponse(3050, 1, 20, nil)
+			sampSendDialogResponse(3050, 1, 20, nil)
+			sampSendDialogResponse(3050, 1, 20, nil)
+			sampSendDialogResponse(3050, 1, 20, nil)
+			sampSendDialogResponse(3050, 1, 20, nil)
+			sampSendDialogResponse(3050, 1, 20, nil)
+			sampSendDialogResponse(3050, 1, 10, nil)
 			sampSendDialogResponse(3060, 1, 0, elements.lavka.rare_blue.v..' '..elements.lavka.rare_blue_price.v)
 		end
 		if elements.lavka.box_marvel.v ~= 0 then
-			sampSendDialogResponse(3040, 1, 0, '')
-			sampSendDialogResponse(3050, 1, 19, '')
-			sampSendDialogResponse(3050, 1, 20, '')
-			sampSendDialogResponse(3050, 1, 20, '')
-			sampSendDialogResponse(3050, 1, 20, '')
-			sampSendDialogResponse(3050, 1, 20, '')
-			sampSendDialogResponse(3050, 1, 20, '')
-			sampSendDialogResponse(3050, 1, 20, '')
-			sampSendDialogResponse(3050, 1, 20, '')
-			sampSendDialogResponse(3050, 1, 20, '')
-			sampSendDialogResponse(3050, 1, 20, '')
-			sampSendDialogResponse(3050, 1, 20, '')
-			sampSendDialogResponse(3050, 1, 20, '')
-			sampSendDialogResponse(3050, 1, 20, '')
-			sampSendDialogResponse(3050, 1, 20, '')
-			sampSendDialogResponse(3050, 1, 20, '')
-			sampSendDialogResponse(3050, 1, 20, '')
-			sampSendDialogResponse(3050, 1, 20, '')
-			sampSendDialogResponse(3050, 1, 20, '')
-			sampSendDialogResponse(3050, 1, 20, '')
-			sampSendDialogResponse(3050, 1, 20, '')
-			sampSendDialogResponse(3050, 1, 20, '')
-			sampSendDialogResponse(3050, 1, 20, '')
-			sampSendDialogResponse(3050, 1, 18, '')
+			sampSendDialogResponse(3040, 1, nil, nil)
+			sampSendDialogResponse(3050, 1, 19, nil)
+			sampSendDialogResponse(3050, 1, 20, nil)
+			sampSendDialogResponse(3050, 1, 20, nil)
+			sampSendDialogResponse(3050, 1, 20, nil)
+			sampSendDialogResponse(3050, 1, 20, nil)
+			sampSendDialogResponse(3050, 1, 20, nil)
+			sampSendDialogResponse(3050, 1, 20, nil)
+			sampSendDialogResponse(3050, 1, 20, nil)
+			sampSendDialogResponse(3050, 1, 20, nil)
+			sampSendDialogResponse(3050, 1, 20, nil)
+			sampSendDialogResponse(3050, 1, 20, nil)
+			sampSendDialogResponse(3050, 1, 20, nil)
+			sampSendDialogResponse(3050, 1, 20, nil)
+			sampSendDialogResponse(3050, 1, 20, nil)
+			sampSendDialogResponse(3050, 1, 20, nil)
+			sampSendDialogResponse(3050, 1, 20, nil)
+			sampSendDialogResponse(3050, 1, 20, nil)
+			sampSendDialogResponse(3050, 1, 20, nil)
+			sampSendDialogResponse(3050, 1, 20, nil)
+			sampSendDialogResponse(3050, 1, 20, nil)
+			sampSendDialogResponse(3050, 1, 20, nil)
+			sampSendDialogResponse(3050, 1, 20, nil)
+			sampSendDialogResponse(3050, 1, 18, nil)
 			sampSendDialogResponse(3060, 1, 0, elements.lavka.box_marvel.v..' '..elements.lavka.box_marvel_price.v)
 		end
 		if elements.lavka.box_djent.v ~= 0 then
-			sampSendDialogResponse(3040, 1, 0, '')
-			sampSendDialogResponse(3050, 1, 19, '')
-			sampSendDialogResponse(3050, 1, 20, '')
-			sampSendDialogResponse(3050, 1, 20, '')
-			sampSendDialogResponse(3050, 1, 20, '')
-			sampSendDialogResponse(3050, 1, 20, '')
-			sampSendDialogResponse(3050, 1, 20, '')
-			sampSendDialogResponse(3050, 1, 20, '')
-			sampSendDialogResponse(3050, 1, 20, '')
-			sampSendDialogResponse(3050, 1, 20, '')
-			sampSendDialogResponse(3050, 1, 20, '')
-			sampSendDialogResponse(3050, 1, 20, '')
-			sampSendDialogResponse(3050, 1, 20, '')
-			sampSendDialogResponse(3050, 1, 20, '')
-			sampSendDialogResponse(3050, 1, 20, '')
-			sampSendDialogResponse(3050, 1, 20, '')
-			sampSendDialogResponse(3050, 1, 20, '')
-			sampSendDialogResponse(3050, 1, 20, '')
-			sampSendDialogResponse(3050, 1, 20, '')
-			sampSendDialogResponse(3050, 1, 20, '')
-			sampSendDialogResponse(3050, 1, 20, '')
-			sampSendDialogResponse(3050, 1, 20, '')
-			sampSendDialogResponse(3050, 1, 20, '')
-			sampSendDialogResponse(3050, 1, 20, '')
-			sampSendDialogResponse(3050, 1, 0, '')
+			sampSendDialogResponse(3040, 1, nil, nil)
+			sampSendDialogResponse(3050, 1, 19, nil)
+			sampSendDialogResponse(3050, 1, 20, nil)
+			sampSendDialogResponse(3050, 1, 20, nil)
+			sampSendDialogResponse(3050, 1, 20, nil)
+			sampSendDialogResponse(3050, 1, 20, nil)
+			sampSendDialogResponse(3050, 1, 20, nil)
+			sampSendDialogResponse(3050, 1, 20, nil)
+			sampSendDialogResponse(3050, 1, 20, nil)
+			sampSendDialogResponse(3050, 1, 20, nil)
+			sampSendDialogResponse(3050, 1, 20, nil)
+			sampSendDialogResponse(3050, 1, 20, nil)
+			sampSendDialogResponse(3050, 1, 20, nil)
+			sampSendDialogResponse(3050, 1, 20, nil)
+			sampSendDialogResponse(3050, 1, 20, nil)
+			sampSendDialogResponse(3050, 1, 20, nil)
+			sampSendDialogResponse(3050, 1, 20, nil)
+			sampSendDialogResponse(3050, 1, 20, nil)
+			sampSendDialogResponse(3050, 1, 20, nil)
+			sampSendDialogResponse(3050, 1, 20, nil)
+			sampSendDialogResponse(3050, 1, 20, nil)
+			sampSendDialogResponse(3050, 1, 20, nil)
+			sampSendDialogResponse(3050, 1, 20, nil)
+			sampSendDialogResponse(3050, 1, 20, nil)
+			sampSendDialogResponse(3050, 1, 0, nil)
 			sampSendDialogResponse(3060, 1, 0, elements.lavka.box_djent.v..' '..elements.lavka.box_djent_price.v)
 		end
 		if elements.lavka.box_minecraft.v ~= 0 then
-			sampSendDialogResponse(3040, 1, 0, '')
-			sampSendDialogResponse(3050, 1, 19, '')
-			sampSendDialogResponse(3050, 1, 20, '')
-			sampSendDialogResponse(3050, 1, 20, '')
-			sampSendDialogResponse(3050, 1, 20, '')
-			sampSendDialogResponse(3050, 1, 20, '')
-			sampSendDialogResponse(3050, 1, 20, '')
-			sampSendDialogResponse(3050, 1, 20, '')
-			sampSendDialogResponse(3050, 1, 20, '')
-			sampSendDialogResponse(3050, 1, 20, '')
-			sampSendDialogResponse(3050, 1, 20, '')
-			sampSendDialogResponse(3050, 1, 20, '')
-			sampSendDialogResponse(3050, 1, 20, '')
-			sampSendDialogResponse(3050, 1, 20, '')
-			sampSendDialogResponse(3050, 1, 20, '')
-			sampSendDialogResponse(3050, 1, 20, '')
-			sampSendDialogResponse(3050, 1, 20, '')
-			sampSendDialogResponse(3050, 1, 20, '')
-			sampSendDialogResponse(3050, 1, 20, '')
-			sampSendDialogResponse(3050, 1, 20, '')
-			sampSendDialogResponse(3050, 1, 20, '')
-			sampSendDialogResponse(3050, 1, 20, '')
-			sampSendDialogResponse(3050, 1, 20, '')
-			sampSendDialogResponse(3050, 1, 20, '')
-			sampSendDialogResponse(3050, 1, 1, '')
+			sampSendDialogResponse(3040, 1, nil, nil)
+			sampSendDialogResponse(3050, 1, 19, nil)
+			sampSendDialogResponse(3050, 1, 20, nil)
+			sampSendDialogResponse(3050, 1, 20, nil)
+			sampSendDialogResponse(3050, 1, 20, nil)
+			sampSendDialogResponse(3050, 1, 20, nil)
+			sampSendDialogResponse(3050, 1, 20, nil)
+			sampSendDialogResponse(3050, 1, 20, nil)
+			sampSendDialogResponse(3050, 1, 20, nil)
+			sampSendDialogResponse(3050, 1, 20, nil)
+			sampSendDialogResponse(3050, 1, 20, nil)
+			sampSendDialogResponse(3050, 1, 20, nil)
+			sampSendDialogResponse(3050, 1, 20, nil)
+			sampSendDialogResponse(3050, 1, 20, nil)
+			sampSendDialogResponse(3050, 1, 20, nil)
+			sampSendDialogResponse(3050, 1, 20, nil)
+			sampSendDialogResponse(3050, 1, 20, nil)
+			sampSendDialogResponse(3050, 1, 20, nil)
+			sampSendDialogResponse(3050, 1, 20, nil)
+			sampSendDialogResponse(3050, 1, 20, nil)
+			sampSendDialogResponse(3050, 1, 20, nil)
+			sampSendDialogResponse(3050, 1, 20, nil)
+			sampSendDialogResponse(3050, 1, 20, nil)
+			sampSendDialogResponse(3050, 1, 20, nil)
+			sampSendDialogResponse(3050, 1, 1, nil)
 			sampSendDialogResponse(3060, 1, 0, elements.lavka.box_minecraft.v..' '..elements.lavka.box_minecraft_price.v)
 		end
 		if elements.lavka.box_moto.v ~= 0 then
-			sampSendDialogResponse(3040, 1, 0, '')
-			sampSendDialogResponse(3050, 1, 19, '')
-			sampSendDialogResponse(3050, 1, 20, '')
-			sampSendDialogResponse(3050, 1, 20, '')
-			sampSendDialogResponse(3050, 1, 20, '')
-			sampSendDialogResponse(3050, 1, 20, '')
-			sampSendDialogResponse(3050, 1, 20, '')
-			sampSendDialogResponse(3050, 1, 20, '')
-			sampSendDialogResponse(3050, 1, 20, '')
-			sampSendDialogResponse(3050, 1, 20, '')
-			sampSendDialogResponse(3050, 1, 20, '')
-			sampSendDialogResponse(3050, 1, 20, '')
-			sampSendDialogResponse(3050, 1, 20, '')
-			sampSendDialogResponse(3050, 1, 20, '')
-			sampSendDialogResponse(3050, 1, 20, '')
-			sampSendDialogResponse(3050, 1, 20, '')
-			sampSendDialogResponse(3050, 1, 20, '')
-			sampSendDialogResponse(3050, 1, 20, '')
-			sampSendDialogResponse(3050, 1, 20, '')
-			sampSendDialogResponse(3050, 1, 20, '')
-			sampSendDialogResponse(3050, 1, 20, '')
-			sampSendDialogResponse(3050, 1, 20, '')
-			sampSendDialogResponse(3050, 1, 20, '')
-			sampSendDialogResponse(3050, 1, 20, '')
-			sampSendDialogResponse(3050, 1, 2, '')
+			sampSendDialogResponse(3040, 1, nil, nil)
+			sampSendDialogResponse(3050, 1, 19, nil)
+			sampSendDialogResponse(3050, 1, 20, nil)
+			sampSendDialogResponse(3050, 1, 20, nil)
+			sampSendDialogResponse(3050, 1, 20, nil)
+			sampSendDialogResponse(3050, 1, 20, nil)
+			sampSendDialogResponse(3050, 1, 20, nil)
+			sampSendDialogResponse(3050, 1, 20, nil)
+			sampSendDialogResponse(3050, 1, 20, nil)
+			sampSendDialogResponse(3050, 1, 20, nil)
+			sampSendDialogResponse(3050, 1, 20, nil)
+			sampSendDialogResponse(3050, 1, 20, nil)
+			sampSendDialogResponse(3050, 1, 20, nil)
+			sampSendDialogResponse(3050, 1, 20, nil)
+			sampSendDialogResponse(3050, 1, 20, nil)
+			sampSendDialogResponse(3050, 1, 20, nil)
+			sampSendDialogResponse(3050, 1, 20, nil)
+			sampSendDialogResponse(3050, 1, 20, nil)
+			sampSendDialogResponse(3050, 1, 20, nil)
+			sampSendDialogResponse(3050, 1, 20, nil)
+			sampSendDialogResponse(3050, 1, 20, nil)
+			sampSendDialogResponse(3050, 1, 20, nil)
+			sampSendDialogResponse(3050, 1, 20, nil)
+			sampSendDialogResponse(3050, 1, 20, nil)
+			sampSendDialogResponse(3050, 1, 2, nil)
 			sampSendDialogResponse(3060, 1, 0, elements.lavka.box_moto.v..' '..elements.lavka.box_moto_price.v)
 		end
 		if elements.lavka.box_car.v ~= 0 then
-			sampSendDialogResponse(3040, 1, 0, '')
-			sampSendDialogResponse(3050, 1, 19, '')
-			sampSendDialogResponse(3050, 1, 20, '')
-			sampSendDialogResponse(3050, 1, 20, '')
-			sampSendDialogResponse(3050, 1, 20, '')
-			sampSendDialogResponse(3050, 1, 20, '')
-			sampSendDialogResponse(3050, 1, 20, '')
-			sampSendDialogResponse(3050, 1, 20, '')
-			sampSendDialogResponse(3050, 1, 20, '')
-			sampSendDialogResponse(3050, 1, 20, '')
-			sampSendDialogResponse(3050, 1, 20, '')
-			sampSendDialogResponse(3050, 1, 20, '')
-			sampSendDialogResponse(3050, 1, 20, '')
-			sampSendDialogResponse(3050, 1, 20, '')
-			sampSendDialogResponse(3050, 1, 20, '')
-			sampSendDialogResponse(3050, 1, 20, '')
-			sampSendDialogResponse(3050, 1, 20, '')
-			sampSendDialogResponse(3050, 1, 20, '')
-			sampSendDialogResponse(3050, 1, 20, '')
-			sampSendDialogResponse(3050, 1, 20, '')
-			sampSendDialogResponse(3050, 1, 20, '')
-			sampSendDialogResponse(3050, 1, 20, '')
-			sampSendDialogResponse(3050, 1, 20, '')
-			sampSendDialogResponse(3050, 1, 20, '')
-			sampSendDialogResponse(3050, 1, 3, '')
+			sampSendDialogResponse(3040, 1, nil, nil)
+			sampSendDialogResponse(3050, 1, 19, nil)
+			sampSendDialogResponse(3050, 1, 20, nil)
+			sampSendDialogResponse(3050, 1, 20, nil)
+			sampSendDialogResponse(3050, 1, 20, nil)
+			sampSendDialogResponse(3050, 1, 20, nil)
+			sampSendDialogResponse(3050, 1, 20, nil)
+			sampSendDialogResponse(3050, 1, 20, nil)
+			sampSendDialogResponse(3050, 1, 20, nil)
+			sampSendDialogResponse(3050, 1, 20, nil)
+			sampSendDialogResponse(3050, 1, 20, nil)
+			sampSendDialogResponse(3050, 1, 20, nil)
+			sampSendDialogResponse(3050, 1, 20, nil)
+			sampSendDialogResponse(3050, 1, 20, nil)
+			sampSendDialogResponse(3050, 1, 20, nil)
+			sampSendDialogResponse(3050, 1, 20, nil)
+			sampSendDialogResponse(3050, 1, 20, nil)
+			sampSendDialogResponse(3050, 1, 20, nil)
+			sampSendDialogResponse(3050, 1, 20, nil)
+			sampSendDialogResponse(3050, 1, 20, nil)
+			sampSendDialogResponse(3050, 1, 20, nil)
+			sampSendDialogResponse(3050, 1, 20, nil)
+			sampSendDialogResponse(3050, 1, 20, nil)
+			sampSendDialogResponse(3050, 1, 20, nil)
+			sampSendDialogResponse(3050, 1, 3, nil)
 			sampSendDialogResponse(3060, 1, 0, elements.lavka.box_car.v..' '..elements.lavka.box_car_price.v)
 		end
 		if elements.lavka.band_respect.v ~= 0 then
-			sampSendDialogResponse(3040, 1, 0, '')
-			sampSendDialogResponse(3050, 1, 19, '')
-			sampSendDialogResponse(3050, 1, 20, '')
-			sampSendDialogResponse(3050, 1, 20, '')
-			sampSendDialogResponse(3050, 1, 20, '')
-			sampSendDialogResponse(3050, 1, 20, '')
-			sampSendDialogResponse(3050, 1, 20, '')
-			sampSendDialogResponse(3050, 1, 20, '')
-			sampSendDialogResponse(3050, 1, 20, '')
-			sampSendDialogResponse(3050, 1, 20, '')
-			sampSendDialogResponse(3050, 1, 20, '')
-			sampSendDialogResponse(3050, 1, 20, '')
-			sampSendDialogResponse(3050, 1, 20, '')
-			sampSendDialogResponse(3050, 1, 20, '')
-			sampSendDialogResponse(3050, 1, 20, '')
-			sampSendDialogResponse(3050, 1, 20, '')
-			sampSendDialogResponse(3050, 1, 20, '')
-			sampSendDialogResponse(3050, 1, 20, '')
-			sampSendDialogResponse(3050, 1, 20, '')
-			sampSendDialogResponse(3050, 1, 20, '')
-			sampSendDialogResponse(3050, 1, 20, '')
-			sampSendDialogResponse(3050, 1, 20, '')
-			sampSendDialogResponse(3050, 1, 20, '')
-			sampSendDialogResponse(3050, 1, 20, '')
-			sampSendDialogResponse(3050, 1, 20, '')
-			sampSendDialogResponse(3050, 1, 20, '')
-			sampSendDialogResponse(3050, 1, 15, '')
+			sampSendDialogResponse(3040, 1, nil, nil)
+			sampSendDialogResponse(3050, 1, 19, nil)
+			sampSendDialogResponse(3050, 1, 20, nil)
+			sampSendDialogResponse(3050, 1, 20, nil)
+			sampSendDialogResponse(3050, 1, 20, nil)
+			sampSendDialogResponse(3050, 1, 20, nil)
+			sampSendDialogResponse(3050, 1, 20, nil)
+			sampSendDialogResponse(3050, 1, 20, nil)
+			sampSendDialogResponse(3050, 1, 20, nil)
+			sampSendDialogResponse(3050, 1, 20, nil)
+			sampSendDialogResponse(3050, 1, 20, nil)
+			sampSendDialogResponse(3050, 1, 20, nil)
+			sampSendDialogResponse(3050, 1, 20, nil)
+			sampSendDialogResponse(3050, 1, 20, nil)
+			sampSendDialogResponse(3050, 1, 20, nil)
+			sampSendDialogResponse(3050, 1, 20, nil)
+			sampSendDialogResponse(3050, 1, 20, nil)
+			sampSendDialogResponse(3050, 1, 20, nil)
+			sampSendDialogResponse(3050, 1, 20, nil)
+			sampSendDialogResponse(3050, 1, 20, nil)
+			sampSendDialogResponse(3050, 1, 20, nil)
+			sampSendDialogResponse(3050, 1, 20, nil)
+			sampSendDialogResponse(3050, 1, 20, nil)
+			sampSendDialogResponse(3050, 1, 20, nil)
+			sampSendDialogResponse(3050, 1, 20, nil)
+			sampSendDialogResponse(3050, 1, 20, nil)
+			sampSendDialogResponse(3050, 1, 15, nil)
 			sampSendDialogResponse(3060, 1, 0, elements.lavka.band_respect.v..' '..elements.lavka.band_respect_price.v)
 		end
 		if elements.lavka.larec_premium.v ~= 0 then
-			sampSendDialogResponse(3040, 1, 0, '')
-			sampSendDialogResponse(3050, 1, 19, '')
-			sampSendDialogResponse(3050, 1, 20, '')
-			sampSendDialogResponse(3050, 1, 20, '')
-			sampSendDialogResponse(3050, 1, 20, '')
-			sampSendDialogResponse(3050, 1, 20, '')
-			sampSendDialogResponse(3050, 1, 20, '')
-			sampSendDialogResponse(3050, 1, 20, '')
-			sampSendDialogResponse(3050, 1, 20, '')
-			sampSendDialogResponse(3050, 1, 20, '')
-			sampSendDialogResponse(3050, 1, 20, '')
-			sampSendDialogResponse(3050, 1, 20, '')
-			sampSendDialogResponse(3050, 1, 20, '')
-			sampSendDialogResponse(3050, 1, 20, '')
-			sampSendDialogResponse(3050, 1, 20, '')
-			sampSendDialogResponse(3050, 1, 20, '')
-			sampSendDialogResponse(3050, 1, 20, '')
-			sampSendDialogResponse(3050, 1, 20, '')
-			sampSendDialogResponse(3050, 1, 20, '')
-			sampSendDialogResponse(3050, 1, 20, '')
-			sampSendDialogResponse(3050, 1, 20, '')
-			sampSendDialogResponse(3050, 1, 20, '')
-			sampSendDialogResponse(3050, 1, 20, '')
-			sampSendDialogResponse(3050, 1, 20, '')
-			sampSendDialogResponse(3050, 1, 20, '')
-			sampSendDialogResponse(3050, 1, 20, '')
-			sampSendDialogResponse(3050, 1, 20, '')
-			sampSendDialogResponse(3050, 1, 0, '')
+			sampSendDialogResponse(3040, 1, nil, nil)
+			sampSendDialogResponse(3050, 1, 19, nil)
+			sampSendDialogResponse(3050, 1, 20, nil)
+			sampSendDialogResponse(3050, 1, 20, nil)
+			sampSendDialogResponse(3050, 1, 20, nil)
+			sampSendDialogResponse(3050, 1, 20, nil)
+			sampSendDialogResponse(3050, 1, 20, nil)
+			sampSendDialogResponse(3050, 1, 20, nil)
+			sampSendDialogResponse(3050, 1, 20, nil)
+			sampSendDialogResponse(3050, 1, 20, nil)
+			sampSendDialogResponse(3050, 1, 20, nil)
+			sampSendDialogResponse(3050, 1, 20, nil)
+			sampSendDialogResponse(3050, 1, 20, nil)
+			sampSendDialogResponse(3050, 1, 20, nil)
+			sampSendDialogResponse(3050, 1, 20, nil)
+			sampSendDialogResponse(3050, 1, 20, nil)
+			sampSendDialogResponse(3050, 1, 20, nil)
+			sampSendDialogResponse(3050, 1, 20, nil)
+			sampSendDialogResponse(3050, 1, 20, nil)
+			sampSendDialogResponse(3050, 1, 20, nil)
+			sampSendDialogResponse(3050, 1, 20, nil)
+			sampSendDialogResponse(3050, 1, 20, nil)
+			sampSendDialogResponse(3050, 1, 20, nil)
+			sampSendDialogResponse(3050, 1, 20, nil)
+			sampSendDialogResponse(3050, 1, 20, nil)
+			sampSendDialogResponse(3050, 1, 20, nil)
+			sampSendDialogResponse(3050, 1, 20, nil)
+			sampSendDialogResponse(3050, 1, 0, nil)
 			sampSendDialogResponse(3060, 1, 0, elements.lavka.larec_premium.v..' '..elements.lavka.larec_premium_price.v)
 		end
 	end)
@@ -4927,7 +5088,7 @@ function sampev.onShowDialog(dialogId, style, title, button1, button2, text)
 	end
 	--------------------[Автоподтверждение на открытие сим-карты]--------------------
 	if dialogId == 9208 then
-		sampSendDialogResponse(dialogId, 1, 0, "")
+		sampSendDialogResponse(dialogId, 1, nil, nil)
 		return false
 	end
 	--------------------[Автоввод текста в лавку]--------------------
@@ -4942,7 +5103,7 @@ function sampev.onShowDialog(dialogId, style, title, button1, button2, text)
 		dialogs_lavka = -1
 	end
 	if dialogId == 3030 then
-		sampSendDialogResponse(dialogId, 1, 13, "")
+		sampSendDialogResponse(dialogId, 1, 13, nil)
 		return false
 	end
 	--------------------[Автологин]--------------------
@@ -4977,7 +5138,7 @@ function sampev.onShowDialog(dialogId, style, title, button1, button2, text)
 		return false
 	end
 	if dialogId == 1332 or dialogId == 1333 then
-		sampSendDialogResponse(dialogId, 1, 0, '')
+		sampSendDialogResponse(dialogId, 1, 0, nil)
 		return false
 	end
 	--------------------[buyvk]--------------------
@@ -4987,7 +5148,7 @@ function sampev.onShowDialog(dialogId, style, title, button1, button2, text)
 			return false
 		end
 		if dialogId == 25013 then
-			sampSendDialogResponse(dialogId, 1, 0, '')
+			sampSendDialogResponse(dialogId, 1, 0, nil)
 			return false
 		end
 	end
@@ -5176,16 +5337,17 @@ function sampev.onShowDialog(dialogId, style, title, button1, button2, text)
 	text:find("Приятной игры на arizona") or
 	text:find("Вы успешно купили ") or
 	text:find("PIN%-код принят")) then
-		sampSendDialogResponse(dialogId, 1, 0, '')
+		sampSendDialogResponse(dialogId, 1, nil, nil)
 		return false
 	end
 	if dialogId == 0 and text:find("Аз Монет при пополнении счета на нашем сайте") then
-		sampSendDialogResponse(dialogId, 1, 0, '')
+		sampSendDialogResponse(dialogId, 1, nil, nil)
 		chest_timer = os.time()+2
 		return false
 	end
-	if dialogId == 281 then
-		sampSendDialogResponse(dialogId, 1, 0, '')
+	--------------------[Отказ показа диалогов Аренды транспорта]--------------------
+	if dialogId == 281 or dialogId == 230 then
+		sampSendDialogResponse(dialogId, 1, nil, nil)
 		return false
 	end
 end
@@ -5500,7 +5662,7 @@ function sampev.onSetPlayerAttachedObject(playerId, index, create, object)
 		model == 2983 or -- Хз
 		model == 2985 or -- Пулемет
 		model == 2992 or -- Нимб
-		--model == 3013 or -- Ящик за спиной
+		model == 3013 or -- Ящик за спиной
 		model == 3027 or -- Косяк
 		model == 3031 or -- Хз
 		model == 3052 or -- Коробка
@@ -5532,6 +5694,7 @@ function sampev.onSetPlayerAttachedObject(playerId, index, create, object)
 		model == 10281 or -- Машина из стены
 		model == 10757 or -- Разбитый самолет на спину
 		model == 11700 or -- Знак радиации
+		model == 11705 or -- Оружейный кейс
 		model == 11712 or -- Крест на грудь и Распятие (сделаны)
 		model == 11716 or -- Металлический нож
 		model == 11722 or -- Бутылка с кетчупом
@@ -5557,6 +5720,7 @@ function sampev.onSetPlayerAttachedObject(playerId, index, create, object)
 		model == 18633 or -- Кран
 		model == 18637 or -- Щит на спину и в руку (сделаны)
 		model == 18640 or -- Черный шлем
+		model == 18641 or -- хз
 		model == 18642 or -- Шокер (tazer)
 		model == 18643 or -- Красная шляпа маяк
 		model == 18644 or -- Отвертка
@@ -5903,7 +6067,7 @@ function sampev.onSetPlayerAttachedObject(playerId, index, create, object)
 			return
 		end
 		----------------------------------------
-		if model == 19631 and object.bone == 6 then -- Кирка в руку
+		if model == 19631 and (object.bone == 6 or object.rotation.y == -31.8000) then -- Кирка в руку и молот на спину
 			return
 		end
 		----------------------------------------
