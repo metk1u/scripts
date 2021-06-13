@@ -323,11 +323,12 @@ local pidori =
 	"Tiz_Cartier",
 };
 ----------------------------------------
-local work =
-{
-	status = false,
-	message = nil
-}
+-- local work =
+-- {
+	-- status = false,
+	-- message = nil
+-- }
+local delay = 0.5
 --------------------[Автоточилка]--------------------
 local checktochilki = false
 local checked_radio = imgui.ImInt(1)
@@ -1761,21 +1762,21 @@ function main()
 			end
 		end
 		--------------------[Автосообщения в /vr]--------------------
-		if work.status == true then
-			if not sampIsLocalPlayerSpawned() then
-				work.status = false
-			end
-			sampSendChat('/vr ' .. tostring(work.message))
-			if not sampIsChatInputActive() then
-				local strEl = getStructElement(sampGetInputInfoPtr(), 0x8, 4)
-				local X = getStructElement(strEl, 0x8, 4)
-				local Y = getStructElement(strEl, 0xC, 4)
-				----------------------------------------
-				local rotate = math.sin(os.clock() * 3) * 180 + 180
-				renderDrawPolygon(X + 10, Y + (renderGetFontDrawHeight(molot_10_9) / 2), 15, 15, 3, rotate, 0xFFFDDB6D)
-				renderFontDrawText(molot_10_9, tostring(work.message), X + 25, Y, -1)
-			end
-		end
+		-- if work.status == true then
+			-- if not sampIsLocalPlayerSpawned() then
+				-- work.status = false
+			-- end
+			-- sampSendChat('/vr ' .. tostring(work.message))
+			-- if not sampIsChatInputActive() then
+				-- local strEl = getStructElement(sampGetInputInfoPtr(), 0x8, 4)
+				-- local X = getStructElement(strEl, 0x8, 4)
+				-- local Y = getStructElement(strEl, 0xC, 4)
+				--------------------------------------
+				-- local rotate = math.sin(os.clock() * 3) * 180 + 180
+				-- renderDrawPolygon(X + 10, Y + (renderGetFontDrawHeight(molot_10_9) / 2), 15, 15, 3, rotate, 0xFFFDDB6D)
+				-- renderFontDrawText(molot_10_9, tostring(work.message), X + 25, Y, -1)
+			-- end
+		-- end
 		--------------------[Математика]--------------------
 		text = sampGetChatInputText()
 		----------------------------------------
@@ -3503,24 +3504,42 @@ function sampev.onServerMessage(color, text)
 		return false
 	end
 	----------------------------------------
-	if text:find("После последнего сообщения в этом чате нужно подождать") and color == -10270721 then
-		return false
-	end
-	----------------------------------------
-	if text:find("Для возможности повторной отправки сообщения в этот чат") and color == -10270721 then
-		return false
-	end
-	----------------------------------------
-	if text:find('^Вы заглушены') then
-		work.status = false
-	end
-	----------------------------------------
-	if work.status then
+	if not finished and elements.chat.removevipchat.v == false then
+		if text:find('^%[Ошибка%].*После последнего сообщения в этом чате нужно подождать') then
+			lua_thread.create(function()
+				wait(delay * 1000);
+				sampSendChat('/vr ' .. message)
+			end)
+			return false
+		end
+		----------------------------------------
 		local id = select(2, sampGetPlayerIdByCharHandle(PLAYER_PED))
-		if text:match('%[%u+%] {%x+}' .. sampGetPlayerNickname(id)) then
-			work.status = false
+		if text:match('%[%u+%] {%x+}[A-z0-9_]+%[' .. id .. '%]:') then
+			finished = true
 		end
 	end
+	----------------------------------------
+	if text:find('^Вы заглушены') or text:find('Для возможности повторной отправки сообщения в этот чат') then
+		finished = true
+	end
+	-- if text:find("После последнего сообщения в этом чате нужно подождать") and color == -10270721 then
+		-- return false
+	-- end
+	----------------------------------------
+	-- if text:find("Для возможности повторной отправки сообщения в этот чат") and color == -10270721 then
+		-- return false
+	-- end
+	----------------------------------------
+	-- if text:find('^Вы заглушены') then
+		-- work.status = false
+	-- end
+	--------------------------------------
+	-- if work.status then
+		-- local id = select(2, sampGetPlayerIdByCharHandle(PLAYER_PED))
+		-- if text:match('%[%u+%] {%x+}' .. sampGetPlayerNickname(id)) then
+			-- work.status = false
+		-- end
+	-- end
 	----------------------------------------
 	if elements.state.buyvk ~= -1 then
 		if text:find("Недостаточно VKoin\'s для преобретения данной переферии") then
@@ -5429,6 +5448,30 @@ function sampev.onSendCommand(cmd)
 			-- work.status = true
 		-- end
 	-- end
+	if elements.chat.removevipchat.v == false then
+		local result = cmd:match('^/vr (.+)')
+		if result ~= nil then 
+			process, finished = nil, false
+			message = tostring(result)
+			process = lua_thread.create(function()
+				while not finished do
+					if sampGetGamestate() ~= 3 or not sampIsLocalPlayerSpawned() then
+						finished = true;
+						break
+					end
+					if not sampIsChatInputActive() then
+						local rotate = math.sin(os.clock() * 3) * 90 + 90
+						local el = getStructElement(sampGetInputInfoPtr(), 0x8, 4)
+						local X, Y = getStructElement(el, 0x8, 4), getStructElement(el, 0xC, 4)
+						renderDrawPolygon(X + 10, Y + (renderGetFontDrawHeight(molot_10_9) / 2), 15, 15, 3, rotate, 0xFF0090FF)
+						renderDrawPolygon(X + 10, Y + (renderGetFontDrawHeight(molot_10_9) / 2), 15, 15, 3, -1 * rotate, 0xFFFDDB6D)
+						renderFontDrawText(molot_10_9, tostring(message), X + 25, Y, -1)
+					end
+					wait(0)
+				end
+			end)
+		end
+	end
 end
 
 function sampev.onPlayerChatBubble(playerId, color, distance, duration, message)
