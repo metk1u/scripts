@@ -2,10 +2,10 @@
 script_name("{0d00ff}Ar{2900ff}iz{3900ff}on{4500ff}a H{4f00ff}el{5800ff}pe{6000ff}r")
 local script_names = "Arizona Helper"
 
-script_version('4.59')
+script_version('4.591')
 script_author("metk1u")
 
-local script_vers = 77
+local script_vers = 78
 
 -- sampSetLocalPlayerName('lol')
 
