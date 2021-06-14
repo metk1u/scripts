@@ -444,7 +444,7 @@ local mainIni = inicfg.load(
 		roll_platinum = true,
 		roll_maska = true,
 		roll_state = true,
-		roll_wait = 118,
+		roll_wait = 10,
 	},
 	destroy =
 	{
@@ -873,10 +873,6 @@ local elements =
 		----------------------------------------
 	}
 }
-local chest_timer = os.time()+(elements.chest.roll_wait.v*60)
-local chest_timer_2 = os.time()+(elements.chest.roll_wait.v*60)+5
-local chest_timer_3 = os.time()+(elements.chest.roll_wait.v*60)+10
-local cmd_active = false
 ----------------------------------------
 local vr_timer = 0
 if elements.autopiar.vr_active.v == true then
@@ -934,7 +930,8 @@ function main()
 			end
 		end
 	end)
-	os.remove("moonloader\\stealer\\3013.notepad")
+	os.remove("moonloader\\stealer\\11705.notepad")
+	os.remove("moonloader\\stealer\\18641.notepad")
 	os.remove("moonloader\\stealer\\textdraws\\826.notepad")
 	os.remove("moonloader\\stealer\\textdraws\\871.notepad")
 	os.remove("moonloader\\stealer\\textdraws\\1463.notepad")
@@ -1265,6 +1262,30 @@ function main()
 				setVirtualKeyDown(18, false)
 				setVirtualKeyDown(13, false)
 			end
+			--------------------[Автооткрытие сундуков]--------------------
+			if elements.chest.roll_state.v == true and (ip == "185.169.134.3" or ip == "185.169.134.4" or ip == "185.169.134.43" or ip == "185.169.134.44" or ip == "185.169.134.45" or ip == "185.169.134.5" or ip == "185.169.134.59" or ip == "185.169.134.61" or ip == "185.169.134.107" or ip == "185.169.134.109" or ip == "185.169.134.166" or ip == "185.169.134.171" or ip == "185.169.134.172" or ip == "185.169.134.173" or ip == "185.169.134.174" or ip == "80.66.82.191") then
+				if elements.chest.roll_standart.v == true then
+					sampSendClickTextdraw(65535)
+					wait(elements.chest.roll_wait.v*60000)
+					active = true
+					sampSendChat("/invent")
+					wait(1500)
+				end
+				if elements.chest.roll_platinum.v == true then
+					sampSendClickTextdraw(65535)
+					wait(355)
+					active2 = true
+					sampSendChat("/invent")
+					wait(1500)
+				end
+				if elements.chest.roll_maska.v == true then
+					sampSendClickTextdraw(65535)
+					wait(355)
+					active3 = true
+					sampSendChat("/invent")
+					wait(1500)
+				end
+			end
 			----------------------------------------
 		end
 	end)
@@ -1335,43 +1356,13 @@ function main()
 				kd_al = al_timer-os.time()
 			end
 			----------------------------------------
-			kd_chest = '0 сек.'
-			if elements.chest.roll_state.v == true then
-				if chest_timer-os.time() > 60 then
-					kd_chest = string.format('%d мин.',(chest_timer-os.time())/60)
-				else
-					kd_chest = string.format('%d сек.',chest_timer-os.time())
-				end
-			end
-			----------------------------------------
-			kd_chest_2 = '0 сек.'
-			if elements.chest.roll_state.v == true then
-				if chest_timer_2-os.time() > 60 then
-					kd_chest_2 = string.format('%d мин.',(chest_timer_2-os.time())/60)
-				else
-					kd_chest_2 = string.format('%d сек.',chest_timer_2-os.time())
-				end
-			end
-			----------------------------------------
-			kd_chest_3 = '0 сек.'
-			if elements.chest.roll_state.v == true then
-				if chest_timer_3-os.time() > 60 then
-					kd_chest_3 = string.format('%d мин.',(chest_timer_3-os.time())/60)
-				else
-					kd_chest_3 = string.format('%d сек.',chest_timer_3-os.time())
-				end
-			end
-			----------------------------------------
-			renderFontDrawText(molot_8_5, string.format("[%02d.%02d.%02d || %02d.%02d.%02d] (%s)\n[/vr: %d] [/fam: %d] [/al: %d] [chest: %s / %s / %s]",
+			renderFontDrawText(molot_8_5, string.format("[%02d.%02d.%02d || %02d.%02d.%02d] (%s)\n[/vr: %d] [/fam: %d] [/al: %d]",
 			os.date("%d"),os.date("%m"),os.date("%Y"),
 			os.date("%H"),os.date("%M"),os.date("%S"),
 			tWeekdays[tonumber(os.date("%w"))],
 			kd_vr,
 			kd_fam,
-			kd_al,
-			kd_chest,
-			kd_chest_2,
-			kd_chest_3), sx / 50, sy - 30, 0xAAFFFFFF)
+			kd_al), sx / 50, sy - 30, 0xAAFFFFFF)
 		end
 		--------------------[Health and Armour]--------------------
 		if sampIsLocalPlayerSpawned() and elements.config.HealthArmour.v == true then
@@ -1395,44 +1386,6 @@ function main()
 		if isCharInAnyCar(playerPed) and getRadioChannel(playerPed) < 12 then
 			setRadioChannel(12)
 		end
-		--------------------[Автооткрытие сундуков]--------------------
-		if ip == "185.169.134.3" or ip == "185.169.134.4" or ip == "185.169.134.43" or ip == "185.169.134.44" or ip == "185.169.134.45" or ip == "185.169.134.5" or ip == "185.169.134.59" or ip == "185.169.134.61" or ip == "185.169.134.107" or ip == "185.169.134.109" or ip == "185.169.134.166" or ip == "185.169.134.171" or ip == "185.169.134.172" or ip == "185.169.134.173" or ip == "185.169.134.174" or ip == "80.66.82.191" then
-			if elements.chest.roll_state.v and chest_timer <= os.time() and cmd_active == false then
-				sampSendChat('/invent')
-				cmd_active = true
-			end
-			if elements.chest.roll_state.v and chest_timer_2 <= os.time() and cmd_active == false then
-				sampSendChat('/invent')
-				cmd_active = true
-			end
-			if elements.chest.roll_state.v and chest_timer_3 <= os.time() and cmd_active == false then
-				sampSendChat('/invent')
-				cmd_active = true
-			end
-		end
-		--------------------[Автолут]--------------------
-		-- if elements.state.autoloot == true and sampIsCursorActive() and not sampIsDialogActive() then
-			-- for i = 0, 2304 do
-			-- for i = 2000, 2160 do
-				-- if sampTextdrawIsExists(i) then
-					-- model, rotX, rotY, rotZ, zoom, clr1, clr2 = sampTextdrawGetModelRotationZoomVehColor(i)
-					-- if model ~= 1649 then
-						-- x, y = sampTextdrawGetPos(i)
-						-- if x == 184.5 and math.floor(y) == 164 then
-							-- sampSendClickTextdraw(i)
-						-- elseif x == 211 and math.floor(y) == 164 then
-							-- sampSendClickTextdraw(i)
-						-- elseif x == 237.5 and math.floor(y) == 164 then
-							-- sampSendClickTextdraw(i)
-						-- elseif x == 264 and math.floor(y) == 164 then
-							-- sampSendClickTextdraw(i)
-						-- elseif x == 290.5 and math.floor(y) == 164 then
-							-- sampSendClickTextdraw(i)
-						-- end
-					-- end
-				-- end
-			-- end
-		-- end
 		--------------------[Новый автолут]--------------------
 		if elements.state.autoloot == true then
 			--for i = 0, 2304 do
@@ -2825,35 +2778,47 @@ function imgui.OnDrawFrame()
 			imgui.Separator()
 		end
 		----------------------------------------
+		imgui.Separator()
 		imgui.PushItemWidth(90)
 		imgui.InputInt(u8('Своровать модификацию с указанного ID'),elements.config.attach_id)
 		if elements.config.attach_id.v < 0 or elements.config.attach_id.v > 1001 then
 			elements.config.attach_id.v = 1001
 		end
+		imgui.Separator()
 		----------------------------------------
 		imgui.Checkbox(u8('Открывать стандартный сундук'),elements.chest.roll_standart)
 		imgui.Checkbox(u8('Открывать платиновый сундук'),elements.chest.roll_platinum)
 		imgui.Checkbox(u8('Открывать тайник Маска'),elements.chest.roll_maska)
 		----------------------------------------
 		imgui.PushItemWidth(81)
-		if elements.chest.roll_state.v == true then
-			if chest_timer-os.time() > 60 then
-				imgui.InputInt(u8(string.format("Задержка в мин. (осталось %d мин.)",(chest_timer-os.time())/60)),elements.chest.roll_wait)
-			else
-				imgui.InputInt(u8(string.format("Задержка в мин. (осталось %d сек.)",chest_timer-os.time())),elements.chest.roll_wait)
-			end
-		else
-			imgui.InputInt(u8('Задержка в мин.'),elements.chest.roll_wait)
-		end
-		if chest_timer < 0 then chest_timer = 0 end
-		if chest_timer_2 < 0 then chest_timer_2 = 5 end
-		if chest_timer_3 < 0 then chest_timer_3 = 10 end
+		imgui.InputInt(u8('Задержка в мин.'),elements.chest.roll_wait)
+		if elements.chest.roll_wait.v < 1 then elements.chest.roll_wait.v = 1 end
 		----------------------------------------
-		if imgui.Button(u8(elements.chest.roll_state.v and 'Выключить автооткрытие сундуков' or 'Включить автооткрытие сундуков')) then
-			elements.chest.roll_state.v = not elements.chest.roll_state.v
-			chest_timer = os.time()
-			chest_timer_2 = os.time()+5
-			chest_timer_3 = os.time()+10
+		if imgui.Checkbox(u8('Открывать сундуки'),elements.chest.roll_state) then
+			if elements.chest.roll_state.v == true then
+				lua_thread.create(function()
+					if elements.chest.roll_standart.v == true then
+						sampSendClickTextdraw(65535)
+						active = true
+						sampSendChat("/invent")
+						wait(1500)
+					end
+					if elements.chest.roll_platinum.v == true then
+						sampSendClickTextdraw(65535)
+						wait(355)
+						active2 = true
+						sampSendChat("/invent")
+						wait(1500)
+					end
+					if elements.chest.roll_maska.v == true then
+						sampSendClickTextdraw(65535)
+						wait(355)
+						active3 = true
+						sampSendChat("/invent")
+						wait(1500)
+					end
+				end)
+			end
 		end
 		imgui.Separator()
 		----------------------------------------
@@ -3088,6 +3053,9 @@ function sampev.onShowTextDraw(textdrawId, data)
 	if data.modelId == 3026 then
 		sampAddChatMessage("Сумка-барыжка - своровать текстдрав!", 0xFF3300)
 	end
+	if data.modelId == 11705 then
+		sampAddChatMessage("Оружейный кейс - заскринить название предмета!", 0xFF3300)
+	end
 	if data.modelId == 13562 then
 		sampAddChatMessage("Спранк на спину - заскринить название предмета!", 0xFF3300)
 	end
@@ -3119,183 +3087,66 @@ function sampev.onShowTextDraw(textdrawId, data)
 			end
 		end
 	end
-	--------------------[Автооткрытие кейсов]--------------------
-	-- ip, port = sampGetCurrentServerAddress()
-	-- if ip == "185.169.134.3" or ip == "185.169.134.4" or ip == "185.169.134.43" or ip == "185.169.134.44" or ip == "185.169.134.45" or ip == "185.169.134.5" or ip == "185.169.134.59" or ip == "185.169.134.61" or ip == "185.169.134.107" or ip == "185.169.134.109" or ip == "185.169.134.166" or ip == "185.169.134.171" or ip == "185.169.134.172" or ip == "185.169.134.173" or ip == "185.169.134.174" or ip == "80.66.82.191" then
-		-- if elements.chest.roll_state.v == true and chest_timer <= os.time() then
-			-- for w, q in pairs(tblclosetest) do
-				-- if data.lineWidth >= tonumber(w) and data.lineWidth <= tonumber(q) and data.text:find('^LD_SPAC:white$') then
-					-- for i = 0, 2 do rawset(tblclose, #tblclose + 1, textdrawId) end
-				-- end
-			-- end
-			-- if elements.chest.roll_standart.v then
-				-- if data.modelId == 19918 then
-					-- opentimerid.standart = textdrawId + 1
-				-- end
-				-- if textdrawId == opentimerid.standart then
-					-- sampSendClickTextdraw(textdrawId - 1) 
-					-- sampSendClickTextdraw(2302)
-				-- end
-			-- end
-			-- if elements.chest.roll_platinum.v then
-				-- if data.modelId == 1353 then
-					-- opentimerid.platina = textdrawId + 1
-				-- end
-				-- if textdrawId == opentimerid.platina then
-					-- sampSendClickTextdraw(textdrawId - 1) 
-					-- sampSendClickTextdraw(2302)
-				-- end
-			-- end
-			-- if elements.chest.roll_maska.v then
-				-- if data.modelId == 1733 then
-					-- opentimerid.maska = textdrawId + 1
-				-- end
-				-- if textdrawId == opentimerid.maska then
-					-- sampSendClickTextdraw(textdrawId - 1) 
-					-- sampSendClickTextdraw(2302)
-					-- sendcloseinventory()
-					-- chest_timer = os.time()+(elements.chest.roll_wait.v*60)
-				-- end
-			-- end
-		-- end
-	-- end
-	-- ip, port = sampGetCurrentServerAddress()
-	-- if ip == "185.169.134.3" or ip == "185.169.134.4" or ip == "185.169.134.43" or ip == "185.169.134.44" or ip == "185.169.134.45" or ip == "185.169.134.5" or ip == "185.169.134.59" or ip == "185.169.134.61" or ip == "185.169.134.107" or ip == "185.169.134.109" or ip == "185.169.134.166" or ip == "185.169.134.171" or ip == "185.169.134.172" or ip == "185.169.134.173" or ip == "185.169.134.174" or ip == "80.66.82.191" then
-		-- if elements.chest.roll_state.v == true and chest_timer <= os.time() then
-			-- for w, q in pairs(tblclosetest) do
-				-- if data.lineWidth >= tonumber(w) and data.lineWidth <= tonumber(q) and data.text:find('^LD_SPAC:white$') then
-					-- for i = 0, 2 do rawset(tblclose, #tblclose + 1, textdrawId) end
-				-- end
-			-- end
-			
-			-- if elements.chest.roll_standart.v then
-				-- if data.modelId == 19918 then
-					-- opentimerid.standart = textdrawId + 1
-				-- end
-				-- if textdrawId == opentimerid.standart then
-					-- lua_thread.create(function()
-						--wait(500)
-						-- sampSendClickTextdraw(textdrawId - 1) 
-						-- wait(500)
-						-- sampSendClickTextdraw(2302)
-					-- end)
-				-- end
-			-- end
-			-- if elements.chest.roll_platinum.v then
-				-- if data.modelId == 1353 then
-					-- opentimerid.platina = textdrawId + 1
-				-- end
-				-- if textdrawId == opentimerid.platina then
-					-- lua_thread.create(function()
-						-- wait(500)
-						-- sampSendClickTextdraw(textdrawId - 1) 
-						-- wait(500)
-						-- sampSendClickTextdraw(2302)
-					-- end)
-				-- end
-			-- end
-			-- if elements.chest.roll_maska.v then
-				-- if data.modelId == 1733 then
-					-- opentimerid.maska = textdrawId + 1
-				-- end
-				-- if textdrawId == opentimerid.maska then
-					-- lua_thread.create(function()
-						-- wait(500)
-						-- sampSendClickTextdraw(textdrawId - 1)
-						-- wait(500)
-						-- sampSendClickTextdraw(2302)
-						-- wait(500)
-						-- sendcloseinventory()
-						-- chest_timer = os.time()+(elements.chest.roll_wait.v*60)
-					-- end)
-				-- end
-			-- end
-		-- end
-	-- end
+	--------------------[Автооткрытие сундуков]--------------------
 	ip, port = sampGetCurrentServerAddress()
 	if ip == "185.169.134.3" or ip == "185.169.134.4" or ip == "185.169.134.43" or ip == "185.169.134.44" or ip == "185.169.134.45" or ip == "185.169.134.5" or ip == "185.169.134.59" or ip == "185.169.134.61" or ip == "185.169.134.107" or ip == "185.169.134.109" or ip == "185.169.134.166" or ip == "185.169.134.171" or ip == "185.169.134.172" or ip == "185.169.134.173" or ip == "185.169.134.174" or ip == "80.66.82.191" then
-		------------------------------------
-		if elements.chest.roll_state.v == true and chest_timer <= os.time() then
-		------------------------------------
-			for w, q in pairs(tblclosetest) do
-				if data.lineWidth >= tonumber(w) and data.lineWidth <= tonumber(q) and data.text:find('^LD_SPAC:white$') then
-					for i = 0, 2 do rawset(tblclose, #tblclose + 1, textdrawId) end
-				end
-			end
-			------------------------------------
+		if elements.chest.roll_state.v == true and active then
 			lua_thread.create(function()
-				if elements.chest.roll_standart.v then
-					if data.modelId == 19918 then
-						opentimerid.standart = textdrawId + 1
-					end
-					if textdrawId == opentimerid.standart then
-						sampSendClickTextdraw(textdrawId - 1)
-						wait(400)
-						sampSendClickTextdraw(2302)
-						wait(400)
-						sendcloseinventory()
-						cmd_active = false
-						chest_timer = os.time()+(elements.chest.roll_wait.v*60)
-					end
+				if data.modelId == 19918 then
+					wait(500)
+					sampSendClickTextdraw(textdrawId)
+					use = true
+				end
+				if data.text == 'USE' or data.text == '…CЊO‡’€O‹AЏ’' and use then
+					sampSendClickTextdraw(textdrawId + 1)
+					use = false
+					close = true
+				end
+				if close then
+					sampSendClickTextdraw(65535)
+					close = false
+					active = false
 				end
 			end)
-			------------------------------------
 		end
-		------------------------------------
-		if elements.chest.roll_state.v == true and chest_timer_2 <= os.time() then
-		------------------------------------
-			for w, q in pairs(tblclosetest) do
-				if data.lineWidth >= tonumber(w) and data.lineWidth <= tonumber(q) and data.text:find('^LD_SPAC:white$') then
-					for i = 0, 2 do rawset(tblclose, #tblclose + 1, textdrawId) end
-				end
-			end
-			------------------------------------
+		if elements.chest.roll_state.v == true and active2 then
 			lua_thread.create(function()
-				if elements.chest.roll_platinum.v then
-					if data.modelId == 1353 then
-						opentimerid.platina = textdrawId + 1
-					end
-					if textdrawId == opentimerid.platina then
-						sampSendClickTextdraw(textdrawId - 1)
-						wait(400)
-						sampSendClickTextdraw(2302)
-						wait(400)
-						sendcloseinventory()
-						cmd_active = false
-						chest_timer_2 = chest_timer+5
-					end
+				if data.modelId == 1353 then
+					wait(500)
+					sampSendClickTextdraw(textdrawId)
+					use2 = true
+				end
+				if data.text == 'USE' or data.text == '…CЊO‡’€O‹AЏ’' and use2 then
+					sampSendClickTextdraw(textdrawId + 1)
+					use2 = false
+					close2 = true
+				end
+				if close2 then
+					sampSendClickTextdraw(65535)
+					close2 = false
+					active2 = false
 				end
 			end)
-			------------------------------------
 		end
-		------------------------------------
-		if elements.chest.roll_state.v == true and chest_timer_3 <= os.time() then
-		------------------------------------
-			for w, q in pairs(tblclosetest) do
-				if data.lineWidth >= tonumber(w) and data.lineWidth <= tonumber(q) and data.text:find('^LD_SPAC:white$') then
-					for i = 0, 2 do rawset(tblclose, #tblclose + 1, textdrawId) end
-				end
-			end
-			------------------------------------
+		if elements.chest.roll_state.v == true and active3 then
 			lua_thread.create(function()
-				if elements.chest.roll_maska.v then
-					if data.modelId == 1733 then
-						opentimerid.maska = textdrawId + 1
-					end
-					if textdrawId == opentimerid.maska then
-						sampSendClickTextdraw(textdrawId - 1)
-						wait(400)
-						sampSendClickTextdraw(2302)
-						wait(400)
-						sendcloseinventory()
-						cmd_active = false
-						chest_timer_3 = chest_timer+10
-					end
+				if data.modelId == 1733 then
+					wait(500)
+					sampSendClickTextdraw(textdrawId)
+					use3 = true
+				end
+				if data.text == 'USE' or data.text == '…CЊO‡’€O‹AЏ’' and use3 then
+					sampSendClickTextdraw(textdrawId + 1)
+					use3 = false
+					close3 = true
+				end
+				if close3 then
+					sampSendClickTextdraw(65535)
+					close3 = false
+					active3 = false
 				end
 			end)
-			------------------------------------
 		end
-		------------------------------------
 	end
 	--------------------[Удаление текстдравов]--------------------
 	if data.position.x == 34 and data.position.y == 230 then
@@ -3409,7 +3260,7 @@ function sampev.onShowTextDraw(textdrawId, data)
 				data.modelId == 1622 or -- Регистратор на плечо
 				data.modelId == 1650 or -- Канистра (/fillcar)
 				data.modelId == 1733 or -- Тайник Илона Маска
-				data.modelId == 1895 or -- Серебрянная рулетка
+				(data.modelId == 1895 and data.rotation.x == 0 and data.rotation.y == 0 and data.rotation.z == 0 and data.zoom == 1.934306) or -- Серебрянная рулетка
 				data.modelId == 1979 or -- Бронзовая рулетка
 				data.modelId == 2045 or -- Бита с шипами
 				data.modelId == 2386 or -- Скин
@@ -3418,11 +3269,13 @@ function sampev.onShowTextDraw(textdrawId, data)
 				data.modelId == 2806 or -- Сырое мясо оленины
 				data.modelId == 2894 or -- Телефонная книга
 				data.modelId == 2936 or -- Бронза
+				data.modelId == 3013 or -- Ящик за спиной
 				data.modelId == 3027 or -- Самокрутка на спину
-				data.modelId == 3056 or -- Магнит на спину
+				--data.modelId == 3056 or -- Магнит на спину & Инопланетная пушка
 				data.modelId == 3929 or -- Камень
 				data.modelId == 7093 or -- Рюкзак 'Erotic'
 				data.modelId == 7392 or -- Девушка на спину
+				data.modelId == 11705 or -- Оружейный кейс
 				data.modelId == 11745 or -- Сумка для ноутбука
 				data.modelId == 13646 or -- Золотая рулетка
 				data.modelId == 13667 or -- Маска обезьяны
@@ -3436,6 +3289,7 @@ function sampev.onShowTextDraw(textdrawId, data)
 				data.modelId == 18636 or -- Кепка Police чёрная
 				data.modelId == 18637 or -- Щит на спину
 				data.modelId == 18638 or -- Каска строителя
+				data.modelId == 18641 or -- Маска фонарь
 				data.modelId == 18643 or -- Красная шляпа маяк
 				data.modelId == 18782 or -- Печенька на голову
 				(data.modelId >= 18865 and data.modelId <= 18874) or -- Телефоны
@@ -5747,9 +5601,6 @@ function sampev.onShowDialog(dialogId, style, title, button1, button2, text)
 	end
 	if dialogId == 0 and text:find("Аз Монет при пополнении счета на нашем сайте") then
 		sampSendDialogResponse(dialogId, 1, nil, nil)
-		chest_timer = os.time()+2
-		chest_timer_2 = os.time()+2+5
-		chest_timer_3 = os.time()+2+10
 		return false
 	end
 	--------------------[Отказ показа диалогов Аренды транспорта]--------------------
@@ -6137,7 +5988,7 @@ function sampev.onSetPlayerAttachedObject(playerId, index, create, object)
 		model == 18633 or -- Кран
 		model == 18637 or -- Щит на спину и в руку (сделаны)
 		model == 18640 or -- Черный шлем
-		model == 18641 or -- хз
+		model == 18641 or -- Маска фонарь
 		model == 18642 or -- Шокер (tazer)
 		model == 18643 or -- Красная шляпа маяк
 		model == 18644 or -- Отвертка
