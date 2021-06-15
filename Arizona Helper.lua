@@ -288,9 +288,8 @@ local prods = 2000
 local checkpoint = {}
 local marker = {}
 local carid = -1
-local window = imgui.ImBool(false)
-local window2 = imgui.ImBool(false)
 chatbuble = {}
+local delay = 0.5
 ----------------------------------------
 local friends =
 {
@@ -323,18 +322,6 @@ local pidori =
 	"Tiz_Cartier",
 	"Dexter_Shakespeare",
 };
-----------------------------------------
--- local work =
--- {
-	-- status = false,
-	-- message = nil
--- }
-local delay = 0.5
---------------------[Автоточилка]--------------------
-local checktochilki = false
-local checked_radio = imgui.ImInt(1)
-local checked_inv = imgui.ImInt(2)
-local checked_box = imgui.ImBool(false)
 --------------------[Запоминание диалогов]--------------------
 dialogs = {}
 --------------------[Стиллер объектов на транспорт]--------------------
@@ -352,6 +339,7 @@ local template =
 	sell = {},
 	buy = {}
 }
+----------------------------------------
 local path_cr = getWorkingDirectory() .. '\\config\\cr_items.json'
 if not doesFileExist(path_cr) then
 	data_cr = template
@@ -518,7 +506,7 @@ local mainIni = inicfg.load(
 		euro_price = 4000,
 		----------------------------------------
 		gr_talon = 0,
-		gr_talon_price = 5000,
+		gr_talon_price = 1000,
 		----------------------------------------
 		antibiotiki = 0,
 		antibiotiki_price = 2000,
@@ -835,6 +823,21 @@ local elements =
 		al_delay = imgui.ImInt(mainIni.autopiar.al_delay),
 		al_active = imgui.ImBool(mainIni.autopiar.al_active)
 		----------------------------------------
+	},
+	autotoch =
+	{
+		checktochilki = false,
+		checked_radio = imgui.ImInt(1),
+		checked_inv = imgui.ImInt(2),
+		checked_box = imgui.ImBool(false)
+	},
+	autoopenroul =
+	{
+		open_roul_bronze = imgui.ImBool(false),
+		open_roul_silver = imgui.ImBool(false),
+		open_roul_gold = imgui.ImBool(false),
+		open_roul_platina = imgui.ImBool(false),
+		open_roul_krytim = true,
 	},
 	state =
 	{
@@ -1259,7 +1262,7 @@ function main()
 				setVirtualKeyDown(18, false)
 				setVirtualKeyDown(13, false)
 			end
-			--------------------[Автооткрытие сундуков]--------------------
+			--------------------[Авто-открытие сундуков]--------------------
 			if elements.chest.roll_state.v == true and (ip == "185.169.134.3" or ip == "185.169.134.4" or ip == "185.169.134.43" or ip == "185.169.134.44" or ip == "185.169.134.45" or ip == "185.169.134.5" or ip == "185.169.134.59" or ip == "185.169.134.61" or ip == "185.169.134.107" or ip == "185.169.134.109" or ip == "185.169.134.166" or ip == "185.169.134.171" or ip == "185.169.134.172" or ip == "185.169.134.173" or ip == "185.169.134.174" or ip == "80.66.82.191") then
 				if elements.chest.roll_standart.v == true then
 					sampSendClickTextdraw(65535)
@@ -1762,22 +1765,6 @@ function main()
 				renderFontDrawText(arial,'Магазинов: '..prodovoz_count, sx / 1.22, sy - 50, 0xFFFF3300)
 			end
 		end
-		--------------------[Автосообщения в /vr]--------------------
-		-- if work.status == true then
-			-- if not sampIsLocalPlayerSpawned() then
-				-- work.status = false
-			-- end
-			-- sampSendChat('/vr ' .. tostring(work.message))
-			-- if not sampIsChatInputActive() then
-				-- local strEl = getStructElement(sampGetInputInfoPtr(), 0x8, 4)
-				-- local X = getStructElement(strEl, 0x8, 4)
-				-- local Y = getStructElement(strEl, 0xC, 4)
-				--------------------------------------
-				-- local rotate = math.sin(os.clock() * 3) * 180 + 180
-				-- renderDrawPolygon(X + 10, Y + (renderGetFontDrawHeight(molot_10_9) / 2), 15, 15, 3, rotate, 0xFFFDDB6D)
-				-- renderFontDrawText(molot_10_9, tostring(work.message), X + 25, Y, -1)
-			-- end
-		-- end
 		--------------------[Математика]--------------------
 		text = sampGetChatInputText()
 		----------------------------------------
@@ -1844,6 +1831,51 @@ function main()
 				end
 			end
 			lastPlayerState = pState
+		end
+		--------------------[Авто-открытие рулеток]--------------------
+		if elements.autoopenroul.open_roul_bronze.v == true and elements.autoopenroul.open_roul_krytim == true then
+			auto_roul()
+			wait(222)
+			sampSendClickTextdraw(2089)
+			wait(333)
+			sampSendClickTextdraw(2091)
+			elements.autoopenroul.open_roul_krytim = false
+		end
+		if elements.autoopenroul.open_roul_silver.v == true and elements.autoopenroul.open_roul_krytim == true then
+			auto_roul()
+			wait(333)
+			sampSendClickTextdraw(2083)
+			wait(234)
+			sampSendClickTextdraw(2085)
+			wait(234)
+			sampSendClickTextdraw(2089)
+			wait(234)
+			sampSendClickTextdraw(2091)
+			elements.autoopenroul.open_roul_krytim = false
+		end
+		if elements.autoopenroul.open_roul_gold.v == true and elements.autoopenroul.open_roul_krytim == true then
+			auto_roul()
+			wait(234)
+			sampSendClickTextdraw(2088)
+			wait(234)
+			sampSendClickTextdraw(2090)
+			wait(234)
+			sampSendClickTextdraw(2089)
+			wait(234)
+			sampSendClickTextdraw(2091)
+			elements.autoopenroul.open_roul_krytim = false
+		end
+		if elements.autoopenroul.open_roul_platina.v == true and elements.autoopenroul.open_roul_krytim == true then
+			auto_roul()
+			wait(234)
+			sampSendClickTextdraw(2108)
+			wait(234)
+			sampSendClickTextdraw(2110)
+			wait(234)
+			sampSendClickTextdraw(2089)
+			wait(234)
+			sampSendClickTextdraw(2091)
+			elements.autoopenroul.open_roul_krytim = false
 		end
 		--------------------[Главный ImGui]--------------------
 		imgui.Process = true
@@ -2409,11 +2441,48 @@ function imgui.OnDrawFrame()
 		end
 		if imgui.CollapsingHeader(u8'Авто-точилка аксессуаров') then
 			imgui.Separator()
-			imgui.Checkbox(u8'Включить авто-точилку',checked_box)
+			imgui.Checkbox(u8'Включить авто-точилку',elements.autotoch.checked_box)
 			imgui.PushItemWidth(200)
-			imgui.SliderInt(u8('На сколько будет точится аксессуар'),checked_radio,1,12)
-			imgui.SliderInt(u8('Выбери страницу инвентаря'),checked_inv,1,3)
-			
+			imgui.SliderInt(u8('На сколько будет точится аксессуар'),elements.autotoch.checked_radio,1,12)
+			imgui.SliderInt(u8('Выбери страницу инвентаря'),elements.autotoch.checked_inv,1,3)
+			imgui.Separator()
+		end
+		if imgui.CollapsingHeader(u8'Авто-открытие рулеток') then
+			imgui.Separator()
+			imgui.Checkbox(u8'Бронзовая рулетка',elements.autoopenroul.open_roul_bronze)
+			imgui.Checkbox(u8'Серебряная  рулетка',elements.autoopenroul.open_roul_silver)
+			imgui.Checkbox(u8'Золотая рулетка',elements.autoopenroul.open_roul_gold)
+			imgui.Checkbox(u8'Платиновая рулетка',elements.autoopenroul.open_roul_platina)
+			----------------------------------------
+			if elements.autoopenroul.open_roul_bronze == true then
+				elements.autoopenroul.open_roul_bronze.v = true
+				elements.autoopenroul.open_roul_silver.v = false
+				elements.autoopenroul.open_roul_gold.v = false
+				elements.autoopenroul.open_roul_platina.v = false
+				windowstate.v = not windowstate.v
+			end
+			if elements.autoopenroul.open_roul_silver == true then
+				elements.autoopenroul.open_roul_bronze.v = false
+				elements.autoopenroul.open_roul_silver.v = true
+				elements.autoopenroul.open_roul_gold.v = false
+				elements.autoopenroul.open_roul_platina.v = false
+				windowstate.v = not windowstate.v
+			end
+			if elements.autoopenroul.open_roul_gold == true then
+				elements.autoopenroul.open_roul_bronze.v = false
+				elements.autoopenroul.open_roul_silver.v = false
+				elements.autoopenroul.open_roul_gold.v = true
+				elements.autoopenroul.open_roul_platina.v = false
+				windowstate.v = not windowstate.v
+			end
+			if elements.autoopenroul.open_roul_platina == true then
+				elements.autoopenroul.open_roul_bronze.v = false
+				elements.autoopenroul.open_roul_silver.v = false
+				elements.autoopenroul.open_roul_gold.v = false
+				elements.autoopenroul.open_roul_platina.v = true
+				windowstate.v = not windowstate.v
+			end
+			----------------------------------------
 			imgui.Separator()
 		end
 		if imgui.CollapsingHeader(u8'Авто-скуп в ларьке') then
@@ -2799,6 +2868,7 @@ function imgui.OnDrawFrame()
 		----------------------------------------
 		if imgui.Checkbox(u8('Открывать сундуки'),elements.chest.roll_state) then
 			if elements.chest.roll_state.v == true then
+				windowstate.v = not windowstate.v
 				lua_thread.create(function()
 					if elements.chest.roll_standart.v == true then
 						sampSendClickTextdraw(65535)
@@ -3037,20 +3107,20 @@ function sampev.onShowTextDraw(textdrawId, data)
 			sampSendClickTextdraw(textdrawId)
 		end
 	end
-	--------------------[Автоточилка]--------------------
+	--------------------[Авто-точилка аксессуаров]--------------------
 	if data.modelId == 16112 or data.modelId == 1615 then
-		if checktochilki then
-			if textdrawId ~= 2108 and checktochilki then
+		if elements.autotoch.checktochilki then
+			if textdrawId ~= 2108 and elements.autotoch.checktochilki then
 				sampSendClickTextdraw(textdrawId)
 				sampSendClickTextdraw(2077)
-				checktochilki = false
+				elements.autotoch.checktochilki = false
 			else
 				sampSendClickTextdraw(2077)
-				checktochilki = false
+				elements.autotoch.checktochilki = false
 			end
 		end
 	end
-	--------------------[Автооткрытие сундуков]--------------------
+	--------------------[Авто-открытие сундуков]--------------------
 	ip, port = sampGetCurrentServerAddress()
 	if ip == "185.169.134.3" or ip == "185.169.134.4" or ip == "185.169.134.43" or ip == "185.169.134.44" or ip == "185.169.134.45" or ip == "185.169.134.5" or ip == "185.169.134.59" or ip == "185.169.134.61" or ip == "185.169.134.107" or ip == "185.169.134.109" or ip == "185.169.134.166" or ip == "185.169.134.171" or ip == "185.169.134.172" or ip == "185.169.134.173" or ip == "185.169.134.174" or ip == "80.66.82.191" then
 		if elements.chest.roll_state.v == true and active then
@@ -3385,16 +3455,23 @@ function sampev.onServerMessage(color, text)
 			end
 		end
 	end
-	--------------------[Автоточилка]--------------------
-	if text:find('Увы, вам не удалось улучшить предмет') and checked_box.v then
-		checktochilki = true
-		inventory(checked_inv.v)
+	--------------------[Авто-открытие рулеток]--------------------
+	if text:find("Вам был добавлен предмет") then
+		elements.autoopenroul.open_roul_krytim = true
 	end
-	if text:find('Успех! Вам удалось улучшить предмет') and checked_box.v then
+	if text:find('%[Подсказка%] %{FFFFFF%}Вы получили +(.+)%$!') then
+		elements.autoopenroul.open_roul_krytim = true
+	end
+	--------------------[Авто-точилка аксессуаров]--------------------
+	if text:find('Увы, вам не удалось улучшить предмет') and elements.autotoch.checked_box.v then
+		elements.autotoch.checktochilki = true
+		inventory(elements.autotoch.checked_inv.v)
+	end
+	if text:find('Успех! Вам удалось улучшить предмет') and elements.autotoch.checked_box.v then
 		number = string.match(text, 'на ++(%d+)')+0
-		if number < checked_radio.v and checked_box.v then
-			checktochilki = true
-			inventory(checked_inv.v)
+		if number < elements.autotoch.checked_radio.v and elements.autotoch.checked_box.v then
+			elements.autotoch.checktochilki = true
+			inventory(elements.autotoch.checked_inv.v)
 		end
 	end
 	----------------------------------------
@@ -3596,24 +3673,6 @@ function sampev.onServerMessage(color, text)
 	if text:find('^Вы заглушены') or text:find('Для возможности повторной отправки сообщения в этот чат') then
 		finished = true
 	end
-	-- if text:find("После последнего сообщения в этом чате нужно подождать") and color == -10270721 then
-		-- return false
-	-- end
-	----------------------------------------
-	-- if text:find("Для возможности повторной отправки сообщения в этот чат") and color == -10270721 then
-		-- return false
-	-- end
-	----------------------------------------
-	-- if text:find('^Вы заглушены') then
-		-- work.status = false
-	-- end
-	--------------------------------------
-	-- if work.status then
-		-- local id = select(2, sampGetPlayerIdByCharHandle(PLAYER_PED))
-		-- if text:match('%[%u+%] {%x+}' .. sampGetPlayerNickname(id)) then
-			-- work.status = false
-		-- end
-	-- end
 	----------------------------------------
 	if elements.state.buyvk ~= -1 then
 		if text:find("Недостаточно VKoin\'s для преобретения данной переферии") then
@@ -5241,14 +5300,17 @@ function sampev.onSendClientJoin(Ver, mod, nick, response, authKey, clientver, u
 end
 
 function sampev.onSendPlayerSync(data)
+	--------------------[Анти банихоп]--------------------
 	if bit.band(data.keysData, 0x28) == 0x28 then
 		data.keysData = bit.bxor(data.keysData, 0x20)
 	end
+	--------------------[Отключение анимаций посадки в транспорт]--------------------
 	for animid = 1009, 1060 do
 		if animid == data.animationId then
 			elements.config.anim_car.v = false
 		end
 	end
+	----------------------------------------
 end
 
 function pointInRectangle(point, rect)
@@ -5262,7 +5324,7 @@ function pointInRectangle(point, rect)
 	local dot = function(u, v)
 		return u.x * v.x + u.y * v.y
 	end
-
+	----------------------------------------
 	local AB = vector(rect.A, rect.B)
 	local AM = vector(rect.A, point)
 	local BC = vector(rect.B, rect.C)
@@ -5504,6 +5566,21 @@ function sampev.onShowDialog(dialogId, style, title, button1, button2, text)
 		end
 		return { dialogId, style, title, button1, button2, text }
 	end
+	--------------------[Авто-открытие рулеток]--------------------
+	if dialogId == 722 and nodial then
+		nodial = false
+		return false
+	end
+	if elements.autoopenroul.open_roul_bronze.v == true or elements.autoopenroul.open_roul_silver.v == true or elements.autoopenroul.open_roul_gold.v == true or elements.autoopenroul.open_roul_platina.v == true then
+		if dialogId == 9238 then
+			elements.autoopenroul.open_roul_bronze.v = false
+			elements.autoopenroul.open_roul_silver.v = false
+			elements.autoopenroul.open_roul_gold.v = false
+			elements.autoopenroul.open_roul_platina.v = false
+			elements.autoopenroul.open_roul_krytim = true
+			sampAddChatMessage('['..thisScript().name..' '..thisScript().version..'{FFFFFF}] Рулетки закончились. Авто-открытие выключено.', 0xFFFFFF)
+		end
+	end
 	--------------------[Отказ показа диалогов]--------------------
 	if dialogId == 0 and
 	((text:find("В этом месте запрещено") and text:find("Если вы продолжите, то вы будете кикнуты!")) or
@@ -5581,6 +5658,7 @@ function sumFormat(sum) -- Анализ цен на ЦР
 end
 
 function sampev.onPlayerEnterVehicle(playerId, vehicleId, passenger)
+	--------------------[Отключение анимаций посадки в транспорт]--------------------
 	if elements.config.anim_car.v == true then
 		local _, ped = sampGetCharHandleBySampPlayerId(playerId)
 		if _ then
@@ -5591,16 +5669,10 @@ function sampev.onPlayerEnterVehicle(playerId, vehicleId, passenger)
 			end
 		end
 	end
+	----------------------------------------
 end
 
 function sampev.onSendCommand(cmd)
-	-- if elements.chat.removevipchat.v == false then
-		-- local text = cmd:match('^/vr (.+)')
-		-- if text ~= nil then 
-			-- work.message = text
-			-- work.status = true
-		-- end
-	-- end
 	if elements.chat.removevipchat.v == false then
 		local result = cmd:match('^/vr (.+)')
 		if result ~= nil then 
@@ -6420,6 +6492,15 @@ end
 function number_separator(n) 
 	local left, num, right = string.match(n,'^([^%d]*%d)(%d*)(.-)$')
 	return left..(num:reverse():gsub('(%d%d%d)','%1 '):reverse())..right
+end
+
+function auto_roul(respond)
+	lua_thread.create(function( ... )
+		nodial = true
+		sampSendChat('/mn')
+		wait(222)
+		sampSendDialogResponse(722, 1, 7, nil)
+	end)
 end
 
 function onScriptTerminate(LuaScript, quitGame)
