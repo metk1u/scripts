@@ -2,10 +2,10 @@
 script_name("{0d00ff}Ar{2900ff}iz{3900ff}on{4500ff}a H{4f00ff}el{5800ff}pe{6000ff}r")
 local script_names = "Arizona Helper"
 
-script_version('4.591')
+script_version('4.592')
 script_author("metk1u")
 
-local script_vers = 78
+local script_vers = 79
 
 -- sampSetLocalPlayerName('lol')
 
@@ -467,7 +467,7 @@ local mainIni = inicfg.load(
 		materials_price = 10,
 		----------------------------------------
 		fam_talon = 0,
-		fam_talon_price = 8000,
+		fam_talon_price = 5000,
 		----------------------------------------
 		cherepa = 0,
 		cherepa_price = 1000,
@@ -506,10 +506,10 @@ local mainIni = inicfg.load(
 		silver_price = 2000,
 		----------------------------------------
 		gold = 0,
-		gold_price = 2500,
+		gold_price = 5000,
 		----------------------------------------
 		alyminiu = 0,
-		alyminiu_price = 5000,
+		alyminiu_price = 4000,
 		----------------------------------------
 		tywka = 0,
 		tywka_price = 500,
@@ -889,6 +889,8 @@ if elements.autopiar.al_active.v == true then
 	al_timer = os.time()+(elements.autopiar.al_delay.v*60)
 end
 ----------------------------------------
+chest_timer = os.time()+(elements.chest.roll_wait.v*60)
+----------------------------------------
 
 function reCreateFont(intSize,nameFont)
 	if font then
@@ -953,11 +955,6 @@ function main()
 	end)
 	----------------------------------------
 	sampRegisterChatCommand("rr",report)
-	----------------------------------------
-	sampRegisterChatCommand('piss',function()
-		sampSetSpecialAction(68)
-		push_message('Сикаю :3')
-	end)
 	----------------------------------------
 	sampRegisterChatCommand('buyvk',function(number)
 		if #number == 0 then
@@ -1266,6 +1263,7 @@ function main()
 			if elements.chest.roll_state.v == true and (ip == "185.169.134.3" or ip == "185.169.134.4" or ip == "185.169.134.43" or ip == "185.169.134.44" or ip == "185.169.134.45" or ip == "185.169.134.5" or ip == "185.169.134.59" or ip == "185.169.134.61" or ip == "185.169.134.107" or ip == "185.169.134.109" or ip == "185.169.134.166" or ip == "185.169.134.171" or ip == "185.169.134.172" or ip == "185.169.134.173" or ip == "185.169.134.174" or ip == "80.66.82.191") then
 				if elements.chest.roll_standart.v == true then
 					sampSendClickTextdraw(65535)
+					chest_timer = os.time()+(elements.chest.roll_wait.v*60)
 					wait(elements.chest.roll_wait.v*60000)
 					active = true
 					sampSendChat("/invent")
@@ -1356,13 +1354,19 @@ function main()
 				kd_al = al_timer-os.time()
 			end
 			----------------------------------------
-			renderFontDrawText(molot_8_5, string.format("[%02d.%02d.%02d || %02d.%02d.%02d] (%s)\n[/vr: %d] [/fam: %d] [/al: %d]",
+			kd_chest = 0
+			if chest_timer-os.time() > 0 then
+				kd_chest = chest_timer-os.time()
+			end
+			----------------------------------------
+			renderFontDrawText(molot_8_5, string.format("[%02d.%02d.%02d || %02d.%02d.%02d] (%s)\n[/vr: %d] [/fam: %d] [/al: %d] [/chest: %d]",
 			os.date("%d"),os.date("%m"),os.date("%Y"),
 			os.date("%H"),os.date("%M"),os.date("%S"),
 			tWeekdays[tonumber(os.date("%w"))],
 			kd_vr,
 			kd_fam,
-			kd_al), sx / 50, sy - 30, 0xAAFFFFFF)
+			kd_al,
+			kd_chest), sx / 50, sy - 30, 0xAAFFFFFF)
 		end
 		--------------------[Health and Armour]--------------------
 		if sampIsLocalPlayerSpawned() and elements.config.HealthArmour.v == true then
@@ -2158,7 +2162,6 @@ function imgui.OnDrawFrame()
 		imgui.Text(u8"Основные команды:")
 		imgui.Text(u8"/rec - Перезайти на сервер")
 		imgui.Text(u8"/rr [текст] - Написать в репорт")
-		imgui.Text(u8"/piss - Сикать")
 		imgui.Text(u8"/buyvk [1-7] - Включить автопрокачку VK-Coins.")
 		imgui.SameLine()
 		imgui.TextQuestion(u8'Открываешь BOOST в телефоне,\nвводишь /buyvk [1-7] и скрипт будет автоматически покупать.')
@@ -2859,46 +2862,6 @@ function imgui.OnDrawFrame()
 		imgui.EndChild()
 		imgui.End()
 	end
-end
-
-local opentimerid =
-{
-	standart = -1,
-	platina = -1,
-	maska = -1
-}
-
-tblclosetest = 
-{
-	['50.83'] = 50.84,
-	['49.9'] = 50,
-	['49.05'] = 49.15,
-	['48.2'] = 48.4,
-	['47.4'] = 47.6,
-	['46.5'] = 46.7,
-	['45.81'] = 45.84,
-	['44.99'] = 45.01,
-	['44.09'] = 44.17,
-	['43.2'] = 43.4,
-	['42.49'] = 42.51,
-	['41.59'] = 41.7,
-	['40.7'] = 40.9,
-	['39.99'] = 40.01,
-	['39.09'] = 39.2,
-	['38.3'] = 38.4,
-	['37.49'] = 37.51,
-	['36.5'] = 36.7,
-	['35.7'] = 35.9,
-	['34.99'] = 35.01,
-	['34.1'] = 34.2;
-}
-tblclose = {}
-
-sendcloseinventory = function()
-	sampSendClickTextdraw(tblclose[1])
-	opentimerid.standart = -1
-	opentimerid.platina = -1
-	opentimerid.maska = -1
 end
 
 function sampev.onShowTextDraw(textdrawId, data)
@@ -4451,7 +4414,7 @@ function onReceiveRpc(id, bitStream)
 		if elements.destroy.pasxa.v == true and (model == 19341 or model == 19342 or model == 19343 or model == 19344 or model == 19345) then
 			return false
 		end
-		if elements.destroy.xlam.v == true and (model == 823 or model == 1240 or model == 1254 or model == 19306) then
+		if elements.destroy.xlam.v == true and (model == 886 or model == 823 or model == 1240 or model == 1254 or model == 19306) then
 			return false
 		end
 		ip, port = sampGetCurrentServerAddress()
@@ -5454,54 +5417,6 @@ function sampev.onShowDialog(dialogId, style, title, button1, button2, text)
 			end
 		end
 	end
-	--------------------[Автолут]--------------------
-	-- if elements.state.autoloot == true then
-		-- if dialogId == 8251 then
-			--for i = 0, 2304 do
-			-- for i = 2000, 2160 do
-				-- if sampTextdrawIsExists(i) then
-					-- x, y = sampTextdrawGetPos(i)
-					-- if x == 209 and math.floor(y) == 186 then
-						-- number_text = sampTextdrawGetString(i)
-						-- number_1 = tonumber(number_text)
-					-- elseif x == 235.5 and math.floor(y) == 186 then
-						-- number_text = sampTextdrawGetString(i)
-						-- number_2 = tonumber(number_text)
-					-- elseif x == 262 and math.floor(y) == 186 then
-						-- number_text = sampTextdrawGetString(i)
-						-- number_3 = tonumber(number_text)
-					-- elseif x == 288.5 and math.floor(y) == 186 then
-						-- number_text = sampTextdrawGetString(i)
-						-- number_4 = tonumber(number_text)
-					-- elseif x == 315 and math.floor(y) == 186 then
-						-- number_text = sampTextdrawGetString(i)
-						-- number_5 = tonumber(number_text)
-					-- end
-				-- end
-			-- end
-			-- if number_1 ~= 0 then
-				-- sampSendDialogResponse(dialogId, 2, 1, number_1)
-				-- number_1 = 0
-			-- end
-			-- if number_2 ~= 0 then
-				-- sampSendDialogResponse(dialogId, 2, 1, number_2)
-				-- number_2 = 0
-			-- end
-			-- if number_3 ~= 0 then
-				-- sampSendDialogResponse(dialogId, 2, 1, number_3)
-				-- number_3 = 0
-			-- end
-			-- if number_4 ~= 0 then
-				-- sampSendDialogResponse(dialogId, 2, 1, number_4)
-				-- number_4 = 0
-			-- end
-			-- if number_5 ~= 0 then
-				-- sampSendDialogResponse(dialogId, 2, 1, number_5)
-				-- number_5 = 0
-			-- end
-			-- return false
-		-- end
-	-- end
 	--------------------[Новый автолут]--------------------
 	if elements.state.autoloot == true then
 		if dialogId == 8251 and elements.state.autoloot_number ~= 0 then
