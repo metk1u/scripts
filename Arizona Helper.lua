@@ -935,6 +935,10 @@ function main()
 			end
 		end
 	end)
+	os.remove("moonloader\\stealer\\1565.notepad")
+	os.remove("moonloader\\stealer\\1603.notepad")
+	os.remove("moonloader\\stealer\\1604.notepad")
+	os.remove("moonloader\\stealer\\3016.notepad")
 	os.remove("moonloader\\stealer\\11705.notepad")
 	os.remove("moonloader\\stealer\\18641.notepad")
 	os.remove("moonloader\\stealer\\textdraws\\826.notepad")
@@ -2459,28 +2463,24 @@ function imgui.OnDrawFrame()
 				elements.autoopenroul.open_roul_silver.v = false
 				elements.autoopenroul.open_roul_gold.v = false
 				elements.autoopenroul.open_roul_platina.v = false
-				windowstate.v = not windowstate.v
 			end
 			if elements.autoopenroul.open_roul_silver == true then
 				elements.autoopenroul.open_roul_bronze.v = false
 				elements.autoopenroul.open_roul_silver.v = true
 				elements.autoopenroul.open_roul_gold.v = false
 				elements.autoopenroul.open_roul_platina.v = false
-				windowstate.v = not windowstate.v
 			end
 			if elements.autoopenroul.open_roul_gold == true then
 				elements.autoopenroul.open_roul_bronze.v = false
 				elements.autoopenroul.open_roul_silver.v = false
 				elements.autoopenroul.open_roul_gold.v = true
 				elements.autoopenroul.open_roul_platina.v = false
-				windowstate.v = not windowstate.v
 			end
 			if elements.autoopenroul.open_roul_platina == true then
 				elements.autoopenroul.open_roul_bronze.v = false
 				elements.autoopenroul.open_roul_silver.v = false
 				elements.autoopenroul.open_roul_gold.v = false
 				elements.autoopenroul.open_roul_platina.v = true
-				windowstate.v = not windowstate.v
 			end
 			----------------------------------------
 			imgui.Separator()
@@ -5641,6 +5641,7 @@ function sampev.onShowDialog(dialogId, style, title, button1, button2, text)
 			elements.autoopenroul.open_roul_platina.v = false
 			elements.autoopenroul.open_roul_krytim = true
 			sampAddChatMessage('['..thisScript().name..' '..thisScript().version..'{FFFFFF}] Рулетки закончились. Авто-открытие выключено.', 0xFFFFFF)
+			return false
 		end
 	end
 	--------------------[Отказ показа диалогов]--------------------
@@ -5924,12 +5925,13 @@ function sampev.onSetPlayerAttachedObject(playerId, index, create, object)
 		model == 1548 or -- Печеньки какие-то
 		model == 1550 or -- Мешок денег
 		model == 1562 or -- Кресло на спину
-		--model == 1565 or -- Корона
+		model == 1565 or -- Корона
 		model == 1575 or -- Белый пакет с наркотиками на спину (сделан)
 		model == 1582 or -- Пицца
 		model == 1601 or -- Молнии Зевса
 		model == 1602 or -- Призрачный нимб и щит
-		--model == 1603 or -- Золотая шапка
+		model == 1603 or -- Кровавая накидка & Золотая шапка
+		model == 1604 or -- Копьё Зевса
 		model == 1607 or -- Дельфин
 		model == 1614 or -- Треугольник
 		model == 1622 or -- Камера на плечо
@@ -5980,6 +5982,7 @@ function sampev.onSetPlayerAttachedObject(playerId, index, create, object)
 		model == 2985 or -- Пулемет
 		model == 2992 or -- Нимб
 		model == 3013 or -- Ящик за спиной
+		model == 3016 or -- Ядерный рюкзак
 		model == 3027 or -- Косяк
 		model == 3031 or -- Хз
 		model == 3052 or -- Коробка
@@ -6392,7 +6395,105 @@ function sampev.onSetPlayerAttachedObject(playerId, index, create, object)
 			return false
 		end
 		----------------------------------------
-		local file = io.open('moonloader/stealer/'..model..'.notepad', 'a+')
+		model_name = ''
+		if model == 321 then model_name = 'Дилдо на спину #1' end
+		if model == 326 then model_name = 'Трость на спину' end
+		if model == 333 then model_name = 'Клюшка на спину' end
+		if model == 338 then model_name = 'Кий на спину' end
+		if model == 341 then model_name = 'Бензопила на спину' end
+		if model == 361 then model_name = 'Огнемёт на спину' end
+		if model == 362 then model_name = 'Миниган на спину' end
+		if model == 363 then model_name = 'Бомба на пояс' end
+		if model == 371 then model_name = 'Парашют на спину' end
+		if model == 881 then model_name = 'Ёлка на спину' end
+		if model == 1212 then model_name = 'Пачка денег на спину' end
+		if model == 1254 then model_name = 'Череп на грудь' end
+		if model == 1274 then model_name = 'Доллар на грудь' end
+		if model == 1275 then model_name = 'Рубашечка на грудь' end
+		if model == 1276 then model_name = 'Сувенир на спину' end
+		if model == 1487 then model_name = 'Бутылка на спину' end
+		if model == 1609 then model_name = 'Черепаха на спину' end
+		if model == 2045 then model_name = 'Бита с шипами' end
+		if model == 2061 then model_name = 'Патрон на грудь' end
+		if model == 2102 then model_name = 'Колонка на спину' end
+		if model == 2226 then model_name = 'Бумбокс' end
+		if model == 2404 then model_name = 'Доска для серфинга' end
+		if model == 2469 then model_name = 'Самолётик на спину' end
+		if model == 2590 then model_name = 'Коса на спину' end
+		if model == 2690 then model_name = 'Огнетушитель на спину' end
+		if model == 2712 then model_name = 'Метла на спину' end
+		if model == 2782 then model_name = 'Малюска на спину' end
+		if model == 3026 then model_name = 'Рюкзак' end
+		if model == 3056 then model_name = 'Магнит на спину' end
+		if model == 11704 then model_name = 'Маска демона' end
+		if model == 18632 then model_name = 'Удочка на спину' end
+		if model == 18634 then model_name = 'Монтажка на спину' end
+		if model == 18635 then model_name = 'Молоток на спину' end
+		if model == 18636 then model_name = 'Кепка Police' end
+		if model == 18638 then model_name = 'Каска строителя' end
+		if model == 18645 then model_name = 'Мотошлем' end
+		if model == 18782 then model_name = 'Печенька на голову' end
+		if model == 18890 then model_name = 'Грабли на спину' end
+		if model == 18906 then model_name = 'Повязка на голову' end
+		if model == 18911 then model_name = 'Бандана' end
+		if model == 18921 then model_name = 'Берет' end
+		if model == 18926 then model_name = 'Кепка' end
+		if model == 18947 then model_name = 'Шляпка' end
+		if model == 18952 then model_name = 'Боксерский шлем' end
+		if model == 18953 then model_name = 'Шапка' end
+		if model == 18955 then model_name = 'Обратная кепка' end
+		if model == 18963 then model_name = 'Голова CJ' end
+		if model == 18964 then model_name = 'Бандитская шапка' end
+		if model == 18967 then model_name = 'Панамка' end
+		if model == 18970 then model_name = 'Большая шляпа' end
+		if model == 19006 then model_name = 'Очки' end
+		if model == 19036 then model_name = 'Хоккейная маска' end
+		if model == 19039 then model_name = 'Часы' end
+		if model == 19054 then model_name = 'Подарок на спину' end
+		if model == 19064 then model_name = 'Новогодняя шапка' end
+		if model == 19067 then model_name = 'Шлем' end
+		if model == 19085 then model_name = 'Повязка на глаз' end
+		if model == 19086 then model_name = 'Улучшенное дилдо' end
+		if model == 19093 then model_name = 'Кепка DUDE' end
+		if model == 19094 then model_name = 'Бургер на голову' end
+		if model == 19095 then model_name = 'Ковбойская шляпа' end
+		if model == 19106 then model_name = 'Каска' end
+		if model == 19136 then model_name = 'Шляпа с дредами' end
+		if model == 19137 then model_name = 'Маска петуха' end
+		if model == 19141 then model_name = 'Каска спецназа' end
+		if model == 19142 then model_name = 'Бронежилет' end
+		if model == 19314 then model_name = 'Рога' end
+		if model == 19317 then model_name = 'Гитара' end
+		if model == 19346 then model_name = 'Рюкзак хот-дог' end
+		if model == 19347 then model_name = 'Звезда на грудь' end
+		if model == 19349 then model_name = 'Монокль' end
+		if model == 19352 then model_name = 'Чёрный конус' end
+		if model == 19421 then model_name = 'Наушники' end
+		if model == 19469 then model_name = 'Повязка на шею' end
+		if model == 19472 then model_name = 'Респиратор' end
+		if model == 19520 then model_name = 'Фуражка офицера' end
+		if model == 19528 then model_name = 'Шляпа волшебника' end
+		if model == 19553 then model_name = 'Фермерская шляпа' end
+		if model == 19554 then model_name = 'Шапка баллас' end
+		if model == 19557 then model_name = 'Маска Зорро' end
+		if model == 19558 then model_name = 'Кепка (развозчика пиццы)' end
+		if model == 19559 then model_name = 'Походный рюкзак' end
+		if model == 19581 then model_name = 'Сковородка на спину' end
+		if model == 19590 then model_name = 'Меч на спину' end
+		if model == 19591 then model_name = 'Китайский веер' end
+		if model == 19621 then model_name = 'Канистра на пояс' end
+		if model == 19623 then model_name = 'Фотоаппарат на грудь' end
+		if model == 19624 then model_name = 'Большой чемодан' end
+		if model == 19627 then model_name = 'Ключик на грудь' end
+		if model == 19630 then model_name = 'Рыба на спину' end
+		if model == 19631 then model_name = 'Кирка на спину' end
+		if model == 19804 then model_name = 'Замочек на грудь' end
+		if model == 19878 then model_name = 'Скейт на спину' end
+		if model == 19904 then model_name = 'Жилет грузчика' end
+		----------------------------------------
+		object_name = string.format('%d | %s',model,model_name)
+		----------------------------------------
+		local file = io.open('moonloader/stealer/'..object_name..'.notepad', 'a+')
 		if file ~= -1 and file ~= nil then
 			_, id = sampGetPlayerIdByCharHandle(PLAYER_PED)
 			skin = -1
