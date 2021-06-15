@@ -2846,7 +2846,10 @@ function imgui.OnDrawFrame()
 			if count_all > getPlayerMoney(Player) then
 				imgui.TextColoredRGB(u8('{FF3300}Тебе нехватает $'..count_all-getPlayerMoney(Player)))
 			end
-			if imgui.Button(u8"Начать скупку",imgui.ImVec2(250,25)) then skupka() end
+			if imgui.Button(u8"Начать скупку",imgui.ImVec2(250,25)) then
+				skupka()
+				windowstate.v = not windowstate.v
+			end
 			imgui.Separator()
 		end
 		----------------------------------------
@@ -3901,6 +3904,7 @@ function sampev.onCreateObject(objectId, data)
 		data.modelId ~= 1095 and
 		data.modelId ~= 1111 and
 		data.modelId ~= 1112 and
+		data.modelId ~= 1114 and
 		data.modelId ~= 1117 and
 		data.modelId ~= 1126 and
 		data.modelId ~= 1127 and
@@ -3954,6 +3958,16 @@ function sampev.onCreateObject(objectId, data)
 		data.modelId ~= 1277 and
 		data.modelId ~= 1424 and
 		data.modelId ~= 1444 and
+		data.modelId ~= 1554 and
+		data.modelId ~= 1575 and
+		data.modelId ~= 1576 and
+		data.modelId ~= 1577 and
+		data.modelId ~= 1578 and
+		data.modelId ~= 1579 and
+		data.modelId ~= 1580 and
+		data.modelId ~= 1609 and
+		data.modelId ~= 1654 and
+		data.modelId ~= 1736 and
 		data.modelId ~= 1738 and
 		data.modelId ~= 1975 and
 		data.modelId ~= 1976 and
@@ -3970,12 +3984,20 @@ function sampev.onCreateObject(objectId, data)
 		data.modelId ~= 2658 and
 		data.modelId ~= 2659 and
 		data.modelId ~= 2660 and
+		data.modelId ~= 2690 and
 		data.modelId ~= 2695 and
 		data.modelId ~= 2696 and
 		data.modelId ~= 2697 and
+		data.modelId ~= 2726 and
+		data.modelId ~= 2771 and
 		data.modelId ~= 2891 and
+		data.modelId ~= 2914 and
+		data.modelId ~= 2923 and
 		data.modelId ~= 3012 and
+		data.modelId ~= 3028 and
+		data.modelId ~= 11704 and
 		data.modelId ~= 11712 and
+		data.modelId ~= 11738 and
 		data.modelId ~= 18646 and
 		data.modelId ~= 18647 and
 		data.modelId ~= 18648 and
@@ -3983,14 +4005,54 @@ function sampev.onCreateObject(objectId, data)
 		data.modelId ~= 18650 and
 		data.modelId ~= 18651 and
 		data.modelId ~= 18652 and 
+		data.modelId ~= 18689 and 
+		data.modelId ~= 19059 and
+		data.modelId ~= 19060 and
+		data.modelId ~= 19061 and
+		data.modelId ~= 19062 and
+		data.modelId ~= 19063 and
 		data.modelId ~= 19078 and
+		data.modelId ~= 19131 and
+		data.modelId ~= 19132 and
+		data.modelId ~= 19281 and
+		data.modelId ~= 19282 and
+		data.modelId ~= 19283 and
+		data.modelId ~= 19284 and
+		data.modelId ~= 19285 and
+		data.modelId ~= 19286 and
+		data.modelId ~= 19287 and
+		data.modelId ~= 19288 and
+		data.modelId ~= 19289 and
+		data.modelId ~= 19290 and
+		data.modelId ~= 19291 and
+		data.modelId ~= 19292 and
+		data.modelId ~= 19293 and
+		data.modelId ~= 19294 and
+		data.modelId ~= 19295 and
+		data.modelId ~= 19296 and
+		data.modelId ~= 19297 and
+		data.modelId ~= 19298 and
 		data.modelId ~= 19308 and
 		data.modelId ~= 19309 and
 		data.modelId ~= 19310 and
 		data.modelId ~= 19311 and
 		data.modelId ~= 19314 and
+		data.modelId ~= 19332 and
+		data.modelId ~= 19333 and
+		data.modelId ~= 19334 and
+		data.modelId ~= 19335 and
+		data.modelId ~= 19336 and
+		data.modelId ~= 19337 and
+		data.modelId ~= 19338 and
+		data.modelId ~= 19341 and
+		data.modelId ~= 19342 and
+		data.modelId ~= 19343 and
+		data.modelId ~= 19344 and
+		data.modelId ~= 19345 and
+		data.modelId ~= 19590 and
 		data.modelId ~= 19601 and
 		data.modelId ~= 19777 and
+		data.modelId ~= 19843 and
 		data.modelId ~= 19848 then
 		local tempObj = { }
 		----------------------------------------
