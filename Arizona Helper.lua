@@ -944,6 +944,8 @@ function main()
 	os.remove("moonloader\\stealer\\textdraws\\826.notepad")
 	os.remove("moonloader\\stealer\\textdraws\\871.notepad")
 	os.remove("moonloader\\stealer\\textdraws\\1463.notepad")
+	os.remove("moonloader\\stealer\\textdraws\\1565.notepad")
+	-- os.remove("moonloader\\stealer\\textdraws\\1603.notepad")
 	----------------------------------------
 	_, playerid = sampGetPlayerIdByCharHandle(PLAYER_PED)
 	local_name = sampGetPlayerNickname(playerid)
@@ -3083,6 +3085,9 @@ function sampev.onShowTextDraw(textdrawId, data)
 	if data.modelId == 1562 then
 		sampAddChatMessage("Кресло на спину - заскринить название предмета!", 0xFF3300)
 	end
+	if data.modelId == 1603 then
+		sampAddChatMessage("Золотая шапка и Кровавая накидка - своровать текстдрав!", 0xFF3300)
+	end
 	if data.modelId == 1681 then
 		sampAddChatMessage("Самолет на спину - заскринить название предмета!", 0xFF3300)
 	end
@@ -3289,8 +3294,10 @@ function sampev.onShowTextDraw(textdrawId, data)
 				data.modelId == 1328 or -- Платиновая рулетка
 				data.modelId == 1353 or -- Сундук платиновой рулетки
 				data.modelId == 1463 or -- Дрова
+				data.modelId == 1565 or -- Корона
 				data.modelId == 1575 or -- Белый пакет с наркотиками на спину
 				data.modelId == 1602 or -- Плазменный щит & Призрачный нимб
+				--data.modelId == 1603 or -- Кровавая накидка & Золотая шапка
 				data.modelId == 1607 or -- Дельфин на спину
 				data.modelId == 1609 or -- Черепаха на спину
 				data.modelId == 1622 or -- Регистратор на плечо
@@ -3307,7 +3314,7 @@ function sampev.onShowTextDraw(textdrawId, data)
 				data.modelId == 2936 or -- Бронза
 				data.modelId == 3013 or -- Ящик за спиной
 				data.modelId == 3027 or -- Самокрутка на спину
-				--data.modelId == 3056 or -- Магнит на спину & Инопланетная пушка
+				data.modelId == 3056 or -- Магнит на спину & Инопланетная пушка
 				data.modelId == 3929 or -- Камень
 				data.modelId == 7093 or -- Рюкзак 'Erotic'
 				data.modelId == 7392 or -- Девушка на спину
