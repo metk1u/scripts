@@ -908,7 +908,7 @@ function main()
 	while not isSampAvailable() do wait(0) end
 	if not doesDirectoryExist("moonloader\\logs") then createDirectory("moonloader\\logs") end
 	if not doesDirectoryExist("moonloader\\stealer") then createDirectory("moonloader\\stealer") end
-	if not doesDirectoryExist("moonloader\\stealer\\vehicle") then createDirectory("moonloader\\stealer\\vehicle") end
+	if not doesDirectoryExist("moonloader\\stealer\\vehicles") then createDirectory("moonloader\\stealer\\vehicles") end
 	if not doesDirectoryExist("moonloader\\stealer\\textdraws") then createDirectory("moonloader\\stealer\\textdraws") end
 	sampAddChatMessage('['..thisScript().name..' '..thisScript().version..'{FFFFFF}] {299800}Загружен{FFFFFF}. Настройки: /chat.', 0xFFFFFF)
 	push_message(script_names..' загружен.')
@@ -4331,7 +4331,7 @@ function fsoav(vehicleId)
 		model = getCarModel(vHandle)
 		vehicle_name = getCarName(model)
 		----------------------------------------
-		directory = 'moonloader/stealer/vehicle/'..model..' - '..vehicle_name..'('..vehicleId..').notepad'
+		directory = 'moonloader/stealer/vehicles/'..model..' - '..vehicle_name..'('..vehicleId..').notepad'
 		----------------------------------------
 		os.remove(directory)
 		local file = io.open(directory, 'a+')
@@ -6529,11 +6529,11 @@ function sampev.onSetPlayerAttachedObject(playerId, index, create, object)
 				code_temp_2 = string.format('case %d: SetPlayerAttachedObject(playerid, slot, %d, %d, %0.4f, %0.4f, %0.4f, %0.4f, %0.4f, %0.4f, %0.4f, %0.4f, %0.4f, -1, -1);\n',skin,model,object.bone,object.offset.x,object.offset.y,object.offset.z,object.rotation.x,object.rotation.y,object.rotation.z,object.scale.x,object.scale.y,object.scale.z)
 				if string.find(file:read("*all"), code_temp_2, 1, true) then
 					--sampfuncsLog(getColor(object.color2))
-					sampfuncsLog('{FF3300}<Копия> '..code_temp_2)
+					--sampfuncsLog('{FF3300}<Копия> '..code_temp_2)
 					io.close(file)
 					return
 				end
-				sampfuncsLog('{33AA33}<Добавлено> '..code_temp_2)
+				--sampfuncsLog('{33AA33}<Добавлено> '..code_temp_2)
 				SaveFileAttach(skin,model,object.bone,object.offset.x,object.offset.y,object.offset.z,object.rotation.x,object.rotation.y,object.rotation.z,object.scale.x,object.scale.y,object.scale.z)
 				io.close(file)
 			end
