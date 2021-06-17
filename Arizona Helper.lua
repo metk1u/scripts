@@ -2,10 +2,10 @@
 script_name("{0d00ff}Ar{2900ff}iz{3900ff}on{4500ff}a H{4f00ff}el{5800ff}pe{6000ff}r")
 local script_names = "Arizona Helper"
 
-script_version('4.593')
+script_version('4.594')
 script_author("metk1u")
 
-local script_vers = 80
+local script_vers = 81
 
 -- sampSetLocalPlayerName('lol')
 
@@ -87,138 +87,209 @@ local coords =
 	{-1966.0201, -209.2971, 26.1161},{2448.8330, 1510.1191, 9.8509},{-1955.8090, 497.5031, 34.8972},{1668.1645, 969.9602, 10.1402},{1431.2762, -153.5274, 24.4445},
 	{2917.7521, 1701.0046, 8.3925},{893.9651, -1863.7783, 7.5980},{374.4047, -116.4619, 0.3513},{845.8577, -620.7963, 16.4671},{-1741.2500, -2416.5317, 40.4281},
 	{-1111.0736, 1126.4230, 18.9280},{2511.4123, 2704.9909, 10.1248},{876.4626, -15.4264, 62.4019},{2744.9411, 2763.8493, 9.9954},{562.3497, 2872.1220, 1.1273}
-}
+};
 local textklad =
 {
-	["Что объединяет"] = "Семья", 
-	["на сервере Mesa"] = "2", 
-	["Сколько всего стилей форума"] = "3", 
-	["Какой аксессуар может сидеть на плече"] = "Попугай", 
-	["Какая работа в центре занятости открывается на 6 уровне"] = "Инкассатор", 
-	["Сколько нужно EXP для получения 12 уровня, если сейчас у тебя 1 lvl 0 exp"] = "308", 
-	["Количество серверов с самым длинным названием"] = "3", 
-	["В каком месяце ввели покраску куратора на форуме проекта"] = "Декабрь", 
-	["Количество ГА, которые когда-либо были на сервере Yuma"] = "1", 
-	["Собирает яйца птица, ни павлин и ни синица"] = "Попугай", 
-	["Кто пишет эту систему глубочайщей ночью"] = "Альберт", 
-	["Максимальная ставка в одноруком бандите"] = "5000", 
-	["Дата регистрации спец.администратора Sam_Mason на форуме в формате xx.xx.xx"] = "27.04.15", 
-	["Минимальная сумма пожертвования в благотворительность"] = "10000", 
-	["Максимальное количество дерева в 1 слоте инвентаря"] = "10000", 
-	["Каждый проходит через это при начале игры"] = "Регистрация", 
-	["Сервер Аризоны, который чаще всего занимает 1 место по онлайну"] = "Scottdale", 
-	["Сервер Аризоны"] = "Scottdale", 
-	["Сколько нужно EXP для получения 40 уровня, если сейчас у тебя 3 lvl 2 exp"] = "3254", 
-	["Какой урон наносит удар с кулака при 0%% силы по игроку с 0%%%% мускулатуры"] = "1.32", 
-	["Висит на спине, но не гитара, быстрый и юркий, но не велосипед"] = "Скейт", 
-	["Как зовут начальника Магнуса"] = "Эрих", 
-	["главного администратора 6-го сервера"] = "Diana_Mironova", 
-	["Любит репорт отвечать, игрокам всем помогать"] = "Хелпер", 
-	["Количество ГА, которые когда-либо были на сервере Red-Rock"] = "3", 
-	["Это бывает 7 раз в неделю, 24 раза в сутки. Что это"] = "Payday", 
-	["Напишите Nick_Name главного администратора 6-го сервера"] = "Diana_Mironova", 
-	["Максимальная цена на оружие в АММО для владельцев бизнеса"] = "50000", 
-	["Самая популярная игра в казино"] = "Кости", 
-	["Сколько АЗ стоит в донате 8000 семейной репутации"] = "2400", 
-	["Как звали третьего по счету ГА на сервере Scottdale"] = "Владислав", 
-	["Фамилия администратора с ником Kory_McGregor"] = "Мясников", 
-	["Ник главного администратора сервера Tucson, который был назначен после ухода Dmitriy_Prise"] = "Steff_Kingston", 
-	["Сколько серверов было 1 октября 2017 года"] = "6", 
-	["Кто однорукий постоянно стоит в казино"] = "Бандит", 
-	["Количество работ в центре занятости"] = "19", 
-	["Сколько нужно EXP для получения 39 уровня, если сейчас у тебя 1 lvl 4 exp"] = "3112", 
-	["Каков возраст самого молодого ГА"] = "14", 
-	["Дата добавления корабля для мафий в формате xx.xx.xx"] = "19.06.16", 
-	["Напишите Nick_Name главного администратора 9-го сервера"] = "" ,
-	["Кто закопал эти клады"] = "Дмитрий", 
-	["Количество фракций на сервере"] = "27", 
-	["Сколько минут нужно отыграть для получения PayDay"] = "20", 
-	["Максимальное количество EXP, которое может выпасть с контейнера"] = "80", 
-	["Сколько нужно EXP для получения 25 уровня, если сейчас у тебя 22 lvl 20 exp"] = "268", 
-	["Напишите Nick_Name главного администратора 9-го сервера"] = "Leonardo_Toren", 
-	["Накануне праздник, вышла обнова - это любимая наша"] = "Аризона", 
-	["Старый, мудрый, 05го дежурный"] = "Николай", 
-	["Дата выхода обновления, позволившего зарабатывать реальные деньги в игре"] = "16.07.19", 
-	["Какой налог нужен для слета дома"] = "104000", 
-	["которое было за все время на проекте"] = "3", 
-	["Сколько стоило 1 евро в день выпуска"] = "3000", 
-	["Стандартное количество ХП у автомобиля"] = "1500", 
-	["В каком месяце был добавлен информационный центр"] = "Март", 
-	["В каком месяце Conor стал спец.администратором"] = "Январь", 
-	["Какой урон наносит удар с кулака при 100%%%% силы по игроку с 0%%%% мускулатуры"] = "11.32", 
-	["Сколько талонов в день можно получать с семейных квестов"] = "11", 
-	["Количество лавок на Центральном Рынке"] = "30", 
-	["В каком году был добавлен депозит"] = "2017", 
-	["Самый крупный ютубер на 1 октября 2019 года"] = "Delorenzy", 
-	["Количество домов на сервере за AZ монеты"] = "15", 
-	["Как зовут квестового NPC в деревне Montgomery"] = "Майкл", 
-	["Напишите Nick_Name главного администратора 9-го сервера"] = "Leonardo_Toren", 
-	["цена у любого бизнеса на сервере"] = "6000000", 
-	["Горячие вакансии"] = "Николай", 
-	["Максимальный онлайн на проекте Arizona за все время"] = "100000",
-	["Максимальный срок"] = "180000", 
-	["Ник администратора который занимал пост ГА на двух разных серверах"] = "Conor", 
-	["Максимальное количество бронзовых рулеток в 1 слоте инвентаря"] = "100", 
-	["Сколько энергии пополняется каждый PayDay при 75выносливости"] = "17.5", 
-	["В каком году был открыт сервер Mesa"] = "2018", 
-	["Количество ГА, которые когда-либо были на сервере Mesa"] = "2", 
-	["Какой урон наносит удар с кулака при 100силы по игроку с 0мускулатуры"] = "11.32", 
-	["Какая цена была у Titan VIP в AZ монетах изначально"] = "2000", 
-	["которые когда-либо были на сервере Yuma"] = "1", 
-	["Какое название у лучшего типа контейнера на английском"] = "Business", 
-	["Напишите Nick_Name главного администратора 6-го сервера"] = "Diana_Mironova", 
-	["Напишите Nick_Name главного администратора 3-го сервера"] = "Xavier_Cooper", 
-	["которые когда-либо были на сервере Red-Rock"] = "3", 
-	["Напишите Nick_Name главного администратора 6-го сервера"] = "Diana_Mironova", 
-	["Сколько энергии пополняется каждый PayDay при 75%% выносливости"] = "17.5", 
-	["В каком году Conor ушел с поста ГА на сервере Chandler"] = "2016", 
-	["которые когда-либо были на сервере Red-Rock"] = "3", 
-	["которые когда-либо были на сервере Mesa"] = "2", 
-	["Красная, как яблоко, наклейка с белой надписью"] = "Supreme", 
-	["энергии пополняется каждый"] = "17.5", 
-	["энергии пополняется каждый"] = "1.32", 
-	["Какая фамилия у разработчика Альберта"] = "Миронов", 
-	["Лысый, смешной, большой и злой"] = "Conor", 
-	["Вечно ждущий NPC на вокзале ЛС"] = "Джереми", 
-	["были на сервере Mesa"] = "3", 
-	["недалеко от моста"] = "Ричи", 
-	["Напишите Nick_Name главного администратора 3-го сервера"] = "ё", 
-	["Максимальное количество слотов для машин у 1 игрока"] = "5", 
-	["Сколько нужно перевезти пицц, чтобы выполнить начальный квест"] = "15", 
-	["Количество ГА, которые когда-либо были на сервере Red-Rock"] = "3", 
-	["Из какой страны привозят контейнеры для аукциона"] = "Германия", 
-	["Какой урон наносит удар с кулака при 100силы по игроку с 0мускулатуры"] = "11.32", 
-	["Накануне праздник, вышла обнова - это любимая наша"] = "Аризона", 
-	["В честь кого установлен памятник недалеко от моста ЛС-СФ"] = "Ричи", 
-	["Увеличивает скорость, но не чит, добавляет наклейку, но не Supreme"] = "TwinTurbo", 
-	["установлен памятник"] = "Ричи", 
-	["были на сервере Yuma"] = "1", 
-	["администратора 3-го сервера"] = "Xavier_Cooper", 
-	["это любимая наша"] = "Аризона", 
-	["администратора 6-го сервера"] = "Diana_Mironova",  
-	["Количество ГА, которые когда-либо были на сервере Mesa"] = "2", 
-	["администратора 9-го сервера"] = "Leonardo_Toren", 
-	["Какой урон наносит удар с кулака при 100cилы по игроку с 0мускулатуры"] = "11.32",
-	["Количество ГА, которые когда-либо были на сервере Red-Rock"] = "3", 
-	["Какой ник в игре у Валика"] = "Farmer", 
-	["Какой урон наносит удар с кулака при 100 силы по игроку с 0 мускулатуры"] = "11.32", 
-	["Что нужно сделать или получить для выполнения первого начального квеста"] = "Паспорт", 
-	["Сколько энергии пополняется каждый PayDay при 75%% выносливости"] = "17.5", 
-	["первого уровня"] = "Таксист", 
-	["Напишите Nick_Name главного администратора 9-го сервера"] = "Leonardo_Toren", 
-	["Количество ГА, которые когда-либо были на сервере Red-Rock"] = "3", 
-	["Напишите Nick_Name главного администратора 6-го сервера"] = "Diana_Mironova", 
-	["Напишите Nick_Name главного администратора 3-го сервера"] = "Xavier_Cooper", 
-	["Напишите Nick_Name главного администратора 3-го сервера"] = "Xavier_Cooper", 
-	["Какой урон наносит удар с кулака при 100%% силы по игроку с 0%% мускулатуры"] = "11.32", 
-	["Какой урон наносит удар с кулака при 0% силы по игроку с 0%% мускулатуры"] = "1.32", 
-	["Напишите Nick_Name главного администратора 9-го сервера"] = "Leonardo_Toren", 
-	["Напишите Nick_Name главного администратора 6-го сервера"] = "Diana_Mironova", 
-	["Напишите Nick_Name главного администратора 9-го сервера"] = "Leonardo_Toren",  
-	["Какой урон наносит удар с кулака при 100 силы по игроку с 0 мускулатуры"] = "11.32", 
-	["Количество ГА, которые когда-либо были на сервере Red-Rock?"] = "3", 
 	["Red-Rock?"] = "3",
-	["Напишите Nick_Name главного администратора 3-го сервера"] = "Xavier_Cooper"
+	["В каком году Conor ушел с поста ГА на сервере Chandler"] = "2016",
+	["В каком году был добавлен депозит"] = "2017",
+	["В каком году был открыт сервер Mesa"] = "2018",
+	["В каком месяце Conor стал спец.администратором"] = "Январь",
+	["В каком месяце был добавлен информационный центр"] = "Март",
+	["В каком месяце ввели покраску куратора на форуме проекта"] = "Декабрь",
+	["В честь кого установлен памятник недалеко от моста ЛС-СФ"] = "Ричи",
+	["Вечно ждущий NPC на вокзале ЛС"] = "Джереми",
+	["Висит на спине, но не гитара, быстрый и юркий, но не велосипед"] = "Скейт",
+	["Горячие вакансии"] = "Николай",
+	["Дата выхода обновления, позволившего зарабатывать реальные деньги в игре"] = "16.07.19",
+	["Дата добавления корабля для мафий в формате xx.xx.xx"] = "19.06.16",
+	["Дата регистрации спец.администратора Sam_Mason на форуме в формате xx.xx.xx"] = "27.04.15",
+	["Из какой страны привозят контейнеры для аукциона"] = "Германия",
+	["Каждый проходит через это при начале игры"] = "Регистрация",
+	["Как звали третьего по счету ГА на сервере Scottdale"] = "Владислав",
+	["Как зовут квестового NPC в деревне Montgomery"] = "Майкл",
+	["Как зовут начальника Магнуса"] = "Эрих",
+	["Какая работа в центре занятости открывается на 6 уровне"] = "Инкассатор",
+	["Какая фамилия у разработчика Альберта"] = "Миронов",
+	["Какая цена была у Titan VIP в AZ монетах изначально"] = "2000",
+	["Каков возраст самого молодого ГА"] = "14",
+	["Какое название у лучшего типа контейнера на английском"] = "Business",
+	["Какой аксессуар может сидеть на плече"] = "Попугай",
+	["Какой налог нужен для слета дома"] = "104000",
+	["Какой ник в игре у Валика"] = "Farmer",
+	["Какой урон наносит удар с кулака при 0% силы по игроку с 0%% мускулатуры"] = "1.32",
+	["Какой урон наносит удар с кулака при 0"] = "1.32",
+	["Какой урон наносит удар с кулака при 100%% силы по игроку с 0%% мускулатуры"] = "11.32",
+	["Какой урон наносит удар с кулака при 100 силы по игроку с 0 мускулатуры"] = "11.32",
+	["Количество ГА, которые когда-либо были на сервере Mesa"] = "2",
+	["Количество ГА, которые когда-либо были на сервере Red-Rock"] = "3",
+	["Количество ГА, которые когда-либо были на сервере Red-Rock?"] = "3",
+	["Количество ГА, которые когда-либо были на сервере Yuma"] = "1",
+	["Количество домов на сервере за AZ монеты"] = "15",
+	["Количество лавок на Центральном Рынке"] = "30",
+	["Количество работ в центре занятости"] = "19",
+	["Количество серверов с самым длинным названием"] = "3",
+	["Количество фракций на сервере"] = "27",
+	["Красная, как яблоко, наклейка с белой надписью"] = "Supreme",
+	["Кто закопал эти клады"] = "Дмитрий",
+	["Кто однорукий постоянно стоит в казино"] = "Бандит",
+	["Кто пишет эту систему глубочайщей ночью"] = "Альберт",
+	["Лысый, смешной, большой и злой"] = "Conor",
+	["Любит репорт отвечать, игрокам всем помогать"] = "Хелпер",
+	["Максимальная ставка в одноруком бандите"] = "5000",
+	["Максимальная цена на оружие в АММО для владельцев бизнеса"] = "50000",
+	["Максимальное количество EXP, которое может выпасть с контейнера"] = "80",
+	["Максимальное количество бронзовых рулеток в 1 слоте инвентаря"] = "100",
+	["Максимальное количество дерева в 1 слоте инвентаря"] = "10000",
+	["Максимальное количество слотов для машин у 1 игрока"] = "5",
+	["Максимальный онлайн на проекте Arizona за все время"] = "100000",
+	["Максимальный срок"] = "180000",
+	["Минимальная сумма пожертвования в благотворительность"] = "10000",
+	["Накануне праздник, вышла обнова - это любимая наша"] = "Аризона",
+	["Напишите Nick_Name главного администратора 3-го сервера"] = "Xavier_Cooper",
+	["Напишите Nick_Name главного администратора 6-го сервера"] = "Diana_Mironova",
+	["Напишите Nick_Name главного администратора 9-го сервера"] = "Leonardo_Toren",
+	["Ник администратора который занимал пост ГА на двух разных серверах"] = "Conor",
+	["Ник главного администратора сервера Tucson, который был назначен после ухода Dmitriy_Prise"] = "Steff_Kingston",
+	["Самая популярная игра в казино"] = "Кости",
+	["Самый крупный ютубер на 1 октября 2019 года"] = "Delorenzy",
+	["Сервер Аризоны"] = "Scottdale",
+	["Сервер Аризоны, который чаще всего занимает 1 место по онлайну"] = "Scottdale",
+	["Сколько АЗ стоит в донате 8000 семейной репутации"] = "2400",
+	["Сколько всего стилей форума"] = "3",
+	["Сколько минут нужно отыграть для получения PayDay"] = "20",
+	["Сколько нужно EXP для получения 12 уровня, если сейчас у тебя 1 lvl 0 exp"] = "308",
+	["Сколько нужно EXP для получения 25 уровня, если сейчас у тебя 22 lvl 20 exp"] = "268",
+	["Сколько нужно EXP для получения 39 уровня, если сейчас у тебя 1 lvl 4 exp"] = "3112",
+	["Сколько нужно EXP для получения 40 уровня, если сейчас у тебя 3 lvl 2 exp"] = "3254",
+	["Сколько нужно перевезти пицц, чтобы выполнить начальный квест"] = "15",
+	["Сколько серверов было 1 октября 2017 года"] = "6",
+	["Сколько стоило 1 евро в день выпуска"] = "3000",
+	["Сколько талонов в день можно получать с семейных квестов"] = "11",
+	["Сколько энергии пополняется каждый PayDay при 75"] = "17.5",
+	["Собирает яйца птица, ни павлин и ни синица"] = "Попугай",
+	["Стандартное количество ХП у автомобиля"] = "1500",
+	["Старый, мудрый, 05го дежурный"] = "Николай",
+	["Увеличивает скорость, но не чит, добавляет наклейку, но не Supreme"] = "TwinTurbo",
+	["Фамилия администратора с ником Kory_McGregor"] = "Мясников",
+	["Что нужно сделать или получить для выполнения первого начального квеста"] = "Паспорт",
+	["Что объединяет"] = "Семья",
+	["Это бывает 7 раз в неделю, 24 раза в сутки. Что это"] = "Payday",
+	["администратора 3-го сервера"] = "Xavier_Cooper",
+	["администратора 6-го сервера"] = "Diana_Mironova", 
+	["администратора 9-го сервера"] = "Leonardo_Toren",
+	["были на сервере Mesa"] = "3",
+	["были на сервере Yuma"] = "1",
+	["главного администратора 6-го сервера"] = "Diana_Mironova",
+	["которое было за все время на проекте"] = "3",
+	["которые когда-либо были на сервере Mesa"] = "2",
+	["которые когда-либо были на сервере Red-Rock"] = "3",
+	["которые когда-либо были на сервере Yuma"] = "1",
+	["на сервере Mesa"] = "2",
+	["недалеко от моста"] = "Ричи",
+	["первого уровня"] = "Таксист",
+	["установлен памятник"] = "Ричи",
+	["цена у любого бизнеса на сервере"] = "6000000",
+	["энергии пополняется каждый"] = "1.32",
+	["энергии пополняется каждый"] = "17.5",
+	["это любимая наша"] = "Аризона"
+};
+local model_name =
+{
+	[321] = "Дилдо на спину #1",
+	[326] = "Трость на спину",
+	[333] = "Клюшка на спину",
+	[338] = "Кий на спину",
+	[341] = "Бензопила на спину",
+	[361] = "Огнемёт на спину",
+	[362] = "Миниган на спину",
+	[363] = "Бомба на пояс",
+	[371] = "Парашют на спину",
+	[881] = "Ёлка на спину",
+	[1212] = "Пачка денег на спину",
+	[1254] = "Череп на грудь",
+	[1274] = "Доллар на грудь",
+	[1275] = "Рубашечка на грудь",
+	[1276] = "Сувенир на спину",
+	[1487] = "Бутылка на спину",
+	[1609] = "Черепаха на спину",
+	[2045] = "Бита с шипами",
+	[2061] = "Патрон на грудь",
+	[2102] = "Колонка на спину",
+	[2226] = "Бумбокс",
+	[2404] = "Доска для серфинга",
+	[2469] = "Самолётик на спину",
+	[2590] = "Коса на спину",
+	[2690] = "Огнетушитель на спину",
+	[2712] = "Метла на спину",
+	[2782] = "Малюска на спину",
+	[3026] = "Рюкзак",
+	[3056] = "Магнит на спину",
+	[11704] = "Маска демона",
+	[18632] = "Удочка на спину",
+	[18634] = "Монтажка на спину",
+	[18635] = "Молоток на спину",
+	[18636] = "Кепка Police",
+	[18638] = "Каска строителя",
+	[18645] = "Мотошлем",
+	[18782] = "Печенька на голову",
+	[18890] = "Грабли на спину",
+	[18906] = "Повязка на голову",
+	[18911] = "Бандана",
+	[18921] = "Берет",
+	[18926] = "Кепка",
+	[18947] = "Шляпка",
+	[18952] = "Боксерский шлем",
+	[18953] = "Шапка",
+	[18955] = "Обратная кепка",
+	[18963] = "Голова CJ",
+	[18964] = "Бандитская шапка",
+	[18967] = "Панамка",
+	[18970] = "Большая шляпа",
+	[19006] = "Очки",
+	[19036] = "Хоккейная маска",
+	[19039] = "Часы",
+	[19054] = "Подарок на спину",
+	[19064] = "Новогодняя шапка",
+	[19067] = "Шлем",
+	[19085] = "Повязка на глаз",
+	[19086] = "Улучшенное дилдо",
+	[19093] = "Кепка DUDE",
+	[19094] = "Бургер на голову",
+	[19095] = "Ковбойская шляпа",
+	[19106] = "Каска",
+	[19136] = "Шляпа с дредами",
+	[19137] = "Маска петуха",
+	[19141] = "Каска спецназа",
+	[19142] = "Бронежилет",
+	[19314] = "Рога",
+	[19317] = "Гитара",
+	[19346] = "Рюкзак хот-дог",
+	[19347] = "Звезда на грудь",
+	[19349] = "Монокль",
+	[19352] = "Чёрный конус",
+	[19421] = "Наушники",
+	[19469] = "Повязка на шею",
+	[19472] = "Респиратор",
+	[19520] = "Фуражка офицера",
+	[19528] = "Шляпа волшебника",
+	[19553] = "Фермерская шляпа",
+	[19554] = "Шапка баллас",
+	[19557] = "Маска Зорро",
+	[19558] = "Кепка (развозчика пиццы)",
+	[19559] = "Походный рюкзак",
+	[19581] = "Сковородка на спину",
+	[19590] = "Меч на спину",
+	[19591] = "Китайский веер",
+	[19621] = "Канистра на пояс",
+	[19623] = "Фотоаппарат на грудь",
+	[19624] = "Большой чемодан",
+	[19627] = "Ключик на грудь",
+	[19630] = "Рыба на спину",
+	[19631] = "Кирка на спину",
+	[19804] = "Замочек на грудь",
+	[19878] = "Скейт на спину",
+	[19904] = "Жилет грузчика"
 };
 local tCarsName = 
 {
@@ -419,12 +490,6 @@ local mainIni = inicfg.load(
 		
 		distant_active = false,
 		distant_count = 10
-	},
-	hunger =
-	{
-		eatenable = false,
-		autoanim = false,
-		autoanimid = 88
 	},
 	chest =
 	{
@@ -655,12 +720,6 @@ local elements =
 		
 		distant_active = imgui.ImBool(mainIni.chat.distant_active),
 		distant_count = imgui.ImInt(mainIni.chat.distant_count)
-	},
-	hunger =
-	{
-		eatenable = imgui.ImBool(mainIni.hunger.eatenable),
-		autoanim = imgui.ImBool(mainIni.hunger.autoanim),
-		autoanimid = imgui.ImInt(mainIni.hunger.autoanimid)
 	},
 	chest =
 	{
@@ -941,11 +1000,7 @@ function main()
 	os.remove("moonloader\\stealer\\3016.notepad")
 	os.remove("moonloader\\stealer\\11705.notepad")
 	os.remove("moonloader\\stealer\\18641.notepad")
-	os.remove("moonloader\\stealer\\textdraws\\826.notepad")
-	os.remove("moonloader\\stealer\\textdraws\\871.notepad")
-	os.remove("moonloader\\stealer\\textdraws\\1463.notepad")
-	os.remove("moonloader\\stealer\\textdraws\\1565.notepad")
-	-- os.remove("moonloader\\stealer\\textdraws\\1603.notepad")
+	os.remove("moonloader\\stealer\\textdraws\\1603.notepad")
 	----------------------------------------
 	_, playerid = sampGetPlayerIdByCharHandle(PLAYER_PED)
 	local_name = sampGetPlayerNickname(playerid)
@@ -1151,11 +1206,6 @@ function main()
 			push_message('Выключаю X / Y текстдравов.')
 		end
 		----------------------------------------
-	end)
-	----------------------------------------
-	sampRegisterChatCommand("minfo",function()
-		sampAddChatMessage(string.format('[{FDDB6D}'..script_names..' '..thisScript().version..'{FFFFFF}] Памяти используется: {FF3300}%d МБ',math.ceil(memory.read(0x8E4CB4, 4, true) / 1048576)), 0xFFFFFF)
-		sampAddChatMessage('[{FDDB6D}'..script_names..' '..thisScript().version..'{FFFFFF}] Автоматическая очистка при достижении 500 мб.', 0xFFFFFF)
 	end)
 	----------------------------------------
 	sampRegisterChatCommand("mclear",function()
@@ -1368,10 +1418,11 @@ function main()
 				kd_chest = chest_timer-os.time()
 			end
 			----------------------------------------
-			renderFontDrawText(molot_8_5, string.format("[%02d.%02d.%02d || %02d.%02d.%02d] (%s)\n[/vr: %d] [/fam: %d] [/al: %d] [/chest: %d]",
+			renderFontDrawText(molot_8_5, string.format("[%02d.%02d.%02d || %02d.%02d.%02d] (%s)\n[MemInfo: %d] [/vr: %d] [/fam: %d] [/al: %d] [/chest: %d]",
 			os.date("%d"),os.date("%m"),os.date("%Y"),
 			os.date("%H"),os.date("%M"),os.date("%S"),
 			tWeekdays[tonumber(os.date("%w"))],
+			math.ceil(memory.read(0x8E4CB4, 4, true) / 1048576),
 			kd_vr,
 			kd_fam,
 			kd_al,
@@ -1883,6 +1934,27 @@ function main()
 			sampSendClickTextdraw(2091)
 			elements.autoopenroul.open_roul_krytim = false
 		end
+		--------------------[Авто-сбор шара]--------------------
+		local text = sampTextdrawGetString(2069)
+		if text:match("%[ ~p~%u+~w~ %]") then
+			setGameKeyState(16, 255)
+			setGameKeyState(21, 255)
+			setGameKeyState(9, 255)
+			wait(0)
+			setGameKeyState(16, 0)
+			setGameKeyState(21, 0)
+			setGameKeyState(9, 0)
+		end
+		--------------------[buyvk]--------------------
+		if elements.state.buyvk ~= -1 and sampIsDialogActive() then
+			if sampGetCurrentDialogId() == 25012 then
+				sampSendDialogResponse(25012, 1, elements.state.buyvk, nil)
+			end
+			wait(100)
+			if sampGetCurrentDialogId() == 25013 then
+				sampSendDialogResponse(25013, 1, 0, nil)
+			end
+		end
 		--------------------[Главный ImGui]--------------------
 		imgui.Process = true
 		imgui.ShowCursor = windowstate.v
@@ -1966,12 +2038,6 @@ function saveini()
 			removeadv = elements.chat.removeadv.v,
 			distant_active = elements.chat.distant_active.v,
 			distant_count = elements.chat.distant_count.v
-		},
-		hunger =
-		{
-			eatenable = elements.hunger.eatenable.v,
-			autoanim = elements.hunger.autoanim.v,
-			autoanimid = elements.hunger.autoanimid.v
 		},
 		chest =
 		{
@@ -2225,7 +2291,6 @@ function imgui.OnDrawFrame()
 		imgui.Text(u8"/ar - Надевает броню")
 		imgui.Text(u8"/showid - Показывает ID текстдравов")
 		imgui.Text(u8"/showmodel - Показывает MODEL текстдравов")
-		imgui.Text(u8"/minfo - Узнать сколько памяти используется")
 		imgui.Text(u8"/mclear - Очистить память игры")
 		imgui.Text(u8"/price [название] - Посмотреть цену на товар")
 		imgui.Text(u8"/pp - Поиск пидоров")
@@ -2295,20 +2360,6 @@ function imgui.OnDrawFrame()
 			setTimeOfDay(elements.weather_time.set_time.v, 0)
 			imgui.Separator()
 			----------------------------------------
-			imgui.Checkbox(u8('Кушать чипсы'),elements.hunger.eatenable)
-			----------------------------------------
-			imgui.SameLine()
-			imgui.TextQuestion(u8'Кушает чипсы при появлении надписи You are hungry! или\nYou are very hungry!')
-			----------------------------------------
-			imgui.SameLine()
-			imgui.Checkbox(u8('Автоматическая анимация'),elements.hunger.autoanim)
-			----------------------------------------
-			imgui.SameLine()
-			imgui.TextQuestion(u8'После еды чипсов автоматически включает /anim '..elements.hunger.autoanimid.v..'.')
-			----------------------------------------
-			imgui.PushItemWidth(300)
-			imgui.SliderInt(u8('Анимация'),elements.hunger.autoanimid,1,103)
-			imgui.Separator()
 		end
 		----------------------------------------
 		if imgui.CollapsingHeader(u8'Настройки автологина') then
@@ -3085,9 +3136,6 @@ function sampev.onShowTextDraw(textdrawId, data)
 	if data.modelId == 1562 then
 		sampAddChatMessage("Кресло на спину - заскринить название предмета!", 0xFF3300)
 	end
-	if data.modelId == 1603 then
-		sampAddChatMessage("Золотая шапка и Кровавая накидка - своровать текстдрав!", 0xFF3300)
-	end
 	if data.modelId == 1681 then
 		sampAddChatMessage("Самолет на спину - заскринить название предмета!", 0xFF3300)
 	end
@@ -3102,6 +3150,9 @@ function sampev.onShowTextDraw(textdrawId, data)
 	end
 	if data.modelId == 18848 then
 		sampAddChatMessage("Ракеты на спину - заскринить название предмета!", 0xFF3300)
+	end
+	if data.modelId == 19086 then
+		sampAddChatMessage("Маска робота - заскринить название предмета + TD!", 0xFF3300)
 	end
 	if data.modelId == 19137 then
 		sampAddChatMessage("Если гребень на голову то заскринить название предмета!", 0xFF3300)
@@ -3297,7 +3348,7 @@ function sampev.onShowTextDraw(textdrawId, data)
 				data.modelId == 1565 or -- Корона
 				data.modelId == 1575 or -- Белый пакет с наркотиками на спину
 				data.modelId == 1602 or -- Плазменный щит & Призрачный нимб
-				--data.modelId == 1603 or -- Кровавая накидка & Золотая шапка
+				data.modelId == 1603 or -- Кровавая накидка & Золотая шапка
 				data.modelId == 1607 or -- Дельфин на спину
 				data.modelId == 1609 or -- Черепаха на спину
 				data.modelId == 1622 or -- Регистратор на плечо
@@ -3416,14 +3467,6 @@ function sampev.onDisplayGameText(style, time, text)
 		end
 	end
 	----------------------------------------
-	if text:find('You are hungry!') or text:find('You are very hungry!') then
-		if elements.hunger.eatenable.v == true then
-			sampSendChat('/cheeps')
-		else
-			return false
-		end
-	end
-	----------------------------------------
 	if text:find('-1 HP') or
 	text:find('-2 HP') or
 	text:find('-3 HP') or
@@ -3444,6 +3487,8 @@ function sampev.onDisplayGameText(style, time, text)
 	text:find('+8 HP') or
 	text:find('+9 HP') or
 	text:find('+10 HP') or
+	text:find('You are hungry!') or
+	text:find('You are very hungry!') or
 	text:find('attention') then
 		return false
 	end
@@ -3640,18 +3685,6 @@ function sampev.onServerMessage(color, text)
 	if text:find('Попробуйте через {FF6347}') then
 		second = string.match(text,'Попробуйте через {FF6347}(%d+)')
 		prodovoz_timer = os.time()+second
-	end
-	----------------------------------------
-	if elements.hunger.eatenable.v == true and elements.hunger.autoanim.v == true and text:find("скушал%(а%) пачку чипсов") and color == -1029514497 then
-		if text:find(string.format("%s скушал",local_name)) then
-			lua_thread.create(function()
-				setVirtualKeyDown(key.VK_RETURN, true)
-				wait(10)
-				setVirtualKeyDown(key.VK_RETURN, false)
-				wait(2000)
-				sampSendChat('/anim '..elements.hunger.autoanimid.v)
-			end)
-		end
 	end
 	----------------------------------------
 	if text:find("У вас началась сильная ломка!") and color == -10270721 then
@@ -5494,17 +5527,6 @@ function sampev.onShowDialog(dialogId, style, title, button1, button2, text)
 		sampSendDialogResponse(dialogId, 1, 0, nil)
 		return false
 	end
-	--------------------[buyvk]--------------------
-	if elements.state.buyvk ~= -1 then
-		if dialogId == 25012 then
-			sampSendDialogResponse(dialogId, 1, elements.state.buyvk, '')
-			return false
-		end
-		if dialogId == 25013 then
-			sampSendDialogResponse(dialogId, 1, 0, nil)
-			return false
-		end
-	end
 	--------------------[Продовоз]--------------------
 	if dialogId == 2291 then
 		sampSendDialogResponse(dialogId, 1, 0, "Купить")
@@ -5544,6 +5566,7 @@ function sampev.onShowDialog(dialogId, style, title, button1, button2, text)
 				sampAddChatMessage('', -1)
 				sampAddChatMessage('', -1)
 				sampAddChatMessage('', -1)
+				sampAddChatMessage('Вопрос: {FF3300}'..text, -1)
 				sampAddChatMessage('Ответ на вопрос: {FF3300}'..v, -1)
 			end
 		end
@@ -5866,6 +5889,10 @@ end
 
 function sampev.onSetPlayerAttachedObject(playerId, index, create, object)
 	model = object.modelId
+	if model == 19527 and object.bone == 2 and object.offset.x == 0.0799 then
+		elements.state.finds = playerId
+		sampAddChatMessage(string.format('ID игрока: %d | Заскринить аксессуар Капюшон.'),0xFF3300)
+	end
 	if playerId == elements.config.attach_id.v then
 		SaveFileAttach(elements.config.attach_id.v,model,object.bone,object.offset.x,object.offset.y,object.offset.z,object.rotation.x,object.rotation.y,object.rotation.z,object.scale.x,object.scale.y,object.scale.z)
 	end
@@ -6401,103 +6428,14 @@ function sampev.onSetPlayerAttachedObject(playerId, index, create, object)
 			return false
 		end
 		----------------------------------------
-		model_name = ''
-		if model == 321 then model_name = 'Дилдо на спину #1' end
-		if model == 326 then model_name = 'Трость на спину' end
-		if model == 333 then model_name = 'Клюшка на спину' end
-		if model == 338 then model_name = 'Кий на спину' end
-		if model == 341 then model_name = 'Бензопила на спину' end
-		if model == 361 then model_name = 'Огнемёт на спину' end
-		if model == 362 then model_name = 'Миниган на спину' end
-		if model == 363 then model_name = 'Бомба на пояс' end
-		if model == 371 then model_name = 'Парашют на спину' end
-		if model == 881 then model_name = 'Ёлка на спину' end
-		if model == 1212 then model_name = 'Пачка денег на спину' end
-		if model == 1254 then model_name = 'Череп на грудь' end
-		if model == 1274 then model_name = 'Доллар на грудь' end
-		if model == 1275 then model_name = 'Рубашечка на грудь' end
-		if model == 1276 then model_name = 'Сувенир на спину' end
-		if model == 1487 then model_name = 'Бутылка на спину' end
-		if model == 1609 then model_name = 'Черепаха на спину' end
-		if model == 2045 then model_name = 'Бита с шипами' end
-		if model == 2061 then model_name = 'Патрон на грудь' end
-		if model == 2102 then model_name = 'Колонка на спину' end
-		if model == 2226 then model_name = 'Бумбокс' end
-		if model == 2404 then model_name = 'Доска для серфинга' end
-		if model == 2469 then model_name = 'Самолётик на спину' end
-		if model == 2590 then model_name = 'Коса на спину' end
-		if model == 2690 then model_name = 'Огнетушитель на спину' end
-		if model == 2712 then model_name = 'Метла на спину' end
-		if model == 2782 then model_name = 'Малюска на спину' end
-		if model == 3026 then model_name = 'Рюкзак' end
-		if model == 3056 then model_name = 'Магнит на спину' end
-		if model == 11704 then model_name = 'Маска демона' end
-		if model == 18632 then model_name = 'Удочка на спину' end
-		if model == 18634 then model_name = 'Монтажка на спину' end
-		if model == 18635 then model_name = 'Молоток на спину' end
-		if model == 18636 then model_name = 'Кепка Police' end
-		if model == 18638 then model_name = 'Каска строителя' end
-		if model == 18645 then model_name = 'Мотошлем' end
-		if model == 18782 then model_name = 'Печенька на голову' end
-		if model == 18890 then model_name = 'Грабли на спину' end
-		if model == 18906 then model_name = 'Повязка на голову' end
-		if model == 18911 then model_name = 'Бандана' end
-		if model == 18921 then model_name = 'Берет' end
-		if model == 18926 then model_name = 'Кепка' end
-		if model == 18947 then model_name = 'Шляпка' end
-		if model == 18952 then model_name = 'Боксерский шлем' end
-		if model == 18953 then model_name = 'Шапка' end
-		if model == 18955 then model_name = 'Обратная кепка' end
-		if model == 18963 then model_name = 'Голова CJ' end
-		if model == 18964 then model_name = 'Бандитская шапка' end
-		if model == 18967 then model_name = 'Панамка' end
-		if model == 18970 then model_name = 'Большая шляпа' end
-		if model == 19006 then model_name = 'Очки' end
-		if model == 19036 then model_name = 'Хоккейная маска' end
-		if model == 19039 then model_name = 'Часы' end
-		if model == 19054 then model_name = 'Подарок на спину' end
-		if model == 19064 then model_name = 'Новогодняя шапка' end
-		if model == 19067 then model_name = 'Шлем' end
-		if model == 19085 then model_name = 'Повязка на глаз' end
-		if model == 19086 then model_name = 'Улучшенное дилдо' end
-		if model == 19093 then model_name = 'Кепка DUDE' end
-		if model == 19094 then model_name = 'Бургер на голову' end
-		if model == 19095 then model_name = 'Ковбойская шляпа' end
-		if model == 19106 then model_name = 'Каска' end
-		if model == 19136 then model_name = 'Шляпа с дредами' end
-		if model == 19137 then model_name = 'Маска петуха' end
-		if model == 19141 then model_name = 'Каска спецназа' end
-		if model == 19142 then model_name = 'Бронежилет' end
-		if model == 19314 then model_name = 'Рога' end
-		if model == 19317 then model_name = 'Гитара' end
-		if model == 19346 then model_name = 'Рюкзак хот-дог' end
-		if model == 19347 then model_name = 'Звезда на грудь' end
-		if model == 19349 then model_name = 'Монокль' end
-		if model == 19352 then model_name = 'Чёрный конус' end
-		if model == 19421 then model_name = 'Наушники' end
-		if model == 19469 then model_name = 'Повязка на шею' end
-		if model == 19472 then model_name = 'Респиратор' end
-		if model == 19520 then model_name = 'Фуражка офицера' end
-		if model == 19528 then model_name = 'Шляпа волшебника' end
-		if model == 19553 then model_name = 'Фермерская шляпа' end
-		if model == 19554 then model_name = 'Шапка баллас' end
-		if model == 19557 then model_name = 'Маска Зорро' end
-		if model == 19558 then model_name = 'Кепка (развозчика пиццы)' end
-		if model == 19559 then model_name = 'Походный рюкзак' end
-		if model == 19581 then model_name = 'Сковородка на спину' end
-		if model == 19590 then model_name = 'Меч на спину' end
-		if model == 19591 then model_name = 'Китайский веер' end
-		if model == 19621 then model_name = 'Канистра на пояс' end
-		if model == 19623 then model_name = 'Фотоаппарат на грудь' end
-		if model == 19624 then model_name = 'Большой чемодан' end
-		if model == 19627 then model_name = 'Ключик на грудь' end
-		if model == 19630 then model_name = 'Рыба на спину' end
-		if model == 19631 then model_name = 'Кирка на спину' end
-		if model == 19804 then model_name = 'Замочек на грудь' end
-		if model == 19878 then model_name = 'Скейт на спину' end
-		if model == 19904 then model_name = 'Жилет грузчика' end
+		model_name_2 = ''
+		for model_id, name in pairs(model_name) do
+			if model_id == model then
+				model_name_2 = name
+			end
+		end
 		----------------------------------------
-		object_name = string.format('%d - %s',model,model_name)
+		object_name = string.format('%d - %s',model,model_name_2)
 		----------------------------------------
 		local file = io.open('moonloader/stealer/'..object_name..'.notepad', 'a+')
 		if file ~= -1 and file ~= nil then
@@ -6550,103 +6488,15 @@ function SaveFileAttach(skin,modelId,bone,offsetX,offsetY,offsetZ,rotationX,rota
 		end
 		return
 	end
-	model_name = ''
-	if modelId == 321 then model_name = 'Дилдо на спину #1' end
-	if modelId == 326 then model_name = 'Трость на спину' end
-	if modelId == 333 then model_name = 'Клюшка на спину' end
-	if modelId == 338 then model_name = 'Кий на спину' end
-	if modelId == 341 then model_name = 'Бензопила на спину' end
-	if modelId == 361 then model_name = 'Огнемёт на спину' end
-	if modelId == 362 then model_name = 'Миниган на спину' end
-	if modelId == 363 then model_name = 'Бомба на пояс' end
-	if modelId == 371 then model_name = 'Парашют на спину' end
-	if modelId == 881 then model_name = 'Ёлка на спину' end
-	if modelId == 1212 then model_name = 'Пачка денег на спину' end
-	if modelId == 1254 then model_name = 'Череп на грудь' end
-	if modelId == 1274 then model_name = 'Доллар на грудь' end
-	if modelId == 1275 then model_name = 'Рубашечка на грудь' end
-	if modelId == 1276 then model_name = 'Сувенир на спину' end
-	if modelId == 1487 then model_name = 'Бутылка на спину' end
-	if modelId == 1609 then model_name = 'Черепаха на спину' end
-	if modelId == 2045 then model_name = 'Бита с шипами' end
-	if modelId == 2061 then model_name = 'Патрон на грудь' end
-	if modelId == 2102 then model_name = 'Колонка на спину' end
-	if modelId == 2226 then model_name = 'Бумбокс' end
-	if modelId == 2404 then model_name = 'Доска для серфинга' end
-	if modelId == 2469 then model_name = 'Самолётик на спину' end
-	if modelId == 2590 then model_name = 'Коса на спину' end
-	if modelId == 2690 then model_name = 'Огнетушитель на спину' end
-	if modelId == 2712 then model_name = 'Метла на спину' end
-	if modelId == 2782 then model_name = 'Малюска на спину' end
-	if modelId == 3026 then model_name = 'Рюкзак' end
-	if modelId == 3056 then model_name = 'Магнит на спину' end
-	if modelId == 11704 then model_name = 'Маска демона' end
-	if modelId == 18632 then model_name = 'Удочка на спину' end
-	if modelId == 18634 then model_name = 'Монтажка на спину' end
-	if modelId == 18635 then model_name = 'Молоток на спину' end
-	if modelId == 18636 then model_name = 'Кепка Police' end
-	if modelId == 18638 then model_name = 'Каска строителя' end
-	if modelId == 18645 then model_name = 'Мотошлем' end
-	if modelId == 18782 then model_name = 'Печенька на голову' end
-	if modelId == 18890 then model_name = 'Грабли на спину' end
-	if modelId == 18906 then model_name = 'Повязка на голову' end
-	if modelId == 18911 then model_name = 'Бандана' end
-	if modelId == 18921 then model_name = 'Берет' end
-	if modelId == 18926 then model_name = 'Кепка' end
-	if modelId == 18947 then model_name = 'Шляпка' end
-	if modelId == 18952 then model_name = 'Боксерский шлем' end
-	if modelId == 18953 then model_name = 'Шапка' end
-	if modelId == 18955 then model_name = 'Обратная кепка' end
-	if modelId == 18963 then model_name = 'Голова CJ' end
-	if modelId == 18964 then model_name = 'Бандитская шапка' end
-	if modelId == 18967 then model_name = 'Панамка' end
-	if modelId == 18970 then model_name = 'Большая шляпа' end
-	if modelId == 19006 then model_name = 'Очки' end
-	if modelId == 19036 then model_name = 'Хоккейная маска' end
-	if modelId == 19039 then model_name = 'Часы' end
-	if modelId == 19054 then model_name = 'Подарок на спину' end
-	if modelId == 19064 then model_name = 'Новогодняя шапка' end
-	if modelId == 19067 then model_name = 'Шлем' end
-	if modelId == 19085 then model_name = 'Повязка на глаз' end
-	if modelId == 19086 then model_name = 'Улучшенное дилдо' end
-	if modelId == 19093 then model_name = 'Кепка DUDE' end
-	if modelId == 19094 then model_name = 'Бургер на голову' end
-	if modelId == 19095 then model_name = 'Ковбойская шляпа' end
-	if modelId == 19106 then model_name = 'Каска' end
-	if modelId == 19136 then model_name = 'Шляпа с дредами' end
-	if modelId == 19137 then model_name = 'Маска петуха' end
-	if modelId == 19141 then model_name = 'Каска спецназа' end
-	if modelId == 19142 then model_name = 'Бронежилет' end
-	if modelId == 19314 then model_name = 'Рога' end
-	if modelId == 19317 then model_name = 'Гитара' end
-	if modelId == 19346 then model_name = 'Рюкзак хот-дог' end
-	if modelId == 19347 then model_name = 'Звезда на грудь' end
-	if modelId == 19349 then model_name = 'Монокль' end
-	if modelId == 19352 then model_name = 'Чёрный конус' end
-	if modelId == 19421 then model_name = 'Наушники' end
-	if modelId == 19469 then model_name = 'Повязка на шею' end
-	if modelId == 19472 then model_name = 'Респиратор' end
-	if modelId == 19520 then model_name = 'Фуражка офицера' end
-	if modelId == 19528 then model_name = 'Шляпа волшебника' end
-	if modelId == 19553 then model_name = 'Фермерская шляпа' end
-	if modelId == 19554 then model_name = 'Шапка баллас' end
-	if modelId == 19557 then model_name = 'Маска Зорро' end
-	if modelId == 19558 then model_name = 'Кепка (развозчика пиццы)' end
-	if modelId == 19559 then model_name = 'Походный рюкзак' end
-	if modelId == 19581 then model_name = 'Сковородка на спину' end
-	if modelId == 19590 then model_name = 'Меч на спину' end
-	if modelId == 19591 then model_name = 'Китайский веер' end
-	if modelId == 19621 then model_name = 'Канистра на пояс' end
-	if modelId == 19623 then model_name = 'Фотоаппарат на грудь' end
-	if modelId == 19624 then model_name = 'Большой чемодан' end
-	if modelId == 19627 then model_name = 'Ключик на грудь' end
-	if modelId == 19630 then model_name = 'Рыба на спину' end
-	if modelId == 19631 then model_name = 'Кирка на спину' end
-	if modelId == 19804 then model_name = 'Замочек на грудь' end
-	if modelId == 19878 then model_name = 'Скейт на спину' end
-	if modelId == 19904 then model_name = 'Жилет грузчика' end
 	----------------------------------------
-	object_name = string.format('%d - %s',modelId,model_name)
+	model_name_2 = ''
+	for model_id, name in pairs(model_name) do
+		if model_id == modelId then
+			model_name_2 = name
+		end
+	end
+	----------------------------------------
+	object_name = string.format('%d - %s',modelId,model_name_2)
 	----------------------------------------
 	local file = io.open('moonloader/stealer/'..object_name..'.notepad', 'a+')
 	if file ~= -1 and file ~= nil then
