@@ -2,10 +2,10 @@
 script_name("{0d00ff}Ar{2900ff}iz{3900ff}on{4500ff}a H{4f00ff}el{5800ff}pe{6000ff}r")
 local script_names = "Arizona Helper"
 
-script_version('4.594')
+script_version('4.595')
 script_author("metk1u")
 
-local script_vers = 81
+local script_vers = 82
 
 -- sampSetLocalPlayerName('lol')
 
@@ -311,6 +311,181 @@ local tCarsName =
 	"Police Car (LVPD)","Police Ranger","Picador","S.W.A.T.","Alpha","Phoenix","Glendale","Sadler","L Trailer A","L Trailer B",
 	"Stair Trailer","Boxville","Farm Plow","U Trailer"
 }
+local cmds =
+{
+	'/ad',
+	'/adrenaline',
+	'/advokats',
+	'/alarm',
+	'/armour',
+	'/ask',
+	'/b',
+	'/balon',
+	'/bizinfo',
+	'/bizwar',
+	'/bk',
+	'/bomb',
+	'/boom',
+	'/break',
+	'/breakcar',
+	'/buybiz',
+	'/c',
+	'/captstats',
+	'/capture',
+	'/carm',
+	'/cars',
+	'/checkjobprogress',
+	'/cheeps',
+	'/chistory',
+	'/contractfill',
+	'/cook',
+	'/createbomb',
+	'/creategun',
+	'/d',
+	'/deltun',
+	'/do',
+	'/donate',
+	'/drink',
+	'/dropgun',
+	'/drugs',
+	'/duel',
+	'/eat',
+	'/eject',
+	'/engine',
+	'/f',
+	'/fammenu',
+	'/fb',
+	'/ffarm',
+	'/fightstyle',
+	'/fill',
+	'/fillcar',
+	'/findcollectors',
+	'/findibiz',
+	'/findihouse',
+	'/firewood',
+	'/fireworks',
+	'/fmute',
+	'/free',
+	'/funmute',
+	'/fwarn',
+	'/gag',
+	'/gclear',
+	'/getmoney',
+	'/givekey',
+	'/giverank',
+	'/giveskin',
+	'/giveweapon',
+	'/go_fished',
+	'/gomechanic',
+	'/gotaxi',
+	'/gov',
+	'/govess',
+	'/gps',
+	'/gun',
+	'/heal',
+	'/healbad',
+	'/help',
+	'/hi',
+	'/home',
+	'/id',
+	'/invent',
+	'/invite',
+	'/j',
+	'/jlock',
+	'/jobprogress',
+	'/key',
+	'/killme',
+	'/kiss',
+	'/lavka',
+	'/leaders',
+	'/licensers',
+	'/lights',
+	'/limit',
+	'/lock',
+	'/lzal',
+	'/m',
+	'/mbiz',
+	'/me',
+	'/medcard',
+	'/mm',
+	'/mn',
+	'/newsredak',
+	'/number',
+	'/olock',
+	'/opengate',
+	'/or_cancel',
+	'/park',
+	'/passwd',
+	'/pay',
+	'/phone',
+	'/platoon',
+	'/pobject',
+	'/premium',
+	'/pt',
+	'/pull',
+	'/punish',
+	'/putmoney',
+	'/quest',
+	'/quitjob',
+	'/r',
+	'/radio',
+	'/rb',
+	'/rcveh',
+	'/referals',
+	'/removebomb',
+	'/repare',
+	'/report',
+	'/rjail',
+	'/s',
+	'/satiety',
+	'/scutes',
+	'/seat',
+	'/sellcar',
+	'/sellcard',
+	'/sellcarto',
+	'/selldrugs',
+	'/sellgangzone',
+	'/sellgun',
+	'/setdbuy',
+	'/setdsell',
+	'/setspawn',
+	'/settings',
+	'/showbadge',
+	'/showbizinfo',
+	'/showlic',
+	'/showmc',
+	'/showpass',
+	'/showpunish',
+	'/showskill',
+	'/showtatu',
+	'/smoke',
+	'/sms',
+	'/smug',
+	'/stats',
+	'/style',
+	'/tie',
+	'/time',
+	'/todo',
+	'/tradecar',
+	'/trmenu',
+	'/unblacklist',
+	'/uncuff',
+	'/unfwarn',
+	'/ungag',
+	'/uninvite',
+	'/unrentcar',
+	'/unstuff',
+	'/untie',
+	'/usemed',
+	'/vipplayers',
+	'/wanted',
+	'/zeks',
+}
+----------------------------------------
+local selected = 0
+local total_cmd = 0
+local sizePerOne = 10
+local av_list = {}
 ----------------------------------------
 local _message = {}
 
@@ -361,6 +536,7 @@ local marker = {}
 local carid = -1
 chatbuble = {}
 local delay = 0.5
+local windows_cmd = imgui.ImBool(false)
 ----------------------------------------
 local friends =
 {
@@ -458,6 +634,34 @@ local mainIni = inicfg.load(
 		my_nick_3 = 'Nickname_3',
 		my_password_3 = 'Password_3',
 		my_pincode_3 = '0000'
+	},
+	color_back =
+	{
+		r = 0.0,
+		g = 0.0,
+		b = 0.0,
+		a = 0.75,
+	},
+	color_scroll =
+	{
+		r = 0.99215686321259,
+		g = 0.85882353782654,
+		b = 0.42745098471642,
+		a = 1.0,
+	},
+	color_main =
+	{
+		r = 0.99215686321259,
+		g = 0.85882353782654,
+		b = 0.42745098471642,
+		a = 1.0,
+	},
+	color_text =
+	{
+		r = 1.0,
+		g = 1.0,
+		b = 1.0,
+		a = 1.0,
 	},
 	chat =
 	{
@@ -689,6 +893,10 @@ local elements =
 		my_password_3 = imgui.ImBuffer(tostring(mainIni.account.my_password_3), 100),
 		my_pincode_3 = imgui.ImBuffer(tostring(mainIni.account.my_pincode_3), 24)
 	},
+	color_back = imgui.ImFloat4(mainIni.color_back.r, mainIni.color_back.g, mainIni.color_back.b, mainIni.color_back.a),
+	color_scroll = imgui.ImFloat4(mainIni.color_scroll.r, mainIni.color_scroll.g, mainIni.color_scroll.b, mainIni.color_scroll.a),
+	color_main = imgui.ImFloat4(mainIni.color_main.r, mainIni.color_main.g, mainIni.color_main.b, mainIni.color_main.a),
+	color_text = imgui.ImFloat4(mainIni.color_text.r, mainIni.color_text.g, mainIni.color_text.b, mainIni.color_text.a),
 	chat =
 	{
 		renderChat = imgui.ImBool(mainIni.chat.renderChat),
@@ -1418,7 +1626,7 @@ function main()
 				kd_chest = chest_timer-os.time()
 			end
 			----------------------------------------
-			renderFontDrawText(molot_8_5, string.format("[%02d.%02d.%02d || %02d.%02d.%02d] (%s)\n[MemInfo: %d] [/vr: %d] [/fam: %d] [/al: %d] [/chest: %d]",
+			renderFontDrawText(molot_8_5, string.format("[%02d.%02d.%02d || %02d.%02d.%02d] (%s)\n[MemInfo: %d] [/vr: %d] [/fam: %d] [/al: %d] [chest: %d]",
 			os.date("%d"),os.date("%m"),os.date("%Y"),
 			os.date("%H"),os.date("%M"),os.date("%S"),
 			tWeekdays[tonumber(os.date("%w"))],
@@ -1822,14 +2030,29 @@ function main()
 				renderFontDrawText(arial,'Магазинов: '..prodovoz_count, sx / 1.22, sy - 50, 0xFFFF3300)
 			end
 		end
-		--------------------[Математика]--------------------
+		--------------------[CMD хелпер]--------------------
+		if sampIsChatInputActive() and not string.find(sampGetChatInputText(), '(.+)/') and string.find(sampGetChatInputText(), '/(.+)') then
+			for i = 1, #cmds do
+				if string.find(sampGetChatInputText(), '/(.+) ') then
+					windows_cmd.v = false
+				else
+					windows_cmd.v = true 
+					if wasKeyPressed(key.VK_ALT) then
+						selected = selected + 1
+					end 
+				end
+			end
+		else
+			windows_cmd.v = false 
+		end
+		--------------------[Калькулятор]--------------------
 		text = sampGetChatInputText()
 		----------------------------------------
 		if text:find('%d+') and text:find('[-+/*^%%]') and not text:find('%a+') and text ~= nil then
 			ok, number = pcall(load('return '..text))
 			result_calc = 'Результат: '..number
 			if not isKeyDown(0x08) then
-			setClipboardText(number)
+				setClipboardText(number)
 			end
 		end
 		----------------------------------------
@@ -1839,7 +2062,7 @@ function main()
 			ok, number = pcall(load('return '..number))
 			result_calc = 'Результат: '..number
 			if not isKeyDown(0x08) and ok then
-			setClipboardText(number)
+				setClipboardText(number)
 			end
 		end
 		----------------------------------------
@@ -1849,7 +2072,7 @@ function main()
 			ok, number = pcall(load('return '..number))
 			result_calc = 'Результат: '..number
 			if not isKeyDown(0x08) and ok then
-			setClipboardText(number)
+				setClipboardText(number)
 			end
 		end
 		----------------------------------------
@@ -1986,6 +2209,13 @@ function main()
 end
 
 function saveini()
+	----------------------------------------
+	mainIni.color_back.r, mainIni.color_back.g, mainIni.color_back.b, mainIni.color_back.a = elements.color_back.v[1], elements.color_back.v[2], elements.color_back.v[3], elements.color_back.v[4]
+	mainIni.color_scroll.r, mainIni.color_scroll.g, mainIni.color_scroll.b, mainIni.color_scroll.a = elements.color_scroll.v[1], elements.color_scroll.v[2], elements.color_scroll.v[3], elements.color_scroll.v[4]
+	mainIni.color_main.r, mainIni.color_main.g, mainIni.color_main.b, mainIni.color_main.a = elements.color_main.v[1], elements.color_main.v[2], elements.color_main.v[3], elements.color_main.v[4]
+	mainIni.color_text.r, mainIni.color_text.g, mainIni.color_text.b, mainIni.color_text.a = elements.color_text.v[1], elements.color_text.v[2], elements.color_text.v[3], elements.color_text.v[4]
+	inicfg.save(mainIni, file)
+	----------------------------------------
 	inicfg.save(
 	{
 		config =
@@ -2205,13 +2435,44 @@ function saveini()
 end
 
 function imgui.OnDrawFrame()
+	----------------------------------------
 	onRenderNotification()
-	--------------------[Калькулятор]--------------------
+	----------------------------------------
     local input = sampGetInputInfoPtr()
     local input = getStructElement(input, 0x8, 4)
     local windowPosX = getStructElement(input, 0x8, 4)
     local windowPosY = getStructElement(input, 0xC, 4)
-	----------------------------------------
+	--------------------[CMD хелпер]--------------------
+	if windows_cmd.v then
+		local posY = windowPosY + 50
+		local posX = windowPosX 
+		----------------------------------------
+		imgui.SetNextWindowPos(imgui.ImVec2(posX, posY), imgui.Cond.Always)
+		----------------------------------------
+		imgui.PushStyleColor(imgui.Col.WindowBg, imgui.ImVec4(elements.color_back.v[1], elements.color_back.v[2], elements.color_back.v[3], elements.color_back.v[4]))
+		----------------------------------------
+		imgui.PushStyleColor(imgui.Col.ScrollbarBg, imgui.ImVec4(elements.color_scroll.v[1], elements.color_scroll.v[2], elements.color_scroll.v[3], elements.color_scroll.v[4]))
+		----------------------------------------
+		imgui.PushStyleColor(imgui.Col.Text, imgui.ImVec4(elements.color_text.v[1], elements.color_text.v[2], elements.color_text.v[3], elements.color_text.v[4]))
+		----------------------------------------
+		imgui.PushStyleColor(imgui.Col.HeaderHovered, imgui.ImVec4(elements.color_main.v[1], elements.color_main.v[2], elements.color_main.v[3], elements.color_main.v[4]))
+		----------------------------------------
+		imgui.Begin('Server Cmds Helper', windows_cmd, imgui.WindowFlags.NoTitleBar + imgui.WindowFlags.NoResize + imgui.WindowFlags.AlwaysAutoResize + imgui.WindowFlags.NoMove + imgui.WindowFlags.NoFocusOnAppearing) 
+		----------------------------------------
+		if getFullLen(sampGetChatInputText()) ~= nil then
+			for i = 1, #cmds do
+				if string.find(cmds[i], sampGetChatInputText()) then
+					if imgui.Selectable(cmds[i], selected == i, imgui.ImVec2(75, 50)) then
+						sampSetChatInputText(cmds[i]..' ') ; windows_cmd.v = false
+					end
+				end
+			end
+		end
+		----------------------------------------
+		imgui.End()
+		imgui.PopStyleColor(4)
+	end
+	--------------------[Калькулятор]--------------------
 	if sampIsChatInputActive() and ok then
         imgui.SetNextWindowPos(imgui.ImVec2(windowPosX, windowPosY + 30 + 15), imgui.Cond.FirstUseEver)
         imgui.SetNextWindowSize(imgui.ImVec2(result_calc:len()*10, 30))
@@ -2376,6 +2637,13 @@ function imgui.OnDrawFrame()
 			imgui.InputText(u8('Пароль##3'),elements.account.my_password_3)
 			imgui.InputText(u8('Пинкод##3'),elements.account.my_pincode_3)
 			imgui.Separator()
+		end
+		----------------------------------------
+		if imgui.CollapsingHeader(u8'Настройки CMD хелпера') then
+			imgui.ColorEdit4(u8'Фон',elements.color_back,imgui.ColorEditFlags.NoInputs + imgui.ColorEditFlags.AlphaBar)
+			imgui.ColorEdit4(u8'Скролл',elements.color_scroll,imgui.ColorEditFlags.NoInputs + imgui.ColorEditFlags.AlphaBar)
+			imgui.ColorEdit4(u8'Текст',elements.color_text,imgui.ColorEditFlags.NoInputs + imgui.ColorEditFlags.AlphaBar)
+			imgui.ColorEdit4(u8'При наведении',elements.color_main,imgui.ColorEditFlags.NoInputs + imgui.ColorEditFlags.AlphaBar)
 		end
 		----------------------------------------
 		if imgui.CollapsingHeader(u8'Настройки автопиара') then
@@ -6620,6 +6888,10 @@ function auto_roul(respond)
 		wait(222)
 		sampSendDialogResponse(722, 1, 7, nil)
 	end)
+end
+
+function getFullLen(text) -- CMD хелпер
+	return #text:gsub(' ', '')
 end
 
 function onScriptTerminate(LuaScript, quitGame)
