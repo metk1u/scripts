@@ -2,10 +2,10 @@
 script_name("{0d00ff}Ar{2900ff}iz{3900ff}on{4500ff}a H{4f00ff}el{5800ff}pe{6000ff}r")
 local script_names = "Arizona Helper"
 
-script_version('4.597')
+script_version('4.5971')
 script_author("metk1u")
 
-local script_vers = 84
+local script_vers = 85
 
 -- sampSetLocalPlayerName('lol')
 
@@ -3582,14 +3582,17 @@ function sampev.onShowTextDraw(textdrawId, data)
 	--------------------[Авто-точилка аксессуаров]--------------------
 	if data.modelId == 16112 or data.modelId == 1615 then
 		if elements.autotoch.checktochilki then
-			if textdrawId ~= 2108 and elements.autotoch.checktochilki then
-				sampSendClickTextdraw(textdrawId)
-				sampSendClickTextdraw(2077)
-				elements.autotoch.checktochilki = false
-			else
-				sampSendClickTextdraw(2077)
-				elements.autotoch.checktochilki = false
-			end
+			lua_thread.create(function()
+				if textdrawId ~= 2108 and elements.autotoch.checktochilki then
+					sampSendClickTextdraw(textdrawId)
+					wait(500)
+					sampSendClickTextdraw(2077)
+					elements.autotoch.checktochilki = false
+				else
+					sampSendClickTextdraw(2077)
+					elements.autotoch.checktochilki = false
+				end
+			end)
 		end
 	end
 	--------------------[Авто-открытие сундуков]--------------------
