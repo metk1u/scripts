@@ -2,10 +2,10 @@
 script_name("{0d00ff}Ar{2900ff}iz{3900ff}on{4500ff}a H{4f00ff}el{5800ff}pe{6000ff}r")
 local script_names = "Arizona Helper"
 
-script_version('4.596')
+script_version('4.597')
 script_author("metk1u")
 
-local script_vers = 83
+local script_vers = 84
 
 -- sampSetLocalPlayerName('lol')
 
@@ -1340,7 +1340,7 @@ local elements =
 	autotoch =
 	{
 		checktochilki = false,
-		checked_radio = imgui.ImInt(1),
+		checked_radio = imgui.ImInt(12),
 		checked_inv = imgui.ImInt(2),
 		checked_box = imgui.ImBool(false)
 	},
@@ -7022,16 +7022,21 @@ function cleanStreamMemoryBuffer() -- Очистка памяти
 end
 
 function inventory(var) -- Авто-точилка аксессуаров
-	if var == 1 then
-		sampSendClickTextdraw(2093)
-		sampSendClickTextdraw(2092)
-	elseif var == 2 then
-		sampSendClickTextdraw(2092)
-		sampSendClickTextdraw(2093)
-	elseif var == 3 then
-		sampSendClickTextdraw(2092)
-		sampSendClickTextdraw(2094)
-	end
+	lua_thread.create(function()
+		if var == 1 then
+			sampSendClickTextdraw(2093)
+			wait(500)
+			sampSendClickTextdraw(2092)
+		elseif var == 2 then
+			sampSendClickTextdraw(2092)
+			wait(500)
+			sampSendClickTextdraw(2093)
+		elseif var == 3 then
+			sampSendClickTextdraw(2092)
+			wait(500)
+			sampSendClickTextdraw(2094)
+		end
+	end)
 end
 
 function number_separator(n) -- Калькулятор
