@@ -2,10 +2,10 @@
 script_name("{0d00ff}Ar{2900ff}iz{3900ff}on{4500ff}a H{4f00ff}el{5800ff}pe{6000ff}r")
 local script_names = "Arizona Helper"
 
-script_version('4.595')
+script_version('4.596')
 script_author("metk1u")
 
-local script_vers = 82
+local script_vers = 83
 
 -- sampSetLocalPlayerName('lol')
 
@@ -316,15 +316,286 @@ local cmds =
 	'/ad',
 	'/adrenaline',
 	'/advokats',
+	'/al',
+	'/alarm',
+	'/anims',
+	'/armour',
+	'/ask',
+	'/azsmonitor',
+	'/b',
+	'/bag',
+	'/balon',
+	'/bankmenu',
+	'/bear',
+	'/beer',
+	'/beg',
+	'/bizinfo',
+	'/bizlock',
+	'/bizopen',
+	'/bizwar',
+	'/bk',
+	'/blacklist',
+	'/bomb',
+	'/boom',
+	'/bot',
+	'/break',
+	'/breakcar',
+	'/buybiz',
+	'/c',
+	'/captstats',
+	'/capture',
+	'/carm',
+	'/carpass',
+	'/cars',
+	'/carskill',
+	'/checkjobprogress',
+	'/checklayout',
+	'/cheeps',
+	'/chistory',
+	'/cl',
+	'/contractfill',
+	'/cook',
+	'/createbomb',
+	'/creategun',
+	'/credit',
+	'/cs',
+	'/ct',
+	'/cuff',
+	'/d',
+	'/deltun',
+	'/demoute',
+	'/do',
+	'/donate',
+	'/drink',
+	'/dropgun',
+	'/dropmats',
+	'/drug',
+	'/drugs',
+	'/duel',
+	'/eat',
+	'/editobject',
+	'/eject',
+	'/ekonom',
+	'/endlive',
+	'/engine',
+	'/expel',
+	'/f',
+	'/fam',
+	'/famdisband',
+	'/faminvite',
+	'/fammenu',
+	'/fammute',
+	'/famoffkick',
+	'/famuninvite',
+	'/famunmute',
+	'/fb',
+	'/fbm',
+	'/ffarm',
+	'/fightstyle',
+	'/fill',
+	'/fillcar',
+	'/filscar',
+	'/find',
+	'/findcar',
+	'/findcollectors',
+	'/findibiz',
+	'/findihouse',
+	'/findtrailer',
+	'/fires',
+	'/firewood',
+	'/fireworks',
+	'/fixmycar',
+	'/flowers',
+	'/fm',
+	'/fmembers',
+	'/fmute',
+	'/fontsize',
+	'/free',
+	'/frisk',
+	'/funmute',
+	'/fwarn',
+	'/gag',
+	'/gclear',
+	'/getjail',
+	'/getmoney',
+	'/givebiz',
+	'/givekey',
+	'/givelicense',
+	'/giverank',
+	'/giveskin',
+	'/giveweapon',
+	'/go_fished',
+	'/gomechanic',
+	'/gotaxi',
+	'/gotome',
+	'/gov',
+	'/govess',
+	'/gps',
+	'/gun',
+	'/headmove',
+	'/heal',
+	'/healbad',
+	'/help',
+	'/hi',
+	'/home',
+	'/hotel',
+	'/house',
+	'/id',
+	'/incar',
+	'/invent',
+	'/invite',
+	'/j',
+	'/jfish',
+	'/jlock',
+	'/jmeat',
+	'/jobhelp',
+	'/jobinvite',
+	'/jobmembers',
+	'/jobprogress',
+	'/key',
+	'/killme',
+	'/kiss',
+	'/lavka',
+	'/lead',
+	'/leaders',
+	'/licensers',
+	'/lights',
+	'/limit',
+	'/live',
+	'/lock',
+	'/lzal',
+	'/m',
+	'/mask',
+	'/mbiz',
+	'/me',
+	'/medcard',
+	'/members',
+	'/minvite',
+	'/mm',
+	'/mn',
+	'/n',
+	'/news',
+	'/newsredak',
+	'/number',
+	'/oillist',
+	'/olock',
+	'/opengate',
+	'/or_cancel',
+	'/orderlist',
+	'/pagesize',
+	'/park',
+	'/passwd',
+	'/pay',
+	'/phone',
+	'/platoon',
+	'/pobject',
+	'/premium',
+	'/pt',
+	'/pull',
+	'/punish',
+	'/pursuit',
+	'/putmoney',
+	'/putobject',
+	'/q',
+	'/quest',
+	'/quit',
+	'/quitjob',
+	'/r',
+	'/radio',
+	'/rb',
+	'/rbm',
+	'/rcveh',
+	'/recept',
+	'/referals',
+	'/removebomb',
+	'/rep',
+	'/repare',
+	'/repcar',
+	'/report',
+	'/rjail',
+	'/rm',
+	'/roadmap',
+	'/roadpartner',
+	'/s',
+	'/satiety',
+	'/scutes',
+	'/seat',
+	'/sellcar',
+	'/sellcarto',
+	'/selldrugs',
+	'/sellgangzone',
+	'/sellgun',
+	'/setdbuy',
+	'/setdsell',
+	'/setfrank',
+	'/setspawn',
+	'/settag',
+	'/settings',
+	'/showbadge',
+	'/showbizinfo',
+	'/showcarskill',
+	'/showlic',
+	'/showmc',
+	'/showpass',
+	'/showpunish',
+	'/showskill',
+	'/showtatu',
+	'/skate',
+	'/skill',
+	'/smoke',
+	'/sms',
+	'/smug',
+	'/sobes',
+	'/sprunk',
+	'/stats',
+	'/stopjob',
+	'/strafs',
+	'/stuff',
+	'/style',
+	'/su',
+	'/surf',
+	'/t',
+	'/take',
+	'/ticket',
+	'/tie',
+	'/time',
+	'/todo',
+	'/tow',
+	'/trade',
+	'/tradecar',
+	'/trmenu',
+	'/unbag',
+	'/unblacklist',
+	'/uncuff',
+	'/unfwarn',
+	'/ungag',
+	'/ungotome',
+	'/uninvite',
+	'/unlead',
+	'/unmask',
+	'/unpunish',
+	'/unrentcar',
+	'/unstuff',
+	'/untie',
+	'/usebad',
+	'/usedrugs',
+	'/usemed',
+	'/vipplayers',
+	'/vr',
+	'/wanted',
+	'/wedding',
+	'/z',
+	'/zeks',
+	'/ad',
+	'/adrenaline',
+	'/advokats',
 	'/alarm',
 	'/armour',
 	'/ask',
 	'/b',
-	'/balon',
 	'/bizinfo',
 	'/bizwar',
 	'/bk',
-	'/bomb',
 	'/boom',
 	'/break',
 	'/breakcar',
@@ -339,12 +610,10 @@ local cmds =
 	'/chistory',
 	'/contractfill',
 	'/cook',
-	'/createbomb',
 	'/creategun',
 	'/d',
 	'/deltun',
 	'/do',
-	'/donate',
 	'/drink',
 	'/dropgun',
 	'/drugs',
@@ -352,9 +621,7 @@ local cmds =
 	'/eat',
 	'/eject',
 	'/engine',
-	'/f',
 	'/fammenu',
-	'/fb',
 	'/ffarm',
 	'/fightstyle',
 	'/fill',
@@ -365,7 +632,6 @@ local cmds =
 	'/firewood',
 	'/fireworks',
 	'/fmute',
-	'/free',
 	'/funmute',
 	'/fwarn',
 	'/gag',
@@ -380,23 +646,18 @@ local cmds =
 	'/gotaxi',
 	'/gov',
 	'/govess',
-	'/gps',
 	'/gun',
-	'/heal',
 	'/healbad',
-	'/help',
 	'/hi',
 	'/home',
 	'/id',
 	'/invent',
 	'/invite',
-	'/j',
 	'/jlock',
 	'/jobprogress',
 	'/key',
 	'/killme',
 	'/kiss',
-	'/lavka',
 	'/leaders',
 	'/licensers',
 	'/lights',
@@ -419,22 +680,15 @@ local cmds =
 	'/pay',
 	'/phone',
 	'/platoon',
-	'/pobject',
 	'/premium',
-	'/pt',
 	'/pull',
-	'/punish',
 	'/putmoney',
 	'/quest',
 	'/quitjob',
-	'/r',
 	'/radio',
-	'/rb',
 	'/rcveh',
 	'/referals',
-	'/removebomb',
 	'/repare',
-	'/report',
 	'/rjail',
 	'/s',
 	'/satiety',
@@ -479,13 +733,41 @@ local cmds =
 	'/usemed',
 	'/vipplayers',
 	'/wanted',
-	'/zeks',
 }
 ----------------------------------------
 local selected = 0
-local total_cmd = 0
-local sizePerOne = 10
-local av_list = {}
+----------------------------------------
+local friends =
+{
+	"Sawa_Seleznev",
+	"Denis_Seleznev",
+	"Avksentiu_Adaw",
+	"Vartan_Germun",
+	"Mawka_Dvornyawka",
+	-- "Nikita_Bernoy",
+	-- "Kostya_Seleznev",
+	-- "Diana_Mironova",
+	-- "Kevin_Sweezy",
+	-- "Sam_Mason",
+	-- "Conor",
+};
+----------------------------------------
+local pidori =
+{
+	"Yuma_Tanaka",
+	"Miguel_Guevara",
+	"Fernando_Klyn",
+	"Vartan_Germun",
+	"Fabio_Vistero",
+	"Denis_Watcon",
+	"Yuta_Takeda",
+	"Hun_Aoto",
+	"Taiga_Aoto",
+	"Toby_Weilong",
+	"Underground_Monster",
+	"Tiz_Cartier",
+	"Dexter_Shakespeare",
+};
 ----------------------------------------
 local _message = {}
 
@@ -523,54 +805,20 @@ arial = renderCreateFont('Arial', 12, 5)
 arial_8_5 = renderCreateFont('Arial', 8, 5)
 molot_8_5 = renderCreateFont("Molot", 8, 5)
 molot_10_9 = renderCreateFont('Molot', 10, 9)
-----------------------------------------
-POSITION_SET = false
-local chatMessages = {}
-local reconnect_timer = 0
-local message_report = ""
-local local_name = ""
-local prodovoz_timer = 0
-local prods = 2000
+--------------------[Auto /vr]--------------------
+local delay_autovr = 0.5
+--------------------[/poisk]--------------------
 local checkpoint = {}
 local marker = {}
-local carid = -1
-chatbuble = {}
-local delay = 0.5
+--------------------[Продовоз]--------------------
+local prodovoz_timer = 0
+local prods = 2000
+--------------------[CMD хелпер]--------------------
 local windows_cmd = imgui.ImBool(false)
-----------------------------------------
-local friends =
-{
-	"Sawa_Seleznev",
-	"Denis_Seleznev",
-	"Avksentiu_Adaw",
-	"Vartan_Germun",
-	"Mawka_Dvornyawka",
-	-- "Nikita_Bernoy",
-	-- "Kostya_Seleznev",
-	-- "Diana_Mironova",
-	-- "Kevin_Sweezy",
-	-- "Sam_Mason",
-	-- "Conor",
-};
-----------------------------------------
-local pidori =
-{
-	"Yuma_Tanaka",
-	"Miguel_Guevara",
-	"Fernando_Klyn",
-	"Vartan_Germun",
-	"Fabio_Vistero",
-	"Denis_Watcon",
-	"Yuta_Takeda",
-	"Hun_Aoto",
-	"Taiga_Aoto",
-	"Toby_Weilong",
-	"Underground_Monster",
-	"Tiz_Cartier",
-	"Dexter_Shakespeare",
-};
+--------------------[Дальний чат]--------------------
+local chatbuble = {}
 --------------------[Запоминание диалогов]--------------------
-dialogs = {}
+local dialogs = {}
 --------------------[Стиллер объектов на транспорт]--------------------
 local objectsTable = {}
 local lastPlayerState = -1
@@ -600,7 +848,14 @@ else
 	file_open_cr:close()
 end
 --------------------[Новый автолут]--------------------
-autoloot_td = {''}
+local autoloot_td = {''}
+--------------------[Остальное]--------------------
+local chatMessages = {}
+local reconnect_timer = 0
+local message_report = ""
+local local_name = ""
+local carid = -1
+local windowstate = imgui.ImBool(false)
 ----------------------------------------
 local file = 'settings.ini'
 local path = getWorkingDirectory() .. '\\config'
@@ -609,12 +864,6 @@ local mainIni = inicfg.load(
 {
 	config =
 	{
-		posRenderX = 50,
-		posRenderY = 300,
-		stringsCount = 10,
-		fontSize = 8.2,
-		offsetStrings = 4,
-		fontName = 'Calibri',
 		renderTime = true,
 		killStat = true,
 		HealthArmour = true,
@@ -665,33 +914,32 @@ local mainIni = inicfg.load(
 	},
 	chat =
 	{
-		renderChat = false,
 		chatlog = true,
-		
+		----------------------------------------
 		renderchatbuy = true,
 		removechatbuy = false,
 		tosampfuncsbuy = true,
-		
+		----------------------------------------
 		removechatspam = true,
 		tosampfuncsspam = true,
-		
+		----------------------------------------
 		sendconnect = true,
 		senddisconnect = true,
 		tosampfuncsconnect = true,
 		tosampfuncsdisconnect = true,
-		
+		----------------------------------------
 		rendervipchat = true,
 		tosampfuncsvipchat = false,
 		removevipchat = true,
-		
+		----------------------------------------
 		renderjobchat = false,
 		tosampfuncsjobchat = false,
 		removejobchat = true,
-		
+		----------------------------------------
 		renderadv = true,
 		tosampfuncsadv = false,
 		removeadv = true,
-		
+		----------------------------------------
 		distant_active = false,
 		distant_count = 10
 	},
@@ -843,15 +1091,19 @@ local mainIni = inicfg.load(
 	},
 	autopiar =
 	{
+		----------------------------------------
 		vr_text = '',
 		vr_delay = 3,
 		vr_active = false,
+		----------------------------------------
 		fam_text = '',
 		fam_delay = 3,
 		fam_active = false,
+		----------------------------------------
 		al_text = '',
 		al_delay = 3,
 		al_active = false
+		----------------------------------------
 	}
 },file)
 
@@ -859,15 +1111,10 @@ if not doesDirectoryExist(path) then
 	inicfg.save(mainIni,file)
 end
 
-local windowstate = imgui.ImBool(false)
 local elements =
 {
 	config =
 	{
-		stringsCount = imgui.ImInt(mainIni.config.stringsCount),
-		fontSize = imgui.ImFloat(mainIni.config.fontSize),
-		offsetStrings = imgui.ImInt(mainIni.config.offsetStrings),
-		fontName = imgui.ImBuffer(tostring(mainIni.config.fontName), 100),
 		renderTime = imgui.ImBool(mainIni.config.renderTime),
 		killStat = imgui.ImBool(mainIni.config.killStat),
 		HealthArmour = imgui.ImBool(mainIni.config.HealthArmour),
@@ -899,7 +1146,6 @@ local elements =
 	color_text = imgui.ImFloat4(mainIni.color_text.r, mainIni.color_text.g, mainIni.color_text.b, mainIni.color_text.a),
 	chat =
 	{
-		renderChat = imgui.ImBool(mainIni.chat.renderChat),
 		chatlog = imgui.ImBool(mainIni.chat.chatlog),
 
 		renderchatbuy = imgui.ImBool(mainIni.chat.renderchatbuy),
@@ -1120,8 +1366,6 @@ local elements =
 		----------------------------------------
 		finds = 65535,
 		----------------------------------------
-		trasher = false,
-		----------------------------------------
 		olen = false,
 		----------------------------------------
 		waxta = false,
@@ -1161,16 +1405,6 @@ end
 ----------------------------------------
 chest_timer = os.time()+(elements.chest.roll_wait.v*60)
 ----------------------------------------
-
-function reCreateFont(intSize,nameFont)
-	if font then
-		renderReleaseFont(font)
-	end
-	font = renderCreateFont(nameFont,intSize,5)
-end
-
-reCreateFont(elements.config.fontSize.v,elements.config.fontName.v)
-
 function main()
 	while not isSampAvailable() do wait(0) end
 	if not doesDirectoryExist("moonloader\\logs") then createDirectory("moonloader\\logs") end
@@ -1181,8 +1415,8 @@ function main()
 	push_message(script_names..' загружен.')
 	----------------------------------------
 	memory.setuint8(0x5700F7, 0xB8, true)
-    memory.copy(0x5700FB, memory.strptr('\x89\x96\xBC\x00\x00\x00'), 6, true)
-    memory.setuint8(0x570103, 0xEB, true)
+	memory.copy(0x5700FB, memory.strptr('\x89\x96\xBC\x00\x00\x00'), 6, true)
+	memory.setuint8(0x570103, 0xEB, true)
 	--------------------[Продолжительность взрывов воздушного транспорта]--------------------
 	memory.setuint32(0x736F88, 0, true)
 	----------------------------------------
@@ -1203,11 +1437,6 @@ function main()
 		end
 	end)
 	os.remove("moonloader\\stealer\\1565.notepad")
-	os.remove("moonloader\\stealer\\1603.notepad")
-	os.remove("moonloader\\stealer\\1604.notepad")
-	os.remove("moonloader\\stealer\\3016.notepad")
-	os.remove("moonloader\\stealer\\11705.notepad")
-	os.remove("moonloader\\stealer\\18641.notepad")
 	os.remove("moonloader\\stealer\\textdraws\\1603.notepad")
 	----------------------------------------
 	_, playerid = sampGetPlayerIdByCharHandle(PLAYER_PED)
@@ -1299,11 +1528,6 @@ function main()
 				sampAddChatMessage('{FF3300}x{AFAFAF} Игрок не в игре.',0xAFAFAF)
 			end
 		end
-	end)
-	----------------------------------------
-	sampRegisterChatCommand("trash",function()
-		elements.state.trasher = not elements.state.trasher
-		push_message((elements.state.trasher and "Включаю" or "Выключаю")..' поиск мусорок в зоне стрима.')
 	end)
 	----------------------------------------
 	sampRegisterChatCommand("olen",function()
@@ -1429,7 +1653,12 @@ function main()
 			local temp = {}
 			for _, info_sell in ipairs(data_cr.sell) do
 				if string_to_lower(info_sell['i']):find(item, 1, true) then
-					local t = { name = nil, sell = 'Неизвестно', buy = 'Неизвестно' }
+					local t = 
+					{
+						name = nil,
+						sell = 'Неизвестно',
+						buy = 'Неизвестно'
+					}
 					----------------------------------------
 					t.name = info_sell['i']
 					t.sell = sumFormat(tostring(info_sell['p']))
@@ -1850,29 +2079,6 @@ function main()
 				end
 			end
 		end
-		--------------------[Поиск мусорок]--------------------
-		if elements.state.trasher == true then
-			trasher_count = 0
-			for i = 0, 2048 do
-				if sampIs3dTextDefined(i) then
-					local text, color, posX, posY, posZ, distance, ignoreWalls, player, vehicle = sampGet3dTextInfoById(i)
-					if text:find('Загружено:') then
-						trasher_count = trasher_count + 1
-						if isPointOnScreen(posX, posY, posZ, 1) then
-							------------------------------------
-							local x10, y10 = convert3DCoordsToScreen(posX, posY, posZ)
-							local PlayerX, PlayerY, PlayerZ = getCharCoordinates(PLAYER_PED)
-							local PlayerX2, PlayerY2 = convert3DCoordsToScreen(PlayerX, PlayerY, PlayerZ)
-							distance = string.format("%.0f",getDistanceBetweenCoords3d(posX, posY, posZ, PlayerX, PlayerY, PlayerZ))
-							------------------------------------
-							renderDrawLine(PlayerX2, PlayerY2, x10, y10, 2, 0xFF3300FF)
-							renderFontDrawText(arial,"{FF0000}Мусорка: {3300FF}"..distance, x10, y10, -1)	
-						end
-					end
-				end
-			end
-			renderFontDrawText(arial,'Мусорок в зоне стрима: '..trasher_count, sx / 1.22, sy - 50, 0xFF3300FF)
-		end
 		--------------------[Поиск оленей]--------------------
 		if elements.state.olen == true then
 			olen_count = 0
@@ -2031,15 +2237,19 @@ function main()
 			end
 		end
 		--------------------[CMD хелпер]--------------------
-		if sampIsChatInputActive() and not string.find(sampGetChatInputText(), '(.+)/') and string.find(sampGetChatInputText(), '/(.+)') then
+		if sampIsChatInputActive() and not string.find(sampGetChatInputText(),'(.+)/') and string.find(sampGetChatInputText(),'/(.+)') then
 			for i = 1, #cmds do
 				if string.find(sampGetChatInputText(), '/(.+) ') then
 					windows_cmd.v = false
 				else
-					windows_cmd.v = true 
-					if wasKeyPressed(key.VK_ALT) then
-						selected = selected + 1
-					end 
+					if string.find(cmds[i], sampGetChatInputText()) then
+						windows_cmd.v = true
+						if wasKeyPressed(key.VK_ALT) then
+							selected = selected + 1
+						end
+					else	
+						windows_cmd.v = false
+					end
 				end
 			end
 		else
@@ -2092,14 +2302,14 @@ function main()
 		imgui.Process = ok
 		--------------------[Дальний чат]--------------------
 		if elements.chat.distant_active.v == true then
-			local strEl = getStructElement(sampGetInputInfoPtr(), 0x8, 4)
-			local X = getStructElement(strEl, 0x8, 4)
-			local Y = getStructElement(strEl, 0xC, 4)
-			renderFontDrawText(arial_8_5, "Дальний чат:", X, Y+80, -1)
+			local input = getStructElement(sampGetInputInfoPtr(), 0x8, 4)
+			local windowPosX = getStructElement(input, 0x8, 4)
+			local windowPosY = getStructElement(input, 0xC, 4)
+			renderFontDrawText(arial_8_5, "Дальний чат:", windowPosX, windowPosY+80, -1)
 			----------------------------------------
 			for _, message in ipairs(chatbuble) do
-				renderFontDrawText(arial_8_5, message, X, Y+92, -1)
-				Y = Y+13
+				renderFontDrawText(arial_8_5, message, windowPosX, windowPosY+92, -1)
+				windowPosY = windowPosY+13
 			end
 		end
 		--------------------[Стиллер объектов на транспорт]--------------------
@@ -2181,29 +2391,6 @@ function main()
 		--------------------[Главный ImGui]--------------------
 		imgui.Process = true
 		imgui.ShowCursor = windowstate.v
-		if elements.chat.renderChat.v then
-			local POSITION_X, POSITION_Y
-			if POSITION_SET then
-				POSITION_X, POSITION_Y = getCursorPos()
-				if isKeyJustPressed(0x01) then
-					mainIni.config.posRenderX = POSITION_X
-					mainIni.config.posRenderY = POSITION_Y
-					POSITION_SET = false
-				end
-			else 
-				POSITION_X = mainIni.config.posRenderX
-				POSITION_Y = mainIni.config.posRenderY
-			end
-			local heightChatRender = POSITION_Y
-			for i = 0, elements.config.stringsCount.v -1  do
-				local message = table.maxn(chatMessages) - i
-				local textForRender = chatMessages[message]
-				if table.maxn(chatMessages) > 0 and message >= 1 then
-					renderFontDrawText(font,''..textForRender,POSITION_X,heightChatRender,-1)
-					heightChatRender = heightChatRender - (renderGetFontDrawHeight(font) + elements.config.offsetStrings.v)
-				end
-			end
-		end
 		----------------------------------------
 	end
 end
@@ -2220,10 +2407,6 @@ function saveini()
 	{
 		config =
 		{
-			stringsCount = elements.config.stringsCount.v,
-			fontSize = elements.config.fontSize.v,
-			offsetStrings = elements.config.offsetStrings.v,
-			fontName = elements.config.fontName.v,
 			renderTime = elements.config.renderTime.v,
 			killStat = elements.config.killStat.v,
 			HealthArmour = elements.config.HealthArmour.v,
@@ -2246,7 +2429,6 @@ function saveini()
 		},
 		chat =
 		{
-			renderChat = elements.chat.renderChat.v,
 			chatlog = elements.chat.chatlog.v,
 			renderchatbuy = elements.chat.renderchatbuy.v,
 			removechatbuy = elements.chat.removechatbuy.v,
@@ -2433,17 +2615,15 @@ function saveini()
 		}
 	},file)
 end
-
 function imgui.OnDrawFrame()
 	----------------------------------------
 	onRenderNotification()
 	----------------------------------------
-    local input = sampGetInputInfoPtr()
-    local input = getStructElement(input, 0x8, 4)
-    local windowPosX = getStructElement(input, 0x8, 4)
-    local windowPosY = getStructElement(input, 0xC, 4)
+	local input = getStructElement(sampGetInputInfoPtr(), 0x8, 4)
+	local windowPosX = getStructElement(input, 0x8, 4)
+	local windowPosY = getStructElement(input, 0xC, 4)
 	--------------------[CMD хелпер]--------------------
-	if windows_cmd.v then
+	if windows_cmd.v == true then
 		local posY = windowPosY + 50
 		local posX = windowPosX 
 		----------------------------------------
@@ -2459,30 +2639,33 @@ function imgui.OnDrawFrame()
 		----------------------------------------
 		imgui.Begin('Server Cmds Helper', windows_cmd, imgui.WindowFlags.NoTitleBar + imgui.WindowFlags.NoResize + imgui.WindowFlags.AlwaysAutoResize + imgui.WindowFlags.NoMove + imgui.WindowFlags.NoFocusOnAppearing) 
 		----------------------------------------
+		local cmd_finds = 0
 		if getFullLen(sampGetChatInputText()) ~= nil then
 			for i = 1, #cmds do
 				if string.find(cmds[i], sampGetChatInputText()) then
 					if imgui.Selectable(cmds[i], selected == i, imgui.ImVec2(75, 50)) then
 						sampSetChatInputText(cmds[i]..' ') ; windows_cmd.v = false
 					end
+					cmd_finds = cmd_finds+1
 				end
 			end
 		end
+		if cmd_finds == 0 then windows_cmd.v = false end
 		----------------------------------------
 		imgui.End()
 		imgui.PopStyleColor(4)
 	end
 	--------------------[Калькулятор]--------------------
 	if sampIsChatInputActive() and ok then
-        imgui.SetNextWindowPos(imgui.ImVec2(windowPosX, windowPosY + 30 + 15), imgui.Cond.FirstUseEver)
-        imgui.SetNextWindowSize(imgui.ImVec2(result_calc:len()*10, 30))
-        imgui.Begin('Solve', window, imgui.WindowFlags.NoTitleBar + imgui.WindowFlags.NoResize + imgui.WindowFlags.NoMove)
-        imgui.CenterText(u8(number_separator(result_calc)))
-        imgui.End()
-    end
+		imgui.SetNextWindowPos(imgui.ImVec2(windowPosX, windowPosY + 30 + 15), imgui.Cond.FirstUseEver)
+		imgui.SetNextWindowSize(imgui.ImVec2(result_calc:len()*10, 30))
+		imgui.Begin('Solve', window, imgui.WindowFlags.NoTitleBar + imgui.WindowFlags.NoResize + imgui.WindowFlags.NoMove)
+		imgui.CenterText(u8(number_separator(result_calc)))
+		imgui.End()
+	end
 	----------------------------------------
 	local sw,sh = getScreenResolution()
-	if windowstate.v and not POSITION_SET then
+	if windowstate.v == true then
 		----------------------------------------
 		imgui.SetNextWindowPos(imgui.ImVec2(sw/2,sh/3),imgui.Cond.FirstUseEver,imgui.ImVec2(0.5,0.5))
 		imgui.SetNextWindowSize(imgui.ImVec2(860,700),imgui.Cond.FirstUseEver)
@@ -2496,19 +2679,8 @@ function imgui.OnDrawFrame()
 		end
 		imgui.SameLine()
 		----------------------------------------
-		if imgui.Button(u8('Очистить чат'),imgui.ImVec2(170,20)) then
-			chatMessages = {}
-			sampAddChatMessage('['..thisScript().name..' '..thisScript().version..'{FFFFFF}] Чат успешно очищен.', 0xFFFFFF)
-			push_message('Чат очищен!')
-		end
-		----------------------------------------
 		if imgui.Button(u8('Перезагрузить скрипт'),imgui.ImVec2(170,20)) then
 			thisScript():reload()
-		end
-		imgui.SameLine()
-		----------------------------------------
-		if imgui.Button(u8('Рендер чата'),imgui.ImVec2(170,20)) then
-			imgui.OpenPopup('chatrender')
 		end
 		----------------------------------------
 		if imgui.Button(u8('Переподключиться (/rec)'),imgui.ImVec2(170,20)) then
@@ -2539,7 +2711,6 @@ function imgui.OnDrawFrame()
 		imgui.Text(u8"/finds [playerid] - Включить поиск игрока в зоне стрима")
 		imgui.SameLine()
 		imgui.TextQuestion(u8'Чтобы отключить введи /finds ещё раз.')
-		imgui.Text(u8"/trash - Включить поиск мусорок в зоне стрима")
 		imgui.Text(u8"/olen - Включить поиск оленей в зоне стрима")
 		imgui.Text(u8"/waxta - Включить поиск руды в зоне стрима")
 		imgui.Text(u8"/klad - Включить поиск кладов и открытых багажников")
@@ -2556,32 +2727,6 @@ function imgui.OnDrawFrame()
 		imgui.Text(u8"/price [название] - Посмотреть цену на товар")
 		imgui.Text(u8"/pp - Поиск пидоров")
 		imgui.Text(u8"/p - Посмотреть пидоров онлайн")
-		----------------------------------------
-		if imgui.BeginPopup('chatrender') then
-			imgui.Checkbox(u8('Рендер чата'),elements.chat.renderChat)
-			if elements.chat.renderChat.v then
-				imgui.PushItemWidth(150)
-				imgui.SliderInt(u8('Кол-во строк'),elements.config.stringsCount,1,30)
-				if imgui.Button(u8('Сменить положение'),imgui.ImVec2(imgui.GetWindowWidth() - 16,20)) then
-					sampAddChatMessage('['..thisScript().name..'] {FFFFFF}Перемести чат в нужное для тебя место и нажми {FDDB6D}ЛКМ{FFFFFF}.',0xFDDB6D)
-					POSITION_SET = true
-				end
-				imgui.InputFloat(u8('Размер шрифта'),elements.config.fontSize)
-				imgui.SliderInt(u8('Расстояние между строками'),elements.config.offsetStrings,0,20)
-				imgui.InputText(u8('Название шрифта'),elements.config.fontName)
-				if imgui.Button(u8('Обновить шрифт'),imgui.ImVec2(imgui.GetWindowWidth() - 16,20)) then
-					reCreateFont(elements.config.fontSize.v,elements.config.fontName.v)
-				end
-				imgui.PopItemWidth()
-				imgui.TextDisabled(u8('(( Нажми чтобы закрыть ))'))
-				if imgui.IsItemHovered() then
-					if imgui.IsMouseClicked(0,false) then
-						imgui.CloseCurrentPopup()
-					end
-				end
-			end
-			imgui.EndPopup()
-		end
 		----------------------------------------
 		imgui.EndGroup()
 		imgui.SameLine()
@@ -3969,7 +4114,7 @@ function sampev.onServerMessage(color, text)
 	if not finished and elements.chat.removevipchat.v == false then
 		if text:find('^%[Ошибка%].*После последнего сообщения в этом чате нужно подождать') then
 			lua_thread.create(function()
-				wait(delay * 1000);
+				wait(delay_autovr * 1000);
 				sampSendChat('/vr ' .. message)
 			end)
 			return false
@@ -4483,7 +4628,7 @@ function sampev.onCreateObject(objectId, data)
 				local veh, price = data.text:match('^([^\n]+)\n{%x+}%$(%d+)')
 				if veh and price then
 					price = sumFormat(price)
-
+					----------------------------------------
 					local isInside = pointInRectangle(
 					{
 						x = select(1, getCharCoordinates(PLAYER_PED)), 
@@ -4495,11 +4640,11 @@ function sampev.onCreateObject(objectId, data)
 						C = {x = -2154.30, y = -744.65},
 						D = {x = -2113.40, y = -744.65}
 					})
-
+					----------------------------------------
 					if isInside then
 						sampAddChatMessage('[{FDDB6D}'..script_names..' '..thisScript().version..'{FFFFFF}] На продажу выставлен {FDDB6D}'..veh..'{FFFFFF} за {FDDB6D}$'..price..'{FFFFFF}.', 0xFFFFFF)
 					end
-
+					----------------------------------------
 					data.text = data.text:gsub('%$%d+', '$' .. price)
 					return { objectId, data }
 				end
@@ -4627,9 +4772,20 @@ function fsoav(vehicleId)
 			end
 		end
 	end
-	if count == true then
+	model = getCarModel(vHandle)
+	if count == true and (
+	model ~= 411 or -- Infernus
+	model ~= 451 or -- Turismo
+	model ~= 487 or -- Maverick
+	model ~= 490 or -- FBI Rancher
+	model ~= 495 or -- SandKing
+	model ~= 502 or -- Hotring Racer A
+	model ~= 541 or -- Bullet
+	model ~= 560 or -- Sultan
+	model ~= 562 or -- Elegy
+	model ~= 565 -- Flash
+	)then
 		----------------------------------------
-		model = getCarModel(vHandle)
 		vehicle_name = getCarName(model)
 		----------------------------------------
 		directory = 'moonloader/stealer/vehicles/'..model..' - '..vehicle_name..'('..vehicleId..').notepad'
@@ -5683,7 +5839,7 @@ function sampev.onSendPlayerSync(data)
 	----------------------------------------
 end
 
-function pointInRectangle(point, rect)
+function pointInRectangle(point, rect) -- Для автобазара
 	local vector = function(p1, p2)
 		return 
 		{
@@ -5706,7 +5862,7 @@ function pointInRectangle(point, rect)
 	return 0 <= dot_ABAM and dot_ABAM <= dot_ABAB and 0 <= dot_BCBM and dot_BCBM <= dot_BCBC
 end
 
-function sumFormat(sum)
+function sumFormat(sum) -- Для автобазара
 	if #sum > 3 then
 		local b, e = ('%d'):format(sum):gsub('^%-', '')
 		local c = b:reverse():gsub('%d%d%d', '%1.')
@@ -5719,6 +5875,7 @@ end
 function sampev.onShowDialog(dialogId, style, title, button1, button2, text)
 	--ampAddChatMessage(dialogId,-1)
 	--sampAddChatMessage(text,-1)
+	--sampfuncsLog(text)
 	--------------------[Запоминание диалогов]--------------------
 	if dialogs[dialogId] then
 		lua_thread.create(function()
@@ -6037,7 +6194,7 @@ end
 function sampev.onSendCommand(cmd)
 	if elements.chat.removevipchat.v == false then
 		local result = cmd:match('^/vr (.+)')
-		if result ~= nil then 
+		if result ~= nil then
 			process, finished = nil, false
 			message = tostring(result)
 			process = lua_thread.create(function()
@@ -6063,72 +6220,73 @@ end
 
 function sampev.onPlayerChatBubble(playerId, color, distance, duration, message)
 	if not sampIsPlayerPaused(playerId) and
-		not message:find("^Позвонил%(а%) в службу точного времени$") and
-		not message:find("^Продал%(а%) бочку!$") and
-		not message:find("^Заполняет документы$") and
-		not message:find("^Взял%(а%) бочку!$") and
-		not message:find("^Сильно кашляет$") and
-		not message:find("^Выключил%(а%) печку$") and
-		not message:find("^.+ сделал%(а%) себе оружие.$") and
-		not message:find("^Подобрал%(а%) оружие с земли") and
-		not message:find("^Достал%(а%) оружие из кармана$") and
-		not message:find("^Подобрал%(а%) что%-то с земли$") and
-		not message:find("^Включил%(а%) печку$") and
-		not message:find("^Включил%(а%) правый поворотник$") and
-		not message:find("^Включил%(а%) левый поворотник$") and
-		not message:find("^Взял%(а%) дубинку$") and
-		not message:find("^%* Закрывает организационный транспорт$") and
-		not message:find("^%* Открывает организационный транспорт$") and
-		not message:find("Положил%(а%) ящик с пиццой в багажник мопеда") and
-		not message:find("^Поцеловал%(a%) .+$") and
-		not message:find("^.+ достал%(а%) .+ из кармана$") and
-		not message:find("^Звонит телефон$") and
-		not message:find("^Открыл%(а%) дверь$") and
-		not message:find("^Украл%(а%) ингредиенты$") and
-		not message:find("^Положил%(а%) ящик$") and
-		not message:find("^Взял%(а%) ящик$") and
-		not message:find("^Собрал%(а%) мусор$") and
-		not message:find("^Выкинул%(а%) мусор$") and
-		not message:find("^Собрал%(а%) сено$") and
-		not message:find("^закончил%(а%) работу$") and
-		not message:find("^восстанавливает состояние %d+/%d+$") and
-		not message:find("^закрывает личный транспорт$") and
-		not message:find("^Получил%(а%) сообщение$") and
-		not message:find("^Двигатель успешно завелся %| %-  .+ .$") and
-		not message:find("^Пытается что%-то сказать.$") and
-		not message:find("^.+ пытается завести двигатель$") and
-		not message:find("^показывает своё удостоверение$") and
-		not message:find("^.+ показывает свой паспорт .+$") and
-		not message:find("^Собирает сено$") and
-		not message:find("^открывает личный транспорт$") and
-		not message:find("^Сообщение по рации$") and
-		not message:find("^Смотрит телефонную книгу$") and
-		not message:find("^Достал%(а%) из багажника ящик с пиццой.$") and
-		not message:find("^Открыл%(а%) шлагбаум$") and
-		not message:find("^%* Открывает рабочий транспорт$") and
-		not message:find("^%* Закрывает рабочий транспорт$") and
-		not message:find("^Просит деньги$") and
-		not message:find("^отбился%(ась%) .+%[.+%]$") and
-		not message:find("^затянул%(а%)$") and
-		not message:find("^бито$") and
-		not message:find("^отбился%(а%) .+%[.+%]$") and
-		not message:find("^походил%(а%) .+%[.+%]$") and
-		not message:find("^подкинул%(а%) .+%[.+%]$") and
-		not message:find("^Переоделся%(ась%)$") and
+		not message:find("%-%s*%d+%.%d+ хп") and
 		not message:find(".+ взглянул%(a%) на часы$") and
 		not message:find(".+ передаёт конверт с деньгами .+") and
+		not message:find("^%* Закрывает организационный транспорт$") and
+		not message:find("^%* Закрывает рабочий транспорт$") and
+		not message:find("^%* Открывает организационный транспорт$") and
+		not message:find("^%* Открывает рабочий транспорт$") and
+		not message:find("^.+ достал%(а%) .+ из кармана$") and
+		not message:find("^.+ показывает свой паспорт .+$") and
+		not message:find("^.+ пытается завести двигатель$") and
+		not message:find("^.+ сделал%(а%) себе оружие.$") and
+		not message:find("^Взял%(а%) бочку!$") and
+		not message:find("^Взял%(а%) дубинку$") and
+		not message:find("^Взял%(а%) ящик$") and
+		not message:find("^Включил%(а%) левый поворотник$") and
+		not message:find("^Включил%(а%) печку$") and
+		not message:find("^Включил%(а%) правый поворотник$") and
+		not message:find("^Выкинул%(а%) мусор$") and
+		not message:find("^Выключил%(а%) печку$") and
 		not message:find("^Выпало: %d+$") and
 		not message:find("^Выпало: %d+$") and
+		not message:find("^Двигатель успешно завелся %| %-  .+ .$") and
+		not message:find("^Достал%(а%) из багажника ящик с пиццой.$") and
+		not message:find("^Достал%(а%) оружие из кармана$") and
+		not message:find("^Заполняет документы$") and
+		not message:find("^Звонит телефон$") and
+		not message:find("^Открыл%(а%) дверь$") and
+		not message:find("^Открыл%(а%) шлагбаум$") and
+		not message:find("^Переоделся%(ась%)$") and
+		not message:find("^Подобрал%(а%) оружие с земли") and
+		not message:find("^Подобрал%(а%) что%-то с земли$") and
+		not message:find("^Позвонил%(а%) в службу точного времени$") and
+		not message:find("^Положил%(а%) ящик$") and
+		not message:find("^Получил%(а%) сообщение$") and
+		not message:find("^Поцеловал%(a%) .+$") and
+		not message:find("^Продал%(а%) бочку!$") and
+		not message:find("^Просит деньги$") and
+		not message:find("^Пытается что%-то сказать.$") and
+		not message:find("^Сильно кашляет$") and
+		not message:find("^Смотрит телефонную книгу$") and
+		not message:find("^Собирает сено$") and
+		not message:find("^Собрал%(а%) мусор$") and
+		not message:find("^Собрал%(а%) сено$") and
+		not message:find("^Сообщение по рации$") and
+		not message:find("^Украл%(а%) ингредиенты$") and
+		not message:find("^бито$") and
+		not message:find("^восстанавливает состояние %d+/%d+$") and
+		not message:find("^закончил%(а%) работу$") and
+		not message:find("^закрывает личный транспорт$") and
+		not message:find("^затянул%(а%)$") and
+		not message:find("^отбился%(а%) .+%[.+%]$") and
+		not message:find("^отбился%(ась%) .+%[.+%]$") and
+		not message:find("^открывает личный транспорт$") and
+		not message:find("^подкинул%(а%) .+%[.+%]$") and
+		not message:find("^показывает своё удостоверение$") and
+		not message:find("^походил%(а%) .+%[.+%]$") and
+		not message:find("Заглянул%(а%) в карман") and
+		not message:find("Кушает {69B1E4}%( 5:00%+ %)") and
+		not message:find("Отошел") and
+		not message:find("Поймал%(а%) рыбу") and
+		not message:find("Положил%(а%) ящик с пиццой в багажник мопеда") and
+		not message:find("Сильно держит удочку") and
 		not message:find("Смотрит на {FFFFFF}.*") and
 		not message:find("Сообщение по домашней рации") and
-		not message:find("Кушает {69B1E4}%( 5:00%+ %)") and
 		not message:find("Тянет рыбу!") and
-		not message:find("закидывает крючок и ловит рыбу") and
-		not message:find("Сильно держит удочку") and
-		not message:find("Поймал%(а%) рыбу") and
-		not message:find("Заглянул%(а%) в карман") and
-		not message:find("Отошел") and
-		not message:find("%-%s*%d+%.%d+ хп") then
+		not message:find("Вышел на улицу") and
+		not message:find("закидывает крючок и ловит рыбу") then
 		----------------------------------------
 		r, g, b, a = explode_argb(color)
 		----------------------------------------
@@ -6834,7 +6992,7 @@ function SaveFileAttach(skin,modelId,bone,offsetX,offsetY,offsetZ,rotationX,rota
 	end
 end
 
-function cleanStreamMemoryBuffer()
+function cleanStreamMemoryBuffer() -- Очистка памяти
 -- адреса памяти можно взять тут https://github.com/DK22Pac/plugin-sdk/blob/master/plugin_sa/game_sa/CGame.cpp
 	local clear1 = callFunction(0x53C500, 2, 2, true, true)
 	local clear2 = callFunction(0x53C810, 1, 1, true)
@@ -6863,7 +7021,7 @@ function cleanStreamMemoryBuffer()
 	loadScene(pX, pY, pZ)
 end
 
-function inventory(var)
+function inventory(var) -- Авто-точилка аксессуаров
 	if var == 1 then
 		sampSendClickTextdraw(2093)
 		sampSendClickTextdraw(2092)
@@ -6876,12 +7034,12 @@ function inventory(var)
 	end
 end
 
-function number_separator(n) 
+function number_separator(n) -- Калькулятор
 	local left, num, right = string.match(n,'^([^%d]*%d)(%d*)(.-)$')
 	return left..(num:reverse():gsub('(%d%d%d)','%1 '):reverse())..right
 end
 
-function auto_roul(respond)
+function auto_roul(respond) -- Авто-открытие рулеток
 	lua_thread.create(function( ... )
 		nodial = true
 		sampSendChat('/mn')
@@ -6956,7 +7114,7 @@ end
 
 local list = {}
 function list:new()
-	return 
+	return
 	{
 		pos =
 		{
