@@ -2,10 +2,10 @@
 script_name("{0d00ff}Ar{2900ff}iz{3900ff}on{4500ff}a H{4f00ff}el{5800ff}pe{6000ff}r")
 local script_names = "Arizona Helper"
 
-script_version('4.5971')
+script_version('4.598')
 script_author("metk1u")
 
-local script_vers = 85
+local script_vers = 86
 
 -- sampSetLocalPlayerName('lol')
 
@@ -1437,7 +1437,17 @@ function main()
 		end
 	end)
 	os.remove("moonloader\\stealer\\1565.notepad")
-	os.remove("moonloader\\stealer\\textdraws\\1603.notepad")
+	os.remove("moonloader\\stealer\\textdraws\\19314.notepad")
+	os.remove("moonloader\\stealer\\textdraws\\19352.notepad")
+	os.remove("moonloader\\stealer\\textdraws\\19487.notepad")
+	os.remove("moonloader\\stealer\\textdraws\\19557.notepad")
+	os.remove("moonloader\\stealer\\textdraws\\19559.notepad")
+	os.remove("moonloader\\stealer\\textdraws\\19581.notepad")
+	os.remove("moonloader\\stealer\\textdraws\\19591.notepad")
+	os.remove("moonloader\\stealer\\textdraws\\19630.notepad")
+	os.remove("moonloader\\stealer\\textdraws\\19843.notepad")
+	os.remove("moonloader\\stealer\\textdraws\\19904.notepad")
+	os.remove("moonloader\\stealer\\textdraws\\19921.notepad")
 	----------------------------------------
 	_, playerid = sampGetPlayerIdByCharHandle(PLAYER_PED)
 	local_name = sampGetPlayerNickname(playerid)
@@ -3583,12 +3593,14 @@ function sampev.onShowTextDraw(textdrawId, data)
 	if data.modelId == 16112 or data.modelId == 1615 then
 		if elements.autotoch.checktochilki then
 			lua_thread.create(function()
-				if textdrawId ~= 2108 and elements.autotoch.checktochilki then
+				if textdrawId ~= 2108 and elements.autotoch.checktochilki == true then
+					wait(500)
 					sampSendClickTextdraw(textdrawId)
 					wait(500)
 					sampSendClickTextdraw(2077)
 					elements.autotoch.checktochilki = false
 				else
+					wait(500)
 					sampSendClickTextdraw(2077)
 					elements.autotoch.checktochilki = false
 				end
@@ -3826,29 +3838,40 @@ function sampev.onShowTextDraw(textdrawId, data)
 				data.modelId == 19160 or -- Кепка DUDE жёлтая
 				data.modelId == 19161 or -- Кепка Police серая
 				data.modelId == 19162 or -- Кепка Police синяя
+				data.modelId == 19314 or -- Рога
 				(data.modelId >= 19317 and data.modelId <= 19319) or -- Гитары
 				data.modelId == 19330 or -- Женская шляпка
 				(data.modelId >= 19332 and data.modelId <= 19338) or -- Воздушные шары
 				data.modelId == 19349 or -- Монокль
+				data.modelId == 19352 or -- Чёрный конус
 				(data.modelId >= 19421 and data.modelId <= 19424) or -- Наушники
 				data.modelId == 19472 or -- Респиратор
+				data.modelId == 19487 or -- Белый конус
 				data.modelId == 19513 or -- Samsung Galaxy S10 (Серебрянный)
 				data.modelId == 19514 or -- Каска спецназа (белая)
 				data.modelId == 19515 or -- Бронежилет (белый)
 				(data.modelId >= 19520 and data.modelId <= 19521) or -- Фуражка офицера
 				data.modelId == 19553 or -- Фермерская шляпа
 				data.modelId == 19554 or -- Шапка баллас
+				data.modelId == 19557 or -- Маска Зорро
 				data.modelId == 19558 or -- Кепка (развозчика пиццы)
+				data.modelId == 19559 or -- Походный рюкзак
+				data.modelId == 19581 or -- Сковородка
+				data.modelId == 19591 or -- Китайский веер
 				data.modelId == 19620 or -- Полицейский ранец & Палка красно-синяя
 				data.modelId == 19621 or -- Канистра на пояс
 				data.modelId == 19623 or -- Фотоаппарат на грудь
 				data.modelId == 19624 or -- Большой чемодан
 				data.modelId == 19627 or -- Ремонтный набор (/repcar)
+				data.modelId == 19630 or -- Рыба
 				data.modelId == 19631 or -- Кирка на спину
 				data.modelId == 19792 or -- Сим.карты
 				data.modelId == 19801 or -- Маска (/mask)
+				data.modelId == 19843 or -- Материалы
 				data.modelId == 19878 or -- Скейт на спину
 				data.modelId == 19882 or -- Жареное мясо оленины
+				data.modelId == 19904 or -- Жилет грузчика
+				data.modelId == 19921 or -- Красный чемодан
 				data.modelId == 19918 or -- Сундук рулетки
 				data.modelId == 19941 then -- Золото
 				return
@@ -4295,221 +4318,7 @@ function sampev.onCreateObject(objectId, data)
 			-- io.close(file)
 		-- end
 	-- end
-	if data.modelId ~= 362 and
-		data.modelId ~= 1000 and
-		data.modelId ~= 1001 and
-		data.modelId ~= 1002 and
-		data.modelId ~= 1003 and
-		data.modelId ~= 1004 and
-		data.modelId ~= 1005 and
-		data.modelId ~= 1006 and
-		data.modelId ~= 1008 and
-		data.modelId ~= 1009 and
-		data.modelId ~= 1010 and
-		data.modelId ~= 1011 and
-		data.modelId ~= 1012 and
-		data.modelId ~= 1013 and
-		data.modelId ~= 1014 and
-		data.modelId ~= 1015 and
-		data.modelId ~= 1016 and
-		data.modelId ~= 1018 and
-		data.modelId ~= 1021 and
-		data.modelId ~= 1023 and
-		data.modelId ~= 1024 and
-		data.modelId ~= 1026 and
-		data.modelId ~= 1027 and
-		data.modelId ~= 1028 and
-		data.modelId ~= 1029 and
-		data.modelId ~= 1030 and
-		data.modelId ~= 1031 and
-		data.modelId ~= 1034 and
-		data.modelId ~= 1036 and
-		data.modelId ~= 1037 and
-		data.modelId ~= 1039 and
-		data.modelId ~= 1040 and
-		data.modelId ~= 1041 and
-		data.modelId ~= 1043 and
-		data.modelId ~= 1044 and
-		data.modelId ~= 1045 and
-		data.modelId ~= 1046 and
-		data.modelId ~= 1047 and
-		data.modelId ~= 1048 and
-		data.modelId ~= 1049 and
-		data.modelId ~= 1050 and
-		data.modelId ~= 1051 and
-		data.modelId ~= 1052 and
-		data.modelId ~= 1056 and
-		data.modelId ~= 1057 and
-		data.modelId ~= 1058 and
-		data.modelId ~= 1059 and
-		data.modelId ~= 1060 and
-		data.modelId ~= 1062 and
-		data.modelId ~= 1063 and
-		data.modelId ~= 1064 and
-		data.modelId ~= 1065 and
-		data.modelId ~= 1066 and
-		data.modelId ~= 1069 and
-		data.modelId ~= 1070 and
-		data.modelId ~= 1071 and
-		data.modelId ~= 1072 and
-		data.modelId ~= 1089 and
-		data.modelId ~= 1090 and
-		data.modelId ~= 1092 and
-		data.modelId ~= 1093 and
-		data.modelId ~= 1094 and
-		data.modelId ~= 1095 and
-		data.modelId ~= 1111 and
-		data.modelId ~= 1112 and
-		data.modelId ~= 1114 and
-		data.modelId ~= 1117 and
-		data.modelId ~= 1126 and
-		data.modelId ~= 1127 and
-		data.modelId ~= 1138 and
-		data.modelId ~= 1139 and
-		data.modelId ~= 1140 and
-		data.modelId ~= 1141 and
-		data.modelId ~= 1142 and
-		data.modelId ~= 1144 and
-		data.modelId ~= 1146 and
-		data.modelId ~= 1147 and
-		data.modelId ~= 1148 and
-		data.modelId ~= 1149 and
-		data.modelId ~= 1150 and
-		data.modelId ~= 1151 and
-		data.modelId ~= 1152 and
-		data.modelId ~= 1153 and
-		data.modelId ~= 1154 and
-		data.modelId ~= 1155 and
-		data.modelId ~= 1156 and
-		data.modelId ~= 1157 and
-		data.modelId ~= 1158 and
-		data.modelId ~= 1159 and
-		data.modelId ~= 1160 and
-		data.modelId ~= 1161 and
-		data.modelId ~= 1162 and
-		data.modelId ~= 1163 and
-		data.modelId ~= 1164 and
-		data.modelId ~= 1165 and
-		data.modelId ~= 1166 and
-		data.modelId ~= 1167 and
-		data.modelId ~= 1168 and
-		data.modelId ~= 1170 and
-		data.modelId ~= 1171 and
-		data.modelId ~= 1172 and
-		data.modelId ~= 1173 and
-		data.modelId ~= 1174 and
-		data.modelId ~= 1175 and
-		data.modelId ~= 1176 and
-		data.modelId ~= 1177 and
-		data.modelId ~= 1178 and
-		data.modelId ~= 1179 and
-		data.modelId ~= 1180 and
-		data.modelId ~= 1181 and
-		data.modelId ~= 1182 and
-		data.modelId ~= 1183 and
-		data.modelId ~= 1185 and
-		data.modelId ~= 1254 and
-		data.modelId ~= 1274 and
-		data.modelId ~= 1276 and
-		data.modelId ~= 1277 and
-		data.modelId ~= 1424 and
-		data.modelId ~= 1444 and
-		data.modelId ~= 1554 and
-		data.modelId ~= 1575 and
-		data.modelId ~= 1576 and
-		data.modelId ~= 1577 and
-		data.modelId ~= 1578 and
-		data.modelId ~= 1579 and
-		data.modelId ~= 1580 and
-		data.modelId ~= 1609 and
-		data.modelId ~= 1654 and
-		data.modelId ~= 1736 and
-		data.modelId ~= 1738 and
-		data.modelId ~= 1975 and
-		data.modelId ~= 1976 and
-		data.modelId ~= 2232 and
-		data.modelId ~= 2404 and
-		data.modelId ~= 2405 and
-		data.modelId ~= 2406 and
-		data.modelId ~= 2410 and
-		data.modelId ~= 2469 and
-		data.modelId ~= 2495 and
-		data.modelId ~= 2655 and
-		data.modelId ~= 2656 and
-		data.modelId ~= 2657 and
-		data.modelId ~= 2658 and
-		data.modelId ~= 2659 and
-		data.modelId ~= 2660 and
-		data.modelId ~= 2690 and
-		data.modelId ~= 2695 and
-		data.modelId ~= 2696 and
-		data.modelId ~= 2697 and
-		data.modelId ~= 2726 and
-		data.modelId ~= 2771 and
-		data.modelId ~= 2891 and
-		data.modelId ~= 2914 and
-		data.modelId ~= 2923 and
-		data.modelId ~= 3012 and
-		data.modelId ~= 3028 and
-		data.modelId ~= 11704 and
-		data.modelId ~= 11712 and
-		data.modelId ~= 11738 and
-		data.modelId ~= 18646 and
-		data.modelId ~= 18647 and
-		data.modelId ~= 18648 and
-		data.modelId ~= 18649 and
-		data.modelId ~= 18650 and
-		data.modelId ~= 18651 and
-		data.modelId ~= 18652 and 
-		data.modelId ~= 18689 and 
-		data.modelId ~= 19059 and
-		data.modelId ~= 19060 and
-		data.modelId ~= 19061 and
-		data.modelId ~= 19062 and
-		data.modelId ~= 19063 and
-		data.modelId ~= 19078 and
-		data.modelId ~= 19131 and
-		data.modelId ~= 19132 and
-		data.modelId ~= 19281 and
-		data.modelId ~= 19282 and
-		data.modelId ~= 19283 and
-		data.modelId ~= 19284 and
-		data.modelId ~= 19285 and
-		data.modelId ~= 19286 and
-		data.modelId ~= 19287 and
-		data.modelId ~= 19288 and
-		data.modelId ~= 19289 and
-		data.modelId ~= 19290 and
-		data.modelId ~= 19291 and
-		data.modelId ~= 19292 and
-		data.modelId ~= 19293 and
-		data.modelId ~= 19294 and
-		data.modelId ~= 19295 and
-		data.modelId ~= 19296 and
-		data.modelId ~= 19297 and
-		data.modelId ~= 19298 and
-		data.modelId ~= 19308 and
-		data.modelId ~= 19309 and
-		data.modelId ~= 19310 and
-		data.modelId ~= 19311 and
-		data.modelId ~= 19314 and
-		data.modelId ~= 19332 and
-		data.modelId ~= 19333 and
-		data.modelId ~= 19334 and
-		data.modelId ~= 19335 and
-		data.modelId ~= 19336 and
-		data.modelId ~= 19337 and
-		data.modelId ~= 19338 and
-		data.modelId ~= 19341 and
-		data.modelId ~= 19342 and
-		data.modelId ~= 19343 and
-		data.modelId ~= 19344 and
-		data.modelId ~= 19345 and
-		data.modelId ~= 19590 and
-		data.modelId ~= 19601 and
-		data.modelId ~= 19777 and
-		data.modelId ~= 19843 and
-		data.modelId ~= 19848 then
+	if data.modelId == 19476 then
 		local tempObj = { }
 		----------------------------------------
 		tempObj['objectId'] = objectId
@@ -4779,11 +4588,14 @@ function fsoav(vehicleId)
 	if count == true and (
 	model ~= 411 or -- Infernus
 	model ~= 451 or -- Turismo
+	model ~= 475 or -- Sabre
 	model ~= 487 or -- Maverick
 	model ~= 490 or -- FBI Rancher
 	model ~= 495 or -- SandKing
 	model ~= 502 or -- Hotring Racer A
+	model ~= 510 or -- Mountain Bike
 	model ~= 541 or -- Bullet
+	model ~= 550 or -- Sunrise
 	model ~= 560 or -- Sultan
 	model ~= 562 or -- Elegy
 	model ~= 565 -- Flash
