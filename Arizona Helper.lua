@@ -2,10 +2,10 @@
 script_name("{0d00ff}Ar{2900ff}iz{3900ff}on{4500ff}a H{4f00ff}el{5800ff}pe{6000ff}r")
 local script_names = "Arizona Helper"
 
-script_version('4.598')
+script_version('4.599')
 script_author("metk1u")
 
-local script_vers = 86
+local script_vers = 87
 
 -- sampSetLocalPlayerName('lol')
 
@@ -197,6 +197,7 @@ local textklad =
 local model_name =
 {
 	[321] = "Дилдо на спину #1",
+	[323] = "Дилдо на спину #3",
 	[326] = "Трость на спину",
 	[333] = "Клюшка на спину",
 	[338] = "Кий на спину",
@@ -204,30 +205,43 @@ local model_name =
 	[361] = "Огнемёт на спину",
 	[362] = "Миниган на спину",
 	[363] = "Бомба на пояс",
-	[371] = "Парашют на спину",
+	[371] = "Рюкзак (парашют)",
 	[881] = "Ёлка на спину",
+	[1116] = "Маска решетка",
 	[1212] = "Пачка денег на спину",
 	[1254] = "Череп на грудь",
 	[1274] = "Доллар на грудь",
 	[1275] = "Рубашечка на грудь",
 	[1276] = "Сувенир на спину",
+	[1366] = "Щит",
 	[1487] = "Бутылка на спину",
 	[1609] = "Черепаха на спину",
 	[2045] = "Бита с шипами",
 	[2061] = "Патрон на грудь",
 	[2102] = "Колонка на спину",
 	[2226] = "Бумбокс",
+	[2250] = "Цветок",
+	[2362] = "Переносная лавка",
 	[2404] = "Доска для серфинга",
+	[2429] = "Реактивный ранец",
 	[2469] = "Самолётик на спину",
 	[2590] = "Коса на спину",
 	[2690] = "Огнетушитель на спину",
 	[2712] = "Метла на спину",
-	[2782] = "Малюска на спину",
+	[2782] = "Устрица на спину",
+	[2918] = "Рюкзак с шипами",
 	[3026] = "Рюкзак",
 	[3056] = "Магнит на спину",
+	[3070] = "Скайборд",
+	[3273] = "Ранец охотники на приведений",
+	[3658] = "Гармошка",
 	[11704] = "Маска демона",
+	[14527] = "Крылья стрекозы",
+	[14608] = "Копье бога",
+	[16368] = "Красная шляпа",
 	[18632] = "Удочка на спину",
-	[18634] = "Монтажка на спину",
+	[18632] = "Балонный ключ на спину",
+	[18634] = "Лом на спину",
 	[18635] = "Молоток на спину",
 	[18636] = "Кепка Police",
 	[18638] = "Каска строителя",
@@ -237,11 +251,11 @@ local model_name =
 	[18906] = "Повязка на голову",
 	[18911] = "Бандана",
 	[18921] = "Берет",
-	[18926] = "Кепка",
+	[18926] = "Кепка передняя",
 	[18947] = "Шляпка",
 	[18952] = "Боксерский шлем",
-	[18953] = "Шапка",
-	[18955] = "Обратная кепка",
+	[18953] = "Теплая Шапка",
+	[18955] = "Кепка обратная",
 	[18963] = "Голова CJ",
 	[18964] = "Бандитская шапка",
 	[18967] = "Панамка",
@@ -252,12 +266,14 @@ local model_name =
 	[19054] = "Подарок на спину",
 	[19064] = "Новогодняя шапка",
 	[19067] = "Шлем",
+	[19077] = "Борода #2",
 	[19085] = "Повязка на глаз",
 	[19086] = "Улучшенное дилдо",
 	[19093] = "Кепка DUDE",
 	[19094] = "Бургер на голову",
 	[19095] = "Ковбойская шляпа",
 	[19106] = "Каска",
+	[19130] = "Стрелка",
 	[19136] = "Шляпа с дредами",
 	[19137] = "Маска петуха",
 	[19141] = "Каска спецназа",
@@ -267,10 +283,16 @@ local model_name =
 	[19346] = "Рюкзак хот-дог",
 	[19347] = "Звезда на грудь",
 	[19349] = "Монокль",
+	[19350] = "Усы (1)",
+	[19351] = "Усы (2)",
 	[19352] = "Чёрный конус",
 	[19421] = "Наушники",
 	[19469] = "Повязка на шею",
 	[19472] = "Респиратор",
+	[19516] = "Парик (1)",
+	[19517] = "Парик (2)",
+	[19518] = "Парик (3)",
+	[19519] = "Парик (4)",
 	[19520] = "Фуражка офицера",
 	[19528] = "Шляпа волшебника",
 	[19553] = "Фермерская шляпа",
@@ -281,13 +303,16 @@ local model_name =
 	[19581] = "Сковородка на спину",
 	[19590] = "Меч на спину",
 	[19591] = "Китайский веер",
-	[19621] = "Канистра на пояс",
+	[19621] = "Канистра на правое бедро",
 	[19623] = "Фотоаппарат на грудь",
 	[19624] = "Большой чемодан",
 	[19627] = "Ключик на грудь",
 	[19630] = "Рыба на спину",
 	[19631] = "Кирка на спину",
+	[19636] = "Ларек с фруктами",
 	[19804] = "Замочек на грудь",
+	[19824] = "Бита-бутылка на спину",
+	[19847] = "Копченая нога",
 	[19878] = "Скейт на спину",
 	[19904] = "Жилет грузчика"
 };
@@ -326,7 +351,6 @@ local cmds =
 	'/bag',
 	'/balon',
 	'/bankmenu',
-	'/bear',
 	'/beer',
 	'/beg',
 	'/bizinfo',
@@ -521,6 +545,7 @@ local cmds =
 	'/scutes',
 	'/seat',
 	'/sellcar',
+	'/sellcard',
 	'/sellcarto',
 	'/selldrugs',
 	'/sellgangzone',
@@ -585,155 +610,7 @@ local cmds =
 	'/wanted',
 	'/wedding',
 	'/z',
-	'/zeks',
-	'/ad',
-	'/adrenaline',
-	'/advokats',
-	'/alarm',
-	'/armour',
-	'/ask',
-	'/b',
-	'/bizinfo',
-	'/bizwar',
-	'/bk',
-	'/boom',
-	'/break',
-	'/breakcar',
-	'/buybiz',
-	'/c',
-	'/captstats',
-	'/capture',
-	'/carm',
-	'/cars',
-	'/checkjobprogress',
-	'/cheeps',
-	'/chistory',
-	'/contractfill',
-	'/cook',
-	'/creategun',
-	'/d',
-	'/deltun',
-	'/do',
-	'/drink',
-	'/dropgun',
-	'/drugs',
-	'/duel',
-	'/eat',
-	'/eject',
-	'/engine',
-	'/fammenu',
-	'/ffarm',
-	'/fightstyle',
-	'/fill',
-	'/fillcar',
-	'/findcollectors',
-	'/findibiz',
-	'/findihouse',
-	'/firewood',
-	'/fireworks',
-	'/fmute',
-	'/funmute',
-	'/fwarn',
-	'/gag',
-	'/gclear',
-	'/getmoney',
-	'/givekey',
-	'/giverank',
-	'/giveskin',
-	'/giveweapon',
-	'/go_fished',
-	'/gomechanic',
-	'/gotaxi',
-	'/gov',
-	'/govess',
-	'/gun',
-	'/healbad',
-	'/hi',
-	'/home',
-	'/id',
-	'/invent',
-	'/invite',
-	'/jlock',
-	'/jobprogress',
-	'/key',
-	'/killme',
-	'/kiss',
-	'/leaders',
-	'/licensers',
-	'/lights',
-	'/limit',
-	'/lock',
-	'/lzal',
-	'/m',
-	'/mbiz',
-	'/me',
-	'/medcard',
-	'/mm',
-	'/mn',
-	'/newsredak',
-	'/number',
-	'/olock',
-	'/opengate',
-	'/or_cancel',
-	'/park',
-	'/passwd',
-	'/pay',
-	'/phone',
-	'/platoon',
-	'/premium',
-	'/pull',
-	'/putmoney',
-	'/quest',
-	'/quitjob',
-	'/radio',
-	'/rcveh',
-	'/referals',
-	'/repare',
-	'/rjail',
-	'/s',
-	'/satiety',
-	'/scutes',
-	'/seat',
-	'/sellcar',
-	'/sellcard',
-	'/sellcarto',
-	'/selldrugs',
-	'/sellgangzone',
-	'/sellgun',
-	'/setdbuy',
-	'/setdsell',
-	'/setspawn',
-	'/settings',
-	'/showbadge',
-	'/showbizinfo',
-	'/showlic',
-	'/showmc',
-	'/showpass',
-	'/showpunish',
-	'/showskill',
-	'/showtatu',
-	'/smoke',
-	'/sms',
-	'/smug',
-	'/stats',
-	'/style',
-	'/tie',
-	'/time',
-	'/todo',
-	'/tradecar',
-	'/trmenu',
-	'/unblacklist',
-	'/uncuff',
-	'/unfwarn',
-	'/ungag',
-	'/uninvite',
-	'/unrentcar',
-	'/unstuff',
-	'/untie',
-	'/usemed',
-	'/vipplayers',
-	'/wanted',
-}
+	'/zeks',}
 ----------------------------------------
 local selected = 0
 ----------------------------------------
@@ -767,6 +644,8 @@ local pidori =
 	"Underground_Monster",
 	"Tiz_Cartier",
 	"Dexter_Shakespeare",
+	"Scarlet_Johansson",
+	"Killa_Karsxrovs",
 };
 ----------------------------------------
 local _message = {}
@@ -1436,7 +1315,10 @@ function main()
 			end
 		end
 	end)
-	os.remove("moonloader\\stealer\\1565.notepad")
+	os.remove("moonloader\\stealer\\2992 - .notepad")
+	os.remove("moonloader\\stealer\\3100 - .notepad")
+	os.remove("moonloader\\stealer\\textdraws\\16368.notepad")
+	os.remove("moonloader\\stealer\\textdraws\\19077.notepad")
 	os.remove("moonloader\\stealer\\textdraws\\19314.notepad")
 	os.remove("moonloader\\stealer\\textdraws\\19352.notepad")
 	os.remove("moonloader\\stealer\\textdraws\\19487.notepad")
@@ -1445,7 +1327,9 @@ function main()
 	os.remove("moonloader\\stealer\\textdraws\\19581.notepad")
 	os.remove("moonloader\\stealer\\textdraws\\19591.notepad")
 	os.remove("moonloader\\stealer\\textdraws\\19630.notepad")
+	os.remove("moonloader\\stealer\\textdraws\\19636.notepad")
 	os.remove("moonloader\\stealer\\textdraws\\19843.notepad")
+	os.remove("moonloader\\stealer\\textdraws\\19847.notepad")
 	os.remove("moonloader\\stealer\\textdraws\\19904.notepad")
 	os.remove("moonloader\\stealer\\textdraws\\19921.notepad")
 	----------------------------------------
@@ -1799,7 +1683,7 @@ function main()
 		ip, port = sampGetCurrentServerAddress()
 		local sx, sy = getScreenResolution()
 		--------------------[Очистка памяти]--------------------
-		if memory.read(0x8E4CB4, 4, true) > 1048576*1000 then -- 1000 МБайт (500 МБайт - 524288000)
+		if memory.read(0x8E4CB4, 4, true) > 1048576*800 then -- 800 МБайт (500 МБайт - 524288000)
 			cleanStreamMemoryBuffer()
 			push_message('Произвелась очистка памяти!')
 		end
@@ -2218,14 +2102,12 @@ function main()
 		end
 		----------------------------------------
 		if isCharInAnyCar(PLAYER_PED) and getCarModel( storeCarCharIsInNoSave(PLAYER_PED) ) == 456 then
-			prodovoz_count = 0
 			for i = 0, 2048 do
 				if sampIs3dTextDefined(i) then
 					local text, color, posX, posY, posZ, distance, ignoreWalls, player, vehicle = sampGet3dTextInfoById(i)
 					if text:find('{73B461}Тип бизнеса: {FFFFFF}Магазин 24/7') and text:find('продуктов с разгрузочной станции.') or
 						text:find('{73B461}Тип бизнеса: {FFFFFF}Магазин аксессуаров') and text:find('продуктов с разгрузочной станции.') or
 						text:find('{73B461}Тип бизнеса: {FFFFFF}Магазин одежды') and text:find('продуктов с разгрузочной станции.') then
-						prodovoz_count = prodovoz_count + 1
 						----------------------------------------
 						buy_prods = string.match(text,'Скупает {CBB42F}(%d+)')
 						price_prods = string.match(text,'предмета: {CBB42F}(%d+)')
@@ -2240,11 +2122,6 @@ function main()
 					end
 				end
 			end
-			if prodovoz_count == 0 then
-				renderFontDrawText(arial,'Магазинов: '..prodovoz_count, sx / 1.22, sy - 50, 0xFFCBB42F)
-			else
-				renderFontDrawText(arial,'Магазинов: '..prodovoz_count, sx / 1.22, sy - 50, 0xFFFF3300)
-			end
 		end
 		--------------------[CMD хелпер]--------------------
 		if sampIsChatInputActive() and not string.find(sampGetChatInputText(),'(.+)/') and string.find(sampGetChatInputText(),'/(.+)') then
@@ -2257,13 +2134,13 @@ function main()
 						if wasKeyPressed(key.VK_ALT) then
 							selected = selected + 1
 						end
-					else	
-						windows_cmd.v = false
+					-- else	
+						-- windows_cmd.v = false
 					end
 				end
 			end
 		else
-			windows_cmd.v = false 
+			windows_cmd.v = false
 		end
 		--------------------[Калькулятор]--------------------
 		text = sampGetChatInputText()
@@ -2335,45 +2212,45 @@ function main()
 		--------------------[Авто-открытие рулеток]--------------------
 		if elements.autoopenroul.open_roul_bronze.v == true and elements.autoopenroul.open_roul_krytim == true then
 			auto_roul()
-			wait(222)
+			wait(300)
 			sampSendClickTextdraw(2089)
-			wait(333)
+			wait(400)
 			sampSendClickTextdraw(2091)
 			elements.autoopenroul.open_roul_krytim = false
 		end
 		if elements.autoopenroul.open_roul_silver.v == true and elements.autoopenroul.open_roul_krytim == true then
 			auto_roul()
-			wait(333)
+			wait(400)
 			sampSendClickTextdraw(2083)
-			wait(234)
+			wait(400)
 			sampSendClickTextdraw(2085)
-			wait(234)
+			wait(400)
 			sampSendClickTextdraw(2089)
-			wait(234)
+			wait(400)
 			sampSendClickTextdraw(2091)
 			elements.autoopenroul.open_roul_krytim = false
 		end
 		if elements.autoopenroul.open_roul_gold.v == true and elements.autoopenroul.open_roul_krytim == true then
 			auto_roul()
-			wait(234)
+			wait(400)
 			sampSendClickTextdraw(2088)
-			wait(234)
+			wait(400)
 			sampSendClickTextdraw(2090)
-			wait(234)
+			wait(400)
 			sampSendClickTextdraw(2089)
-			wait(234)
+			wait(400)
 			sampSendClickTextdraw(2091)
 			elements.autoopenroul.open_roul_krytim = false
 		end
 		if elements.autoopenroul.open_roul_platina.v == true and elements.autoopenroul.open_roul_krytim == true then
 			auto_roul()
-			wait(234)
+			wait(400)
 			sampSendClickTextdraw(2108)
-			wait(234)
+			wait(400)
 			sampSendClickTextdraw(2110)
-			wait(234)
+			wait(400)
 			sampSendClickTextdraw(2089)
-			wait(234)
+			wait(400)
 			sampSendClickTextdraw(2091)
 			elements.autoopenroul.open_roul_krytim = false
 		end
@@ -2633,6 +2510,7 @@ function imgui.OnDrawFrame()
 	local windowPosX = getStructElement(input, 0x8, 4)
 	local windowPosY = getStructElement(input, 0xC, 4)
 	--------------------[CMD хелпер]--------------------
+	--sampAddChatMessage(string.format('%s',windows_cmd.v),-1)
 	if windows_cmd.v == true then
 		local posY = windowPosY + 50
 		local posX = windowPosX 
@@ -3556,14 +3434,32 @@ function sampev.onShowTextDraw(textdrawId, data)
 		autoloot_td[30] = data.text
 	end
 	--------------------[Прочее]--------------------
+	if data.modelId == 1366 then
+		sampAddChatMessage("Щит - заскринить название предмета!", 0xFF3300)
+	end
 	if data.modelId == 1562 then
 		sampAddChatMessage("Кресло на спину - заскринить название предмета!", 0xFF3300)
 	end
 	if data.modelId == 1681 then
 		sampAddChatMessage("Самолет на спину - заскринить название предмета!", 0xFF3300)
 	end
+	if data.modelId == 2908 then
+		sampAddChatMessage("Голова зомби аксессуар - заскринить название предмета!", 0xFF3300)
+	end
 	if data.modelId == 3026 then
 		sampAddChatMessage("Сумка-барыжка - своровать текстдрав!", 0xFF3300)
+	end
+	if data.modelId == 3096 then
+		sampAddChatMessage("Копье - заскринить название предмета!", 0xFF3300)
+	end
+	if data.modelId == 3272 then
+		sampAddChatMessage("Паук - заскринить название предмета!", 0xFF3300)
+	end
+	if data.modelId == 3801 then
+		sampAddChatMessage("Меч - заскринить название предмета!", 0xFF3300)
+	end
+	if data.modelId == 7313 then
+		sampAddChatMessage("Рюкзак - заскринить название предмета!", 0xFF3300)
 	end
 	if data.modelId == 11705 then
 		sampAddChatMessage("Оружейный кейс - заскринить название предмета!", 0xFF3300)
@@ -3571,14 +3467,53 @@ function sampev.onShowTextDraw(textdrawId, data)
 	if data.modelId == 13562 then
 		sampAddChatMessage("Спранк на спину - заскринить название предмета!", 0xFF3300)
 	end
+	if data.modelId == 14611 then
+		sampAddChatMessage("14611 (корона какая-то) - заскринить название предмета! (/showmodel)", 0xFF3300)
+	end
 	if data.modelId == 18848 then
 		sampAddChatMessage("Ракеты на спину - заскринить название предмета!", 0xFF3300)
+	end
+	if data.modelId == 18875 then
+		sampAddChatMessage("18875 - заскринить название предмета! (/showmodel)", 0xFF3300)
+	end
+	if data.modelId >= 18891 and data.modelId <= 18905 then
+		sampAddChatMessage("Бандана - заскринить название предмета!", 0xFF3300)
 	end
 	if data.modelId == 19086 then
 		sampAddChatMessage("Маска робота - заскринить название предмета + TD!", 0xFF3300)
 	end
+	if data.modelId == 19090 then
+		sampAddChatMessage("Берет - заскринить название предмета!", 0xFF3300)
+	end
+	if data.modelId >= 19101 and data.modelId <= 19105 then
+		sampAddChatMessage("Шлем - заскринить название предмета!", 0xFF3300)
+	end
+	if data.modelId == 19130 then
+		sampAddChatMessage("Стрелка - заскринить название предмета!", 0xFF3300)
+	end
 	if data.modelId == 19137 then
 		sampAddChatMessage("Если гребень на голову то заскринить название предмета!", 0xFF3300)
+	end
+	if data.modelId == 19274 then
+		sampAddChatMessage("Парик - заскринить название предмета!", 0xFF3300)
+	end
+	if data.modelId == 19350 then
+		sampAddChatMessage("Усы (1) - заскринить название предмета!", 0xFF3300)
+	end
+	if data.modelId == 19351 then
+		sampAddChatMessage("Усы (2) - заскринить название предмета!", 0xFF3300)
+	end
+	if data.modelId == 19516 then
+		sampAddChatMessage("Парик (1) - заскринить название предмета!", 0xFF3300)
+	end
+	if data.modelId == 19517 then
+		sampAddChatMessage("Парик (2) - заскринить название предмета!", 0xFF3300)
+	end
+	if data.modelId == 19518 then
+		sampAddChatMessage("Парик (3) - заскринить название предмета!", 0xFF3300)
+	end
+	if data.modelId == 19519 then
+		sampAddChatMessage("Парик (4) - заскринить название предмета!", 0xFF3300)
 	end
 	if data.modelId == 19893 then
 		sampAddChatMessage("Карта на спину - заскринить название предмета!", 0xFF3300)
@@ -3803,10 +3738,11 @@ function sampev.onShowTextDraw(textdrawId, data)
 				data.modelId == 13667 or -- Маска обезьяны
 				data.modelId == 14467 or -- Человечек на плечо
 				data.modelId == 16112 or -- Точильный камень
+				data.modelId == 16368 or -- Красная шляпа
 				data.modelId == 16776 or -- Петух на плечо
 				data.modelId == 16778 or -- НЛО на плечо
 				data.modelId == 17027 or -- Серебро
-				data.modelId == 18634 or -- Монтажка на спину
+				data.modelId == 18634 or -- Лом на спину
 				data.modelId == 18635 or -- Молоток на спину
 				data.modelId == 18636 or -- Кепка Police чёрная
 				data.modelId == 18637 or -- Щит на спину
@@ -3822,13 +3758,14 @@ function sampev.onShowTextDraw(textdrawId, data)
 				(data.modelId >= 18926 and data.modelId <= 18935) or -- Кепка
 				(data.modelId >= 18947 and data.modelId <= 18951) or -- Шляпка
 				(data.modelId >= 18953 and data.modelId <= 18954) or -- Шапка
-				(data.modelId >= 18955 and data.modelId <= 18959) or -- Обратная кепка
+				(data.modelId >= 18955 and data.modelId <= 18959) or -- Кепка обратная
 				data.modelId == 18963 or -- Голова CJ
 				(data.modelId >= 18964 and data.modelId <= 18966) or -- Бандитская шапка
 				(data.modelId >= 18967 and data.modelId <= 18969) or -- Панамка
 				(data.modelId >= 18970 and data.modelId <= 18973) or -- Большая шляпа
 				(data.modelId >= 19006 and data.modelId <= 19035) or -- Очки
 				(data.modelId >= 19039 and data.modelId <= 19053) or -- Часы
+				data.modelId == 19077 or -- Борода #2
 				data.modelId == 19078 or -- Костюм попугая
 				(data.modelId >= 19095 and data.modelId <= 19100) or -- Ковбойская шляпа
 				(data.modelId >= 19106 and data.modelId <= 19120) or -- Каска
@@ -3859,15 +3796,17 @@ function sampev.onShowTextDraw(textdrawId, data)
 				data.modelId == 19581 or -- Сковородка
 				data.modelId == 19591 or -- Китайский веер
 				data.modelId == 19620 or -- Полицейский ранец & Палка красно-синяя
-				data.modelId == 19621 or -- Канистра на пояс
+				data.modelId == 19621 or -- Канистра на правое бедро
 				data.modelId == 19623 or -- Фотоаппарат на грудь
 				data.modelId == 19624 or -- Большой чемодан
 				data.modelId == 19627 or -- Ремонтный набор (/repcar)
 				data.modelId == 19630 or -- Рыба
 				data.modelId == 19631 or -- Кирка на спину
+				data.modelId == 19636 or -- Ларек с фруктами
 				data.modelId == 19792 or -- Сим.карты
 				data.modelId == 19801 or -- Маска (/mask)
 				data.modelId == 19843 or -- Материалы
+				data.modelId == 19847 or -- Копченая нога
 				data.modelId == 19878 or -- Скейт на спину
 				data.modelId == 19882 or -- Жареное мясо оленины
 				data.modelId == 19904 or -- Жилет грузчика
@@ -4584,22 +4523,8 @@ function fsoav(vehicleId)
 			end
 		end
 	end
-	model = getCarModel(vHandle)
-	if count == true and (
-	model ~= 411 or -- Infernus
-	model ~= 451 or -- Turismo
-	model ~= 475 or -- Sabre
-	model ~= 487 or -- Maverick
-	model ~= 490 or -- FBI Rancher
-	model ~= 495 or -- SandKing
-	model ~= 502 or -- Hotring Racer A
-	model ~= 510 or -- Mountain Bike
-	model ~= 541 or -- Bullet
-	model ~= 550 or -- Sunrise
-	model ~= 560 or -- Sultan
-	model ~= 562 or -- Elegy
-	model ~= 565 -- Flash
-	)then
+	if count == true then
+		model = getCarModel(vHandle)
 		----------------------------------------
 		vehicle_name = getCarName(model)
 		----------------------------------------
@@ -6140,300 +6065,188 @@ function sampev.onSetPlayerAttachedObject(playerId, index, create, object)
 	ip, port = sampGetCurrentServerAddress()
 	if ip == "185.169.134.3" or ip == "185.169.134.4" or ip == "185.169.134.43" or ip == "185.169.134.44" or ip == "185.169.134.45" or ip == "185.169.134.5" or ip == "185.169.134.59" or ip == "185.169.134.61" or ip == "185.169.134.107" or ip == "185.169.134.109" or ip == "185.169.134.166" or ip == "185.169.134.171" or ip == "185.169.134.172" or ip == "185.169.134.173" or ip == "185.169.134.174" or ip == "80.66.82.191" then
 		----------------------------------------
-		if model == 0 or
-		--model == 18782 or -- Печенька на голову
-		--model == 19347 or -- Звезда на грудь
-		model == 322 or -- Дилдо на спину (сделано)
-		model == 324 or -- Черный дилдо
-		model == 336 or -- Бита на спину (сделана)
-		model == 337 or -- Лопата на спину (сделана)
-		model == 339 or -- Катана на спину (сделана)
-		model == 364 or -- Пульт от бомбы
-		model == 368 or -- Прибор ночного видения (сделан)
-		model == 635 or -- Трава
-		model == 636 or -- Трава
-		model == 701 or -- Трава
-		model == 806 or -- Трава
-		model == 815 or -- Трава
-		model == 888 or -- Трава
-		model == 953 or -- Устрица
-		model == 954 or -- Подкова
-		model == 1000 or -- Тюнинг
-		model == 1007 or -- Тюнинг
-		model == 1008 or -- Тюнинг
-		model == 1012 or -- Тюнинг
-		model == 1013 or -- Тюнинг
-		model == 1017 or -- Тюнинг
-		model == 1073 or -- Тюнинг
-		model == 1098 or -- Тюнинг
-		model == 1108 or -- Тюнинг
-		model == 1111 or -- Тюнинг
-		model == 1112 or -- Тюнинг
-		model == 1114 or -- Тюнинг
-		model == 1116 or -- Тюнинг
-		model == 1128 or -- Маска для сварки
-		model == 1133 or -- Тюнинг
-		model == 1135 or -- Тюнинг
-		model == 1141 or -- Тюнинг
-		model == 1157 or -- Тюнинг
-		model == 1177 or -- Тюнинг
-		model == 1186 or -- Тюнинг
-		model == 1220 or -- Коробка
-		model == 1221 or -- Коробка
-		model == 1228 or -- Леденец в руку
-		model == 1238 or -- Конус на голову (с модификации походу)
-		model == 1240 or -- Сердца (сделаны)
-		model == 1247 or -- Звезда
-		model == 1265 or -- Пакет наркотиков
-		model == 1279 or -- Мусорный пакет
-		model == 1301 or -- Банка какая-то в руку
-		model == 1319 or -- Жезл ГАИ
-		model == 1327 or -- Колесо
-		model == 1332 or -- Сумка доставщика (мусорный бак)
-		model == 1336 or -- Синий контейнер
-		model == 1366 or -- Пожарный гидрант
-		model == 1371 or -- Бегемотик
-		--model == 1387 or -- Крюк пирата
-		model == 1511 or -- Бутылка на стене
-		model == 1546 or -- Спранк
-		model == 1548 or -- Печеньки какие-то
-		model == 1550 or -- Мешок денег
-		model == 1562 or -- Кресло на спину
-		model == 1565 or -- Корона
-		model == 1575 or -- Белый пакет с наркотиками на спину (сделан)
-		model == 1582 or -- Пицца
-		model == 1601 or -- Молнии Зевса
-		model == 1602 or -- Призрачный нимб и щит
-		model == 1603 or -- Кровавая накидка & Золотая шапка
-		model == 1604 or -- Копьё Зевса
-		model == 1607 or -- Дельфин
-		model == 1614 or -- Треугольник
-		model == 1622 or -- Камера на плечо
-		model == 1636 or -- Торпеда
-		model == 1681 or -- Самолет шамал
-		model == 1736 or -- Голова оленя
-		model == 1851 or -- Кости
-		model == 1877 or -- Фишки
-		model == 1878 or -- Фишки
-		model == 1879 or -- Фишки
-		model == 1880 or -- Фишки
-		model == 1881 or -- Фишки
-		model == 1882 or -- Фишки
-		model == 1886 or -- Маска робота (1)
-		model == 1974 or -- Хз
-		model == 2006 or -- Хз
-		model == 2060 or -- Мешок грузчиков
-		model == 2064 or -- Пушка
-		model == 2168 or -- Красный забор
-		model == 2237 or
-		model == 2238 or -- Торпеда какая-то
-		model == 2250 or -- Трава
-		model == 2362 or -- Ларек с помидорами
-		model == 2384 or -- Одежда
-		--model == 2429 or -- Реактивный ранец
-		model == 2614 or -- Два флага
-		model == 2680 or -- Цепь
-		model == 2689 or -- Футболка рокстар
-		model == 2711 or -- Хз
-		model == 2714 or -- Табличка 'OPEN' на спину
-		model == 2726 or -- Кальян
-		model == 2769 or -- Еда
-		model == 2788 or -- Стул
-		model == 2803 or -- Мешок с мясом какой-то
-		model == 2804 or -- Кусок мяса
-		model == 2805 or -- Мешок с мясом (сделан)
-		model == 2810 or -- Человек за спиной
-		model == 2814 or -- Пицца
-		model == 2846 or -- Шмотье
-		model == 2888 or -- Хз
-		model == 2901 or -- Стог сена
-		model == 2908 or -- Хз
-		model == 2913 or -- Штанга
-		model == 2916 or -- Гантеля
-		model == 2918 or -- Бомба
-		model == 2976 or -- Хз
-		model == 2983 or -- Хз
-		model == 2985 or -- Пулемет
-		model == 2992 or -- Нимб
-		model == 3013 or -- Ящик за спиной
-		model == 3016 or -- Ядерный рюкзак
-		model == 3027 or -- Косяк
-		model == 3031 or -- Хз
-		model == 3052 or -- Коробка
-		model == 3070 or -- ПНВ
-		model == 3072 or -- Гантеля
-		model == 3096 or -- Ключик
-		model == 3100 or -- Шар
-		--model == 3272 or -- Хз
-		model == 3272 or -- Паук
-		model == 3273 or -- Хз
-		--model == 3383 or -- Усы таракана
-		model == 3434 or -- Рюкзак пират
-		model == 3524 or -- Череп
-		--model == 3528 or -- Дракон на спину
-		model == 3632 or -- Бочка в руку
-		model == 3643 or -- Хз
-		model == 3785 or -- Светящийся рюкзак
-		model == 3801 or -- Лампа
-		model == 3932 or -- Хз
-		model == 6865 or -- Голова дьявола
-		model == 7093 or -- Сердечко Erotic 
-		model == 7313 or -- Хз
-		model == 7392 or -- Девушка на спину
-		model == 7891 or -- Хз
-		model == 8483 or -- Череп на лицо (сзади пустая текстура)
-		model == 8492 or -- Крылья феи (сделаны)
-		model == 8548 or -- Знак R / R
-		model == 8644 or -- Два кинжала на спину
-		model == 10281 or -- Машина из стены
-		model == 10757 or -- Разбитый самолет на спину
-		model == 11700 or -- Знак радиации
-		model == 11705 or -- Оружейный кейс
-		model == 11712 or -- Крест на грудь и Распятие (сделаны)
-		model == 11716 or -- Металлический нож
-		model == 11722 or -- Бутылка с кетчупом
-		model == 11726 or -- Люстра
-		model == 11727 or -- Хз
-		model == 11731 or -- Красная кровать
-		model == 11733 or -- Лошадка
-		model == 11734 or -- Кресло качалка
-		model == 11736 or -- Медицинская маска (сделана)
-		model == 11738 or -- Аптечка
-		model == 11741 or -- Хз
-		model == 11747 or -- Хз
-		model == 11749 or -- Наручники
-		model == 13562 or -- Спранк на спину
-		model == 13667 or -- Маска обезьяны
-		model == 14467 or -- Человечек на плечо
-		--model == 14527 or -- Крылья стрекозы
-		model == 14611 or -- Хз
-		model == 16368 or -- Хз
-		model == 16442 or -- Корова на спину
-		model == 16776 or -- Петух на плечо (сделан)
-		model == 16778 or -- НЛО на плечо
-		model == 18633 or -- Кран
-		model == 18637 or -- Щит на спину и в руку (сделаны)
-		model == 18640 or -- Черный шлем
-		model == 18641 or -- Маска фонарь
-		model == 18642 or -- Шокер (tazer)
-		model == 18643 or -- Красная шляпа маяк
-		model == 18644 or -- Отвертка
-		model == 18646 or -- Мигалка с сета дарт вейдер
-		model == 18688 or -- Огонь
-		model == 18693 or -- Огонь
-		model == 18701 or -- Огонь
-		model == 18717 or -- Огонь
-		model == 18718 or -- Огонь
-		model == 18729 or -- Огонь
-		model == 18848 or -- Ракеты на спину
-		model == 18865 or -- Телефон
-		model == 18866 or -- Телефон
-		model == 18867 or -- Телефон
-		model == 18868 or -- Телефон
-		model == 18869 or -- Телефон
-		model == 18870 or -- Телефон
-		model == 18871 or -- Телефон
-		model == 18872 or -- Телефон
-		model == 18873 or -- Телефон
-		model == 18874 or -- Телефон
-		model == 18875 or -- Пейджер
-		model == 18891 or -- Бандана
-		model == 18892 or -- Бандана
-		model == 18893 or -- Бандана
-		model == 18894 or -- Бандана
-		model == 18895 or -- Бандана
-		model == 18896 or -- Бандана
-		model == 18897 or -- Бандана
-		model == 18898 or -- Бандана
-		model == 18899 or -- Бандана
-		model == 18900 or -- Бандана
-		model == 18901 or -- Бандана
-		model == 18902 or -- Бандана
-		model == 18903 or -- Бандана
-		model == 18904 or -- Бандана
-		model == 18905 or -- Бандана
-		model == 18936 or -- Шлем
-		model == 18961 or -- Кепка Trucker
-		model == 18976 or -- Мотошлем синий
-		model == 18978 or -- Майка
-		model == 19063 or -- Новогодний шарик
-		model == 19077 or -- Парик
-		model == 19078 or -- Попугай
-		model == 19079 or -- Попугай на плечо (сделан)
-		model == 19080 or -- Синяя шляпа маяк
-		model == 19087 or -- Палка
-		model == 19090 or -- Мусорный пакет
-		model == 19091 or -- Красный берет
-		model == 19101 or -- Шлем
-		model == 19102 or -- Шлем
-		model == 19103 or -- Шлем
-		model == 19104 or -- Шлем
-		model == 19105 or -- Шлем
-		model == 19130 or -- Стрелка
-		model == 19135 or -- Стрелка
-		model == 19163 or -- Черная маска
-		model == 19177 or -- Хз
-		model == 19197 or -- Стрелка
-		model == 19200 or -- Полицейский шлем
-		model == 19202 or -- Хз
-		model == 19274 or -- Парик
-		model == 19315 or -- Олень
-		model == 19320 or -- Тыква
-		model == 19325 or -- Хз
-		model == 19330 or -- Женская шляпка
-		model == 19331 or -- Шлем пожарного
-		model == 19332 or -- Воздушный шар
-		model == 19333 or -- Воздушный шар
-		model == 19334 or -- Воздушный шар
-		model == 19335 or -- Воздушный шар
-		model == 19336 or -- Воздушный шар
-		model == 19337 or -- Воздушный шар
-		model == 19338 or -- Воздушный шар
-		model == 19339 or -- Гроб
-		model == 19341 or -- Яйцо
-		model == 19342 or -- Яйцо
-		model == 19343 or -- Яйцо
-		model == 19344 or -- Яйцо
-		model == 19345 or -- Яйцо
-		model == 19348 or -- Палка
-		model == 19350 or -- Усы
-		model == 19351 or -- Усы
-		model == 19468 or -- Маленький стакан
-		model == 19513 or -- Телефон
-		model == 19516 or -- Парик
-		model == 19517 or -- Парик
-		model == 19518 or -- Парик
-		model == 19519 or -- Парик
-		model == 19525 or -- Торт
-		model == 19527 or -- Капюшон и котел на грудь
-		model == 19555 or -- Боксерские перчатки
-		model == 19556 or -- Боксерские перчатки
-		model == 19570 or -- Молоко
-		model == 19576 or -- Яблоко
-		model == 19577 or -- Помидор
-		model == 19578 or -- Банан
-		model == 19582 or -- Мясо
-		model == 19583 or -- Нож
-		model == 19610 or -- Микрофон
-		model == 19620 or -- Полицейская мигалка
-		model == 19626 or -- Лопата
-		model == 19636 or -- Ларек с фруктами
-		model == 19793 or -- Дерево
-		model == 19801 or -- Маска
-		model == 19806 or -- Люстра
-		model == 19823 or -- Шампанское
-		model == 19824 or -- Шампанское
-		model == 19840 or -- Хз
-		model == 19847 or -- Мясо на кости
-		model == 19874 or -- Мыло
-		model == 19893 or -- Карта на спину
-		model == 19917 or -- Двигатель
-		model == 19939 or -- Хз
-		model == 19962 or -- Знак (плюсик)
-		model == 19965 or -- Знак (стрелка)
-		model == 19967 or -- Знак (стоп)
-		model == 19977 then -- Знак (уступи дорогу)
-			return
+		local model_name_anti_stealer =
+		{
+			[0] = "None",
+			[322] = "Дилдо на спину #2",
+			[336] = "Бита на спину",
+			[337] = "Лопата на спину",
+			[339] = "Катана на спину",
+			[364] = "Пульт от бомбы",
+			[368] = "Прибор ночного видения",
+			[635] = "Плащ с модификации Смерть",
+			[636] = "Плащ с модификации Тыква",
+			[888] = "Язык Венома",
+			[953] = "Крылья ангела",
+			[1013] = "Ушки бэтмена",
+			[1108] = "Кусок косы с модификации Смерть",
+			[1114] = "Глаза с модификации",
+			[1128] = "Маска для сварки",
+			[1133] = "Меч с модификации Djey",
+			[1177] = "Реактивный ранец",
+			[1228] = "Карамельный посох",
+			[1238] = "Конус на голову (не нужно)",
+			[1240] = "Сердца",
+			[1247] = "Звезда с модификации Тыква",
+			[1319] = "Жезл ГАИ",
+			[1332] = "Сумка доставщика",
+			[1550] = "Мешок денег на спину",
+			[1562] = "Кресло на спину",
+			[1565] = "Корона",
+			[1575] = "Белый пакет с наркотиками на спину",
+			[1582] = "Пицца",
+			[1601] = "Молнии Зевса",
+			[1602] = "Призрачный нимб и щит",
+			[1603] = "Кровавая накидка & Золотая шапка",
+			[1604] = "Копьё Зевса",
+			[1607] = "Дельфин",
+			[1614] = "Треугольник",
+			[1622] = "Камера на плечо",
+			[1681] = "Самолёт за спиной (Шамал)",
+			[1736] = "Голова оленя",
+			[1877] = "Фишки",
+			[1878] = "Фишки",
+			[1879] = "Фишки",
+			[1880] = "Фишки",
+			[1881] = "Фишки",
+			[1882] = "Фишки",
+			[1886] = "Маска робота (1)",
+			[2060] = "Мешок грузчиков",
+			[2238] = "Торпеда на голове",
+			[2614] = "Два флага на спине",
+			[2714] = "Табличка 'OPEN' на спину",
+			[2805] = "Мешок с мясом",
+			[2810] = "Человек за спиной",
+			[2814] = "Пицца",
+			[2888] = "Маска робота (2)",
+			[2901] = "Стог сена",
+			[2992] = "Нимб с какой-то модификации",
+			[3013] = "Ящик за спиной",
+			[3016] = "Ядерный рюкзак",
+			[3027] = "Косяк",
+			[3072] = "Гантеля",
+			[3100] = "Шарик с модификации Соник",
+			[3383] = "Усы таракана",
+			[3632] = "Бочка в руку",
+			[3785] = "Светящийся рюкзак",
+			[6865] = "Маска с рогами",
+			[7093] = "Сердечко Erotic",
+			[7392] = "Девушка на спину",
+			[8492] = "Крылья феи",
+			[8644] = "Два кинжала на спину",
+			[10281] = "Машина из стены",
+			[10757] = "Самолёт за спиной",
+			[11705] = "Оружейный кейс",
+			[11712] = "Крест на грудь и Распятие",
+			[11722] = "Херня на голове с модификации",
+			[11734] = "Сани на спину",
+			[11736] = "Медицинская маска",
+			[11738] = "Аптечка",
+			[11741] = "Глаз с модификации Ghost",
+			[11749] = "Наручники",
+			[13562] = "Спранк на спину",
+			[13667] = "Маска обезьяны",
+			[14467] = "Человечек на плечо",
+			-- [14527] = "Крылья стрекозы",
+			[16442] = "Корова на спину",
+			[16776] = "Петух на плечо",
+			[16778] = "НЛО на плечо",
+			[18637] = "Щит на спину и в руку",
+			[18641] = "Маска фонарь",
+			[18643] = "Красная шляпа маяк",
+			[18646] = "Мигалка с сета дарт вейдер",
+			[18688] = "Огонь",
+			[18693] = "Огонь",
+			[18701] = "Огонь",
+			[18717] = "Огонь",
+			[18718] = "Огонь",
+			[18729] = "Огонь",
+			[18848] = "Ракеты на спину",
+			[18865] = "Телефон",
+			[18866] = "Телефон",
+			[18867] = "Телефон",
+			--[18868] = "Телефон & Черный чемодан",
+			[18869] = "Телефон",
+			[18870] = "Телефон",
+			[18871] = "Телефон",
+			[18872] = "Телефон",
+			[18873] = "Телефон",
+			[18874] = "Телефон",
+			[18891] = "Плащ с модификации",
+			[18976] = "Сумка-барыжка синяя",
+			-- [18891] = "Бандана",
+			-- [18892] = "Бандана",
+			-- [18893] = "Бандана",
+			-- [18894] = "Бандана",
+			-- [18895] = "Бандана",
+			-- [18896] = "Бандана",
+			-- [18897] = "Бандана",
+			-- [18898] = "Бандана",
+			-- [18899] = "Бандана",
+			-- [18900] = "Бандана",
+			-- [18901] = "Бандана",
+			-- [18902] = "Бандана",
+			-- [18903] = "Бандана",
+			-- [18904] = "Бандана",
+			-- [18905] = "Бандана",
+			[19063] = "Шарик с модификации праздник",
+			[19078] = "Попугай",
+			[19079] = "Попугай на плечо",
+			[19080] = "Синяя шляпа маяк",
+			[19087] = "Палка с модификации праздник",
+			[19091] = "Красный берет",
+			-- [19101] = "Шлем",
+			-- [19102] = "Шлем",
+			-- [19103] = "Шлем",
+			-- [19104] = "Шлем",
+			-- [19105] = "Шлем",
+			[19135] = "Стрелка с модификации праздник",
+			[19163] = "Маска с модификации Дарт-вейдер",
+			[19197] = "Ангельское кольцо на голову",
+			[19200] = "Шлем с модификации Ghost",
+			[19315] = "Олень на плечо",
+			[19320] = "Тыква на голову",
+			[19330] = "Женская шляпка",
+			[19331] = "Темный плащ",
+			[19332] = "Воздушный шар",
+			[19333] = "Воздушный шар",
+			[19334] = "Воздушный шар",
+			[19335] = "Воздушный шар",
+			[19336] = "Воздушный шар",
+			[19337] = "Воздушный шар",
+			[19338] = "Воздушный шар",
+			[19339] = "Гроб с модификации Негр",
+			[19341] = "Яйцо",
+			[19342] = "Яйцо",
+			[19343] = "Яйцо",
+			[19344] = "Яйцо",
+			[19345] = "Яйцо",
+			[19513] = "Телефон",
+			[19527] = "Капюшон и котел на грудь",
+			[19555] = "Боксерские перчатки",
+			[19556] = "Боксерские перчатки",
+			[19570] = "Молоко с модификации Гринч",
+			[19576] = "Яблоко с модификации Гринч",
+			[19577] = "Помидор с модификации Дедпул",
+			[19578] = "Банан с модификации",
+			[19582] = "Мясо с модификации Дедпул",
+			[19583] = "Нож с модификации Djey",
+			[19620] = "Полицейский ранец & Палка красно-синяя",
+			[19801] = "Маска",
+			[19840] = "Плащ какой-то (не нужно)",
+			[19874] = "Мыло с модификации Дедпул",
+			[19893] = "Карта на спину",
+			[19962] = "Знак (плюсик)",
+			[19965] = "Знак (стрелка)",
+			[19966] = "Знак (стоп)",
+			[19967] = "Знак (Do Not Enter)",
+			[19977] = "Знак (уступи дорогу)",
+		};
+		----------------------------------------
+		for model_id, name in pairs(model_name_anti_stealer) do
+			if model_id == model then
+				return
+			end
 		end
 		----------------------------------------
 		if model == 328 then -- Розовый оружейный кейс
@@ -6444,11 +6257,11 @@ function sampev.onSetPlayerAttachedObject(playerId, index, create, object)
 			return false
 		end
 		----------------------------------------
-		if model == 11745 then -- Сумка для ноутбука (сделана)
+		if model == 11745 then -- Сумка для ноутбука (сделано)
 			return false
 		end
 		----------------------------------------
-		if model == 2405 or model == 2406 then -- Доска для серфа (сделана)
+		if model == 2405 or model == 2406 then -- Доска для серфа (сделано)
 			model = 2404
 			if object.bone == 1 then
 				return
@@ -6463,8 +6276,8 @@ function sampev.onSetPlayerAttachedObject(playerId, index, create, object)
 			return
 		end
 		----------------------------------------
-		if model >= 19007 and model <= 19035 then -- Очки
-			model = 19006
+		if model >= 18892 and model <= 18905 then -- Бандана
+			model = 18891
 		end
 		----------------------------------------
 		if model >= 18907 and model <= 18910 then -- Повязки на голову
@@ -6494,7 +6307,7 @@ function sampev.onSetPlayerAttachedObject(playerId, index, create, object)
 			model = 18953
 		end
 		----------------------------------------
-		if model >= 18956 and model <= 18959 then -- Обратная кепка
+		if model >= 18956 and model <= 18959 then -- Кепка обратная
 			model = 18955
 		end
 		----------------------------------------
@@ -6515,6 +6328,10 @@ function sampev.onSetPlayerAttachedObject(playerId, index, create, object)
 		----------------------------------------
 		if model >= 18977 and model <= 18979 then -- Мотошлемы
 			model = 18645
+		end
+		----------------------------------------
+		if model >= 19007 and model <= 19035 then -- Очки
+			model = 19006
 		end
 		----------------------------------------
 		if model == 19037 or model == 19038 then -- Хоккейная маска
@@ -6539,6 +6356,10 @@ function sampev.onSetPlayerAttachedObject(playerId, index, create, object)
 		----------------------------------------
 		if model >= 19096 and model <= 19100 then -- Ковбойская шляпа
 			model = 19095
+		end
+		----------------------------------------
+		if model >= 19102 and model <= 19105 then -- Шлем
+			model = 19101
 		end
 		----------------------------------------
 		if model >= 19107 and model <= 19120 then -- Каски
@@ -6586,10 +6407,6 @@ function sampev.onSetPlayerAttachedObject(playerId, index, create, object)
 		end
 		----------------------------------------
 		if model == 3026 and object.offset.x == 0 then -- Сумка барыжка
-			return
-		end
-		----------------------------------------
-		if model == 3383 and object.offset.x == -0.4009 then -- Усы таракана
 			return
 		end
 		----------------------------------------
@@ -6665,7 +6482,7 @@ function sampev.onSetPlayerAttachedObject(playerId, index, create, object)
 			return
 		end
 		----------------------------------------
-		if model == 19921 then -- Красный чемодан (сделана)
+		if model == 19921 then -- Красный чемодан (сделано)
 			return false
 		end
 		----------------------------------------
