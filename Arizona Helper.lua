@@ -2,10 +2,10 @@
 script_name("{0d00ff}Ar{2900ff}iz{3900ff}on{4500ff}a H{4f00ff}el{5800ff}pe{6000ff}r")
 local script_names = "Arizona Helper"
 
-script_version('4.599')
+script_version('4.5991')
 script_author("metk1u")
 
-local script_vers = 87
+local script_vers = 88
 
 -- sampSetLocalPlayerName('lol')
 
@@ -221,63 +221,67 @@ local model_name =
 	[2102] = "Колонка на спину",
 	[2226] = "Бумбокс",
 	[2250] = "Цветок",
-	[2362] = "Переносная лавка",
 	[2404] = "Доска для серфинга",
 	[2429] = "Реактивный ранец",
 	[2469] = "Самолётик на спину",
 	[2590] = "Коса на спину",
 	[2690] = "Огнетушитель на спину",
 	[2712] = "Метла на спину",
-	[2782] = "Устрица на спину",
+	[2782] = "Устрица на спину & Раптор",
+	[2908] = "Голова зомби",
 	[2918] = "Рюкзак с шипами",
 	[3026] = "Рюкзак",
 	[3056] = "Магнит на спину",
 	[3070] = "Скайборд",
 	[3273] = "Ранец охотники на приведений",
 	[3658] = "Гармошка",
+	[11489] = "Крылья гаргульи",
 	[11704] = "Маска демона",
 	[14527] = "Крылья стрекозы",
 	[14608] = "Копье бога",
 	[16368] = "Красная шляпа",
-	[18632] = "Удочка на спину",
-	[18632] = "Балонный ключ на спину",
+	[18632] = "Рыболовная удочка на спину",
+	[18633] = "Балонный ключ на спину",
 	[18634] = "Лом на спину",
 	[18635] = "Молоток на спину",
 	[18636] = "Кепка Police",
 	[18638] = "Каска строителя",
 	[18645] = "Мотошлем",
 	[18782] = "Печенька на голову",
+	[18868] = "Черный чемодан",
 	[18890] = "Грабли на спину",
-	[18906] = "Повязка на голову",
+	[18906] = "Бандана на голову",
 	[18911] = "Бандана",
 	[18921] = "Берет",
 	[18926] = "Кепка передняя",
 	[18947] = "Шляпка",
 	[18952] = "Боксерский шлем",
-	[18953] = "Теплая Шапка",
+	[18953] = "Тёплая Шапка",
 	[18955] = "Кепка обратная",
 	[18963] = "Голова CJ",
 	[18964] = "Бандитская шапка",
 	[18967] = "Панамка",
-	[18970] = "Большая шляпа",
+	[18970] = "Шляпа",
 	[19006] = "Очки",
 	[19036] = "Хоккейная маска",
 	[19039] = "Часы",
 	[19054] = "Подарок на спину",
 	[19064] = "Новогодняя шапка",
-	[19067] = "Шлем",
+	[19067] = "Шапки",
 	[19077] = "Борода #2",
 	[19085] = "Повязка на глаз",
 	[19086] = "Улучшенное дилдо",
 	[19093] = "Кепка DUDE",
 	[19094] = "Бургер на голову",
 	[19095] = "Ковбойская шляпа",
+	[19101] = "Каска",
 	[19106] = "Каска",
 	[19130] = "Стрелка",
 	[19136] = "Шляпа с дредами",
-	[19137] = "Маска петуха",
+	[19137] = "Голова петуха",
 	[19141] = "Каска спецназа",
 	[19142] = "Бронежилет",
+	[19274] = "Парик (1)",
 	[19314] = "Рога",
 	[19317] = "Гитара",
 	[19346] = "Рюкзак хот-дог",
@@ -289,10 +293,10 @@ local model_name =
 	[19421] = "Наушники",
 	[19469] = "Повязка на шею",
 	[19472] = "Респиратор",
-	[19516] = "Парик (1)",
-	[19517] = "Парик (2)",
-	[19518] = "Парик (3)",
-	[19519] = "Парик (4)",
+	[19516] = "Парик (2)",
+	[19517] = "Парик (3)",
+	[19518] = "Парик (4)",
+	[19519] = "Парик (5)",
 	[19520] = "Фуражка офицера",
 	[19528] = "Шляпа волшебника",
 	[19553] = "Фермерская шляпа",
@@ -306,6 +310,7 @@ local model_name =
 	[19621] = "Канистра на правое бедро",
 	[19623] = "Фотоаппарат на грудь",
 	[19624] = "Большой чемодан",
+	[19626] = "Лопата в руку (2)",
 	[19627] = "Ключик на грудь",
 	[19630] = "Рыба на спину",
 	[19631] = "Кирка на спину",
@@ -646,6 +651,8 @@ local pidori =
 	"Dexter_Shakespeare",
 	"Scarlet_Johansson",
 	"Killa_Karsxrovs",
+	"August_Walker",
+	"San_Sweezy",
 };
 ----------------------------------------
 local _message = {}
@@ -686,12 +693,11 @@ molot_8_5 = renderCreateFont("Molot", 8, 5)
 molot_10_9 = renderCreateFont('Molot', 10, 9)
 --------------------[Auto /vr]--------------------
 local delay_autovr = 0.5
---------------------[/poisk]--------------------
-local checkpoint = {}
-local marker = {}
 --------------------[Продовоз]--------------------
 local prodovoz_timer = 0
 local prods = 2000
+--------------------[/poisk]--------------------
+local checkpoint_poisk = {}
 --------------------[CMD хелпер]--------------------
 local windows_cmd = imgui.ImBool(false)
 --------------------[Дальний чат]--------------------
@@ -1315,23 +1321,14 @@ function main()
 			end
 		end
 	end)
-	os.remove("moonloader\\stealer\\2992 - .notepad")
-	os.remove("moonloader\\stealer\\3100 - .notepad")
-	os.remove("moonloader\\stealer\\textdraws\\16368.notepad")
-	os.remove("moonloader\\stealer\\textdraws\\19077.notepad")
-	os.remove("moonloader\\stealer\\textdraws\\19314.notepad")
-	os.remove("moonloader\\stealer\\textdraws\\19352.notepad")
-	os.remove("moonloader\\stealer\\textdraws\\19487.notepad")
-	os.remove("moonloader\\stealer\\textdraws\\19557.notepad")
-	os.remove("moonloader\\stealer\\textdraws\\19559.notepad")
-	os.remove("moonloader\\stealer\\textdraws\\19581.notepad")
-	os.remove("moonloader\\stealer\\textdraws\\19591.notepad")
-	os.remove("moonloader\\stealer\\textdraws\\19630.notepad")
-	os.remove("moonloader\\stealer\\textdraws\\19636.notepad")
-	os.remove("moonloader\\stealer\\textdraws\\19843.notepad")
-	os.remove("moonloader\\stealer\\textdraws\\19847.notepad")
-	os.remove("moonloader\\stealer\\textdraws\\19904.notepad")
-	os.remove("moonloader\\stealer\\textdraws\\19921.notepad")
+	os.remove("moonloader\\stealer\\806 - .notepad")
+	os.remove("moonloader\\stealer\\2362 - .notepad")
+	os.remove("moonloader\\stealer\\2362 - Переносная лавка.notepad")
+	os.remove("moonloader\\stealer\\2916 - .notepad")
+	os.remove("moonloader\\stealer\\3272 - .notepad")
+	os.remove("moonloader\\stealer\\textdraws\\2362.notepad")
+	os.remove("moonloader\\stealer\\textdraws\\18633.notepad")
+	os.remove("moonloader\\stealer\\textdraws\\18868.notepad")
 	----------------------------------------
 	_, playerid = sampGetPlayerIdByCharHandle(PLAYER_PED)
 	local_name = sampGetPlayerNickname(playerid)
@@ -1444,17 +1441,14 @@ function main()
 		elements.state.poisk = not elements.state.poisk
 		if elements.state.poisk == true then
 			for i = 1, #coords do
-				checkpoint[i] = addBlipForCoord(coords[i][1], coords[i][2], coords[i][3])
-				changeBlipColour(checkpoint[i], 0xFF3300FF)
-				marker[i] = createCheckpoint(1, coords[i][1], coords[i][2], coords[i][3], 1, 1, 1, 1)
+				checkpoint_poisk[i] = addBlipForCoord(coords[i][1], coords[i][2], coords[i][3])
+				changeBlipColour(checkpoint_poisk[i], 0xFF3300FF)
 			end
 			printString('~g~markers enable',3000)
 		else
 			for i = 1, #coords do
-				removeBlip(checkpoint[i])
-				checkpoint[i] = 0
-				deleteCheckpoint(marker[i])
-				marker[i] = 0
+				removeBlip(checkpoint_poisk[i])
+				checkpoint_poisk[i] = 0
 			end
 			printString('~r~markers disable',3000)
 		end
@@ -3434,8 +3428,14 @@ function sampev.onShowTextDraw(textdrawId, data)
 		autoloot_td[30] = data.text
 	end
 	--------------------[Прочее]--------------------
+	if data.modelId == 1371 then
+		sampAddChatMessage("Аксессуар бегемотик на спину - заскринить название предмета!", 0xFF3300)
+	end
 	if data.modelId == 1366 then
 		sampAddChatMessage("Щит - заскринить название предмета!", 0xFF3300)
+	end
+	if data.modelId == 1548 then
+		sampAddChatMessage("Погоны - заскринить название предмета!", 0xFF3300)
 	end
 	if data.modelId == 1562 then
 		sampAddChatMessage("Кресло на спину - заскринить название предмета!", 0xFF3300)
@@ -3443,17 +3443,17 @@ function sampev.onShowTextDraw(textdrawId, data)
 	if data.modelId == 1681 then
 		sampAddChatMessage("Самолет на спину - заскринить название предмета!", 0xFF3300)
 	end
-	if data.modelId == 2908 then
-		sampAddChatMessage("Голова зомби аксессуар - заскринить название предмета!", 0xFF3300)
+	if data.modelId == 2985 then
+		sampAddChatMessage("Рюкзак какой-то - заскринить название предмета!", 0xFF3300)
 	end
-	if data.modelId == 3026 then
-		sampAddChatMessage("Сумка-барыжка - своровать текстдрав!", 0xFF3300)
-	end
-	if data.modelId == 3096 then
+	if data.modelId == 3096 and data.rotation.x ~= 0.0 then
 		sampAddChatMessage("Копье - заскринить название предмета!", 0xFF3300)
 	end
-	if data.modelId == 3272 then
-		sampAddChatMessage("Паук - заскринить название предмета!", 0xFF3300)
+	if data.modelId == 3434 then
+		sampAddChatMessage("Черепа на спину - заскринить название предмета!", 0xFF3300)
+	end
+	if data.modelId == 3440 then
+		sampAddChatMessage("Очки какие-то - заскринить название предмета!", 0xFF3300)
 	end
 	if data.modelId == 3801 then
 		sampAddChatMessage("Меч - заскринить название предмета!", 0xFF3300)
@@ -3476,17 +3476,11 @@ function sampev.onShowTextDraw(textdrawId, data)
 	if data.modelId == 18875 then
 		sampAddChatMessage("18875 - заскринить название предмета! (/showmodel)", 0xFF3300)
 	end
-	if data.modelId >= 18891 and data.modelId <= 18905 then
-		sampAddChatMessage("Бандана - заскринить название предмета!", 0xFF3300)
-	end
 	if data.modelId == 19086 then
-		sampAddChatMessage("Маска робота - заскринить название предмета + TD!", 0xFF3300)
+		sampAddChatMessage(string.format("Маска робота - заскринить название предмета + TD! (%0.6f, %0.6f, %0.6f, %0.6f)",data.rotation.x,data.rotation.y,data.rotation.z,data.zoom), 0xFF3300)
 	end
-	if data.modelId == 19090 then
-		sampAddChatMessage("Берет - заскринить название предмета!", 0xFF3300)
-	end
-	if data.modelId >= 19101 and data.modelId <= 19105 then
-		sampAddChatMessage("Шлем - заскринить название предмета!", 0xFF3300)
+	if data.modelId == 19090 or data.modelId == 19091 or data.modelId == 19092 then
+		sampAddChatMessage("Берет какой-то - заскринить название предмета!", 0xFF3300)
 	end
 	if data.modelId == 19130 then
 		sampAddChatMessage("Стрелка - заскринить название предмета!", 0xFF3300)
@@ -3494,26 +3488,14 @@ function sampev.onShowTextDraw(textdrawId, data)
 	if data.modelId == 19137 then
 		sampAddChatMessage("Если гребень на голову то заскринить название предмета!", 0xFF3300)
 	end
-	if data.modelId == 19274 then
-		sampAddChatMessage("Парик - заскринить название предмета!", 0xFF3300)
-	end
 	if data.modelId == 19350 then
 		sampAddChatMessage("Усы (1) - заскринить название предмета!", 0xFF3300)
 	end
 	if data.modelId == 19351 then
 		sampAddChatMessage("Усы (2) - заскринить название предмета!", 0xFF3300)
 	end
-	if data.modelId == 19516 then
-		sampAddChatMessage("Парик (1) - заскринить название предмета!", 0xFF3300)
-	end
-	if data.modelId == 19517 then
-		sampAddChatMessage("Парик (2) - заскринить название предмета!", 0xFF3300)
-	end
-	if data.modelId == 19518 then
-		sampAddChatMessage("Парик (3) - заскринить название предмета!", 0xFF3300)
-	end
-	if data.modelId == 19519 then
-		sampAddChatMessage("Парик (4) - заскринить название предмета!", 0xFF3300)
+	if data.modelId == 19806 then
+		sampAddChatMessage("Рюкзак какой-то - заскринить название предмета!", 0xFF3300)
 	end
 	if data.modelId == 19893 then
 		sampAddChatMessage("Карта на спину - заскринить название предмета!", 0xFF3300)
@@ -3710,7 +3692,7 @@ function sampev.onShowTextDraw(textdrawId, data)
 				data.modelId == 1463 or -- Дрова
 				data.modelId == 1565 or -- Корона
 				data.modelId == 1575 or -- Белый пакет с наркотиками на спину
-				data.modelId == 1602 or -- Плазменный щит & Призрачный нимб
+				--data.modelId == 1602 or -- Призрачный нимб, щит, ледяное копье
 				data.modelId == 1603 or -- Кровавая накидка & Золотая шапка
 				data.modelId == 1607 or -- Дельфин на спину
 				data.modelId == 1609 or -- Черепаха на спину
@@ -3720,6 +3702,7 @@ function sampev.onShowTextDraw(textdrawId, data)
 				(data.modelId == 1895 and data.rotation.x == 0 and data.rotation.y == 0 and data.rotation.z == 0 and data.zoom == 1.934306) or -- Серебрянная рулетка
 				data.modelId == 1979 or -- Бронзовая рулетка
 				data.modelId == 2045 or -- Бита с шипами
+				data.modelId == 2362 or -- Переносная лавка
 				data.modelId == 2386 or -- Скин
 				data.modelId == 2684 or -- Лицензии
 				data.modelId == 2714 or -- Табличка 'OPEN' на спину
@@ -3742,6 +3725,7 @@ function sampev.onShowTextDraw(textdrawId, data)
 				data.modelId == 16776 or -- Петух на плечо
 				data.modelId == 16778 or -- НЛО на плечо
 				data.modelId == 17027 or -- Серебро
+				data.modelId == 18633 or -- Балонный ключ на спину
 				data.modelId == 18634 or -- Лом на спину
 				data.modelId == 18635 or -- Молоток на спину
 				data.modelId == 18636 or -- Кепка Police чёрная
@@ -3752,17 +3736,17 @@ function sampev.onShowTextDraw(textdrawId, data)
 				data.modelId == 18782 or -- Печенька на голову
 				(data.modelId >= 18865 and data.modelId <= 18874) or -- Телефоны
 				data.modelId == 18890 or -- Грабли на спину
-				(data.modelId >= 18906 and data.modelId <= 18910) or -- Повязка на голову
+				(data.modelId >= 18906 and data.modelId <= 18910) or -- Бандана на голову
 				(data.modelId >= 18911 and data.modelId <= 18920) or -- Бандана
 				(data.modelId >= 18921 and data.modelId <= 18925) or -- Берет
-				(data.modelId >= 18926 and data.modelId <= 18935) or -- Кепка
+				(data.modelId >= 18926 and data.modelId <= 18935) or -- Кепка передняя
 				(data.modelId >= 18947 and data.modelId <= 18951) or -- Шляпка
-				(data.modelId >= 18953 and data.modelId <= 18954) or -- Шапка
+				(data.modelId >= 18953 and data.modelId <= 18954) or -- Тёплая Шапка
 				(data.modelId >= 18955 and data.modelId <= 18959) or -- Кепка обратная
 				data.modelId == 18963 or -- Голова CJ
 				(data.modelId >= 18964 and data.modelId <= 18966) or -- Бандитская шапка
 				(data.modelId >= 18967 and data.modelId <= 18969) or -- Панамка
-				(data.modelId >= 18970 and data.modelId <= 18973) or -- Большая шляпа
+				(data.modelId >= 18970 and data.modelId <= 18973) or -- Шляпа
 				(data.modelId >= 19006 and data.modelId <= 19035) or -- Очки
 				(data.modelId >= 19039 and data.modelId <= 19053) or -- Часы
 				data.modelId == 19077 or -- Борода #2
@@ -3808,7 +3792,7 @@ function sampev.onShowTextDraw(textdrawId, data)
 				data.modelId == 19843 or -- Материалы
 				data.modelId == 19847 or -- Копченая нога
 				data.modelId == 19878 or -- Скейт на спину
-				data.modelId == 19882 or -- Жареное мясо оленины
+				--data.modelId == 19882 or -- Жареное мясо оленины
 				data.modelId == 19904 or -- Жилет грузчика
 				data.modelId == 19921 or -- Красный чемодан
 				data.modelId == 19918 or -- Сундук рулетки
@@ -4257,6 +4241,21 @@ function sampev.onCreateObject(objectId, data)
 			-- io.close(file)
 		-- end
 	-- end
+	--------------------[Клады]--------------------
+	ip, port = sampGetCurrentServerAddress()
+	if ip == "185.169.134.3" or ip == "185.169.134.4" or ip == "185.169.134.43" or ip == "185.169.134.44" or ip == "185.169.134.45" or ip == "185.169.134.5" or ip == "185.169.134.59" or ip == "185.169.134.61" or ip == "185.169.134.107" or ip == "185.169.134.109" or ip == "185.169.134.166" or ip == "185.169.134.171" or ip == "185.169.134.172" or ip == "185.169.134.173" or ip == "185.169.134.174" or ip == "80.66.82.191" then
+		if data.modelId == 1271 then
+			for i = 0, 12 do
+				sampAddChatMessage('В зоне стрима КЛАД!!! '..data.drawDistance, 0xFF3300)
+			end
+			local file = io.open('moonloader/klads.notepad', 'a+')
+			if file ~= -1 and file ~= nil then
+				file:write(string.format('{%0.6f,%0.6f,%0.6f},\n',data.position.x,data.position.y,data.position.z))
+				io.close(file)
+			end
+		end
+	end
+	--------------------[Стиллер объектов на транспорт]--------------------
 	if data.modelId == 19476 then
 		local tempObj = { }
 		----------------------------------------
@@ -4491,7 +4490,6 @@ function sampev.onCreateObject(objectId, data)
 			table.insert(objectsTable, vehicleData)
 			----------------------------------------
 		end
-		----------------------------------------
 	end
 end
 
@@ -4741,14 +4739,6 @@ function onReceiveRpc(id, bitStream)
 		end
 		if elements.destroy.xlam.v == true and (model == 371 or model == 823 or model == 886 or model == 890 or model == 894 or model == 1240 or model == 1254 or model == 19306) then
 			return false
-		end
-		ip, port = sampGetCurrentServerAddress()
-		if ip == "185.169.134.3" or ip == "185.169.134.4" or ip == "185.169.134.43" or ip == "185.169.134.44" or ip == "185.169.134.45" or ip == "185.169.134.5" or ip == "185.169.134.59" or ip == "185.169.134.61" or ip == "185.169.134.107" or ip == "185.169.134.109" or ip == "185.169.134.166" or ip == "185.169.134.171" or ip == "185.169.134.172" or ip == "185.169.134.173" or ip == "185.169.134.174" or ip == "80.66.82.191" then
-			if model == 1271 then
-				for i = 0, 12 do
-					sampAddChatMessage('В зоне стрима КЛАД!!!', 0xFF3300)
-				end
-			end
 		end
 	end
 end
@@ -5735,6 +5725,11 @@ function sampev.onShowDialog(dialogId, style, title, button1, button2, text)
 				sampAddChatMessage('Ответ на вопрос: {FF3300}'..v, -1)
 			end
 		end
+		local file = io.open('moonloader/klads_vopros.notepad', 'a+')
+		if file ~= -1 and file ~= nil then
+			file:write(string.format('%s - %s\n',title,text))
+			io.close(file)
+		end
 	end
 	--------------------[Новый автолут]--------------------
 	if elements.state.autoloot == true then
@@ -6076,6 +6071,7 @@ function sampev.onSetPlayerAttachedObject(playerId, index, create, object)
 			[368] = "Прибор ночного видения",
 			[635] = "Плащ с модификации Смерть",
 			[636] = "Плащ с модификации Тыква",
+			[806] = "Трава какая-то",
 			[888] = "Язык Венома",
 			[953] = "Крылья ангела",
 			[1013] = "Ушки бэтмена",
@@ -6096,7 +6092,7 @@ function sampev.onSetPlayerAttachedObject(playerId, index, create, object)
 			[1575] = "Белый пакет с наркотиками на спину",
 			[1582] = "Пицца",
 			[1601] = "Молнии Зевса",
-			[1602] = "Призрачный нимб и щит",
+			[1602] = "Призрачный нимб, щит, ледяное копье",
 			[1603] = "Кровавая накидка & Золотая шапка",
 			[1604] = "Копьё Зевса",
 			[1607] = "Дельфин",
@@ -6113,6 +6109,7 @@ function sampev.onSetPlayerAttachedObject(playerId, index, create, object)
 			[1886] = "Маска робота (1)",
 			[2060] = "Мешок грузчиков",
 			[2238] = "Торпеда на голове",
+			[2362] = "Переносная лавка",
 			[2614] = "Два флага на спине",
 			[2714] = "Табличка 'OPEN' на спину",
 			[2805] = "Мешок с мясом",
@@ -6120,12 +6117,14 @@ function sampev.onSetPlayerAttachedObject(playerId, index, create, object)
 			[2814] = "Пицца",
 			[2888] = "Маска робота (2)",
 			[2901] = "Стог сена",
+			[2916] = "Модификация: Качок",
 			[2992] = "Нимб с какой-то модификации",
 			[3013] = "Ящик за спиной",
 			[3016] = "Ядерный рюкзак",
 			[3027] = "Косяк",
 			[3072] = "Гантеля",
 			[3100] = "Шарик с модификации Соник",
+			[3272] = "Паук на спину",
 			[3383] = "Усы таракана",
 			[3632] = "Бочка в руку",
 			[3785] = "Светящийся рюкзак",
@@ -6195,11 +6194,11 @@ function sampev.onSetPlayerAttachedObject(playerId, index, create, object)
 			[19080] = "Синяя шляпа маяк",
 			[19087] = "Палка с модификации праздник",
 			[19091] = "Красный берет",
-			-- [19101] = "Шлем",
-			-- [19102] = "Шлем",
-			-- [19103] = "Шлем",
-			-- [19104] = "Шлем",
-			-- [19105] = "Шлем",
+			-- [19101] = "Каска",
+			-- [19102] = "Каска",
+			-- [19103] = "Каска",
+			-- [19104] = "Каска",
+			-- [19105] = "Каска",
 			[19135] = "Стрелка с модификации праздник",
 			[19163] = "Маска с модификации Дарт-вейдер",
 			[19197] = "Ангельское кольцо на голову",
@@ -6292,7 +6291,7 @@ function sampev.onSetPlayerAttachedObject(playerId, index, create, object)
 			model = 18921
 		end
 		----------------------------------------
-		if model >= 18927 and model <= 18935 then -- Кепка
+		if model >= 18927 and model <= 18935 then -- Кепка передняя
 			model = 18926
 		end
 		----------------------------------------
@@ -6322,7 +6321,7 @@ function sampev.onSetPlayerAttachedObject(playerId, index, create, object)
 			end
 		end
 		----------------------------------------
-		if model >= 18971 and model <= 18973 then -- Большие шляпы
+		if model >= 18971 and model <= 18973 then -- Шляпы
 			model = 18970
 		end
 		----------------------------------------
@@ -6350,7 +6349,7 @@ function sampev.onSetPlayerAttachedObject(playerId, index, create, object)
 			model = 19064
 		end
 		----------------------------------------
-		if model >= 19068 and model <= 19069 then -- Каски
+		if model >= 19068 and model <= 19069 then -- Шапки
 			model = 19067
 		end
 		----------------------------------------
@@ -6358,7 +6357,7 @@ function sampev.onSetPlayerAttachedObject(playerId, index, create, object)
 			model = 19095
 		end
 		----------------------------------------
-		if model >= 19102 and model <= 19105 then -- Шлем
+		if model >= 19102 and model <= 19105 then -- Каски
 			model = 19101
 		end
 		----------------------------------------
@@ -6414,6 +6413,10 @@ function sampev.onSetPlayerAttachedObject(playerId, index, create, object)
 			return false
 		end
 		----------------------------------------
+		if model == 18868 and object.bone == 6 then -- Телефон
+			return
+		end
+		----------------------------------------
 		if model == 18645 and object.bone == 1 then -- Мотошлемы
 			return
 		end
@@ -6450,7 +6453,7 @@ function sampev.onSetPlayerAttachedObject(playerId, index, create, object)
 			return
 		end
 		----------------------------------------
-		if model == 19137 and (object.bone == 1 or object.rotation.x == -7.8999) then -- Маска петуха на спину
+		if model == 19137 and (object.bone == 1 or object.rotation.x == -7.8999) then -- Голова петуха на спину
 			return
 		end
 		----------------------------------------
@@ -6693,6 +6696,10 @@ function onScriptTerminate(LuaScript, quitGame)
 	if LuaScript == thisScript() then
 		showCursor(false)
 		sampAddChatMessage('['..thisScript().name..' '..thisScript().version..'{FFFFFF}] Скрипт выключается =(', 0xFFFFFF)
+	end
+	for i = 1, #coords do
+		removeBlip(checkpoint_poisk[i])
+		checkpoint_poisk[i] = 0
 	end
 end
 
