@@ -2,10 +2,10 @@
 script_name("{0d00ff}Ar{2900ff}iz{3900ff}on{4500ff}a H{4f00ff}el{5800ff}pe{6000ff}r")
 local script_names = "Arizona Helper"
 
-script_version('4.5991')
+script_version('4.6')
 script_author("metk1u")
 
-local script_vers = 88
+local script_vers = 89
 
 -- sampSetLocalPlayerName('lol')
 
@@ -961,6 +961,9 @@ local mainIni = inicfg.load(
 		box_car = 0,
 		box_car_price = 50000,
 		----------------------------------------
+		box_nostalg = 0,
+		box_nostalg_price = 50000,
+		----------------------------------------
 		band_respect = 0,
 		band_respect_price = 500,
 		----------------------------------------
@@ -1193,6 +1196,9 @@ local elements =
 		box_car = imgui.ImInt(mainIni.lavka.box_car),
 		box_car_price = imgui.ImInt(mainIni.lavka.box_car_price),
 		----------------------------------------
+		box_nostalg = imgui.ImInt(mainIni.lavka.box_nostalg),
+		box_nostalg_price = imgui.ImInt(mainIni.lavka.box_nostalg_price),
+		----------------------------------------
 		band_respect = imgui.ImInt(mainIni.lavka.band_respect),
 		band_respect_price = imgui.ImInt(mainIni.lavka.band_respect_price),
 		----------------------------------------
@@ -1224,10 +1230,10 @@ local elements =
 	},
 	autotoch =
 	{
-		checktochilki = false,
+		autotoch_active = false,
 		checked_radio = imgui.ImInt(12),
 		checked_inv = imgui.ImInt(2),
-		checked_box = imgui.ImBool(false)
+		autotoch_enable = imgui.ImBool(false)
 	},
 	autoopenroul =
 	{
@@ -1235,7 +1241,7 @@ local elements =
 		open_roul_silver = imgui.ImBool(false),
 		open_roul_gold = imgui.ImBool(false),
 		open_roul_platina = imgui.ImBool(false),
-		open_roul_krytim = true,
+		open_roul_active = true,
 	},
 	state =
 	{
@@ -1322,10 +1328,13 @@ function main()
 		end
 	end)
 	os.remove("moonloader\\stealer\\806 - .notepad")
+	os.remove("moonloader\\stealer\\1220 - .notepad")
+	os.remove("moonloader\\stealer\\1265 - .notepad")
 	os.remove("moonloader\\stealer\\2362 - .notepad")
 	os.remove("moonloader\\stealer\\2362 - Переносная лавка.notepad")
 	os.remove("moonloader\\stealer\\2916 - .notepad")
 	os.remove("moonloader\\stealer\\3272 - .notepad")
+	os.remove("moonloader\\stealer\\11700 - .notepad")
 	os.remove("moonloader\\stealer\\textdraws\\2362.notepad")
 	os.remove("moonloader\\stealer\\textdraws\\18633.notepad")
 	os.remove("moonloader\\stealer\\textdraws\\18868.notepad")
@@ -1644,7 +1653,17 @@ function main()
 				setVirtualKeyDown(13, false)
 			end
 			--------------------[Авто-открытие сундуков]--------------------
-			if elements.chest.roll_state.v == true and (ip == "185.169.134.3" or ip == "185.169.134.4" or ip == "185.169.134.43" or ip == "185.169.134.44" or ip == "185.169.134.45" or ip == "185.169.134.5" or ip == "185.169.134.59" or ip == "185.169.134.61" or ip == "185.169.134.107" or ip == "185.169.134.109" or ip == "185.169.134.166" or ip == "185.169.134.171" or ip == "185.169.134.172" or ip == "185.169.134.173" or ip == "185.169.134.174" or ip == "80.66.82.191") then
+			if elements.chest.roll_state.v == true and
+				elements.state.buyvk == -1 and
+				elements.state.denis == false and
+				elements.state.mechanic == false and
+				elements.state.autoloot == false and
+				elements.autoopenroul.open_roul_bronze.v == false and
+				elements.autoopenroul.open_roul_silver.v == false and
+				elements.autoopenroul.open_roul_gold.v == false and
+				elements.autoopenroul.open_roul_platina.v == false and
+				elements.autotoch.autotoch_enable.v == false and
+				(ip == "185.169.134.3" or ip == "185.169.134.4" or ip == "185.169.134.43" or ip == "185.169.134.44" or ip == "185.169.134.45" or ip == "185.169.134.5" or ip == "185.169.134.59" or ip == "185.169.134.61" or ip == "185.169.134.107" or ip == "185.169.134.109" or ip == "185.169.134.166" or ip == "185.169.134.171" or ip == "185.169.134.172" or ip == "185.169.134.173" or ip == "185.169.134.174" or ip == "80.66.82.191") then
 				if elements.chest.roll_standart.v == true then
 					sampSendClickTextdraw(65535)
 					chest_timer = os.time()+(elements.chest.roll_wait.v*60)
@@ -2204,15 +2223,15 @@ function main()
 			lastPlayerState = pState
 		end
 		--------------------[Авто-открытие рулеток]--------------------
-		if elements.autoopenroul.open_roul_bronze.v == true and elements.autoopenroul.open_roul_krytim == true then
+		if elements.autoopenroul.open_roul_bronze.v == true and elements.autoopenroul.open_roul_active == true then
 			auto_roul()
 			wait(300)
 			sampSendClickTextdraw(2089)
 			wait(400)
 			sampSendClickTextdraw(2091)
-			elements.autoopenroul.open_roul_krytim = false
+			elements.autoopenroul.open_roul_active = false
 		end
-		if elements.autoopenroul.open_roul_silver.v == true and elements.autoopenroul.open_roul_krytim == true then
+		if elements.autoopenroul.open_roul_silver.v == true and elements.autoopenroul.open_roul_active == true then
 			auto_roul()
 			wait(400)
 			sampSendClickTextdraw(2083)
@@ -2222,9 +2241,9 @@ function main()
 			sampSendClickTextdraw(2089)
 			wait(400)
 			sampSendClickTextdraw(2091)
-			elements.autoopenroul.open_roul_krytim = false
+			elements.autoopenroul.open_roul_active = false
 		end
-		if elements.autoopenroul.open_roul_gold.v == true and elements.autoopenroul.open_roul_krytim == true then
+		if elements.autoopenroul.open_roul_gold.v == true and elements.autoopenroul.open_roul_active == true then
 			auto_roul()
 			wait(400)
 			sampSendClickTextdraw(2088)
@@ -2234,9 +2253,9 @@ function main()
 			sampSendClickTextdraw(2089)
 			wait(400)
 			sampSendClickTextdraw(2091)
-			elements.autoopenroul.open_roul_krytim = false
+			elements.autoopenroul.open_roul_active = false
 		end
-		if elements.autoopenroul.open_roul_platina.v == true and elements.autoopenroul.open_roul_krytim == true then
+		if elements.autoopenroul.open_roul_platina.v == true and elements.autoopenroul.open_roul_active == true then
 			auto_roul()
 			wait(400)
 			sampSendClickTextdraw(2108)
@@ -2246,7 +2265,7 @@ function main()
 			sampSendClickTextdraw(2089)
 			wait(400)
 			sampSendClickTextdraw(2091)
-			elements.autoopenroul.open_roul_krytim = false
+			elements.autoopenroul.open_roul_active = false
 		end
 		--------------------[Авто-сбор шара]--------------------
 		local text = sampTextdrawGetString(2069)
@@ -2464,6 +2483,9 @@ function saveini()
 			----------------------------------------
 			box_car = elements.lavka.box_car.v,
 			box_car_price = elements.lavka.box_car_price.v,
+			----------------------------------------
+			box_nostalg = elements.lavka.box_nostalg.v,
+			box_nostalg_price = elements.lavka.box_nostalg_price.v,
 			----------------------------------------
 			band_respect = elements.lavka.band_respect.v,
 			band_respect_price = elements.lavka.band_respect_price.v,
@@ -2793,7 +2815,7 @@ function imgui.OnDrawFrame()
 		end
 		if imgui.CollapsingHeader(u8'Авто-точилка аксессуаров') then
 			imgui.Separator()
-			imgui.Checkbox(u8'Включить авто-точилку',elements.autotoch.checked_box)
+			imgui.Checkbox(u8'Включить авто-точилку',elements.autotoch.autotoch_enable)
 			imgui.PushItemWidth(200)
 			imgui.SliderInt(u8('На сколько будет точится аксессуар'),elements.autotoch.checked_radio,1,12)
 			imgui.SliderInt(u8('Выбери страницу инвентаря'),elements.autotoch.checked_inv,1,3)
@@ -3059,13 +3081,19 @@ function imgui.OnDrawFrame()
 			if elements.lavka.box_car.v < 0 then elements.lavka.box_car.v = 0 end
 			if elements.lavka.box_car_price.v < 0 then elements.lavka.box_car_price.v = 0 end
 			----------------------------------------
-			imgui.InputInt(u8('Цена  ##38'),elements.lavka.band_respect_price)
+			imgui.InputInt(u8('Цена  ##38'),elements.lavka.box_nostalg_price)
+			imgui.SameLine()
+			imgui.InputInt(u8('Ностальгический ящик (кол-во)'),elements.lavka.box_nostalg)
+			if elements.lavka.box_nostalg.v < 0 then elements.lavka.box_nostalg.v = 0 end
+			if elements.lavka.box_nostalg_price.v < 0 then elements.lavka.box_nostalg_price.v = 0 end
+			----------------------------------------
+			imgui.InputInt(u8('Цена  ##39'),elements.lavka.band_respect_price)
 			imgui.SameLine()
 			imgui.InputInt(u8('Бандитские респекты (кол-во)'),elements.lavka.band_respect)
 			if elements.lavka.band_respect.v < 0 then elements.lavka.band_respect.v = 0 end
 			if elements.lavka.band_respect_price.v < 0 then elements.lavka.band_respect_price.v = 0 end
 			----------------------------------------
-			imgui.InputInt(u8('Цена  ##39'),elements.lavka.larec_premium_price)
+			imgui.InputInt(u8('Цена  ##40'),elements.lavka.larec_premium_price)
 			imgui.SameLine()
 			imgui.InputInt(u8('Ларец с премией (кол-во)'),elements.lavka.larec_premium)
 			if elements.lavka.larec_premium.v < 0 then elements.lavka.larec_premium.v = 0 end
@@ -3182,6 +3210,9 @@ function imgui.OnDrawFrame()
 			end
 			if elements.lavka.box_car.v ~= 0 then
 				count_all = count_all+(elements.lavka.box_car_price.v*elements.lavka.box_car.v)
+			end
+			if elements.lavka.box_nostalg.v ~= 0 then
+				count_all = count_all+(elements.lavka.box_nostalg_price.v*elements.lavka.box_nostalg.v)
 			end
 			if elements.lavka.band_respect.v ~= 0 then
 				count_all = count_all+(elements.lavka.band_respect_price.v*elements.lavka.band_respect.v)
@@ -3443,6 +3474,9 @@ function sampev.onShowTextDraw(textdrawId, data)
 	if data.modelId == 1681 then
 		sampAddChatMessage("Самолет на спину - заскринить название предмета!", 0xFF3300)
 	end
+	if data.modelId == 2976 then
+		sampAddChatMessage("2976 - заскринить название предмета! (/showmodel)", 0xFF3300)
+	end
 	if data.modelId == 2985 then
 		sampAddChatMessage("Рюкзак какой-то - заскринить название предмета!", 0xFF3300)
 	end
@@ -3451,9 +3485,6 @@ function sampev.onShowTextDraw(textdrawId, data)
 	end
 	if data.modelId == 3434 then
 		sampAddChatMessage("Черепа на спину - заскринить название предмета!", 0xFF3300)
-	end
-	if data.modelId == 3440 then
-		sampAddChatMessage("Очки какие-то - заскринить название предмета!", 0xFF3300)
 	end
 	if data.modelId == 3801 then
 		sampAddChatMessage("Меч - заскринить название предмета!", 0xFF3300)
@@ -3508,18 +3539,18 @@ function sampev.onShowTextDraw(textdrawId, data)
 	end
 	--------------------[Авто-точилка аксессуаров]--------------------
 	if data.modelId == 16112 or data.modelId == 1615 then
-		if elements.autotoch.checktochilki then
+		if elements.autotoch.autotoch_active then
 			lua_thread.create(function()
-				if textdrawId ~= 2108 and elements.autotoch.checktochilki == true then
+				if textdrawId ~= 2108 and elements.autotoch.autotoch_active == true then
 					wait(500)
 					sampSendClickTextdraw(textdrawId)
 					wait(500)
 					sampSendClickTextdraw(2077)
-					elements.autotoch.checktochilki = false
+					elements.autotoch.autotoch_active = false
 				else
 					wait(500)
 					sampSendClickTextdraw(2077)
-					elements.autotoch.checktochilki = false
+					elements.autotoch.autotoch_active = false
 				end
 			end)
 		end
@@ -3874,20 +3905,20 @@ function sampev.onServerMessage(color, text)
 	end
 	--------------------[Авто-открытие рулеток]--------------------
 	if text:find("Вам был добавлен предмет") then
-		elements.autoopenroul.open_roul_krytim = true
+		elements.autoopenroul.open_roul_active = true
 	end
 	if text:find('%[Подсказка%] %{FFFFFF%}Вы получили +(.+)%$!') then
-		elements.autoopenroul.open_roul_krytim = true
+		elements.autoopenroul.open_roul_active = true
 	end
 	--------------------[Авто-точилка аксессуаров]--------------------
-	if text:find('Увы, вам не удалось улучшить предмет') and elements.autotoch.checked_box.v then
-		elements.autotoch.checktochilki = true
+	if text:find('Увы, вам не удалось улучшить предмет') and elements.autotoch.autotoch_enable.v == true then
+		elements.autotoch.autotoch_active = true
 		inventory(elements.autotoch.checked_inv.v)
 	end
-	if text:find('Успех! Вам удалось улучшить предмет') and elements.autotoch.checked_box.v then
+	if text:find('Успех! Вам удалось улучшить предмет') and elements.autotoch.autotoch_enable.v == true then
 		number = string.match(text, 'на ++(%d+)')+0
-		if number < elements.autotoch.checked_radio.v and elements.autotoch.checked_box.v then
-			elements.autotoch.checktochilki = true
+		if number < elements.autotoch.checked_radio.v and elements.autotoch.autotoch_enable.v == true then
+			elements.autotoch.autotoch_active = true
 			inventory(elements.autotoch.checked_inv.v)
 		end
 	end
@@ -5469,6 +5500,40 @@ function skupka()
 			sampSendDialogResponse(3060, 1, 0, elements.lavka.box_car.v..' '..elements.lavka.box_car_price.v)
 		end
 		wait(delay_skupka)
+		if elements.lavka.box_nostalg.v ~= 0 then
+			sampSendDialogResponse(3040, 1, nil, nil)
+			sampSendDialogResponse(3050, 1, 19, nil)
+			sampSendDialogResponse(3050, 1, 20, nil)
+			sampSendDialogResponse(3050, 1, 20, nil)
+			sampSendDialogResponse(3050, 1, 20, nil)
+			wait(delay_skupka)
+			sampSendDialogResponse(3050, 1, 20, nil)
+			sampSendDialogResponse(3050, 1, 20, nil)
+			sampSendDialogResponse(3050, 1, 20, nil)
+			sampSendDialogResponse(3050, 1, 20, nil)
+			sampSendDialogResponse(3050, 1, 20, nil)
+			wait(delay_skupka)
+			sampSendDialogResponse(3050, 1, 20, nil)
+			sampSendDialogResponse(3050, 1, 20, nil)
+			sampSendDialogResponse(3050, 1, 20, nil)
+			sampSendDialogResponse(3050, 1, 20, nil)
+			sampSendDialogResponse(3050, 1, 20, nil)
+			wait(delay_skupka)
+			sampSendDialogResponse(3050, 1, 20, nil)
+			sampSendDialogResponse(3050, 1, 20, nil)
+			sampSendDialogResponse(3050, 1, 20, nil)
+			sampSendDialogResponse(3050, 1, 20, nil)
+			sampSendDialogResponse(3050, 1, 20, nil)
+			wait(delay_skupka)
+			sampSendDialogResponse(3050, 1, 20, nil)
+			sampSendDialogResponse(3050, 1, 20, nil)
+			sampSendDialogResponse(3050, 1, 20, nil)
+			sampSendDialogResponse(3050, 1, 20, nil)
+			sampSendDialogResponse(3050, 1, 5, nil)
+			wait(delay_skupka)
+			sampSendDialogResponse(3060, 1, 0, elements.lavka.box_nostalg.v..' '..elements.lavka.box_nostalg_price.v)
+		end
+		wait(delay_skupka)
 		if elements.lavka.band_respect.v ~= 0 then
 			sampSendDialogResponse(3040, 1, nil, nil)
 			sampSendDialogResponse(3050, 1, 19, nil)
@@ -5501,7 +5566,7 @@ function skupka()
 			sampSendDialogResponse(3050, 1, 20, nil)
 			wait(delay_skupka)
 			sampSendDialogResponse(3050, 1, 20, nil)
-			sampSendDialogResponse(3050, 1, 15, nil)
+			sampSendDialogResponse(3050, 1, 16, nil)
 			sampSendDialogResponse(3060, 1, 0, elements.lavka.band_respect.v..' '..elements.lavka.band_respect_price.v)
 		end
 		wait(delay_skupka)
@@ -5538,7 +5603,7 @@ function skupka()
 			wait(delay_skupka)
 			sampSendDialogResponse(3050, 1, 20, nil)
 			sampSendDialogResponse(3050, 1, 20, nil)
-			sampSendDialogResponse(3050, 1, 0, nil)
+			sampSendDialogResponse(3050, 1, 1, nil)
 			sampSendDialogResponse(3060, 1, 0, elements.lavka.larec_premium.v..' '..elements.lavka.larec_premium_price.v)
 		end
 		sampAddChatMessage('['..thisScript().name..' '..thisScript().version..'{FFFFFF}] Скрипт закончил выставлять товары на покупку.', 0xFFFFFF)
@@ -5829,7 +5894,7 @@ function sampev.onShowDialog(dialogId, style, title, button1, button2, text)
 			elements.autoopenroul.open_roul_silver.v = false
 			elements.autoopenroul.open_roul_gold.v = false
 			elements.autoopenroul.open_roul_platina.v = false
-			elements.autoopenroul.open_roul_krytim = true
+			elements.autoopenroul.open_roul_active = true
 			sampSendDialogResponse(dialogId, 0, nil, nil)
 			sampAddChatMessage('['..thisScript().name..' '..thisScript().version..'{FFFFFF}] Рулетки закончились. Авто-открытие выключено.', 0xFFFFFF)
 			return false
@@ -6080,10 +6145,12 @@ function sampev.onSetPlayerAttachedObject(playerId, index, create, object)
 			[1128] = "Маска для сварки",
 			[1133] = "Меч с модификации Djey",
 			[1177] = "Реактивный ранец",
+			[1220] = "Коробка в руку",
 			[1228] = "Карамельный посох",
 			[1238] = "Конус на голову (не нужно)",
 			[1240] = "Сердца",
 			[1247] = "Звезда с модификации Тыква",
+			[1265] = "Мешок с мусором в руку",
 			[1319] = "Жезл ГАИ",
 			[1332] = "Сумка доставщика",
 			[1550] = "Мешок денег на спину",
@@ -6126,6 +6193,7 @@ function sampev.onSetPlayerAttachedObject(playerId, index, create, object)
 			[3100] = "Шарик с модификации Соник",
 			[3272] = "Паук на спину",
 			[3383] = "Усы таракана",
+			[3440] = "Очки переливающиеся",
 			[3632] = "Бочка в руку",
 			[3785] = "Светящийся рюкзак",
 			[6865] = "Маска с рогами",
@@ -6135,6 +6203,7 @@ function sampev.onSetPlayerAttachedObject(playerId, index, create, object)
 			[8644] = "Два кинжала на спину",
 			[10281] = "Машина из стены",
 			[10757] = "Самолёт за спиной",
+			[11700] = "Знак (Радиации)",
 			[11705] = "Оружейный кейс",
 			[11712] = "Крест на грудь и Распятие",
 			[11722] = "Херня на голове с модификации",
