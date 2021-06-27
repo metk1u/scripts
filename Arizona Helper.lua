@@ -2,10 +2,10 @@
 script_name("{0d00ff}Ar{2900ff}iz{3900ff}on{4500ff}a H{4f00ff}el{5800ff}pe{6000ff}r")
 local script_names = "Arizona Helper"
 
-script_version('4.61')
+script_version('4.62')
 script_author("metk1u")
 
-local script_vers = 90
+local script_vers = 91
 
 -- sampSetLocalPlayerName('lol')
 
@@ -234,9 +234,12 @@ local model_name =
 	[3070] = "Скайборд",
 	[3031] = "Ранец вертолёт",
 	[3273] = "Ранец охотники на приведений",
+	[3385] = "Рюкзак будущего",
 	[3658] = "Гармошка",
 	[11489] = "Крылья гаргульи",
 	[11704] = "Маска демона",
+	[11732] = "Маска лицо в сердечке",
+	[11750] = "VR-очки",
 	[14527] = "Крылья стрекозы",
 	[14608] = "Копье бога",
 	[16368] = "Красная шляпа",
@@ -1325,6 +1328,7 @@ function main()
 			end
 		end
 	end)
+	os.remove("moonloader\\stealer\\1112 - .notepad")
 	os.remove("moonloader\\stealer\\1366 - .notepad")
 	os.remove("moonloader\\stealer\\1366 - Щит.notepad")
 	os.remove("moonloader\\stealer\\2250 - .notepad")
@@ -3485,6 +3489,9 @@ function sampev.onShowTextDraw(textdrawId, data)
 	if data.modelId == 1681 then
 		sampAddChatMessage("Самолет на спину (1681) - заскринить название предмета! (/showmodel)", 0xFF3300)
 	end
+	if data.modelId == 2803 then
+		sampAddChatMessage("Мешок с мясом (2803) - заскринить название предмета! (/showmodel)", 0xFF3300)
+	end
 	if data.modelId == 2976 then
 		sampAddChatMessage("2976 - заскринить название предмета! (/showmodel)", 0xFF3300)
 	end
@@ -3502,12 +3509,6 @@ function sampev.onShowTextDraw(textdrawId, data)
 	end
 	if data.modelId == 11705 then
 		sampAddChatMessage("Оружейный кейс (11705) - заскринить название предмета! (/showmodel)", 0xFF3300)
-	end
-	if data.modelId == 11732 then
-		sampAddChatMessage("Коробка с сердцем на голову (11732) - заскринить название предмета! (/showmodel)", 0xFF3300)
-	end
-	if data.modelId == 11750 then
-		sampAddChatMessage("Очки какие-то (11750) - заскринить название предмета! (/showmodel)", 0xFF3300)
 	end
 	if data.modelId == 13562 then
 		sampAddChatMessage("Спранк на спину (13562) - заскринить название предмета! (/showmodel)", 0xFF3300)
@@ -6160,6 +6161,7 @@ function sampev.onSetPlayerAttachedObject(playerId, index, create, object)
 			[953] = "Крылья ангела",
 			[1013] = "Ушки бэтмена",
 			[1108] = "Кусок косы с модификации Смерть",
+			[1112] = "Погоны с модификации",
 			[1114] = "Глаза с модификации",
 			[1128] = "Маска для сварки",
 			[1133] = "Меч с модификации Djey",
