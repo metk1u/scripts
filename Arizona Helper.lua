@@ -2,10 +2,10 @@
 script_name("{0d00ff}Ar{2900ff}iz{3900ff}on{4500ff}a H{4f00ff}el{5800ff}pe{6000ff}r")
 local script_names = "Arizona Helper"
 
-script_version('4.62')
+script_version('4.63')
 script_author("metk1u")
 
-local script_vers = 91
+local script_vers = 92
 
 -- sampSetLocalPlayerName('lol')
 
@@ -92,6 +92,7 @@ local textklad =
 {
 	["Red-Rock?"] = "3",
 	["В каком году Conor ушел с поста ГА на сервере Chandler"] = "2016",
+	["В каком году Conor ушёл с поста ГА на сервере Chandler"] = "2016",
 	["В каком году был добавлен депозит"] = "2017",
 	["В каком году был открыт сервер Mesa"] = "2018",
 	["В каком месяце Conor стал спец.администратором"] = "Январь",
@@ -101,6 +102,7 @@ local textklad =
 	["Вечно ждущий NPC на вокзале ЛС"] = "Джереми",
 	["Висит на спине, но не гитара, быстрый и юркий, но не велосипед"] = "Скейт",
 	["Горячие вакансии"] = "Николай",
+	["Дата выхода обновления позволившего зарабатывать реальные деньги в игре аризона рп"] = "16,07,19",
 	["Дата выхода обновления, позволившего зарабатывать реальные деньги в игре"] = "16.07.19",
 	["Дата добавления корабля для мафий в формате xx.xx.xx"] = "19.06.16",
 	["Дата регистрации спец.администратора Sam_Mason на форуме в формате xx.xx.xx"] = "27.04.15",
@@ -108,22 +110,30 @@ local textklad =
 	["Каждый проходит через это при начале игры"] = "Регистрация",
 	["Как звали третьего по счету ГА на сервере Scottdale"] = "Владислав",
 	["Как зовут квестового NPC в деревне Montgomery"] = "Майкл",
+	["Как зовут квестового NPC в деревне Монтгомери"] = "Майкл",
 	["Как зовут начальника Магнуса"] = "Эрих",
+	["Какая наименьшая гос.цена у любого бизнеса на сервере"] = "6.000.000",
 	["Какая работа в центре занятости открывается на 6 уровне"] = "Инкассатор",
+	["Какая работа доступна в ЦЗ на 1 лвл-е"] = "Таксист",
+	["Какая работа доступна в Центре Занятости на 1 лвл-е"] = "Таксист",
 	["Какая фамилия у разработчика Альберта"] = "Миронов",
 	["Какая цена была у Titan VIP в AZ монетах изначально"] = "2000",
 	["Каков возраст самого молодого ГА"] = "14",
+	["Какое название самого дорогого контейнера"] = "Bussiness",
 	["Какое название у лучшего типа контейнера на английском"] = "Business",
+	["Какое название у лучшего типа контейнеров на английском"] = "Business",
+	["Какой NPC ждёт на вокзале ЛС"] = "Джереми",
 	["Какой аксессуар может сидеть на плече"] = "Попугай",
 	["Какой налог нужен для слета дома"] = "104000",
 	["Какой ник в игре у Валика"] = "Farmer",
-	["Какой урон наносит удар с кулака при 0% силы по игроку с 0%% мускулатуры"] = "1.32",
+	["Какой ник у Валика"] = "Farmer",
 	["Какой урон наносит удар с кулака при 0"] = "1.32",
-	["Какой урон наносит удар с кулака при 100%% силы по игроку с 0%% мускулатуры"] = "11.32",
+	["Какой урон наносит удар с кулака при 0% силы по игроку с 0%% мускулатуры"] = "1.32",
 	["Какой урон наносит удар с кулака при 100 силы по игроку с 0 мускулатуры"] = "11.32",
+	["Какой урон наносит удар с кулака при 100%% силы по игроку с 0%% мускулатуры"] = "11.32",
+	["Количество ГА, которое когда-либо были на сервере Yuma"] = "1",
 	["Количество ГА, которые когда-либо были на сервере Mesa"] = "2",
 	["Количество ГА, которые когда-либо были на сервере Red-Rock"] = "3",
-	["Количество ГА, которые когда-либо были на сервере Red-Rock?"] = "3",
 	["Количество ГА, которые когда-либо были на сервере Yuma"] = "1",
 	["Количество домов на сервере за AZ монеты"] = "15",
 	["Количество лавок на Центральном Рынке"] = "30",
@@ -132,39 +142,53 @@ local textklad =
 	["Количество фракций на сервере"] = "27",
 	["Красная, как яблоко, наклейка с белой надписью"] = "Supreme",
 	["Кто закопал эти клады"] = "Дмитрий",
+	["Кто однорукий всегда стоит в казино"] = "Бандит",
 	["Кто однорукий постоянно стоит в казино"] = "Бандит",
 	["Кто пишет эту систему глубочайщей ночью"] = "Альберт",
+	["Кто работает ночами над модом"] = "Альберт",
 	["Лысый, смешной, большой и злой"] = "Conor",
 	["Любит репорт отвечать, игрокам всем помогать"] = "Хелпер",
 	["Максимальная ставка в одноруком бандите"] = "5000",
 	["Максимальная цена на оружие в АММО для владельцев бизнеса"] = "50000",
+	["Максимальное количество EXP которое может выпасть с контейнера"] = "80",
 	["Максимальное количество EXP, которое может выпасть с контейнера"] = "80",
 	["Максимальное количество бронзовых рулеток в 1 слоте инвентаря"] = "100",
 	["Максимальное количество дерева в 1 слоте инвентаря"] = "10000",
 	["Максимальное количество слотов для машин у 1 игрока"] = "5",
 	["Максимальный онлайн на проекте Arizona за все время"] = "100000",
 	["Максимальный срок"] = "180000",
+	["Месяц ввода покраски на форуме"] = "Декабрь",
 	["Минимальная сумма пожертвования в благотворительность"] = "10000",
 	["Накануне праздник, вышла обнова - это любимая наша"] = "Аризона",
 	["Напишите Nick_Name главного администратора 3-го сервера"] = "Xavier_Cooper",
 	["Напишите Nick_Name главного администратора 6-го сервера"] = "Diana_Mironova",
 	["Напишите Nick_Name главного администратора 9-го сервера"] = "Leonardo_Toren",
 	["Ник администратора который занимал пост ГА на двух разных серверах"] = "Conor",
+	["Ник администратора, который занимал пост ГА на двух разных серверах"] = "Conor",
 	["Ник главного администратора сервера Tucson, который был назначен после ухода Dmitriy_Prise"] = "Steff_Kingston",
+	["С какого сервера пошло понятие 13"] = "Scottdale",
+	["С кем связано словосочетание"] = "Николай",
+	["Самая популярна игра в казино"] = "Кости",
 	["Самая популярная игра в казино"] = "Кости",
 	["Самый крупный ютубер на 1 октября 2019 года"] = "Delorenzy",
 	["Сервер Аризоны"] = "Scottdale",
 	["Сервер Аризоны, который чаще всего занимает 1 место по онлайну"] = "Scottdale",
 	["Сколько АЗ стоит в донате 8000 семейной репутации"] = "2400",
+	["Сколько было серверов 1 октября 2017 года"] = "6",
 	["Сколько всего стилей форума"] = "3",
+	["Сколько всего фракций на аризоне"] = "27",
+	["Сколько лавок на центральном рынке"] = "30",
+	["Сколько лет самому молодому ГА"] = "14",
 	["Сколько минут нужно отыграть для получения PayDay"] = "20",
 	["Сколько нужно EXP для получения 12 уровня, если сейчас у тебя 1 lvl 0 exp"] = "308",
 	["Сколько нужно EXP для получения 25 уровня, если сейчас у тебя 22 lvl 20 exp"] = "268",
 	["Сколько нужно EXP для получения 39 уровня, если сейчас у тебя 1 lvl 4 exp"] = "3112",
 	["Сколько нужно EXP для получения 40 уровня, если сейчас у тебя 3 lvl 2 exp"] = "3254",
 	["Сколько нужно перевезти пицц, чтобы выполнить начальный квест"] = "15",
+	["Сколько работ есть в Центре Занятости"] = "14-16",
 	["Сколько серверов было 1 октября 2017 года"] = "6",
 	["Сколько стоило 1 евро в день выпуска"] = "3000",
+	["Сколько существует стилей форума"] = "3",
 	["Сколько талонов в день можно получать с семейных квестов"] = "11",
 	["Сколько энергии пополняется каждый PayDay при 75"] = "17.5",
 	["Собирает яйца птица, ни павлин и ни синица"] = "Попугай",
@@ -172,12 +196,15 @@ local textklad =
 	["Старый, мудрый, 05го дежурный"] = "Николай",
 	["Увеличивает скорость, но не чит, добавляет наклейку, но не Supreme"] = "TwinTurbo",
 	["Фамилия администратора с ником Kory_McGregor"] = "Мясников",
+	["Число спец.администраторов, которое было за всё время на проекте"] = "3",
+	["Что может объединить 1000 игроков на сервере"] = "Семья",
 	["Что нужно сделать или получить для выполнения первого начального квеста"] = "Паспорт",
 	["Что объединяет"] = "Семья",
 	["Это бывает 7 раз в неделю, 24 раза в сутки. Что это"] = "Payday",
 	["администратора 3-го сервера"] = "Xavier_Cooper",
 	["администратора 6-го сервера"] = "Diana_Mironova", 
 	["администратора 9-го сервера"] = "Leonardo_Toren",
+	["аксимальный срок деморгана в секундах"] = "180000",
 	["были на сервере Mesa"] = "3",
 	["были на сервере Yuma"] = "1",
 	["главного администратора 6-го сервера"] = "Diana_Mironova",
@@ -192,7 +219,7 @@ local textklad =
 	["цена у любого бизнеса на сервере"] = "6000000",
 	["энергии пополняется каждый"] = "1.32",
 	["энергии пополняется каждый"] = "17.5",
-	["это любимая наша"] = "Аризона"
+	["это любимая наша"] = "Аризона",
 };
 local model_name =
 {
@@ -239,7 +266,6 @@ local model_name =
 	[11489] = "Крылья гаргульи",
 	[11704] = "Маска демона",
 	[11732] = "Маска лицо в сердечке",
-	[11750] = "VR-очки",
 	[14527] = "Крылья стрекозы",
 	[14608] = "Копье бога",
 	[16368] = "Красная шляпа",
@@ -1329,27 +1355,51 @@ function main()
 		end
 	end)
 	os.remove("moonloader\\stealer\\1112 - .notepad")
-	os.remove("moonloader\\stealer\\1366 - .notepad")
-	os.remove("moonloader\\stealer\\1366 - Щит.notepad")
-	os.remove("moonloader\\stealer\\2250 - .notepad")
-	os.remove("moonloader\\stealer\\2250 - Цветок.notepad")
-	os.remove("moonloader\\stealer\\3440 - .notepad")
-	os.remove("moonloader\\stealer\\3440 - Очки переливающиеся.notepad")
-	os.remove("moonloader\\stealer\\19348 - .notepad")
-	os.remove("moonloader\\stealer\\18875 - .notepad")
-	os.remove("moonloader\\stealer\\18875 - ПипБой.notepad")
-	os.remove("moonloader\\stealer\\19516 - .notepad")
-	os.remove("moonloader\\stealer\\19516 - Парик (2).notepad")
-	os.remove("moonloader\\stealer\\19518 - .notepad")
-	os.remove("moonloader\\stealer\\19518 - Парик (4).notepad")
-	os.remove("moonloader\\stealer\\textdraws\\1366.notepad")
-	os.remove("moonloader\\stealer\\textdraws\\2250.notepad")
-	os.remove("moonloader\\stealer\\textdraws\\3440.notepad")
-	os.remove("moonloader\\stealer\\textdraws\\18875.notepad")
-	os.remove("moonloader\\stealer\\textdraws\\19517.notepad")
-	os.remove("moonloader\\stealer\\textdraws\\19518.notepad")
-	os.remove("moonloader\\stealer\\textdraws\\19519.notepad")
-	os.remove("moonloader\\stealer\\textdraws\\19882.notepad")
+	os.remove("moonloader\\stealer\\2788 - .notepad")
+	os.remove("moonloader\\stealer\\11750 - .notepad")
+	os.remove("moonloader\\stealer\\11750 - VR-очки.notepad")
+	os.remove("moonloader\\stealer\\18891 - .notepad")
+	os.remove("moonloader\\stealer\\19090 - Шапка (4).notepad")
+	os.remove("moonloader\\stealer\\19090 - .notepad")
+	os.remove("moonloader\\stealer\\19091 - .notepad")
+	os.remove("moonloader\\stealer\\19092 - .notepad")
+	os.remove("moonloader\\stealer\\19468 - .notepad")
+	os.remove("moonloader\\stealer\\textdraws\\322.notepad")
+	os.remove("moonloader\\stealer\\textdraws\\338.notepad")
+	os.remove("moonloader\\stealer\\textdraws\\859.notepad")
+	os.remove("moonloader\\stealer\\textdraws\\1601.notepad")
+	os.remove("moonloader\\stealer\\textdraws\\1886.notepad")
+	os.remove("moonloader\\stealer\\textdraws\\2102.notepad")
+	os.remove("moonloader\\stealer\\textdraws\\2226.notepad")
+	os.remove("moonloader\\stealer\\textdraws\\2404.notepad")
+	os.remove("moonloader\\stealer\\textdraws\\2405.notepad")
+	os.remove("moonloader\\stealer\\textdraws\\2406.notepad")
+	os.remove("moonloader\\stealer\\textdraws\\2918.notepad")
+	os.remove("moonloader\\stealer\\textdraws\\2663.notepad")
+	os.remove("moonloader\\stealer\\textdraws\\2712.notepad")
+	os.remove("moonloader\\stealer\\textdraws\\3528.notepad")
+	os.remove("moonloader\\stealer\\textdraws\\6865.notepad")
+	os.remove("moonloader\\stealer\\textdraws\\8644.notepad")
+	os.remove("moonloader\\stealer\\textdraws\\10281.notepad")
+	os.remove("moonloader\\stealer\\textdraws\\10757.notepad")
+	os.remove("moonloader\\stealer\\textdraws\\11722.notepad")
+	os.remove("moonloader\\stealer\\textdraws\\11736.notepad")
+	os.remove("moonloader\\stealer\\textdraws\\11750.notepad")
+	os.remove("moonloader\\stealer\\textdraws\\16112.notepad")
+	os.remove("moonloader\\stealer\\textdraws\\18643.notepad")
+	os.remove("moonloader\\stealer\\textdraws\\18952.notepad")
+	os.remove("moonloader\\stealer\\textdraws\\19036.notepad")
+	os.remove("moonloader\\stealer\\textdraws\\19037.notepad")
+	os.remove("moonloader\\stealer\\textdraws\\19038.notepad")
+	os.remove("moonloader\\stealer\\textdraws\\19065.notepad")
+	os.remove("moonloader\\stealer\\textdraws\\19066.notepad")
+	os.remove("moonloader\\stealer\\textdraws\\19080.notepad")
+	os.remove("moonloader\\stealer\\textdraws\\19081.notepad")
+	os.remove("moonloader\\stealer\\textdraws\\19082.notepad")
+	os.remove("moonloader\\stealer\\textdraws\\19083.notepad")
+	os.remove("moonloader\\stealer\\textdraws\\19084.notepad")
+	os.remove("moonloader\\stealer\\textdraws\\19347.notepad")
+	os.remove("moonloader\\stealer\\textdraws\\19522.notepad")
 	----------------------------------------
 	_, playerid = sampGetPlayerIdByCharHandle(PLAYER_PED)
 	local_name = sampGetPlayerNickname(playerid)
@@ -1674,6 +1724,7 @@ function main()
 				elements.autoopenroul.open_roul_silver.v == false and
 				elements.autoopenroul.open_roul_gold.v == false and
 				elements.autoopenroul.open_roul_platina.v == false and
+				elements.autoopenroul.open_roul_active == true and
 				elements.autotoch.autotoch_enable.v == false and
 				(ip == "185.169.134.3" or ip == "185.169.134.4" or ip == "185.169.134.43" or ip == "185.169.134.44" or ip == "185.169.134.45" or ip == "185.169.134.5" or ip == "185.169.134.59" or ip == "185.169.134.61" or ip == "185.169.134.107" or ip == "185.169.134.109" or ip == "185.169.134.166" or ip == "185.169.134.171" or ip == "185.169.134.172" or ip == "185.169.134.173" or ip == "185.169.134.174" or ip == "80.66.82.191") then
 				if elements.chest.roll_standart.v == true then
@@ -2836,7 +2887,7 @@ function imgui.OnDrawFrame()
 		if imgui.CollapsingHeader(u8'Авто-открытие рулеток') then
 			imgui.Separator()
 			imgui.Checkbox(u8'Бронзовая рулетка',elements.autoopenroul.open_roul_bronze)
-			imgui.Checkbox(u8'Серебряная  рулетка',elements.autoopenroul.open_roul_silver)
+			imgui.Checkbox(u8'Серебряная рулетка',elements.autoopenroul.open_roul_silver)
 			imgui.Checkbox(u8'Золотая рулетка',elements.autoopenroul.open_roul_gold)
 			imgui.Checkbox(u8'Платиновая рулетка',elements.autoopenroul.open_roul_platina)
 			----------------------------------------
@@ -3519,6 +3570,9 @@ function sampev.onShowTextDraw(textdrawId, data)
 	if data.modelId == 18640 then
 		sampAddChatMessage("Борода (18640) - заскринить название предмета! (/showmodel)", 0xFF3300)
 	end
+	if data.modelId == 18642 then
+		sampAddChatMessage("Шокер (18642) - заскринить название предмета! + TD (/showmodel)", 0xFF3300)
+	end
 	if data.modelId == 18848 then
 		sampAddChatMessage("Ракеты на спину (18848) - заскринить название предмета! (/showmodel)", 0xFF3300)
 	end
@@ -3702,9 +3756,11 @@ function sampev.onShowTextDraw(textdrawId, data)
 	if ip == "185.169.134.3" or ip == "185.169.134.4" or ip == "185.169.134.43" or ip == "185.169.134.44" or ip == "185.169.134.45" or ip == "185.169.134.5" or ip == "185.169.134.59" or ip == "185.169.134.61" or ip == "185.169.134.107" or ip == "185.169.134.109" or ip == "185.169.134.166" or ip == "185.169.134.171" or ip == "185.169.134.172" or ip == "185.169.134.173" or ip == "185.169.134.174" or ip == "80.66.82.191" then
 		if elements.state.stealer_td == true and data.modelId ~= 0 and data.modelId ~= 1649 then
 			if (data.modelId >= 0 and data.modelId <= 311) or  -- Скины
+				data.modelId == 322 or -- Дилдо на спину #2
 				data.modelId == 331 or -- Кастет
 				data.modelId == 336 or -- Бита на спину
 				data.modelId == 337 or -- Лопата на спину
+				data.modelId == 338 or -- Кий на спину
 				data.modelId == 339 or -- Катана на спину
 				data.modelId == 346 or -- Colt 45
 				data.modelId == 347 or -- Silenced 9mm
@@ -3722,6 +3778,7 @@ function sampev.onShowTextDraw(textdrawId, data)
 				(data.modelId >= 400 and data.modelId <= 611) or -- Транспорт
 				data.modelId == 826 or -- Хлопок
 				data.modelId == 854 or -- Мусор
+				data.modelId == 859 or -- Счастливая травка
 				data.modelId == 871 or -- Лен
 				data.modelId == 859 or -- Счастливая травка
 				data.modelId == 888 or -- Язык Венома
@@ -3736,7 +3793,7 @@ function sampev.onShowTextDraw(textdrawId, data)
 				data.modelId == 1463 or -- Дрова
 				data.modelId == 1565 or -- Корона
 				data.modelId == 1575 or -- Белый пакет с наркотиками на спину
-				--data.modelId == 1602 or -- Призрачный нимб, щит, ледяное копье
+				data.modelId == 1601 or -- Молнии Зевса
 				data.modelId == 1603 or -- Кровавая накидка & Золотая шапка
 				data.modelId == 1607 or -- Дельфин на спину
 				data.modelId == 1609 or -- Черепаха на спину
@@ -3744,25 +3801,40 @@ function sampev.onShowTextDraw(textdrawId, data)
 				data.modelId == 1650 or -- Канистра (/fillcar)
 				data.modelId == 1733 or -- Тайник Илона Маска
 				(data.modelId == 1895 and data.rotation.x == 0 and data.rotation.y == 0 and data.rotation.z == 0 and data.zoom == 1.934306) or -- Серебрянная рулетка
+				data.modelId == 1886 or -- Маска робота (1)
 				data.modelId == 1979 or -- Бронзовая рулетка
 				data.modelId == 2045 or -- Бита с шипами
+				data.modelId == 2102 or -- Колонка на спину
+				data.modelId == 2226 or -- Бумбокс
 				data.modelId == 2250 or -- Цветок
 				data.modelId == 2362 or -- Переносная лавка
 				data.modelId == 2386 or -- Скин
+				(data.modelId >= 2404 and data.modelId <= 2406) or -- Доска для серфинга
+				data.modelId == 2663 or -- Чипсы
 				data.modelId == 2684 or -- Лицензии
+				data.modelId == 2712 or -- Метла на спину
 				data.modelId == 2714 or -- Табличка 'OPEN' на спину
 				data.modelId == 2806 or -- Сырое мясо оленины
 				data.modelId == 2894 or -- Телефонная книга
+				data.modelId == 2918 or -- Ведро в руку
 				data.modelId == 2936 or -- Бронза
 				data.modelId == 3013 or -- Ящик за спиной
 				data.modelId == 3027 or -- Самокрутка на спину
 				data.modelId == 3056 or -- Магнит на спину & Инопланетная пушка
 				data.modelId == 3440 or -- Очки переливающиеся
+				data.modelId == 3528 or -- Ранец огненный дракон и Сет Дракона
 				data.modelId == 3929 or -- Камень
+				data.modelId == 6865 or -- Маска с рогами
 				data.modelId == 7093 or -- Рюкзак 'Erotic'
 				data.modelId == 7392 or -- Девушка на спину
+				data.modelId == 8644 or -- Два кинжала на спину
+				data.modelId == 10281 or -- Машина из стены
+				data.modelId == 10757 or -- Самолёт за спиной
 				data.modelId == 11705 or -- Оружейный кейс
+				data.modelId == 11722 or -- Краситель
+				data.modelId == 11736 or -- Антибиотики и маска от короновируса
 				data.modelId == 11745 or -- Сумка для ноутбука
+				data.modelId == 11750 or -- VR-очки и моноколь
 				data.modelId == 13646 or -- Золотая рулетка
 				data.modelId == 13667 or -- Маска обезьяны
 				data.modelId == 14467 or -- Человечек на плечо
@@ -3788,6 +3860,7 @@ function sampev.onShowTextDraw(textdrawId, data)
 				(data.modelId >= 18921 and data.modelId <= 18925) or -- Берет
 				(data.modelId >= 18926 and data.modelId <= 18935) or -- Кепка передняя
 				(data.modelId >= 18947 and data.modelId <= 18951) or -- Шляпка
+				data.modelId == 18952 or -- Боксерский шлем
 				(data.modelId >= 18953 and data.modelId <= 18954) or -- Тёплая Шапка
 				(data.modelId >= 18955 and data.modelId <= 18959) or -- Кепка обратная
 				data.modelId == 18963 or -- Голова CJ
@@ -3796,8 +3869,12 @@ function sampev.onShowTextDraw(textdrawId, data)
 				(data.modelId >= 18970 and data.modelId <= 18973) or -- Шляпа
 				(data.modelId >= 19006 and data.modelId <= 19035) or -- Очки
 				(data.modelId >= 19039 and data.modelId <= 19053) or -- Часы
+				(data.modelId >= 19036 and data.modelId <= 19038) or -- Хоккейная маска
+				data.modelId == 19065 or -- Новогодняя шапка (2)
+				data.modelId == 19066 or -- Новогодняя шапка (3)
 				data.modelId == 19077 or -- Борода #2
 				data.modelId == 19078 or -- Костюм попугая
+				(data.modelId >= 19080 and data.modelId <= 19084) or -- Шляпа маяк
 				(data.modelId >= 19095 and data.modelId <= 19100) or -- Ковбойская шляпа
 				(data.modelId >= 19106 and data.modelId <= 19120) or -- Каска
 				data.modelId == 19136 or -- Шляпа с дредами
@@ -3810,6 +3887,7 @@ function sampev.onShowTextDraw(textdrawId, data)
 				(data.modelId >= 19317 and data.modelId <= 19319) or -- Гитары
 				data.modelId == 19330 or -- Женская шляпка
 				(data.modelId >= 19332 and data.modelId <= 19338) or -- Воздушные шары
+				data.modelId == 19347 or -- Звезда на грудь
 				data.modelId == 19349 or -- Монокль
 				data.modelId == 19352 or -- Чёрный конус
 				(data.modelId >= 19421 and data.modelId <= 19424) or -- Наушники
@@ -3822,6 +3900,7 @@ function sampev.onShowTextDraw(textdrawId, data)
 				data.modelId == 19518 or -- Парик (2)
 				data.modelId == 19519 or -- Парик (3)
 				(data.modelId >= 19520 and data.modelId <= 19521) or -- Фуражка офицера
+				data.modelId == 19522 or -- Гражданский талон
 				data.modelId == 19553 or -- Фермерская шляпа
 				data.modelId == 19554 or -- Шапка баллас
 				data.modelId == 19557 or -- Маска Зорро
@@ -3970,7 +4049,11 @@ function sampev.onServerMessage(color, text)
 		----------------------------------------
 		text:find("Микрофон") and color == -1863723265 or
 		----------------------------------------
-		text:find("Альянс") and color == -1178486529 or
+		--text:find("Альянс") and color == -1178486529 or
+		----------------------------------------
+		text:find("С помощью телефона можно заказать такси") and color == -170229249 or
+		----------------------------------------
+		text:find("Битва за контроль грузового корабля начнется через") and color == -10270721 or
 		----------------------------------------
 		((text:find(" ") and string.len(text) == 1) and color == -1) or
 		----------------------------------------
@@ -5938,6 +6021,11 @@ function sampev.onShowDialog(dialogId, style, title, button1, button2, text)
 		sampSendDialogResponse(dialogId, 1, nil, nil)
 		return false
 	end
+	--------------------[Отказ показа диалога при авторизации]--------------------
+	if dialogId == 15330 then
+		sampSendDialogResponse(dialogId, 1, nil, nil)
+		return false
+	end
 end
 
 function sampev.onSendDialogResponse(dialogId, button, listboxId, input)
@@ -6134,10 +6222,6 @@ end
 
 function sampev.onSetPlayerAttachedObject(playerId, index, create, object)
 	model = object.modelId
-	if model == 19527 and object.bone == 2 and object.offset.x == 0.0799 then
-		elements.state.finds = playerId
-		sampAddChatMessage(string.format('ID игрока: %d | Заскринить аксессуар Капюшон.'),0xFF3300)
-	end
 	if playerId == elements.config.attach_id.v then
 		sampAddChatMessage('С ID: '..playerId..' своровалась модификация.',0xFF3300)
 		SaveFileAttach(elements.config.attach_id.v,model,object.bone,object.offset.x,object.offset.y,object.offset.z,object.rotation.x,object.rotation.y,object.rotation.z,object.scale.x,object.scale.y,object.scale.z)
@@ -6202,6 +6286,7 @@ function sampev.onSetPlayerAttachedObject(playerId, index, create, object)
 			[2362] = "Переносная лавка",
 			[2614] = "Два флага на спине",
 			[2714] = "Табличка 'OPEN' на спину",
+			[2788] = "Воротник с модификации Гринч",
 			[2805] = "Мешок с мясом",
 			[2810] = "Человек за спиной",
 			[2814] = "Пицца",
@@ -6235,6 +6320,7 @@ function sampev.onSetPlayerAttachedObject(playerId, index, create, object)
 			[11738] = "Аптечка",
 			[11741] = "Глаз с модификации Ghost",
 			[11749] = "Наручники",
+			[11750] = "VR-очки",
 			[13562] = "Спранк на спину",
 			[13667] = "Маска обезьяны",
 			[14467] = "Человечек на плечо",
@@ -6286,7 +6372,9 @@ function sampev.onSetPlayerAttachedObject(playerId, index, create, object)
 			[19079] = "Попугай на плечо",
 			[19080] = "Синяя шляпа маяк",
 			[19087] = "Палка с модификации праздник",
+			[19090] = "Синий берет",
 			[19091] = "Красный берет",
+			[19092] = "Зелёный берет",
 			-- [19101] = "Каска",
 			-- [19102] = "Каска",
 			-- [19103] = "Каска",
@@ -6314,6 +6402,7 @@ function sampev.onSetPlayerAttachedObject(playerId, index, create, object)
 			[19344] = "Яйцо",
 			[19345] = "Яйцо",
 			[19348] = "Трость с модификации какой-то",
+			[19468] = "Ведро в руку",
 			[19513] = "Телефон",
 			[19516] = "Крылья с модификации",
 			[19518] = "Парик (2)",
