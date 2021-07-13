@@ -2,10 +2,10 @@
 script_name("{0d00ff}Ar{2900ff}iz{3900ff}on{4500ff}a H{4f00ff}el{5800ff}pe{6000ff}r")
 local script_names = "Arizona Helper"
 
-script_version('4.66')
+script_version('4.67')
 script_author("metk1u")
 
-local script_vers = 95
+local script_vers = 96
 
 -- sampSetLocalPlayerName('lol')
 
@@ -262,7 +262,6 @@ local model_name =
 	[3385] = "Рюкзак будущего",
 	[3658] = "Гармошка",
 	[8483] = "Маска череп",
-	[11489] = "Крылья гаргульи",
 	[11704] = "Маска демона",
 	[11732] = "Маска лицо в сердечке",
 	[11747] = "Палка с модификации",
@@ -314,8 +313,8 @@ local model_name =
 	[19346] = "Рюкзак хот-дог",
 	[19347] = "Звезда на грудь",
 	[19349] = "Монокль",
-	[19350] = "Усы (1)",
-	[19351] = "Усы (2)",
+	[19350] = "Усы (короткие)",
+	[19351] = "Усы (длинные)",
 	[19352] = "Чёрный конус",
 	[19421] = "Наушники",
 	[19469] = "Повязка на шею",
@@ -339,7 +338,6 @@ local model_name =
 	[19630] = "Рыба на спину",
 	[19631] = "Кирка на спину",
 	[19636] = "Ларек с фруктами",
-	[19773] = "Усы (короткие)",
 	[19793] = "Палка с модификации",
 	[19804] = "Замочек на грудь",
 	[19847] = "Копченая нога",
@@ -1353,27 +1351,34 @@ function main()
 		end
 	end)
 	os.remove("moonloader\\stealer\\324 - .notepad")
-	os.remove("moonloader\\stealer\\954 - .notepad")
-	os.remove("moonloader\\stealer\\1111 - .notepad")
-	os.remove("moonloader\\stealer\\1548 - .notepad")
-	os.remove("moonloader\\stealer\\1636 - .notepad")
-	os.remove("moonloader\\stealer\\1885 - .notepad")
-	os.remove("moonloader\\stealer\\2006 - .notepad")
-	os.remove("moonloader\\stealer\\19806 - .notepad")
-	os.remove("moonloader\\stealer\\19806 - Новогодний реактивный ранец.notepad")
-	os.remove("moonloader\\stealer\\19824 - .notepad")
-	os.remove("moonloader\\stealer\\19824 - Бита-бутылка на спину.notepad")
+	os.remove("moonloader\\stealer\\324 - Рюкзак мотор.notepad")
+	os.remove("moonloader\\stealer\\815 - .notepad")
+	os.remove("moonloader\\stealer\\1387 - .notepad")
+	os.remove("moonloader\\stealer\\1387 - Крюк пирата.notepad")
+	os.remove("moonloader\\stealer\\1570 - .notepad")
+	os.remove("moonloader\\stealer\\2186 - .notepad")
+	os.remove("moonloader\\stealer\\2186 - Техно рюкзак.notepad")
+	os.remove("moonloader\\stealer\\2988 - .notepad")
+	os.remove("moonloader\\stealer\\2988 - Сундук за спиной.notepad")
+	os.remove("moonloader\\stealer\\3801 - .notepad")
+	os.remove("moonloader\\stealer\\3801 - Длинный топор.notepad")
+	os.remove("moonloader\\stealer\\11489 - .notepad")
+	os.remove("moonloader\\stealer\\11489 - Крылья гаргульи.notepad")
 	os.remove("moonloader\\stealer\\textdraws\\324.notepad")
-	os.remove("moonloader\\stealer\\textdraws\\701.notepad")
-	os.remove("moonloader\\stealer\\textdraws\\841.notepad")
-	os.remove("moonloader\\stealer\\textdraws\\902.notepad")
-	os.remove("moonloader\\stealer\\textdraws\\954.notepad")
-	os.remove("moonloader\\stealer\\textdraws\\1548.notepad")
-	os.remove("moonloader\\stealer\\textdraws\\1885.notepad")
-	os.remove("moonloader\\stealer\\textdraws\\1956.notepad")
-	os.remove("moonloader\\stealer\\textdraws\\3053.notepad")
-	os.remove("moonloader\\stealer\\textdraws\\19806.notepad")
-	os.remove("moonloader\\stealer\\textdraws\\19824.notepad")
+	os.remove("moonloader\\stealer\\textdraws\\1212.notepad")
+	os.remove("moonloader\\stealer\\textdraws\\1387.notepad")
+	os.remove("moonloader\\stealer\\textdraws\\1570.notepad")
+	os.remove("moonloader\\stealer\\textdraws\\2456.notepad")
+	os.remove("moonloader\\stealer\\textdraws\\2587.notepad")
+	os.remove("moonloader\\stealer\\textdraws\\2693.notepad")
+	os.remove("moonloader\\stealer\\textdraws\\2719.notepad")
+	os.remove("moonloader\\stealer\\textdraws\\2722.notepad")
+	os.remove("moonloader\\stealer\\textdraws\\2953.notepad")
+	os.remove("moonloader\\stealer\\textdraws\\3801.notepad")
+	os.remove("moonloader\\stealer\\textdraws\\7302.notepad")
+	os.remove("moonloader\\stealer\\textdraws\\2988.notepad")
+	os.remove("moonloader\\stealer\\textdraws\\11700.notepad")
+	os.remove("moonloader\\stealer\\textdraws\\19773.notepad")
 	----------------------------------------
 	_, playerid = sampGetPlayerIdByCharHandle(PLAYER_PED)
 	local_name = sampGetPlayerNickname(playerid)
@@ -1670,9 +1675,11 @@ function main()
 			----------------------------------------
 			if elements.state.mechanic == true then
 				if elements.state.mechanic_count < 90 then
-					setVirtualKeyDown(18, true)
-					wait(130)
-					setVirtualKeyDown(18, false)
+					--setVirtualKeyDown(18, true)
+					setGameKeyState(21, 255)
+					--wait(130)
+					setGameKeyState(21, 0)
+					--setVirtualKeyDown(18, false)
 					elements.state.mechanic_count = elements.state.mechanic_count+1
 				else
 					elements.state.mechanic = not elements.state.mechanic
@@ -1683,10 +1690,13 @@ function main()
 			----------------------------------------
 			if elements.state.denis == true and not sampIsChatInputActive() then
 				--wait(100)
-				setVirtualKeyDown(18, true)
-				wait(20)
-				setVirtualKeyDown(18, false)
-				setVirtualKeyDown(13, false)
+				setGameKeyState(21, 255)
+				--setVirtualKeyDown(18, true)
+				wait(0)
+				setGameKeyState(21, 0)
+				--setVirtualKeyDown(18, false)
+				setGameKeyState(15, 255)
+				--setVirtualKeyDown(13, false)
 			end
 			--------------------[Авто-открытие сундуков]--------------------
 			if elements.chest.roll_state.v == true and
@@ -1735,7 +1745,7 @@ function main()
 		--------------------[Очистка памяти]--------------------
 		if memory.read(0x8E4CB4, 4, true) > 1048576*800 then -- 800 МБайт (500 МБайт - 524288000)
 			cleanStreamMemoryBuffer()
-			push_message('Произвелась очистка памяти!')
+			sampAddChatMessage('['..thisScript().name..'{FFFFFF}] Произвелась очистка памяти!', 0xFFFFFF)
 		end
 		--------------------[Реконнект]--------------------
 		if reconnect_timer >= os.time() then
@@ -2021,6 +2031,9 @@ function main()
 					renderDrawLine(PlayerX2, PlayerY2, x1, y1, 2, getColor(color))
 					renderFontDrawText(arial, playername..'['..elements.state.finds..'] ['..distance..' м.] '..afk, x1, y1, getColor(color))
 				end
+			else
+				elements.state.finds = 65535
+				push_message('Выключаю поиск игрока (disconnect).')
 			end
 		end
 		--------------------[Поиск оленей]--------------------
@@ -3496,11 +3509,11 @@ function sampev.onShowTextDraw(textdrawId, data)
 		autoloot_td[30] = data.text
 	end
 	--------------------[Прочее]--------------------
+	if data.modelId == 321 then
+		sampAddChatMessage(string.format("Дилдо на спину #1 (321) - TD! (%0.6f, %0.6f, %0.6f, %0.6f) (/showmodel)",data.rotation.x,data.rotation.y,data.rotation.z,data.zoom), 0xFF3300)
+	end
 	if data.modelId == 954 then
 		sampAddChatMessage("Лук (954) - заскринить название предмета! (/showmodel)", 0xFF3300) -- Лук купидона
-	end
-	if data.modelId == 1116 then
-		sampAddChatMessage("Маска решетка (1116) - своровать TD!", 0xFF3300)
 	end
 	if data.modelId == 1562 then
 		sampAddChatMessage("Кресло на спину (1562) - заскринить название предмета! (/showmodel)", 0xFF3300)
@@ -3517,8 +3530,8 @@ function sampev.onShowTextDraw(textdrawId, data)
 	if data.modelId == 3434 then
 		sampAddChatMessage("Черепа на спину (3434) - заскринить название предмета! (/showmodel)", 0xFF3300)
 	end
-	if data.modelId == 3801 then
-		sampAddChatMessage("Меч (3801) - заскринить название предмета! (/showmodel)", 0xFF3300)
+	if data.modelId == 11489 then
+		sampAddChatMessage(string.format("Крылья гаргульи (11489) - TD! (%0.6f, %0.6f, %0.6f, %0.6f) (/showmodel)",data.rotation.x,data.rotation.y,data.rotation.z,data.zoom), 0xFF3300)
 	end
 	if data.modelId == 11705 then
 		sampAddChatMessage("Оружейный кейс (11705) - заскринить название предмета! (/showmodel)", 0xFF3300)
@@ -3540,12 +3553,6 @@ function sampev.onShowTextDraw(textdrawId, data)
 	end
 	if data.modelId == 19137 then
 		sampAddChatMessage("Гребень (19137) - заскринить название предмета! (/showmodel)", 0xFF3300)
-	end
-	if data.modelId == 19350 then
-		sampAddChatMessage("Усы (1) (19350) - заскринить название предмета! (/showmodel)", 0xFF3300)
-	end
-	if data.modelId == 19351 then
-		sampAddChatMessage("Усы (2) (19351) - заскринить название предмета! (/showmodel)", 0xFF3300)
 	end
 	if data.modelId == 19893 then
 		sampAddChatMessage("Карта на спину (19893) - заскринить название предмета! (/showmodel)", 0xFF3300)
@@ -3709,7 +3716,7 @@ function sampev.onShowTextDraw(textdrawId, data)
 	if ip == "185.169.134.3" or ip == "185.169.134.4" or ip == "185.169.134.43" or ip == "185.169.134.44" or ip == "185.169.134.45" or ip == "185.169.134.5" or ip == "185.169.134.59" or ip == "185.169.134.61" or ip == "185.169.134.107" or ip == "185.169.134.109" or ip == "185.169.134.166" or ip == "185.169.134.171" or ip == "185.169.134.172" or ip == "185.169.134.173" or ip == "185.169.134.174" or ip == "80.66.82.191" then
 		if elements.state.stealer_td == true and data.modelId ~= 0 and data.modelId ~= 1649 then
 			if (data.modelId >= 0 and data.modelId <= 311) or  -- Скины
-				data.modelId == 321 or -- Дилдо на спину #1
+				--data.modelId == 321 or -- Дилдо на спину #1
 				data.modelId == 322 or -- Дилдо на спину #2
 				data.modelId == 324 or -- Рюкзак мотор и модификация Дарт-вейдер
 				data.modelId == 328 or -- Бордовый чемодан
@@ -3746,7 +3753,7 @@ function sampev.onShowTextDraw(textdrawId, data)
 				data.modelId == 954 or -- Рога оленя и Лук Купидона
 				data.modelId == 1013 or -- Ушки бэтмена
 				data.modelId == 1210 or -- Коричневый чемодан
-				data.modelId == 1212 or -- Пачка денег на спину
+				data.modelId == 1212 or -- Пачка денег на спину и Евро
 				data.modelId == 1277 or -- Талон +1 Exp
 				data.modelId == 1304 or -- Металл
 				data.modelId == 1319 or -- Жезл ГАИ
@@ -3754,11 +3761,13 @@ function sampev.onShowTextDraw(textdrawId, data)
 				data.modelId == 1353 or -- Сундук платиновой рулетки
 				data.modelId == 1366 or -- Щит
 				data.modelId == 1371 or -- Рюкзак Бегемот
+				data.modelId == 1387 or -- Крюк пирата
 				data.modelId == 1453 or -- Шкура оленя
 				data.modelId == 1463 or -- Дрова
 				data.modelId == 1486 or -- Пиво
 				data.modelId == 1548 or -- Золотые погоны
 				data.modelId == 1565 or -- Корона
+				data.modelId == 1570 or -- Рюкзак для ларьков
 				data.modelId == 1575 or -- Белый пакет с наркотиками на спину
 				data.modelId == 1601 or -- Молнии Зевса
 				data.modelId == 1603 or -- Кровавая накидка & Золотая шапка
@@ -3776,17 +3785,23 @@ function sampev.onShowTextDraw(textdrawId, data)
 				data.modelId == 2045 or -- Бита с шипами
 				data.modelId == 2060 or -- Ингредиенты
 				data.modelId == 2102 or -- Колонка на спину
+				data.modelId == 2186 or -- Техно рюкзак
 				data.modelId == 2219 or -- Комплексный обед
 				data.modelId == 2226 or -- Бумбокс
 				data.modelId == 2250 or -- Цветок
 				data.modelId == 2362 or -- Переносная лавка
 				data.modelId == 2386 or -- Скин
 				(data.modelId >= 2404 and data.modelId <= 2406) or -- Доска для серфинга
+				data.modelId == 2456 or -- Стикер Cluckin Bell
 				data.modelId == 2487 or -- Модификация: Соник
+				data.modelId == 2587 or -- Стикер Verona
 				data.modelId == 2663 or -- Чипсы
 				data.modelId == 2684 or -- Лицензии
+				data.modelId == 2693 or -- Стикер Alhambra
 				data.modelId == 2712 or -- Метла на спину
 				data.modelId == 2714 or -- Табличка 'OPEN' на спину
+				data.modelId == 2719 or -- Стикер Jizzy
+				data.modelId == 2722 or -- Стикер Binko
 				data.modelId == 2790 or -- Алюминий
 				data.modelId == 2803 or -- Мешок с подарками
 				data.modelId == 2806 or -- Сырое мясо оленины
@@ -3794,7 +3809,9 @@ function sampev.onShowTextDraw(textdrawId, data)
 				data.modelId == 2894 or -- Телефонная книга
 				data.modelId == 2918 or -- Ведро в руку
 				data.modelId == 2936 or -- Бронза
+				data.modelId == 2953 or -- Лотерейный билет
 				data.modelId == 2985 or -- Экзоскилет
+				data.modelId == 2988 or -- Сундук за спиной
 				data.modelId == 2992 or -- Ангельский сет и обручальное кольцо
 				data.modelId == 3013 or -- Ящик за спиной
 				data.modelId == 3027 or -- Самокрутка на спину
@@ -3803,14 +3820,17 @@ function sampev.onShowTextDraw(textdrawId, data)
 				data.modelId == 3070 or -- Модификация: Киборг
 				data.modelId == 3440 or -- Очки переливающиеся
 				data.modelId == 3528 or -- Ранец огненный дракон и Сет Дракона
+				data.modelId == 3801 or -- Длинный топор
 				data.modelId == 3929 or -- Камень
 				data.modelId == 6865 or -- Маска с рогами
 				data.modelId == 7093 or -- Рюкзак 'Erotic'
+				data.modelId == 7302 or -- Стикер Victim
 				data.modelId == 7313 or -- Ранец радио
 				data.modelId == 7392 or -- Девушка на спину
 				data.modelId == 8644 or -- Два кинжала на спину
 				data.modelId == 10281 or -- Машина из стены
 				data.modelId == 10757 or -- Самолёт за спиной
+				data.modelId == 11700 or -- Модификация Химик
 				data.modelId == 11705 or -- Оружейный кейс
 				data.modelId == 11722 or -- Краситель
 				data.modelId == 11736 or -- Антибиотики и маска от короновируса
@@ -3905,6 +3925,7 @@ function sampev.onShowTextDraw(textdrawId, data)
 				data.modelId == 19630 or -- Рыба
 				data.modelId == 19631 or -- Кирка на спину
 				data.modelId == 19636 or -- Ларек с фруктами
+				data.modelId == 19773 or -- Усы
 				data.modelId == 19792 or -- Сим.карты
 				data.modelId == 19801 or -- Маска (/mask)
 				data.modelId == 19806 or -- Новогодний реактивный ранец
@@ -3950,6 +3971,11 @@ function sampev.onDisplayGameText(style, time, text)
 		end
 	end
 	----------------------------------------
+	if text:find('Go to the lottery') then
+		sampAddChatMessage('['..thisScript().name..'{FFFFFF}] Посети лотерейную!', 0xFFFFFF)
+		return false
+	end
+	----------------------------------------
 	if text:find('-1 HP') or
 	text:find('-2 HP') or
 	text:find('-3 HP') or
@@ -3986,11 +4012,9 @@ function sampev.onServerMessage(color, text)
 	ip, port = sampGetCurrentServerAddress()
 	if elements.chat.chatlog.v == true and text ~= ' ' and ip ~= "127.0.0.1" then
 		local file_logs = io.open('moonloader/logs/'..sampGetCurrentServerAddress()..'.txt', 'a+')
-		if file_logs ~= -1 then
-			if file_logs ~= nil then
-				file_logs:write('['..os.date('%d-%m-%Y || %H:%M:%S')..']['..color..'] '..text..'\n')
-				file_logs:close()
-			end
+		if file_logs ~= -1 and file_logs ~= nil then
+			file_logs:write('['..os.date('%d-%m-%Y || %H:%M:%S')..']['..color..'] '..text..'\n')
+			file_logs:close()
 		end
 	end
 	--------------------[Авто-открытие рулеток]--------------------
@@ -4252,11 +4276,6 @@ function sampev.onPlayerQuit(playerid, reason)
 			end
 			----------------------------------------
 		end
-	end
-	----------------------------------------
-	if playerid == elements.state.finds then
-		elements.state.finds = 65535
-		push_message('Выключаю поиск игрока (disconnect).')
 	end
 	----------------------------------------
 end
@@ -4539,6 +4558,13 @@ function sampev.onCreateObject(objectId, data)
 					----------------------------------------
 					if isInside then
 						sampAddChatMessage('[{FDDB6D}'..script_names..' '..thisScript().version..'{FFFFFF}] На продажу выставлен {FDDB6D}'..veh..'{FFFFFF} за {FDDB6D}$'..price..'{FFFFFF}.', 0xFFFFFF)
+						local file_logs = io.open('moonloader/logs/price.txt', 'a+')
+						if file_logs ~= -1 then
+							if file_logs ~= nil then
+								file_logs:write(veh..' выставлен на продажу за: $'..price..'\n')
+								file_logs:close()
+							end
+						end
 					end
 					----------------------------------------
 					data.text = data.text:gsub('%$%d+', '$' .. price)
@@ -4858,7 +4884,7 @@ function onReceiveRpc(id, bitStream)
 		if elements.destroy.pasxa.v == true and (model == 19341 or model == 19342 or model == 19343 or model == 19344 or model == 19345) then
 			return false
 		end
-		if elements.destroy.xlam.v == true and (model == 371 or model == 823 or model == 886 or model == 890 or model == 894 or model == 1240 or model == 1254 or model == 19306) then
+		if elements.destroy.xlam.v == true and (model == 371 or model == 823 or model == 886 or model == 890 or model == 894 or model == 1240 or model == 19306) then
 			return false
 		end
 	end
@@ -6200,7 +6226,14 @@ end
 
 -- function sampev.onCreateGangZone(zoneId, squareStart, squareEnd, color)
 	-- color_2 = string.format('0x%X', bit.band(0xFFFFFFFF, color))
-	-- sampAddChatMessage(string.format('%d | %f, %f | %f, %f | %s',zoneId,squareStart.x,squareStart.y,squareEnd.x,squareEnd.y,color_2), -1)
+	-- sampAddChatMessage(string.format('(0, %f, %f, %f, %f),',squareStart.x,squareStart.y,squareEnd.x,squareEnd.y), -1)
+	
+	-- local file = io.open('moonloader/gz.notepad', 'a+')
+	-- if file ~= -1 and file ~= nil then
+		-- file:write(string.format('(0, %f, %f, %f, %f),\n',squareStart.x,squareStart.y,squareEnd.x,squareEnd.y))
+		-- io.close(file)
+	-- end
+
 -- end
 
 -- function sampev.onGangZoneFlash(zoneId, color)
@@ -6231,6 +6264,7 @@ function sampev.onSetPlayerAttachedObject(playerId, index, create, object)
 				[635] = "Плащ с модификации Смерть",
 				[636] = "Плащ с модификации Тыква",
 				[806] = "Трава какая-то",
+				[815] = "С модификации Demon",
 				[888] = "Язык Венома",
 				[953] = "Крылья ангела",
 				[954] = "Рога оленя и Лук Купидона",
@@ -6254,6 +6288,7 @@ function sampev.onSetPlayerAttachedObject(playerId, index, create, object)
 				[1332] = "Сумка доставщика",
 				[1366] = "Щит",
 				[1371] = "Рюкзак Бегемот",
+				[1387] = "Крюк пирата",
 				[1548] = "Золотые погоны",
 				[1550] = "Мешок денег на спину",
 				[1562] = "Кресло на спину",
@@ -6280,6 +6315,7 @@ function sampev.onSetPlayerAttachedObject(playerId, index, create, object)
 				[1886] = "Маска робота (1)",
 				[2006] = "С модификации",
 				[2060] = "Мешок грузчиков",
+				[2186] = "Техно рюкзак",
 				[2238] = "Торпеда на голове",
 				[2250] = "Цветок",
 				[2362] = "Переносная лавка",
@@ -6299,6 +6335,7 @@ function sampev.onSetPlayerAttachedObject(playerId, index, create, object)
 				[2913] = "Штанга в руку",
 				[2916] = "Модификация: Качок",
 				[2985] = "Экзоскилет",
+				[2988] = "Сундук за спиной",
 				[2992] = "Нимб с какой-то модификации",
 				[3013] = "Ящик за спиной",
 				[3016] = "Ядерный рюкзак",
@@ -6311,6 +6348,7 @@ function sampev.onSetPlayerAttachedObject(playerId, index, create, object)
 				[3440] = "Очки переливающиеся",
 				[3632] = "Бочка в руку",
 				[3785] = "Светящийся рюкзак",
+				[3801] = "Длинный топор",
 				[6865] = "Маска с рогами",
 				[7093] = "Сердечко Erotic",
 				[7313] = "Ранец радио",
@@ -6319,6 +6357,7 @@ function sampev.onSetPlayerAttachedObject(playerId, index, create, object)
 				[8644] = "Два кинжала на спину",
 				[10281] = "Машина из стены",
 				[10757] = "Самолёт за спиной",
+				[11489] = "Крылья гаргульи",
 				[11700] = "Знак (Радиации)",
 				[11705] = "Оружейный кейс",
 				[11712] = "Крест на грудь и Распятие",
