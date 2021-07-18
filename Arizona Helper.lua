@@ -2,10 +2,10 @@
 script_name("{0d00ff}Ar{2900ff}iz{3900ff}on{4500ff}a H{4f00ff}el{5800ff}pe{6000ff}r")
 local script_names = "Arizona Helper"
 
-script_version('4.68')
+script_version('4.69')
 script_author("metk1u")
 
-local script_vers = 97
+local script_vers = 98
 
 -- sampSetLocalPlayerName('lol')
 
@@ -725,8 +725,6 @@ local checkpoint_poisk = {}
 local windows_cmd = imgui.ImBool(false)
 --------------------[Дальний чат]--------------------
 local chatbuble = {}
---------------------[Запоминание диалогов]--------------------
---local dialogs = {}
 --------------------[Стиллер объектов на транспорт]--------------------
 local objectsTable = {}
 local lastPlayerState = -1
@@ -1324,6 +1322,7 @@ function main()
 	if not doesDirectoryExist("moonloader\\logs") then createDirectory("moonloader\\logs") end
 	if not doesDirectoryExist("moonloader\\stealer") then createDirectory("moonloader\\stealer") end
 	if not doesDirectoryExist("moonloader\\stealer\\vehicles") then createDirectory("moonloader\\stealer\\vehicles") end
+	if not doesDirectoryExist("moonloader\\stealer\\dialogs") then createDirectory("moonloader\\stealer\\dialogs") end
 	if not doesDirectoryExist("moonloader\\stealer\\textdraws") then createDirectory("moonloader\\stealer\\textdraws") end
 	sampAddChatMessage('['..thisScript().name..' '..thisScript().version..'{FFFFFF}] {299800}Загружен{FFFFFF}. Настройки: /chat.', 0xFFFFFF)
 	push_message(script_names..' загружен.')
@@ -1350,28 +1349,8 @@ function main()
 			end
 		end
 	end)
-	os.remove("moonloader\\stealer\\324 - .notepad")
-	os.remove("moonloader\\stealer\\1570 - .notepad")
-	os.remove("moonloader\\stealer\\2976 - .notepad")
+	os.remove("moonloader\\stealer\\18891 - .notepad")
 	os.remove("moonloader\\stealer\\textdraws\\326.notepad")
-	os.remove("moonloader\\stealer\\textdraws\\1276.notepad")
-	os.remove("moonloader\\stealer\\textdraws\\1455.notepad")
-	os.remove("moonloader\\stealer\\textdraws\\1547.notepad")
-	os.remove("moonloader\\stealer\\textdraws\\1554.notepad")
-	os.remove("moonloader\\stealer\\textdraws\\1599.notepad")
-	os.remove("moonloader\\stealer\\textdraws\\1681.notepad")
-	os.remove("moonloader\\stealer\\textdraws\\2601.notepad")
-	os.remove("moonloader\\stealer\\textdraws\\2709.notepad")
-	os.remove("moonloader\\stealer\\textdraws\\2798.notepad")
-	os.remove("moonloader\\stealer\\textdraws\\2976.notepad")
-	os.remove("moonloader\\stealer\\textdraws\\3003.notepad")
-	os.remove("moonloader\\stealer\\textdraws\\3259.notepad")
-	os.remove("moonloader\\stealer\\textdraws\\3273.notepad")
-	os.remove("moonloader\\stealer\\textdraws\\5777.notepad")
-	os.remove("moonloader\\stealer\\textdraws\\11748.notepad")
-	os.remove("moonloader\\stealer\\textdraws\\18632.notepad")
-	os.remove("moonloader\\stealer\\textdraws\\19566.notepad")
-	os.remove("moonloader\\stealer\\textdraws\\19625.notepad")
 	----------------------------------------
 	_, playerid = sampGetPlayerIdByCharHandle(PLAYER_PED)
 	local_name = sampGetPlayerNickname(playerid)
@@ -1742,6 +1721,8 @@ function main()
 			cleanStreamMemoryBuffer()
 			sampAddChatMessage('['..thisScript().name..'{FFFFFF}] Произвелась очистка памяти!', 0xFFFFFF)
 		end
+		--------------------[InputHelp]--------------------
+		showInputHelp()
 		--------------------[Реконнект]--------------------
 		if reconnect_timer >= os.time() then
 			printString(string.format('~r~RECONNECT: %d cek',reconnect_timer-os.time()),100)
@@ -5811,22 +5792,21 @@ function sumFormat(sum) -- Для автобазара
 end
 
 function sampev.onShowDialog(dialogId, style, title, button1, button2, text)
-	--ampAddChatMessage(dialogId,-1)
+	--sampAddChatMessage(dialogId,-1)
 	--sampAddChatMessage(text,-1)
-	if elements.state.showmodel == true then
-		sampfuncsLog(text)
-	end
-	--------------------[Запоминание диалогов]--------------------
-	-- if dialogs[dialogId] then
-		-- lua_thread.create(function()
-			-- repeat wait(0) until sampIsDialogActive() and sampGetCurrentDialogId() == dialogId
-			-- if text:find("Загрузить машину") then
-				-- dialogs[dialogId] = { 0, "" }
-			-- end
-			-- sampSetCurrentDialogListItem(dialogs[dialogId][1])
-			-- sampSetCurrentDialogEditboxText(dialogs[dialogId][2])
-		-- end)
+	-- if elements.state.showmodel == true then
+		-- sampfuncsLog(text)
 	-- end
+	--------------------[Стиллер диалогов]--------------------
+	if(dialogId == 3082	or dialogId == 8236) then
+		name_item = string.match(text,": %{......%}(.+)%{......%}\n%{......%}")
+		directory = 'moonloader/stealer/dialogs/'..name_item..'.notepad'
+		----------------------------------------
+		os.remove(directory)
+		local file = io.open(directory, 'a+')
+		file:write(text)
+		io.close(file)
+	end
 	--------------------[Автоподтверждение на открытие сим-карты]--------------------
 	if dialogId == 9208 then
 		sampSendDialogResponse(dialogId, 1, nil, nil)
@@ -6072,8 +6052,6 @@ function sampev.onShowDialog(dialogId, style, title, button1, button2, text)
 end
 
 function sampev.onSendDialogResponse(dialogId, button, listboxId, input)
-	--------------------[Запоминание диалогов]--------------------
-	-- dialogs[dialogId] = { listboxId, input }
 	--------------------[Автоввод текста в лавку]--------------------
 	if dialogId == 3021 then
 		dialogs_lavka = listboxId
@@ -7190,6 +7168,67 @@ function onWindowMessage(msg, wparam, lparam)
 		end
 	end
 end
+
+local ffi = require("ffi")
+ffi.cdef[[
+    short GetKeyState(int nVirtKey);
+    bool GetKeyboardLayoutNameA(char* pwszKLID);
+    int GetLocaleInfoA(int Locale, int LCType, char* lpLCData, int cchData);
+]]
+local BuffSize = 32
+local KeyboardLayoutName = ffi.new("char[?]", BuffSize)
+local LocalInfo = ffi.new("char[?]", BuffSize)
+chars =
+{
+	["й"] = "q", ["ц"] = "w", ["у"] = "e", ["к"] = "r", ["е"] = "t", ["н"] = "y", ["г"] = "u", ["ш"] = "i", ["щ"] = "o", ["з"] = "p", ["х"] = "[", ["ъ"] = "]", ["ф"] = "a",
+	["ы"] = "s", ["в"] = "d", ["а"] = "f", ["п"] = "g", ["р"] = "h", ["о"] = "j", ["л"] = "k", ["д"] = "l", ["ж"] = ";", ["э"] = "'", ["я"] = "z", ["ч"] = "x", ["с"] = "c",
+	["м"] = "v", ["и"] = "b", ["т"] = "n", ["ь"] = "m", ["б"] = ",", ["ю"] = ".", ["Й"] = "Q", ["Ц"] = "W", ["У"] = "E", ["К"] = "R", ["Е"] = "T", ["Н"] = "Y", ["Г"] = "U",
+	["Ш"] = "I", ["Щ"] = "O", ["З"] = "P", ["Х"] = "{", ["Ъ"] = "}", ["Ф"] = "A", ["Ы"] = "S", ["В"] = "D", ["А"] = "F", ["П"] = "G", ["Р"] = "H", ["О"] = "J", ["Л"] = "K",
+	["Д"] = "L", ["Ж"] = ":", ["Э"] = "\"", ["Я"] = "Z", ["Ч"] = "X", ["С"] = "C", ["М"] = "V", ["И"] = "B", ["Т"] = "N", ["Ь"] = "M", ["Б"] = "<", ["Ю"] = ">"
+}
+
+function getStrByState(keyState)
+    if keyState == 0 then
+        return "{33AA33}Выкл.{FFFFFF}"
+    end
+    return "{FF3300}Вкл.{FFFFFF}"
+end
+
+function showInputHelp()
+	if sampIsChatInputActive() == true then
+		local input = getStructElement(sampGetInputInfoPtr(), 0x8, 4)
+		local windowPosX = getStructElement(input, 0x8, 4)
+		local windowPosY = getStructElement(input, 0xC, 4)
+		----------------------------------------
+		fib = windowPosY + 41
+		fib2 = windowPosX + 10
+		----------------------------------------
+		local _, playerid = sampGetPlayerIdByCharHandle(PLAYER_PED)
+		local color = sampGetPlayerColor(playerid)
+		local name = sampGetPlayerNickname(playerid)
+		local ping = sampGetPlayerPing(playerid)
+		local score = sampGetPlayerScore(playerid)
+		local capsState = ffi.C.GetKeyState(20)
+		local success = ffi.C.GetKeyboardLayoutNameA(KeyboardLayoutName)
+		local errorCode = ffi.C.GetLocaleInfoA(tonumber(ffi.string(KeyboardLayoutName), 16), 0x00000002, LocalInfo, BuffSize)
+		local localName = ffi.string(LocalInfo)		
+		----------------------------------------
+		local text = string.format(
+			"%s - {%0.6x}%s[%d]{FFFFFF} - Пинг: %d - Уровень: %d - Капс: %s - Язык: {33AA33}%s",
+			os.date("%H:%M:%S"),
+			bit.band(color,0xffffff),
+			name,
+			playerid,
+			ping,
+			score,
+			getStrByState(capsState),
+			string.match(localName, "([^%(]*)")
+		)
+		renderFontDrawText(molot_10_9, text, fib2, fib, 0xD7FFFFFF)
+		----------------------------------------
+    end
+end
+
 function theme()
 	imgui.SwitchContext()
 	local style = imgui.GetStyle()
