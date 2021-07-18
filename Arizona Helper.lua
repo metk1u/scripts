@@ -2,10 +2,10 @@
 script_name("{0d00ff}Ar{2900ff}iz{3900ff}on{4500ff}a H{4f00ff}el{5800ff}pe{6000ff}r")
 local script_names = "Arizona Helper"
 
-script_version('4.69')
+script_version('4.7')
 script_author("metk1u")
 
-local script_vers = 98
+local script_vers = 99
 
 -- sampSetLocalPlayerName('lol')
 
@@ -5799,13 +5799,18 @@ function sampev.onShowDialog(dialogId, style, title, button1, button2, text)
 	-- end
 	--------------------[Стиллер диалогов]--------------------
 	if(dialogId == 3082	or dialogId == 8236) then
-		name_item = string.match(text,": %{......%}(.+)%{......%}\n%{......%}")
-		directory = 'moonloader/stealer/dialogs/'..name_item..'.notepad'
-		----------------------------------------
-		os.remove(directory)
-		local file = io.open(directory, 'a+')
-		file:write(text)
-		io.close(file)
+		for line in text:gmatch('[^\n]+') do
+			local item = line:match('.*{%x+}(.+){%x+}.*$')
+			name_item = item:gsub(':', '')
+			------------------------------------
+			directory = 'moonloader/stealer/dialogs/'..name_item..'.notepad'
+			------------------------------------
+			os.remove(directory)
+			local file = io.open(directory, 'a+')
+			file:write(text)
+			io.close(file)
+			break
+		end
 	end
 	--------------------[Автоподтверждение на открытие сим-карты]--------------------
 	if dialogId == 9208 then
@@ -5995,14 +6000,21 @@ function sampev.onShowDialog(dialogId, style, title, button1, button2, text)
 			----------------------------------------
 			if os.time() - data_cr.last_update <= 86400 then -- 1 day
 				if #temp > 1 then
-					text = text:gsub('Стоимость:[^\n]+', '%1\n{67BE55}Средние цены' .. ':\n{67BE55}' .. table.concat(temp, '\n{67BE55}'))
+					text = text:gsub('Стоимость:[^\n]+', '%1\n\n{67BE55}Средние цены' .. ':\n{67BE55}' .. table.concat(temp, '\n{67BE55}'))
 				elseif #temp == 1 then
-					text = text:gsub('Стоимость:[^\n]+', '%1\n{67BE55}Средняя цена на ' .. temp[1])
+					text = text:gsub('Стоимость:[^\n]+', '%1\n\n{67BE55}Средняя цена на ' .. temp[1])
 				else
-					text = text:gsub('Стоимость:[^\n]+', '%1\n{67BE55}Средняя цена не найдена!\n{FFD900}Обновите списки на площади ЦР\n')
+					text = text:gsub('Стоимость:[^\n]+', '%1\n\n{67BE55}Средняя цена не найдена!\n{FFD900}Обнови списки на площади ЦР\n')
 				end
 			else
-				text = text:gsub('Стоимость:[^\n]+', '%1\n{FF4040}Средние цены устарели!\n{FDDB6D}Обновите списки на площади ЦР\n')
+				local datetime = string.format(os.date('%d.%m.%Y', data_cr.last_update))
+				if #temp > 1 then
+					text = text:gsub('Стоимость:[^\n]+', '%1\n\n{FF3300}['..datetime..'] Средние цены' .. ':\n{67BE55}' .. table.concat(temp, '\n{67BE55}'))
+				elseif #temp == 1 then
+					text = text:gsub('Стоимость:[^\n]+', '%1\n\n{FF3300}['..datetime..'] Средняя цена на ' .. temp[1])
+				else
+					text = text:gsub('Стоимость:[^\n]+', '%1\n\n{67BE55}Средняя цена не найдена!\n{FFD900}Обнови списки на площади ЦР\n')
+				end
 			end
 			break
 		end
