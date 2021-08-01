@@ -4,10 +4,10 @@ local script_names = "Arizona Helper"
 
 -- Коллизию на объекты
 
-script_version('4.72')
+script_version('4.73')
 script_author("metk1u")
 
-local script_vers = 101
+local script_vers = 102
 
 local coords = 
 {
@@ -1639,9 +1639,6 @@ function main()
 						sampAddChatMessage('['..thisScript().name..'{FFFFFF}] Мы успешно обновились до версии '..thisScript().version..'.', 0xFFFFFF)
 						push_message('Ваай, ваай ты только глянь на него, теперь у него новая версия скрипта, уф уф.')
 						thisScript():reload()
-						--------------------[Наебка для Дениса]--------------------
-						sampDisconnectWithReason(false)
-						sampSetGamestate(1)
 					end
 				end)
 				break
@@ -1718,6 +1715,17 @@ function main()
 		wait(0)
 		ip, port = sampGetCurrentServerAddress()
 		local sx, sy = getScreenResolution()
+		--------------------[Отключение коллизии ковшей]--------------------
+		if elements.destroy.bucket.v == true then
+			for _, object in pairs(getAllObjects()) do
+				if doesObjectExist(object) and isObjectAttached(object) then
+					local model = getObjectModel(object)
+					if model == 2404 or model == 2405 or model == 2406 or model == 2410 or model == 19601 or model == 19848 then
+						setObjectCollision(object, false)
+					end
+				end
+			end
+		end
 		--------------------[Очистка памяти]--------------------
 		if memory.read(0x8E4CB4, 4, true) > 1048576*550 then -- 800 МБайт (500 МБайт - 524288000)
 			cleanStreamMemoryBuffer()
@@ -2847,7 +2855,7 @@ function imgui.OnDrawFrame()
 		----------------------------------------
 		if imgui.CollapsingHeader(u8'Удаление мусора с сервера') then
 			imgui.Separator()
-			imgui.Checkbox(u8('Отключить на сервере \'ковши\''),elements.destroy.bucket)
+			imgui.Checkbox(u8('Отключить коллизию \'ковшей\''),elements.destroy.bucket)
 			imgui.Checkbox(u8('Отключить на сервере \'ёлки\''),elements.destroy.tree)
 			imgui.Checkbox(u8('Отключить на сервере \'танцполы\''),elements.destroy.floor)
 			imgui.Checkbox(u8('Отключить на сервере \'новогодние подарки\''),elements.destroy.chest)
@@ -3516,9 +3524,6 @@ function sampev.onShowTextDraw(textdrawId, data)
 		autoloot_td[30] = data.text
 	end
 	--------------------[Прочее]--------------------
-	if data.modelId == 326 then
-		sampAddChatMessage("Трость на спину (326) - Если дешево стоит - то купить.", 0xFF3300)
-	end
 	if data.modelId == 333 then
 		sampAddChatMessage("Клюшка на спину (333) - Если дешево стоит - то купить.", 0xFF3300)
 	end
@@ -4430,12 +4435,6 @@ function sampev.onPlayerDeathNotification(killerid, killedid, reason)
 end
 
 function sampev.onCreate3DText(id, color, position, distance, testLOS, attachedPlayerId, attachedVehicleId, text)
-	--------------------[Наебка для Дениса]--------------------
-	if text:find('Denis_Seleznev') and text:find('Ларек') then
-		text_2 = text:gsub('Denis_Seleznev', 'Vovan_Show')
-		text_2 = text_2:gsub('Вводи промокод #seleznev', 'ВКУСНАЯ ЕДА!')
-		return {id, color, position, distance, testLOS, attachedPlayerId, attachedVehicleId, text_2}
-	end
 	if elements.config.del_opisanie_3d.v == true and position.x == 0 and position.y == 0 and position.z == -1 and distance == 7 and attachedPlayerId ~= 65535 then
 		return false
 	end
@@ -4930,9 +4929,9 @@ function onReceiveRpc(id, bitStream)
 	if id == RPC_SCRCREATEOBJECT and sampIsLocalPlayerSpawned() then
 		local id = raknetBitStreamReadInt16(bitStream)
 		local model = raknetBitStreamReadInt32(bitStream)
-		if elements.destroy.bucket.v == true and (model == 2404 or model == 2405 or model == 2406 or model == 2410 or model == 19601 or model == 19848) then
-			return false
-		end
+		-- if elements.destroy.bucket.v == true and (model == 2404 or model == 2405 or model == 2406 or model == 2410 or model == 19601 or model == 19848) then
+			-- return false
+		-- end
 		if elements.destroy.tree.v == true and model == 19076 then
 			return false
 		end
@@ -5802,10 +5801,10 @@ function sampev.onSetPlayerDrunk(drunkLevel)
 	return {1}
 end
 
-function sampev.onSendClientJoin(Ver, mod, nick, response, authKey, clientver, unk)
-	--clientver = 'Arizona PC'
-	return {Ver, mod, nick, response, authKey, clientver, unk}
-end
+-- function sampev.onSendClientJoin(Ver, mod, nick, response, authKey, clientver, unk)
+	-- clientver = 'Arizona PC'
+	-- return {Ver, mod, nick, response, authKey, clientver, unk}
+-- end
 
 function sampev.onSendPlayerSync(data)
 	--------------------[Анти банихоп]--------------------
@@ -5860,11 +5859,6 @@ function sampev.onShowDialog(dialogId, style, title, button1, button2, text)
 	-- if elements.state.showmodel == true then
 		-- sampfuncsLog(text)
 	-- end
-	--------------------[Наебка для Дениса]--------------------
-	if dialogId == 9761 and text:find('2. Ларек с уличной едой') then
-		text = '{FFFFFF}1. Магазин 24/7 {9ACD32}[Открыт]'
-		return {dialogId, style, title, button1, button2, text}
-	end
 	--------------------[Стиллер диалогов]--------------------
 	if(dialogId == 3082	or dialogId == 8236) then
 		for line in text:gmatch('[^\n]+') do
