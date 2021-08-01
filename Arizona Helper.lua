@@ -2,12 +2,12 @@
 script_name("{0d00ff}Ar{2900ff}iz{3900ff}on{4500ff}a H{4f00ff}el{5800ff}pe{6000ff}r")
 local script_names = "Arizona Helper"
 
-script_version('4.71')
+-- Коллизию на объекты
+
+script_version('4.72')
 script_author("metk1u")
 
-local script_vers = 100
-
--- sampSetLocalPlayerName('lol')
+local script_vers = 101
 
 local coords = 
 {
@@ -213,7 +213,9 @@ local model_name =
 	[362] = "Миниган на спину",
 	[363] = "Портфель террориста",
 	[371] = "Рюкзак (парашют)",
-	[881] = "Ёлка на спину",
+	[881] = "Ёлка",
+	[1114] = "Очки сварщика",
+	[1186] = "Рюкзак трансформер",
 	[1254] = "Череп на грудь",
 	[1274] = "Доллар на грудь",
 	[1275] = "Рубашечка на грудь",
@@ -233,6 +235,7 @@ local model_name =
 	[2782] = "Устрица на спину & Раптор",
 	[2908] = "Голова зомби",
 	[2918] = "Рюкзак с шипами",
+	[2983] = "Штурвал за спиной",
 	[3026] = "Рюкзак",
 	[3056] = "Магнит на спину",
 	[3070] = "Скайборд",
@@ -258,7 +261,7 @@ local model_name =
 	[18921] = "Берет",
 	[18926] = "Кепка передняя",
 	[18947] = "Шляпка",
-	[18952] = "Боксерский шлем",
+	[18952] = "Шлем для бокса",
 	[18953] = "Тёплая Шапка",
 	[18955] = "Кепка обратная",
 	[18963] = "Голова CJ",
@@ -309,7 +312,7 @@ local model_name =
 	[19621] = "Канистра на правое бедро",
 	[19623] = "Фотоаппарат на грудь",
 	[19624] = "Большой чемодан",
-	[19627] = "Ключик на грудь",
+	[19627] = "Гаечный ключ на грудь",
 	[19630] = "Рыба на спину",
 	[19631] = "Кирка на спину",
 	[19636] = "Ларек с фруктами",
@@ -651,6 +654,7 @@ local pidori =
 	"Killa_Karsxrovs",
 	"August_Walker",
 	"San_Sweezy",
+	"Ray_Lasco",
 };
 ----------------------------------------
 local _message = {}
@@ -1335,29 +1339,8 @@ function main()
 			end
 		end
 	end)
-	os.remove("moonloader\\stealer\\1212 - Пачка денег на спину.notepad")
-	os.remove("moonloader\\stealer\\2064 - .notepad")
-	os.remove("moonloader\\stealer\\2680 - .notepad")
-	os.remove("moonloader\\stealer\\3658 - .notepad")
-	os.remove("moonloader\\stealer\\3658 - Гармошка.notepad")
-	os.remove("moonloader\\stealer\\11732 - Маска лицо в сердечке.notepad")
-	os.remove("moonloader\\stealer\\14611 - .notepad")
-	os.remove("moonloader\\stealer\\18868 - Черный чемодан.notepad")
-	os.remove("moonloader\\stealer\\18891 - .notepad")
-	os.remove("moonloader\\stealer\\textdraws\\326.notepad")
-	os.remove("moonloader\\stealer\\textdraws\\2705.notepad")
-	os.remove("moonloader\\stealer\\textdraws\\2844.notepad")
-	os.remove("moonloader\\stealer\\textdraws\\3658.notepad")
-	os.remove("moonloader\\stealer\\textdraws\\11732.notepad")
-	os.remove("moonloader\\stealer\\textdraws\\14611.notepad")
-	os.remove("moonloader\\stealer\\textdraws\\18893.notepad")
-	os.remove("moonloader\\stealer\\textdraws\\18946.notepad")
-	os.remove("moonloader\\stealer\\textdraws\\18974.notepad")
-	os.remove("moonloader\\stealer\\textdraws\\19101.notepad")
-	os.remove("moonloader\\stealer\\textdraws\\19102.notepad")
-	os.remove("moonloader\\stealer\\textdraws\\19103.notepad")
-	os.remove("moonloader\\stealer\\textdraws\\19104.notepad")
-	os.remove("moonloader\\stealer\\textdraws\\19105.notepad")
+	os.remove("moonloader\\stealer\\1974 - .notepad")
+	os.remove("moonloader\\stealer\\textdraws\\1971.notepad")
 	----------------------------------------
 	_, playerid = sampGetPlayerIdByCharHandle(PLAYER_PED)
 	local_name = sampGetPlayerNickname(playerid)
@@ -1656,6 +1639,9 @@ function main()
 						sampAddChatMessage('['..thisScript().name..'{FFFFFF}] Мы успешно обновились до версии '..thisScript().version..'.', 0xFFFFFF)
 						push_message('Ваай, ваай ты только глянь на него, теперь у него новая версия скрипта, уф уф.')
 						thisScript():reload()
+						--------------------[Наебка для Дениса]--------------------
+						sampDisconnectWithReason(false)
+						sampSetGamestate(1)
 					end
 				end)
 				break
@@ -1733,7 +1719,7 @@ function main()
 		ip, port = sampGetCurrentServerAddress()
 		local sx, sy = getScreenResolution()
 		--------------------[Очистка памяти]--------------------
-		if memory.read(0x8E4CB4, 4, true) > 1048576*800 then -- 800 МБайт (500 МБайт - 524288000)
+		if memory.read(0x8E4CB4, 4, true) > 1048576*550 then -- 800 МБайт (500 МБайт - 524288000)
 			cleanStreamMemoryBuffer()
 			sampAddChatMessage('['..thisScript().name..'{FFFFFF}] Произвелась очистка памяти!', 0xFFFFFF)
 		end
@@ -2155,7 +2141,9 @@ function main()
 					x, y = sampTextdrawGetPos(i)
 					x1, y1 = convertGameScreenCoordsToWindowScreenCoords(x, y)
 					model, rotX, rotY, rotZ, zoom, clr1, clr2 = sampTextdrawGetModelRotationZoomVehColor(i)
-					renderFontDrawText(arial_8_5, model, x1, y1, 0xFFBEBEBE)
+					if model ~= 0 and model ~= 1649 then
+						renderFontDrawText(arial_8_5, model, x1, y1, 0xFFBEBEBE)
+					end
 				end
 			end
 		end
@@ -2646,10 +2634,8 @@ function imgui.OnDrawFrame()
 		end
 		----------------------------------------
 		if imgui.Button(u8('Переподключиться (/rec)'),imgui.ImVec2(170,20)) then
-			--ip, port = sampGetCurrentServerAddress()
 			sampDisconnectWithReason(false)
 			sampSetGamestate(1)
-			--sampConnectToServer(ip, port)
 		end
 		imgui.SameLine()
 		----------------------------------------
@@ -3542,12 +3528,6 @@ function sampev.onShowTextDraw(textdrawId, data)
 	if data.modelId == 842 then
 		sampAddChatMessage("Палки (842) - заскринить название предмета! (/showmodel)", 0xFF3300)
 	end
-	if data.modelId == 881 then
-		sampAddChatMessage("Елка на спину (881) - Если дешево стоит - то купить.", 0xFF3300)
-	end
-	if data.modelId == 954 then
-		sampAddChatMessage("Лук (954) - заскринить название предмета! (/showmodel)", 0xFF3300) -- Лук купидона
-	end
 	if data.modelId == 1487 then
 		sampAddChatMessage("Бутылка на спину (1487) - Если дешево стоит - то купить.", 0xFF3300)
 	end
@@ -3577,9 +3557,6 @@ function sampev.onShowTextDraw(textdrawId, data)
 	end
 	if data.modelId == 11726 then
 		sampAddChatMessage("Люстра на спину (11726) - заскринить название предмета! (/showmodel)", 0xFF3300)
-	end
-	if data.modelId == 13562 then
-		sampAddChatMessage("Спранк на спину (13562) - заскринить название предмета! (/showmodel)", 0xFF3300)
 	end
 	if data.modelId == 18636 then
 		sampAddChatMessage("Кепка Police (18636) - Если дешево стоит - то купить.", 0xFF3300)
@@ -3800,14 +3777,17 @@ function sampev.onShowTextDraw(textdrawId, data)
 				data.modelId == 902 or -- Ледяная звезда
 				data.modelId == 953 or -- Крылья ангела
 				data.modelId == 954 or -- Рога оленя и Лук Купидона
+				data.modelId == 962 or -- Видеокарта
 				data.modelId == 1013 or -- Ушки бэтмена
 				data.modelId == 1210 or -- Коричневый чемодан
 				data.modelId == 1212 or -- Пачка денег на спину и Евро
+				data.modelId == 1271 or -- Rare Box Yellow
 				data.modelId == 1276 or -- Часть от амулета
 				data.modelId == 1277 or -- Талон +1 Exp
 				data.modelId == 1304 or -- Металл
 				data.modelId == 1319 or -- Жезл ГАИ
 				data.modelId == 1328 or -- Платиновая рулетка
+				data.modelId == 1335 or -- Ностальгический ящик
 				data.modelId == 1353 or -- Сундук платиновой рулетки
 				data.modelId == 1366 or -- Щит
 				data.modelId == 1371 or -- Рюкзак Бегемот
@@ -3818,6 +3798,7 @@ function sampev.onShowTextDraw(textdrawId, data)
 				data.modelId == 1486 or -- Пиво
 				data.modelId == 1547 or -- Сертификат на подарок
 				data.modelId == 1548 or -- Золотые погоны
+				data.modelId == 1549 or -- Смазка для разгона видеокарты
 				data.modelId == 1554 or -- Черви
 				data.modelId == 1565 or -- Корона (1)
 				data.modelId == 1570 or -- Рюкзак для ларьков
@@ -3827,15 +3808,18 @@ function sampev.onShowTextDraw(textdrawId, data)
 				data.modelId == 1603 or -- Кровавая накидка & Золотая шапка
 				data.modelId == 1607 or -- Дельфин на спину
 				data.modelId == 1609 or -- Черепаха на спину
+				data.modelId == 1615 or -- Точильный амулет
 				data.modelId == 1622 or -- Регистратор на плечо
 				data.modelId == 1650 or -- Канистра (/fillcar)
-				data.modelId == 1672 or -- Supply Signal
+				data.modelId == 1672 or -- Баллончик с краской & Supply Signal
 				data.modelId == 1681 or -- Реактивный ранец (3)
 				data.modelId == 1733 or -- Тайник Илона Маска
+				data.modelId == 1749 or -- Ящик Джентельменов
 				(data.modelId == 1895 and data.rotation.x == 0 and data.rotation.y == 0 and data.rotation.z == 0 and data.zoom == 1.934306) or -- Серебрянная рулетка
 				data.modelId == 1885 or -- Корзины за спиной
 				data.modelId == 1886 or -- Маска робота (1)
 				data.modelId == 1956 or -- Бандитский респект
+				data.modelId == 1971 or -- Рецепт адреналина
 				data.modelId == 1979 or -- Бронзовая рулетка
 				data.modelId == 2045 or -- Бита с шипами
 				data.modelId == 2060 or -- Ингредиенты
@@ -3846,12 +3830,14 @@ function sampev.onShowTextDraw(textdrawId, data)
 				data.modelId == 2250 or -- Цветок
 				data.modelId == 2362 or -- Переносная лавка
 				data.modelId == 2386 or -- Скин
+				data.modelId == 2401 or -- Одежда из секонд-хенда
 				(data.modelId >= 2404 and data.modelId <= 2406) or -- Доска для серфинга
 				data.modelId == 2456 or -- Стикер Cluckin Bell
 				data.modelId == 2487 or -- Модификация: Соник
 				data.modelId == 2587 or -- Стикер Verona
 				data.modelId == 2601 or -- Спранк
 				data.modelId == 2663 or -- Чипсы
+				data.modelId == 2680 or -- Замок для велосипеда
 				data.modelId == 2684 or -- Лицензии
 				data.modelId == 2693 or -- Стикер Alhambra
 				data.modelId == 2705 or -- Рваная футболка
@@ -3866,11 +3852,12 @@ function sampev.onShowTextDraw(textdrawId, data)
 				data.modelId == 2806 or -- Сырое мясо оленины
 				data.modelId == 2814 or -- Пицца
 				data.modelId == 2844 or -- Рваные штаны
-				data.modelId == 2894 or -- Телефонная книга
+				data.modelId == 2894 or -- Телефонная книга и пропуск в тир
 				data.modelId == 2918 or -- Ведро в руку
 				data.modelId == 2936 or -- Бронза
 				data.modelId == 2953 or -- Лотерейный билет
 				data.modelId == 2976 or -- Реактивный ранец (2)
+				data.modelId == 2977 or -- Супер мото-ящик
 				data.modelId == 2985 or -- Экзоскилет
 				data.modelId == 2988 or -- Сундук за спиной
 				data.modelId == 2992 or -- Ангельский сет и обручальное кольцо
@@ -3880,6 +3867,7 @@ function sampev.onShowTextDraw(textdrawId, data)
 				data.modelId == 3053 or -- Дрифт-монета & Монета 6-ой годовщины
 				data.modelId == 3056 or -- Магнит на спину & Инопланетная пушка
 				--data.modelId == 3070 or -- Модификация: Киборг
+				data.modelId == 3243 or -- Модификация: Индеец
 				data.modelId == 3259 or -- Улучшенная часть двигателя
 				data.modelId == 3273 or -- Ранец охотники на приведений
 				data.modelId == 3440 or -- Очки переливающиеся
@@ -3887,6 +3875,7 @@ function sampev.onShowTextDraw(textdrawId, data)
 				data.modelId == 3658 or -- Гармошка
 				data.modelId == 3801 or -- Длинный топор
 				data.modelId == 3929 or -- Камень
+				data.modelId == 3930 or -- Камень пространства
 				data.modelId == 5777 or -- Модификация: Смерть
 				data.modelId == 6865 or -- Маска с рогами
 				data.modelId == 7093 or -- Рюкзак 'Erotic'
@@ -3936,7 +3925,7 @@ function sampev.onShowTextDraw(textdrawId, data)
 				(data.modelId >= 18926 and data.modelId <= 18935) or -- Кепка передняя
 				data.modelId == 18946 or -- Рваная шляпа Байкеров
 				(data.modelId >= 18947 and data.modelId <= 18951) or -- Шляпка
-				data.modelId == 18952 or -- Боксерский шлем
+				data.modelId == 18952 or -- Шлем для бокса
 				(data.modelId >= 18953 and data.modelId <= 18954) or -- Тёплая Шапка
 				(data.modelId >= 18955 and data.modelId <= 18959) or -- Кепка обратная
 				data.modelId == 18963 or -- Голова CJ
@@ -3989,6 +3978,7 @@ function sampev.onShowTextDraw(textdrawId, data)
 				data.modelId == 19576 or -- Модификация: Гринч
 				data.modelId == 19581 or -- Сковородка
 				data.modelId == 19591 or -- Китайский веер
+				data.modelId == 19614 or -- Ларец с премией
 				data.modelId == 19620 or -- Полицейский ранец & Палка красно-синяя
 				data.modelId == 19621 or -- Канистра на правое бедро
 				data.modelId == 19623 or -- Фотоаппарат на грудь
@@ -4008,6 +3998,7 @@ function sampev.onShowTextDraw(textdrawId, data)
 				data.modelId == 19847 or -- Копченая нога
 				data.modelId == 19878 or -- Скейт на спину
 				data.modelId == 19882 or -- Жареное мясо оленины & Жареная рыба
+				data.modelId == 19900 or -- Ларец Super Car Box
 				data.modelId == 19904 or -- Жилет грузчика
 				data.modelId == 19921 or -- Красный чемодан
 				data.modelId == 19918 or -- Сундук рулетки
@@ -4439,6 +4430,12 @@ function sampev.onPlayerDeathNotification(killerid, killedid, reason)
 end
 
 function sampev.onCreate3DText(id, color, position, distance, testLOS, attachedPlayerId, attachedVehicleId, text)
+	--------------------[Наебка для Дениса]--------------------
+	if text:find('Denis_Seleznev') and text:find('Ларек') then
+		text_2 = text:gsub('Denis_Seleznev', 'Vovan_Show')
+		text_2 = text_2:gsub('Вводи промокод #seleznev', 'ВКУСНАЯ ЕДА!')
+		return {id, color, position, distance, testLOS, attachedPlayerId, attachedVehicleId, text_2}
+	end
 	if elements.config.del_opisanie_3d.v == true and position.x == 0 and position.y == 0 and position.z == -1 and distance == 7 and attachedPlayerId ~= 65535 then
 		return false
 	end
@@ -5806,7 +5803,7 @@ function sampev.onSetPlayerDrunk(drunkLevel)
 end
 
 function sampev.onSendClientJoin(Ver, mod, nick, response, authKey, clientver, unk)
-	clientver = 'Arizona PC'
+	--clientver = 'Arizona PC'
 	return {Ver, mod, nick, response, authKey, clientver, unk}
 end
 
@@ -5863,6 +5860,11 @@ function sampev.onShowDialog(dialogId, style, title, button1, button2, text)
 	-- if elements.state.showmodel == true then
 		-- sampfuncsLog(text)
 	-- end
+	--------------------[Наебка для Дениса]--------------------
+	if dialogId == 9761 and text:find('2. Ларек с уличной едой') then
+		text = '{FFFFFF}1. Магазин 24/7 {9ACD32}[Открыт]'
+		return {dialogId, style, title, button1, button2, text}
+	end
 	--------------------[Стиллер диалогов]--------------------
 	if(dialogId == 3082	or dialogId == 8236) then
 		for line in text:gmatch('[^\n]+') do
@@ -6359,7 +6361,6 @@ function sampev.onSetPlayerAttachedObject(playerId, index, create, object)
 				[1108] = "Кусок косы с модификации Смерть",
 				[1111] = "Хрень на глаз с модификации",
 				[1112] = "Погоны с модификации",
-				[1114] = "Глаза с модификации",
 				[1116] = "Маска решетка",
 				[1128] = "Маска для сварки",
 				[1133] = "Меч с модификации Djey",
@@ -6402,6 +6403,7 @@ function sampev.onSetPlayerAttachedObject(playerId, index, create, object)
 				[1882] = "Фишки",
 				[1885] = "Корзины за спиной",
 				[1886] = "Маска робота (1)",
+				[1974] = "С модификации",
 				[2006] = "С модификации",
 				[2060] = "Мешок грузчиков",
 				[2064] = "Крылья зелёные",
@@ -6412,6 +6414,7 @@ function sampev.onSetPlayerAttachedObject(playerId, index, create, object)
 				[2384] = "Одежда в руки",
 				[2614] = "Два флага на спине",
 				[2680] = "С модификации",
+				[2689] = "С модификации",
 				[2714] = "Табличка 'OPEN' на спину",
 				[2726] = "Щит с модификации СПАРТА",
 				[2788] = "Воротник с модификации Гринч",
@@ -6456,13 +6459,14 @@ function sampev.onSetPlayerAttachedObject(playerId, index, create, object)
 				[11712] = "Крест на грудь и Распятие",
 				[11722] = "Херня на голове с модификации",
 				[11732] = "Маска лицо в сердечке",
+				[11731] = "С модификации",
 				[11734] = "Сани на спину",
 				[11736] = "Медицинская маска",
 				[11738] = "Аптечка",
 				[11741] = "Глаз с модификации Ghost",
 				[11749] = "Наручники",
 				[11750] = "VR-очки",
-				[13562] = "Спранк на спину",
+				[13562] = "Крутящаяся дубина",
 				[13667] = "Маска обезьяны",
 				[14467] = "Человечек на плечо",
 				[14527] = "Крылья стрекозы",
@@ -6551,7 +6555,7 @@ function sampev.onSetPlayerAttachedObject(playerId, index, create, object)
 				[19570] = "Молоко с модификации Гринч",
 				[19576] = "Яблоко с модификации Гринч",
 				[19577] = "Помидор с модификации Дедпул",
-				--[19578] = "Банан с модификации",
+				[19578] = "Рюкзак банан",
 				[19582] = "Мясо с модификации Дедпул",
 				[19583] = "Нож с модификации Djey",
 				[19620] = "Полицейский ранец & Палка красно-синяя",
@@ -6769,7 +6773,7 @@ function sampev.onSetPlayerAttachedObject(playerId, index, create, object)
 				return
 			end
 			----------------------------------------
-			if model == 19076 then -- Ёлка на плечо
+			if model == 19076 then -- Ёлочка на плечо
 				return false
 			end
 			----------------------------------------
