@@ -2,10 +2,10 @@
 script_name("{0d00ff}Ar{2900ff}iz{3900ff}on{4500ff}a H{4f00ff}el{5800ff}pe{6000ff}r")
 local script_names = "Arizona Helper"
 
-script_version('4.74')
+script_version('4.75')
 script_author("metk1u")
 
-local script_vers = 103
+local script_vers = 104
 
 local coords = 
 {
@@ -1340,18 +1340,9 @@ function main()
 			end
 		end
 	end)
-	os.remove("moonloader\\stealer\\1114 - .notepad")
-	os.remove("moonloader\\stealer\\1114 - Очки сварщика.notepad")
-	os.remove("moonloader\\stealer\\1974 - .notepad")
-	os.remove("moonloader\\stealer\\2429 - Реактивный ранец.notepad")
-	os.remove("moonloader\\stealer\\2711 - .notepad")
-	os.remove("moonloader\\stealer\\11716 - .notepad")
-	os.remove("moonloader\\stealer\\18936 - .notepad")
-	os.remove("moonloader\\stealer\\19177 - .notepad")
-	os.remove("moonloader\\stealer\\19793 - Палка с модификации.notepad")
-	os.remove("moonloader\\stealer\\textdraws\\1114.notepad")
-	os.remove("moonloader\\stealer\\textdraws\\1971.notepad")
-	os.remove("moonloader\\stealer\\textdraws\\2429.notepad")
+	os.remove("moonloader\\stealer\\3096 - .notepad")
+	os.remove("moonloader\\stealer\\19840 - .notepad")
+	os.remove("moonloader\\stealer\\textdraws\\19840.notepad")
 	----------------------------------------
 	_, playerid = sampGetPlayerIdByCharHandle(PLAYER_PED)
 	local_name = sampGetPlayerNickname(playerid)
@@ -1775,17 +1766,6 @@ function main()
 		wait(0)
 		ip, port = sampGetCurrentServerAddress()
 		local sx, sy = getScreenResolution()
-		--------------------[Отключение коллизии ковшей]--------------------
-		if elements.destroy.bucket.v == true then
-			for _, object in pairs(getAllObjects()) do
-				if doesObjectExist(object) and isObjectAttached(object) then
-					local model = getObjectModel(object)
-					if model == 2404 or model == 2405 or model == 2406 or model == 2410 or model == 19601 or model == 19848 then
-						setObjectCollision(object, false)
-					end
-				end
-			end
-		end
 		--------------------[Очистка памяти]--------------------
 		if memory.read(0x8E4CB4, 4, true) > 1048576*550 then -- 800 МБайт (500 МБайт - 524288000)
 			cleanStreamMemoryBuffer()
@@ -2032,7 +2012,6 @@ function main()
 		if elements.state.bagajnik == true then
 			for k, carhandle in ipairs(getAllVehicles()) do
 				local result, vehicleid = sampGetVehicleIdByCarHandle(carhandle)
-				--sampAddChatMessage(#bug, -1)
 				for id = 1, 1000 do
 					if(tonumber(bug[id]) == vehicleid) then
 						--------------------------------------
@@ -2042,10 +2021,7 @@ function main()
 						local x1, y1 = convert3DCoordsToScreen(vPosX, vPosY, vPosZ)
 						distance = string.format("%.0f",getDistanceBetweenCoords3d(PlayerX, PlayerY, PlayerZ, mypos_x, mypos_y, mypos_z))
 						--------------------------------------
-						model = getCarModel(carhandle)
-						name_vehicle = getCarName(model)
-						--------------------------------------
-						printString('~b~bug',1000)
+						printString('~b~CarBug',1000)
 						--------------------------------------
 						renderDrawLine(PlayerX2, PlayerY2, x1, y1, 2, 0xFF3300FF)
 						renderFontDrawText(arial, 'bug ID: '..vehicleid, x1, y1, 0xFF3300FF)
@@ -2944,7 +2920,7 @@ function imgui.OnDrawFrame()
 		----------------------------------------
 		if imgui.CollapsingHeader(u8'Удаление мусора с сервера') then
 			imgui.Separator()
-			imgui.Checkbox(u8('Отключить коллизию \'ковшей\''),elements.destroy.bucket)
+			imgui.Checkbox(u8('Отключить на сервере \'ковши\''),elements.destroy.bucket)
 			imgui.Checkbox(u8('Отключить на сервере \'ёлки\''),elements.destroy.tree)
 			imgui.Checkbox(u8('Отключить на сервере \'танцполы\''),elements.destroy.floor)
 			imgui.Checkbox(u8('Отключить на сервере \'новогодние подарки\''),elements.destroy.chest)
@@ -3630,9 +3606,6 @@ function sampev.onShowTextDraw(textdrawId, data)
 	end
 	if data.modelId == 2237 then
 		sampAddChatMessage("Копье (2237) - заскринить название предмета! (/showmodel)", 0xFF3300)
-	end
-	if data.modelId == 3096 and data.rotation.x ~= 0.0 then
-		sampAddChatMessage("Копье (3096) - заскринить название предмета! (/showmodel)", 0xFF3300)
 	end
 	if data.modelId == 3434 then
 		sampAddChatMessage("Черепа на спину (3434) - заскринить название предмета! (/showmodel)", 0xFF3300)
@@ -5017,9 +4990,9 @@ function onReceiveRpc(id, bitStream)
 	if id == RPC_SCRCREATEOBJECT and sampIsLocalPlayerSpawned() then
 		local id = raknetBitStreamReadInt16(bitStream)
 		local model = raknetBitStreamReadInt32(bitStream)
-		-- if elements.destroy.bucket.v == true and (model == 2404 or model == 2405 or model == 2406 or model == 2410 or model == 19601 or model == 19848) then
-			-- return false
-		-- end
+		if elements.destroy.bucket.v == true and (model == 2404 or model == 2405 or model == 2406 or model == 2410 or model == 19601 or model == 19848) then
+			return false
+		end
 		if elements.destroy.tree.v == true and model == 19076 then
 			return false
 		end
@@ -6519,6 +6492,7 @@ function sampev.onSetPlayerAttachedObject(playerId, index, create, object)
 				[3016] = "Ядерный рюкзак",
 				[3027] = "Косяк",
 				[3072] = "Гантеля",
+				[3096] = "Синий посох светлый",
 				[3100] = "Шарик с модификации Соник",
 				[3272] = "Паук на спину",
 				[3273] = "Ранец охотники на приведений",
@@ -6650,7 +6624,7 @@ function sampev.onSetPlayerAttachedObject(playerId, index, create, object)
 				[19801] = "Маска",
 				[19806] = "Новогодний реактивный ранец",
 				[19824] = "Бита-бутылка на спину",
-				--[19840] = "Красный плащ",
+				[19840] = "Красный плащ",
 				[19874] = "Мыло с модификации Дедпул",
 				[19893] = "Карта на спину",
 				[19959] = "Знак (поворот направо)",
