@@ -2,10 +2,10 @@
 script_name("{0d00ff}Ar{2900ff}iz{3900ff}on{4500ff}a H{4f00ff}el{5800ff}pe{6000ff}r")
 local script_names = "Arizona Helper"
 
-script_version('4.75')
+script_version('4.76')
 script_author("metk1u")
 
-local script_vers = 104
+local script_vers = 105
 
 local coords = 
 {
@@ -238,12 +238,10 @@ local model_name =
 	[3026] = "Рюкзак",
 	[3056] = "Магнит на спину",
 	[3070] = "Скайборд",
-	[3031] = "Ранец вертолёт",
 	[3273] = "Ранец охотники на приведений",
 	[3385] = "Рюкзак будущего",
 	[8483] = "Маска череп",
 	[11704] = "Маска демона",
-	[11747] = "Палка с модификации",
 	[14608] = "Копье бога",
 	[16368] = "Красная шляпа",
 	[18632] = "Рыболовная удочка на спину",
@@ -1340,8 +1338,10 @@ function main()
 			end
 		end
 	end)
-	os.remove("moonloader\\stealer\\3096 - .notepad")
+	os.remove("moonloader\\stealer\\3031 - .notepad")
+	os.remove("moonloader\\stealer\\3031 - Ранец вертолёт.notepad")
 	os.remove("moonloader\\stealer\\19840 - .notepad")
+	os.remove("moonloader\\stealer\\textdraws\\3031.notepad")
 	os.remove("moonloader\\stealer\\textdraws\\19840.notepad")
 	----------------------------------------
 	_, playerid = sampGetPlayerIdByCharHandle(PLAYER_PED)
@@ -1600,13 +1600,6 @@ function main()
 		----------------------------------------
 	end)
 	----------------------------------------
-	sampRegisterChatCommand("mclear",function()
-		cleanStreamMemoryBuffer()
-		--memory.fill(sampGetChatInfoPtr() + 306, 0x0, 25200)
-		memory.write(sampGetChatInfoPtr() + 306, 25562, 4, 0x0)
-		memory.write(sampGetChatInfoPtr() + 0x63DA, 1, 1)
-	end)
-	----------------------------------------
 	sampRegisterChatCommand('price',function(item)
 		item = string_to_lower(tostring(item))
 		if item ~= nil then
@@ -1835,11 +1828,10 @@ function main()
 				kd_chest = chest_timer-os.time()
 			end
 			----------------------------------------
-			renderFontDrawText(molot_8_5, string.format("[%02d.%02d.%02d || %02d.%02d.%02d] (%s)\n[MemInfo: %d] [/vr: %d] [/fam: %d] [/al: %d] [chest: %d]",
+			renderFontDrawText(molot_8_5, string.format("[%02d.%02d.%02d || %02d.%02d.%02d] (%s)\n[/vr: %d] [/fam: %d] [/al: %d] [chest: %d]",
 			os.date("%d"),os.date("%m"),os.date("%Y"),
 			os.date("%H"),os.date("%M"),os.date("%S"),
 			tWeekdays[tonumber(os.date("%w"))],
-			math.ceil(memory.read(0x8E4CB4, 4, true) / 1048576),
 			kd_vr,
 			kd_fam,
 			kd_al,
@@ -2741,7 +2733,6 @@ function imgui.OnDrawFrame()
 		imgui.Text(u8"/ar - Надевает броню")
 		imgui.Text(u8"/showid - Показывает ID текстдравов")
 		imgui.Text(u8"/showmodel - Показывает MODEL текстдравов")
-		imgui.Text(u8"/mclear - Очистить память игры")
 		imgui.Text(u8"/price [название] - Посмотреть цену на товар")
 		imgui.Text(u8"/pp - Поиск пидоров")
 		imgui.Text(u8"/p - Посмотреть пидоров онлайн")
@@ -3592,9 +3583,6 @@ function sampev.onShowTextDraw(textdrawId, data)
 	if data.modelId == 338 then
 		sampAddChatMessage("Кий на спину (338) - Если дешево стоит - то купить.", 0xFF3300)
 	end
-	if data.modelId == 842 then
-		sampAddChatMessage("Палки (842) - заскринить название предмета! (/showmodel)", 0xFF3300)
-	end
 	if data.modelId == 1487 then
 		sampAddChatMessage("Бутылка на спину (1487) - Если дешево стоит - то купить.", 0xFF3300)
 	end
@@ -3636,9 +3624,6 @@ function sampev.onShowTextDraw(textdrawId, data)
 	end
 	if data.modelId == 19592 then
 		sampAddChatMessage("Корзина (19592) - заскринить название предмета! (/showmodel)", 0xFF3300)
-	end
-	if data.modelId == 19621 then
-		sampAddChatMessage("Канистра на бедро (19621) - Если дешево стоит - то купить.", 0xFF3300)
 	end
 	if data.modelId == 19893 then
 		sampAddChatMessage("Карта на спину (19893) - заскринить название предмета! (/showmodel)", 0xFF3300)
@@ -3930,6 +3915,7 @@ function sampev.onShowTextDraw(textdrawId, data)
 				data.modelId == 3003 or -- Куриное яйцо (пасха)
 				data.modelId == 3013 or -- Ящик за спиной
 				data.modelId == 3027 or -- Самокрутка на спину
+				data.modelId == 3031 or -- Ранец вертолёт
 				data.modelId == 3053 or -- Дрифт-монета & Монета 6-ой годовщины
 				data.modelId == 3056 or -- Магнит на спину & Инопланетная пушка
 				--data.modelId == 3070 or -- Модификация: Киборг
@@ -3947,7 +3933,7 @@ function sampev.onShowTextDraw(textdrawId, data)
 				data.modelId == 7093 or -- Рюкзак 'Erotic'
 				data.modelId == 7302 or -- Стикер Victim
 				data.modelId == 7313 or -- Ранец радио
-				data.modelId == 7392 or -- Девушка на спину
+				--data.modelId == 7392 or -- Девушка на спину
 				data.modelId == 8644 or -- Два кинжала на спину
 				data.modelId == 10281 or -- Машина из стены
 				data.modelId == 10757 or -- Самолёт за спиной
@@ -3967,7 +3953,7 @@ function sampev.onShowTextDraw(textdrawId, data)
 				data.modelId == 16112 or -- Точильный камень
 				data.modelId == 16368 or -- Красная шляпа
 				data.modelId == 16776 or -- Петух на плечо
-				data.modelId == 16778 or -- НЛО на плечо
+				--data.modelId == 16778 or -- НЛО на плечо
 				data.modelId == 17027 or -- Серебро
 				data.modelId == 18632 or -- Удочка
 				data.modelId == 18633 or -- Балонный ключ на спину
@@ -6425,7 +6411,7 @@ function sampev.onSetPlayerAttachedObject(playerId, index, create, object)
 				[1228] = "Карамельный посох",
 				[1238] = "Конус на голову (не нужно)",
 				[1240] = "Сердца",
-				[1247] = "Звезда с модификации Тыква",
+				--[1247] = "Звезда с модификации Тыква",
 				[1265] = "Мешок с мусором в руку",
 				[1319] = "Жезл ГАИ",
 				[1327] = "Походный рюкзак",
@@ -6491,6 +6477,7 @@ function sampev.onSetPlayerAttachedObject(playerId, index, create, object)
 				[3013] = "Ящик за спиной",
 				[3016] = "Ядерный рюкзак",
 				[3027] = "Косяк",
+				[3031] = "Ранец вертолёт",
 				[3072] = "Гантеля",
 				[3096] = "Синий посох светлый",
 				[3100] = "Шарик с модификации Соник",
@@ -6505,7 +6492,7 @@ function sampev.onSetPlayerAttachedObject(playerId, index, create, object)
 				[6865] = "Маска с рогами",
 				[7093] = "Сердечко Erotic",
 				[7313] = "Ранец радио",
-				[7392] = "Девушка на спину",
+				--[7392] = "Девушка на спину",
 				[8492] = "Крылья феи",
 				[8644] = "Два кинжала на спину",
 				[10281] = "Машина из стены",
@@ -6522,6 +6509,7 @@ function sampev.onSetPlayerAttachedObject(playerId, index, create, object)
 				[11736] = "Медицинская маска",
 				[11738] = "Аптечка",
 				[11741] = "Глаз с модификации Ghost",
+				[11747] = "Палка с модификации Индеец",
 				[11749] = "Наручники",
 				[11750] = "VR-очки",
 				[13562] = "Крутящаяся дубина",
@@ -6531,7 +6519,7 @@ function sampev.onSetPlayerAttachedObject(playerId, index, create, object)
 				[14611] = "Корона (2)",
 				[16442] = "Рюкзак корова",
 				[16776] = "Петух на плечо",
-				[16778] = "НЛО на плечо",
+				--[16778] = "НЛО на плечо",
 				[18637] = "Щит на спину и в руку",
 				[18641] = "Маска фонарь",
 				[18642] = "Ранец шокер & Копье-шокер",
@@ -6609,7 +6597,7 @@ function sampev.onSetPlayerAttachedObject(playerId, index, create, object)
 				[19513] = "Телефон",
 				[19516] = "Крылья с модификации",
 				[19518] = "Парик (2)",
-				[19527] = "Капюшон и котел на грудь",
+				--[19527] = "Капюшон и котел на грудь",
 				[19555] = "Боксерские перчатки",
 				[19556] = "Боксерские перчатки",
 				[19570] = "Молоко с модификации Гринч",
