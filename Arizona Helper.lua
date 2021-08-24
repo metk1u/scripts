@@ -2,10 +2,10 @@
 script_name("{0d00ff}Ar{2900ff}iz{3900ff}on{4500ff}a H{4f00ff}el{5800ff}pe{6000ff}r")
 local script_names = "Arizona Helper"
 
-script_version('4.76')
+script_version('4.77')
 script_author("metk1u")
 
-local script_vers = 105
+local script_vers = 106
 
 local coords = 
 {
@@ -843,7 +843,8 @@ local mainIni = inicfg.load(
 		serdce = true,
 		newyear = true,
 		pasxa = true,
-		xlam = true
+		xlam = true,
+		happy = true,
 	},
 	lavka =
 	{
@@ -1078,7 +1079,8 @@ local elements =
 		serdce = imgui.ImBool(mainIni.destroy.serdce),
 		newyear = imgui.ImBool(mainIni.destroy.newyear),
 		pasxa = imgui.ImBool(mainIni.destroy.pasxa),
-		xlam = imgui.ImBool(mainIni.destroy.xlam)
+		xlam = imgui.ImBool(mainIni.destroy.xlam),
+		happy = imgui.ImBool(mainIni.destroy.happy)
 	},
 	lavka =
 	{
@@ -1338,6 +1340,8 @@ function main()
 			end
 		end
 	end)
+	os.remove("moonloader\\stealer\\1007 - .notepad")
+	os.remove("moonloader\\stealer\\1017 - .notepad")
 	os.remove("moonloader\\stealer\\3031 - .notepad")
 	os.remove("moonloader\\stealer\\3031 - Ранец вертолёт.notepad")
 	os.remove("moonloader\\stealer\\19840 - .notepad")
@@ -2476,7 +2480,8 @@ function saveini()
 			serdce = elements.destroy.serdce.v,
 			newyear = elements.destroy.newyear.v,
 			pasxa = elements.destroy.pasxa.v,
-			xlam = elements.destroy.xlam.v
+			xlam = elements.destroy.xlam.v,
+			happy = elements.destroy.happy.v
 		},
 		lavka =
 		{
@@ -2740,6 +2745,11 @@ function imgui.OnDrawFrame()
 		imgui.Text(u8"/bugs - Посмотреть список забаганного транспорта")
 		imgui.Text(u8"/bugadd [vehicleid] - Добавить транспорт в список забаганных")
 		imgui.Text(u8"/bugdel [vehicleid] - Удалить транспорт их списка забаганных")
+		imgui.Text(u8"Клаус - 21133")
+		imgui.Text(u8"Деймон - 13132")
+		imgui.Text(u8"Стеффан - 31233")
+		imgui.Text(u8"Джереми - 22111")
+		imgui.Text(u8"Мэтт - 12233")
 		----------------------------------------
 		imgui.EndGroup()
 		imgui.SameLine()
@@ -2920,6 +2930,7 @@ function imgui.OnDrawFrame()
 			imgui.Checkbox(u8('Отключить на сервере \'новогодний маппинг\''),elements.destroy.newyear)
 			imgui.Checkbox(u8('Отключить на сервере \'пасхальный маппинг\''),elements.destroy.pasxa)
 			imgui.Checkbox(u8('Отключить на сервере \'хлам\''),elements.destroy.xlam)
+			imgui.Checkbox(u8('Отключить на сервере \'маппинг 7 др\''),elements.destroy.happy)
 			imgui.Separator()
 		end
 		if imgui.CollapsingHeader(u8'Авто-точилка аксессуаров') then
@@ -3594,6 +3605,9 @@ function sampev.onShowTextDraw(textdrawId, data)
 	end
 	if data.modelId == 2237 then
 		sampAddChatMessage("Копье (2237) - заскринить название предмета! (/showmodel)", 0xFF3300)
+	end
+	if data.modelId == 2707 then
+		sampAddChatMessage("Лампа какая-то на спину (2707) - заскринить название предмета! (/showmodel)", 0xFF3300)
 	end
 	if data.modelId == 3434 then
 		sampAddChatMessage("Черепа на спину (3434) - заскринить название предмета! (/showmodel)", 0xFF3300)
@@ -5004,6 +5018,28 @@ function onReceiveRpc(id, bitStream)
 		if elements.destroy.xlam.v == true and (model == 371 or model == 823 or model == 886 or model == 890 or model == 894 or model == 1240 or model == 19306) then
 			return false
 		end
+		if elements.destroy.happy.v == true and (
+		model == 676 or
+		model == 983 or
+		model == 2887 or
+		model == 2889 or
+		model == 3030 or
+		model == 3273 or
+		model == 5811 or
+		model == 7313 or
+		model == 7606 or
+		model == 10236 or
+		model == 13649 or
+		model == 16342 or
+		model == 17042 or
+		model == 18846 or
+		model == 18886 or
+		model == 19325 or
+		model == 19738 or
+		model == 19866 or
+		model == 19944) then
+			return false
+		end
 	end
 end
 
@@ -6398,7 +6434,9 @@ function sampev.onSetPlayerAttachedObject(playerId, index, create, object)
 				[888] = "Язык Венома",
 				[953] = "Крылья ангела",
 				[954] = "Рога оленя и Лук Купидона",
+				[1007] = "Плащ с модификации",
 				[1013] = "Ушки бэтмена",
+				[1017] = "Плащ с модификации",
 				[1108] = "Кусок косы с модификации Смерть",
 				[1111] = "Хрень на глаз с модификации",
 				[1112] = "Погоны с модификации",
@@ -6814,7 +6852,7 @@ function sampev.onSetPlayerAttachedObject(playerId, index, create, object)
 				return
 			end
 			----------------------------------------
-			if model == 19064 and (object.bone == 1 or object.bone == 3 or object.bone == 4) then -- Плащь деда мороза, Наручи на плечи
+			if model == 19064 and (object.bone == 1 or object.bone == 3 or object.bone == 4) then -- Плащ деда мороза, Наручи на плечи
 				return
 			end
 			----------------------------------------
@@ -6913,11 +6951,11 @@ function sampev.onSetPlayerAttachedObject(playerId, index, create, object)
 					code_temp_2 = string.format('case %d: SetPlayerAttachedObject(playerid, slot, %d, %d, %0.4f, %0.4f, %0.4f, %0.4f, %0.4f, %0.4f, %0.4f, %0.4f, %0.4f, -1, -1);\n',skin,model,object.bone,object.offset.x,object.offset.y,object.offset.z,object.rotation.x,object.rotation.y,object.rotation.z,object.scale.x,object.scale.y,object.scale.z)
 					if string.find(file:read("*all"), code_temp_2, 1, true) then
 						--sampfuncsLog(getColor(object.color2))
-						-- sampfuncsLog('{FF3300}<Копия> '..code_temp_2)
+						--sampfuncsLog('{FF3300}<Копия> '..code_temp_2)
 						io.close(file)
 						return
 					end
-					-- sampfuncsLog('{33AA33}<Добавлено> '..code_temp_2)
+					sampfuncsLog('{33AA33}<Добавлено> '..code_temp_2)
 					SaveFileAttach(skin,model,object.bone,object.offset.x,object.offset.y,object.offset.z,object.rotation.x,object.rotation.y,object.rotation.z,object.scale.x,object.scale.y,object.scale.z)
 					io.close(file)
 				end
