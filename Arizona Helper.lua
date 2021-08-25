@@ -2,10 +2,10 @@
 script_name("{0d00ff}Ar{2900ff}iz{3900ff}on{4500ff}a H{4f00ff}el{5800ff}pe{6000ff}r")
 local script_names = "Arizona Helper"
 
-script_version('4.77')
+script_version('4.78')
 script_author("metk1u")
 
-local script_vers = 106
+local script_vers = 107
 
 local coords = 
 {
@@ -1341,12 +1341,7 @@ function main()
 		end
 	end)
 	os.remove("moonloader\\stealer\\1007 - .notepad")
-	os.remove("moonloader\\stealer\\1017 - .notepad")
-	os.remove("moonloader\\stealer\\3031 - .notepad")
-	os.remove("moonloader\\stealer\\3031 - Ранец вертолёт.notepad")
-	os.remove("moonloader\\stealer\\19840 - .notepad")
 	os.remove("moonloader\\stealer\\textdraws\\3031.notepad")
-	os.remove("moonloader\\stealer\\textdraws\\19840.notepad")
 	----------------------------------------
 	_, playerid = sampGetPlayerIdByCharHandle(PLAYER_PED)
 	local_name = sampGetPlayerNickname(playerid)
@@ -3606,9 +3601,6 @@ function sampev.onShowTextDraw(textdrawId, data)
 	if data.modelId == 2237 then
 		sampAddChatMessage("Копье (2237) - заскринить название предмета! (/showmodel)", 0xFF3300)
 	end
-	if data.modelId == 2707 then
-		sampAddChatMessage("Лампа какая-то на спину (2707) - заскринить название предмета! (/showmodel)", 0xFF3300)
-	end
 	if data.modelId == 3434 then
 		sampAddChatMessage("Черепа на спину (3434) - заскринить название предмета! (/showmodel)", 0xFF3300)
 	end
@@ -5835,7 +5827,7 @@ function skupka()
 			sampSendDialogResponse(3050, 1, 20, nil)
 			wait(delay_skupka)
 			sampSendDialogResponse(3050, 1, 20, nil)
-			sampSendDialogResponse(3050, 1, 16, nil)
+			sampSendDialogResponse(3050, 1, 17, nil)
 			sampSendDialogResponse(3060, 1, 0, elements.lavka.band_respect.v..' '..elements.lavka.band_respect_price.v)
 		end
 		wait(delay_skupka)
@@ -5872,7 +5864,7 @@ function skupka()
 			wait(delay_skupka)
 			sampSendDialogResponse(3050, 1, 20, nil)
 			sampSendDialogResponse(3050, 1, 20, nil)
-			sampSendDialogResponse(3050, 1, 1, nil)
+			sampSendDialogResponse(3050, 1, 2, nil)
 			sampSendDialogResponse(3060, 1, 0, elements.lavka.larec_premium.v..' '..elements.lavka.larec_premium_price.v)
 		end
 		sampAddChatMessage('['..thisScript().name..' '..thisScript().version..'{FFFFFF}] Скрипт закончил выставлять товары на покупку.', 0xFFFFFF)
