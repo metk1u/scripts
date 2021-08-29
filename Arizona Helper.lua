@@ -2,10 +2,10 @@
 script_name("{0d00ff}Ar{2900ff}iz{3900ff}on{4500ff}a H{4f00ff}el{5800ff}pe{6000ff}r")
 local script_names = "Arizona Helper"
 
-script_version('4.78')
+script_version('4.79')
 script_author("metk1u")
 
-local script_vers = 107
+local script_vers = 108
 
 local coords = 
 {
@@ -962,6 +962,9 @@ local mainIni = inicfg.load(
 		box_nostalg = 0,
 		box_nostalg_price = 50000,
 		----------------------------------------
+		larec_oligarha = 0,
+		larec_oligarha_price = 100000,
+		----------------------------------------
 		band_respect = 0,
 		band_respect_price = 500,
 		----------------------------------------
@@ -1198,6 +1201,9 @@ local elements =
 		box_nostalg = imgui.ImInt(mainIni.lavka.box_nostalg),
 		box_nostalg_price = imgui.ImInt(mainIni.lavka.box_nostalg_price),
 		----------------------------------------
+		larec_oligarha = imgui.ImInt(mainIni.lavka.larec_oligarha),
+		larec_oligarha_price = imgui.ImInt(mainIni.lavka.larec_oligarha_price),
+		----------------------------------------
 		band_respect = imgui.ImInt(mainIni.lavka.band_respect),
 		band_respect_price = imgui.ImInt(mainIni.lavka.band_respect_price),
 		----------------------------------------
@@ -1340,8 +1346,27 @@ function main()
 			end
 		end
 	end)
-	os.remove("moonloader\\stealer\\1007 - .notepad")
-	os.remove("moonloader\\stealer\\textdraws\\3031.notepad")
+	os.remove("moonloader\\stealer\\1277 - .notepad")
+	os.remove("moonloader\\stealer\\2703 - .notepad")
+	os.remove("moonloader\\stealer\\2707 - .notepad")
+	os.remove("moonloader\\stealer\\7313 - .notepad")
+	os.remove("moonloader\\stealer\\9833 - .notepad")
+	os.remove("moonloader\\stealer\\11417 - .notepad")
+	os.remove("moonloader\\stealer\\16778 - .notepad")
+	os.remove("moonloader\\stealer\\19128 - .notepad")
+	os.remove("moonloader\\stealer\\19632 - .notepad")
+	os.remove("moonloader\\stealer\\19797 - .notepad")
+	os.remove("moonloader\\stealer\\textdraws\\2703.notepad")
+	os.remove("moonloader\\stealer\\textdraws\\2707.notepad")
+	os.remove("moonloader\\stealer\\textdraws\\3067.notepad")
+	os.remove("moonloader\\stealer\\textdraws\\3099.notepad")
+	os.remove("moonloader\\stealer\\textdraws\\7313.notepad")
+	os.remove("moonloader\\stealer\\textdraws\\9833.notepad")
+	os.remove("moonloader\\stealer\\textdraws\\11417.notepad")
+	os.remove("moonloader\\stealer\\textdraws\\16778.notepad")
+	os.remove("moonloader\\stealer\\textdraws\\19128.notepad")
+	os.remove("moonloader\\stealer\\textdraws\\19632.notepad")
+	os.remove("moonloader\\stealer\\textdraws\\19797.notepad")
 	----------------------------------------
 	_, playerid = sampGetPlayerIdByCharHandle(PLAYER_PED)
 	local_name = sampGetPlayerNickname(playerid)
@@ -1350,6 +1375,11 @@ function main()
 	sampRegisterChatCommand('chat',function() 
 		windowstate.v = not windowstate.v
 	end)
+	-- local test = 9
+	-- sampRegisterChatCommand('1',function()
+		-- sampAddChatMessage(string.format('Успех! Вам удалось улучшить предмет Ёлка c +%d на +%d',test,test+1), 0x73b461)
+		-- test = test+1
+	-- end)
 	----------------------------------------
 	sampRegisterChatCommand('rec',function() 
 		--ip, port = sampGetCurrentServerAddress()
@@ -2594,6 +2624,9 @@ function saveini()
 			box_nostalg = elements.lavka.box_nostalg.v,
 			box_nostalg_price = elements.lavka.box_nostalg_price.v,
 			----------------------------------------
+			larec_oligarha = elements.lavka.larec_oligarha.v,
+			larec_oligarha_price = elements.lavka.larec_oligarha_price.v,
+			----------------------------------------
 			band_respect = elements.lavka.band_respect.v,
 			band_respect_price = elements.lavka.band_respect_price.v,
 			----------------------------------------
@@ -3205,13 +3238,19 @@ function imgui.OnDrawFrame()
 			if elements.lavka.box_nostalg.v < 0 then elements.lavka.box_nostalg.v = 0 end
 			if elements.lavka.box_nostalg_price.v < 0 then elements.lavka.box_nostalg_price.v = 0 end
 			----------------------------------------
-			imgui.InputInt(u8('Цена  ##39'),elements.lavka.band_respect_price)
+			imgui.InputInt(u8('Цена  ##39'),elements.lavka.larec_oligarha_price)
+			imgui.SameLine()
+			imgui.InputInt(u8('Ларец Олигарха (кол-во)'),elements.lavka.larec_oligarha)
+			if elements.lavka.larec_oligarha.v < 0 then elements.lavka.larec_oligarha.v = 0 end
+			if elements.lavka.larec_oligarha_price.v < 0 then elements.lavka.larec_oligarha_price.v = 0 end
+			----------------------------------------
+			imgui.InputInt(u8('Цена  ##40'),elements.lavka.band_respect_price)
 			imgui.SameLine()
 			imgui.InputInt(u8('Бандитские респекты (кол-во)'),elements.lavka.band_respect)
 			if elements.lavka.band_respect.v < 0 then elements.lavka.band_respect.v = 0 end
 			if elements.lavka.band_respect_price.v < 0 then elements.lavka.band_respect_price.v = 0 end
 			----------------------------------------
-			imgui.InputInt(u8('Цена  ##40'),elements.lavka.larec_premium_price)
+			imgui.InputInt(u8('Цена  ##41'),elements.lavka.larec_premium_price)
 			imgui.SameLine()
 			imgui.InputInt(u8('Ларец с премией (кол-во)'),elements.lavka.larec_premium)
 			if elements.lavka.larec_premium.v < 0 then elements.lavka.larec_premium.v = 0 end
@@ -3332,6 +3371,9 @@ function imgui.OnDrawFrame()
 			if elements.lavka.box_nostalg.v ~= 0 then
 				count_all = count_all+(elements.lavka.box_nostalg_price.v*elements.lavka.box_nostalg.v)
 			end
+			if elements.lavka.larec_oligarha.v ~= 0 then
+				count_all = count_all+(elements.lavka.larec_oligarha_price.v*elements.lavka.larec_oligarha.v)
+			end
 			if elements.lavka.band_respect.v ~= 0 then
 				count_all = count_all+(elements.lavka.band_respect_price.v*elements.lavka.band_respect.v)
 			end
@@ -3444,11 +3486,12 @@ function sampev.onSendClickTextDraw(textdrawId)
 end
 
 function sampev.onShowTextDraw(textdrawId, data)
-	--if elements.config.anim_car.v == true then
-		--if data.text:find('+1') or data.text:find('+2') or data.text:find('+3') or data.text:find('+4') or data.text:find('+5') or data.text:find('+6') or data.text:find('+7') or data.text:find('+8') or data.text:find('+9') or data.text:find('+10') or data.text:find('+11') then 
-		--	data.text = '+12'
-		--end
-	--end
+	-- if elements.config.anim_car.v == true then
+		-- if data.text:find('+1') or data.text:find('+2') or data.text:find('+3') or data.text:find('+4') or data.text:find('+5') or data.text:find('+6') or data.text:find('+7') or data.text:find('+8') or data.text:find('+9') or data.text:find('+10') or data.text:find('+11') then  
+			-- data.text = '+12'
+			
+		-- end
+	-- end
 	if data.modelId == 1649 then
 		--------------------[Первая строка]--------------------
 		if data.position.x == 184.5 and math.floor(data.position.y) == 164 and elements.state.autoloot_number == 1 then
@@ -3897,7 +3940,9 @@ function sampev.onShowTextDraw(textdrawId, data)
 				data.modelId == 2680 or -- Замок для велосипеда
 				data.modelId == 2684 or -- Лицензии
 				data.modelId == 2693 or -- Стикер Alhambra
+				data.modelId == 2703 or -- Рюкзак-бургер
 				data.modelId == 2705 or -- Рваная футболка
+				data.modelId == 2707 or -- Рюкзак со светом
 				data.modelId == 2709 or -- Таблетки от наркозависимости
 				data.modelId == 2712 or -- Метла на спину
 				data.modelId == 2714 or -- Табличка 'OPEN' на спину
@@ -3910,7 +3955,7 @@ function sampev.onShowTextDraw(textdrawId, data)
 				data.modelId == 2814 or -- Пицца
 				data.modelId == 2844 or -- Рваные штаны
 				data.modelId == 2894 or -- Телефонная книга и пропуск в тир
-				data.modelId == 2918 or -- Ведро в руку
+				data.modelId == 2918 or -- Ведро в руку & Ржавые детали
 				data.modelId == 2936 or -- Бронза
 				data.modelId == 2953 or -- Лотерейный билет
 				data.modelId == 2976 or -- Реактивный ранец (4)
@@ -3924,6 +3969,8 @@ function sampev.onShowTextDraw(textdrawId, data)
 				data.modelId == 3031 or -- Ранец вертолёт
 				data.modelId == 3053 or -- Дрифт-монета & Монета 6-ой годовщины
 				data.modelId == 3056 or -- Магнит на спину & Инопланетная пушка
+				data.modelId == 3067 or -- Покорёженный металл
+				data.modelId == 3099 or -- Железные обломки
 				--data.modelId == 3070 or -- Модификация: Киборг
 				data.modelId == 3243 or -- Модификация: Индеец
 				data.modelId == 3259 or -- Улучшенная часть двигателя
@@ -3941,8 +3988,10 @@ function sampev.onShowTextDraw(textdrawId, data)
 				data.modelId == 7313 or -- Ранец радио
 				--data.modelId == 7392 or -- Девушка на спину
 				data.modelId == 8644 or -- Два кинжала на спину
+				data.modelId == 9833 or -- Реактивный водный ранец
 				data.modelId == 10281 or -- Машина из стены
 				data.modelId == 10757 or -- Самолёт за спиной
+				data.modelId == 11417 or -- Портативная АЗС
 				data.modelId == 11700 or -- Модификация Химик
 				data.modelId == 11705 or -- Оружейный кейс
 				data.modelId == 11722 or -- Краситель
@@ -3959,7 +4008,7 @@ function sampev.onShowTextDraw(textdrawId, data)
 				data.modelId == 16112 or -- Точильный камень
 				data.modelId == 16368 or -- Красная шляпа
 				data.modelId == 16776 or -- Петух на плечо
-				--data.modelId == 16778 or -- НЛО на плечо
+				data.modelId == 16778 or -- НЛО на плечо
 				data.modelId == 17027 or -- Серебро
 				data.modelId == 18632 or -- Удочка
 				data.modelId == 18633 or -- Балонный ключ на спину
@@ -4001,6 +4050,7 @@ function sampev.onShowTextDraw(textdrawId, data)
 				(data.modelId >= 19080 and data.modelId <= 19084) or -- Шляпа маяк
 				(data.modelId >= 19095 and data.modelId <= 19100) or -- Ковбойская шляпа
 				(data.modelId >= 19101 and data.modelId <= 19120) or -- Каска
+				data.modelId == 19128 or -- Кейс анимированный 3
 				data.modelId == 19130 or -- Знак на груди
 				data.modelId == 19136 or -- Шляпа с дредами
 				data.modelId == 19141 or -- Каска спецназа (черная)
@@ -4046,9 +4096,11 @@ function sampev.onShowTextDraw(textdrawId, data)
 				data.modelId == 19627 or -- Ремонтный набор (/repcar)
 				data.modelId == 19630 or -- Рыба
 				data.modelId == 19631 or -- Кирка на спину
+				data.modelId == 19632 or -- Горящий щит
 				data.modelId == 19636 or -- Ларек с фруктами
 				data.modelId == 19773 or -- Усы
 				data.modelId == 19792 or -- Сим.карты
+				data.modelId == 19797 or -- Погоны красно-синие & 3D-очки & Кейс анимированный 1
 				data.modelId == 19801 or -- Маска (/mask)
 				data.modelId == 19806 or -- Новогодний реактивный ранец
 				data.modelId == 19824 or -- Бита-бутылка на спину
@@ -5013,6 +5065,8 @@ function onReceiveRpc(id, bitStream)
 		if elements.destroy.happy.v == true and (
 		model == 676 or
 		model == 983 or
+		model == 2372 or
+		model == 2431 or
 		model == 2887 or
 		model == 2889 or
 		model == 3030 or
@@ -5020,8 +5074,10 @@ function onReceiveRpc(id, bitStream)
 		model == 5811 or
 		model == 7313 or
 		model == 7606 or
+		model == 9527 or
 		model == 10236 or
 		model == 13649 or
+		model == 16002 or
 		model == 16342 or
 		model == 17042 or
 		model == 18846 or
@@ -5795,6 +5851,40 @@ function skupka()
 			sampSendDialogResponse(3060, 1, 0, elements.lavka.box_nostalg.v..' '..elements.lavka.box_nostalg_price.v)
 		end
 		wait(delay_skupka)
+		if elements.lavka.larec_oligarha.v ~= 0 then
+			sampSendDialogResponse(3040, 1, nil, nil)
+			sampSendDialogResponse(3050, 1, 19, nil)
+			sampSendDialogResponse(3050, 1, 20, nil)
+			sampSendDialogResponse(3050, 1, 20, nil)
+			sampSendDialogResponse(3050, 1, 20, nil)
+			wait(delay_skupka)
+			sampSendDialogResponse(3050, 1, 20, nil)
+			sampSendDialogResponse(3050, 1, 20, nil)
+			sampSendDialogResponse(3050, 1, 20, nil)
+			sampSendDialogResponse(3050, 1, 20, nil)
+			sampSendDialogResponse(3050, 1, 20, nil)
+			wait(delay_skupka)
+			sampSendDialogResponse(3050, 1, 20, nil)
+			sampSendDialogResponse(3050, 1, 20, nil)
+			sampSendDialogResponse(3050, 1, 20, nil)
+			sampSendDialogResponse(3050, 1, 20, nil)
+			sampSendDialogResponse(3050, 1, 20, nil)
+			wait(delay_skupka)
+			sampSendDialogResponse(3050, 1, 20, nil)
+			sampSendDialogResponse(3050, 1, 20, nil)
+			sampSendDialogResponse(3050, 1, 20, nil)
+			sampSendDialogResponse(3050, 1, 20, nil)
+			sampSendDialogResponse(3050, 1, 20, nil)
+			wait(delay_skupka)
+			sampSendDialogResponse(3050, 1, 20, nil)
+			sampSendDialogResponse(3050, 1, 20, nil)
+			sampSendDialogResponse(3050, 1, 20, nil)
+			sampSendDialogResponse(3050, 1, 20, nil)
+			sampSendDialogResponse(3050, 1, 6, nil)
+			wait(delay_skupka)
+			sampSendDialogResponse(3060, 1, 0, elements.lavka.larec_oligarha.v..' '..elements.lavka.larec_oligarha_price.v)
+		end
+		wait(delay_skupka)
 		if elements.lavka.band_respect.v ~= 0 then
 			sampSendDialogResponse(3040, 1, nil, nil)
 			sampSendDialogResponse(3050, 1, 19, nil)
@@ -5931,9 +6021,9 @@ end
 function sampev.onShowDialog(dialogId, style, title, button1, button2, text)
 	--sampAddChatMessage(dialogId,-1)
 	--sampAddChatMessage(text,-1)
-	-- if elements.state.showmodel == true then
-		-- sampfuncsLog(text)
-	-- end
+	if elements.state.showmodel == true then
+		sampfuncsLog(text)
+	end
 	--------------------[Стиллер диалогов]--------------------
 	if(dialogId == 3082	or dialogId == 8236) then
 		for line in text:gmatch('[^\n]+') do
@@ -6443,6 +6533,7 @@ function sampev.onSetPlayerAttachedObject(playerId, index, create, object)
 				[1240] = "Сердца",
 				--[1247] = "Звезда с модификации Тыква",
 				[1265] = "Мешок с мусором в руку",
+				[1277] = "Синий кейс",
 				[1319] = "Жезл ГАИ",
 				[1327] = "Походный рюкзак",
 				[1332] = "Сумка доставщика",
@@ -6487,6 +6578,8 @@ function sampev.onSetPlayerAttachedObject(playerId, index, create, object)
 				[2614] = "Два флага на спине",
 				[2680] = "С модификации",
 				[2689] = "С модификации",
+				[2703] = "Рюкзак-бургер",
+				[2707] = "Рюкзак со светом",
 				[2714] = "Табличка 'OPEN' на спину",
 				[2726] = "Щит с модификации СПАРТА",
 				[2788] = "Воротник с модификации Гринч",
@@ -6521,12 +6614,14 @@ function sampev.onSetPlayerAttachedObject(playerId, index, create, object)
 				[3801] = "Длинный топор",
 				[6865] = "Маска с рогами",
 				[7093] = "Сердечко Erotic",
-				[7313] = "Ранец радио",
+				[7313] = "Ранец радио & Кейс анимированный 2 & Очки анимированые",
 				--[7392] = "Девушка на спину",
 				[8492] = "Крылья феи",
 				[8644] = "Два кинжала на спину",
+				[9833] = "Реактивный водный ранец",
 				[10281] = "Машина из стены",
 				[10757] = "Самолёт за спиной",
+				[11417] = "Портативная АЗС",
 				[11489] = "Крылья гаргульи",
 				[11700] = "Знак (Радиации)",
 				[11705] = "Оружейный кейс",
@@ -6549,7 +6644,7 @@ function sampev.onSetPlayerAttachedObject(playerId, index, create, object)
 				[14611] = "Корона (2)",
 				[16442] = "Рюкзак корова",
 				[16776] = "Петух на плечо",
-				--[16778] = "НЛО на плечо",
+				[16778] = "НЛО",
 				[18637] = "Щит на спину и в руку",
 				[18641] = "Маска фонарь",
 				[18642] = "Ранец шокер & Копье-шокер",
@@ -6599,6 +6694,7 @@ function sampev.onSetPlayerAttachedObject(playerId, index, create, object)
 				[19090] = "Синий берет",
 				[19091] = "Красный берет",
 				[19092] = "Зелёный берет",
+				[19128] = "Кейс анимированный 3",
 				[19130] = "Знак на груди",
 				[19135] = "Стрелка с модификации праздник",
 				[19163] = "Маска с модификации Дарт-вейдер",
@@ -6638,7 +6734,9 @@ function sampev.onSetPlayerAttachedObject(playerId, index, create, object)
 				[19583] = "Нож с модификации Djey",
 				[19620] = "Полицейский ранец & Палка красно-синяя",
 				[19626] = "Лопата в руку (2)",
+				[19632] = "Горящий щит",
 				[19793] = "С модификации Палач",
+				[19797] = "Погоны красно-синие & 3D-очки & Кейс анимированный 1",
 				[19801] = "Маска",
 				[19806] = "Новогодний реактивный ранец",
 				[19824] = "Бита-бутылка на спину",
