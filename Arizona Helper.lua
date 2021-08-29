@@ -2,10 +2,10 @@
 script_name("{0d00ff}Ar{2900ff}iz{3900ff}on{4500ff}a H{4f00ff}el{5800ff}pe{6000ff}r")
 local script_names = "Arizona Helper"
 
-script_version('4.79')
+script_version('4.80')
 script_author("metk1u")
 
-local script_vers = 108
+local script_vers = 109
 
 local coords = 
 {
@@ -1266,6 +1266,8 @@ local elements =
 		----------------------------------------
 		olen = false,
 		----------------------------------------
+		happy = false,
+		----------------------------------------
 		lavka = false,
 		----------------------------------------
 		waxta = false,
@@ -1516,6 +1518,11 @@ function main()
 	sampRegisterChatCommand("olen",function()
 		elements.state.olen = not elements.state.olen
 		push_message((elements.state.olen and "Включаю" or "Выключаю")..' поиск оленей в зоне стрима.')
+	end)
+	----------------------------------------
+	sampRegisterChatCommand("happy",function()
+		elements.state.happy = not elements.state.happy
+		push_message((elements.state.happy and "Включаю" or "Выключаю")..' поиск.')
 	end)
 	----------------------------------------
 	sampRegisterChatCommand("ll",function()
@@ -2127,6 +2134,32 @@ function main()
 				renderFontDrawText(arial,'Оленей в зоне стрима: '..olen_count, sx / 2.5, sy - 30, 0xFF3300FF)
 			else
 				renderFontDrawText(arial,'Оленей в зоне стрима: '..olen_count, sx / 2.5, sy - 30, 0xFFFF0000)
+			end
+		end
+		--------------------[ДР аризоны]--------------------
+		if elements.state.happy == true then
+			for _, i in pairs(getAllObjects()) do
+				if getObjectModel(i) == 850 or getObjectModel(i) == 934 or getObjectModel(i) == 1362 then
+					if isObjectOnScreen(i) then
+						local result, oX, oY, oZ = getObjectCoordinates(i)
+						------------------------------------
+						local x1, y1 = convert3DCoordsToScreen(oX,oY,oZ)
+						local PlayerX, PlayerY, PlayerZ = getCharCoordinates(PLAYER_PED)
+						local PlayerX2, PlayerY2 = convert3DCoordsToScreen(PlayerX, PlayerY, PlayerZ)
+						distance = string.format("%.0f",getDistanceBetweenCoords3d(oX, oY, oZ, PlayerX, PlayerY, PlayerZ))
+						------------------------------------
+						renderDrawLine(PlayerX2, PlayerY2, x1, y1, 2, 0xFF3300FF)
+						if getObjectModel(i) == 850 then
+							renderFontDrawText(arial,"{FF0000}Железные обломки: {3300FF}"..distance, x1, y1, -1)
+						end
+						if getObjectModel(i) == 934 then
+							renderFontDrawText(arial,"{FF0000}Покорёженный металл: {3300FF}"..distance, x1, y1, -1)
+						end
+						if getObjectModel(i) == 1362 then
+							renderFontDrawText(arial,"{FF0000}Ржавые детали: {3300FF}"..distance, x1, y1, -1)
+						end
+					end
+				end
 			end
 		end
 		--------------------[Поиск лавок]--------------------
@@ -2773,11 +2806,6 @@ function imgui.OnDrawFrame()
 		imgui.Text(u8"/bugs - Посмотреть список забаганного транспорта")
 		imgui.Text(u8"/bugadd [vehicleid] - Добавить транспорт в список забаганных")
 		imgui.Text(u8"/bugdel [vehicleid] - Удалить транспорт их списка забаганных")
-		imgui.Text(u8"Клаус - 21133")
-		imgui.Text(u8"Деймон - 13132")
-		imgui.Text(u8"Стеффан - 31233")
-		imgui.Text(u8"Джереми - 22111")
-		imgui.Text(u8"Мэтт - 12233")
 		----------------------------------------
 		imgui.EndGroup()
 		imgui.SameLine()
