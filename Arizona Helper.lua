@@ -2,10 +2,10 @@
 script_name("{0d00ff}Ar{2900ff}iz{3900ff}on{4500ff}a H{4f00ff}el{5800ff}pe{6000ff}r")
 local script_names = "Arizona Helper"
 
-script_version('4.81')
+script_version('4.82')
 script_author("metk1u")
 
-local script_vers = 110
+local script_vers = 111
 
 local coords = 
 {
@@ -317,6 +317,576 @@ local model_name =
 	[19847] = "Копченая нога",
 	[19878] = "Скейт на спину",
 	[19904] = "Жилет грузчика"
+};
+local textdraw_name =
+{
+	--[1895] = "Серебрянная рулетка",
+	--[3070] = "Модификация: Киборг",
+	--[18979] = "Мотошлем",
+	[321] = "Дилдо на спину #1",
+	[322] = "Дилдо",
+	[323] = "Вибратор",
+	[324] = "Рюкзак мотор и модификация Дарт-вейдер",
+	[326] = "Трость",
+	[328] = "Бордовый чемодан",
+	[329] = "INVALID_OBJECT_ID",
+	[331] = "Кастет",
+	[332] = "INVALID_OBJECT_ID",
+	[333] = "Клюшка для гольфа",
+	[336] = "Бита на спину",
+	[337] = "Лопата на спину",
+	[338] = "Кий на спину",
+	[339] = "Катана на спину и Расомаха",
+	[340] = "INVALID_OBJECT_ID",
+	[341] = "Бензопила",
+	[346] = "Colt 45",
+	[347] = "Silenced 9mm",
+	[348] = "Desert Eagle",
+	[349] = "Shotgun",
+	[350] = "Sawnoff Shotgun",
+	[352] = "Micro Uzi",
+	[353] = "MP5",
+	[355] = "AK-47",
+	[356] = "M4",
+	[357] = "Country Rifle",
+	[358] = "Sniper Rifle",
+	[361] = "Огнемёт на спину",
+	[362] = "Миниган на спину",
+	[363] = "Портфель террориста",
+	[368] = "Прибор ночного видения",
+	[371] = "Рюкзак (парашют)",
+	[372] = "Tec-9",
+	[382] = "INVALID_OBJECT_ID",
+	[383] = "INVALID_OBJECT_ID",
+	[398] = "INVALID_OBJECT_ID",
+	[399] = "INVALID_OBJECT_ID",
+	[612] = "INVALID_OBJECT_ID",
+	[613] = "INVALID_OBJECT_ID",
+	[614] = "INVALID_OBJECT_ID",
+	[662] = "INVALID_OBJECT_ID",
+	[663] = "INVALID_OBJECT_ID",
+	[676] = "INVALID_OBJECT_ID",
+	[701] = "Адская трава (игровой ресурс)",
+	[795] = "INVALID_OBJECT_ID",
+	[796] = "INVALID_OBJECT_ID",
+	[797] = "INVALID_OBJECT_ID",
+	[798] = "INVALID_OBJECT_ID",
+	[799] = "INVALID_OBJECT_ID",
+	[823] = "INVALID_OBJECT_ID",
+	[826] = "Хлопок",
+	[841] = "Проклятое дерево",
+	[854] = "Мусор",
+	[859] = "Счастливая травка",
+	[859] = "Счастливая травка",
+	[871] = "Лен",
+	[881] = "Ёлка",
+	[886] = "INVALID_OBJECT_ID",
+	[888] = "Язык Венома",
+	[890] = "INVALID_OBJECT_ID",
+	[894] = "INVALID_OBJECT_ID",
+	[902] = "Ледяная звезда",
+	[907] = "INVALID_OBJECT_ID",
+	[908] = "INVALID_OBJECT_ID",
+	[920] = "Первый компонент для крафта (квест)",
+	[921] = "Второй компонент для крафта (квест)",
+	[953] = "Крылья ангела",
+	[954] = "Рога оленя и Лук Купидона",
+	[962] = "Видеокарта",
+	[1013] = "Ушки бэтмена",
+	[1114] = "Очки сварщика",
+	[1210] = "Коричневый чемодан",
+	[1212] = "Пачка денег на спину и Евро",
+	[1243] = "Боеголовка",
+	[1248] = "Значок GTA III",
+	[1271] = "Rare Box Yellow",
+	[1276] = "Часть от амулета",
+	[1277] = "Талон +1 Exp",
+	[1304] = "Металл",
+	[1319] = "Жезл ГАИ",
+	[1328] = "Платиновая рулетка",
+	[1335] = "Ностальгический ящик",
+	[1353] = "Сундук платиновой рулетки",
+	[1366] = "Щит",
+	[1371] = "Рюкзак Бегемот",
+	[1387] = "Крюк пирата",
+	[1453] = "Шкура оленя",
+	[1455] = "Семена дерева Бобровые",
+	[1463] = "Дрова",
+	[1486] = "Пиво",
+	[1487] = "Бутылка на спину",
+	[1547] = "Сертификат на подарок",
+	[1548] = "Золотые погоны",
+	[1549] = "Смазка для разгона видеокарты",
+	[1554] = "Черви",
+	[1565] = "Корона (1)",
+	[1570] = "Рюкзак для ларьков",
+	[1573] = "INVALID_OBJECT_ID",
+	[1575] = "Белый пакет с наркотиками на спину",
+	[1599] = "Золотая рыбка",
+	[1601] = "Молнии Зевса",
+	[1603] = "Кровавая накидка & Золотая шапка",
+	[1604] = "Копьё Зевса",
+	[1607] = "Дельфин на спину",
+	[1609] = "Черепаха на спину",
+	[1615] = "Точильный амулет",
+	[1622] = "Регистратор на плечо",
+	[1650] = "Канистра (/fillcar)",
+	[1672] = "Баллончик с краской & Supply Signal",
+	[1681] = "Реактивный ранец (2)",
+	[1699] = "INVALID_OBJECT_ID",
+	[1733] = "Тайник Илона Маска",
+	[1749] = "Ящик Джентельменов",
+	[1851] = "Кубик в руку",
+	[1885] = "Корзины за спиной",
+	[1886] = "Маска робота (1)",
+	[1956] = "Бандитский респект",
+	[1971] = "Рецепт адреналина",
+	[1979] = "Бронзовая рулетка",
+	[2045] = "Бита с шипами",
+	[2060] = "Ингредиенты",
+	[2102] = "Колонка на спину",
+	[2186] = "Техно рюкзак",
+	[2219] = "Комплексный обед",
+	[2226] = "Бумбокс",
+	[2238] = "Шляпа с красными каплями",
+	[2250] = "Цветок",
+	[2362] = "Переносная лавка",
+	[2386] = "Скин",
+	[2401] = "Одежда из секонд-хенда",
+	[2404] = "Доска для серфинга",
+	[2405] = "Доска для серфинга",
+	[2406] = "Доска для серфинга",
+	[2429] = "Реактивный ранец (3)",
+	[2456] = "Стикер Cluckin Bell",
+	[2487] = "Модификация: Соник",
+	[2587] = "Стикер Verona",
+	[2601] = "Спранк",
+	[2663] = "Чипсы",
+	[2680] = "Замок для велосипеда",
+	[2684] = "Лицензии",
+	[2693] = "Стикер Alhambra",
+	[2703] = "Рюкзак-бургер",
+	[2705] = "Рваная футболка",
+	[2707] = "Рюкзак со светом",
+	[2709] = "Таблетки от наркозависимости",
+	[2712] = "Метла на спину",
+	[2714] = "Табличка 'OPEN' на спину",
+	[2719] = "Стикер Jizzy",
+	[2722] = "Стикер Binko",
+	[2782] = "Раптор",
+	[2790] = "Алюминий",
+	[2798] = "Улучшенная часть КПП",
+	[2803] = "Мешок с подарками",
+	[2806] = "Сырое мясо оленины",
+	[2814] = "Пицца",
+	[2844] = "Рваные штаны",
+	[2883] = "INVALID_OBJECT_ID",
+	[2884] = "INVALID_OBJECT_ID",
+	[2888] = "Маска робота (2)",
+	[2894] = "Телефонная книга и пропуск в тир",
+	[2918] = "Ведро в руку & Ржавые детали",
+	[2936] = "Бронза",
+	[2953] = "Лотерейный билет",
+	[2976] = "Реактивный ранец (4)",
+	[2977] = "Супер мото-ящик",
+	[2985] = "Экзоскилет",
+	[2988] = "Сундук за спиной",
+	[2992] = "Ангельский сет и обручальное кольцо",
+	[3003] = "Куриное яйцо (пасха)",
+	[3013] = "Ящик за спиной",
+	[3027] = "Самокрутка на спину",
+	[3031] = "Ранец вертолёт",
+	[3053] = "Дрифт-монета & Монета 6-ой годовщины",
+	[3056] = "Магнит на спину & Инопланетная пушка",
+	[3067] = "Покорёженный металл",
+	[3099] = "Железные обломки",
+	[3111] = "Чертёж уникального аксессуара (квест)",
+	[3136] = "INVALID_OBJECT_ID",
+	[3137] = "INVALID_OBJECT_ID",
+	[3138] = "INVALID_OBJECT_ID",
+	[3139] = "INVALID_OBJECT_ID",
+	[3140] = "INVALID_OBJECT_ID",
+	[3141] = "INVALID_OBJECT_ID",
+	[3142] = "INVALID_OBJECT_ID",
+	[3143] = "INVALID_OBJECT_ID",
+	[3144] = "INVALID_OBJECT_ID",
+	[3145] = "INVALID_OBJECT_ID",
+	[3146] = "INVALID_OBJECT_ID",
+	[3147] = "INVALID_OBJECT_ID",
+	[3148] = "INVALID_OBJECT_ID",
+	[3149] = "INVALID_OBJECT_ID",
+	[3152] = "INVALID_OBJECT_ID",
+	[3153] = "INVALID_OBJECT_ID",
+	[3154] = "INVALID_OBJECT_ID",
+	[3160] = "INVALID_OBJECT_ID",
+	[3161] = "INVALID_OBJECT_ID",
+	[3162] = "INVALID_OBJECT_ID",
+	[3163] = "INVALID_OBJECT_ID",
+	[3164] = "INVALID_OBJECT_ID",
+	[3166] = "INVALID_OBJECT_ID",
+	[3176] = "INVALID_OBJECT_ID",
+	[3180] = "INVALID_OBJECT_ID",
+	[3181] = "INVALID_OBJECT_ID",
+	[3182] = "INVALID_OBJECT_ID",
+	[3185] = "INVALID_OBJECT_ID",
+	[3186] = "INVALID_OBJECT_ID",
+	[3188] = "INVALID_OBJECT_ID",
+	[3189] = "INVALID_OBJECT_ID",
+	[3190] = "INVALID_OBJECT_ID",
+	[3191] = "INVALID_OBJECT_ID",
+	[3192] = "INVALID_OBJECT_ID",
+	[3205] = "INVALID_OBJECT_ID",
+	[3207] = "INVALID_OBJECT_ID",
+	[3209] = "INVALID_OBJECT_ID",
+	[3225] = "INVALID_OBJECT_ID",
+	[3227] = "INVALID_OBJECT_ID",
+	[3229] = "INVALID_OBJECT_ID",
+	[3230] = "INVALID_OBJECT_ID",
+	[3231] = "INVALID_OBJECT_ID",
+	[3243] = "Модификация: Индеец",
+	[3248] = "INVALID_OBJECT_ID",
+	[3259] = "Улучшенная часть двигателя",
+	[3272] = "Паук на спину",
+	[3273] = "Ранец охотники на приведений",
+	[3349] = "INVALID_OBJECT_ID",
+	[3383] = "Усы таракана",
+	[3385] = "Рюкзак будущего",
+	[3416] = "INVALID_OBJECT_ID",
+	[3425] = "Установка за спиной",
+	[3429] = "INVALID_OBJECT_ID",
+	[3440] = "Очки переливающиеся",
+	[3497] = "Садок",
+	[3528] = "Ранец огненный дракон и Сет Дракона",
+	[3610] = "INVALID_OBJECT_ID",
+	[3611] = "INVALID_OBJECT_ID",
+	[3643] = "Рюкзак стимпанк",
+	[3658] = "Гармошка",
+	[3784] = "INVALID_OBJECT_ID",
+	[3801] = "Длинный топор",
+	[3870] = "INVALID_OBJECT_ID",
+	[3871] = "INVALID_OBJECT_ID",
+	[3883] = "INVALID_OBJECT_ID",
+	[3889] = "INVALID_OBJECT_ID",
+	[3929] = "Камень",
+	[3930] = "Камень пространства",
+	[4549] = "INVALID_OBJECT_ID",
+	[4763] = "INVALID_OBJECT_ID",
+	[4764] = "INVALID_OBJECT_ID",
+	[4767] = "INVALID_OBJECT_ID",
+	[4772] = "INVALID_OBJECT_ID",
+	[4773] = "INVALID_OBJECT_ID",
+	[4788] = "INVALID_OBJECT_ID",
+	[4791] = "INVALID_OBJECT_ID",
+	[4792] = "INVALID_OBJECT_ID",
+	[4805] = "INVALID_OBJECT_ID",
+	[5090] = "INVALID_OBJECT_ID",
+	[5093] = "INVALID_OBJECT_ID",
+	[5094] = "INVALID_OBJECT_ID",
+	[5095] = "INVALID_OBJECT_ID",
+	[5096] = "INVALID_OBJECT_ID",
+	[5097] = "INVALID_OBJECT_ID",
+	[5098] = "INVALID_OBJECT_ID",
+	[5099] = "INVALID_OBJECT_ID",
+	[5100] = "INVALID_OBJECT_ID",
+	[5101] = "INVALID_OBJECT_ID",
+	[5102] = "INVALID_OBJECT_ID",
+	[5103] = "INVALID_OBJECT_ID",
+	[5376] = "INVALID_OBJECT_ID",
+	[5377] = "INVALID_OBJECT_ID",
+	[5379] = "INVALID_OBJECT_ID",
+	[5777] = "Модификация: Смерть",
+	[6865] = "Маска с рогами",
+	[7093] = "Рюкзак 'Erotic'",
+	[7302] = "Стикер Victim",
+	[7313] = "Ранец радио",
+	[7392] = "Девушка на спину",
+	[8483] = "Маска череп",
+	[8644] = "Два кинжала на спину",
+	[9833] = "Реактивный водный ранец",
+	[10281] = "Машина из стены",
+	[10757] = "Самолёт за спиной",
+	[11417] = "Портативная АЗС",
+	[11700] = "Модификация Химик",
+	[11705] = "Оружейный кейс",
+	[11722] = "Краситель",
+	[11733] = "Снежные сани 2",
+	[11736] = "Антибиотики и маска от короновируса",
+	[11738] = "Аптечка",
+	[11745] = "Сумка для ноутбука",
+	[11748] = "Скрепки",
+	[11750] = "VR-очки и моноколь",
+	[13562] = "Крутящаяся дубина",
+	[13646] = "Золотая рулетка",
+	[13667] = "Маска обезьяны",
+	[14467] = "Человечек на плечо",
+	[14527] = "Крылья стрекозы",
+	[14611] = "Корона (2)",
+	[16112] = "Точильный камень",
+	[16368] = "Красная шляпа",
+	[16442] = "Рюкзак корова",
+	[16776] = "Петух на плечо",
+	[16778] = "НЛО на плечо",
+	[17027] = "Серебро",
+	[18632] = "Удочка",
+	[18633] = "Балонный ключ на спину",
+	[18634] = "Лом на спину",
+	[18635] = "Молоток на спину",
+	[18636] = "Кепка Police чёрная",
+	[18637] = "Щит на спину",
+	[18638] = "Каска строителя",
+	[18641] = "Маска фонарь",
+	[18642] = "Ранец шокер & Копье-шокер",
+	[18643] = "Красная шляпа маяк",
+	[18782] = "Печенька на голову",
+	[18848] = "Военный реактивный ранец",
+	[18858] = "Реактивный рюкзак 1 & Реактивный рюкзак 2",
+	[18865] = "Телефон",
+	[18866] = "Телефон",
+	[18867] = "Телефон",
+	[18868] = "Телефон",
+	[18869] = "Телефон",
+	[18870] = "Телефон",
+	[18871] = "Телефон",
+	[18872] = "Телефон",
+	[18873] = "Телефон",
+	[18874] = "Телефон",
+	[18875] = "ПипБой & Радио",
+	[18890] = "Грабли на спину",
+	[18893] = "Рваная бандана",
+	[18906] = "Бандана на голову",
+	[18907] = "Бандана на голову",
+	[18908] = "Бандана на голову",
+	[18909] = "Бандана на голову",
+	[18910] = "Бандана на голову",
+	[18911] = "Бандана",
+	[18912] = "Бандана",
+	[18913] = "Бандана",
+	[18914] = "Бандана",
+	[18915] = "Бандана",
+	[18916] = "Бандана",
+	[18917] = "Бандана",
+	[18918] = "Бандана",
+	[18919] = "Бандана & Рваная повязка",
+	[18920] = "Бандана",
+	[18921] = "Берет",
+	[18922] = "Берет",
+	[18923] = "Берет",
+	[18924] = "Берет",
+	[18925] = "Берет",
+	[18926] = "Кепка передняя",
+	[18927] = "Кепка передняя",
+	[18928] = "Кепка передняя",
+	[18929] = "Кепка передняя",
+	[18930] = "Кепка передняя",
+	[18931] = "Кепка передняя",
+	[18932] = "Кепка передняя",
+	[18933] = "Кепка передняя",
+	[18934] = "Кепка передняя",
+	[18935] = "Кепка передняя",
+	[18936] = "Модификация: Палач",
+	[18946] = "Рваная шляпа Байкеров",
+	[18947] = "Шляпка",
+	[18948] = "Шляпка",
+	[18949] = "Шляпка",
+	[18950] = "Шляпка",
+	[18951] = "Шляпка",
+	[18952] = "Шлем для бокса",
+	[18953] = "Тёплая Шапка",
+	[18954] = "Тёплая Шапка",
+	[18955] = "Кепка обратная",
+	[18956] = "Кепка обратная",
+	[18957] = "Кепка обратная",
+	[18958] = "Кепка обратная",
+	[18959] = "Кепка обратная",
+	[18963] = "Голова CJ",
+	[18964] = "Бандитская шапка",
+	[18965] = "Бандитская шапка",
+	[18966] = "Бандитская шапка",
+	[18967] = "Панамка",
+	[18968] = "Панамка",
+	[18969] = "Панамка",
+	[18970] = "Шляпа",
+	[18971] = "Шляпа",
+	[18972] = "Шляпа",
+	[18973] = "Шляпа",
+	[18974] = "Рваная повязка Russian Mafia",
+	[18977] = "Мотошлем",
+	[18978] = "Мотошлем",
+	[19006] = "Очки",
+	[19007] = "Очки",
+	[19008] = "Очки",
+	[19009] = "Очки",
+	[19010] = "Очки",
+	[19011] = "Очки",
+	[19012] = "Очки",
+	[19013] = "Очки",
+	[19014] = "Очки",
+	[19015] = "Очки",
+	[19016] = "Очки",
+	[19017] = "Очки",
+	[19018] = "Очки",
+	[19019] = "Очки",
+	[19020] = "Очки",
+	[19021] = "Очки",
+	[19022] = "Очки",
+	[19023] = "Очки",
+	[19024] = "Очки",
+	[19025] = "Очки",
+	[19026] = "Очки",
+	[19027] = "Очки",
+	[19028] = "Очки",
+	[19029] = "Очки",
+	[19030] = "Очки",
+	[19031] = "Очки",
+	[19032] = "Очки",
+	[19033] = "Очки",
+	[19034] = "Очки",
+	[19035] = "Очки",
+	[19036] = "Хоккейная маска",
+	[19037] = "Хоккейная маска",
+	[19038] = "Хоккейная маска",
+	[19039] = "Часы",
+	[19040] = "Часы",
+	[19041] = "Часы",
+	[19042] = "Часы",
+	[19043] = "Часы",
+	[19044] = "Часы",
+	[19045] = "Часы",
+	[19046] = "Часы",
+	[19047] = "Часы",
+	[19048] = "Часы",
+	[19049] = "Часы",
+	[19050] = "Часы",
+	[19051] = "Часы",
+	[19052] = "Часы",
+	[19053] = "Часы",
+	[19065] = "Новогодняя шапка (2)",
+	[19066] = "Новогодняя шапка (3)",
+	[19069] = "Шапка",
+	[19077] = "Борода #2",
+	[19078] = "Костюм попугая",
+	[19079] = "Попугай на плечо",
+	[19080] = "Шляпа маяк",
+	[19081] = "Шляпа маяк",
+	[19082] = "Шляпа маяк",
+	[19083] = "Шляпа маяк",
+	[19084] = "Шляпа маяк",
+	[19086] = "Улучшенное дилдо & Маска робота",
+	[19092] = "Зелёный берет",
+	[19095] = "Ковбойская шляпа",
+	[19096] = "Ковбойская шляпа",
+	[19097] = "Ковбойская шляпа",
+	[19098] = "Ковбойская шляпа",
+	[19099] = "Ковбойская шляпа",
+	[19100] = "Ковбойская шляпа",
+	[19101] = "Каска",
+	[19102] = "Каска",
+	[19103] = "Каска",
+	[19104] = "Каска",
+	[19105] = "Каска",
+	[19106] = "Каска",
+	[19107] = "Каска",
+	[19108] = "Каска",
+	[19109] = "Каска",
+	[19110] = "Каска",
+	[19111] = "Каска",
+	[19112] = "Каска",
+	[19113] = "Каска",
+	[19114] = "Каска",
+	[19115] = "Каска",
+	[19116] = "Каска",
+	[19117] = "Каска",
+	[19118] = "Каска",
+	[19119] = "Каска",
+	[19120] = "Каска",
+	[19128] = "Кейс анимированный 3",
+	[19130] = "Знак на груди",
+	[19135] = "Вьетнамская шапка",
+	[19136] = "Шляпа с дредами",
+	[19137] = "Голова петуха",
+	[19141] = "Каска спецназа (черная)",
+	[19142] = "Бронежилет (черный)",
+	[19160] = "Кепка DUDE жёлтая",
+	[19161] = "Кепка Police серая",
+	[19162] = "Кепка Police синяя",
+	[19168] = "Карта достопримечательностей (квест)",
+	[19197] = "Ангельское кольцо на голову",
+	[19314] = "Рога",
+	[19317] = "Гитара",
+	[19318] = "Гитара",
+	[19319] = "Гитара",
+	[19330] = "Женская шляпка",
+	[19332] = "Воздушный шар",
+	[19333] = "Воздушный шар",
+	[19334] = "Воздушный шар",
+	[19335] = "Воздушный шар",
+	[19336] = "Воздушный шар",
+	[19337] = "Воздушный шар",
+	[19338] = "Воздушный шар",
+	[19347] = "Звезда на грудь",
+	[19349] = "Монокль",
+	[19352] = "Чёрный конус",
+	[19421] = "Наушники",
+	[19422] = "Наушники",
+	[19423] = "Наушники",
+	[19424] = "Наушники",
+	[19468] = "Редкая ткань",
+	[19469] = "Повязка на шею",
+	[19472] = "Респиратор",
+	[19487] = "Белый конус",
+	[19513] = "Samsung Galaxy S10 (Серебрянный)",
+	[19514] = "Каска спецназа (белая)",
+	[19515] = "Бронежилет (белый)",
+	[19517] = "Борода #1",
+	[19518] = "Парик (2)",
+	[19519] = "Парик (3)",
+	[19520] = "Фуражка офицера",
+	[19521] = "Фуражка офицера",
+	[19522] = "Гражданский талон & Значок красного домика",
+	[19523] = "Значок оранжевого домика",
+	[19524] = "Значок желтого домика",
+	[19553] = "Фермерская шляпа",
+	[19554] = "Шапка баллас",
+	[19557] = "Маска Зорро",
+	[19558] = "Кепка (развозчика пиццы)",
+	[19559] = "Походный рюкзак",
+	[19566] = "Энергитический батончик",
+	[19573] = "Рюкзак угол",
+	[19576] = "Модификация: Гринч",
+	[19581] = "Сковородка",
+	[19591] = "Китайский веер",
+	[19602] = "Зелёный щит",
+	[19614] = "Ларец с премией",
+	[19620] = "Полицейский ранец & Палка красно-синяя",
+	[19621] = "Канистра на правое бедро",
+	[19623] = "Фотоаппарат на грудь",
+	[19624] = "Большой чемодан",
+	[19625] = "Сигареты",
+	[19626] = "Лопата в руку (2)",
+	[19627] = "Ремонтный набор (/repcar)",
+	[19630] = "Рыба",
+	[19631] = "Кирка на спину",
+	[19632] = "Горящий щит",
+	[19636] = "Ларек с фруктами",
+	[19773] = "Усы",
+	[19792] = "Сим.карты",
+	[19797] = "Погоны красно-синие & 3D-очки & Кейс анимированный 1",
+	[19801] = "Маска (/mask)",
+	[19806] = "Новогодний реактивный ранец",
+	[19807] = "Рюкзак теле",
+	[19823] = "Желтая бита на спину",
+	[19824] = "Бита-бутылка на спину",
+	[19840] = "Красный плащ",
+	[19843] = "Материалы",
+	[19847] = "Копченая нога",
+	[19878] = "Скейт на спину",
+	[19882] = "Жареное мясо оленины & Жареная рыба",
+	[19900] = "Ларец Super Car Box",
+	[19904] = "Жилет грузчика",
+	[19918] = "Сундук рулетки",
+	[19921] = "Красный чемодан",
+	[19941] = "Золото",
+	[19998] = "Зажигалка"
 };
 local tCarsName = 
 {
@@ -1354,34 +1924,55 @@ function main()
 			end
 		end
 	end)
-	os.remove("moonloader\\stealer\\1248 - .notepad")
-	os.remove("moonloader\\stealer\\1277 - .notepad")
-	os.remove("moonloader\\stealer\\2703 - .notepad")
-	os.remove("moonloader\\stealer\\2707 - .notepad")
-	os.remove("moonloader\\stealer\\3643 - .notepad")
-	os.remove("moonloader\\stealer\\7313 - .notepad")
-	os.remove("moonloader\\stealer\\7392 - .notepad")
-	os.remove("moonloader\\stealer\\9833 - .notepad")
-	os.remove("moonloader\\stealer\\11417 - .notepad")
-	os.remove("moonloader\\stealer\\16778 - .notepad")
-	os.remove("moonloader\\stealer\\19128 - .notepad")
-	os.remove("moonloader\\stealer\\19632 - .notepad")
-	os.remove("moonloader\\stealer\\19797 - .notepad")
-	os.remove("moonloader\\stealer\\textdraws\\1248.notepad")
-	os.remove("moonloader\\stealer\\textdraws\\2238.notepad")
-	os.remove("moonloader\\stealer\\textdraws\\2703.notepad")
-	os.remove("moonloader\\stealer\\textdraws\\2707.notepad")
-	os.remove("moonloader\\stealer\\textdraws\\3067.notepad")
-	os.remove("moonloader\\stealer\\textdraws\\3099.notepad")
-	os.remove("moonloader\\stealer\\textdraws\\3643.notepad")
-	os.remove("moonloader\\stealer\\textdraws\\7313.notepad")
-	os.remove("moonloader\\stealer\\textdraws\\7392.notepad")
-	os.remove("moonloader\\stealer\\textdraws\\9833.notepad")
-	os.remove("moonloader\\stealer\\textdraws\\11417.notepad")
-	os.remove("moonloader\\stealer\\textdraws\\16778.notepad")
-	os.remove("moonloader\\stealer\\textdraws\\19128.notepad")
-	os.remove("moonloader\\stealer\\textdraws\\19632.notepad")
-	os.remove("moonloader\\stealer\\textdraws\\19797.notepad")
+	-- INVALID_OBJECT_ID
+	os.remove("moonloader\\stealer\\2238 - .notepad")
+	os.remove("moonloader\\stealer\\textdraws\\312.notepad")
+	os.remove("moonloader\\stealer\\textdraws\\313.notepad")
+	os.remove("moonloader\\stealer\\textdraws\\314.notepad")
+	os.remove("moonloader\\stealer\\textdraws\\315.notepad")
+	os.remove("moonloader\\stealer\\textdraws\\316.notepad")
+	os.remove("moonloader\\stealer\\textdraws\\317.notepad")
+	os.remove("moonloader\\stealer\\textdraws\\318.notepad")
+	os.remove("moonloader\\stealer\\textdraws\\319.notepad")
+	os.remove("moonloader\\stealer\\textdraws\\320.notepad")
+	os.remove("moonloader\\stealer\\textdraws\\321.notepad")
+	os.remove("moonloader\\stealer\\textdraws\\323.notepad")
+	os.remove("moonloader\\stealer\\textdraws\\329.notepad")
+	os.remove("moonloader\\stealer\\textdraws\\331.notepad")
+	os.remove("moonloader\\stealer\\textdraws\\332.notepad")
+	os.remove("moonloader\\stealer\\textdraws\\340.notepad")
+	os.remove("moonloader\\stealer\\textdraws\\341.notepad")
+	os.remove("moonloader\\stealer\\textdraws\\350.notepad")
+	os.remove("moonloader\\stealer\\textdraws\\363.notepad")
+	os.remove("moonloader\\stealer\\textdraws\\368.notepad")
+	os.remove("moonloader\\stealer\\textdraws\\371.notepad")
+	os.remove("moonloader\\stealer\\textdraws\\382.notepad")
+	os.remove("moonloader\\stealer\\textdraws\\383.notepad")
+	os.remove("moonloader\\stealer\\textdraws\\398.notepad")
+	os.remove("moonloader\\stealer\\textdraws\\399.notepad")
+	os.remove("moonloader\\stealer\\textdraws\\612.notepad")
+	os.remove("moonloader\\stealer\\textdraws\\613.notepad")
+	os.remove("moonloader\\stealer\\textdraws\\614.notepad")
+	os.remove("moonloader\\stealer\\textdraws\\662.notepad")
+	os.remove("moonloader\\stealer\\textdraws\\663.notepad")
+	os.remove("moonloader\\stealer\\textdraws\\676.notepad")
+	os.remove("moonloader\\stealer\\textdraws\\795.notepad")
+	os.remove("moonloader\\stealer\\textdraws\\796.notepad")
+	os.remove("moonloader\\stealer\\textdraws\\797.notepad")
+	os.remove("moonloader\\stealer\\textdraws\\798.notepad")
+	os.remove("moonloader\\stealer\\textdraws\\799.notepad")
+	os.remove("moonloader\\stealer\\textdraws\\1243.notepad")
+	os.remove("moonloader\\stealer\\textdraws\\2782.notepad")
+	os.remove("moonloader\\stealer\\textdraws\\3385.notepad")
+	os.remove("moonloader\\stealer\\textdraws\\3497.notepad")
+	os.remove("moonloader\\stealer\\textdraws\\8483.notepad")
+	os.remove("moonloader\\stealer\\textdraws\\19823.notepad")
+	
+	
+	----------------------------------------
+	for model_id, name in pairs(textdraw_name) do
+		os.remove("moonloader\\stealer\\textdraws\\"..model_id..".notepad")
+	end
 	----------------------------------------
 	_, playerid = sampGetPlayerIdByCharHandle(PLAYER_PED)
 	local_name = sampGetPlayerNickname(playerid)
@@ -1774,7 +2365,7 @@ function main()
 				elements.autoopenroul.open_roul_platina.v == false and
 				elements.autoopenroul.open_roul_active == true and
 				elements.autotoch.autotoch_enable.v == false and
-				(ip == "185.169.134.3" or ip == "185.169.134.4" or ip == "185.169.134.43" or ip == "185.169.134.44" or ip == "185.169.134.45" or ip == "185.169.134.5" or ip == "185.169.134.59" or ip == "185.169.134.61" or ip == "185.169.134.107" or ip == "185.169.134.109" or ip == "185.169.134.166" or ip == "185.169.134.171" or ip == "185.169.134.172" or ip == "185.169.134.173" or ip == "185.169.134.174" or ip == "80.66.82.191") then
+				(ip == "185.169.134.3" or ip == "185.169.134.4" or ip == "185.169.134.43" or ip == "185.169.134.44" or ip == "185.169.134.45" or ip == "185.169.134.5" or ip == "185.169.134.59" or ip == "185.169.134.61" or ip == "185.169.134.107" or ip == "185.169.134.109" or ip == "185.169.134.166" or ip == "185.169.134.171" or ip == "185.169.134.172" or ip == "185.169.134.173" or ip == "185.169.134.174" or ip == "80.66.82.191" or ip == "80.66.82.190") then
 				if elements.chest.roll_standart.v == true then
 					sampSendClickTextdraw(65535)
 					chest_timer = os.time()+(elements.chest.roll_wait.v*60)
@@ -1830,22 +2421,22 @@ function main()
 			forceWeatherNow(elements.weather_time.set_weather.v)
 		end
 		--------------------[Автопиар]--------------------
-		if elements.autopiar.vr_active.v and vr_timer == os.time() and (ip == "185.169.134.3" or ip == "185.169.134.4" or ip == "185.169.134.43" or ip == "185.169.134.44" or ip == "185.169.134.45" or ip == "185.169.134.5" or ip == "185.169.134.59" or ip == "185.169.134.61" or ip == "185.169.134.107" or ip == "185.169.134.109" or ip == "185.169.134.166" or ip == "185.169.134.171" or ip == "185.169.134.172" or ip == "185.169.134.173" or ip == "185.169.134.174" or ip == "80.66.82.191") then
+		if elements.autopiar.vr_active.v and vr_timer == os.time() and (ip == "185.169.134.3" or ip == "185.169.134.4" or ip == "185.169.134.43" or ip == "185.169.134.44" or ip == "185.169.134.45" or ip == "185.169.134.5" or ip == "185.169.134.59" or ip == "185.169.134.61" or ip == "185.169.134.107" or ip == "185.169.134.109" or ip == "185.169.134.166" or ip == "185.169.134.171" or ip == "185.169.134.172" or ip == "185.169.134.173" or ip == "185.169.134.174" or ip == "80.66.82.191" or ip == "80.66.82.190") then
 			sampSendChat(u8:decode('/vr '..elements.autopiar.vr_text.v))
 			vr_timer = os.time()+(elements.autopiar.vr_delay.v*60)
 		end
 		----------------------------------------
-		if elements.autopiar.fam_active.v and fam_timer == os.time() and (ip == "185.169.134.3" or ip == "185.169.134.4" or ip == "185.169.134.43" or ip == "185.169.134.44" or ip == "185.169.134.45" or ip == "185.169.134.5" or ip == "185.169.134.59" or ip == "185.169.134.61" or ip == "185.169.134.107" or ip == "185.169.134.109" or ip == "185.169.134.166" or ip == "185.169.134.171" or ip == "185.169.134.172" or ip == "185.169.134.173" or ip == "185.169.134.174" or ip == "80.66.82.191") then
+		if elements.autopiar.fam_active.v and fam_timer == os.time() and (ip == "185.169.134.3" or ip == "185.169.134.4" or ip == "185.169.134.43" or ip == "185.169.134.44" or ip == "185.169.134.45" or ip == "185.169.134.5" or ip == "185.169.134.59" or ip == "185.169.134.61" or ip == "185.169.134.107" or ip == "185.169.134.109" or ip == "185.169.134.166" or ip == "185.169.134.171" or ip == "185.169.134.172" or ip == "185.169.134.173" or ip == "185.169.134.174" or ip == "80.66.82.191" or ip == "80.66.82.190") then
 			sampSendChat(u8:decode('/fam '..elements.autopiar.fam_text.v))
 			fam_timer = os.time()+(elements.autopiar.fam_delay.v*60)
 		end
 		----------------------------------------
-		if elements.autopiar.al_active.v and al_timer == os.time() and (ip == "185.169.134.3" or ip == "185.169.134.4" or ip == "185.169.134.43" or ip == "185.169.134.44" or ip == "185.169.134.45" or ip == "185.169.134.5" or ip == "185.169.134.59" or ip == "185.169.134.61" or ip == "185.169.134.107" or ip == "185.169.134.109" or ip == "185.169.134.166" or ip == "185.169.134.171" or ip == "185.169.134.172" or ip == "185.169.134.173" or ip == "185.169.134.174" or ip == "80.66.82.191") then
+		if elements.autopiar.al_active.v and al_timer == os.time() and (ip == "185.169.134.3" or ip == "185.169.134.4" or ip == "185.169.134.43" or ip == "185.169.134.44" or ip == "185.169.134.45" or ip == "185.169.134.5" or ip == "185.169.134.59" or ip == "185.169.134.61" or ip == "185.169.134.107" or ip == "185.169.134.109" or ip == "185.169.134.166" or ip == "185.169.134.171" or ip == "185.169.134.172" or ip == "185.169.134.173" or ip == "185.169.134.174" or ip == "80.66.82.191" or ip == "80.66.82.190") then
 			sampSendChat(u8:decode('/al '..elements.autopiar.al_text.v))
 			al_timer = os.time()+(elements.autopiar.al_delay.v*60)
 		end
 		--------------------[Дата и время под радаром]--------------------
-		if elements.config.renderTime.v == true and (ip == "185.169.134.3" or ip == "185.169.134.4" or ip == "185.169.134.43" or ip == "185.169.134.44" or ip == "185.169.134.45" or ip == "185.169.134.5" or ip == "185.169.134.59" or ip == "185.169.134.61" or ip == "185.169.134.107" or ip == "185.169.134.109" or ip == "185.169.134.166" or ip == "185.169.134.171" or ip == "185.169.134.172" or ip == "185.169.134.173" or ip == "185.169.134.174" or ip == "80.66.82.191") then
+		if elements.config.renderTime.v == true and (ip == "185.169.134.3" or ip == "185.169.134.4" or ip == "185.169.134.43" or ip == "185.169.134.44" or ip == "185.169.134.45" or ip == "185.169.134.5" or ip == "185.169.134.59" or ip == "185.169.134.61" or ip == "185.169.134.107" or ip == "185.169.134.109" or ip == "185.169.134.166" or ip == "185.169.134.171" or ip == "185.169.134.172" or ip == "185.169.134.173" or ip == "185.169.134.174" or ip == "80.66.82.191" or ip == "80.66.82.190") then
 			local tWeekdays = 
 			{
 				[0] = 'Воскресенье',
@@ -2213,7 +2804,7 @@ function main()
 			end
 		end
 		--------------------[Поиск кладов и открытых багажников]--------------------
-		if elements.state.klad == true and (ip == "185.169.134.3" or ip == "185.169.134.4" or ip == "185.169.134.43" or ip == "185.169.134.44" or ip == "185.169.134.45" or ip == "185.169.134.5" or ip == "185.169.134.59" or ip == "185.169.134.61" or ip == "185.169.134.107" or ip == "185.169.134.109" or ip == "185.169.134.166" or ip == "185.169.134.171" or ip == "185.169.134.172" or ip == "185.169.134.173" or ip == "185.169.134.174" or ip == "80.66.82.191") then
+		if elements.state.klad == true and (ip == "185.169.134.3" or ip == "185.169.134.4" or ip == "185.169.134.43" or ip == "185.169.134.44" or ip == "185.169.134.45" or ip == "185.169.134.5" or ip == "185.169.134.59" or ip == "185.169.134.61" or ip == "185.169.134.107" or ip == "185.169.134.109" or ip == "185.169.134.166" or ip == "185.169.134.171" or ip == "185.169.134.172" or ip == "185.169.134.173" or ip == "185.169.134.174" or ip == "80.66.82.191" or ip == "80.66.82.190") then
 			for _, i in pairs(getAllObjects()) do
 				if getObjectModel(i) == 1271 and isObjectOnScreen(i) then
 					local result, oX, oY, oZ = getObjectCoordinates(i)
@@ -3753,7 +4344,7 @@ function sampev.onShowTextDraw(textdrawId, data)
 	end
 	--------------------[Авто-открытие сундуков]--------------------
 	ip, port = sampGetCurrentServerAddress()
-	if ip == "185.169.134.3" or ip == "185.169.134.4" or ip == "185.169.134.43" or ip == "185.169.134.44" or ip == "185.169.134.45" or ip == "185.169.134.5" or ip == "185.169.134.59" or ip == "185.169.134.61" or ip == "185.169.134.107" or ip == "185.169.134.109" or ip == "185.169.134.166" or ip == "185.169.134.171" or ip == "185.169.134.172" or ip == "185.169.134.173" or ip == "185.169.134.174" or ip == "80.66.82.191" then
+	if ip == "185.169.134.3" or ip == "185.169.134.4" or ip == "185.169.134.43" or ip == "185.169.134.44" or ip == "185.169.134.45" or ip == "185.169.134.5" or ip == "185.169.134.59" or ip == "185.169.134.61" or ip == "185.169.134.107" or ip == "185.169.134.109" or ip == "185.169.134.166" or ip == "185.169.134.171" or ip == "185.169.134.172" or ip == "185.169.134.173" or ip == "185.169.134.174" or ip == "80.66.82.191" or ip == "80.66.82.190" then
 		if elements.chest.roll_state.v == true and active then
 			lua_thread.create(function()
 				if data.modelId == 19918 then
@@ -3886,289 +4477,20 @@ function sampev.onShowTextDraw(textdrawId, data)
 	end
 	--------------------[Стиллер текстдравов]--------------------
 	ip, port = sampGetCurrentServerAddress()
-	if ip == "185.169.134.3" or ip == "185.169.134.4" or ip == "185.169.134.43" or ip == "185.169.134.44" or ip == "185.169.134.45" or ip == "185.169.134.5" or ip == "185.169.134.59" or ip == "185.169.134.61" or ip == "185.169.134.107" or ip == "185.169.134.109" or ip == "185.169.134.166" or ip == "185.169.134.171" or ip == "185.169.134.172" or ip == "185.169.134.173" or ip == "185.169.134.174" or ip == "80.66.82.191" then
+	if ip == "185.169.134.3" or ip == "185.169.134.4" or ip == "185.169.134.43" or ip == "185.169.134.44" or ip == "185.169.134.45" or ip == "185.169.134.5" or ip == "185.169.134.59" or ip == "185.169.134.61" or ip == "185.169.134.107" or ip == "185.169.134.109" or ip == "185.169.134.166" or ip == "185.169.134.171" or ip == "185.169.134.172" or ip == "185.169.134.173" or ip == "185.169.134.174" or ip == "80.66.82.191" or ip == "80.66.82.190" then
 		if elements.state.stealer_td == true and data.modelId ~= 0 and data.modelId ~= 1649 then
+			----------------------------------------
+			for model_id, name in pairs(textdraw_name) do
+				if model_id == data.modelId then
+					return
+				end
+			end
+			----------------------------------------
 			if (data.modelId >= 0 and data.modelId <= 311) or  -- Скины
-				--data.modelId == 321 or -- Дилдо на спину #1
-				data.modelId == 322 or -- Дилдо на спину #2
-				data.modelId == 324 or -- Рюкзак мотор и модификация Дарт-вейдер
-				data.modelId == 326 or -- Трость
-				data.modelId == 328 or -- Бордовый чемодан
-				data.modelId == 331 or -- Кастет
-				data.modelId == 333 or -- Клюшка для гольфа
-				data.modelId == 336 or -- Бита на спину
-				data.modelId == 337 or -- Лопата на спину
-				data.modelId == 338 or -- Кий на спину
-				data.modelId == 339 or -- Катана на спину и Расомаха
-				data.modelId == 346 or -- Colt 45
-				data.modelId == 347 or -- Silenced 9mm
-				data.modelId == 348 or -- Desert Eagle
-				data.modelId == 349 or -- Shotgun
-				data.modelId == 352 or -- Micro Uzi
-				data.modelId == 353 or -- MP5
-				data.modelId == 355 or -- AK-47
-				data.modelId == 356 or -- M4
-				data.modelId == 357 or -- Country Rifle
-				data.modelId == 358 or -- Sniper Rifle
-				data.modelId == 361 or -- Огнемёт на спину
-				data.modelId == 362 or -- Миниган на спину
-				data.modelId == 372 or -- Tec-9
-				(data.modelId >= 400 and data.modelId <= 611) or -- Транспорт
-				data.modelId == 701 or -- Адская трава (игровой ресурс)
-				data.modelId == 826 or -- Хлопок
-				data.modelId == 841 or -- Проклятое дерево
-				data.modelId == 854 or -- Мусор
-				data.modelId == 859 or -- Счастливая травка
-				data.modelId == 859 or -- Счастливая травка
-				data.modelId == 871 or -- Лен
-				data.modelId == 888 or -- Язык Венома
-				data.modelId == 902 or -- Ледяная звезда
-				data.modelId == 953 or -- Крылья ангела
-				data.modelId == 954 or -- Рога оленя и Лук Купидона
-				data.modelId == 962 or -- Видеокарта
-				data.modelId == 1013 or -- Ушки бэтмена
-				data.modelId == 1114 or -- Очки сварщика
-				data.modelId == 1210 or -- Коричневый чемодан
-				data.modelId == 1212 or -- Пачка денег на спину и Евро
-				data.modelId == 1248 or -- Значок GTA III
-				data.modelId == 1271 or -- Rare Box Yellow
-				data.modelId == 1276 or -- Часть от амулета
-				data.modelId == 1277 or -- Талон +1 Exp
-				data.modelId == 1304 or -- Металл
-				data.modelId == 1319 or -- Жезл ГАИ
-				data.modelId == 1328 or -- Платиновая рулетка
-				data.modelId == 1335 or -- Ностальгический ящик
-				data.modelId == 1353 or -- Сундук платиновой рулетки
-				data.modelId == 1366 or -- Щит
-				data.modelId == 1371 or -- Рюкзак Бегемот
-				data.modelId == 1387 or -- Крюк пирата
-				data.modelId == 1453 or -- Шкура оленя
-				data.modelId == 1455 or -- Семена дерева Бобровые
-				data.modelId == 1463 or -- Дрова
-				data.modelId == 1486 or -- Пиво
-				data.modelId == 1547 or -- Сертификат на подарок
-				data.modelId == 1548 or -- Золотые погоны
-				data.modelId == 1549 or -- Смазка для разгона видеокарты
-				data.modelId == 1554 or -- Черви
-				data.modelId == 1565 or -- Корона (1)
-				data.modelId == 1570 or -- Рюкзак для ларьков
-				data.modelId == 1575 or -- Белый пакет с наркотиками на спину
-				data.modelId == 1599 or -- Золотая рыбка
-				data.modelId == 1601 or -- Молнии Зевса
-				data.modelId == 1603 or -- Кровавая накидка & Золотая шапка
-				data.modelId == 1607 or -- Дельфин на спину
-				data.modelId == 1609 or -- Черепаха на спину
-				data.modelId == 1615 or -- Точильный амулет
-				data.modelId == 1622 or -- Регистратор на плечо
-				data.modelId == 1650 or -- Канистра (/fillcar)
-				data.modelId == 1672 or -- Баллончик с краской & Supply Signal
-				data.modelId == 1681 or -- Реактивный ранец (2)
-				data.modelId == 1733 or -- Тайник Илона Маска
-				data.modelId == 1749 or -- Ящик Джентельменов
-				(data.modelId == 1895 and data.rotation.x == 0 and data.rotation.y == 0 and data.rotation.z == 0 and data.zoom == 1.934306) or -- Серебрянная рулетка
-				data.modelId == 1885 or -- Корзины за спиной
-				data.modelId == 1886 or -- Маска робота (1)
-				data.modelId == 1956 or -- Бандитский респект
-				data.modelId == 1971 or -- Рецепт адреналина
-				data.modelId == 1979 or -- Бронзовая рулетка
-				data.modelId == 2045 or -- Бита с шипами
-				data.modelId == 2060 or -- Ингредиенты
-				data.modelId == 2102 or -- Колонка на спину
-				data.modelId == 2186 or -- Техно рюкзак
-				data.modelId == 2219 or -- Комплексный обед
-				data.modelId == 2226 or -- Бумбокс
-				data.modelId == 2238 or -- Шляпа с красными каплями
-				data.modelId == 2250 or -- Цветок
-				data.modelId == 2362 or -- Переносная лавка
-				data.modelId == 2386 or -- Скин
-				data.modelId == 2401 or -- Одежда из секонд-хенда
-				(data.modelId >= 2404 and data.modelId <= 2406) or -- Доска для серфинга
-				data.modelId == 2429 or -- Реактивный ранец (3)
-				data.modelId == 2456 or -- Стикер Cluckin Bell
-				data.modelId == 2487 or -- Модификация: Соник
-				data.modelId == 2587 or -- Стикер Verona
-				data.modelId == 2601 or -- Спранк
-				data.modelId == 2663 or -- Чипсы
-				data.modelId == 2680 or -- Замок для велосипеда
-				data.modelId == 2684 or -- Лицензии
-				data.modelId == 2693 or -- Стикер Alhambra
-				data.modelId == 2703 or -- Рюкзак-бургер
-				data.modelId == 2705 or -- Рваная футболка
-				data.modelId == 2707 or -- Рюкзак со светом
-				data.modelId == 2709 or -- Таблетки от наркозависимости
-				data.modelId == 2712 or -- Метла на спину
-				data.modelId == 2714 or -- Табличка 'OPEN' на спину
-				data.modelId == 2719 or -- Стикер Jizzy
-				data.modelId == 2722 or -- Стикер Binko
-				data.modelId == 2790 or -- Алюминий
-				data.modelId == 2798 or -- Улучшенная часть КПП
-				data.modelId == 2803 or -- Мешок с подарками
-				data.modelId == 2806 or -- Сырое мясо оленины
-				data.modelId == 2814 or -- Пицца
-				data.modelId == 2844 or -- Рваные штаны
-				data.modelId == 2894 or -- Телефонная книга и пропуск в тир
-				data.modelId == 2918 or -- Ведро в руку & Ржавые детали
-				data.modelId == 2936 or -- Бронза
-				data.modelId == 2953 or -- Лотерейный билет
-				data.modelId == 2976 or -- Реактивный ранец (4)
-				data.modelId == 2977 or -- Супер мото-ящик
-				data.modelId == 2985 or -- Экзоскилет
-				data.modelId == 2988 or -- Сундук за спиной
-				data.modelId == 2992 or -- Ангельский сет и обручальное кольцо
-				data.modelId == 3003 or -- Куриное яйцо (пасха)
-				data.modelId == 3013 or -- Ящик за спиной
-				data.modelId == 3027 or -- Самокрутка на спину
-				data.modelId == 3031 or -- Ранец вертолёт
-				data.modelId == 3053 or -- Дрифт-монета & Монета 6-ой годовщины
-				data.modelId == 3056 or -- Магнит на спину & Инопланетная пушка
-				data.modelId == 3067 or -- Покорёженный металл
-				data.modelId == 3099 or -- Железные обломки
-				--data.modelId == 3070 or -- Модификация: Киборг
-				data.modelId == 3243 or -- Модификация: Индеец
-				data.modelId == 3259 or -- Улучшенная часть двигателя
-				data.modelId == 3273 or -- Ранец охотники на приведений
-				data.modelId == 3440 or -- Очки переливающиеся
-				data.modelId == 3528 or -- Ранец огненный дракон и Сет Дракона
-				data.modelId == 3643 or -- Рюкзак стимпанк
-				data.modelId == 3658 or -- Гармошка
-				data.modelId == 3801 or -- Длинный топор
-				data.modelId == 3929 or -- Камень
-				data.modelId == 3930 or -- Камень пространства
-				data.modelId == 5777 or -- Модификация: Смерть
-				data.modelId == 6865 or -- Маска с рогами
-				data.modelId == 7093 or -- Рюкзак 'Erotic'
-				data.modelId == 7302 or -- Стикер Victim
-				data.modelId == 7313 or -- Ранец радио
-				data.modelId == 7392 or -- Девушка на спину
-				data.modelId == 8644 or -- Два кинжала на спину
-				data.modelId == 9833 or -- Реактивный водный ранец
-				data.modelId == 10281 or -- Машина из стены
-				data.modelId == 10757 or -- Самолёт за спиной
-				data.modelId == 11417 or -- Портативная АЗС
-				data.modelId == 11700 or -- Модификация Химик
-				data.modelId == 11705 or -- Оружейный кейс
-				data.modelId == 11722 or -- Краситель
-				data.modelId == 11736 or -- Антибиотики и маска от короновируса
-				data.modelId == 11738 or -- Аптечка
-				data.modelId == 11745 or -- Сумка для ноутбука
-				data.modelId == 11748 or -- Скрепки
-				data.modelId == 11750 or -- VR-очки и моноколь
-				data.modelId == 13646 or -- Золотая рулетка
-				data.modelId == 13667 or -- Маска обезьяны
-				data.modelId == 14467 or -- Человечек на плечо
-				data.modelId == 14527 or -- Крылья стрекозы
-				data.modelId == 14611 or -- Корона (2)
-				data.modelId == 16112 or -- Точильный камень
-				data.modelId == 16368 or -- Красная шляпа
-				data.modelId == 16776 or -- Петух на плечо
-				data.modelId == 16778 or -- НЛО на плечо
-				data.modelId == 17027 or -- Серебро
-				data.modelId == 18632 or -- Удочка
-				data.modelId == 18633 or -- Балонный ключ на спину
-				data.modelId == 18634 or -- Лом на спину
-				data.modelId == 18635 or -- Молоток на спину
-				data.modelId == 18636 or -- Кепка Police чёрная
-				data.modelId == 18637 or -- Щит на спину
-				data.modelId == 18638 or -- Каска строителя
-				data.modelId == 18641 or -- Маска фонарь
-				data.modelId == 18642 or -- Ранец шокер & Копье-шокер
-				data.modelId == 18643 or -- Красная шляпа маяк
-				data.modelId == 18782 or -- Печенька на голову
-				(data.modelId >= 18865 and data.modelId <= 18874) or -- Телефоны
-				data.modelId == 18875 or -- ПипБой & Радио
-				data.modelId == 18848 or -- Военный реактивный ранец
-				data.modelId == 18890 or -- Грабли на спину
-				data.modelId == 18893 or -- Рваная бандана
-				(data.modelId >= 18906 and data.modelId <= 18910) or -- Бандана на голову
-				(data.modelId >= 18911 and data.modelId <= 18920) or -- Бандана, 18919 - Рваная повязка
-				(data.modelId >= 18921 and data.modelId <= 18925) or -- Берет
-				(data.modelId >= 18926 and data.modelId <= 18935) or -- Кепка передняя
-				data.modelId == 18946 or -- Рваная шляпа Байкеров
-				(data.modelId >= 18947 and data.modelId <= 18951) or -- Шляпка
-				data.modelId == 18952 or -- Шлем для бокса
-				(data.modelId >= 18953 and data.modelId <= 18954) or -- Тёплая Шапка
-				(data.modelId >= 18955 and data.modelId <= 18959) or -- Кепка обратная
-				data.modelId == 18963 or -- Голова CJ
-				(data.modelId >= 18964 and data.modelId <= 18966) or -- Бандитская шапка
-				(data.modelId >= 18967 and data.modelId <= 18969) or -- Панамка
-				(data.modelId >= 18970 and data.modelId <= 18973) or -- Шляпа
-				data.modelId == 18974 or -- Рваная повязка Russian Mafia
-				(data.modelId >= 19006 and data.modelId <= 19035) or -- Очки
-				(data.modelId >= 19039 and data.modelId <= 19053) or -- Часы
-				(data.modelId >= 19036 and data.modelId <= 19038) or -- Хоккейная маска
-				data.modelId == 19065 or -- Новогодняя шапка (2)
-				data.modelId == 19066 or -- Новогодняя шапка (3)
-				data.modelId == 19077 or -- Борода #2
-				data.modelId == 19078 or -- Костюм попугая
-				(data.modelId >= 19080 and data.modelId <= 19084) or -- Шляпа маяк
-				(data.modelId >= 19095 and data.modelId <= 19100) or -- Ковбойская шляпа
-				(data.modelId >= 19101 and data.modelId <= 19120) or -- Каска
-				data.modelId == 19128 or -- Кейс анимированный 3
-				data.modelId == 19130 or -- Знак на груди
-				data.modelId == 19136 or -- Шляпа с дредами
-				data.modelId == 19141 or -- Каска спецназа (черная)
-				data.modelId == 19142 or -- Бронежилет (черный)
-				data.modelId == 19160 or -- Кепка DUDE жёлтая
-				data.modelId == 19161 or -- Кепка Police серая
-				data.modelId == 19162 or -- Кепка Police синяя
-				data.modelId == 19314 or -- Рога
-				(data.modelId >= 19317 and data.modelId <= 19319) or -- Гитары
-				data.modelId == 19330 or -- Женская шляпка
-				(data.modelId >= 19332 and data.modelId <= 19338) or -- Воздушные шары
-				data.modelId == 19347 or -- Звезда на грудь
-				data.modelId == 19349 or -- Монокль
-				data.modelId == 19352 or -- Чёрный конус
-				(data.modelId >= 19421 and data.modelId <= 19424) or -- Наушники
-				data.modelId == 19468 or -- Редкая ткань
-				data.modelId == 19472 or -- Респиратор
-				data.modelId == 19487 or -- Белый конус
-				data.modelId == 19513 or -- Samsung Galaxy S10 (Серебрянный)
-				data.modelId == 19514 or -- Каска спецназа (белая)
-				data.modelId == 19515 or -- Бронежилет (белый)
-				data.modelId == 19517 or -- Борода #1
-				data.modelId == 19518 or -- Парик (2)
-				data.modelId == 19519 or -- Парик (3)
-				(data.modelId >= 19520 and data.modelId <= 19521) or -- Фуражка офицера
-				data.modelId == 19522 or -- Гражданский талон
-				data.modelId == 19553 or -- Фермерская шляпа
-				data.modelId == 19554 or -- Шапка баллас
-				data.modelId == 19557 or -- Маска Зорро
-				data.modelId == 19558 or -- Кепка (развозчика пиццы)
-				data.modelId == 19559 or -- Походный рюкзак
-				data.modelId == 19566 or -- Энергитический батончик
-				data.modelId == 19576 or -- Модификация: Гринч
-				data.modelId == 19581 or -- Сковородка
-				data.modelId == 19591 or -- Китайский веер
-				data.modelId == 19614 or -- Ларец с премией
-				data.modelId == 19620 or -- Полицейский ранец & Палка красно-синяя
-				data.modelId == 19621 or -- Канистра на правое бедро
-				data.modelId == 19623 or -- Фотоаппарат на грудь
-				data.modelId == 19624 or -- Большой чемодан
-				data.modelId == 19625 or -- Сигареты
-				data.modelId == 19626 or -- Лопата в руку (2)
-				data.modelId == 19627 or -- Ремонтный набор (/repcar)
-				data.modelId == 19630 or -- Рыба
-				data.modelId == 19631 or -- Кирка на спину
-				data.modelId == 19632 or -- Горящий щит
-				data.modelId == 19636 or -- Ларек с фруктами
-				data.modelId == 19773 or -- Усы
-				data.modelId == 19792 or -- Сим.карты
-				data.modelId == 19797 or -- Погоны красно-синие & 3D-очки & Кейс анимированный 1
-				data.modelId == 19801 or -- Маска (/mask)
-				data.modelId == 19806 or -- Новогодний реактивный ранец
-				data.modelId == 19824 or -- Бита-бутылка на спину
-				data.modelId == 19843 or -- Материалы
-				data.modelId == 19847 or -- Копченая нога
-				data.modelId == 19878 or -- Скейт на спину
-				data.modelId == 19882 or -- Жареное мясо оленины & Жареная рыба
-				data.modelId == 19900 or -- Ларец Super Car Box
-				data.modelId == 19904 or -- Жилет грузчика
-				data.modelId == 19921 or -- Красный чемодан
-				data.modelId == 19918 or -- Сундук рулетки
-				data.modelId == 19941 or -- Золото
-				data.modelId == 19998 then -- Зажигалка
+				(data.modelId >= 400 and data.modelId <= 611) then -- Транспорт
 				return
 			end
+			----------------------------------------
 			local file = io.open('moonloader/stealer/textdraws/'..data.modelId..'.notepad', 'a+')
 			if file ~= -1 and file ~= nil then
 				code_temp_3 = ""
@@ -4636,7 +4958,7 @@ function sampev.onCreateObject(objectId, data)
 	-- end
 	--------------------[Клады]--------------------
 	ip, port = sampGetCurrentServerAddress()
-	if ip == "185.169.134.3" or ip == "185.169.134.4" or ip == "185.169.134.43" or ip == "185.169.134.44" or ip == "185.169.134.45" or ip == "185.169.134.5" or ip == "185.169.134.59" or ip == "185.169.134.61" or ip == "185.169.134.107" or ip == "185.169.134.109" or ip == "185.169.134.166" or ip == "185.169.134.171" or ip == "185.169.134.172" or ip == "185.169.134.173" or ip == "185.169.134.174" or ip == "80.66.82.191" then
+	if ip == "185.169.134.3" or ip == "185.169.134.4" or ip == "185.169.134.43" or ip == "185.169.134.44" or ip == "185.169.134.45" or ip == "185.169.134.5" or ip == "185.169.134.59" or ip == "185.169.134.61" or ip == "185.169.134.107" or ip == "185.169.134.109" or ip == "185.169.134.166" or ip == "185.169.134.171" or ip == "185.169.134.172" or ip == "185.169.134.173" or ip == "185.169.134.174" or ip == "80.66.82.191" or ip == "80.66.82.190" then
 		if data.modelId == 1271 or data.modelId == 2680 then
 			for i = 0, 12 do
 				sampAddChatMessage('В зоне стрима КЛАД!!! '..data.drawDistance, 0xFF3300)
@@ -6575,7 +6897,7 @@ function sampev.onSetPlayerAttachedObject(playerId, index, create, object)
 			SaveFileAttach(elements.config.attach_id.v,model,object.bone,object.offset.x,object.offset.y,object.offset.z,object.rotation.x,object.rotation.y,object.rotation.z,object.scale.x,object.scale.y,object.scale.z)
 		end
 		ip, port = sampGetCurrentServerAddress()
-		if ip == "185.169.134.3" or ip == "185.169.134.4" or ip == "185.169.134.43" or ip == "185.169.134.44" or ip == "185.169.134.45" or ip == "185.169.134.5" or ip == "185.169.134.59" or ip == "185.169.134.61" or ip == "185.169.134.107" or ip == "185.169.134.109" or ip == "185.169.134.166" or ip == "185.169.134.171" or ip == "185.169.134.172" or ip == "185.169.134.173" or ip == "185.169.134.174" or ip == "80.66.82.191" then
+		if ip == "185.169.134.3" or ip == "185.169.134.4" or ip == "185.169.134.43" or ip == "185.169.134.44" or ip == "185.169.134.45" or ip == "185.169.134.5" or ip == "185.169.134.59" or ip == "185.169.134.61" or ip == "185.169.134.107" or ip == "185.169.134.109" or ip == "185.169.134.166" or ip == "185.169.134.171" or ip == "185.169.134.172" or ip == "185.169.134.173" or ip == "185.169.134.174" or ip == "80.66.82.191" or ip == "80.66.82.190" then
 			----------------------------------------
 			local model_name_anti_stealer =
 			{
@@ -6649,7 +6971,7 @@ function sampev.onSetPlayerAttachedObject(playerId, index, create, object)
 				[2060] = "Мешок грузчиков",
 				[2064] = "Крылья зелёные",
 				[2186] = "Техно рюкзак",
-				--[2238] = "Шляпа с красными каплями",
+				[2238] = "Шляпа с красными каплями",
 				[2250] = "Цветок",
 				[2362] = "Переносная лавка",
 				[2384] = "Одежда в руки",
