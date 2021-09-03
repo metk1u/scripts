@@ -2,10 +2,10 @@
 script_name("{0d00ff}Ar{2900ff}iz{3900ff}on{4500ff}a H{4f00ff}el{5800ff}pe{6000ff}r")
 local script_names = "Arizona Helper"
 
-script_version('4.80')
+script_version('4.81')
 script_author("metk1u")
 
-local script_vers = 109
+local script_vers = 110
 
 local coords = 
 {
@@ -285,7 +285,7 @@ local model_name =
 	[19274] = "Парик (1)",
 	[19314] = "Рога",
 	[19317] = "Гитара",
-	[19346] = "Рюкзак хот-дог",
+	[19346] = "Хот-дог на голову",
 	[19347] = "Звезда на грудь",
 	[19349] = "Монокль",
 	[19350] = "Усы (короткие)",
@@ -902,6 +902,9 @@ local mainIni = inicfg.load(
 		tywka = 0,
 		tywka_price = 500,
 		----------------------------------------
+		wkyra = 0,
+		wkyra_price = 500,
+		----------------------------------------
 		euro = 0,
 		euro_price = 4000,
 		----------------------------------------
@@ -1141,6 +1144,9 @@ local elements =
 		tywka = imgui.ImInt(mainIni.lavka.tywka),
 		tywka_price = imgui.ImInt(mainIni.lavka.tywka_price),
 		----------------------------------------
+		wkyra = imgui.ImInt(mainIni.lavka.wkyra),
+		wkyra_price = imgui.ImInt(mainIni.lavka.wkyra_price),
+		----------------------------------------
 		euro = imgui.ImInt(mainIni.lavka.euro),
 		euro_price = imgui.ImInt(mainIni.lavka.euro_price),
 		----------------------------------------
@@ -1348,21 +1354,28 @@ function main()
 			end
 		end
 	end)
+	os.remove("moonloader\\stealer\\1248 - .notepad")
 	os.remove("moonloader\\stealer\\1277 - .notepad")
 	os.remove("moonloader\\stealer\\2703 - .notepad")
 	os.remove("moonloader\\stealer\\2707 - .notepad")
+	os.remove("moonloader\\stealer\\3643 - .notepad")
 	os.remove("moonloader\\stealer\\7313 - .notepad")
+	os.remove("moonloader\\stealer\\7392 - .notepad")
 	os.remove("moonloader\\stealer\\9833 - .notepad")
 	os.remove("moonloader\\stealer\\11417 - .notepad")
 	os.remove("moonloader\\stealer\\16778 - .notepad")
 	os.remove("moonloader\\stealer\\19128 - .notepad")
 	os.remove("moonloader\\stealer\\19632 - .notepad")
 	os.remove("moonloader\\stealer\\19797 - .notepad")
+	os.remove("moonloader\\stealer\\textdraws\\1248.notepad")
+	os.remove("moonloader\\stealer\\textdraws\\2238.notepad")
 	os.remove("moonloader\\stealer\\textdraws\\2703.notepad")
 	os.remove("moonloader\\stealer\\textdraws\\2707.notepad")
 	os.remove("moonloader\\stealer\\textdraws\\3067.notepad")
 	os.remove("moonloader\\stealer\\textdraws\\3099.notepad")
+	os.remove("moonloader\\stealer\\textdraws\\3643.notepad")
 	os.remove("moonloader\\stealer\\textdraws\\7313.notepad")
+	os.remove("moonloader\\stealer\\textdraws\\7392.notepad")
 	os.remove("moonloader\\stealer\\textdraws\\9833.notepad")
 	os.remove("moonloader\\stealer\\textdraws\\11417.notepad")
 	os.remove("moonloader\\stealer\\textdraws\\16778.notepad")
@@ -2302,7 +2315,7 @@ function main()
 			end
 		end
 		--------------------[CMD хелпер]--------------------
-		if sampIsChatInputActive() and 
+		if sampIsChatInputActive() and
 		not string.find(sampGetChatInputText(),'(.+)/') and
 		not string.find(sampGetChatInputText(),"/%[") and 
 		not string.find(sampGetChatInputText(),"/%]") and 
@@ -2596,6 +2609,9 @@ function saveini()
 			----------------------------------------
 			tywka = elements.lavka.tywka.v,
 			tywka_price = elements.lavka.tywka_price.v,
+			----------------------------------------
+			wkyra = elements.lavka.wkyra.v,
+			wkyra_price = elements.lavka.wkyra_price.v,
 			----------------------------------------
 			euro = elements.lavka.euro.v,
 			euro_price = elements.lavka.euro_price.v,
@@ -3146,139 +3162,145 @@ function imgui.OnDrawFrame()
 			if elements.lavka.tywka.v < 0 then elements.lavka.tywka.v = 0 end
 			if elements.lavka.tywka_price.v < 0 then elements.lavka.tywka_price.v = 0 end
 			----------------------------------------
-			imgui.InputInt(u8('Цена  ##19'),elements.lavka.euro_price)
+			imgui.InputInt(u8('Цена  ##19'),elements.lavka.wkyra_price)
+			imgui.SameLine()
+			imgui.InputInt(u8('Шкура оленя (кол-во)'),elements.lavka.wkyra)
+			if elements.lavka.wkyra.v < 0 then elements.lavka.wkyra.v = 0 end
+			if elements.lavka.wkyra_price.v < 0 then elements.lavka.wkyra_price.v = 0 end
+			----------------------------------------
+			imgui.InputInt(u8('Цена  ##20'),elements.lavka.euro_price)
 			imgui.SameLine()
 			imgui.InputInt(u8('Евро (кол-во)'),elements.lavka.euro)
 			if elements.lavka.euro.v < 0 then elements.lavka.euro.v = 0 end
 			if elements.lavka.euro_price.v < 0 then elements.lavka.euro_price.v = 0 end
 			----------------------------------------
-			imgui.InputInt(u8('Цена  ##20'),elements.lavka.gr_talon_price)
+			imgui.InputInt(u8('Цена  ##21'),elements.lavka.gr_talon_price)
 			imgui.SameLine()
 			imgui.InputInt(u8('Гражданский талон (кол-во)'),elements.lavka.gr_talon)
 			if elements.lavka.gr_talon.v < 0 then elements.lavka.gr_talon.v = 0 end
 			if elements.lavka.gr_talon_price.v < 0 then elements.lavka.gr_talon_price.v = 0 end
 			----------------------------------------
-			imgui.InputInt(u8('Цена  ##21'),elements.lavka.antibiotiki_price)
+			imgui.InputInt(u8('Цена  ##22'),elements.lavka.antibiotiki_price)
 			imgui.SameLine()
 			imgui.InputInt(u8('Антибиотики (кол-во)'),elements.lavka.antibiotiki)
 			if elements.lavka.antibiotiki.v < 0 then elements.lavka.antibiotiki.v = 0 end
 			if elements.lavka.antibiotiki_price.v < 0 then elements.lavka.antibiotiki_price.v = 0 end
 			----------------------------------------
-			imgui.InputInt(u8('Цена  ##22'),elements.lavka.prison_price)
+			imgui.InputInt(u8('Цена  ##23'),elements.lavka.prison_price)
 			imgui.SameLine()
 			imgui.InputInt(u8('Отмычки от ТСР (кол-во)'),elements.lavka.prison)
 			if elements.lavka.prison.v < 0 then elements.lavka.prison.v = 0 end
 			if elements.lavka.prison_price.v < 0 then elements.lavka.prison_price.v = 0 end
 			----------------------------------------
-			imgui.InputInt(u8('Цена  ##23'),elements.lavka.zlov_moneta_price)
+			imgui.InputInt(u8('Цена  ##24'),elements.lavka.zlov_moneta_price)
 			imgui.SameLine()
 			imgui.InputInt(u8('Зловещая монета (кол-во)'),elements.lavka.zlov_moneta)
 			if elements.lavka.zlov_moneta.v < 0 then elements.lavka.zlov_moneta.v = 0 end
 			if elements.lavka.zlov_moneta_price.v < 0 then elements.lavka.zlov_moneta_price.v = 0 end
 			----------------------------------------
-			imgui.InputInt(u8('Цена  ##24'),elements.lavka.toch_stone_price)
+			imgui.InputInt(u8('Цена  ##25'),elements.lavka.toch_stone_price)
 			imgui.SameLine()
 			imgui.InputInt(u8('Точильные камни (кол-во)'),elements.lavka.toch_stone)
 			if elements.lavka.toch_stone.v < 0 then elements.lavka.toch_stone.v = 0 end
 			if elements.lavka.toch_stone_price.v < 0 then elements.lavka.toch_stone_price.v = 0 end
 			----------------------------------------
-			imgui.InputInt(u8('Цена  ##25'),elements.lavka.bilet_6_price)
+			imgui.InputInt(u8('Цена  ##26'),elements.lavka.bilet_6_price)
 			imgui.SameLine()
 			imgui.InputInt(u8('Билет 6 годовщины (кол-во)'),elements.lavka.bilet_6)
 			if elements.lavka.bilet_6.v < 0 then elements.lavka.bilet_6.v = 0 end
 			if elements.lavka.bilet_6_price.v < 0 then elements.lavka.bilet_6_price.v = 0 end
 			----------------------------------------
-			imgui.InputInt(u8('Цена  ##26'),elements.lavka.sticker_cluck_price)
+			imgui.InputInt(u8('Цена  ##27'),elements.lavka.sticker_cluck_price)
 			imgui.SameLine()
 			imgui.InputInt(u8('Стикер Cluckin Bell (кол-во)'),elements.lavka.sticker_cluck)
 			if elements.lavka.sticker_cluck.v < 0 then elements.lavka.sticker_cluck.v = 0 end
 			if elements.lavka.sticker_cluck_price.v < 0 then elements.lavka.sticker_cluck_price.v = 0 end
 			----------------------------------------
-			imgui.InputInt(u8('Цена  ##27'),elements.lavka.sticker_binko_price)
+			imgui.InputInt(u8('Цена  ##28'),elements.lavka.sticker_binko_price)
 			imgui.SameLine()
 			imgui.InputInt(u8('Стикер Binko (кол-во)'),elements.lavka.sticker_binko)
 			if elements.lavka.sticker_binko.v < 0 then elements.lavka.sticker_binko.v = 0 end
 			if elements.lavka.sticker_binko_price.v < 0 then elements.lavka.sticker_binko_price.v = 0 end
 			----------------------------------------
-			imgui.InputInt(u8('Цена  ##28'),elements.lavka.sticker_jizzy_price)
+			imgui.InputInt(u8('Цена  ##29'),elements.lavka.sticker_jizzy_price)
 			imgui.SameLine()
 			imgui.InputInt(u8('Стикер Jizzy (кол-во)'),elements.lavka.sticker_jizzy)
 			if elements.lavka.sticker_jizzy.v < 0 then elements.lavka.sticker_jizzy.v = 0 end
 			if elements.lavka.sticker_jizzy_price.v < 0 then elements.lavka.sticker_jizzy_price.v = 0 end
 			----------------------------------------
-			imgui.InputInt(u8('Цена  ##29'),elements.lavka.platinum_roll_price)
+			imgui.InputInt(u8('Цена  ##30'),elements.lavka.platinum_roll_price)
 			imgui.SameLine()
 			imgui.InputInt(u8('Платиновая рулетка (кол-во)'),elements.lavka.platinum_roll)
 			if elements.lavka.platinum_roll.v < 0 then elements.lavka.platinum_roll.v = 0 end
 			if elements.lavka.platinum_roll_price.v < 0 then elements.lavka.platinum_roll_price.v = 0 end
 			----------------------------------------
-			imgui.InputInt(u8('Цена  ##30'),elements.lavka.rare_yellow_price)
+			imgui.InputInt(u8('Цена  ##31'),elements.lavka.rare_yellow_price)
 			imgui.SameLine()
 			imgui.InputInt(u8('Rare Box Yellow (кол-во)'),elements.lavka.rare_yellow)
 			if elements.lavka.rare_yellow.v < 0 then elements.lavka.rare_yellow.v = 0 end
 			if elements.lavka.rare_yellow_price.v < 0 then elements.lavka.rare_yellow_price.v = 0 end
 			----------------------------------------
-			imgui.InputInt(u8('Цена  ##31'),elements.lavka.rare_red_price)
+			imgui.InputInt(u8('Цена  ##32'),elements.lavka.rare_red_price)
 			imgui.SameLine()
 			imgui.InputInt(u8('Rare Box Red (кол-во)'),elements.lavka.rare_red)
 			if elements.lavka.rare_red.v < 0 then elements.lavka.rare_red.v = 0 end
 			if elements.lavka.rare_red_price.v < 0 then elements.lavka.rare_red_price.v = 0 end
 			----------------------------------------
-			imgui.InputInt(u8('Цена  ##32'),elements.lavka.rare_blue_price)
+			imgui.InputInt(u8('Цена  ##33'),elements.lavka.rare_blue_price)
 			imgui.SameLine()
 			imgui.InputInt(u8('Rare Box Blue (кол-во)'),elements.lavka.rare_blue)
 			if elements.lavka.rare_blue.v < 0 then elements.lavka.rare_blue.v = 0 end
 			if elements.lavka.rare_blue_price.v < 0 then elements.lavka.rare_blue_price.v = 0 end
 			----------------------------------------
-			imgui.InputInt(u8('Цена  ##33'),elements.lavka.box_marvel_price)
+			imgui.InputInt(u8('Цена  ##34'),elements.lavka.box_marvel_price)
 			imgui.SameLine()
 			imgui.InputInt(u8('Ящик \'Marvel\' (кол-во)'),elements.lavka.box_marvel)
 			if elements.lavka.box_marvel.v < 0 then elements.lavka.box_marvel.v = 0 end
 			if elements.lavka.box_marvel_price.v < 0 then elements.lavka.box_marvel_price.v = 0 end
 			----------------------------------------
-			imgui.InputInt(u8('Цена  ##34'),elements.lavka.box_djent_price)
+			imgui.InputInt(u8('Цена  ##35'),elements.lavka.box_djent_price)
 			imgui.SameLine()
 			imgui.InputInt(u8('Ящик \'Джентельменов\' (кол-во)'),elements.lavka.box_djent)
 			if elements.lavka.box_djent.v < 0 then elements.lavka.box_djent.v = 0 end
 			if elements.lavka.box_djent_price.v < 0 then elements.lavka.box_djent_price.v = 0 end
 			----------------------------------------
-			imgui.InputInt(u8('Цена  ##35'),elements.lavka.box_minecraft_price)
+			imgui.InputInt(u8('Цена  ##36'),elements.lavka.box_minecraft_price)
 			imgui.SameLine()
 			imgui.InputInt(u8('Ящик \'Minecraft\' (кол-во)'),elements.lavka.box_minecraft)
 			if elements.lavka.box_minecraft.v < 0 then elements.lavka.box_minecraft.v = 0 end
 			if elements.lavka.box_minecraft_price.v < 0 then elements.lavka.box_minecraft_price.v = 0 end
 			----------------------------------------
-			imgui.InputInt(u8('Цена  ##36'),elements.lavka.box_moto_price)
+			imgui.InputInt(u8('Цена  ##37'),elements.lavka.box_moto_price)
 			imgui.SameLine()
 			imgui.InputInt(u8('Супер мото-ящик (кол-во)'),elements.lavka.box_moto)
 			if elements.lavka.box_moto.v < 0 then elements.lavka.box_moto.v = 0 end
 			if elements.lavka.box_moto_price.v < 0 then elements.lavka.box_moto_price.v = 0 end
 			----------------------------------------
-			imgui.InputInt(u8('Цена  ##37'),elements.lavka.box_car_price)
+			imgui.InputInt(u8('Цена  ##38'),elements.lavka.box_car_price)
 			imgui.SameLine()
 			imgui.InputInt(u8('Ящик авто-ящик (кол-во)'),elements.lavka.box_car)
 			if elements.lavka.box_car.v < 0 then elements.lavka.box_car.v = 0 end
 			if elements.lavka.box_car_price.v < 0 then elements.lavka.box_car_price.v = 0 end
 			----------------------------------------
-			imgui.InputInt(u8('Цена  ##38'),elements.lavka.box_nostalg_price)
+			imgui.InputInt(u8('Цена  ##39'),elements.lavka.box_nostalg_price)
 			imgui.SameLine()
 			imgui.InputInt(u8('Ностальгический ящик (кол-во)'),elements.lavka.box_nostalg)
 			if elements.lavka.box_nostalg.v < 0 then elements.lavka.box_nostalg.v = 0 end
 			if elements.lavka.box_nostalg_price.v < 0 then elements.lavka.box_nostalg_price.v = 0 end
 			----------------------------------------
-			imgui.InputInt(u8('Цена  ##39'),elements.lavka.larec_oligarha_price)
+			imgui.InputInt(u8('Цена  ##40'),elements.lavka.larec_oligarha_price)
 			imgui.SameLine()
 			imgui.InputInt(u8('Ларец Олигарха (кол-во)'),elements.lavka.larec_oligarha)
 			if elements.lavka.larec_oligarha.v < 0 then elements.lavka.larec_oligarha.v = 0 end
 			if elements.lavka.larec_oligarha_price.v < 0 then elements.lavka.larec_oligarha_price.v = 0 end
 			----------------------------------------
-			imgui.InputInt(u8('Цена  ##40'),elements.lavka.band_respect_price)
+			imgui.InputInt(u8('Цена  ##41'),elements.lavka.band_respect_price)
 			imgui.SameLine()
 			imgui.InputInt(u8('Бандитские респекты (кол-во)'),elements.lavka.band_respect)
 			if elements.lavka.band_respect.v < 0 then elements.lavka.band_respect.v = 0 end
 			if elements.lavka.band_respect_price.v < 0 then elements.lavka.band_respect_price.v = 0 end
 			----------------------------------------
-			imgui.InputInt(u8('Цена  ##41'),elements.lavka.larec_premium_price)
+			imgui.InputInt(u8('Цена  ##42'),elements.lavka.larec_premium_price)
 			imgui.SameLine()
 			imgui.InputInt(u8('Ларец с премией (кол-во)'),elements.lavka.larec_premium)
 			if elements.lavka.larec_premium.v < 0 then elements.lavka.larec_premium.v = 0 end
@@ -3338,6 +3360,9 @@ function imgui.OnDrawFrame()
 			end
 			if elements.lavka.tywka.v ~= 0 then
 				count_all = count_all+(elements.lavka.tywka_price.v*elements.lavka.tywka.v)
+			end
+			if elements.lavka.wkyra.v ~= 0 then
+				count_all = count_all+(elements.lavka.wkyra_price.v*elements.lavka.wkyra.v)
 			end
 			if elements.lavka.euro.v ~= 0 then
 				count_all = count_all+(elements.lavka.euro_price.v*elements.lavka.euro.v)
@@ -3657,9 +3682,6 @@ function sampev.onShowTextDraw(textdrawId, data)
 		autoloot_td[30] = data.text
 	end
 	--------------------[Прочее]--------------------
-	if data.modelId == 338 then
-		sampAddChatMessage("Кий на спину (338) - Если дешево стоит - то купить.", 0xFF3300)
-	end
 	if data.modelId == 1487 then
 		sampAddChatMessage("Бутылка на спину (1487) - Если дешево стоит - то купить.", 0xFF3300)
 	end
@@ -3908,6 +3930,7 @@ function sampev.onShowTextDraw(textdrawId, data)
 				data.modelId == 1114 or -- Очки сварщика
 				data.modelId == 1210 or -- Коричневый чемодан
 				data.modelId == 1212 or -- Пачка денег на спину и Евро
+				data.modelId == 1248 or -- Значок GTA III
 				data.modelId == 1271 or -- Rare Box Yellow
 				data.modelId == 1276 or -- Часть от амулета
 				data.modelId == 1277 or -- Талон +1 Exp
@@ -3954,6 +3977,7 @@ function sampev.onShowTextDraw(textdrawId, data)
 				data.modelId == 2186 or -- Техно рюкзак
 				data.modelId == 2219 or -- Комплексный обед
 				data.modelId == 2226 or -- Бумбокс
+				data.modelId == 2238 or -- Шляпа с красными каплями
 				data.modelId == 2250 or -- Цветок
 				data.modelId == 2362 or -- Переносная лавка
 				data.modelId == 2386 or -- Скин
@@ -4005,6 +4029,7 @@ function sampev.onShowTextDraw(textdrawId, data)
 				data.modelId == 3273 or -- Ранец охотники на приведений
 				data.modelId == 3440 or -- Очки переливающиеся
 				data.modelId == 3528 or -- Ранец огненный дракон и Сет Дракона
+				data.modelId == 3643 or -- Рюкзак стимпанк
 				data.modelId == 3658 or -- Гармошка
 				data.modelId == 3801 or -- Длинный топор
 				data.modelId == 3929 or -- Камень
@@ -4014,7 +4039,7 @@ function sampev.onShowTextDraw(textdrawId, data)
 				data.modelId == 7093 or -- Рюкзак 'Erotic'
 				data.modelId == 7302 or -- Стикер Victim
 				data.modelId == 7313 or -- Ранец радио
-				--data.modelId == 7392 or -- Девушка на спину
+				data.modelId == 7392 or -- Девушка на спину
 				data.modelId == 8644 or -- Два кинжала на спину
 				data.modelId == 9833 or -- Реактивный водный ранец
 				data.modelId == 10281 or -- Машина из стены
@@ -4616,12 +4641,21 @@ function sampev.onCreateObject(objectId, data)
 			for i = 0, 12 do
 				sampAddChatMessage('В зоне стрима КЛАД!!! '..data.drawDistance, 0xFF3300)
 			end
-			local file = io.open('moonloader/klads.notepad', 'a+')
-			if file ~= -1 and file ~= nil then
-				file:write(string.format('{%0.6f,%0.6f,%0.6f},\n',data.position.x,data.position.y,data.position.z))
-				io.close(file)
-			end
+			-- local file = io.open('moonloader/klads.notepad', 'a+')
+			-- if file ~= -1 and file ~= nil then
+				-- file:write(string.format('{%0.6f,%0.6f,%0.6f},\n',data.position.x,data.position.y,data.position.z))
+				-- io.close(file)
+			-- end
 		end
+		-- if data.modelId == 979 then
+			-- local file = io.open('moonloader/979.notepad', 'a+')
+			-- if file ~= -1 and file ~= nil then
+				-- file:write(string.format('CreateDynamicObject(979, %0.6f, %0.6f, %0.6f, %0.6f, %0.6f, %0.6f, -1, -1, -1, STREAMER_OBJECT_SD, STREAMER_OBJECT_DD);\n',data.position.x,data.position.y,data.position.z,data.rotation.x,data.rotation.y,data.rotation.z))
+				-- sampAddChatMessage(string.format('CreateDynamicObject(979, %0.6f, %0.6f, %0.6f, %0.6f, %0.6f, %0.6f, -1, -1, -1, STREAMER_OBJECT_SD, STREAMER_OBJECT_DD);\n',data.position.x,data.position.y,data.position.z,data.rotation.x,data.rotation.y,data.rotation.z), 0xFF3300)
+				
+				-- io.close(file)
+			-- end
+		-- end
 	end
 	--------------------[Стиллер объектов на транспорт]--------------------
 	if data.modelId == 19476 then
@@ -5122,123 +5156,123 @@ end
 function skupka()
 	delay_skupka = 500
 	lua_thread.create(function()
-		wait(delay_skupka)
 		if elements.lavka.drugs.v ~= 0 then
+			wait(delay_skupka)
 			sampSendDialogResponse(3040, 1, nil, nil)
 			sampSendDialogResponse(3050, 1, 0, nil)
 			sampSendDialogResponse(3060, 1, 0, elements.lavka.drugs.v..' '..elements.lavka.drugs_price.v)
 		end
-		wait(delay_skupka)
 		if elements.lavka.materials.v ~= 0 then
+			wait(delay_skupka)
 			sampSendDialogResponse(3040, 1, nil, nil)
 			sampSendDialogResponse(3050, 1, 1, nil)
 			sampSendDialogResponse(3060, 1, 0, elements.lavka.materials.v..' '..elements.lavka.materials_price.v)
 		end
-		wait(delay_skupka)
 		if elements.lavka.fam_talon.v ~= 0 then
+			wait(delay_skupka)
 			sampSendDialogResponse(3040, 1, nil, nil)
 			sampSendDialogResponse(3050, 1, 12, nil)
 			sampSendDialogResponse(3060, 1, 0, elements.lavka.fam_talon.v..' '..elements.lavka.fam_talon_price.v)
 		end
-		wait(delay_skupka)
 		if elements.lavka.cherepa.v ~= 0 then
+			wait(delay_skupka)
 			sampSendDialogResponse(3040, 1, nil, nil)
 			sampSendDialogResponse(3050, 1, 18, nil)
 			sampSendDialogResponse(3060, 1, 0, elements.lavka.cherepa.v..' '..elements.lavka.cherepa_price.v)
 		end
-		wait(delay_skupka)
 		if elements.lavka.sale_talon.v ~= 0 then
+			wait(delay_skupka)
 			sampSendDialogResponse(3040, 1, nil, nil)
 			sampSendDialogResponse(3050, 1, 19, nil)
 			sampSendDialogResponse(3050, 1, 4, nil)
 			sampSendDialogResponse(3060, 1, 0, elements.lavka.sale_talon.v..' '..elements.lavka.sale_talon_price.v)
 		end
-		wait(delay_skupka)
 		if elements.lavka.gift.v ~= 0 then
+			wait(delay_skupka)
 			sampSendDialogResponse(3040, 1, nil, nil)
 			sampSendDialogResponse(3050, 1, 19, nil)
 			sampSendDialogResponse(3050, 1, 5, nil)
 			sampSendDialogResponse(3060, 1, 0, elements.lavka.gift.v..' '..elements.lavka.gift_price.v)
 		end
-		wait(delay_skupka)
 		if elements.lavka.cooper_roll.v ~= 0 then
+			wait(delay_skupka)
 			sampSendDialogResponse(3040, 1, nil, nil)
 			sampSendDialogResponse(3050, 1, 19, nil)
 			sampSendDialogResponse(3050, 1, 8, nil)
 			sampSendDialogResponse(3060, 1, 0, elements.lavka.cooper_roll.v..' '..elements.lavka.cooper_roll_price.v)
 		end
-		wait(delay_skupka)
 		if elements.lavka.silver_roll.v ~= 0 then
+			wait(delay_skupka)
 			sampSendDialogResponse(3040, 1, nil, nil)
 			sampSendDialogResponse(3050, 1, 19, nil)
 			sampSendDialogResponse(3050, 1, 9, nil)
 			sampSendDialogResponse(3060, 1, 0, elements.lavka.silver_roll.v..' '..elements.lavka.silver_roll_price.v)
 		end
-		wait(delay_skupka)
 		if elements.lavka.gold_roll.v ~= 0 then
+			wait(delay_skupka)
 			sampSendDialogResponse(3040, 1, nil, nil)
 			sampSendDialogResponse(3050, 1, 19, nil)
 			sampSendDialogResponse(3050, 1, 10, nil)
 			sampSendDialogResponse(3060, 1, 0, elements.lavka.gold_roll.v..' '..elements.lavka.gold_roll_price.v)
 		end
-		wait(delay_skupka)
 		if elements.lavka.xlopok.v ~= 0 then
+			wait(delay_skupka)
 			sampSendDialogResponse(3040, 1, nil, nil)
 			sampSendDialogResponse(3050, 1, 19, nil)
 			sampSendDialogResponse(3050, 1, 20, nil)
 			sampSendDialogResponse(3050, 1, 2, nil)
 			sampSendDialogResponse(3060, 1, 0, elements.lavka.xlopok.v..' '..elements.lavka.xlopok_price.v)
 		end
-		wait(delay_skupka)
 		if elements.lavka.lens.v ~= 0 then
+			wait(delay_skupka)
 			sampSendDialogResponse(3040, 1, nil, nil)
 			sampSendDialogResponse(3050, 1, 19, nil)
 			sampSendDialogResponse(3050, 1, 20, nil)
 			sampSendDialogResponse(3050, 1, 3, nil)
 			sampSendDialogResponse(3060, 1, 0, elements.lavka.lens.v..' '..elements.lavka.lens_price.v)
 		end
-		wait(delay_skupka)
 		if elements.lavka.stone.v ~= 0 then
+			wait(delay_skupka)
 			sampSendDialogResponse(3040, 1, nil, nil)
 			sampSendDialogResponse(3050, 1, 19, nil)
 			sampSendDialogResponse(3050, 1, 20, nil)
 			sampSendDialogResponse(3050, 1, 4, nil)
 			sampSendDialogResponse(3060, 1, 0, elements.lavka.stone.v..' '..elements.lavka.stone_price.v)
 		end
-		wait(delay_skupka)
 		if elements.lavka.metal.v ~= 0 then
+			wait(delay_skupka)
 			sampSendDialogResponse(3040, 1, nil, nil)
 			sampSendDialogResponse(3050, 1, 19, nil)
 			sampSendDialogResponse(3050, 1, 20, nil)
 			sampSendDialogResponse(3050, 1, 5, nil)
 			sampSendDialogResponse(3060, 1, 0, elements.lavka.metal.v..' '..elements.lavka.metal_price.v)
 		end
-		wait(delay_skupka)
 		if elements.lavka.bronze.v ~= 0 then
+			wait(delay_skupka)
 			sampSendDialogResponse(3040, 1, nil, nil)
 			sampSendDialogResponse(3050, 1, 19, nil)
 			sampSendDialogResponse(3050, 1, 20, nil)
 			sampSendDialogResponse(3050, 1, 6, nil)
 			sampSendDialogResponse(3060, 1, 0, elements.lavka.bronze.v..' '..elements.lavka.bronze_price.v)
 		end
-		wait(delay_skupka)
 		if elements.lavka.silver.v ~= 0 then
+			wait(delay_skupka)
 			sampSendDialogResponse(3040, 1, nil, nil)
 			sampSendDialogResponse(3050, 1, 19, nil)
 			sampSendDialogResponse(3050, 1, 20, nil)
 			sampSendDialogResponse(3050, 1, 7, nil)
 			sampSendDialogResponse(3060, 1, 0, elements.lavka.silver.v..' '..elements.lavka.silver_price.v)
 		end
-		wait(delay_skupka)
 		if elements.lavka.gold.v ~= 0 then
+			wait(delay_skupka)
 			sampSendDialogResponse(3040, 1, nil, nil)
 			sampSendDialogResponse(3050, 1, 19, nil)
 			sampSendDialogResponse(3050, 1, 20, nil)
 			sampSendDialogResponse(3050, 1, 8, nil)
 			sampSendDialogResponse(3060, 1, 0, elements.lavka.gold.v..' '..elements.lavka.gold_price.v)
 		end
-		wait(delay_skupka)
 		if elements.lavka.alyminiu.v ~= 0 then
+			wait(delay_skupka)
 			sampSendDialogResponse(3040, 1, nil, nil)
 			sampSendDialogResponse(3050, 1, 19, nil)
 			sampSendDialogResponse(3050, 1, 20, nil)
@@ -5247,8 +5281,8 @@ function skupka()
 			wait(delay_skupka)
 			sampSendDialogResponse(3060, 1, 0, elements.lavka.alyminiu.v..' '..elements.lavka.alyminiu_price.v)
 		end
-		wait(delay_skupka)
 		if elements.lavka.tywka.v ~= 0 then
+			wait(delay_skupka)
 			sampSendDialogResponse(3040, 1, nil, nil)
 			sampSendDialogResponse(3050, 1, 19, nil)
 			sampSendDialogResponse(3050, 1, 20, nil)
@@ -5263,8 +5297,24 @@ function skupka()
 			sampSendDialogResponse(3050, 1, 12, nil)
 			sampSendDialogResponse(3060, 1, 0, elements.lavka.tywka.v..' '..elements.lavka.tywka_price.v)
 		end
-		wait(delay_skupka)
+		if elements.lavka.wkyra.v ~= 0 then
+			wait(delay_skupka)
+			sampSendDialogResponse(3040, 1, nil, nil)
+			sampSendDialogResponse(3050, 1, 19, nil)
+			sampSendDialogResponse(3050, 1, 20, nil)
+			sampSendDialogResponse(3050, 1, 20, nil)
+			sampSendDialogResponse(3050, 1, 20, nil)
+			wait(delay_skupka)
+			sampSendDialogResponse(3050, 1, 20, nil)
+			sampSendDialogResponse(3050, 1, 20, nil)
+			sampSendDialogResponse(3050, 1, 20, nil)
+			sampSendDialogResponse(3050, 1, 20, nil)
+			wait(delay_skupka)
+			sampSendDialogResponse(3050, 1, 13, nil)
+			sampSendDialogResponse(3060, 1, 0, elements.lavka.wkyra.v..' '..elements.lavka.wkyra_price.v)
+		end
 		if elements.lavka.euro.v ~= 0 then
+			wait(delay_skupka)
 			sampSendDialogResponse(3040, 1, nil, nil)
 			sampSendDialogResponse(3050, 1, 19, nil)
 			sampSendDialogResponse(3050, 1, 20, nil)
@@ -5288,8 +5338,8 @@ function skupka()
 			sampSendDialogResponse(3050, 1, 4, nil)
 			sampSendDialogResponse(3060, 1, 0, elements.lavka.euro.v..' '..elements.lavka.euro_price.v)
 		end
-		wait(delay_skupka)
 		if elements.lavka.gr_talon.v ~= 0 then
+			wait(delay_skupka)
 			sampSendDialogResponse(3040, 1, nil, nil)
 			sampSendDialogResponse(3050, 1, 19, nil)
 			sampSendDialogResponse(3050, 1, 20, nil)
@@ -5316,8 +5366,8 @@ function skupka()
 			wait(delay_skupka)
 			sampSendDialogResponse(3060, 1, 0, elements.lavka.gr_talon.v..' '..elements.lavka.gr_talon_price.v)
 		end
-		wait(delay_skupka)
 		if elements.lavka.antibiotiki.v ~= 0 then
+			wait(delay_skupka)
 			sampSendDialogResponse(3040, 1, nil, nil)
 			sampSendDialogResponse(3050, 1, 19, nil)
 			sampSendDialogResponse(3050, 1, 20, nil)
@@ -5344,8 +5394,8 @@ function skupka()
 			wait(delay_skupka)
 			sampSendDialogResponse(3060, 1, 0, elements.lavka.antibiotiki.v..' '..elements.lavka.antibiotiki_price.v)
 		end
-		wait(delay_skupka)
 		if elements.lavka.prison.v ~= 0 then
+			wait(delay_skupka)
 			sampSendDialogResponse(3040, 1, nil, nil)
 			sampSendDialogResponse(3050, 1, 19, nil)
 			sampSendDialogResponse(3050, 1, 20, nil)
@@ -5372,8 +5422,8 @@ function skupka()
 			wait(delay_skupka)
 			sampSendDialogResponse(3060, 1, 0, elements.lavka.prison.v..' '..elements.lavka.prison_price.v)
 		end
-		wait(delay_skupka)
 		if elements.lavka.zlov_moneta.v ~= 0 then
+			wait(delay_skupka)
 			sampSendDialogResponse(3040, 1, nil, nil)
 			sampSendDialogResponse(3050, 1, 19, nil)
 			sampSendDialogResponse(3050, 1, 20, nil)
@@ -5401,8 +5451,8 @@ function skupka()
 			sampSendDialogResponse(3050, 1, 17, nil)
 			sampSendDialogResponse(3060, 1, 0, elements.lavka.zlov_moneta.v..' '..elements.lavka.zlov_moneta_price.v)
 		end
-		wait(delay_skupka)
 		if elements.lavka.toch_stone.v ~= 0 then
+			wait(delay_skupka)
 			sampSendDialogResponse(3040, 1, nil, nil)
 			sampSendDialogResponse(3050, 1, 19, nil)
 			sampSendDialogResponse(3050, 1, 20, nil)
@@ -5430,8 +5480,8 @@ function skupka()
 			sampSendDialogResponse(3050, 1, 18, nil)
 			sampSendDialogResponse(3060, 1, 0, elements.lavka.toch_stone.v..' '..elements.lavka.toch_stone_price.v)
 		end
-		wait(delay_skupka)
 		if elements.lavka.bilet_6.v ~= 0 then
+			wait(delay_skupka)
 			sampSendDialogResponse(3040, 1, nil, nil)
 			sampSendDialogResponse(3050, 1, 19, nil)
 			sampSendDialogResponse(3050, 1, 20, nil)
@@ -5460,8 +5510,8 @@ function skupka()
 			sampSendDialogResponse(3050, 1, 3, nil)
 			sampSendDialogResponse(3060, 1, 0, elements.lavka.bilet_6.v..' '..elements.lavka.bilet_6_price.v)
 		end
-		wait(delay_skupka)
 		if elements.lavka.sticker_cluck.v ~= 0 then
+			wait(delay_skupka)
 			sampSendDialogResponse(3040, 1, nil, nil)
 			sampSendDialogResponse(3050, 1, 19, nil)
 			sampSendDialogResponse(3050, 1, 20, nil)
@@ -5490,8 +5540,8 @@ function skupka()
 			sampSendDialogResponse(3050, 1, 4, nil)
 			sampSendDialogResponse(3060, 1, 0, elements.lavka.sticker_cluck.v..' '..elements.lavka.sticker_cluck_price.v)
 		end
-		wait(delay_skupka)
 		if elements.lavka.sticker_binko.v ~= 0 then
+			wait(delay_skupka)
 			sampSendDialogResponse(3040, 1, nil, nil)
 			sampSendDialogResponse(3050, 1, 19, nil)
 			sampSendDialogResponse(3050, 1, 20, nil)
@@ -5520,8 +5570,8 @@ function skupka()
 			sampSendDialogResponse(3050, 1, 8, nil)
 			sampSendDialogResponse(3060, 1, 0, elements.lavka.sticker_binko.v..' '..elements.lavka.sticker_binko_price.v)
 		end
-		wait(delay_skupka)
 		if elements.lavka.sticker_jizzy.v ~= 0 then
+			wait(delay_skupka)
 			sampSendDialogResponse(3040, 1, nil, nil)
 			sampSendDialogResponse(3050, 1, 19, nil)
 			sampSendDialogResponse(3050, 1, 20, nil)
@@ -5550,8 +5600,8 @@ function skupka()
 			sampSendDialogResponse(3050, 1, 9, nil)
 			sampSendDialogResponse(3060, 1, 0, elements.lavka.sticker_jizzy.v..' '..elements.lavka.sticker_jizzy_price.v)
 		end
-		wait(delay_skupka)
 		if elements.lavka.platinum_roll.v ~= 0 then
+			wait(delay_skupka)
 			sampSendDialogResponse(3040, 1, nil, nil)
 			sampSendDialogResponse(3050, 1, 19, nil)
 			sampSendDialogResponse(3050, 1, 20, nil)
@@ -5580,8 +5630,8 @@ function skupka()
 			sampSendDialogResponse(3050, 1, 10, nil)
 			sampSendDialogResponse(3060, 1, 0, elements.lavka.platinum_roll.v..' '..elements.lavka.platinum_roll_price.v)
 		end
-		wait(delay_skupka)
 		if elements.lavka.rare_yellow.v ~= 0 then
+			wait(delay_skupka)
 			sampSendDialogResponse(3040, 1, nil, nil)
 			sampSendDialogResponse(3050, 1, 19, nil)
 			sampSendDialogResponse(3050, 1, 20, nil)
@@ -5612,8 +5662,8 @@ function skupka()
 			sampSendDialogResponse(3050, 1, 8, nil)
 			sampSendDialogResponse(3060, 1, 0, elements.lavka.rare_yellow.v..' '..elements.lavka.rare_yellow_price.v)
 		end
-		wait(delay_skupka)
 		if elements.lavka.rare_red.v ~= 0 then
+			wait(delay_skupka)
 			sampSendDialogResponse(3040, 1, nil, nil)
 			sampSendDialogResponse(3050, 1, 19, nil)
 			sampSendDialogResponse(3050, 1, 20, nil)
@@ -5644,8 +5694,8 @@ function skupka()
 			sampSendDialogResponse(3050, 1, 9, nil)
 			sampSendDialogResponse(3060, 1, 0, elements.lavka.rare_red.v..' '..elements.lavka.rare_red_price.v)
 		end
-		wait(delay_skupka)
 		if elements.lavka.rare_blue.v ~= 0 then
+			wait(delay_skupka)
 			sampSendDialogResponse(3040, 1, nil, nil)
 			sampSendDialogResponse(3050, 1, 19, nil)
 			sampSendDialogResponse(3050, 1, 20, nil)
@@ -5676,8 +5726,8 @@ function skupka()
 			sampSendDialogResponse(3050, 1, 10, nil)
 			sampSendDialogResponse(3060, 1, 0, elements.lavka.rare_blue.v..' '..elements.lavka.rare_blue_price.v)
 		end
-		wait(delay_skupka)
 		if elements.lavka.box_marvel.v ~= 0 then
+			wait(delay_skupka)
 			sampSendDialogResponse(3040, 1, nil, nil)
 			sampSendDialogResponse(3050, 1, 19, nil)
 			sampSendDialogResponse(3050, 1, 20, nil)
@@ -5708,8 +5758,8 @@ function skupka()
 			sampSendDialogResponse(3050, 1, 18, nil)
 			sampSendDialogResponse(3060, 1, 0, elements.lavka.box_marvel.v..' '..elements.lavka.box_marvel_price.v)
 		end
-		wait(delay_skupka)
 		if elements.lavka.box_djent.v ~= 0 then
+			wait(delay_skupka)
 			sampSendDialogResponse(3040, 1, nil, nil)
 			sampSendDialogResponse(3050, 1, 19, nil)
 			sampSendDialogResponse(3050, 1, 20, nil)
@@ -5742,8 +5792,8 @@ function skupka()
 			wait(delay_skupka)
 			sampSendDialogResponse(3060, 1, 0, elements.lavka.box_djent.v..' '..elements.lavka.box_djent_price.v)
 		end
-		wait(delay_skupka)
 		if elements.lavka.box_minecraft.v ~= 0 then
+			wait(delay_skupka)
 			sampSendDialogResponse(3040, 1, nil, nil)
 			sampSendDialogResponse(3050, 1, 19, nil)
 			sampSendDialogResponse(3050, 1, 20, nil)
@@ -5776,8 +5826,8 @@ function skupka()
 			wait(delay_skupka)
 			sampSendDialogResponse(3060, 1, 0, elements.lavka.box_minecraft.v..' '..elements.lavka.box_minecraft_price.v)
 		end
-		wait(delay_skupka)
 		if elements.lavka.box_moto.v ~= 0 then
+			wait(delay_skupka)
 			sampSendDialogResponse(3040, 1, nil, nil)
 			sampSendDialogResponse(3050, 1, 19, nil)
 			sampSendDialogResponse(3050, 1, 20, nil)
@@ -5810,8 +5860,8 @@ function skupka()
 			wait(delay_skupka)
 			sampSendDialogResponse(3060, 1, 0, elements.lavka.box_moto.v..' '..elements.lavka.box_moto_price.v)
 		end
-		wait(delay_skupka)
 		if elements.lavka.box_car.v ~= 0 then
+			wait(delay_skupka)
 			sampSendDialogResponse(3040, 1, nil, nil)
 			sampSendDialogResponse(3050, 1, 19, nil)
 			sampSendDialogResponse(3050, 1, 20, nil)
@@ -5844,8 +5894,8 @@ function skupka()
 			wait(delay_skupka)
 			sampSendDialogResponse(3060, 1, 0, elements.lavka.box_car.v..' '..elements.lavka.box_car_price.v)
 		end
-		wait(delay_skupka)
 		if elements.lavka.box_nostalg.v ~= 0 then
+			wait(delay_skupka)
 			sampSendDialogResponse(3040, 1, nil, nil)
 			sampSendDialogResponse(3050, 1, 19, nil)
 			sampSendDialogResponse(3050, 1, 20, nil)
@@ -5878,8 +5928,8 @@ function skupka()
 			wait(delay_skupka)
 			sampSendDialogResponse(3060, 1, 0, elements.lavka.box_nostalg.v..' '..elements.lavka.box_nostalg_price.v)
 		end
-		wait(delay_skupka)
 		if elements.lavka.larec_oligarha.v ~= 0 then
+			wait(delay_skupka)
 			sampSendDialogResponse(3040, 1, nil, nil)
 			sampSendDialogResponse(3050, 1, 19, nil)
 			sampSendDialogResponse(3050, 1, 20, nil)
@@ -5912,8 +5962,8 @@ function skupka()
 			wait(delay_skupka)
 			sampSendDialogResponse(3060, 1, 0, elements.lavka.larec_oligarha.v..' '..elements.lavka.larec_oligarha_price.v)
 		end
-		wait(delay_skupka)
 		if elements.lavka.band_respect.v ~= 0 then
+			wait(delay_skupka)
 			sampSendDialogResponse(3040, 1, nil, nil)
 			sampSendDialogResponse(3050, 1, 19, nil)
 			sampSendDialogResponse(3050, 1, 20, nil)
@@ -5948,8 +5998,8 @@ function skupka()
 			sampSendDialogResponse(3050, 1, 17, nil)
 			sampSendDialogResponse(3060, 1, 0, elements.lavka.band_respect.v..' '..elements.lavka.band_respect_price.v)
 		end
-		wait(delay_skupka)
 		if elements.lavka.larec_premium.v ~= 0 then
+			wait(delay_skupka)
 			sampSendDialogResponse(3040, 1, nil, nil)
 			sampSendDialogResponse(3050, 1, 19, nil)
 			sampSendDialogResponse(3050, 1, 20, nil)
@@ -6560,6 +6610,7 @@ function sampev.onSetPlayerAttachedObject(playerId, index, create, object)
 				[1238] = "Конус на голову (не нужно)",
 				[1240] = "Сердца",
 				--[1247] = "Звезда с модификации Тыква",
+				[1248] = "Значок GTA III",
 				[1265] = "Мешок с мусором в руку",
 				[1277] = "Синий кейс",
 				[1319] = "Жезл ГАИ",
@@ -6598,7 +6649,7 @@ function sampev.onSetPlayerAttachedObject(playerId, index, create, object)
 				[2060] = "Мешок грузчиков",
 				[2064] = "Крылья зелёные",
 				[2186] = "Техно рюкзак",
-				[2238] = "Торпеда на голове",
+				--[2238] = "Шляпа с красными каплями",
 				[2250] = "Цветок",
 				[2362] = "Переносная лавка",
 				[2384] = "Одежда в руки",
@@ -6637,13 +6688,14 @@ function sampev.onSetPlayerAttachedObject(playerId, index, create, object)
 				[3383] = "Усы таракана",
 				[3440] = "Очки переливающиеся",
 				[3632] = "Бочка в руку",
+				[3643] = "Рюкзак стимпанк",
 				[3658] = "Гармошка",
 				[3785] = "Светящийся рюкзак",
 				[3801] = "Длинный топор",
 				[6865] = "Маска с рогами",
 				[7093] = "Сердечко Erotic",
 				[7313] = "Ранец радио & Кейс анимированный 2 & Очки анимированые",
-				--[7392] = "Девушка на спину",
+				[7392] = "Девушка на спину & Рюкзак-девушка",
 				[8492] = "Крылья феи",
 				[8644] = "Два кинжала на спину",
 				[9833] = "Реактивный водный ранец",
@@ -6821,6 +6873,10 @@ function sampev.onSetPlayerAttachedObject(playerId, index, create, object)
 			end
 			----------------------------------------
 			if model == 3026 and object.offset.x == 0 then -- Сумка барыжка
+				return
+			end
+			----------------------------------------
+			if model == 3524 and object.scale.z == 0.1889 then -- Левая горящая голова и Правая горящая голова
 				return
 			end
 			----------------------------------------
@@ -7002,9 +7058,9 @@ function sampev.onSetPlayerAttachedObject(playerId, index, create, object)
 				return
 			end
 			----------------------------------------
-			if model == 19346 and object.bone == 1 then -- Рюкзак бургер
-				return
-			end
+			-- if model == 19346 and object.bone == 1 then -- Рюкзак бургер
+				-- return
+			-- end
 			----------------------------------------
 			if model == 19421 and object.bone == 2 then -- Наушники на голову
 				return
