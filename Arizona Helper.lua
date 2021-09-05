@@ -2,70 +2,11 @@
 script_name("{0d00ff}Ar{2900ff}iz{3900ff}on{4500ff}a H{4f00ff}el{5800ff}pe{6000ff}r")
 local script_names = "Arizona Helper"
 
-script_version('4.82')
+script_version('4.83')
 script_author("metk1u")
 
-local script_vers = 111
+local script_vers = 112
 
-local coords = 
-{
-	{-2878.6, 2566.78, 261.623, 1}, {578.14, 391.6, 9.52, 1}, {-767.179, -634.492, 65.9385, 1}, {514.602, -1807.3, 5.60423, 1}, {-1315.13, -1500.91, 21.61, 1}, 
-	{-2796.82, 234.58, 5.94, 1}, {-818.117, 2829.21, 1501.79, 1}, {-2378.54, 2490.19, 7.11762, 1}, {-1791.88, 2902.3, 54.8041, 0}, {-1708.63, 2548.91, 102.403, 1}, 
-	{-1522.81, 2707.73, 54.5414, 1}, {-1441.44, 2798.72, 85.2168, 1}, {-1313.77, 2541.4, 86.5095, 1}, {-801.438, 2776.11, 44.7718, 1}, {-599.154, 2606.75, 64.6538, 1}, 
-	{387.734, 2613.13, 15.1859, 1}, {1434.82, 2517.38, 9.60862, 1}, {1564.12, 2862.23, 9.50327, 1}, {1952.56, 2728.77, 9.58187, 1}, {2227.56, 2537.82, 9.8843, 1}, 
-	{2369.33, 2796.52, 9.54315, 1}, {1338.95, -1792.42, 12.2595, 1}, {2647.71, 2729.59, 9.56223, 1}, {2788.85, 2536.9, 9.58631, 1}, {2813.89, 2931.56, 28.4195, 1}, 
-	{-2638.24, 2327.49, 7.06923, 1}, {-2606.56, 2245.97, 4.60404, 1}, {-2661.93, 2193.42, 51.6087, 1}, {-2091.86, 2313.32, 25.9141, 0}, {-1657.3, 2244.11, 15.722, 1}, 
-	{-1710.74, 2110.3, 24.9909, 1}, {-1158.2, 2215.32, 93.2691, 1}, {-1146.9, 2343.85, 96.9653, 1}, {761.799, 2078.89, 5.40633, 1}, {1096.69, 2123.14, 9.52043, 1}, 
-	{1618.02, 2212.91, 9.55198, 1}, {1786.93, 2159.96, 11.7232, 0}, {1891.05, 2012.86, 6.36527, 1}, {2383.02, 2012.41, 9.88537, 1}, {2626.4, 2185.34, 9.71282, 1}, 
-	{2657.16, 2309.32, 10.8203, 0}, {2592.02, 2391.65, 15.8071, 1}, {-1771.28, 1978.39, 14.4526, 1}, {-1513.6, 1971.61, 47.1603, 1}, {-606.568, 1832.35, 5.85018, 1}, 
-	{-531.054, 1807.34, 137.521, 1}, {-521.42, 1649.1, -0.22815, 1}, {-183.337, 1888.64, 114.395, 1}, {1368.92, 1916.1, 9.59057, 1}, {1693.3, 1953.77, 9.78182, 1}, 
-	{2032.57, 1728.36, 9.51405, 1}, {2675.73, 1661.19, 9.73563, 1}, {-2910.57, 1210.99, 0.89121, 1}, {-2802.02, 1194.18, 19.5709, 1}, {-2681.24, 1262.4, 15.7395, 1}, 
-	{-2547.49, 1229.62, 36.1455, 1}, {-2452.23, 1005.49, 45.7741, 1}, {-2298.91, 1095.45, 69.9223, 1}, {-1970.75, 993.301, 57.388, 1}, {-1895.22, 1264.94, 20.4278, 1}, 
-	{-1809.82, 1406.42, 5.86155, 1}, {-1740.16, 1234.39, 6.3459, 1}, {-1643.61, 1323.49, 1.71206, 1}, {-220.102, 1401.69, 68.6655, 1}, {102.492, 1019.75, 12.3152, 1}, 
-	{1279.51, 1179.57, 9.54895, 1}, {1486.42, 1107.67, 9.56224, 1}, {1751.78, 1477.56, 9.5184, 1}, {2758.67, 1460.39, 9.5592, 1}, {-2877, 519.103, -0.65761, 1}, 
-	{-2687.66, 771.777, 42.3904, 1}, {-2586.41, 867.345, 57.2109, 1}, {-2500.29, 940.168, 61.3867, 1}, {-2321.08, 534.314, 43.4735, 1}, {-2218.75, 964.7, 78.9423, 1}, 
-	{-2172.23, 833.454, 68.4769, 1}, {-1955.38, 764.659, 54.4665, 1}, {-1398.13, 678.462, 1.78513, 1}, {-720.957, 687.53, 5.43983, 1}, {1420.51, 905.624, 10.9297, 0}, 
-	{1531.85, 925.756, 9.49611, 1}, {1691.2, 890.222, 9.54726, 1}, {2801.42, 695.427, 8.79808, 1}, {-2665.44, 144.834, 3.15551, 1}, {-2644.73, 205.761, 3.09554, 1}, 
-	{-2618.54, 417.879, 3.01013, 1}, {-2540.48, 204.961, 9.85806, 1}, {-2516.62, 267.806, 21.4084, 1}, {-1381.56, 89.1305, 1.67274, 1}, {-592.001, 162.934, 19.8715, 1}, 
-	{386.02, 79.9867, 3.67252, 1}, {1018.62, 164.008, 30.7292, 1}, {1253.09, 365.005, 18.2851, 1}, {-2753.8, -180.006, 5.76931, 1}, {-2754.33, -416.241, 5.64813, 1}, 
-	{-2633.57, -309.622, 6.99836, 1}, {-2538.33, -301.498, 26.1641, 1}, {-2438.95, -294.56, 39.1314, 1}, {-2455.34, -139.799, 24.8976, 1}, {-2479.26, -33.4793, 32.3406, 1}, 
-	{-2183.66, -435.824, 34.7828, 1}, {-1128.93, -150.148, 12.9581, 1}, {-904.665, -113.447, 55.3798, 1}, {-488.254, -171.718, 76.9443, 1}, {285.178, -30.1081, 1.00885, 1}, 
-	{1562.12, -337.72, 13.889, 1}, {1774.98, -375.948, 85.722, 1}, {-2942.91, -679.805, -0.36174, 1}, {-2665.78, -716.145, 62.3053, 1}, {-1507.72, -905.577, 183.845, 1}, 
-	{-1111.71, -748.102, 30.7602, 1}, {2572.7, -634.422, 134.543, 1}, {-2515.89, -1034.21, 102.696, 1}, {-2499.86, -1142.27, 141.239, 1}, {-2133.4, -1413.64, 198.723, 1}, 
-	{-1591.98, -1345.45, 48.1512, 1}, {-1365.29, -1374.25, 143.094, 1}, {-206.244, -1018.09, 16.3022, 1}, {164.188, -1260.61, 71.9953, 1}, {230.846, -1391.44, 51.8677, 1}, 
-	{633.826, -1172.81, 37.8084, 1}, {813.007, -1267.99, 12.2605, 1}, {848.089, -1359.79, 12.3194, 1}, {856.703, -1476.42, 13.097, 1}, {962.894, -1251.63, 15.72, 1}, 
-	{1084.11, -1187.01, 18.3092, 0}, {1293.32, -1210.96, 12.4432, 1}, {1386.82, -992.381, 29.4842, 1}, {1830.59, -1145.55, 22.5787, 1}, {2094.34, -1429.77, 22.5141, 1}, 
-	{21, -1123.87, 29.2587, 1}, {2485.35, -1071.16, 65.5284, 1}, {2549.77, -1332.7, 32.8686, 1}, {2785.59, -1087.69, 29.4599, 1}, {-2969.78, -1716.95, -0.3379, 1}, 
-	{-2380.35, -1698.97, 467.388, 1}, {-2013.78, -1605.43, 141.858, 1}, {-1131.43, -1759.32, 114.55, 1}, {-497.869, -1952.25, 35.7327, 1}, {-209.757, -1576.14, 5.19303, 1}, 
-	{412.494, -1812.73, 4.23272, 1}, {757.196, -1818.2, 11.7374, 1}, {824.38, -1699.62, 12.2481, 1}, {1023.7, -1526.53, 12.7448, 1}, {1238.46, -1640.37, 12.3171, 1}, 
-	{1266.89, -1724.46, 12.7872, 1}, {1477.63, -1934.67, 22.4749, 1}, {2518.3, -1978.54, 12.1689, 1}, {2539.67, -1590.54, 20.7093, 1}, {-2263.01, -2835.84, -0.42964, 1}, 
-	{-2228.89, -2567.32, 30.599, 1}, {-2188.22, -2419.4, 29.3557, 1}, {-1849.25, -2419.64, 42.7941, 1}, {-1651.32, -2436.89, 97.209, 1}, {-1641.1, -2305.57, 59.3222, 1}, 
-	{-1551.62, -2403.37, 32.558, 0}, {-1463.39, -2643.12, 40.6103, 1}, {-1043.35, -2418.78, 60.4559, 1}, {-928.631, -2547.54, 113.71, 1}, {-412.773, -2167.82, 80.8633, 1}, 
-	{-5.04887, -2490.46, 36.2891, 1}, {1010.8, -2083.37, 11.8847, 1}, {1102.14, -2236.12, 48.1534, 1}, {1201.77, -2303.01, 13.4563, 1}, {1224.62, -2131.43, 57.6836, 1}, 
-	{1495.65, -2091.51, 27.655, 1}, {1586, -2016.62, 34.7464, 1}, {1600.91, -2716.88, 13.5391, 0}, {2191.97, -2701.53, 13.5469, 0}, {2569.68, -2187.01, 12.281, 1}, 
-	{-1656.55, 2909.02, 51.0157, 1}, {274.551, 2930.09, -0.04081, 1}, {1196.45, 2858.76, 9.8235, 1}, {2235.27, 2812.27, 9.63092, 1}, {2057.14, 2148.84, 9.62282, 1}, 
-	{2262.33, 2563.36, 9.56324, 1}, {2635.59, 2829.15, 22.8277, 1}, {-2500.56, 2274.85, 3.69014, 1}, {-2499.87, 2231.65, 3.68482, 1}, {-1183.99, 2197.18, 86.2022, 0}, 
-	{-2667.37, 1598.76, 2.01039, 1}, {-2179.91, 1057.27, 86.8861, 1}, {1652.77, 1383.91, 9.52284, 1}, {1950.85, 1938.91, 11.0792, 0}, {1990.29, 1377.12, 7.99589, 1}, 
-	{2150.42, 1599.02, 19.165, 1}, {-2886.91, 957.838, 43.0216, 1}, {-2778.02, 782.707, 58.1557, 1}, {-2513.93, 132.038, 21.0134, 1}, {-2183.52, 636.085, 48.1307, 1}, 
-	{-1868.64, 100.819, 15.7728, 1}, {268.77, -306.638, 1.57812, 0}, {2016.49, 903.902, 9.56787, 1}, {2892.12, 814.24, 11.4223, 1}, {-1954.73, -750.819, 34.8931, 1}, 
-	{1227.58, -869.813, 41.5483, 1}, {-1558.18, -2725.15, 47.5206, 1}, {-1191.93, -2575.94, 1.43932, 0}, {756.428, -1477.2, 11.4415, 1}, {866.261, -1751.56, 12.2734, 1}, 
-	{2381.45, -1555.94, 22.7727, 1}, {2815.3, -1212.59, 23.9245, 1}, {2752.41, -1284.17, 55.3181, 1}, {-2545.18, 936.006, 63.7139, 1}, {2874.95, 2522.33, 9.78442, 1}, 
-	{1236.43, -1937.9, 37.9958, 1}, {-44.4519, -2871.43, 28.2789, 1}, {-1774.08, 1310.43, 7.1875, 0}, {328.489, -1758.82, 3.18533, 1}, {693.551, -1634.7, 2.15345, 1}, 
-	{2599.13, -1885.32, 4.8263, 0}, {-2554.2, 454.845, 14.6419, 0}, {2420.66, 1789.21, 9.63241, 1}, {2343.88, -2156.19, 12.2206, 1}, {-2846.84, -1157.79, 11.9614, 1}, 
-	{-494.904, -1881.4, 6.33976, 1}, {-2011.55, -1077.52, 46.089, 1}, {-814.898, -1297.54, 78.7468, 1}, {2066.91, 2251.35, 8.58222, 1}, {2745.5, 2762.33, 9.48828, 1}, 
-	{2504.13, 1006.41, 77.1407, 1}, {-2229.37, 138.467, 34.0155, 1}, {952.452, -1695.47, 12.2532, 1}, {2500.97, 2143.3, 9.68857, 1}, {1539.71, -985.462, 35.9553, 1}, 
-	{2002.44, 1668, 11.0618, 1}, {1738.66, 2288.33, 9.60005, 1}, {1163.99, 699.453, 9.45416, 1}, {-1337.45, 2095.89, 40.2034, 1}, {2468.07, 675.906, 9.54242, 1}, 
-	{1430.14, 2268.79, 10.0122, 1}, {1179.43, -346.887, 55.1543, 1}, {2831.67, 2245.74, 9.73089, 1}, {-2718.2, 76.0714, 3.09266, 1}, {497.676, -217.144, 14.2953, 1}, 
-	{2579.77, 2082.27, 9.54141, 1}, {-525.639, -2702.27, 142.87, 1}, {2774.85, 317.622, 2.40274, 1}, {-339.396, -296.534, 10.317, 1}, {1083.74, -2028.46, 55.3729, 1}, 
-	{872.256, -1545.17, 12.3196, 1}, {153.063, -1498.31, 11.0706, 1}, {2177.89, 1482.8, 9.566, 1}, {1925.3, 2782.01, 9.51348, 1}, {1786.79, 2077.36, 9.54741, 1}, 
-	{1085.22, -1903.57, 20.5189, 1}, {652.963, -1891.11, 2.56912, 1}, {-2194.34, -2332.13, 29.3995, 1}, {245.312, -43.9376, 0.28448, 1}, {679.151, -1497.66, 13.6363, 1}, 
-	{-1416.51, -2419.95, 31.8473, 1}, {-2757.89, 90.7707, 5.70753, 1}, {780.385, -1684.96, 2.86449, 1}, {-2070.73, 1030.85, 58.9517, 1}, {1407.77, 2164.23, 10.7817, 1}, 
-	{-2184.88, 2754.51, 164.46, 1}, {-2312.84, -2014.39, 243.125, 1}, {-328.627, -2131.01, 29.3583, 1}, {-91.0179, -1419.08, 4.32593, 1}, {1708.23, 2841, 9.56706, 1}, 
-	{-1316.61, -1341.72, 144.622, 1}, {1416.73, 2209.09, 22.8743, 1}, {-490.455, 2381.6, 82.4634, 1}, {-2207.17, 1138.03, 91.1997, 1}, {-1494.14, -1164.2, 122.846, 1}, 
-	{-301.169, 1914.38, 48.4876, 1}, {2299.23, -375.989, 54.8201, 1}, {-2613.35, -988.187, 13.4587, 1}, {675.342, -1554.81, 14.1413, 1}, {-2294.97, 640.211, 40.6966, 1}, 
-	{2011.03, 2224.25, 9.56758, 1}, {784.031, -1743.94, 12.2306, 1}, {2395.21, -2495.13, 13.6476, 1}, {-896.464, 1864.72, 115.261, 0}, {-2468.72, 1050.01, 54.1813, 1}, 
-	{-1664.48, 979.585, 48.0926, 1}
-};
 local textklad =
 {
 	["Red-Rock?"] = "3",
@@ -888,26 +829,6 @@ local textdraw_name =
 	[19941] = "Золото",
 	[19998] = "Зажигалка"
 };
-local tCarsName = 
-{
-	"Landstalker","Bravura","Buffalo","Linerunner","Pereniel","Sentinel","Dumper","Firetruck","Trashmaster","Stretch","Manana","Infernus",
-	"Voodoo","Pony","Mule","Cheetah","Ambulance","Leviathan","Moonbeam","Esperanto","Taxi","Washington","Bobcat","Mr.Whoopee","BF Injection",
-	"Hunter","Premier","Enforcer","Securicar","Banshee","Predator","Bus","Rhino","Barracks","Hotknife","Trailer","Previon","Coach","Cabbie",
-	"Stallion","Rumpo","RC Bandit","Romero","Packer","Monster","Admiral","Squalo","Seasparrow","Pizzaboy","Tram","Trailer","Turismo","Speeder",
-	"Reefer","Tropic","Flatbed","Yankee","Caddy","Solair","Berkley's RC Van","Skimmer","PCJ-600","Faggio","Freeway","RC Baron","RC Raider",
-	"Glendale","Oceanic","Sanchez","Sparrow","Patriot","Quad","Coastguard","Dinghy","Hermes","Sabre","Rustler","ZR-350","Walton","Regina",
-	"Comet","BMX","Burrito","Camper","Marquis","Baggage","Dozer","Maverick","News Chopper","Rancher","FBI Rancher","Virgo","Greenwood",
-	"Jetmax","Hotring Racer","Sandking","Blista Compact","Police Maverick","Boxville","Benson","Mesa","RC Goblin","Hotring Racer A","Hotring Racer B",
-	"Bloodring Banger","Rancher","Super GT","Elegant","Journey","Bike","Mountain Bike","Beagle","Cropdust","Stunt","Tanker","RoadTrain",
-	"Nebula","Majestic","Buccaneer","Shamal","Hydra","FCR-900","NRG-500","HPV1000","Cement Truck","Tow Truck","Fortune","Cadrona","FBI Truck",
-	"Willard","Forklift","Tractor","Combine","Feltzer","Remington","Slamvan","Blade","Freight","Streak","Vortex","Vincent","Bullet","Clover",
-	"Sadler","Firetruck","Hustler","Intruder","Primo","Cargobob","Tampa","Sunrise","Merit","Utility","Nevada","Yosemite","Windsor","Monster A",
-	"Monster B","Uranus","Jester","Sultan","Stratum","Elegy","Raindance","RC Tiger","Flash","Tahoma","Savanna","Bandito","Freight","Trailer",
-	"Kart","Mower","Dune","Sweeper","Broadway","Tornado","AT-400","DFT-30","Huntley","Stafford","BF-400","Newsvan","Tug","Trailer A","Emperor",
-	"Wayfarer","Euros","Hotdog","Club","Trailer B","Trailer C","Andromada","Dodo","RC Cam","Launch","Police Car (LSPD)","Police Car (SFPD)",
-	"Police Car (LVPD)","Police Ranger","Picador","S.W.A.T.","Alpha","Phoenix","Glendale","Sadler","L Trailer A","L Trailer B",
-	"Stair Trailer","Boxville","Farm Plow","U Trailer"
-}
 local cmds =
 {
 	'/ad',
@@ -1264,8 +1185,6 @@ local delay_autovr = 0.5
 --------------------[Продовоз]--------------------
 local prodovoz_timer = 0
 local prods = 2000
---------------------[/poisk]--------------------
-local checkpoint_poisk = {}
 --------------------[CMD хелпер]--------------------
 local windows_cmd = imgui.ImBool(false)
 --------------------[Дальний чат]--------------------
@@ -1371,6 +1290,18 @@ local mainIni = inicfg.load(
 		renderchatbuy = true,
 		removechatbuy = false,
 		tosampfuncsbuy = true,
+		----------------------------------------
+		removechatmicro = false,
+		----------------------------------------
+		removechatdepatment = true,
+		----------------------------------------
+		removechatnews = true,
+		----------------------------------------
+		removechatalians = false,
+		----------------------------------------
+		removechatwait = true,
+		----------------------------------------
+		removechatfond = true,
 		----------------------------------------
 		removechatspam = true,
 		tosampfuncsspam = true,
@@ -1614,6 +1545,18 @@ local elements =
 		removechatbuy = imgui.ImBool(mainIni.chat.removechatbuy),
 		tosampfuncsbuy = imgui.ImBool(mainIni.chat.tosampfuncsbuy),
 		----------------------------------------
+		removechatmicro = imgui.ImBool(mainIni.chat.removechatmicro),
+		----------------------------------------
+		removechatdepatment = imgui.ImBool(mainIni.chat.removechatdepatment),
+		----------------------------------------
+		removechatnews = imgui.ImBool(mainIni.chat.removechatnews),
+		----------------------------------------
+		removechatalians = imgui.ImBool(mainIni.chat.removechatalians),
+		----------------------------------------
+		removechatwait = imgui.ImBool(mainIni.chat.removechatwait),
+		----------------------------------------
+		removechatfond = imgui.ImBool(mainIni.chat.removechatfond),
+		----------------------------------------
 		removechatspam = imgui.ImBool(mainIni.chat.removechatspam),
 		tosampfuncsspam = imgui.ImBool(mainIni.chat.tosampfuncsspam),
 		----------------------------------------
@@ -1829,9 +1772,6 @@ local elements =
 		----------------------------------------
 		buyvk = -1,
 		----------------------------------------
-		mechanic = false,
-		mechanic_count = 0,
-		----------------------------------------
 		nicks = false,
 		----------------------------------------
 		pidors = false,
@@ -1842,15 +1782,11 @@ local elements =
 		----------------------------------------
 		olen = false,
 		----------------------------------------
-		happy = false,
-		----------------------------------------
 		lavka = false,
 		----------------------------------------
 		waxta = false,
 		----------------------------------------
 		klad = true,
-		----------------------------------------
-		poisk = false,
 		----------------------------------------
 		autoloot = false,
 		autoloot_number = 0,
@@ -1859,9 +1795,7 @@ local elements =
 		showpos = false,
 		showmodel = false,
 		----------------------------------------
-		stealer_td = true,
-		----------------------------------------
-		denis = false
+		stealer_td = true
 		----------------------------------------
 	}
 }
@@ -1924,51 +1858,7 @@ function main()
 			end
 		end
 	end)
-	-- INVALID_OBJECT_ID
 	os.remove("moonloader\\stealer\\2238 - .notepad")
-	os.remove("moonloader\\stealer\\textdraws\\312.notepad")
-	os.remove("moonloader\\stealer\\textdraws\\313.notepad")
-	os.remove("moonloader\\stealer\\textdraws\\314.notepad")
-	os.remove("moonloader\\stealer\\textdraws\\315.notepad")
-	os.remove("moonloader\\stealer\\textdraws\\316.notepad")
-	os.remove("moonloader\\stealer\\textdraws\\317.notepad")
-	os.remove("moonloader\\stealer\\textdraws\\318.notepad")
-	os.remove("moonloader\\stealer\\textdraws\\319.notepad")
-	os.remove("moonloader\\stealer\\textdraws\\320.notepad")
-	os.remove("moonloader\\stealer\\textdraws\\321.notepad")
-	os.remove("moonloader\\stealer\\textdraws\\323.notepad")
-	os.remove("moonloader\\stealer\\textdraws\\329.notepad")
-	os.remove("moonloader\\stealer\\textdraws\\331.notepad")
-	os.remove("moonloader\\stealer\\textdraws\\332.notepad")
-	os.remove("moonloader\\stealer\\textdraws\\340.notepad")
-	os.remove("moonloader\\stealer\\textdraws\\341.notepad")
-	os.remove("moonloader\\stealer\\textdraws\\350.notepad")
-	os.remove("moonloader\\stealer\\textdraws\\363.notepad")
-	os.remove("moonloader\\stealer\\textdraws\\368.notepad")
-	os.remove("moonloader\\stealer\\textdraws\\371.notepad")
-	os.remove("moonloader\\stealer\\textdraws\\382.notepad")
-	os.remove("moonloader\\stealer\\textdraws\\383.notepad")
-	os.remove("moonloader\\stealer\\textdraws\\398.notepad")
-	os.remove("moonloader\\stealer\\textdraws\\399.notepad")
-	os.remove("moonloader\\stealer\\textdraws\\612.notepad")
-	os.remove("moonloader\\stealer\\textdraws\\613.notepad")
-	os.remove("moonloader\\stealer\\textdraws\\614.notepad")
-	os.remove("moonloader\\stealer\\textdraws\\662.notepad")
-	os.remove("moonloader\\stealer\\textdraws\\663.notepad")
-	os.remove("moonloader\\stealer\\textdraws\\676.notepad")
-	os.remove("moonloader\\stealer\\textdraws\\795.notepad")
-	os.remove("moonloader\\stealer\\textdraws\\796.notepad")
-	os.remove("moonloader\\stealer\\textdraws\\797.notepad")
-	os.remove("moonloader\\stealer\\textdraws\\798.notepad")
-	os.remove("moonloader\\stealer\\textdraws\\799.notepad")
-	os.remove("moonloader\\stealer\\textdraws\\1243.notepad")
-	os.remove("moonloader\\stealer\\textdraws\\2782.notepad")
-	os.remove("moonloader\\stealer\\textdraws\\3385.notepad")
-	os.remove("moonloader\\stealer\\textdraws\\3497.notepad")
-	os.remove("moonloader\\stealer\\textdraws\\8483.notepad")
-	os.remove("moonloader\\stealer\\textdraws\\19823.notepad")
-	
-	
 	----------------------------------------
 	for model_id, name in pairs(textdraw_name) do
 		os.remove("moonloader\\stealer\\textdraws\\"..model_id..".notepad")
@@ -1995,7 +1885,14 @@ function main()
 		push_message('Перезахожу...')
 	end)
 	----------------------------------------
-	sampRegisterChatCommand("rr",report)
+	sampRegisterChatCommand('rr',function(arg)
+		if #arg == 0 then
+			sampAddChatMessage('Используй: /rr [жалоба]', 0xAFAFAF)
+		else
+			message_report = arg
+			sampSendChat("/report")
+		end
+	end)
 	----------------------------------------
 	sampRegisterChatCommand('buyvk',function(number)
 		if #number == 0 then
@@ -2023,12 +1920,6 @@ function main()
 			join_rgb(r,g,b)
 			sampAddChatMessage(string.format('%06X',join_rgb(r,g,b)), 0xAFAFAF)
 		end
-	end)
-	----------------------------------------
-	sampRegisterChatCommand("mechanic",function()
-		elements.state.mechanic = not elements.state.mechanic
-		elements.state.mechanic_count = 0
-		push_message((elements.state.mechanic and "Включаю" or "Выключаю")..' помощника для механика.')
 	end)
 	----------------------------------------
 	sampRegisterChatCommand("nicks",function()
@@ -2124,11 +2015,6 @@ function main()
 		push_message((elements.state.olen and "Включаю" or "Выключаю")..' поиск оленей в зоне стрима.')
 	end)
 	----------------------------------------
-	sampRegisterChatCommand("happy",function()
-		elements.state.happy = not elements.state.happy
-		push_message((elements.state.happy and "Включаю" or "Выключаю")..' поиск.')
-	end)
-	----------------------------------------
 	sampRegisterChatCommand("ll",function()
 		elements.state.lavka = not elements.state.lavka
 		push_message((elements.state.lavka and "Включаю" or "Выключаю")..' рендер лавок.')
@@ -2145,43 +2031,9 @@ function main()
 		printString('',0)
 	end)
 	----------------------------------------
-	sampRegisterChatCommand("poisk",function()
-		elements.state.poisk = not elements.state.poisk
-		if elements.state.poisk == true then
-			for i = 1, #coords do
-				checkpoint_poisk[i] = addBlipForCoord(coords[i][1], coords[i][2], coords[i][3])
-				if coords[i][4] == 1 then 
-					changeBlipColour(checkpoint_poisk[i], 0xFF3300FF)
-				else
-					changeBlipColour(checkpoint_poisk[i], 0xFFCF48FF)
-				end
-			end
-			printString('~g~markers enable',3000)
-		else
-			for i = 1, #coords do
-				removeBlip(checkpoint_poisk[i])
-				checkpoint_poisk[i] = 0
-			end
-			printString('~r~markers disable',3000)
-		end
-	end)
-	----------------------------------------
 	sampRegisterChatCommand("loot",function()
 		elements.state.autoloot = not elements.state.autoloot
 		push_message((elements.state.autoloot and "Включаю" or "Выключаю")..' пылесос.')
-	end)
-	----------------------------------------
-	sampRegisterChatCommand('rp',function(playerid)
-		if #playerid == 0 then
-			sampAddChatMessage('Используй: /rp [playerid]', 0xAFAFAF)
-		else
-			if sampIsPlayerConnected(playerid) then
-				sampSendChat("/repare "..playerid.." 1")
-				sampSendChat("/filscar "..playerid.." 1 1")
-			else
-				sampAddChatMessage('{FF3300}x{AFAFAF} Игрок не в игре.',0xAFAFAF)
-			end
-		end
 	end)
 	----------------------------------------
 	sampRegisterChatCommand('ud',function()
@@ -2282,13 +2134,6 @@ function main()
 		sampAddChatMessage('Используй: /price [название товара]', 0xAFAFAF)
 	end)
 	----------------------------------------
-	sampRegisterChatCommand("denis",function()
-		elements.state.denis = not elements.state.denis
-		elements.state.mechanic = false
-		elements.state.mechanic_count = 0
-		push_message((elements.state.denis and "Включаю" or "Выключаю")..' покупку.')
-	end)
-	----------------------------------------
 	for i = 0, sampGetMaxPlayerId() do
 		if sampIsPlayerConnected(i) then
 			nickname = sampGetPlayerNickname(i)
@@ -2327,37 +2172,9 @@ function main()
 				end)
 				break
 			end
-			----------------------------------------
-			if elements.state.mechanic == true then
-				if elements.state.mechanic_count < 90 then
-					--setVirtualKeyDown(18, true)
-					setGameKeyState(21, 255)
-					--wait(130)
-					setGameKeyState(21, 0)
-					--setVirtualKeyDown(18, false)
-					elements.state.mechanic_count = elements.state.mechanic_count+1
-				else
-					elements.state.mechanic = not elements.state.mechanic
-					elements.state.mechanic_count = 0
-					push_message((elements.state.mechanic and "Включаю" or "Выключаю")..' помощника для механика.')
-				end
-			end
-			----------------------------------------
-			if elements.state.denis == true and not sampIsChatInputActive() then
-				--wait(100)
-				setGameKeyState(21, 255)
-				--setVirtualKeyDown(18, true)
-				wait(0)
-				setGameKeyState(21, 0)
-				--setVirtualKeyDown(18, false)
-				setGameKeyState(15, 255)
-				--setVirtualKeyDown(13, false)
-			end
 			--------------------[Авто-открытие сундуков]--------------------
 			if elements.chest.roll_state.v == true and
 				elements.state.buyvk == -1 and
-				elements.state.denis == false and
-				elements.state.mechanic == false and
 				elements.state.autoloot == false and
 				elements.autoopenroul.open_roul_bronze.v == false and
 				elements.autoopenroul.open_roul_silver.v == false and
@@ -2740,32 +2557,6 @@ function main()
 				renderFontDrawText(arial,'Оленей в зоне стрима: '..olen_count, sx / 2.5, sy - 30, 0xFFFF0000)
 			end
 		end
-		--------------------[ДР аризоны]--------------------
-		if elements.state.happy == true then
-			for _, i in pairs(getAllObjects()) do
-				if getObjectModel(i) == 850 or getObjectModel(i) == 934 or getObjectModel(i) == 1362 then
-					if isObjectOnScreen(i) then
-						local result, oX, oY, oZ = getObjectCoordinates(i)
-						------------------------------------
-						local x1, y1 = convert3DCoordsToScreen(oX,oY,oZ)
-						local PlayerX, PlayerY, PlayerZ = getCharCoordinates(PLAYER_PED)
-						local PlayerX2, PlayerY2 = convert3DCoordsToScreen(PlayerX, PlayerY, PlayerZ)
-						distance = string.format("%.0f",getDistanceBetweenCoords3d(oX, oY, oZ, PlayerX, PlayerY, PlayerZ))
-						------------------------------------
-						renderDrawLine(PlayerX2, PlayerY2, x1, y1, 2, 0xFF3300FF)
-						if getObjectModel(i) == 850 then
-							renderFontDrawText(arial,"{FF0000}Железные обломки: {3300FF}"..distance, x1, y1, -1)
-						end
-						if getObjectModel(i) == 934 then
-							renderFontDrawText(arial,"{FF0000}Покорёженный металл: {3300FF}"..distance, x1, y1, -1)
-						end
-						if getObjectModel(i) == 1362 then
-							renderFontDrawText(arial,"{FF0000}Ржавые детали: {3300FF}"..distance, x1, y1, -1)
-						end
-					end
-				end
-			end
-		end
 		--------------------[Поиск лавок]--------------------
 		if elements.state.lavka == true then
 			for _, i in pairs(getAllObjects()) do
@@ -2823,8 +2614,7 @@ function main()
 				if carhandle ~= -1 then
 					if carid >= 838 then
 						x, y, z = getCarCoordinates(carhandle)
-						model = getCarModel(carhandle)
-						name_vehicle = getCarName(model)
+						name_vehicle = getNameOfVehicleModel(getCarModel(carhandle))
 						----------------------------------------
 						printString('~p~OPEN BAGAJHUK~n~'..name_vehicle..'['..carid..']',1000)
 						----------------------------------------
@@ -3106,8 +2896,14 @@ function saveini()
 			renderchatbuy = elements.chat.renderchatbuy.v,
 			removechatbuy = elements.chat.removechatbuy.v,
 			tosampfuncsbuy = elements.chat.tosampfuncsbuy.v,
+			removechatdepatment = elements.chat.removechatdepatment.v,
+			removechatnews = elements.chat.removechatnews.v,
+			removechatalians = elements.chat.removechatalians.v,
+			removechatwait = elements.chat.removechatwait.v,
+			removechatfond = elements.chat.removechatfond.v,
 			removechatspam = elements.chat.removechatspam.v,
 			tosampfuncsspam = elements.chat.tosampfuncsspam.v,
+			removechatmicro = elements.chat.removechatmicro.v,
 			sendconnect = elements.chat.sendconnect.v,
 			senddisconnect = elements.chat.senddisconnect.v,
 			tosampfuncsconnect = elements.chat.tosampfuncsconnect.v,
@@ -3143,7 +2939,6 @@ function saveini()
 			newyear = elements.destroy.newyear.v,
 			pasxa = elements.destroy.pasxa.v,
 			xlam = elements.destroy.xlam.v,
-			happy = elements.destroy.happy.v
 		},
 		lavka =
 		{
@@ -3384,9 +3179,6 @@ function imgui.OnDrawFrame()
 		imgui.Text(u8"/buyvk [1-7] - Включить автопрокачку VK-Coins.")
 		imgui.SameLine()
 		imgui.TextQuestion(u8'Открываешь BOOST в телефоне,\nвводишь /buyvk [1-7] и скрипт будет автоматически покупать.')
-		imgui.Text(u8"/mechanic - Включить автонажатие Alt (выключить - Ctrl + R).")
-		imgui.SameLine()
-		imgui.TextQuestion(u8'Автоматически нажимает ALT 90 раз.\nПринимаешь заказ механиком вводишь /mechanic и скрипт\nавтоматически нажмет ALT 90 раз. Прервать работу скрипта (Ctrl + R)')
 		imgui.Text(u8"/nicks - Включить поиск игроков в зоне стрима")
 		imgui.SameLine()
 		imgui.TextQuestion(u8'Чтобы отключить введи /nicks ещё раз.')
@@ -3397,15 +3189,11 @@ function imgui.OnDrawFrame()
 		imgui.Text(u8"/ll - Подсветить радиусы переносных лавок")
 		imgui.Text(u8"/waxta - Включить поиск руды в зоне стрима")
 		imgui.Text(u8"/klad - Включить поиск кладов и открытых багажников")
-		imgui.Text(u8"/poisk - Показать места спавна кладов")
 		imgui.Text(u8"/loot - Автосбор с мусорки/багажника")
 		imgui.SameLine()
-		imgui.TextQuestion(u8'Заходишь в мусорку, вводишь /loot и скрипт будет автоматически\nлутать все что появится в первой строчке мусорки.')
-		imgui.Text(u8"/rp [playerid] - Автоввод /repare id 1 и /filscar id 1 1")
+		imgui.TextQuestion(u8'Заходишь в мусорку, вводишь /loot и скрипт будет автоматически\nлутать все что появится.')
 		imgui.Text(u8"/ud - Использует 3 грамма наркотиков")
 		imgui.Text(u8"/ar - Надевает броню")
-		imgui.Text(u8"/showid - Показывает ID текстдравов")
-		imgui.Text(u8"/showmodel - Показывает MODEL текстдравов")
 		imgui.Text(u8"/price [название] - Посмотреть цену на товар")
 		imgui.Text(u8"/pp - Поиск пидоров")
 		imgui.Text(u8"/p - Посмотреть пидоров онлайн")
@@ -3530,10 +3318,22 @@ function imgui.OnDrawFrame()
 			----------------------------------------
 			if imgui.CollapsingHeader(u8'SPAM сообщения') then
 				imgui.Separator()
+				imgui.Checkbox(u8('Отключить в чате "микрофон"'),elements.chat.removechatmicro)
+				imgui.Separator()
+				imgui.Checkbox(u8('Отключить чат "департамента"'),elements.chat.removechatdepatment)
+				imgui.Separator()
+				imgui.Checkbox(u8('Отключить чат "NEWS"'),elements.chat.removechatnews)
+				imgui.Separator()
+				imgui.Checkbox(u8('Отключить чат "альянса"'),elements.chat.removechatalians)
+				imgui.Separator()
+				imgui.Checkbox(u8('Отключить в чате сообщение "Подождите немного..."'),elements.chat.removechatwait)
+				imgui.Separator()
+				imgui.Checkbox(u8('Отключить в чате сообщения о пожертвовании'),elements.chat.removechatfond)
+				imgui.Separator()
 				imgui.Checkbox(u8('Отключить в чате SPAM сообщения'),elements.chat.removechatspam)
 				----------------------------------------
 				imgui.SameLine()
-				imgui.TextQuestion(u8'1. Удаляет рекламу от сервера.\n2. Удаляет репортажи СМИ (Гость, Репортёр).\n3. Удаляет сообщения News.\n4. Удаляет сообщения /d чата.\n5. Удаляет сообщения в бандах об инкассаторах.\n6. Сообщения о собеседованиях.\n7. Удаляет чат Альянса.\n8. Удаляет сообщения Микрофона.')
+				imgui.TextQuestion(u8'1. Удаляет рекламу от сервера.\n2. Удаляет репортажи СМИ (Гость, Репортёр).\n4. Удаляет сообщения в бандах об инкассаторах.\n5. Сообщения о собеседованиях.')
 				----------------------------------------
 				imgui.Checkbox(u8('Выводить SPAM сообщения в консоль SAMPFUNCS (~)'),elements.chat.tosampfuncsspam)
 				imgui.Separator()
@@ -4559,9 +4359,11 @@ function sampev.onServerMessage(color, text)
 		return false
 	end
 	----------------------------------------
-	ip, port = sampGetCurrentServerAddress()
-	if elements.chat.chatlog.v == true and text ~= ' ' and ip ~= "127.0.0.1" then
-		local file_logs = io.open('moonloader/logs/'..sampGetCurrentServerAddress()..'.txt', 'a+')
+	if elements.chat.chatlog.v == true and text ~= ' ' and sampGetCurrentServerAddress() ~= "127.0.0.1" then
+		----------------------------------------
+		if not doesDirectoryExist("moonloader\\logs\\"..sampGetCurrentServerAddress()) then createDirectory("moonloader\\logs\\"..sampGetCurrentServerAddress()) end
+		----------------------------------------
+		local file_logs = io.open('moonloader/logs/'..sampGetCurrentServerAddress()..'/'..os.date('%d-%m-%Y')..'.txt', 'a+')
 		if file_logs ~= -1 and file_logs ~= nil then
 			file_logs:write('['..os.date('%d-%m-%Y || %H:%M:%S')..']['..color..'] '..text..'\n')
 			file_logs:close()
@@ -4599,6 +4401,30 @@ function sampev.onServerMessage(color, text)
 		end
 	end
 	----------------------------------------
+	if elements.chat.removechatmicro.v == true and (text:find("Микрофон") and color == -1863723265) then
+		return false
+	end
+	----------------------------------------
+	if elements.chat.removechatdepatment.v == true and string.find(text,"%[D%]") then
+		return false
+	end
+	----------------------------------------
+	if elements.chat.removechatnews.v == true and string.find(text,"%[ News ") then
+		return false
+	end
+	----------------------------------------
+	if elements.chat.removechatalians.v == true and (text:find("Альянс") and color == -1178486529) then
+		return false
+	end
+	----------------------------------------
+	if elements.chat.removechatwait.v == true and (text:find("Подождите немного...") and color == -10270721) then
+		return false
+	end
+	----------------------------------------
+	if elements.chat.removechatfond.v == true and (text:find("в благотворительный фонд штата") and color == -2686721) then
+		return false
+	end
+	----------------------------------------
 	if (text:find("В нашем магазине ты можешь приобрести нужное количество игровых денег и потратить") or
 		text:find("их на желаемый тобой") or
 		text:find("имеют большие возможности") or
@@ -4613,10 +4439,6 @@ function sampev.onServerMessage(color, text)
 		(text:find("Гость ") or
 		text:find("Репортёр ")) and color == -1697828097 or
 		----------------------------------------
-		text:find("Микрофон") and color == -1863723265 or
-		----------------------------------------
-		--text:find("Альянс") and color == -1178486529 or
-		----------------------------------------
 		text:find("С помощью телефона можно заказать такси") and color == -170229249 or
 		----------------------------------------
 		text:find("Битва за контроль грузового корабля начнется через") and color == -10270721 or
@@ -4627,10 +4449,6 @@ function sampev.onServerMessage(color, text)
 		text:find("В данный момент проходит собеседование") or
 		text:find("Для Вступления необходимо прибыть в") and color == 73381119) or
 		----------------------------------------
-		string.find(text,"%[D%]") or
-		string.find(text,"%[ News ") or
-		string.find(text,"Сейчас в магазине нет видеокарт, ожидайте нового завоза.") or
-		string.find(text,"Игра уже началась, подождите..") or
 		string.find(text,"начал работу новый инкассатор") or
 		string.find(text,"Убив его, вы сможете получить деньги") or
 		string.find(text,"Со склада Армии") then
@@ -4830,15 +4648,6 @@ function sampev.onPlayerQuit(playerid, reason)
 	----------------------------------------
 end
 
-function report(arg)
-	if #arg == 0 then
-		sampAddChatMessage('Используй: /rr [жалоба]', 0xAFAFAF)
-	else
-		message_report = arg
-		sampSendChat("/report")
-	end
-end
-
 function sampev.onSetVehicleParamsEx(vehicleId, params, doors, windows)
 	if elements.config.del_stream.v == true then
 		return false
@@ -4861,15 +4670,18 @@ function sampev.onSetVehicleParamsEx(vehicleId, params, doors, windows)
 			model ~= 451 and
 			model ~= 470 and
 			model ~= 475 and
+			model ~= 487 and
 			model ~= 490 and
 			model ~= 495 and
+			model ~= 497 and
 			model ~= 502 and
 			model ~= 541 and
 			model ~= 550 and
 			model ~= 560 and
 			model ~= 562 and
 			model ~= 565 and
-			model ~= 566 then
+			model ~= 566 and
+			model ~= 579 then
 				fsoav(vehicleId)
 			end
 		end
@@ -4923,16 +4735,6 @@ function sampev.onCreate3DText(id, color, position, distance, testLOS, attachedP
 	end
 end
 
-function getCarName(vehicleId)
-	if type(vehicleId) ~= "number" then
-		return "No valid car id"
-	end
-	if vehicleId < 400 or vehicleId > 611 then
-		return "No valid car id"
-	end
-	return tCarsName[vehicleId-399]
-end
-
 function onReceivePacket(id, bitStream)
 	if reconnect_timer >= os.time() and (id ~= PACKET_DISCONNECTION_NOTIFICATION and id ~= PACKET_INVALID_PASSWORD and id ~= PACKET_CONNECTION_BANNED) then
 		reconnect_timer = 0
@@ -4980,7 +4782,7 @@ function sampev.onCreateObject(objectId, data)
 		-- end
 	end
 	--------------------[Стиллер объектов на транспорт]--------------------
-	if data.modelId == 19476 then
+	-- if data.modelId == 19476 then
 		local tempObj = { }
 		----------------------------------------
 		tempObj['objectId'] = objectId
@@ -5102,21 +4904,8 @@ function sampev.onCreateObject(objectId, data)
 				local veh, price = data.text:match('^([^\n]+)\n{%x+}%$(%d+)')
 				if veh and price then
 					price = sumFormat(price)
-					----------------------------------------
-					-- local isInside = pointInRectangle(
-					-- {
-						-- x = select(1, getCharCoordinates(PLAYER_PED)), 
-						-- y = select(2, getCharCoordinates(PLAYER_PED))
-					-- },
-					-- {
-						-- A = {x = -2113.40, y = -975.00},
-						-- B = {x = -2154.30, y = -975.00},
-						-- C = {x = -2154.30, y = -744.65},
-						-- D = {x = -2113.40, y = -744.65}
-					-- })
-					----------------------------------------
-					-- if isInside then
-					sampAddChatMessage('[{FDDB6D}'..script_names..' '..thisScript().version..'{FFFFFF}] На продажу выставлен {FDDB6D}'..veh..'{FFFFFF} за {FDDB6D}$'..price..'{FFFFFF}.', 0xFFFFFF)
+					sampfuncsLog('{FFFFFF}На продажу выставлен {FDDB6D}'..veh..'{FFFFFF} за {FDDB6D}$'..price..'{FFFFFF}.')
+					-- sampAddChatMessage('[{FDDB6D}'..script_names..' '..thisScript().version..'{FFFFFF}] На продажу выставлен {FDDB6D}'..veh..'{FFFFFF} за {FDDB6D}$'..price..'{FFFFFF}.', 0xFFFFFF)
 					local file_logs = io.open('moonloader/logs/price.txt', 'a+')
 					if file_logs ~= -1 then
 						if file_logs ~= nil then
@@ -5124,7 +4913,6 @@ function sampev.onCreateObject(objectId, data)
 							file_logs:close()
 						end
 					end
-					-- end
 					----------------------------------------
 					data.text = data.text:gsub('%$%d+', '$' .. price)
 					return { objectId, data }
@@ -5180,7 +4968,7 @@ function sampev.onCreateObject(objectId, data)
 			end
 		end
 		----------------------------------------
-		if data.attachToVehicleId ~= nil and data.attachToVehicleId ~= 65535 then
+		if data.attachToVehicleId ~= nil and data.attachToVehicleId ~= 65535 and data.modelId == 19476 then
 			local vehicleData = {}
 			----------------------------------------
 			vehicleData['id'] = data.attachToVehicleId
@@ -5196,7 +4984,7 @@ function sampev.onCreateObject(objectId, data)
 			table.insert(objectsTable, vehicleData)
 			----------------------------------------
 		end
-	end
+	-- end
 end
 
 function sampev.onDestroyObject(objectId)
@@ -5230,7 +5018,7 @@ function fsoav(vehicleId)
 	if count == true then
 		model = getCarModel(carhandle)
 		----------------------------------------
-		vehicle_name = getCarName(model)
+		vehicle_name = getNameOfVehicleModel(model)
 		----------------------------------------
 		directory = 'moonloader/stealer/vehicles/'..model..' - '..vehicle_name..'('..vehicleId..').notepad'
 		----------------------------------------
@@ -5448,26 +5236,42 @@ function onReceiveRpc(id, bitStream)
 		end
 		if elements.destroy.happy.v == true and (
 		model == 676 or
+		model == 826 or
+		model == 934 or
+		model == 943 or
 		model == 983 or
+		model == 1223 or
+		model == 1342 or
 		model == 2372 or
 		model == 2431 or
+		model == 2672 or
+		model == 2675 or
 		model == 2887 or
 		model == 2889 or
+		model == 2917 or
+		model == 2924 or
+		model == 2957 or
 		model == 3030 or
 		model == 3273 or
+		model == 3530 or
+		model == 3594 or
 		model == 5811 or
 		model == 7313 or
 		model == 7606 or
 		model == 9527 or
 		model == 10236 or
+		model == 13646 or
 		model == 13649 or
 		model == 16002 or
 		model == 16342 or
+		model == 16349 or
 		model == 17042 or
 		model == 18846 or
 		model == 18886 or
 		model == 19325 or
+		model == 19589 or
 		model == 19738 or
+		model == 19786 or
 		model == 19866 or
 		model == 19944) then
 			return false
@@ -6384,29 +6188,6 @@ function sampev.onSendPlayerSync(data)
 	end
 	----------------------------------------
 end
-
--- function pointInRectangle(point, rect) -- Для автобазара
-	-- local vector = function(p1, p2)
-		-- return 
-		-- {
-			-- x = (p2.x - p1.x),
-			-- y = (p2.y - p1.y)
-		-- }
-	-- end
-	-- local dot = function(u, v)
-		-- return u.x * v.x + u.y * v.y
-	-- end
-	--------------------------------------
-	-- local AB = vector(rect.A, rect.B)
-	-- local AM = vector(rect.A, point)
-	-- local BC = vector(rect.B, rect.C)
-	-- local BM = vector(rect.B, point)
-	-- local dot_ABAM = dot(AB, AM)
-	-- local dot_ABAB = dot(AB, AB)
-	-- local dot_BCBM = dot(BC, BM)
-	-- local dot_BCBC = dot(BC, BC)
-	-- return 0 <= dot_ABAM and dot_ABAM <= dot_ABAB and 0 <= dot_BCBM and dot_BCBM <= dot_BCBC
--- end
 
 function sumFormat(sum) -- Для автобазара
 	if #sum > 3 then
@@ -7451,7 +7232,7 @@ function sampev.onSetPlayerAttachedObject(playerId, index, create, object)
 						io.close(file)
 						return
 					end
-					sampfuncsLog('{33AA33}<Добавлено> '..code_temp_2)
+					--sampfuncsLog('{33AA33}<Добавлено> '..code_temp_2)
 					SaveFileAttach(skin,model,object.bone,object.offset.x,object.offset.y,object.offset.z,object.rotation.x,object.rotation.y,object.rotation.z,object.scale.x,object.scale.y,object.scale.z)
 					io.close(file)
 				end
@@ -7618,10 +7399,6 @@ function onScriptTerminate(LuaScript, quitGame)
 		showCursor(false)
 		sampAddChatMessage('['..thisScript().name..' '..thisScript().version..'{FFFFFF}] Скрипт выключается =(', 0xFFFFFF)
 	end
-	for i = 1, #coords do
-		removeBlip(checkpoint_poisk[i])
-		checkpoint_poisk[i] = 0
-	end
 end
 
 function rgbToHex(rgb)
@@ -7725,7 +7502,8 @@ function onRenderNotification()
 				imgui.Begin(u8'##msg' .. k, _, imgui.WindowFlags.NoCollapse + imgui.WindowFlags.NoResize + imgui.WindowFlags.NoScrollbar + imgui.WindowFlags.NoMove + imgui.WindowFlags.NoTitleBar)
 				imgui.CenterText(script_names)
 				imgui.Separator()
-				imgui.TextWrapped(nText)
+				--imgui.TextWrapped(nText)
+				imgui.TextUnformatted(nText)
 				imgui.End()
 				if push then
 					imgui.PopStyleVar()
