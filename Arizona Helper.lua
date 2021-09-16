@@ -7,139 +7,6 @@ script_author("metk1u")
 
 local script_vers = 112
 
-local textklad =
-{
-	["Red-Rock?"] = "3",
-	["В каком году Conor ушел с поста ГА на сервере Chandler"] = "2016",
-	["В каком году Conor ушёл с поста ГА на сервере Chandler"] = "2016",
-	["В каком году был добавлен депозит"] = "2017",
-	["В каком году был открыт сервер Mesa"] = "2018",
-	["В каком месяце Conor стал спец.администратором"] = "Январь",
-	["В каком месяце был добавлен информационный центр"] = "Март",
-	["В каком месяце ввели покраску куратора на форуме проекта"] = "Декабрь",
-	["В честь кого установлен памятник недалеко от моста ЛС-СФ"] = "Ричи",
-	["Вечно ждущий NPC на вокзале ЛС"] = "Джереми",
-	["Висит на спине, но не гитара, быстрый и юркий, но не велосипед"] = "Скейт",
-	["Горячие вакансии"] = "Николай",
-	["Дата выхода обновления позволившего зарабатывать реальные деньги в игре аризона рп"] = "16,07,19",
-	["Дата выхода обновления, позволившего зарабатывать реальные деньги в игре"] = "16.07.19",
-	["Дата добавления корабля для мафий в формате xx.xx.xx"] = "19.06.16",
-	["Дата регистрации спец.администратора Sam_Mason на форуме в формате xx.xx.xx"] = "27.04.15",
-	["Из какой страны привозят контейнеры для аукциона"] = "Германия",
-	["Каждый проходит через это при начале игры"] = "Регистрация",
-	["Как звали третьего по счету ГА на сервере Scottdale"] = "Владислав",
-	["Как зовут квестового NPC в деревне Montgomery"] = "Майкл",
-	["Как зовут квестового NPC в деревне Монтгомери"] = "Майкл",
-	["Как зовут начальника Магнуса"] = "Эрих",
-	["Какая наименьшая гос.цена у любого бизнеса на сервере"] = "6.000.000",
-	["Какая работа в центре занятости открывается на 6 уровне"] = "Инкассатор",
-	["Какая работа доступна в ЦЗ на 1 лвл-е"] = "Таксист",
-	["Какая работа доступна в Центре Занятости на 1 лвл-е"] = "Таксист",
-	["Какая фамилия у разработчика Альберта"] = "Миронов",
-	["Какая цена была у Titan VIP в AZ монетах изначально"] = "2000",
-	["Каков возраст самого молодого ГА"] = "14",
-	["Какое название самого дорогого контейнера"] = "Bussiness",
-	["Какое название у лучшего типа контейнера на английском"] = "Business",
-	["Какое название у лучшего типа контейнеров на английском"] = "Business",
-	["Какой NPC ждёт на вокзале ЛС"] = "Джереми",
-	["Какой аксессуар может сидеть на плече"] = "Попугай",
-	["Какой налог нужен для слета дома"] = "104000",
-	["Какой ник в игре у Валика"] = "Farmer",
-	["Какой ник у Валика"] = "Farmer",
-	["Какой урон наносит удар с кулака при 0"] = "1.32",
-	["Какой урон наносит удар с кулака при 0% силы по игроку с 0%% мускулатуры"] = "1.32",
-	["Какой урон наносит удар с кулака при 100 силы по игроку с 0 мускулатуры"] = "11.32",
-	["Какой урон наносит удар с кулака при 100%% силы по игроку с 0%% мускулатуры"] = "11.32",
-	["Количество ГА, которое когда-либо были на сервере Yuma"] = "1",
-	["Количество ГА, которые когда-либо были на сервере Mesa"] = "2",
-	["Количество ГА, которые когда-либо были на сервере Red-Rock"] = "3",
-	["Количество ГА, которые когда-либо были на сервере Yuma"] = "1",
-	["Количество домов на сервере за AZ монеты"] = "15",
-	["Количество лавок на Центральном Рынке"] = "30",
-	["Количество работ в центре занятости"] = "19",
-	["Количество серверов с самым длинным названием"] = "3",
-	["Количество фракций на сервере"] = "27",
-	["Красная, как яблоко, наклейка с белой надписью"] = "Supreme",
-	["Кто закопал эти клады"] = "Дмитрий",
-	["Кто однорукий всегда стоит в казино"] = "Бандит",
-	["Кто однорукий постоянно стоит в казино"] = "Бандит",
-	["Кто пишет эту систему глубочайщей ночью"] = "Альберт",
-	["Кто работает ночами над модом"] = "Альберт",
-	["Лысый, смешной, большой и злой"] = "Conor",
-	["Любит репорт отвечать, игрокам всем помогать"] = "Хелпер",
-	["Максимальная ставка в одноруком бандите"] = "5000",
-	["Максимальная цена на оружие в АММО для владельцев бизнеса"] = "50000",
-	["Максимальное количество EXP которое может выпасть с контейнера"] = "80",
-	["Максимальное количество EXP, которое может выпасть с контейнера"] = "80",
-	["Максимальное количество бронзовых рулеток в 1 слоте инвентаря"] = "100",
-	["Максимальное количество дерева в 1 слоте инвентаря"] = "10000",
-	["Максимальное количество слотов для машин у 1 игрока"] = "5",
-	["Максимальный онлайн на проекте Arizona за все время"] = "100000",
-	["Максимальный срок"] = "180000",
-	["Месяц ввода покраски на форуме"] = "Декабрь",
-	["Минимальная сумма пожертвования в благотворительность"] = "10000",
-	["Накануне праздник, вышла обнова - это любимая наша"] = "Аризона",
-	["Напишите Nick_Name главного администратора 3-го сервера"] = "Xavier_Cooper",
-	["Напишите Nick_Name главного администратора 6-го сервера"] = "Diana_Mironova",
-	["Напишите Nick_Name главного администратора 9-го сервера"] = "Leonardo_Toren",
-	["Ник администратора который занимал пост ГА на двух разных серверах"] = "Conor",
-	["Ник администратора, который занимал пост ГА на двух разных серверах"] = "Conor",
-	["Ник главного администратора сервера Tucson, который был назначен после ухода Dmitriy_Prise"] = "Steff_Kingston",
-	["С какого сервера пошло понятие 13"] = "Scottdale",
-	["С кем связано словосочетание"] = "Николай",
-	["Самая популярна игра в казино"] = "Кости",
-	["Самая популярная игра в казино"] = "Кости",
-	["Самый крупный ютубер на 1 октября 2019 года"] = "Delorenzy",
-	["Сервер Аризоны"] = "Scottdale",
-	["Сервер Аризоны, который чаще всего занимает 1 место по онлайну"] = "Scottdale",
-	["Сколько АЗ стоит в донате 8000 семейной репутации"] = "2400",
-	["Сколько было серверов 1 октября 2017 года"] = "6",
-	["Сколько всего стилей форума"] = "3",
-	["Сколько всего фракций на аризоне"] = "27",
-	["Сколько лавок на центральном рынке"] = "30",
-	["Сколько лет самому молодому ГА"] = "14",
-	["Сколько минут нужно отыграть для получения PayDay"] = "20",
-	["Сколько нужно EXP для получения 12 уровня, если сейчас у тебя 1 lvl 0 exp"] = "308",
-	["Сколько нужно EXP для получения 25 уровня, если сейчас у тебя 22 lvl 20 exp"] = "268",
-	["Сколько нужно EXP для получения 39 уровня, если сейчас у тебя 1 lvl 4 exp"] = "3112",
-	["Сколько нужно EXP для получения 40 уровня, если сейчас у тебя 3 lvl 2 exp"] = "3254",
-	["Сколько нужно перевезти пицц, чтобы выполнить начальный квест"] = "15",
-	["Сколько работ есть в Центре Занятости"] = "14-16",
-	["Сколько серверов было 1 октября 2017 года"] = "6",
-	["Сколько стоило 1 евро в день выпуска"] = "3000",
-	["Сколько существует стилей форума"] = "3",
-	["Сколько талонов в день можно получать с семейных квестов"] = "11",
-	["Сколько энергии пополняется каждый PayDay при 75"] = "17.5",
-	["Собирает яйца птица, ни павлин и ни синица"] = "Попугай",
-	["Стандартное количество ХП у автомобиля"] = "1500",
-	["Старый, мудрый, 05го дежурный"] = "Николай",
-	["Увеличивает скорость, но не чит, добавляет наклейку, но не Supreme"] = "TwinTurbo",
-	["Фамилия администратора с ником Kory_McGregor"] = "Мясников",
-	["Число спец.администраторов, которое было за всё время на проекте"] = "3",
-	["Что может объединить 1000 игроков на сервере"] = "Семья",
-	["Что нужно сделать или получить для выполнения первого начального квеста"] = "Паспорт",
-	["Что объединяет"] = "Семья",
-	["Это бывает 7 раз в неделю, 24 раза в сутки. Что это"] = "Payday",
-	["администратора 3-го сервера"] = "Xavier_Cooper",
-	["администратора 6-го сервера"] = "Diana_Mironova", 
-	["администратора 9-го сервера"] = "Leonardo_Toren",
-	["аксимальный срок деморгана в секундах"] = "180000",
-	["были на сервере Mesa"] = "3",
-	["были на сервере Yuma"] = "1",
-	["главного администратора 6-го сервера"] = "Diana_Mironova",
-	["которое было за все время на проекте"] = "3",
-	["которые когда-либо были на сервере Mesa"] = "2",
-	["которые когда-либо были на сервере Red-Rock"] = "3",
-	["которые когда-либо были на сервере Yuma"] = "1",
-	["на сервере Mesa"] = "2",
-	["недалеко от моста"] = "Ричи",
-	["первого уровня"] = "Таксист",
-	["установлен памятник"] = "Ричи",
-	["цена у любого бизнеса на сервере"] = "6000000",
-	["энергии пополняется каждый"] = "1.32",
-	["энергии пополняется каждый"] = "17.5",
-	["это любимая наша"] = "Аризона",
-};
 local model_name =
 {
 	[321] = "Дилдо на спину #1",
@@ -154,7 +21,7 @@ local model_name =
 	[371] = "Рюкзак (парашют)",
 	[881] = "Ёлка",
 	[1114] = "Очки сварщика",
-	[1186] = "Рюкзак трансформер",
+	--[1186] = "Рюкзак трансформер",
 	[1254] = "Череп на грудь",
 	[1274] = "Доллар на грудь",
 	[1275] = "Рубашечка на грудь",
@@ -177,13 +44,13 @@ local model_name =
 	[2918] = "Рюкзак с шипами",
 	[2983] = "Штурвал за спиной",
 	[3026] = "Рюкзак",
-	[3056] = "Магнит на спину",
-	[3070] = "Скайборд",
+	[3056] = "Магнит на спину & Инопланетная пушка",
+	-- [3070] = "Скайборд",
 	[3273] = "Ранец охотники на приведений",
-	[3385] = "Рюкзак будущего",
-	[8483] = "Маска череп",
+	-- [3385] = "Рюкзак будущего",
+	-- [8483] = "Маска череп",
 	[11704] = "Маска демона",
-	[14608] = "Копье бога",
+	-- [14608] = "Копье бога",
 	[16368] = "Красная шляпа",
 	[18632] = "Рыболовная удочка на спину",
 	[18633] = "Балонный ключ на спину",
@@ -814,7 +681,7 @@ local textdraw_name =
 	[19797] = "Погоны красно-синие & 3D-очки & Кейс анимированный 1",
 	[19801] = "Маска (/mask)",
 	[19806] = "Новогодний реактивный ранец",
-	[19807] = "Рюкзак теле",
+	[19807] = "Рюкзак телефон",
 	[19823] = "Желтая бита на спину",
 	[19824] = "Бита-бутылка на спину",
 	[19840] = "Красный плащ",
@@ -829,283 +696,6 @@ local textdraw_name =
 	[19941] = "Золото",
 	[19998] = "Зажигалка"
 };
-local cmds =
-{
-	'/ad',
-	'/adrenaline',
-	'/advokats',
-	'/al',
-	'/alarm',
-	'/anims',
-	'/armour',
-	'/ask',
-	'/azsmonitor',
-	'/b',
-	'/bag',
-	'/balon',
-	'/bankmenu',
-	'/beer',
-	'/beg',
-	'/bizinfo',
-	'/bizlock',
-	'/bizopen',
-	'/bizwar',
-	'/bk',
-	'/blacklist',
-	'/bomb',
-	'/boom',
-	'/bot',
-	'/break',
-	'/breakcar',
-	'/buybiz',
-	'/c',
-	'/captstats',
-	'/capture',
-	'/carm',
-	'/carpass',
-	'/cars',
-	'/carskill',
-	'/checkjobprogress',
-	'/checklayout',
-	'/cheeps',
-	'/chistory',
-	'/cl',
-	'/contractfill',
-	'/cook',
-	'/createbomb',
-	'/creategun',
-	'/credit',
-	'/cs',
-	'/ct',
-	'/cuff',
-	'/d',
-	'/deltun',
-	'/demoute',
-	'/do',
-	'/donate',
-	'/drink',
-	'/dropgun',
-	'/dropmats',
-	'/drug',
-	'/drugs',
-	'/duel',
-	'/eat',
-	'/editobject',
-	'/eject',
-	'/ekonom',
-	'/endlive',
-	'/engine',
-	'/expel',
-	'/f',
-	'/fam',
-	'/famdisband',
-	'/faminvite',
-	'/fammenu',
-	'/fammute',
-	'/famoffkick',
-	'/famuninvite',
-	'/famunmute',
-	'/fb',
-	'/fbm',
-	'/ffarm',
-	'/fightstyle',
-	'/fill',
-	'/fillcar',
-	'/filscar',
-	'/find',
-	'/findcar',
-	'/findcollectors',
-	'/findibiz',
-	'/findihouse',
-	'/findtrailer',
-	'/fires',
-	'/firewood',
-	'/fireworks',
-	'/fixmycar',
-	'/flowers',
-	'/fm',
-	'/fmembers',
-	'/fmute',
-	'/fontsize',
-	'/free',
-	'/frisk',
-	'/funmute',
-	'/fwarn',
-	'/gag',
-	'/gclear',
-	'/getjail',
-	'/getmoney',
-	'/givebiz',
-	'/givekey',
-	'/givelicense',
-	'/giverank',
-	'/giveskin',
-	'/giveweapon',
-	'/go_fished',
-	'/gomechanic',
-	'/gotaxi',
-	'/gotome',
-	'/gov',
-	'/govess',
-	'/gps',
-	'/gun',
-	'/headmove',
-	'/heal',
-	'/healbad',
-	'/help',
-	'/hi',
-	'/home',
-	'/hotel',
-	'/house',
-	'/id',
-	'/incar',
-	'/invent',
-	'/invite',
-	'/j',
-	'/jfish',
-	'/jlock',
-	'/jmeat',
-	'/jobhelp',
-	'/jobinvite',
-	'/jobmembers',
-	'/jobprogress',
-	'/key',
-	'/killme',
-	'/kiss',
-	'/lavka',
-	'/lead',
-	'/leaders',
-	'/licensers',
-	'/lights',
-	'/limit',
-	'/live',
-	'/lock',
-	'/lzal',
-	'/m',
-	'/mask',
-	'/mbiz',
-	'/me',
-	'/medcard',
-	'/members',
-	'/minvite',
-	'/mm',
-	'/mn',
-	'/n',
-	'/news',
-	'/newsredak',
-	'/number',
-	'/oillist',
-	'/olock',
-	'/opengate',
-	'/or_cancel',
-	'/orderlist',
-	'/pagesize',
-	'/park',
-	'/passwd',
-	'/pay',
-	'/phone',
-	'/platoon',
-	'/pobject',
-	'/premium',
-	'/pt',
-	'/pull',
-	'/punish',
-	'/pursuit',
-	'/putmoney',
-	'/putobject',
-	'/q',
-	'/quest',
-	'/quit',
-	'/quitjob',
-	'/r',
-	'/radio',
-	'/rb',
-	'/rbm',
-	'/rcveh',
-	'/recept',
-	'/referals',
-	'/removebomb',
-	'/rep',
-	'/repare',
-	'/repcar',
-	'/report',
-	'/rjail',
-	'/rm',
-	'/roadmap',
-	'/roadpartner',
-	'/s',
-	'/satiety',
-	'/scutes',
-	'/seat',
-	'/sellcar',
-	'/sellcard',
-	'/sellcarto',
-	'/selldrugs',
-	'/sellgangzone',
-	'/sellgun',
-	'/setdbuy',
-	'/setdsell',
-	'/setfrank',
-	'/setspawn',
-	'/settag',
-	'/settings',
-	'/showbadge',
-	'/showbizinfo',
-	'/showcarskill',
-	'/showlic',
-	'/showmc',
-	'/showpass',
-	'/showpunish',
-	'/showskill',
-	'/showtatu',
-	'/skate',
-	'/skill',
-	'/smoke',
-	'/sms',
-	'/smug',
-	'/sobes',
-	'/sprunk',
-	'/stats',
-	'/stopjob',
-	'/strafs',
-	'/stuff',
-	'/style',
-	'/su',
-	'/surf',
-	'/t',
-	'/take',
-	'/ticket',
-	'/tie',
-	'/time',
-	'/todo',
-	'/tow',
-	'/trade',
-	'/tradecar',
-	'/trmenu',
-	'/unbag',
-	'/unblacklist',
-	'/uncuff',
-	'/unfwarn',
-	'/ungag',
-	'/ungotome',
-	'/uninvite',
-	'/unlead',
-	'/unmask',
-	'/unpunish',
-	'/unrentcar',
-	'/unstuff',
-	'/untie',
-	'/usebad',
-	'/usedrugs',
-	'/usemed',
-	'/vipplayers',
-	'/vr',
-	'/wanted',
-	'/wedding',
-	'/z',
-	'/zeks',}
-----------------------------------------
-local selected = 0
 ----------------------------------------
 local friends =
 {
@@ -1185,8 +775,6 @@ local delay_autovr = 0.5
 --------------------[Продовоз]--------------------
 local prodovoz_timer = 0
 local prods = 2000
---------------------[CMD хелпер]--------------------
-local windows_cmd = imgui.ImBool(false)
 --------------------[Дальний чат]--------------------
 local chatbuble = {}
 --------------------[Стиллер объектов на транспорт]--------------------
@@ -1345,7 +933,6 @@ local mainIni = inicfg.load(
 		newyear = true,
 		pasxa = true,
 		xlam = true,
-		happy = true,
 	},
 	lavka =
 	{
@@ -1598,8 +1185,7 @@ local elements =
 		serdce = imgui.ImBool(mainIni.destroy.serdce),
 		newyear = imgui.ImBool(mainIni.destroy.newyear),
 		pasxa = imgui.ImBool(mainIni.destroy.pasxa),
-		xlam = imgui.ImBool(mainIni.destroy.xlam),
-		happy = imgui.ImBool(mainIni.destroy.happy)
+		xlam = imgui.ImBool(mainIni.destroy.xlam)
 	},
 	lavka =
 	{
@@ -1845,20 +1431,24 @@ function main()
 	sampHandle = sampGetBase()
 	writeMemory(sampHandle + 0x2D3C45, 4, 0, 1)
 	----------------------------------------
-	downloadUrlToFile(update_url, update_path, function(id, status)
-		if status == dlstatus.STATUS_ENDDOWNLOADDATA then
-			updateIni = inicfg.load(nil, update_path)
-			if updateIni ~= nil then
-				if tonumber(updateIni.info.vers) > script_vers then
-					update_status = true
-					sampAddChatMessage('['..thisScript().name..'{FFFFFF}] Доступно обновление до версии '..updateIni.info.vers_text..'.', 0xFFFFFF)
-					push_message('Доступно обновление!')
-				end
-				os.remove(update_path)
-			end
-		end
-	end)
-	os.remove("moonloader\\stealer\\2238 - .notepad")
+	autoupdate("https://raw.githubusercontent.com/metk1u/scripts/main/update.json", '['..string.upper(thisScript().name)..']: ')
+	----------------------------------------
+	-- downloadUrlToFile(update_url, update_path, function(id, status)
+		-- if status == dlstatus.STATUS_ENDDOWNLOADDATA then
+			-- updateIni = inicfg.load(nil, update_path)
+			-- if updateIni ~= nil then
+				-- if tonumber(updateIni.info.vers) > script_vers then
+					-- update_status = true
+					-- sampAddChatMessage('['..thisScript().name..'{FFFFFF}] Доступно обновление до версии '..updateIni.info.vers_text..'.', 0xFFFFFF)
+					-- push_message('Доступно обновление!')
+				-- end
+				-- os.remove(update_path)
+			-- end
+		-- end
+	-- end)
+	os.remove("moonloader\\stealer\\3425 - .notepad")
+	os.remove("moonloader\\stealer\\19135 - .notepad")
+	os.remove("moonloader\\stealer\\19807 - .notepad")
 	----------------------------------------
 	for model_id, name in pairs(textdraw_name) do
 		os.remove("moonloader\\stealer\\textdraws\\"..model_id..".notepad")
@@ -1871,6 +1461,26 @@ function main()
 	sampRegisterChatCommand('chat',function() 
 		windowstate.v = not windowstate.v
 	end)
+	
+	sampRegisterChatCommand('sliver', function(arg)
+        if arg:find('(.+), (.+)') then
+            lua_thread.create(function()
+                local command, delay = arg:match('(.+), (.+)')
+                -- if command:find('{id}') then
+                    for i = 0, 999 do
+                        -- if i ~= select(2, sampGetPlayerIdByCharHandle(PLAYER_PED)) and sampIsPlayerConnected(i) then
+                            sampSendChat(command, tostring(i))
+                            wait(tonumber(delay))
+                        -- end
+                    end
+                -- else
+                    -- sampAddChatMessage('[Sliver by chapo]: {ffffff}"{id}" не найдено! ѕример использовани¤:{ff004d} /sliver /ban {id} 29 даун, 1500', 0xFFff004d)
+                -- end
+            end)         
+        else
+            sampAddChatMessage('[Sliver by chapo]: {ffffff}/sliver [команда], [задержка]', 0xFFff004d)
+        end
+    end)
 	-- local test = 9
 	-- sampRegisterChatCommand('1',function()
 		-- sampAddChatMessage(string.format('Успех! Вам удалось улучшить предмет Ёлка c +%d на +%d',test,test+1), 0x73b461)
@@ -2695,29 +2305,6 @@ function main()
 				end
 			end
 		end
-		--------------------[CMD хелпер]--------------------
-		if sampIsChatInputActive() and
-		not string.find(sampGetChatInputText(),'(.+)/') and
-		not string.find(sampGetChatInputText(),"/%[") and 
-		not string.find(sampGetChatInputText(),"/%]") and 
-		string.find(sampGetChatInputText(),'/(.+)') then
-			for i = 1, #cmds do
-				if string.find(sampGetChatInputText(), '/(.+) ') then
-					windows_cmd.v = false
-				else
-					if string.find(cmds[i], sampGetChatInputText()) then
-						windows_cmd.v = true
-						if wasKeyPressed(key.VK_ALT) then
-							selected = selected + 1
-						end
-					-- else	
-						-- windows_cmd.v = false
-					end
-				end
-			end
-		else
-			windows_cmd.v = false
-		end
 		--------------------[Калькулятор]--------------------
 		text = sampGetChatInputText()
 		----------------------------------------
@@ -3100,40 +2687,6 @@ function imgui.OnDrawFrame()
 	local input = getStructElement(sampGetInputInfoPtr(), 0x8, 4)
 	local windowPosX = getStructElement(input, 0x8, 4)
 	local windowPosY = getStructElement(input, 0xC, 4)
-	--------------------[CMD хелпер]--------------------
-	--sampAddChatMessage(string.format('%s',windows_cmd.v),-1)
-	if windows_cmd.v == true then
-		local posY = windowPosY + 50
-		local posX = windowPosX 
-		----------------------------------------
-		imgui.SetNextWindowPos(imgui.ImVec2(posX, posY), imgui.Cond.Always)
-		----------------------------------------
-		imgui.PushStyleColor(imgui.Col.WindowBg, imgui.ImVec4(elements.color_back.v[1], elements.color_back.v[2], elements.color_back.v[3], elements.color_back.v[4]))
-		----------------------------------------
-		imgui.PushStyleColor(imgui.Col.ScrollbarBg, imgui.ImVec4(elements.color_scroll.v[1], elements.color_scroll.v[2], elements.color_scroll.v[3], elements.color_scroll.v[4]))
-		----------------------------------------
-		imgui.PushStyleColor(imgui.Col.Text, imgui.ImVec4(elements.color_text.v[1], elements.color_text.v[2], elements.color_text.v[3], elements.color_text.v[4]))
-		----------------------------------------
-		imgui.PushStyleColor(imgui.Col.HeaderHovered, imgui.ImVec4(elements.color_main.v[1], elements.color_main.v[2], elements.color_main.v[3], elements.color_main.v[4]))
-		----------------------------------------
-		imgui.Begin('Server Cmds Helper', windows_cmd, imgui.WindowFlags.NoTitleBar + imgui.WindowFlags.NoResize + imgui.WindowFlags.AlwaysAutoResize + imgui.WindowFlags.NoMove + imgui.WindowFlags.NoFocusOnAppearing) 
-		----------------------------------------
-		local cmd_finds = 0
-		if getFullLen(sampGetChatInputText()) ~= nil then
-			for i = 1, #cmds do
-				if string.find(cmds[i], sampGetChatInputText()) then
-					if imgui.Selectable(cmds[i], selected == i, imgui.ImVec2(75, 50)) then
-						sampSetChatInputText(cmds[i]..' ') ; windows_cmd.v = false
-					end
-					cmd_finds = cmd_finds+1
-				end
-			end
-		end
-		if cmd_finds == 0 then windows_cmd.v = false end
-		----------------------------------------
-		imgui.End()
-		imgui.PopStyleColor(4)
-	end
 	--------------------[Калькулятор]--------------------
 	if sampIsChatInputActive() and ok then
 		imgui.SetNextWindowPos(imgui.ImVec2(windowPosX, windowPosY + 30 + 15), imgui.Cond.FirstUseEver)
@@ -3256,13 +2809,6 @@ function imgui.OnDrawFrame()
 			imgui.InputText(u8('Пароль##3'),elements.account.my_password_3)
 			imgui.InputText(u8('Пинкод##3'),elements.account.my_pincode_3)
 			imgui.Separator()
-		end
-		----------------------------------------
-		if imgui.CollapsingHeader(u8'Настройки CMD хелпера') then
-			imgui.ColorEdit4(u8'Фон',elements.color_back,imgui.ColorEditFlags.NoInputs + imgui.ColorEditFlags.AlphaBar)
-			imgui.ColorEdit4(u8'Скролл',elements.color_scroll,imgui.ColorEditFlags.NoInputs + imgui.ColorEditFlags.AlphaBar)
-			imgui.ColorEdit4(u8'Текст',elements.color_text,imgui.ColorEditFlags.NoInputs + imgui.ColorEditFlags.AlphaBar)
-			imgui.ColorEdit4(u8'При наведении',elements.color_main,imgui.ColorEditFlags.NoInputs + imgui.ColorEditFlags.AlphaBar)
 		end
 		----------------------------------------
 		if imgui.CollapsingHeader(u8'Настройки автопиара') then
@@ -3393,7 +2939,6 @@ function imgui.OnDrawFrame()
 			imgui.Checkbox(u8('Отключить на сервере \'новогодний маппинг\''),elements.destroy.newyear)
 			imgui.Checkbox(u8('Отключить на сервере \'пасхальный маппинг\''),elements.destroy.pasxa)
 			imgui.Checkbox(u8('Отключить на сервере \'хлам\''),elements.destroy.xlam)
-			imgui.Checkbox(u8('Отключить на сервере \'маппинг 7 др\''),elements.destroy.happy)
 			imgui.Separator()
 		end
 		if imgui.CollapsingHeader(u8'Авто-точилка аксессуаров') then
@@ -4073,9 +3618,6 @@ function sampev.onShowTextDraw(textdrawId, data)
 		autoloot_td[30] = data.text
 	end
 	--------------------[Прочее]--------------------
-	if data.modelId == 1487 then
-		sampAddChatMessage("Бутылка на спину (1487) - Если дешево стоит - то купить.", 0xFF3300)
-	end
 	if data.modelId == 1562 then
 		sampAddChatMessage("Кресло на спину (1562) - заскринить название предмета! (/showmodel)", 0xFF3300)
 	end
@@ -4111,6 +3653,9 @@ function sampev.onShowTextDraw(textdrawId, data)
 	end
 	if data.modelId == 19137 then
 		sampAddChatMessage("Гребень (19137) - заскринить название предмета! (/showmodel)", 0xFF3300)
+	end
+	if data.modelId == 19527 then
+		sampAddChatMessage(string.format("Шляпа Британца (19527) - заскринить TD! (%0.6f, %0.6f, %0.6f, %0.6f) (/showmodel)",data.rotation.x,data.rotation.y,data.rotation.z,data.zoom), 0xFF3300)
 	end
 	if data.modelId == 19592 then
 		sampAddChatMessage("Корзина (19592) - заскринить название предмета! (/showmodel)", 0xFF3300)
@@ -5234,48 +4779,6 @@ function onReceiveRpc(id, bitStream)
 		if elements.destroy.xlam.v == true and (model == 371 or model == 823 or model == 886 or model == 890 or model == 894 or model == 1240 or model == 19306) then
 			return false
 		end
-		if elements.destroy.happy.v == true and (
-		model == 676 or
-		model == 826 or
-		model == 934 or
-		model == 943 or
-		model == 983 or
-		model == 1223 or
-		model == 1342 or
-		model == 2372 or
-		model == 2431 or
-		model == 2672 or
-		model == 2675 or
-		model == 2887 or
-		model == 2889 or
-		model == 2917 or
-		model == 2924 or
-		model == 2957 or
-		model == 3030 or
-		model == 3273 or
-		model == 3530 or
-		model == 3594 or
-		model == 5811 or
-		model == 7313 or
-		model == 7606 or
-		model == 9527 or
-		model == 10236 or
-		model == 13646 or
-		model == 13649 or
-		model == 16002 or
-		model == 16342 or
-		model == 16349 or
-		model == 17042 or
-		model == 18846 or
-		model == 18886 or
-		model == 19325 or
-		model == 19589 or
-		model == 19738 or
-		model == 19786 or
-		model == 19866 or
-		model == 19944) then
-			return false
-		end
 	end
 end
 
@@ -6199,12 +5702,22 @@ function sumFormat(sum) -- Для автобазара
 	return sum
 end
 
+-- local orion = 999
+
 function sampev.onShowDialog(dialogId, style, title, button1, button2, text)
 	--sampAddChatMessage(dialogId,-1)
 	--sampAddChatMessage(text,-1)
 	if elements.state.showmodel == true then
 		sampfuncsLog(text)
 	end
+	-- if dialogId == 8655 then
+		-- sampSendDialogResponse(dialogId, 1, nil, orion)
+		-- orion = orion+1
+		-- sampAddChatMessage(orion, -1)
+	-- end
+	-- if dialogId == 695 then
+		-- sampSendDialogResponse(dialogId, 1, 2, nil)
+	-- end
 	--------------------[Стиллер диалогов]--------------------
 	if(dialogId == 3082	or dialogId == 8236) then
 		for line in text:gmatch('[^\n]+') do
@@ -6316,23 +5829,6 @@ function sampev.onShowDialog(dialogId, style, title, button1, button2, text)
 				prods = prods-biz
 				return false
 			end
-		end
-	end
-	--------------------[Автоответ в кладах]--------------------
-	if dialogId == 13101 then
-		for k, v in pairs(textklad) do
-			if string.match(text, k) then
-				sampAddChatMessage('', -1)
-				sampAddChatMessage('', -1)
-				sampAddChatMessage('', -1)
-				sampAddChatMessage('Вопрос: {FF3300}'..text, -1)
-				sampAddChatMessage('Ответ на вопрос: {FF3300}'..v, -1)
-			end
-		end
-		local file = io.open('moonloader/klads_vopros.notepad', 'a+')
-		if file ~= -1 and file ~= nil then
-			file:write(string.format('%s - %s\n',title,text))
-			io.close(file)
 		end
 	end
 	--------------------[Новый автолут]--------------------
@@ -6555,11 +6051,12 @@ function sampev.onSendCommand(cmd)
 					end
 					if not sampIsChatInputActive() then
 						local rotate = math.sin(os.clock() * 3) * 90 + 90
-						local el = getStructElement(sampGetInputInfoPtr(), 0x8, 4)
-						local X, Y = getStructElement(el, 0x8, 4), getStructElement(el, 0xC, 4)
-						renderDrawPolygon(X + 10, Y + (renderGetFontDrawHeight(molot_10_9) / 2), 15, 15, 3, rotate, 0xFF0090FF)
-						renderDrawPolygon(X + 10, Y + (renderGetFontDrawHeight(molot_10_9) / 2), 15, 15, 3, -1 * rotate, 0xFFFDDB6D)
-						renderFontDrawText(molot_10_9, tostring(message), X + 25, Y, -1)
+						local input = getStructElement(sampGetInputInfoPtr(), 0x8, 4)
+						local windowPosX = getStructElement(input, 0x8, 4)
+						local windowPosY = getStructElement(input, 0xC, 4)
+						renderDrawPolygon(windowPosX + 10, windowPosY + (renderGetFontDrawHeight(molot_10_9) / 2), 15, 15, 3, rotate, 0xFF0090FF)
+						renderDrawPolygon(windowPosX + 10, windowPosY + (renderGetFontDrawHeight(molot_10_9) / 2), 15, 15, 3, -1 * rotate, 0xFFFDDB6D)
+						renderFontDrawText(molot_10_9, tostring(message), windowPosX + 25, windowPosY, -1)
 					end
 					wait(0)
 				end
@@ -6730,7 +6227,7 @@ function sampev.onSetPlayerAttachedObject(playerId, index, create, object)
 				[1575] = "Белый пакет с наркотиками на спину",
 				[1582] = "Пицца",
 				[1601] = "Молнии Зевса",
-				[1602] = "Призрачный нимб, щит, ледяное копье",
+				-- [1602] = "Призрачный нимб, щит, ледяное копье",
 				[1603] = "Кровавая накидка & Золотая шапка",
 				[1604] = "Копьё Зевса",
 				[1607] = "Дельфин",
@@ -6789,6 +6286,7 @@ function sampev.onSetPlayerAttachedObject(playerId, index, create, object)
 				[3272] = "Паук на спину",
 				[3273] = "Ранец охотники на приведений",
 				[3383] = "Усы таракана",
+				[3425] = "Установка за спиной",
 				[3440] = "Очки переливающиеся",
 				[3632] = "Бочка в руку",
 				[3643] = "Рюкзак стимпанк",
@@ -6879,7 +6377,7 @@ function sampev.onSetPlayerAttachedObject(playerId, index, create, object)
 				[19092] = "Зелёный берет",
 				[19128] = "Кейс анимированный 3",
 				[19130] = "Знак на груди",
-				[19135] = "Стрелка с модификации праздник",
+				[19135] = "Стрелка с модификации праздник и Вьетнамская шапка",
 				[19163] = "Маска с модификации Дарт-вейдер",
 				[19177] = "С модификации Палач",
 				[19197] = "Ангельское кольцо на голову",
@@ -6922,6 +6420,7 @@ function sampev.onSetPlayerAttachedObject(playerId, index, create, object)
 				[19797] = "Погоны красно-синие & 3D-очки & Кейс анимированный 1",
 				[19801] = "Маска",
 				[19806] = "Новогодний реактивный ранец",
+				[19807] = "Рюкзак телефон",
 				[19824] = "Бита-бутылка на спину",
 				[19840] = "Красный плащ",
 				[19874] = "Мыло с модификации Дедпул",
@@ -7390,10 +6889,6 @@ function auto_roul(respond) -- Авто-открытие рулеток
 	end)
 end
 
-function getFullLen(text) -- CMD хелпер
-	return #text:gsub(' ', '')
-end
-
 function onScriptTerminate(LuaScript, quitGame)
 	if LuaScript == thisScript() then
 		showCursor(false)
@@ -7694,6 +7189,59 @@ function Draw3DCircle(x, y, z, radius)
 		screen_x_line_old = screen_x_line
 		screen_y_line_old = screen_y_line
     end
+end
+
+function autoupdate(json_url, prefix, url)
+	local dlstatus = require('moonloader').download_status
+	local json = getWorkingDirectory() .. '\\'..thisScript().name..'-version.json'
+	if doesFileExist(json) then os.remove(json) end
+	downloadUrlToFile(json_url, json,
+		function(id, status, p1, p2)
+			if status == dlstatus.STATUSEX_ENDDOWNLOAD then
+				if doesFileExist(json) then
+					local file = io.open(json, 'r')
+					if file then
+						local info = decodeJson(file:read('*a'))
+						updatelink = info.updateurl
+						updateversion = info.latest
+						file:close()
+						os.remove(json)
+						if updateversion ~= thisScript().version then
+							lua_thread.create(function(prefix)
+								local dlstatus = require('moonloader').download_status
+								local color = -1
+								sampAddChatMessage(('[Mono Tools]{FFFFFF} Доступно новое обновление! Пытаюсь обновиться c '..thisScript().version..' на '..updateversion), 0x046D63)
+								wait(250)
+								downloadUrlToFile(updatelink, thisScript().path,
+									function(id3, status1, p13, p23)
+										if status1 == dlstatus.STATUS_DOWNLOADINGDATA then
+										elseif status1 == dlstatus.STATUS_ENDDOWNLOADDATA then
+											sampAddChatMessage(('[Mono Tools]{FFFFFF} Скрипт успешно обновлён.'), 0x046D63)
+											sampAddChatMessage(('[Mono Tools]{FFFFFF} Ознакомиться со всеми обновлениями вы сможете в Меню скрипта - помощь - обновления.'), 0x046D63)
+											goupdatestatus = true
+											lua_thread.create(function() wait(500) thisScript():reload() end)
+										end
+										if status1 == dlstatus.STATUSEX_ENDDOWNLOAD then
+											if goupdatestatus == nil then
+												sampAddChatMessage(('[Mono Tools]{FFFFFF} Не удалось обновить скрипт! Подробнее узнавайте у Буни. Его вк - https://vk.com/alex_bynes'), 0x046D63)
+												update = false
+											end
+										end
+									end
+								)
+								end, prefix
+							)
+						else
+							update = false
+						end
+					end
+				else
+					update = false
+				end
+			end
+		end
+	)
+	while update ~= false do wait(100) end
 end
 
 function theme()
