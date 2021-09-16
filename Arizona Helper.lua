@@ -7158,7 +7158,7 @@ end
 
 function autoupdate(json_url, prefix, url)
 	local dlstatus = require('moonloader').download_status
-	local json = getWorkingDirectory() .. '\\'..thisScript().name..'-version.json'
+	local json = getWorkingDirectory() .. '\\'..script_names..'-version.json'
 	if doesFileExist(json) then os.remove(json) end
 	downloadUrlToFile(json_url, json,
 		function(id, status, p1, p2)
