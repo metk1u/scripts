@@ -5,8 +5,6 @@ local script_names = "Arizona Helper"
 script_version('4.83')
 script_author("metk1u")
 
-local script_vers = 112
-
 local model_name =
 {
 	[321] = "Дилдо на спину #1",
