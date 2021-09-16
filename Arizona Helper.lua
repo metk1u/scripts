@@ -755,16 +755,7 @@ local sampev = require("samp.events")
 local key = require 'vkeys'
 require "lib.moonloader"
 local memory = require'memory'
-local dlstatus = require("moonloader").download_status
 local bit = require('numberlua')
-----------------------------------------
-update_status = false
-
-local update_url = "https://raw.githubusercontent.com/metk1u/scripts/main/update.ini"
-local update_path = getWorkingDirectory() .. "/update.ini"
-
-local script_url = "https://raw.githubusercontent.com/metk1u/scripts/main/Arizona%20Helper.lua"
-local script_path = thisScript().path
 ----------------------------------------
 arial = renderCreateFont('Arial', 12, 5)
 arial_8_5 = renderCreateFont('Arial', 8, 5)
@@ -1433,19 +1424,6 @@ function main()
 	----------------------------------------
 	autoupdate("https://raw.githubusercontent.com/metk1u/scripts/main/update.json", '['..string.upper(thisScript().name)..']: ')
 	----------------------------------------
-	-- downloadUrlToFile(update_url, update_path, function(id, status)
-		-- if status == dlstatus.STATUS_ENDDOWNLOADDATA then
-			-- updateIni = inicfg.load(nil, update_path)
-			-- if updateIni ~= nil then
-				-- if tonumber(updateIni.info.vers) > script_vers then
-					-- update_status = true
-					-- sampAddChatMessage('['..thisScript().name..'{FFFFFF}] Доступно обновление до версии '..updateIni.info.vers_text..'.', 0xFFFFFF)
-					-- push_message('Доступно обновление!')
-				-- end
-				-- os.remove(update_path)
-			-- end
-		-- end
-	-- end)
 	os.remove("moonloader\\stealer\\3425 - .notepad")
 	os.remove("moonloader\\stealer\\19135 - .notepad")
 	os.remove("moonloader\\stealer\\19807 - .notepad")
@@ -1771,17 +1749,6 @@ function main()
 	lua_thread.create(function()
 		while true do
 			wait(0)
-			----------------------------------------
-			if update_status == true then
-				downloadUrlToFile(script_url, script_path, function(id, status)
-					if status == dlstatus.STATUS_ENDDOWNLOADDATA then
-						sampAddChatMessage('['..thisScript().name..'{FFFFFF}] Мы успешно обновились до версии '..thisScript().version..'.', 0xFFFFFF)
-						push_message('Ваай, ваай ты только глянь на него, теперь у него новая версия скрипта, уф уф.')
-						thisScript():reload()
-					end
-				end)
-				break
-			end
 			--------------------[Авто-открытие сундуков]--------------------
 			if elements.chest.roll_state.v == true and
 				elements.state.buyvk == -1 and
@@ -7210,20 +7177,22 @@ function autoupdate(json_url, prefix, url)
 							lua_thread.create(function(prefix)
 								local dlstatus = require('moonloader').download_status
 								local color = -1
-								sampAddChatMessage(('[Mono Tools]{FFFFFF} Доступно новое обновление! Пытаюсь обновиться c '..thisScript().version..' на '..updateversion), 0x046D63)
+								sampAddChatMessage('['..thisScript().name..'{FFFFFF}] Доступно новое обновление! Пытаюсь обновиться c '..thisScript().version..' на '..updateversion), 0xFFFFFF)
 								wait(250)
 								downloadUrlToFile(updatelink, thisScript().path,
 									function(id3, status1, p13, p23)
 										if status1 == dlstatus.STATUS_DOWNLOADINGDATA then
 										elseif status1 == dlstatus.STATUS_ENDDOWNLOADDATA then
-											sampAddChatMessage(('[Mono Tools]{FFFFFF} Скрипт успешно обновлён.'), 0x046D63)
-											sampAddChatMessage(('[Mono Tools]{FFFFFF} Ознакомиться со всеми обновлениями вы сможете в Меню скрипта - помощь - обновления.'), 0x046D63)
+											sampAddChatMessage('['..thisScript().name..'{FFFFFF}] Мы успешно обновились до версии '..thisScript().version..'.', 0xFFFFFF)
 											goupdatestatus = true
-											lua_thread.create(function() wait(500) thisScript():reload() end)
+											lua_thread.create(function()
+												wait(500)
+												thisScript():reload()
+											end)
 										end
 										if status1 == dlstatus.STATUSEX_ENDDOWNLOAD then
 											if goupdatestatus == nil then
-												sampAddChatMessage(('[Mono Tools]{FFFFFF} Не удалось обновить скрипт! Подробнее узнавайте у Буни. Его вк - https://vk.com/alex_bynes'), 0x046D63)
+												sampAddChatMessage('['..thisScript().name..'{FFFFFF}] К сожалению не удалось обновить скрипт.', 0xFFFFFF)
 												update = false
 											end
 										end
@@ -7241,7 +7210,11 @@ function autoupdate(json_url, prefix, url)
 			end
 		end
 	)
-	while update ~= false do wait(100) end
+	while
+		update ~= false
+	do
+		wait(100)
+	end
 end
 
 function theme()
