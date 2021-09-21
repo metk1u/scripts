@@ -1,8 +1,10 @@
---script_name("{330000}Ar{430006}iz{53000b}on{64000d}a H{75000e}el{86000d}pe{97000a}r")
+-- script_name("{330000}Ar{430006}iz{53000b}on{64000d}a H{75000e}el{86000d}pe{97000a}r")
+-- bool result = setClipboardText(string text) - Записывает текст в буфер обмена Windows.
+
 script_name("{0d00ff}Ar{2900ff}iz{3900ff}on{4500ff}a H{4f00ff}el{5800ff}pe{6000ff}r")
 local script_names = "Arizona Helper"
 
-script_version('4.83')
+script_version('4.84')
 script_author("metk1u")
 
 local model_name =
@@ -253,7 +255,7 @@ local textdraw_name =
 	[2102] = "Колонка на спину",
 	[2186] = "Техно рюкзак",
 	[2219] = "Комплексный обед",
-	[2226] = "Бумбокс",
+	[2226] = "Бумбокс & Колонка за спиной",
 	[2238] = "Шляпа с красными каплями",
 	[2250] = "Цветок",
 	[2362] = "Переносная лавка",
@@ -1363,6 +1365,8 @@ local elements =
 		----------------------------------------
 		klad = true,
 		----------------------------------------
+		BTC = false,
+		----------------------------------------
 		autoloot = false,
 		autoloot_number = 0,
 		----------------------------------------
@@ -1437,26 +1441,19 @@ function main()
 	sampRegisterChatCommand('chat',function() 
 		windowstate.v = not windowstate.v
 	end)
-	
-	sampRegisterChatCommand('sliver', function(arg)
-        if arg:find('(.+), (.+)') then
-            lua_thread.create(function()
-                local command, delay = arg:match('(.+), (.+)')
-                -- if command:find('{id}') then
-                    for i = 0, 999 do
-                        -- if i ~= select(2, sampGetPlayerIdByCharHandle(PLAYER_PED)) and sampIsPlayerConnected(i) then
-                            sampSendChat(command, tostring(i))
-                            wait(tonumber(delay))
-                        -- end
-                    end
-                -- else
-                    -- sampAddChatMessage('[Sliver by chapo]: {ffffff}"{id}" не найдено! ѕример использовани¤:{ff004d} /sliver /ban {id} 29 даун, 1500', 0xFFff004d)
-                -- end
-            end)         
-        else
-            sampAddChatMessage('[Sliver by chapo]: {ffffff}/sliver [команда], [задержка]', 0xFFff004d)
-        end
-    end)
+	-- sampRegisterChatCommand('sliver', function(arg)
+        -- if arg:find('(.+), (.+)') then
+            -- lua_thread.create(function()
+                -- local command, delay = arg:match('(.+), (.+)')
+                    -- for i = 0, 999 do
+                            -- sampSendChat(command, tostring(i))
+                            -- wait(tonumber(delay))
+                    -- end
+            -- end)         
+        -- else
+            -- sampAddChatMessage('[Sliver by chapo]: {ffffff}/sliver [команда], [задержка]', 0xFFff004d)
+        -- end
+    -- end)
 	-- local test = 9
 	-- sampRegisterChatCommand('1',function()
 		-- sampAddChatMessage(string.format('Успех! Вам удалось улучшить предмет Ёлка c +%d на +%d',test,test+1), 0x73b461)
@@ -1614,6 +1611,12 @@ function main()
 	sampRegisterChatCommand("klad",function()
 		elements.state.klad = not elements.state.klad
 		push_message((elements.state.klad and "Включаю" or "Выключаю")..' поиск кладов и открытых багажников в зоне стрима.')
+		printString('',0)
+	end)
+	----------------------------------------
+	sampRegisterChatCommand("btc",function()
+		elements.state.BTC = not elements.state.BTC
+		push_message((elements.state.BTC and "Включаю" or "Выключаю")..' скуп биткоинов.')
 		printString('',0)
 	end)
 	----------------------------------------
@@ -1791,6 +1794,40 @@ function main()
 		wait(0)
 		ip, port = sampGetCurrentServerAddress()
 		local sx, sy = getScreenResolution()
+		--------------------[Автологин]--------------------
+		if ip == "185.169.134.5" and not sampIsLocalPlayerSpawned() and sampIsDialogActive() then
+			local dialogId = sampGetCurrentDialogId()
+			if local_name == elements.account.my_nick.v then
+				if dialogId == 2 then
+					sampSendDialogResponse(dialogId, 1, 0, elements.account.my_password.v)
+					--return false
+					sampCloseCurrentDialogWithButton(0)
+				end
+			end
+			if local_name == elements.account.my_nick_2.v then
+				if dialogId == 2 then
+					sampSendDialogResponse(dialogId, 1, 0, elements.account.my_password_2.v)
+				--	return false
+					sampCloseCurrentDialogWithButton(0)
+				end
+			end
+			if local_name == elements.account.my_nick_3.v then
+				if dialogId == 2 then
+					sampSendDialogResponse(dialogId, 1, 0, elements.account.my_password_3.v)
+					--return false
+					sampCloseCurrentDialogWithButton(0)
+				end
+			end
+		end
+		if ip == "127.0.0.1" and not sampIsLocalPlayerSpawned() and sampIsDialogActive() then
+			local dialogId = sampGetCurrentDialogId()
+			if local_name == "Sawa_Seleznev" then
+				if dialogId == 6 then
+					sampSendDialogResponse(dialogId, 1, 0, "123456")
+					sampCloseCurrentDialogWithButton(0)
+				end
+			end
+		end
 		--------------------[Очистка памяти]--------------------
 		if memory.read(0x8E4CB4, 4, true) > 1048576*550 then -- 800 МБайт (500 МБайт - 524288000)
 			cleanStreamMemoryBuffer()
@@ -2266,6 +2303,52 @@ function main()
 						----------------------------------------
 						renderDrawLine(PlayerX2, PlayerY2, x10, y10, 2, 0xFF3300FF)
 						renderFontDrawText(arial,'{CBB42F}Бизнес скупает {33AA33}'..buy_prods..'{CBB42F} продуктов\nСтоимость 1 продукта {33AA33}'..price_prods..'${CBB42F}\nДистанция: {3300FF}'..distance..'м.', x10, y10, -1)	
+					end
+				end
+			end
+		end
+		if elements.state.BTC == true then
+			for i = 0, 2048 do
+				if sampIs3dTextDefined(i) then
+					local text, color, posX, posY, posZ, distance, ignoreWalls, player, vehicle = sampGet3dTextInfoById(i)
+					if text:find('Сейчас в банке:') then
+						----------------------------------------
+						local bank_BTC = string.match(text,'Сейчас в банке: (%d+) BTC')
+						local bank_sell = string.match(text,'Банк продаёт 1 BTC за $(%d+)')
+						----------------------------------------
+						if tonumber(bank_BTC) > 0 and tonumber(bank_sell) < 44000 then
+							----------------------------------------
+							local count = getPlayerMoney(Player)/tonumber(bank_sell)
+							----------------------------------------
+							if count > tonumber(bank_BTC) then
+								count = tonumber(bank_BTC)
+							end
+							----------------------------------------
+							if not sampIsChatInputActive() and not sampIsDialogActive() then
+								setVirtualKeyDown(VK_N, false)
+								wait(500)
+								setVirtualKeyDown(VK_N, true)
+								-- setGameKeyState(CONVERSATIONNO, 255)
+								-- wait(0)
+								-- setGameKeyState(CONVERSATIONNO, 0)
+							end
+							----------------------------------------
+							local dialogId = sampGetCurrentDialogId()
+							if dialogId == 15276 then
+								sampSendDialogResponse(dialogId, 1, 1, nil)
+								sampCloseCurrentDialogWithButton(0)
+							elseif dialogId == 15279 then
+								sampSendDialogResponse(dialogId, 1, 0, count)
+								sampCloseCurrentDialogWithButton(0)
+							else
+								sampSendDialogResponse(dialogId, 1, 0, nil)
+								sampCloseCurrentDialogWithButton(0)
+							end
+							----------------------------------------
+						else
+							setVirtualKeyDown(VK_N, false)
+							sampCloseCurrentDialogWithButton(0)
+						end
 					end
 				end
 			end
@@ -3583,8 +3666,14 @@ function sampev.onShowTextDraw(textdrawId, data)
 		autoloot_td[30] = data.text
 	end
 	--------------------[Прочее]--------------------
+	if data.modelId == 189 then
+		sampAddChatMessage("Скин (189) - Если дешево стоит - то купить.", 0xFF3300)
+	end
 	if data.modelId == 1562 then
 		sampAddChatMessage("Кресло на спину (1562) - заскринить название предмета! (/showmodel)", 0xFF3300)
+	end
+	if data.modelId == 1654 then
+		sampAddChatMessage(string.format("Бомба или часы (1654) - заскринить название предмета + TD! (%0.6f, %0.6f, %0.6f, %0.6f) (/showmodel)",data.rotation.x,data.rotation.y,data.rotation.z,data.zoom), 0xFF3300)
 	end
 	if data.modelId == 2168 then
 		sampAddChatMessage("Коробка на спину (2168) - заскринить название предмета! (/showmodel)", 0xFF3300)
@@ -3604,6 +3693,9 @@ function sampev.onShowTextDraw(textdrawId, data)
 	if data.modelId == 11726 then
 		sampAddChatMessage("Люстра на спину (11726) - заскринить название предмета! (/showmodel)", 0xFF3300)
 	end
+	if data.modelId == 11727 then
+		sampAddChatMessage(string.format("Очки какие-то (11727) - заскринить название предмета + TD! (%0.6f, %0.6f, %0.6f, %0.6f) (/showmodel)",data.rotation.x,data.rotation.y,data.rotation.z,data.zoom), 0xFF3300)
+	end
 	if data.modelId == 18636 then
 		sampAddChatMessage("Кепка Police (18636) - Если дешево стоит - то купить.", 0xFF3300)
 	end
@@ -3619,8 +3711,11 @@ function sampev.onShowTextDraw(textdrawId, data)
 	if data.modelId == 19137 then
 		sampAddChatMessage("Гребень (19137) - заскринить название предмета! (/showmodel)", 0xFF3300)
 	end
+	if data.modelId == 19525 then
+		sampAddChatMessage(string.format("Тортик какой-то на спину (19525) - заскринить название предмета + TD! (%0.6f, %0.6f, %0.6f, %0.6f) (/showmodel)",data.rotation.x,data.rotation.y,data.rotation.z,data.zoom), 0xFF3300)
+	end
 	if data.modelId == 19527 then
-		sampAddChatMessage(string.format("Шляпа Британца (19527) - заскринить TD! (%0.6f, %0.6f, %0.6f, %0.6f) (/showmodel)",data.rotation.x,data.rotation.y,data.rotation.z,data.zoom), 0xFF3300)
+		sampAddChatMessage(string.format("Шляпа Британца или Зелёный фонарь (19527) - заскринить TD! (%0.6f, %0.6f, %0.6f, %0.6f) (/showmodel)",data.rotation.x,data.rotation.y,data.rotation.z,data.zoom), 0xFF3300)
 	end
 	if data.modelId == 19592 then
 		sampAddChatMessage("Корзина (19592) - заскринить название предмета! (/showmodel)", 0xFF3300)
@@ -4040,12 +4135,12 @@ function sampev.onServerMessage(color, text)
 		end
 	end
 	----------------------------------------
-	if text:find("Сработала защита от реконнекта! Попробуйте переподключиться через") and color == -10270721 then
-		sec = string.match(text,'Сработала защита от реконнекта! Попробуйте переподключиться через (%d+)')
-		reconnect_timer = os.time()+sec
-	end
+	-- if text:find("Сработала защита от реконнекта! Попробуйте переподключиться через") and color == -10270721 then
+		-- sec = string.match(text,'Сработала защита от реконнекта! Попробуйте переподключиться через (%d+)')
+		-- reconnect_timer = os.time()+sec
+	-- end
 	----------------------------------------
-	if text:find("Ключи не вставлены") and color == -1347440641 then
+	if text:find("Необходимо вставить ключи в зажигание. Используйте:") and color == -1347440641 then
 		lua_thread.create(function()
 			sampSendChat("/key")
 			wait(500)
@@ -4252,7 +4347,7 @@ function onReceivePacket(id, bitStream)
 	if id == PACKET_DISCONNECTION_NOTIFICATION or id == PACKET_INVALID_PASSWORD or id == PACKET_CONNECTION_BANNED then
 		sampfuncsLog('{FF3300}'..os.date('[%H:%M:%S] ')..'Server closed the connection.')
 		if reconnect_timer < os.time() then
-			reconnect_timer = os.time()+15
+			reconnect_timer = os.time()+3
 		end
 	end
 	if (id == PACKET_CONNECTION_ATTEMPT_FAILED) then
@@ -5683,6 +5778,28 @@ function sampev.onShowDialog(dialogId, style, title, button1, button2, text)
 	-- if dialogId == 695 then
 		-- sampSendDialogResponse(dialogId, 1, 2, nil)
 	-- end
+	--------------------[Автопинкод]--------------------
+	ip, port = sampGetCurrentServerAddress()
+	if ip == "185.169.134.5" then
+		if local_name == elements.account.my_nick.v then
+			if dialogId == 991 then
+				sampSendDialogResponse(dialogId, 1, 0, elements.account.my_pincode.v)
+				return false
+			end
+		end
+		if local_name == elements.account.my_nick_2.v then
+			if dialogId == 991 then
+				sampSendDialogResponse(dialogId, 1, 0, elements.account.my_pincode_2.v)
+				return false
+			end
+		end
+		if local_name == elements.account.my_nick_3.v then
+			if dialogId == 991 then
+				sampSendDialogResponse(dialogId, 1, 0, elements.account.my_pincode_3.v)
+				return false
+			end
+		end
+	end
 	--------------------[Стиллер диалогов]--------------------
 	if(dialogId == 3082	or dialogId == 8236) then
 		for line in text:gmatch('[^\n]+') do
@@ -5718,40 +5835,6 @@ function sampev.onShowDialog(dialogId, style, title, button1, button2, text)
 	if dialogId == 3030 then
 		sampSendDialogResponse(dialogId, 1, 13, nil)
 		return false
-	end
-	--------------------[Автологин]--------------------
-	ip, port = sampGetCurrentServerAddress()
-	if ip == "185.169.134.5" then
-		if local_name == elements.account.my_nick.v then
-			if dialogId == 2 then
-				sampSendDialogResponse(dialogId, 1, 0, elements.account.my_password.v)
-				return false
-			end
-			if dialogId == 991 then
-				sampSendDialogResponse(dialogId, 1, 0, elements.account.my_pincode.v)
-				return false
-			end
-		end
-		if local_name == elements.account.my_nick_2.v then
-			if dialogId == 2 then
-				sampSendDialogResponse(dialogId, 1, 0, elements.account.my_password_2.v)
-				return false
-			end
-			if dialogId == 991 then
-				sampSendDialogResponse(dialogId, 1, 0, elements.account.my_pincode_2.v)
-				return false
-			end
-		end
-		if local_name == elements.account.my_nick_3.v then
-			if dialogId == 2 then
-				sampSendDialogResponse(dialogId, 1, 0, elements.account.my_password_3.v)
-				return false
-			end
-			if dialogId == 991 then
-				sampSendDialogResponse(dialogId, 1, 0, elements.account.my_pincode_3.v)
-				return false
-			end
-		end
 	end
 	--------------------[Авторепорт]--------------------
 	if dialogId == 32 and #message_report > 0 then
@@ -6343,6 +6426,7 @@ function sampev.onSetPlayerAttachedObject(playerId, index, create, object)
 				[19128] = "Кейс анимированный 3",
 				[19130] = "Знак на груди",
 				[19135] = "Стрелка с модификации праздник и Вьетнамская шапка",
+				-- [19137] = "Голова петуха & Рюкзак петух",
 				[19163] = "Маска с модификации Дарт-вейдер",
 				[19177] = "С модификации Палач",
 				[19197] = "Ангельское кольцо на голову",
@@ -6610,10 +6694,6 @@ function sampev.onSetPlayerAttachedObject(playerId, index, create, object)
 			end
 			----------------------------------------
 			if model == 19094 and object.offset.x == 0.0099 then -- Бургер на рту
-				return
-			end
-			----------------------------------------
-			if model == 19137 and (object.bone == 1 or object.rotation.x == -7.8999) then -- Голова петуха на спину
 				return
 			end
 			----------------------------------------
