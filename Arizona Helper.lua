@@ -1412,39 +1412,6 @@ function main()
 	----------------------------------------
 	autoupdate("https://raw.githubusercontent.com/metk1u/scripts/main/update.json", '['..string.upper(thisScript().name)..']: ')
 	----------------------------------------
-	os.remove("moonloader\\stealer\\321 - .notepad")
-	os.remove("moonloader\\stealer\\321 - Дилдо на спину #1.notepad")
-	os.remove("moonloader\\stealer\\326 - .notepad")
-	os.remove("moonloader\\stealer\\326 - Трость на спину.notepad")
-	os.remove("moonloader\\stealer\\333 - .notepad")
-	os.remove("moonloader\\stealer\\333 - Клюшка на спину.notepad")
-	os.remove("moonloader\\stealer\\338 - .notepad")
-	os.remove("moonloader\\stealer\\338 - Кий на спину.notepad")
-	os.remove("moonloader\\stealer\\361 - .notepad")
-	os.remove("moonloader\\stealer\\361 - Огнемёт на спину.notepad")
-	os.remove("moonloader\\stealer\\362 - .notepad")
-	os.remove("moonloader\\stealer\\362 - Миниган на спину.notepad")
-	os.remove("moonloader\\stealer\\881 - .notepad")
-	os.remove("moonloader\\stealer\\881 - Ёлка.notepad")
-	os.remove("moonloader\\stealer\\1254 - .notepad")
-	os.remove("moonloader\\stealer\\1254 - Череп на грудь.notepad")
-	os.remove("moonloader\\stealer\\1272 - .notepad")
-	os.remove("moonloader\\stealer\\1273 - .notepad")
-	os.remove("moonloader\\stealer\\1274 - .notepad")
-	os.remove("moonloader\\stealer\\1274 - Доллар на грудь.notepad")
-	os.remove("moonloader\\stealer\\1275 - .notepad")
-	os.remove("moonloader\\stealer\\1275 - Рубашечка на грудь.notepad")
-	os.remove("moonloader\\stealer\\1609 - .notepad")
-	os.remove("moonloader\\stealer\\1609 - Черепаха на спину.notepad")
-	os.remove("moonloader\\stealer\\3425 - .notepad")
-	os.remove("moonloader\\stealer\\3932 - .notepad")
-	os.remove("moonloader\\stealer\\14608 - .notepad")
-	os.remove("moonloader\\stealer\\19135 - .notepad")
-	os.remove("moonloader\\stealer\\19522 - .notepad")
-	os.remove("moonloader\\stealer\\19523 - .notepad")
-	os.remove("moonloader\\stealer\\19524 - .notepad")
-	os.remove("moonloader\\stealer\\19553 - .notepad")
-	os.remove("moonloader\\stealer\\19553 - Фермерская шляпа.notepad")
 	os.remove("moonloader\\stealer\\19807 - .notepad")
 	----------------------------------------
 	for model_id, name in pairs(textdraw_name) do
@@ -3663,6 +3630,9 @@ function sampev.onShowTextDraw(textdrawId, data)
 		autoloot_td[30] = data.text
 	end
 	--------------------[Прочее]--------------------
+	if data.modelId == 125 then
+		sampAddChatMessage("The Mafia (125) - Если дешево стоит - то купить", 0xFF3300)
+	end
 	if data.modelId == 1562 then
 		sampAddChatMessage("Кресло на спину (1562) - заскринить название предмета! (/showmodel)", 0xFF3300)
 	end
@@ -3674,9 +3644,6 @@ function sampev.onShowTextDraw(textdrawId, data)
 	end
 	if data.modelId == 2237 then
 		sampAddChatMessage("Копье (2237) - заскринить название предмета! (/showmodel)", 0xFF3300)
-	end
-	if data.modelId == 2918 then
-		sampAddChatMessage("Рюкзак с шипами (2918) - Если дешево стоит - то купить.", 0xFF3300)
 	end
 	if data.modelId == 3434 then
 		sampAddChatMessage("Черепа на спину (3434) - заскринить название предмета! (/showmodel)", 0xFF3300)
@@ -3693,14 +3660,8 @@ function sampev.onShowTextDraw(textdrawId, data)
 	if data.modelId == 11727 then
 		sampAddChatMessage(string.format("Очки какие-то (11727) - заскринить название предмета + TD! (%0.6f, %0.6f, %0.6f, %0.6f) (/showmodel)",data.rotation.x,data.rotation.y,data.rotation.z,data.zoom), 0xFF3300)
 	end
-	if data.modelId == 18636 then
-		sampAddChatMessage("Кепка Police (18636) - Если дешево стоит - то купить.", 0xFF3300)
-	end
 	if data.modelId == 18640 then
 		sampAddChatMessage("Борода (18640) - заскринить название предмета! (/showmodel)", 0xFF3300)
-	end
-	if data.modelId == 18952 then
-		sampAddChatMessage("Шлем для бокса (18952) - Если дешево стоит - то купить.", 0xFF3300)
 	end
 	if data.modelId == 19086 then
 		sampAddChatMessage(string.format("Маска робота (19086) - заскринить название предмета + TD! (%0.6f, %0.6f, %0.6f, %0.6f) (/showmodel)",data.rotation.x,data.rotation.y,data.rotation.z,data.zoom), 0xFF3300)
