@@ -4,27 +4,19 @@
 script_name("{0d00ff}Ar{2900ff}iz{3900ff}on{4500ff}a H{4f00ff}el{5800ff}pe{6000ff}r")
 local script_names = "Arizona Helper"
 
-script_version('4.85')
+script_version('4.851')
 script_author("metk1u")
 
 local model_name =
 {
 	[323] = "Дилдо на спину #3",
-	[326] = "Трость на спину",
 	[341] = "Бензопила на спину",
-	[361] = "Огнемёт на спину",
-	[362] = "Миниган на спину",
 	[363] = "Портфель террориста",
 	[371] = "Рюкзак (парашют)",
-	[881] = "Ёлка",
 	[1114] = "Очки сварщика",
 	--[1186] = "Рюкзак трансформер",
-	[1254] = "Череп на грудь",
-	[1274] = "Доллар на грудь",
-	[1275] = "Рубашечка на грудь",
 	[1276] = "Сувенир на спину",
 	[1487] = "Бутылка на спину",
-	[1609] = "Черепаха на спину",
 	[2045] = "Бита с шипами",
 	[2061] = "Патрон на грудь",
 	[2102] = "Колонка на спину",
@@ -102,7 +94,6 @@ local model_name =
 	[19519] = "Парик (3)",
 	[19520] = "Фуражка офицера",
 	[19528] = "Шляпа волшебника",
-	[19553] = "Фермерская шляпа",
 	[19554] = "Шапка баллас",
 	[19557] = "Маска Зорро",
 	[19558] = "Кепка (развозчика пиццы)",
@@ -1421,14 +1412,30 @@ function main()
 	----------------------------------------
 	autoupdate("https://raw.githubusercontent.com/metk1u/scripts/main/update.json", '['..string.upper(thisScript().name)..']: ')
 	----------------------------------------
-	os.remove("moonloader\\stealer\\321 - Дилдо на спину #1.notepad")
 	os.remove("moonloader\\stealer\\321 - .notepad")
-	os.remove("moonloader\\stealer\\333 - Клюшка на спину.notepad")
+	os.remove("moonloader\\stealer\\321 - Дилдо на спину #1.notepad")
+	os.remove("moonloader\\stealer\\326 - .notepad")
+	os.remove("moonloader\\stealer\\326 - Трость на спину.notepad")
 	os.remove("moonloader\\stealer\\333 - .notepad")
-	os.remove("moonloader\\stealer\\338 - Кий на спину.notepad")
+	os.remove("moonloader\\stealer\\333 - Клюшка на спину.notepad")
 	os.remove("moonloader\\stealer\\338 - .notepad")
+	os.remove("moonloader\\stealer\\338 - Кий на спину.notepad")
+	os.remove("moonloader\\stealer\\361 - .notepad")
+	os.remove("moonloader\\stealer\\361 - Огнемёт на спину.notepad")
+	os.remove("moonloader\\stealer\\362 - .notepad")
+	os.remove("moonloader\\stealer\\362 - Миниган на спину.notepad")
+	os.remove("moonloader\\stealer\\881 - .notepad")
+	os.remove("moonloader\\stealer\\881 - Ёлка.notepad")
+	os.remove("moonloader\\stealer\\1254 - .notepad")
+	os.remove("moonloader\\stealer\\1254 - Череп на грудь.notepad")
 	os.remove("moonloader\\stealer\\1272 - .notepad")
 	os.remove("moonloader\\stealer\\1273 - .notepad")
+	os.remove("moonloader\\stealer\\1274 - .notepad")
+	os.remove("moonloader\\stealer\\1274 - Доллар на грудь.notepad")
+	os.remove("moonloader\\stealer\\1275 - .notepad")
+	os.remove("moonloader\\stealer\\1275 - Рубашечка на грудь.notepad")
+	os.remove("moonloader\\stealer\\1609 - .notepad")
+	os.remove("moonloader\\stealer\\1609 - Черепаха на спину.notepad")
 	os.remove("moonloader\\stealer\\3425 - .notepad")
 	os.remove("moonloader\\stealer\\3932 - .notepad")
 	os.remove("moonloader\\stealer\\14608 - .notepad")
@@ -1436,6 +1443,8 @@ function main()
 	os.remove("moonloader\\stealer\\19522 - .notepad")
 	os.remove("moonloader\\stealer\\19523 - .notepad")
 	os.remove("moonloader\\stealer\\19524 - .notepad")
+	os.remove("moonloader\\stealer\\19553 - .notepad")
+	os.remove("moonloader\\stealer\\19553 - Фермерская шляпа.notepad")
 	os.remove("moonloader\\stealer\\19807 - .notepad")
 	----------------------------------------
 	for model_id, name in pairs(textdraw_name) do
@@ -6196,17 +6205,21 @@ function sampev.onSetPlayerAttachedObject(playerId, index, create, object)
 				[321] = "Дилдо на спину #1",
 				[322] = "Дилдо на спину #2",
 				[324] = "Рюкзак мотор",
+				[326] = "Трость на спину",
 				[333] = "Клюшка на спину",
 				[336] = "Бита на спину",
 				[337] = "Лопата на спину",
 				[338] = "Кий на спину",
 				[339] = "Катана на спину",
+				[361] = "Огнемёт на спину",
+				[362] = "Миниган на спину",
 				[364] = "Пульт от бомбы",
 				[368] = "Прибор ночного видения",
 				[635] = "Плащ с модификации Смерть",
 				[636] = "Плащ с модификации Тыква",
 				[806] = "Трава какая-то",
 				[815] = "С модификации Demon",
+				[881] = "Ёлка",
 				[888] = "Язык Венома",
 				[953] = "Крылья ангела",
 				[954] = "Рога оленя и Лук Купидона",
@@ -6220,16 +6233,19 @@ function sampev.onSetPlayerAttachedObject(playerId, index, create, object)
 				[1128] = "Маска для сварки",
 				[1133] = "Меч с модификации Djey",
 				[1177] = "Реактивный ранец (1)",
+				--[1247] = "Звезда с модификации Тыква",
 				[1212] = "Пачка денег на спину",
 				[1220] = "Коробка в руку",
 				[1228] = "Карамельный посох",
 				[1238] = "Конус на голову (не нужно)",
 				[1240] = "Сердца",
-				--[1247] = "Звезда с модификации Тыква",
 				[1248] = "Значок GTA III",
+				[1254] = "Череп на грудь",
 				[1265] = "Мешок с мусором в руку",
 				[1272] = "Значок синего домика",
 				[1273] = "Значок зелёного домика",
+				[1274] = "Доллар на грудь",
+				[1275] = "Рубашка на грудь",
 				[1277] = "Синий кейс",
 				[1319] = "Жезл ГАИ",
 				[1327] = "Походный рюкзак",
@@ -6249,6 +6265,7 @@ function sampev.onSetPlayerAttachedObject(playerId, index, create, object)
 				[1603] = "Кровавая накидка & Золотая шапка",
 				[1604] = "Копьё Зевса",
 				[1607] = "Дельфин",
+				[1609] = "Черепаха на спину",
 				[1614] = "Треугольник",
 				[1622] = "Камера на плечо",
 				[1636] = "С модификации",
@@ -6429,6 +6446,7 @@ function sampev.onSetPlayerAttachedObject(playerId, index, create, object)
 				[19523] = "Значок оранжевого домика",
 				[19524] = "Значок желтого домика",
 				--[19527] = "Капюшон и котел на грудь",
+				[19553] = "Фермерская шляпа",
 				[19555] = "Боксерские перчатки",
 				[19556] = "Боксерские перчатки",
 				[19570] = "Молоко с модификации Гринч",
@@ -6477,10 +6495,6 @@ function sampev.onSetPlayerAttachedObject(playerId, index, create, object)
 			----------------------------------------
 			if model == 1210 then -- Коричневый кейс
 				return false
-			end
-			----------------------------------------
-			if model == 1254 and object.bone == 2 then -- Череп как глаз
-				return
 			end
 			----------------------------------------
 			if model == 1276 and object.offset.x == 0 then -- Свечение игрока
