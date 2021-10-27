@@ -6762,6 +6762,7 @@ function sampev.onSetPlayerAttachedObject(playerId, index, create, object)
 						return
 					end
 					--sampfuncsLog('{33AA33}<Добавлено> '..code_temp_2)
+					table.insert(chatMessages, '{33AA33}<Добавлено> '..code_temp_2)
 					SaveFileAttach(skin,model,object.bone,object.offset.x,object.offset.y,object.offset.z,object.rotation.x,object.rotation.y,object.rotation.z,object.scale.x,object.scale.y,object.scale.z)
 					io.close(file)
 				end
