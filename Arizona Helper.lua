@@ -3074,48 +3074,16 @@ function main()
 			end
 			--------------------[Хеллоунские клады]--------------------
 			for _, i in pairs(getAllObjects()) do
-				local model = getObjectModel(i)
-				if model == 19482 or model == 2680 or model == 2361 then
-					local _, x, y, z = getObjectCoordinates(i)
-					rr = 0
-					local x1, y1 = convert3DCoordsToScreen(x,y,z)
-					local x2,y2,z2 = getCharCoordinates(PLAYER_PED)
-					local x10, y10 = convert3DCoordsToScreen(x2,y2,z2)
-					local distance = string.format("%.1f", getDistanceBetweenCoords3d(x, y, z, x2, y2, z2))
-					if model == 2680 then
-						rr = rr + 1
-						renderFontDrawText(arial, "Замок", x1, y1, 0xFF3300FF)
-						renderDrawLine(x10, y10, x1, y1, 2, 0xFF3300FF)
-					end
-					if rr > 0 and model == 19482 then	
-						rr = rr + 1
-						renderFontDrawText(arial, "Песок", x1, y1-17, 0xFF3300FF)
-					end
-					if model == 2361 then
-						rr = rr + 1
-						renderFontDrawText(arial, "Сундук", x1, y1, 0xFF3300FF)								
-					end
-					if rr > 2 then
-						kladk = kladk + 1
-						stt = ''
-						if tonumber(distance) < 25 then
-							renderFontDrawText(arial, "Найден клад!("..distance..'м.) '..stt, x1, y1-34, 0xFF3300FF) 
-						end
-						if tonumber(distance) > 25 then
-							renderFontDrawText(arial, rr.."Найден клад("..distance..'м. вероятно фейк)', x1, y1-34, 0xFF3300FF) 
-						end
-						renderDrawLine(x10, y10, x1, y1, 2, 0xFF3300FF)
-					else
-						if model ~= 19482 then
-							stt = 'Фейк'
-							if tonumber(distance) < 25 then
-								renderFontDrawText(arial, "Найден клад!("..distance..'м.) '..stt, x1, y1-34, 0xFF3300FF) 
-							end
-							if tonumber(distance) > 25 then
-								renderFontDrawText(arial, "Найден клад("..distance..'м. вероятно фейк)', x1, y1-34, 0xFF3300FF) 
-							end	
-						end	
-					end
+				if getObjectModel(i) == 2680 then
+					local result, oX, oY, oZ = getObjectCoordinates(i)
+					------------------------------------
+					local x1, y1 = convert3DCoordsToScreen(oX,oY,oZ)
+					local PlayerX, PlayerY, PlayerZ = getCharCoordinates(PLAYER_PED)
+					local PlayerX2, PlayerY2 = convert3DCoordsToScreen(PlayerX, PlayerY, PlayerZ)
+					distance = string.format("%.0f",getDistanceBetweenCoords3d(oX, oY, oZ, PlayerX, PlayerY, PlayerZ))
+					------------------------------------
+					renderDrawLine(PlayerX2, PlayerY2, x1, y1, 2, 0xFF3300FF) 
+					renderFontDrawText(arial,"{FF0000}Хеллоунский КЛАД: {3300FF}"..distance, x1, y1, -1)
 				end
 			end
 		end
