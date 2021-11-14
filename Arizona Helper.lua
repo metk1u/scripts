@@ -4,7 +4,7 @@
 script_name("{0d00ff}Ar{2900ff}iz{3900ff}on{4500ff}a H{4f00ff}el{5800ff}pe{6000ff}r")
 local script_names = "Arizona Helper"
 
-script_version('4.852')
+script_version('4.853')
 script_author("metk1u")
 
 local model_name =
@@ -147,6 +147,7 @@ local model_name_anti_stealer =
 	[1128] = "Маска для сварки",
 	[1133] = "Меч с модификации Djey",
 	[1177] = "Реактивный ранец (1)",
+	[1208] = "INVALID_OBJECT_ID",
 	[1212] = "Пачка денег на спину",
 	[1220] = "Коробка в руку",
 	[1228] = "Карамельный посох",
@@ -157,11 +158,13 @@ local model_name_anti_stealer =
 	[1248] = "Значок GTA III",
 	[1254] = "Череп на грудь",
 	[1265] = "Мешок с мусором в руку",
+	[1269] = "Кувалда",
 	[1272] = "Значок синего домика",
 	[1273] = "Значок зелёного домика",
 	[1274] = "Доллар на грудь",
 	[1275] = "Рубашка на грудь",
 	[1277] = "Синий кейс",
+	[1279] = "INVALID_OBJECT_ID",
 	[1314] = "НЕИЗВЕСТНО",
 	[1316] = "С модификации",
 	[1319] = "Жезл ГАИ",
@@ -204,10 +207,11 @@ local model_name_anti_stealer =
 	[1954] = "Рюкзак космонавта",
 	[1974] = "С модификации",
 	[2006] = "С модификации",
+	[2028] = "INVALID_OBJECT_ID",
 	[2060] = "Мешок грузчиков",
 	[2064] = "Крылья зелёные",
 	[2098] = "Адский лук",
-	[2168] = "НЕИЗВЕСТНО",
+	[2168] = "Рюкзак красный волнистый",
 	[2186] = "Техно рюкзак",
 	[2237] = "С модификации Спарта",
 	[2238] = "Шляпа с красными каплями",
@@ -221,6 +225,7 @@ local model_name_anti_stealer =
 	[2429] = "Реактивный ранец (3)",
 	[2511] = "Аэроплан 2",
 	[2512] = "Аэроплан 1",
+	[2595] = "INVALID_OBJECT_ID",
 	[2614] = "Два флага на спине",
 	[2630] = "Велосипед в руку",
 	[2680] = "С модификации",
@@ -239,14 +244,17 @@ local model_name_anti_stealer =
 	[2814] = "Пицца",
 	[2846] = "Одежда в руках",
 	[2888] = "Маска робота (2)",
+	[2899] = "Ледяное копьё",
 	[2901] = "Стог сена",
 	[2905] = "Модификация: Бешенный доктор",
+	[2907] = "С модификации",
 	[2913] = "Штанга в руку",
 	[2916] = "Модификация: Качок",
 	[2961] = "Красный ящик 3",
 	[2968] = "Рюкзак BomjGang",
 	[2976] = "Реактивный ранец (4)",
 	[2977] = "Рюкзак",
+	[2978] = "Щит с шипами",
 	[2985] = "Экзоскилет",
 	[2988] = "Сундук за спиной",
 	[2992] = "Нимб с какой-то модификации",
@@ -264,7 +272,7 @@ local model_name_anti_stealer =
 	[3383] = "Усы таракана",
 	[3425] = "Установка за спиной",
 	[3433] = "Зелёный рюкзак",
-	[3434] = "НЕИЗВЕСТНО",
+	[3434] = "Рюкзак пират",
 	[3440] = "Очки переливающиеся",
 	[3497] = "Садок",
 	[3632] = "Бочка в руку",
@@ -282,12 +290,14 @@ local model_name_anti_stealer =
 	[5692] = "INVALID_OBJECT_ID",
 	[5695] = "INVALID_OBJECT_ID",
 	[5698] = "INVALID_OBJECT_ID",
+	[5699] = "INVALID_OBJECT_ID",
 	[6012] = "INVALID_OBJECT_ID",
 	[6013] = "INVALID_OBJECT_ID",
 	[6865] = "Маска с рогами & Рюкзак (Череп с рогами)",
 	[7093] = "Сердечко Erotic",
 	[7313] = "Ранец радио & Кейс анимированный 2 & Очки анимированые",
 	[7392] = "Девушка на спину & Рюкзак-девушка",
+	[7891] = "Лист металла в руку",
 	[8492] = "Крылья & Красная накидка",
 	[8493] = "НЕИЗВЕСТНО",
 	[8548] = "С модификации Зомби",
@@ -328,6 +338,7 @@ local model_name_anti_stealer =
 	[18641] = "Маска фонарь",
 	[18642] = "Ранец шокер & Копье-шокер",
 	[18643] = "Красная шляпа маяк",
+	[18644] = "Отвёртка в руку",
 	[18646] = "Глаз терминатора",
 	[18688] = "Огонь",
 	[18693] = "Огонь",
@@ -364,6 +375,7 @@ local model_name_anti_stealer =
 	[19092] = "Зелёный берет",
 	[19128] = "Кейс анимированный 3",
 	[19130] = "Знак на груди",
+	[19133] = "С модификации",
 	[19135] = "Стрелка с модификации праздник и Вьетнамская шапка",
 	[19163] = "Маска с модификации Дарт-вейдер",
 	[19173] = "Картина в руку какая-то",
@@ -456,17 +468,21 @@ local textdraw_name =
 	[331] = "Кастет",
 	[332] = "INVALID_OBJECT_ID",
 	[333] = "Клюшка для гольфа",
+	[335] = "Нож",
 	[336] = "Бита на спину",
 	[337] = "Лопата на спину",
 	[338] = "Кий на спину",
 	[339] = "Катана на спину и Расомаха",
 	[340] = "INVALID_OBJECT_ID",
 	[341] = "Бензопила",
+	[342] = "Граната",
+	[344] = "Молотов",
 	[346] = "Colt 45",
 	[347] = "Silenced 9mm",
 	[348] = "Desert Eagle",
 	[349] = "Shotgun",
 	[350] = "Sawnoff Shotgun",
+	[351] = "Дробовик 1",
 	[352] = "Micro Uzi",
 	[353] = "MP5",
 	[355] = "AK-47",
@@ -489,9 +505,16 @@ local textdraw_name =
 	[612] = "INVALID_OBJECT_ID",
 	[613] = "INVALID_OBJECT_ID",
 	[614] = "INVALID_OBJECT_ID",
+	[625] = "Цветок в горшке 1",
+	[626] = "Цветок в горшке 2",
+	[627] = "Цветок в горшке 3",
 	[628] = "Цветок в горшке",
+	[630] = "Цветок в горшке 5",
 	[631] = "Цветок в горшке 6",
+	[632] = "Цветок в горшке 7",
+	[633] = "Цветок в горшке 8",
 	[635] = "Хз откуда",
+	[643] = "Стул и стол 1",
 	[662] = "INVALID_OBJECT_ID",
 	[663] = "INVALID_OBJECT_ID",
 	[673] = "Хз откуда",
@@ -500,11 +523,14 @@ local textdraw_name =
 	[677] = "Модификация: Demon",
 	[683] = "Хз откуда",
 	[701] = "Адская трава (игровой ресурс)",
+	[756] = "Кактус",
 	[795] = "INVALID_OBJECT_ID",
 	[796] = "INVALID_OBJECT_ID",
 	[797] = "INVALID_OBJECT_ID",
 	[798] = "INVALID_OBJECT_ID",
 	[799] = "INVALID_OBJECT_ID",
+	[809] = "Куст 1",
+	[811] = "Папоротник",
 	[819] = "Большой Куст#2",
 	[823] = "INVALID_OBJECT_ID",
 	[826] = "Хлопок",
@@ -528,13 +554,16 @@ local textdraw_name =
 	[920] = "Первый компонент для крафта (квест)",
 	[921] = "Второй компонент для крафта (квест)",
 	[928] = "Корона BomjGang",
+	[941] = "Стол",
 	[946] = "Баскетбольное кольцо",
 	[949] = "Растение в горшке 1",
+	[950] = "Растение в горшке 2",
 	[953] = "Крылья ангела",
 	[954] = "Рога оленя и Лук Купидона",
 	[955] = "Автомат с водой",
 	[956] = "Автомат с едой",
 	[962] = "Видеокарта",
+	[964] = "Большой армейский ящик",
 	[994] = "Хз откуда",
 	[1000] = "Спойлер",
 	[1001] = "Спойлер",
@@ -659,6 +688,8 @@ local textdraw_name =
 	[1212] = "Пачка денег на спину и Евро",
 	[1213] = "Мина",
 	[1217] = "Бочка",
+	[1222] = "Красная бочка",
+	[1235] = "Прозрачная мусорка",
 	[1239] = "Знак INFO",
 	[1240] = "health",
 	[1242] = "Бронежилет",
@@ -667,7 +698,9 @@ local textdraw_name =
 	[1248] = "Значок GTA III",
 	[1253] = "camerapickup",
 	[1254] = "Череп",
+	[1264] = "Пакет мусора",
 	[1269] = "Кувалда",
+	[1270] = "Красный рюкзак 2",
 	[1271] = "Rare Box Yellow",
 	[1272] = "Иконка дома",
 	[1273] = "Иконка дома",
@@ -676,6 +709,8 @@ local textdraw_name =
 	[1276] = "Часть от амулета",
 	[1277] = "Талон +1 Exp",
 	[1279] = "Белый мешок",
+	[1280] = "Лавка",
+	[1281] = "Тент",
 	[1288] = "Наклейка Supreme",
 	[1304] = "Металл",
 	[1313] = "Два черепа",
@@ -688,25 +723,39 @@ local textdraw_name =
 	[1327] = "Палатка на спину",
 	[1328] = "Платиновая рулетка",
 	[1332] = "Сумка доставщика",
+	[1333] = "Большая красная мусорка",
+	[1334] = "Большая синяя мусорка",
 	[1335] = "Ностальгический ящик",
+	[1343] = "Пластиковая мусорка",
 	[1347] = "Бетонная мусорка",
 	[1349] = "Тележка из магазина",
 	[1353] = "Сундук платиновой рулетки",
+	[1360] = "Растение в горшке 3",
+	[1361] = "Растение в горшке 4",
 	[1364] = "Растение в форме лавки",
 	[1366] = "Щит",
 	[1368] = "Лавочка",
 	[1369] = "Инвалидная коляска",
 	[1371] = "Рюкзак Бегемот",
 	[1387] = "Крюк пирата",
+	[1408] = "Деревянный забор 2",
+	[1409] = "Серая мусорка",
+	[1412] = "Забор из сетки 1",
+	[1415] = "Большая зелёная мусорка с коробками",
+	[1418] = "Высокий забор",
 	[1420] = "Электродвигатель",
+	[1432] = "Стул и стол 2 ",
 	[1438] = "Коробки",
+	[1446] = "Синий забор",
 	[1450] = "Мусор 1",
 	[1451] = "Старый улей",
 	[1453] = "Шкура оленя",
 	[1455] = "Семена дерева Бобровые",
 	[1458] = "Деревянный прицеп",
+	[1460] = "Деревянный забор 1",
 	[1463] = "Дрова",
 	[1478] = "Почтовый ящик",
+	[1481] = "Серый мангал",
 	[1486] = "Пиво",
 	[1487] = "Бутылка на спину",
 	[1510] = "Второй компонент (хэллоуин)",
@@ -742,15 +791,18 @@ local textdraw_name =
 	[1615] = "Точильный амулет",
 	[1622] = "Регистратор на плечо",
 	[1645] = "Серый Пляжный Лежак",
+	[1646] = "Зелёный лежак",
 	[1650] = "Канистра (/fillcar)",
 	[1654] = "Бомба",
 	[1666] = "Летняя монета",
 	[1670] = "Бутылки с вином",
 	[1672] = "Баллончик с краской & Supply Signal",
+	[1679] = "Стул и стол 4",
 	[1681] = "Реактивный ранец (2)",
 	[1685] = "Ящик Minecraft",
 	[1697] = "Солнечные панели",
 	[1699] = "INVALID_OBJECT_ID",
+	[1720] = "Деревянный стул",
 	[1728] = "Хз откуда",
 	[1733] = "Тайник Илона Маска",
 	[1736] = "Голова оленя & Рюкзак Олень",
@@ -761,6 +813,8 @@ local textdraw_name =
 	[1787] = "Магнитола - 4",
 	[1788] = "Магнитола - 5",
 	[1790] = "Магнитола - 6",
+	[1808] = "Куллер с водой",
+	[1829] = "Сейф с деньгами",
 	[1840] = "Серая колонка",
 	[1841] = "Серая колонка",
 	[1842] = "Подарочная упаковка с цветами",
@@ -805,6 +859,10 @@ local textdraw_name =
 	[1979] = "Бронзовая рулетка",
 	[2033] = "Компенсатор",
 	[2034] = "Приклад",
+	[2034] = "Револьвер",
+	[2035] = "М4",
+	[2036] = "Снайперка",
+	[2041] = "Ящик с патронами",
 	[2045] = "Бита с гвоздями",
 	[2060] = "Ингредиенты",
 	[2061] = "Патроны",
@@ -813,6 +871,7 @@ local textdraw_name =
 	[2102] = "Колонка на спину",
 	[2114] = "Мяч",
 	[2121] = "Красный стул",
+	[2168] = "Рюкзак красный волнистый",
 	[2186] = "Техно рюкзак",
 	[2219] = "Комплексный обед",
 	[2226] = "Бумбокс & Колонка за спиной",
@@ -821,11 +880,15 @@ local textdraw_name =
 	[2237] = "Кирка из майнкрафта",
 	[2238] = "Шляпа с красными каплями",
 	[2242] = "Третий компонент для крафта (квест)",
+	[2245] = "Красный цветок в горшке",
+	[2246] = "Белая ваза",
 	[2249] = "Странное растение",
 	[2250] = "Цветок",
+	[2251] = "Серая ваза",
 	[2253] = "Рюкзак с цветком",
 	[2333] = "Железный стол",
 	[2345] = "Плащ из листьев",
+	[2358] = "Ящик с боеприпасами",
 	[2362] = "Переносная лавка",
 	[2386] = "Скин",
 	[2396] = "Дьявольские копья",
@@ -860,6 +923,7 @@ local textdraw_name =
 	[2672] = "Мусор 3",
 	[2680] = "Замок для велосипеда",
 	[2684] = "Лицензии",
+	[2686] = "Мед. карта",
 	[2690] = "Огнетушитель",
 	[2693] = "Стикер Alhambra",
 	[2695] = "Наклейка",
@@ -880,12 +944,15 @@ local textdraw_name =
 	[2743] = "Статуя человека 1",
 	[2745] = "Статуя человека 3",
 	[2750] = "Хз откуда",
+	[2763] = "Красный стол",
 	[2764] = "Красный стол в клетку",
 	[2768] = "Бургер",
 	[2776] = "Черный стул",
 	[2782] = "Раптор",
+	[2788] = "Красный стул в клетку",
 	[2790] = "Алюминий",
 	[2798] = "Улучшенная часть КПП",
+	[2799] = "Два стула и стол",
 	[2803] = "Мешок с подарками",
 	[2804] = "Кусок мяса в руку",
 	[2805] = "Мешок с мясом",
@@ -897,6 +964,8 @@ local textdraw_name =
 	[2823] = "Крылышки",
 	[2844] = "Рваные штаны",
 	[2855] = "Газета",
+	[2857] = "Коробки из под пиццы",
+	[2866] = "Коробки из под еды",
 	[2883] = "INVALID_OBJECT_ID",
 	[2884] = "INVALID_OBJECT_ID",
 	[2888] = "Маска робота (2)",
@@ -938,6 +1007,7 @@ local textdraw_name =
 	[3070] = "Модификация: Киборг & Реактивный ранец (5) & Скайборд",
 	[3071] = "Гантеля",
 	[3082] = "Амулет",
+	[3092] = "Труп полицейского",
 	[3096] = "Улучшение автомобиля",
 	[3099] = "Железные обломки",
 	[3111] = "Чертёж уникального аксессуара (квест)",
@@ -970,6 +1040,7 @@ local textdraw_name =
 	[3180] = "INVALID_OBJECT_ID",
 	[3181] = "INVALID_OBJECT_ID",
 	[3182] = "INVALID_OBJECT_ID",
+	[3183] = "INVALID_OBJECT_ID",
 	[3185] = "INVALID_OBJECT_ID",
 	[3186] = "INVALID_OBJECT_ID",
 	[3188] = "INVALID_OBJECT_ID",
@@ -997,12 +1068,14 @@ local textdraw_name =
 	[3425] = "Установка за спиной",
 	[3429] = "INVALID_OBJECT_ID",
 	[3433] = "Зелёный рюкзак",
+	[3434] = "Рюкзак пират",
 	[3438] = "Хз откуда",
 	[3440] = "Очки переливающиеся",
 	[3461] = "Огненный фонарь",
 	[3462] = "Крылатая статуя",
 	[3471] = "Модификация: Спарта",
 	[3497] = "Садок",
+	[3520] = "Цветы",
 	[3524] = "Рюкзак-череп, Левая горящая голова, Правая горящая голова",
 	[3525] = "Хз откуда",
 	[3528] = "Ранец огненный дракон и Сет Дракона",
@@ -1016,6 +1089,7 @@ local textdraw_name =
 	[3785] = "Светящийся рюкзак",
 	[3801] = "Длинный топор",
 	[3802] = "Настенный цветок 2",
+	[3810] = "Настенный цветок 1",
 	[3850] = "Хз откуда",
 	[3870] = "INVALID_OBJECT_ID",
 	[3871] = "INVALID_OBJECT_ID",
@@ -1031,6 +1105,7 @@ local textdraw_name =
 	[4766] = "INVALID_OBJECT_ID",
 	[4767] = "INVALID_OBJECT_ID",
 	[4768] = "INVALID_OBJECT_ID",
+	[4769] = "INVALID_OBJECT_ID",
 	[4770] = "INVALID_OBJECT_ID",
 	[4770] = "INVALID_OBJECT_ID",
 	[4771] = "INVALID_OBJECT_ID",
@@ -1064,6 +1139,8 @@ local textdraw_name =
 	[5378] = "INVALID_OBJECT_ID",
 	[5379] = "INVALID_OBJECT_ID",
 	[5388] = "INVALID_OBJECT_ID",
+	[5686] = "INVALID_OBJECT_ID",
+	[5689] = "INVALID_OBJECT_ID",
 	[5699] = "INVALID_OBJECT_ID",
 	[5777] = "Модификация: Смерть",
 	[6012] = "INVALID_OBJECT_ID",
@@ -1075,16 +1152,20 @@ local textdraw_name =
 	[6018] = "INVALID_OBJECT_ID",
 	[6019] = "INVALID_OBJECT_ID",
 	[6020] = "INVALID_OBJECT_ID",
+	[6023] = "INVALID_OBJECT_ID",
+	[6024] = "INVALID_OBJECT_ID",
 	[6865] = "Маска с рогами & Рюкзак (Череп с рогами)",
 	[7093] = "Рюкзак 'Erotic'",
 	[7302] = "Стикер Victim",
 	[7313] = "Ранец радио",
 	[7392] = "Девушка на спину",
+	[7891] = "Лист металла в руку",
 	[8483] = "Маска череп",
 	[8492] = "Крылья & Красная накидка",
 	[8548] = "Модификация: Зомби",
 	[8644] = "Два кинжала на спину",
 	[8674] = "Забор в виде сетки",
+	[9527] = "Когда тебе звонят",
 	[9833] = "Реактивный водный ранец",
 	[9958] = "submarr_sfe",
 	[10145] = "Шляпа из будущего",
@@ -1102,11 +1183,13 @@ local textdraw_name =
 	[11725] = "DONATE",
 	[11726] = "Золотой посох",
 	[11727] = "Реферальная монета, Очки будущего 2",
+	[11728] = "Белый домофон",
 	[11732] = "Маска лицо в сердечке",
 	[11733] = "Снежные сани 2",
 	[11734] = "Сани на спину",
 	[11736] = "Антибиотики и маска от короновируса",
 	[11738] = "Аптечка",
+	[11739] = "Праздничный торт",
 	[11741] = "Зловещая монета & Чёрный праздничный торт (объект)",
 	[11745] = "Сумка для ноутбука",
 	[11748] = "Скрепки",
@@ -1122,6 +1205,7 @@ local textdraw_name =
 	[16112] = "Точильный камень",
 	[16368] = "Красная шляпа",
 	[16442] = "Рюкзак корова",
+	[16630] = "Металлический забор",
 	[16776] = "Петух на плечо",
 	[16778] = "НЛО на плечо",
 	[16779] = "Люстра-вентилятор",
@@ -1134,9 +1218,11 @@ local textdraw_name =
 	[18636] = "Кепка Police чёрная",
 	[18637] = "Щит на спину",
 	[18638] = "Каска строителя",
+	[18640] = "Борода 1",
 	[18641] = "Маска фонарь",
 	[18642] = "Ранец шокер & Копье-шокер",
 	[18643] = "Красная шляпа маяк",
+	[18644] = "Отвёртка в руку",
 	[18645] = "Мотошлем",
 	[18646] = "Полицейская мигалка",
 	[18647] = "Неон - красный",
@@ -1359,6 +1445,7 @@ local textdraw_name =
 	[19197] = "Ангельское кольцо на голову",
 	[19200] = "Шлем с модификации Ghost",
 	[19201] = "PHONE",
+	[19273] = "Серый домофон",
 	[19274] = "Парик (1)",
 	[19306] = "Красный флажок",
 	[19308] = "Шашка такси (желтая)",
@@ -1435,6 +1522,7 @@ local textdraw_name =
 	[19601] = "Снегоуборочный бампер",
 	[19602] = "Зелёный щит & Монета Хэллоуина",
 	[19605] = "С ящик Хэллоуина",
+	[19612] = "Магнитофон",
 	[19614] = "Ларец с премией",
 	[19620] = "Полицейский ранец & Палка красно-синяя",
 	[19621] = "Канистра на правое бедро",
@@ -1462,6 +1550,7 @@ local textdraw_name =
 	[19780] = "Нашивка",
 	[19781] = "Нашивка",
 	[19782] = "Нашивка",
+	[19783] = "Нашивка",
 	[19792] = "Сим.карты",
 	[19797] = "Погоны красно-синие & 3D-очки & Кейс анимированный 1",
 	[19801] = "Маска (/mask)",
@@ -1470,6 +1559,8 @@ local textdraw_name =
 	[19807] = "Рюкзак телефон",
 	[19813] = "Коричневый рюкзак",
 	[19816] = "Балон",
+	[19820] = "Бутылка алко 1",
+	[19821] = "Бутылка алко 2",
 	[19823] = "Желтая бита на спину",
 	[19824] = "Бита-бутылка на спину",
 	[19827] = "Хз откуда",
@@ -1495,6 +1586,7 @@ local textdraw_name =
 	[19928] = "Сундук Хэллоуина",
 	[19941] = "Золото",
 	[19942] = "Укол адреналина",
+	[19996] = "Металлический стул",
 	[19997] = "Деревянный стол",
 	[19998] = "Зажигалка"
 };
@@ -1535,6 +1627,7 @@ local pidori =
 	"August_Walker",
 	"San_Sweezy",
 	"Ray_Lasco",
+	"Vlad_GoIdy",
 };
 ----------------------------------------
 local _message = {}
@@ -1569,6 +1662,17 @@ local delay_autovr = 0.5
 --------------------[Продовоз]--------------------
 local prodovoz_timer = 0
 local prods = 2000
+--------------------[NoBalloons]--------------------
+local balls = 
+{
+	[19332] = {3, 3}, 		-- Red
+	[19333] = {152, 152}, 	-- Blue
+	[19334] = {1, 1}, 		-- White
+	[19335] = {152, 6}, 	-- Blue & Yellow
+	[19336] = {126, 1}, 	-- Pink & White
+	[19337] = {243, 6}, 	-- Green & Yellow
+	[19338] = {243, 3}, 	-- Green and Red
+}
 --------------------[Дальний чат]--------------------
 local chatbuble = {}
 --------------------[Стиллер объектов на транспорт]--------------------
@@ -2212,6 +2316,12 @@ function main()
 	memory.setuint8(0x5700F7, 0xB8, true)
 	memory.copy(0x5700FB, memory.strptr('\x89\x96\xBC\x00\x00\x00'), 6, true)
 	memory.setuint8(0x570103, 0xEB, true)
+	--------------------[NoBalloons]--------------------
+	local result, samp = loadDynamicLibrary("samp.dll")
+	if result then 
+		-- fix changeCarColour function
+		writeMemory(samp + 0xB0DE0, 0x02, 0xC390, true) 
+	end
 	--------------------[Продолжительность взрывов воздушного транспорта]--------------------
 	memory.setuint32(0x736F88, 0, true)
 	--------------------[Отключает песок из под колес]--------------------
@@ -2959,6 +3069,52 @@ function main()
 							renderDrawLine(PlayerX2, PlayerY2, x1, y1, 2, getColor(color))
 							renderFontDrawText(arial, playername..'['..i..'] ['..distance..' м.] '..afk, x1, y1, getColor(color))
 						end
+					end
+				end
+			end
+			--------------------[Хеллоунские клады]--------------------
+			for _, i in pairs(getAllObjects()) do
+				local model = getObjectModel(i)
+				if model == 19482 or model == 2680 or model == 2361 then
+					local _, x, y, z = getObjectCoordinates(i)
+					rr = 0
+					local x1, y1 = convert3DCoordsToScreen(x,y,z)
+					local x2,y2,z2 = getCharCoordinates(PLAYER_PED)
+					local x10, y10 = convert3DCoordsToScreen(x2,y2,z2)
+					local distance = string.format("%.1f", getDistanceBetweenCoords3d(x, y, z, x2, y2, z2))
+					if model == 2680 then
+						rr = rr + 1
+						renderFontDrawText(arial, "Замок", x1, y1, 0xFF3300FF)
+						renderDrawLine(x10, y10, x1, y1, 2, 0xFF3300FF)
+					end
+					if rr > 0 and model == 19482 then	
+						rr = rr + 1
+						renderFontDrawText(arial, "Песок", x1, y1-17, 0xFF3300FF)
+					end
+					if model == 2361 then
+						rr = rr + 1
+						renderFontDrawText(arial, "Сундук", x1, y1, 0xFF3300FF)								
+					end
+					if rr > 2 then
+						kladk = kladk + 1
+						stt = ''
+						if tonumber(distance) < 25 then
+							renderFontDrawText(arial, "Найден клад!("..distance..'м.) '..stt, x1, y1-34, 0xFF3300FF) 
+						end
+						if tonumber(distance) > 25 then
+							renderFontDrawText(arial, rr.."Найден клад("..distance..'м. вероятно фейк)', x1, y1-34, 0xFF3300FF) 
+						end
+						renderDrawLine(x10, y10, x1, y1, 2, 0xFF3300FF)
+					else
+						if model ~= 19482 then
+							stt = 'Фейк'
+							if tonumber(distance) < 25 then
+								renderFontDrawText(arial, "Найден клад!("..distance..'м.) '..stt, x1, y1-34, 0xFF3300FF) 
+							end
+							if tonumber(distance) > 25 then
+								renderFontDrawText(arial, "Найден клад("..distance..'м. вероятно фейк)', x1, y1-34, 0xFF3300FF) 
+							end	
+						end	
 					end
 				end
 			end
@@ -4348,7 +4504,7 @@ function sampev.onSendClickTextDraw(textdrawId)
 	if elements.state.showmodel == true then
 		model, rotX, rotY, rotZ, zoom, clr1, clr2 = sampTextdrawGetModelRotationZoomVehColor(textdrawId)
 		if model ~= 0 and model ~= 65535 then
-			sampAddChatMessage(string.format('Model: %d | Rotation: %0.6f, %0.6f, %0.6f, %0.6f',model,rotX,rotY,rotZ,zoom),0xFF3300)
+			sampAddChatMessage(string.format('Model: %d, %0.6f, %0.6f, %0.6f, %0.6f',model,rotX,rotY,rotZ,zoom),0xFF3300)
 			-- sampAddChatMessage(string.format('/**/{%d, true, true, 1, 0, "USE", "…CЊO‡’€OBAT’", 0x4F4F4FFF, "Неизвестно (дт)", "", %0.6f, %0.6f, %0.6f, %0.6f},',model,rotX,rotY,rotZ,zoom),0xFF3300)
 		end
 	end
@@ -4498,88 +4654,36 @@ function sampev.onShowTextDraw(textdrawId, data)
 		autoloot_td[30] = data.text
 	end
 	--------------------[Прочее]--------------------
-	if data.modelId == 330 then sampAddChatMessage(string.format(data.modelId.." - заскринить название предмета + TD! (%0.6f, %0.6f, %0.6f, %0.6f) (/showmodel)",data.rotation.x,data.rotation.y,data.rotation.z,data.zoom), 0xFF3300) end
-	if data.modelId == 616 then sampAddChatMessage(string.format(data.modelId.." - заскринить название предмета + TD! (%0.6f, %0.6f, %0.6f, %0.6f) (/showmodel)",data.rotation.x,data.rotation.y,data.rotation.z,data.zoom), 0xFF3300) end
-	if data.modelId == 617 then sampAddChatMessage(string.format(data.modelId.." - заскринить название предмета + TD! (%0.6f, %0.6f, %0.6f, %0.6f) (/showmodel)",data.rotation.x,data.rotation.y,data.rotation.z,data.zoom), 0xFF3300) end
-	if data.modelId == 620 then sampAddChatMessage(string.format(data.modelId.." - заскринить название предмета + TD! (%0.6f, %0.6f, %0.6f, %0.6f) (/showmodel)",data.rotation.x,data.rotation.y,data.rotation.z,data.zoom), 0xFF3300) end
-	if data.modelId == 625 then sampAddChatMessage(string.format(data.modelId.." - заскринить название предмета + TD! (%0.6f, %0.6f, %0.6f, %0.6f) (/showmodel)",data.rotation.x,data.rotation.y,data.rotation.z,data.zoom), 0xFF3300) end
-	if data.modelId == 626 then sampAddChatMessage(string.format(data.modelId.." - заскринить название предмета + TD! (%0.6f, %0.6f, %0.6f, %0.6f) (/showmodel)",data.rotation.x,data.rotation.y,data.rotation.z,data.zoom), 0xFF3300) end
-	if data.modelId == 627 then sampAddChatMessage(string.format(data.modelId.." - заскринить название предмета + TD! (%0.6f, %0.6f, %0.6f, %0.6f) (/showmodel)",data.rotation.x,data.rotation.y,data.rotation.z,data.zoom), 0xFF3300) end
-	if data.modelId == 632 then sampAddChatMessage(string.format(data.modelId.." - заскринить название предмета + TD! (%0.6f, %0.6f, %0.6f, %0.6f) (/showmodel)",data.rotation.x,data.rotation.y,data.rotation.z,data.zoom), 0xFF3300) end
-	if data.modelId == 633 then sampAddChatMessage(string.format(data.modelId.." - заскринить название предмета + TD! (%0.6f, %0.6f, %0.6f, %0.6f) (/showmodel)",data.rotation.x,data.rotation.y,data.rotation.z,data.zoom), 0xFF3300) end
-	if data.modelId == 643 then sampAddChatMessage(string.format(data.modelId.." - заскринить название предмета + TD! (%0.6f, %0.6f, %0.6f, %0.6f) (/showmodel)",data.rotation.x,data.rotation.y,data.rotation.z,data.zoom), 0xFF3300) end
-	if data.modelId == 756 then sampAddChatMessage(string.format(data.modelId.." - заскринить название предмета + TD! (%0.6f, %0.6f, %0.6f, %0.6f) (/showmodel)",data.rotation.x,data.rotation.y,data.rotation.z,data.zoom), 0xFF3300) end
-	if data.modelId == 811 then sampAddChatMessage(string.format(data.modelId.." - заскринить название предмета + TD! (%0.6f, %0.6f, %0.6f, %0.6f) (/showmodel)",data.rotation.x,data.rotation.y,data.rotation.z,data.zoom), 0xFF3300) end
-	if data.modelId == 950 then sampAddChatMessage(string.format(data.modelId.." - заскринить название предмета + TD! (%0.6f, %0.6f, %0.6f, %0.6f) (/showmodel)",data.rotation.x,data.rotation.y,data.rotation.z,data.zoom), 0xFF3300) end
-	if data.modelId == 964 then sampAddChatMessage(string.format(data.modelId.." - заскринить название предмета + TD! (%0.6f, %0.6f, %0.6f, %0.6f) (/showmodel)",data.rotation.x,data.rotation.y,data.rotation.z,data.zoom), 0xFF3300) end
-	if data.modelId == 1018 then sampAddChatMessage(string.format(data.modelId.." - заскринить название предмета + TD! (%0.6f, %0.6f, %0.6f, %0.6f) (/showmodel)",data.rotation.x,data.rotation.y,data.rotation.z,data.zoom), 0xFF3300) end
-	if data.modelId == 1020 then sampAddChatMessage(string.format(data.modelId.." - заскринить название предмета + TD! (%0.6f, %0.6f, %0.6f, %0.6f) (/showmodel)",data.rotation.x,data.rotation.y,data.rotation.z,data.zoom), 0xFF3300) end
-	if data.modelId == 1022 then sampAddChatMessage(string.format(data.modelId.." - заскринить название предмета + TD! (%0.6f, %0.6f, %0.6f, %0.6f) (/showmodel)",data.rotation.x,data.rotation.y,data.rotation.z,data.zoom), 0xFF3300) end
-	if data.modelId == 1104 then sampAddChatMessage(string.format(data.modelId.." - заскринить название предмета + TD! (%0.6f, %0.6f, %0.6f, %0.6f) (/showmodel)",data.rotation.x,data.rotation.y,data.rotation.z,data.zoom), 0xFF3300) end
-	if data.modelId == 1222 then sampAddChatMessage(string.format(data.modelId.." - заскринить название предмета + TD! (%0.6f, %0.6f, %0.6f, %0.6f) (/showmodel)",data.rotation.x,data.rotation.y,data.rotation.z,data.zoom), 0xFF3300) end
-	if data.modelId == 1228 then sampAddChatMessage(string.format(data.modelId.." - заскринить название предмета + TD! (%0.6f, %0.6f, %0.6f, %0.6f) (/showmodel)",data.rotation.x,data.rotation.y,data.rotation.z,data.zoom), 0xFF3300) end
-	if data.modelId == 1235 then sampAddChatMessage(string.format(data.modelId.." - заскринить название предмета + TD! (%0.6f, %0.6f, %0.6f, %0.6f) (/showmodel)",data.rotation.x,data.rotation.y,data.rotation.z,data.zoom), 0xFF3300) end
-	if data.modelId == 1255 then sampAddChatMessage(string.format(data.modelId.." - заскринить название предмета + TD! (%0.6f, %0.6f, %0.6f, %0.6f) (/showmodel)",data.rotation.x,data.rotation.y,data.rotation.z,data.zoom), 0xFF3300) end
-	if data.modelId == 1264 then sampAddChatMessage(string.format(data.modelId.." - заскринить название предмета + TD! (%0.6f, %0.6f, %0.6f, %0.6f) (/showmodel)",data.rotation.x,data.rotation.y,data.rotation.z,data.zoom), 0xFF3300) end
-	if data.modelId == 1280 then sampAddChatMessage(string.format(data.modelId.." - заскринить название предмета + TD! (%0.6f, %0.6f, %0.6f, %0.6f) (/showmodel)",data.rotation.x,data.rotation.y,data.rotation.z,data.zoom), 0xFF3300) end
-	if data.modelId == 1281 then sampAddChatMessage(string.format(data.modelId.." - заскринить название предмета + TD! (%0.6f, %0.6f, %0.6f, %0.6f) (/showmodel)",data.rotation.x,data.rotation.y,data.rotation.z,data.zoom), 0xFF3300) end
-	if data.modelId == 1333 then sampAddChatMessage(string.format(data.modelId.." - заскринить название предмета + TD! (%0.6f, %0.6f, %0.6f, %0.6f) (/showmodel)",data.rotation.x,data.rotation.y,data.rotation.z,data.zoom), 0xFF3300) end
-	if data.modelId == 1334 then sampAddChatMessage(string.format(data.modelId.." - заскринить название предмета + TD! (%0.6f, %0.6f, %0.6f, %0.6f) (/showmodel)",data.rotation.x,data.rotation.y,data.rotation.z,data.zoom), 0xFF3300) end
-	if data.modelId == 1343 then sampAddChatMessage(string.format(data.modelId.." - заскринить название предмета + TD! (%0.6f, %0.6f, %0.6f, %0.6f) (/showmodel)",data.rotation.x,data.rotation.y,data.rotation.z,data.zoom), 0xFF3300) end
-	if data.modelId == 1360 then sampAddChatMessage(string.format(data.modelId.." - заскринить название предмета + TD! (%0.6f, %0.6f, %0.6f, %0.6f) (/showmodel)",data.rotation.x,data.rotation.y,data.rotation.z,data.zoom), 0xFF3300) end
-	if data.modelId == 1361 then sampAddChatMessage(string.format(data.modelId.." - заскринить название предмета + TD! (%0.6f, %0.6f, %0.6f, %0.6f) (/showmodel)",data.rotation.x,data.rotation.y,data.rotation.z,data.zoom), 0xFF3300) end
-	if data.modelId == 1408 then sampAddChatMessage(string.format(data.modelId.." - заскринить название предмета + TD! (%0.6f, %0.6f, %0.6f, %0.6f) (/showmodel)",data.rotation.x,data.rotation.y,data.rotation.z,data.zoom), 0xFF3300) end
-	if data.modelId == 1412 then sampAddChatMessage(string.format(data.modelId.." - заскринить название предмета + TD! (%0.6f, %0.6f, %0.6f, %0.6f) (/showmodel)",data.rotation.x,data.rotation.y,data.rotation.z,data.zoom), 0xFF3300) end
-	if data.modelId == 1415 then sampAddChatMessage(string.format(data.modelId.." - заскринить название предмета + TD! (%0.6f, %0.6f, %0.6f, %0.6f) (/showmodel)",data.rotation.x,data.rotation.y,data.rotation.z,data.zoom), 0xFF3300) end
-	if data.modelId == 1418 then sampAddChatMessage(string.format(data.modelId.." - заскринить название предмета + TD! (%0.6f, %0.6f, %0.6f, %0.6f) (/showmodel)",data.rotation.x,data.rotation.y,data.rotation.z,data.zoom), 0xFF3300) end
-	if data.modelId == 1428 then sampAddChatMessage(string.format(data.modelId.." - заскринить название предмета + TD! (%0.6f, %0.6f, %0.6f, %0.6f) (/showmodel)",data.rotation.x,data.rotation.y,data.rotation.z,data.zoom), 0xFF3300) end
-	if data.modelId == 1432 then sampAddChatMessage(string.format(data.modelId.." - заскринить название предмета + TD! (%0.6f, %0.6f, %0.6f, %0.6f) (/showmodel)",data.rotation.x,data.rotation.y,data.rotation.z,data.zoom), 0xFF3300) end
-	if data.modelId == 1460 then sampAddChatMessage(string.format(data.modelId.." - заскринить название предмета + TD! (%0.6f, %0.6f, %0.6f, %0.6f) (/showmodel)",data.rotation.x,data.rotation.y,data.rotation.z,data.zoom), 0xFF3300) end
-	if data.modelId == 1512 then sampAddChatMessage(string.format(data.modelId.." - заскринить название предмета + TD! (%0.6f, %0.6f, %0.6f, %0.6f) (/showmodel)",data.rotation.x,data.rotation.y,data.rotation.z,data.zoom), 0xFF3300) end
-	if data.modelId == 1520 then sampAddChatMessage(string.format(data.modelId.." - заскринить название предмета + TD! (%0.6f, %0.6f, %0.6f, %0.6f) (/showmodel)",data.rotation.x,data.rotation.y,data.rotation.z,data.zoom), 0xFF3300) end
-	if data.modelId == 1546 then sampAddChatMessage(string.format(data.modelId.." - заскринить название предмета + TD! (%0.6f, %0.6f, %0.6f, %0.6f) (/showmodel)",data.rotation.x,data.rotation.y,data.rotation.z,data.zoom), 0xFF3300) end
-	if data.modelId == 1588 then sampAddChatMessage(string.format(data.modelId.." - заскринить название предмета + TD! (%0.6f, %0.6f, %0.6f, %0.6f) (/showmodel)",data.rotation.x,data.rotation.y,data.rotation.z,data.zoom), 0xFF3300) end
-	if data.modelId == 1614 then sampAddChatMessage(string.format(data.modelId.." - заскринить название предмета + TD! (%0.6f, %0.6f, %0.6f, %0.6f) (/showmodel)",data.rotation.x,data.rotation.y,data.rotation.z,data.zoom), 0xFF3300) end
-	if data.modelId == 1646 then sampAddChatMessage(string.format(data.modelId.." - заскринить название предмета + TD! (%0.6f, %0.6f, %0.6f, %0.6f) (/showmodel)",data.rotation.x,data.rotation.y,data.rotation.z,data.zoom), 0xFF3300) end
-	if data.modelId == 1679 then sampAddChatMessage(string.format(data.modelId.." - заскринить название предмета + TD! (%0.6f, %0.6f, %0.6f, %0.6f) (/showmodel)",data.rotation.x,data.rotation.y,data.rotation.z,data.zoom), 0xFF3300) end
-	if data.modelId == 1720 then sampAddChatMessage(string.format(data.modelId.." - заскринить название предмета + TD! (%0.6f, %0.6f, %0.6f, %0.6f) (/showmodel)",data.rotation.x,data.rotation.y,data.rotation.z,data.zoom), 0xFF3300) end
-	if data.modelId == 1829 then sampAddChatMessage(string.format(data.modelId.." - заскринить название предмета + TD! (%0.6f, %0.6f, %0.6f, %0.6f) (/showmodel)",data.rotation.x,data.rotation.y,data.rotation.z,data.zoom), 0xFF3300) end
-	if data.modelId == 2035 then sampAddChatMessage(string.format(data.modelId.." - заскринить название предмета + TD! (%0.6f, %0.6f, %0.6f, %0.6f) (/showmodel)",data.rotation.x,data.rotation.y,data.rotation.z,data.zoom), 0xFF3300) end
-	if data.modelId == 2036 then sampAddChatMessage(string.format(data.modelId.." - заскринить название предмета + TD! (%0.6f, %0.6f, %0.6f, %0.6f) (/showmodel)",data.rotation.x,data.rotation.y,data.rotation.z,data.zoom), 0xFF3300) end
-	if data.modelId == 2245 then sampAddChatMessage(string.format(data.modelId.." - заскринить название предмета + TD! (%0.6f, %0.6f, %0.6f, %0.6f) (/showmodel)",data.rotation.x,data.rotation.y,data.rotation.z,data.zoom), 0xFF3300) end
-	if data.modelId == 2246 then sampAddChatMessage(string.format(data.modelId.." - заскринить название предмета + TD! (%0.6f, %0.6f, %0.6f, %0.6f) (/showmodel)",data.rotation.x,data.rotation.y,data.rotation.z,data.zoom), 0xFF3300) end
-	if data.modelId == 2744 then sampAddChatMessage(string.format(data.modelId.." - заскринить название предмета + TD! (%0.6f, %0.6f, %0.6f, %0.6f) (/showmodel)",data.rotation.x,data.rotation.y,data.rotation.z,data.zoom), 0xFF3300) end
-	if data.modelId == 2763 then sampAddChatMessage(string.format(data.modelId.." - заскринить название предмета + TD! (%0.6f, %0.6f, %0.6f, %0.6f) (/showmodel)",data.rotation.x,data.rotation.y,data.rotation.z,data.zoom), 0xFF3300) end
-	if data.modelId == 2788 then sampAddChatMessage(string.format(data.modelId.." - заскринить название предмета + TD! (%0.6f, %0.6f, %0.6f, %0.6f) (/showmodel)",data.rotation.x,data.rotation.y,data.rotation.z,data.zoom), 0xFF3300) end
-	if data.modelId == 2799 then sampAddChatMessage(string.format(data.modelId.." - заскринить название предмета + TD! (%0.6f, %0.6f, %0.6f, %0.6f) (/showmodel)",data.rotation.x,data.rotation.y,data.rotation.z,data.zoom), 0xFF3300) end
-	if data.modelId == 2857 then sampAddChatMessage(string.format(data.modelId.." - заскринить название предмета + TD! (%0.6f, %0.6f, %0.6f, %0.6f) (/showmodel)",data.rotation.x,data.rotation.y,data.rotation.z,data.zoom), 0xFF3300) end
-	if data.modelId == 2866 then sampAddChatMessage(string.format(data.modelId.." - заскринить название предмета + TD! (%0.6f, %0.6f, %0.6f, %0.6f) (/showmodel)",data.rotation.x,data.rotation.y,data.rotation.z,data.zoom), 0xFF3300) end
-	if data.modelId == 2899 then sampAddChatMessage(string.format(data.modelId.." - заскринить название предмета + TD! (%0.6f, %0.6f, %0.6f, %0.6f) (/showmodel)",data.rotation.x,data.rotation.y,data.rotation.z,data.zoom), 0xFF3300) end
-	if data.modelId == 2973 then sampAddChatMessage(string.format(data.modelId.." - заскринить название предмета + TD! (%0.6f, %0.6f, %0.6f, %0.6f) (/showmodel)",data.rotation.x,data.rotation.y,data.rotation.z,data.zoom), 0xFF3300) end
-	if data.modelId == 3065 then sampAddChatMessage(string.format(data.modelId.." - заскринить название предмета + TD! (%0.6f, %0.6f, %0.6f, %0.6f) (/showmodel)",data.rotation.x,data.rotation.y,data.rotation.z,data.zoom), 0xFF3300) end
-	if data.modelId == 3092 then sampAddChatMessage(string.format(data.modelId.." - заскринить название предмета + TD! (%0.6f, %0.6f, %0.6f, %0.6f) (/showmodel)",data.rotation.x,data.rotation.y,data.rotation.z,data.zoom), 0xFF3300) end
-	if data.modelId == 3426 then sampAddChatMessage(string.format(data.modelId.." - заскринить название предмета + TD! (%0.6f, %0.6f, %0.6f, %0.6f) (/showmodel)",data.rotation.x,data.rotation.y,data.rotation.z,data.zoom), 0xFF3300) end
-	if data.modelId == 3520 then sampAddChatMessage(string.format(data.modelId.." - заскринить название предмета + TD! (%0.6f, %0.6f, %0.6f, %0.6f) (/showmodel)",data.rotation.x,data.rotation.y,data.rotation.z,data.zoom), 0xFF3300) end
-	if data.modelId == 3810 then sampAddChatMessage(string.format(data.modelId.." - заскринить название предмета + TD! (%0.6f, %0.6f, %0.6f, %0.6f) (/showmodel)",data.rotation.x,data.rotation.y,data.rotation.z,data.zoom), 0xFF3300) end
-	if data.modelId == 3861 then sampAddChatMessage(string.format(data.modelId.." - заскринить название предмета + TD! (%0.6f, %0.6f, %0.6f, %0.6f) (/showmodel)",data.rotation.x,data.rotation.y,data.rotation.z,data.zoom), 0xFF3300) end
-	if data.modelId == 9527 then sampAddChatMessage(string.format(data.modelId.." - заскринить название предмета + TD! (%0.6f, %0.6f, %0.6f, %0.6f) (/showmodel)",data.rotation.x,data.rotation.y,data.rotation.z,data.zoom), 0xFF3300) end
-	if data.modelId == 11728 then sampAddChatMessage(string.format(data.modelId.." - заскринить название предмета + TD! (%0.6f, %0.6f, %0.6f, %0.6f) (/showmodel)",data.rotation.x,data.rotation.y,data.rotation.z,data.zoom), 0xFF3300) end
-	if data.modelId == 11739 then sampAddChatMessage(string.format(data.modelId.." - заскринить название предмета + TD! (%0.6f, %0.6f, %0.6f, %0.6f) (/showmodel)",data.rotation.x,data.rotation.y,data.rotation.z,data.zoom), 0xFF3300) end
-	if data.modelId == 11749 then sampAddChatMessage(string.format(data.modelId.." - заскринить название предмета + TD! (%0.6f, %0.6f, %0.6f, %0.6f) (/showmodel)",data.rotation.x,data.rotation.y,data.rotation.z,data.zoom), 0xFF3300) end
-	if data.modelId == 16630 then sampAddChatMessage(string.format(data.modelId.." - заскринить название предмета + TD! (%0.6f, %0.6f, %0.6f, %0.6f) (/showmodel)",data.rotation.x,data.rotation.y,data.rotation.z,data.zoom), 0xFF3300) end
-	if data.modelId == 18891 then sampAddChatMessage(string.format(data.modelId.." - заскринить название предмета + TD! (%0.6f, %0.6f, %0.6f, %0.6f) (/showmodel)",data.rotation.x,data.rotation.y,data.rotation.z,data.zoom), 0xFF3300) end
-	if data.modelId == 19348 then sampAddChatMessage(string.format(data.modelId.." - заскринить название предмета + TD! (%0.6f, %0.6f, %0.6f, %0.6f) (/showmodel)",data.rotation.x,data.rotation.y,data.rotation.z,data.zoom), 0xFF3300) end
-	if data.modelId == 19610 then sampAddChatMessage(string.format(data.modelId.." - заскринить название предмета + TD! (%0.6f, %0.6f, %0.6f, %0.6f) (/showmodel)",data.rotation.x,data.rotation.y,data.rotation.z,data.zoom), 0xFF3300) end
-	if data.modelId == 19612 then sampAddChatMessage(string.format(data.modelId.." - заскринить название предмета + TD! (%0.6f, %0.6f, %0.6f, %0.6f) (/showmodel)",data.rotation.x,data.rotation.y,data.rotation.z,data.zoom), 0xFF3300) end
-	if data.modelId == 19783 then sampAddChatMessage(string.format(data.modelId.." - заскринить название предмета + TD! (%0.6f, %0.6f, %0.6f, %0.6f) (/showmodel)",data.rotation.x,data.rotation.y,data.rotation.z,data.zoom), 0xFF3300) end
-	if data.modelId == 19820 then sampAddChatMessage(string.format(data.modelId.." - заскринить название предмета + TD! (%0.6f, %0.6f, %0.6f, %0.6f) (/showmodel)",data.rotation.x,data.rotation.y,data.rotation.z,data.zoom), 0xFF3300) end
-	if data.modelId == 19821 then sampAddChatMessage(string.format(data.modelId.." - заскринить название предмета + TD! (%0.6f, %0.6f, %0.6f, %0.6f) (/showmodel)",data.rotation.x,data.rotation.y,data.rotation.z,data.zoom), 0xFF3300) end
-	if data.modelId == 19845 then sampAddChatMessage(string.format(data.modelId.." - заскринить название предмета + TD! (%0.6f, %0.6f, %0.6f, %0.6f) (/showmodel)",data.rotation.x,data.rotation.y,data.rotation.z,data.zoom), 0xFF3300) end
-	if data.modelId == 19959 then sampAddChatMessage(string.format(data.modelId.." - заскринить название предмета + TD! (%0.6f, %0.6f, %0.6f, %0.6f) (/showmodel)",data.rotation.x,data.rotation.y,data.rotation.z,data.zoom), 0xFF3300) end
-	if data.modelId == 19967 then sampAddChatMessage(string.format(data.modelId.." - заскринить название предмета + TD! (%0.6f, %0.6f, %0.6f, %0.6f) (/showmodel)",data.rotation.x,data.rotation.y,data.rotation.z,data.zoom), 0xFF3300) end
-	if data.modelId == 19996 then sampAddChatMessage(string.format(data.modelId.." - заскринить название предмета + TD! (%0.6f, %0.6f, %0.6f, %0.6f) (/showmodel)",data.rotation.x,data.rotation.y,data.rotation.z,data.zoom), 0xFF3300) end
+	if data.modelId == 330 then sampAddChatMessage(string.format(data.modelId.." - заскринить название предмета + TD! (%0.6f, %0.6f, %0.6f, %0.6f) (/showmodel)",data.rotation.x,data.rotation.y,data.rotation.z,data.zoom), 0xFFFF00) end
+	if data.modelId == 616 then sampAddChatMessage(string.format(data.modelId.." - заскринить название предмета + TD! (%0.6f, %0.6f, %0.6f, %0.6f) (/showmodel)",data.rotation.x,data.rotation.y,data.rotation.z,data.zoom), 0xFFFF00) end
+	if data.modelId == 617 then sampAddChatMessage(string.format(data.modelId.." - заскринить название предмета + TD! (%0.6f, %0.6f, %0.6f, %0.6f) (/showmodel)",data.rotation.x,data.rotation.y,data.rotation.z,data.zoom), 0xFFFF00) end
+	if data.modelId == 620 then sampAddChatMessage(string.format(data.modelId.." - заскринить название предмета + TD! (%0.6f, %0.6f, %0.6f, %0.6f) (/showmodel)",data.rotation.x,data.rotation.y,data.rotation.z,data.zoom), 0xFFFF00) end
+	if data.modelId == 1018 then sampAddChatMessage(string.format(data.modelId.." - заскринить название предмета + TD! (%0.6f, %0.6f, %0.6f, %0.6f) (/showmodel)",data.rotation.x,data.rotation.y,data.rotation.z,data.zoom), 0xFFFF00) end
+	if data.modelId == 1020 then sampAddChatMessage(string.format(data.modelId.." - заскринить название предмета + TD! (%0.6f, %0.6f, %0.6f, %0.6f) (/showmodel)",data.rotation.x,data.rotation.y,data.rotation.z,data.zoom), 0xFFFF00) end
+	if data.modelId == 1022 then sampAddChatMessage(string.format(data.modelId.." - заскринить название предмета + TD! (%0.6f, %0.6f, %0.6f, %0.6f) (/showmodel)",data.rotation.x,data.rotation.y,data.rotation.z,data.zoom), 0xFFFF00) end
+	if data.modelId == 1104 then sampAddChatMessage(string.format(data.modelId.." - заскринить название предмета + TD! (%0.6f, %0.6f, %0.6f, %0.6f) (/showmodel)",data.rotation.x,data.rotation.y,data.rotation.z,data.zoom), 0xFFFF00) end
+	if data.modelId == 1228 then sampAddChatMessage(string.format(data.modelId.." - заскринить название предмета + TD! (%0.6f, %0.6f, %0.6f, %0.6f) (/showmodel)",data.rotation.x,data.rotation.y,data.rotation.z,data.zoom), 0xFFFF00) end
+	if data.modelId == 1255 then sampAddChatMessage(string.format(data.modelId.." - заскринить название предмета + TD! (%0.6f, %0.6f, %0.6f, %0.6f) (/showmodel)",data.rotation.x,data.rotation.y,data.rotation.z,data.zoom), 0xFFFF00) end
+	if data.modelId == 1428 then sampAddChatMessage(string.format(data.modelId.." - заскринить название предмета + TD! (%0.6f, %0.6f, %0.6f, %0.6f) (/showmodel)",data.rotation.x,data.rotation.y,data.rotation.z,data.zoom), 0xFFFF00) end
+	if data.modelId == 1512 then sampAddChatMessage(string.format(data.modelId.." - заскринить название предмета + TD! (%0.6f, %0.6f, %0.6f, %0.6f) (/showmodel)",data.rotation.x,data.rotation.y,data.rotation.z,data.zoom), 0xFFFF00) end
+	if data.modelId == 1520 then sampAddChatMessage(string.format(data.modelId.." - заскринить название предмета + TD! (%0.6f, %0.6f, %0.6f, %0.6f) (/showmodel)",data.rotation.x,data.rotation.y,data.rotation.z,data.zoom), 0xFFFF00) end
+	if data.modelId == 1546 then sampAddChatMessage(string.format(data.modelId.." - заскринить название предмета + TD! (%0.6f, %0.6f, %0.6f, %0.6f) (/showmodel)",data.rotation.x,data.rotation.y,data.rotation.z,data.zoom), 0xFFFF00) end
+	if data.modelId == 1588 then sampAddChatMessage(string.format(data.modelId.." - заскринить название предмета + TD! (%0.6f, %0.6f, %0.6f, %0.6f) (/showmodel)",data.rotation.x,data.rotation.y,data.rotation.z,data.zoom), 0xFFFF00) end
+	if data.modelId == 1614 then sampAddChatMessage(string.format(data.modelId.." - заскринить название предмета + TD! (%0.6f, %0.6f, %0.6f, %0.6f) (/showmodel)",data.rotation.x,data.rotation.y,data.rotation.z,data.zoom), 0xFFFF00) end
+	if data.modelId == 2744 then sampAddChatMessage(string.format(data.modelId.." - заскринить название предмета + TD! (%0.6f, %0.6f, %0.6f, %0.6f) (/showmodel)",data.rotation.x,data.rotation.y,data.rotation.z,data.zoom), 0xFFFF00) end
+	if data.modelId == 2973 then sampAddChatMessage(string.format(data.modelId.." - заскринить название предмета + TD! (%0.6f, %0.6f, %0.6f, %0.6f) (/showmodel)",data.rotation.x,data.rotation.y,data.rotation.z,data.zoom), 0xFFFF00) end
+	if data.modelId == 3065 then sampAddChatMessage(string.format(data.modelId.." - заскринить название предмета + TD! (%0.6f, %0.6f, %0.6f, %0.6f) (/showmodel)",data.rotation.x,data.rotation.y,data.rotation.z,data.zoom), 0xFFFF00) end
+	if data.modelId == 3426 then sampAddChatMessage(string.format(data.modelId.." - заскринить название предмета + TD! (%0.6f, %0.6f, %0.6f, %0.6f) (/showmodel)",data.rotation.x,data.rotation.y,data.rotation.z,data.zoom), 0xFFFF00) end
+	if data.modelId == 11749 then sampAddChatMessage(string.format(data.modelId.." - заскринить название предмета + TD! (%0.6f, %0.6f, %0.6f, %0.6f) (/showmodel)",data.rotation.x,data.rotation.y,data.rotation.z,data.zoom), 0xFFFF00) end
+	if data.modelId == 18244 then sampAddChatMessage(string.format(data.modelId.." - заскринить название предмета + TD! (%0.6f, %0.6f, %0.6f, %0.6f) (/showmodel)",data.rotation.x,data.rotation.y,data.rotation.z,data.zoom), 0xFFFF00) end
+	if data.modelId == 18891 then sampAddChatMessage(string.format(data.modelId.." - заскринить название предмета + TD! (%0.6f, %0.6f, %0.6f, %0.6f) (/showmodel)",data.rotation.x,data.rotation.y,data.rotation.z,data.zoom), 0xFFFF00) end
+	if data.modelId == 19348 then sampAddChatMessage(string.format(data.modelId.." - заскринить название предмета + TD! (%0.6f, %0.6f, %0.6f, %0.6f) (/showmodel)",data.rotation.x,data.rotation.y,data.rotation.z,data.zoom), 0xFFFF00) end
+	if data.modelId == 19610 then sampAddChatMessage(string.format(data.modelId.." - заскринить название предмета + TD! (%0.6f, %0.6f, %0.6f, %0.6f) (/showmodel)",data.rotation.x,data.rotation.y,data.rotation.z,data.zoom), 0xFFFF00) end
+	if data.modelId == 19845 then sampAddChatMessage(string.format(data.modelId.." - заскринить название предмета + TD! (%0.6f, %0.6f, %0.6f, %0.6f) (/showmodel)",data.rotation.x,data.rotation.y,data.rotation.z,data.zoom), 0xFFFF00) end
+	if data.modelId == 19959 then sampAddChatMessage(string.format(data.modelId.." - заскринить название предмета + TD! (%0.6f, %0.6f, %0.6f, %0.6f) (/showmodel)",data.rotation.x,data.rotation.y,data.rotation.z,data.zoom), 0xFFFF00) end
+	if data.modelId == 19967 then sampAddChatMessage(string.format(data.modelId.." - заскринить название предмета + TD! (%0.6f, %0.6f, %0.6f, %0.6f) (/showmodel)",data.rotation.x,data.rotation.y,data.rotation.z,data.zoom), 0xFFFF00) end
 
-	
+
 	-- if data.modelId == 3524 then sampAddChatMessage("Горящее копьё ("..data.modelId..") - Если дешево стоит - то купить.", 0xFF3300) end
 	-- if data.modelId == 3528 then sampAddChatMessage(string.format("Горящее копье 2 ("..data.modelId..") - заскринить название предмета + TD! (%0.6f, %0.6f, %0.6f, %0.6f) (/showmodel)",data.rotation.x,data.rotation.y,data.rotation.z,data.zoom), 0xFF3300) end
 	-- if data.modelId == 19627 then sampAddChatMessage("Копье на спину ("..data.modelId..") - заскринить название предмета! (/showmodel)", 0xFF3300) end
@@ -4589,19 +4693,14 @@ function sampev.onShowTextDraw(textdrawId, data)
 	if data.modelId == 1598 then sampAddChatMessage(string.format("Девушка на спину ("..data.modelId..") - заскринить название предмета + TD! (%0.6f, %0.6f, %0.6f, %0.6f) (/showmodel)",data.rotation.x,data.rotation.y,data.rotation.z,data.zoom), 0xFF3300) end
 	if data.modelId == 1636 then sampAddChatMessage(string.format("Бомба на спину ("..data.modelId..") - заскринить название предмета + TD! (%0.6f, %0.6f, %0.6f, %0.6f) (/showmodel)",data.rotation.x,data.rotation.y,data.rotation.z,data.zoom), 0xFF3300) end
 	if data.modelId == 2061 then sampAddChatMessage("Вертель за спиной ("..data.modelId..") - Если дешево стоит - то купить.", 0xFF3300) end
-	if data.modelId == 2168 then sampAddChatMessage(string.format("Коробка на спину ("..data.modelId..") - заскринить название предмета + TD! (%0.6f, %0.6f, %0.6f, %0.6f) (/showmodel)",data.rotation.x,data.rotation.y,data.rotation.z,data.zoom), 0xFF3300) end
 	if data.modelId == 2224 then sampAddChatMessage("Карамельная бита ("..data.modelId..") - Если дешево стоит - то купить.", 0xFF3300) end
-	if data.modelId == 2253 then sampAddChatMessage(string.format("Рюкзак с цветком ("..data.modelId..") - заскринить название предмета + TD! (%0.6f, %0.6f, %0.6f, %0.6f) (/showmodel)",data.rotation.x,data.rotation.y,data.rotation.z,data.zoom), 0xFF3300) end
 	if data.modelId == 2446 then sampAddChatMessage(string.format("Красный ящик ("..data.modelId..") - заскринить название предмета + TD! (%0.6f, %0.6f, %0.6f, %0.6f) (/showmodel)",data.rotation.x,data.rotation.y,data.rotation.z,data.zoom), 0xFF3300) end
 	if data.modelId == 2855 then sampAddChatMessage("Рюкзак-журнальный ("..data.modelId..") - Если дешево стоит - то купить.", 0xFF3300) end
 	if data.modelId == 3385 then sampAddChatMessage("Рюкзак будущего ("..data.modelId..") - Если дешево стоит - то купить.", 0xFF3300) end
-	if data.modelId == 3434 then sampAddChatMessage(string.format("Черепа на спину ("..data.modelId..") - заскринить название предмета + TD! (%0.6f, %0.6f, %0.6f, %0.6f) (/showmodel)",data.rotation.x,data.rotation.y,data.rotation.z,data.zoom), 0xFF3300) end
-	if data.modelId == 3533 then sampAddChatMessage(string.format("Монета ("..data.modelId..") - заскринить название предмета + TD! (%0.6f, %0.6f, %0.6f, %0.6f) (/showmodel)",data.rotation.x,data.rotation.y,data.rotation.z,data.zoom), 0xFF3300) end
 	if data.modelId == 8483 then sampAddChatMessage("Маска череп ("..data.modelId..") - Если дешево стоит - то купить.", 0xFF3300) end
 	if data.modelId == 8493 then sampAddChatMessage(string.format("Корабль на спину ("..data.modelId..") - заскринить название предмета + TD! (%0.6f, %0.6f, %0.6f, %0.6f) (/showmodel)",data.rotation.x,data.rotation.y,data.rotation.z,data.zoom), 0xFF3300) end
 	if data.modelId == 10145 then sampAddChatMessage("Шляпа из будущего ("..data.modelId..") - Если дешево стоит - то купить.", 0xFF3300) end
 	if data.modelId == 11733 then sampAddChatMessage("Снежные сани 2 ("..data.modelId..") - Если дешево стоит - то купить.", 0xFF3300) end
-	if data.modelId == 18640 then sampAddChatMessage(string.format("Борода ("..data.modelId..") - заскринить название предмета + TD! (%0.6f, %0.6f, %0.6f, %0.6f) (/showmodel)",data.rotation.x,data.rotation.y,data.rotation.z,data.zoom), 0xFF3300) end
 	if data.modelId == 18858 then sampAddChatMessage("Реактивный рюкзак 1-2 ("..data.modelId..") - Если дешево стоит - то купить.", 0xFF3300) end
 	if data.modelId == 19086 then sampAddChatMessage(string.format("Маска робота ("..data.modelId..") - заскринить название предмета + TD! (%0.6f, %0.6f, %0.6f, %0.6f) (/showmodel)",data.rotation.x,data.rotation.y,data.rotation.z,data.zoom), 0xFF3300) end
 	if data.modelId == 19525 then sampAddChatMessage(string.format("Тортик какой-то на спину ("..data.modelId..") - заскринить название предмета + TD! (%0.6f, %0.6f, %0.6f, %0.6f) (/showmodel)",data.rotation.x,data.rotation.y,data.rotation.z,data.zoom), 0xFF3300) end
@@ -4788,14 +4887,14 @@ function sampev.onShowTextDraw(textdrawId, data)
 			local file = io.open('moonloader/stealer/textdraws/'..data.modelId..'.notepad', 'a+')
 			if file ~= -1 and file ~= nil then
 				code_temp_3 = ""
-				code_temp_3 = string.format(string.format('Model: %d | Rotation: %0.6f, %0.6f, %0.6f, %0.6f\n',data.modelId,data.rotation.x,data.rotation.y,data.rotation.z,data.zoom))
+				code_temp_3 = string.format(string.format('Model: %d, %0.6f, %0.6f, %0.6f, %0.6f\n',data.modelId,data.rotation.x,data.rotation.y,data.rotation.z,data.zoom))
 				if string.find(file:read("*all"), code_temp_3, 1, true) then
 					--sampfuncsLog('{FF3300}<Копия> '..code_temp_3)
 					io.close(file)
 					return
 				end
 				file:write('////////////////////['..os.date('%d-%m-%Y || %H:%M:%S')..']////////////////////\n')
-				file:write(string.format('Model: %d | Rotation: %0.6f, %0.6f, %0.6f, %0.6f\n',data.modelId,data.rotation.x,data.rotation.y,data.rotation.z,data.zoom))
+				file:write(string.format('Model: %d, %0.6f, %0.6f, %0.6f, %0.6f\n',data.modelId,data.rotation.x,data.rotation.y,data.rotation.z,data.zoom))
 				io.close(file)
 			end
 		end
@@ -5227,6 +5326,12 @@ function sampev.onCreate3DText(id, color, position, distance, testLOS, attachedP
 	if elements.config.del_family_3d.v == true and position.x == 0 and position.y == 0 and distance == 5 and attachedPlayerId ~= 65535 then
 		return false
 	end
+	if text:match('[ Воздушный шар ]') and color == -763941633 then -- NoBalloons
+		pos = { x = 0, y = 0, z = 0 }
+		text = '[ Воздушный шар ]'
+		color = 0xFFFFFF30
+		return { id, color, pos, dist, wall, vehicle, player, text }
+	end
 end
 
 function onReceivePacket(id, bitStream)
@@ -5244,6 +5349,14 @@ function onReceivePacket(id, bitStream)
 	end
 end
 
+function linkVehicleToInterior(vehicleId, interior) -- NoBalloons
+	local BS = raknetNewBitStream()
+	raknetBitStreamWriteInt16(BS, vehicleId)
+	raknetBitStreamWriteInt8(BS, interior)
+	raknetEmulRpcReceiveBitStream(65, BS)
+	raknetDeleteBitStream(BS)
+end
+
 function sampev.onCreateObject(objectId, data)
 	-- if data.modelId == 854 then
 		-- local file = io.open('moonloader/waxta.notepad', 'a+')
@@ -5252,6 +5365,23 @@ function sampev.onCreateObject(objectId, data)
 			-- io.close(file)
 		-- end
 	-- end
+	if data.attachToVehicleId ~= 0xFFFF then -- NoBalloons
+		local result, car = sampGetCarHandleBySampVehicleId(data.attachToVehicleId)
+		if result and isCarModel(car, 487) then
+			local model = data.modelId
+			if model == 2923 or model == 19131 then
+				return false
+			else
+				for id, color in pairs(balls) do
+					if model == id then
+						linkVehicleToInterior(data.attachToVehicleId, 0)
+						changeCarColour(car, color[1], color[2])
+						return false
+					end
+				end
+			end
+		end
+	end
 	--------------------[Стиллер объектов на транспорт]--------------------
 	-- if data.modelId == 19476 then
 		local tempObj = { }
