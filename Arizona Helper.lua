@@ -4,7 +4,7 @@
 script_name("{0d00ff}Ar{2900ff}iz{3900ff}on{4500ff}a H{4f00ff}el{5800ff}pe{6000ff}r")
 local script_names = "Arizona Helper"
 
-script_version('4.856')
+script_version('4.857')
 script_author("metk1u")
 
 local model_name =
@@ -1742,7 +1742,15 @@ local mainIni = inicfg.load(
 		autousedrugs = false,
 		prodovoz_edit = 2000,
 		set_weather = 10,
-		set_time = 12
+		set_time = 12,
+		dist = 3600,
+		fog = 500,
+		lod = 500,
+		allambient = 0.150,
+		objambient = 1.000,
+		worldambientR = 1.000,
+		worldambientG = 1.000,
+		worldambientB = 1.000
 	},
 	account =
 	{
@@ -2000,7 +2008,15 @@ local elements =
 		del_stream_pl = imgui.ImBool(false),
 		anim_car = imgui.ImBool(false),
 		set_weather = imgui.ImInt(mainIni.config.set_weather),
-		set_time = imgui.ImInt(mainIni.config.set_time)
+		set_time = imgui.ImInt(mainIni.config.set_time),
+		dist = imgui.ImInt(mainIni.config.dist),
+		fog = imgui.ImInt(mainIni.config.fog),
+		lod = imgui.ImInt(mainIni.config.lod),
+		allambient = imgui.ImFloat(mainIni.config.allambient),
+		objambient = imgui.ImFloat(mainIni.config.objambient),
+		worldambientR = imgui.ImFloat(mainIni.config.worldambientR),
+		worldambientG = imgui.ImFloat(mainIni.config.worldambientG),
+		worldambientB = imgui.ImFloat(mainIni.config.worldambientB)
 	},
 	account =
 	{
@@ -2316,7 +2332,8 @@ function main()
 		writeMemory(samp + 0xB0DE0, 0x02, 0xC390, true) 
 	end
 	--------------------[Продолжительность взрывов воздушного транспорта]--------------------
-	memory.setuint32(0x736F88, 0, true)
+	-- memory.setuint32(0x736F88, 0, true)
+	memory.setuint32(0x736F88, 0, false)
 	--------------------[Отключает песок из под колес]--------------------
 	memory.fill(0x6AA8CF, 0x90, 53, true)
 	--------------------[Отключение волн на воде]--------------------
@@ -2353,6 +2370,77 @@ function main()
 	writeMemory(5527777, 4, 1036831949, false)
 	writeMemory(4846974, 4, 1053609165, false)
 	writeMemory(4846757, 4, 1053609165, false)
+	--------------------[Элучшение эффектов (nomorehaze.cs)]--------------------
+	writeMemory(7520695, 1, 235, true)
+	--------------------[Remove 3D Gunflash (Junior_Djjr).cs]--------------------
+	-- writeMemory(6184746, 20, 144, true)
+	memory.fill(6184746, 144, 20, false)
+	--------------------[MemFix_2GB.cs]--------------------
+	writeMemory(9067136, 4, 2147483647, false)
+	--------------------[FPS De-Limiter.cs]--------------------
+	writeMemory(5499202, 2, 37008, true)
+	writeMemory(5499212, 1, 0, true)
+	--------------------[limit_lods.cs]--------------------
+	writeMemory(7547174, 4, 8753112, true)
+	writeMemory(7547256, 4, 8753112, true)
+	writeMemory(4346096, 4, 8760064, true)
+	writeMemory(4346851, 4, 8752860, true)
+	writeMemory(4397604, 4, 8751936, true)
+	writeMemory(7547230, 4, 8796564, true)
+	writeMemory(6365439, 4, 8752860, true)
+	writeMemory(6365480, 4, 8796564, true)
+	writeMemory(6365506, 4, 11989276, true)
+	writeMemory(8835716, 4, 600.0, true)
+	writeMemory(8851464, 4, 500.0, true)
+	--------------------[interior reflection fix]--------------------
+	writeMemory(0x555854, 4, -1869574000, false)
+	writeMemory(0x555858, 1, 144, false)
+	--------------------[Дальность прорисовки]--------------------
+	memory.setfloat(12044272, elements.config.dist.v, false)
+	memory.write(5499541, 12044272, 4, false)
+	memory.write(8381985, 13213544, 4, false)
+	--------------------[Туман]--------------------
+	memory.setfloat(13210352, elements.config.fog.v, false)
+	--------------------[Лоды]--------------------
+	memory.setfloat(8753112, elements.config.lod.v, false)
+	--------------------[Timecyc]--------------------
+	memory.write(6359759, 144, 1, false)
+	memory.write(6359760, 144, 1, false)
+	memory.write(6359761, 144, 1, false)
+	memory.write(6359762, 144, 1, false)
+	memory.write(6359763, 144, 1, false)
+	memory.write(6359764, 144, 1, false)
+	memory.write(6359778, 144, 1, false)
+	memory.write(6359779, 144, 1, false)
+	memory.write(6359780, 144, 1, false)
+	memory.write(6359781, 144, 1, false)
+	memory.write(6359782, 144, 1, false)
+	memory.write(6359783, 144, 1, false)
+	memory.write(6359784, 144, 1, false)
+	memory.write(6359785, 144, 1, false)
+	memory.write(6359786, 144, 1, false)
+	memory.write(6359787, 144, 1, false)
+	memory.write(5637016, 12044024, 4, false)
+	memory.write(5637032, 12044024, 4, false)
+	memory.write(5637048, 12044024, 4, false)
+	memory.write(5636920, 12044048, 4, false)
+	memory.write(5636936, 12044072, 4, false)
+	memory.write(5636952, 12044096, 4, false)
+
+	memory.setfloat(9228384, elements.config.allambient.v, false)
+	memory.setfloat(12044024, elements.config.objambient.v, false)
+	memory.setfloat(12044048, elements.config.worldambientR.v, false)
+	memory.setfloat(12044072, elements.config.worldambientG.v, false)
+	memory.setfloat(12044096, elements.config.worldambientB.v, false)
+	--------------------[Блокировка SA:MP клавиш]--------------------
+	memory.fill(sampGetBase() + 31102, 0, 1, true) -- F4
+	memory.fill(sampGetBase() + 463840, 0, 1, true) -- F1
+	--------------------[Sensitivity Fix]--------------------
+	memory.write(5382798, 11987996, 4, false)
+	memory.write(5311528, 11987996, 4, false)
+	memory.write(5316106, 11987996, 4, false)
+	--------------------[Fix Black Roads]--------------------
+	memory.write(8931716, 0, 4, false)
 	----------------------------------------
 	--autoupdate("https://raw.githubusercontent.com/metk1u/scripts/main/update.json", '['..string.upper(thisScript().name)..']: ')
 	----------------------------------------
@@ -2605,9 +2693,6 @@ function main()
 		end
 	end
 	----------------------------------------
-	setTimeOfDay(elements.config.set_time.v, 0)
-	forceWeatherNow(elements.config.set_weather.v)
-	----------------------------------------
 	sampAddChatMessage('['..thisScript().name..' '..thisScript().version..'{FFFFFF}] {299800}Загружен{FFFFFF}. Настройки: /chat.', 0xFFFFFF)
 	----------------------------------------
 	-- lua_thread.create(function()
@@ -2657,6 +2742,20 @@ function main()
 		if memory.read(0x8E4CB4, 4, true) > 1048576*550 then -- 800 МБайт (500 МБайт - 524288000)
 			cleanStreamMemoryBuffer()
 			sampAddChatMessage('['..thisScript().name..'{FFFFFF}] Произвелась очистка памяти!', 0xFFFFFF)
+		end
+		--------------------[settime / setweather]--------------------
+		if elements.config.set_time.v ~= memory.read(0xC81320, 2, false) then
+			local bs = raknetNewBitStream()
+			raknetBitStreamWriteInt8(bs, elements.config.set_time.v)
+			raknetBitStreamWriteInt8(bs, 0)
+			raknetEmulRpcReceiveBitStream(29, bs)
+			raknetDeleteBitStream(bs)
+		end
+		if elements.config.set_weather.v ~= memory.read(0xB70153, 1, false) then
+			local bs = raknetNewBitStream()
+			raknetBitStreamWriteInt8(bs, elements.config.set_weather.v)
+			raknetEmulRpcReceiveBitStream(152, bs)
+			raknetDeleteBitStream(bs)
 		end
 		--------------------[InputHelp]--------------------
 		showInputHelp()
@@ -3280,7 +3379,15 @@ function saveini()
 			autousedrugs = elements.config.autousedrugs.v,
 			prodovoz_edit = elements.config.prodovoz_edit.v,
 			set_weather = elements.config.set_weather.v,
-			set_time = elements.config.set_time.v
+			set_time = elements.config.set_time.v,
+			dist = elements.config.dist.v,
+			fog = elements.config.fog.v,
+			lod = elements.config.lod.v,
+			allambient = elements.config.allambient.v,
+			objambient = elements.config.objambient.v,
+			worldambientR = elements.config.worldambientR.v,
+			worldambientG = elements.config.worldambientG.v,
+			worldambientB = elements.config.worldambientB.v
 		},
 		account =
 		{
@@ -3600,12 +3707,42 @@ function imgui.OnDrawFrame()
 			----------------------------------------
 			imgui.PushItemWidth(300)
 			imgui.SliderInt(u8('Погода'),elements.config.set_weather,0,45)
-			forceWeatherNow(elements.config.set_weather.v)
 			imgui.Separator()
 			----------------------------------------
 			imgui.PushItemWidth(300)
 			imgui.SliderInt(u8('Время'),elements.config.set_time,0,23)
-			setTimeOfDay(elements.config.set_time.v, 0)
+			imgui.Separator()
+			----------------------------------------
+			imgui.PushItemWidth(300)
+			imgui.SliderInt(u8('Дальность прорисовки'),elements.config.dist,0,3600)
+			memory.setfloat(12044272, elements.config.dist.v, false)
+			imgui.Separator()
+			----------------------------------------
+			imgui.PushItemWidth(300)
+			imgui.SliderInt(u8('Дальность тумана'),elements.config.fog,0,500)
+			memory.setfloat(13210352, elements.config.fog.v, false)
+			imgui.Separator()
+			----------------------------------------
+			imgui.PushItemWidth(300)
+			imgui.SliderInt(u8('Дальность лодов'),elements.config.lod,0,500)
+			memory.setfloat(8753112, elements.config.lod.v, false)
+			imgui.Separator()
+			----------------------------------------
+			if imgui.SliderFloat(u8('Затемнение окружения'), elements.config.allambient, 0.000, 1.000, "%.3f") then
+				memory.setfloat(9228384, elements.config.allambient.v, false)
+			end
+			if imgui.SliderFloat(u8('Затемнение объектов'), elements.config.objambient, 0.000, 1.000, "%.3f") then
+				memory.setfloat(12044024, elements.config.objambient.v, false)
+			end
+			if imgui.SliderFloat(u8('Корректировка красного цвета'), elements.config.worldambientR, 0.000, 1.000, "%.3f") then
+				memory.setfloat(12044048, elements.config.worldambientR.v, false)
+			end
+			if imgui.SliderFloat(u8('Корректировка зелёного цвета'), elements.config.worldambientG, 0.000, 1.000, "%.3f") then
+				memory.setfloat(12044072, elements.config.worldambientG.v, false)
+			end
+			if imgui.SliderFloat(u8('Корректировка синего цвета'), elements.config.worldambientB, 0.000, 1.000, "%.3f") then
+				memory.setfloat(12044096, elements.config.worldambientB.v, false)
+			end
 			imgui.Separator()
 			----------------------------------------
 		end
@@ -4537,7 +4674,6 @@ function sampev.onShowTextDraw(textdrawId, data)
 	if data.modelId == 19967 then sampAddChatMessage(string.format(data.modelId.." - заскринить название предмета + TD! (%0.6f, %0.6f, %0.6f, %0.6f) (/showmodel)",data.rotation.x,data.rotation.y,data.rotation.z,data.zoom), 0xFFFF00) end
 
 
-	if data.modelId == 217 then sampAddChatMessage("Скин ("..data.modelId..") - Если дешево стоит - то купить.", 0xFF3300) end
 	if data.modelId == 1598 then sampAddChatMessage(string.format("Девушка на спину ("..data.modelId..") - заскринить название предмета + TD! (%0.6f, %0.6f, %0.6f, %0.6f) (/showmodel)",data.rotation.x,data.rotation.y,data.rotation.z,data.zoom), 0xFF3300) end
 	if data.modelId == 2061 then sampAddChatMessage("Вертель за спиной ("..data.modelId..") - Если дешево стоит - то купить.", 0xFF3300) end
 	if data.modelId == 2224 then sampAddChatMessage("Карамельная бита ("..data.modelId..") - Если дешево стоит - то купить.", 0xFF3300) end
@@ -4886,6 +5022,10 @@ function sampev.onServerMessage(color, text)
 		text:find("Для Вступления необходимо прибыть в") and color == 73381119) or
 		----------------------------------------
 		string.find(text,"Альхамбра") or
+		string.find(text,"findibiz") or
+		string.find(text,"Слив") or
+		string.find(text,"СЛИВ") or
+		string.find(text,"слив") or
 		string.find(text,"CS:GO") or
 		string.find(text,"DOTA") or
 		string.find(text,"Valhalla") or
@@ -5085,33 +5225,6 @@ function sampev.onPlayerQuit(playerid, reason)
 		end
 	end
 	----------------------------------------
-end
-
-function sampev.onSetWorldTime(hour)
-	if hour ~= elements.config.set_time.v then
-		setTimeOfDay(elements.config.set_time.v, 0)
-		forceWeatherNow(elements.config.set_weather.v)
-		return false
-	end
-	return false
-end
-
-function sampev.onSetPlayerTime(hour, minute)
-	if hour ~= elements.config.set_time.v then
-		setTimeOfDay(elements.config.set_time.v, 0)
-		forceWeatherNow(elements.config.set_weather.v)
-		return false
-	end
-	return false
-end
-
-function sampev.onSetWeather(weatherId)
-	if weatherId ~= elements.config.set_weather.v then
-		setTimeOfDay(elements.config.set_time.v, 0)
-		forceWeatherNow(elements.config.set_weather.v)
-		return false
-	end
-	return false
 end
 
 function sampev.onSetVehicleParamsEx(vehicleId, params, doors, windows)
@@ -7163,6 +7276,11 @@ function sampev.onShowDialog(dialogId, style, title, button1, button2, text)
 		sampSendDialogResponse(dialogId, 1, nil, nil)
 		return false
 	end
+	--------------------[Отказ показа диалога об мнении правительства]--------------------
+	if dialogId == 15429 then
+		sampSendDialogResponse(dialogId, 1, nil, nil)
+		return false
+	end
 	--------------------[Отказ показа диалогов Аренды транспорта]--------------------
 	if dialogId == 281 or dialogId == 230 then
 		sampSendDialogResponse(dialogId, 1, nil, nil)
@@ -7617,27 +7735,27 @@ function SaveFileAttach(skin,modelId,bone,offsetX,offsetY,offsetZ,rotationX,rota
 end
 
 function cleanStreamMemoryBuffer() -- Очистка памяти
--- адреса памяти можно взять тут https://github.com/DK22Pac/plugin-sdk/blob/master/plugin_sa/game_sa/CGame.cpp
-	local clear1 = callFunction(0x53C500, 2, 2, true, true)
-	local clear2 = callFunction(0x53C810, 1, 1, true)
-	local clear3 = callFunction(0x40CF80, 0, 0)
-	local clear4 = callFunction(0x4090A0, 0, 0)
-	local clear5 = callFunction(0x5A18B0, 0, 0)
-	local clear6 = callFunction(0x707770, 0, 0)
-	local clear7 = callFunction(0x53BED0, 0, 0)
-	local clear8 = callFunction(0x53C440, 0, 0)
-	local clear9 = callFunction(0x53C4A0, 0, 0)
-	local clear10 = callFunction(0x53C240, 0, 0)
-	local clear11 = callFunction(0x409760, 0, 0)
-	local clear12 = callFunction(0x409210, 0, 0)
-	local clear13 = callFunction(0x40D7C0, 1, 1, -1)
-	local clear14 = callFunction(0x40E4E0, 0, 0)
-	local clear15 = callFunction(0x70C950, 0, 0)
-	local clear16 = callFunction(0x408CB0, 0, 0)
-	local clear17 = callFunction(0x40E460, 0, 0)
-	local clear18 = callFunction(0x407A10, 0, 0)
-	local clear19 = callFunction(0x40B3A0, 0, 0)
-	local clear20 = callFunction(0x5BA060, 0, 0)
+	-- адреса памяти можно взять тут https://github.com/DK22Pac/plugin-sdk/blob/master/plugin_sa/game_sa/CGame.cpp
+	callFunction(0x53C500, 2, 2, true, true)
+	callFunction(0x53C810, 1, 1, true)
+	callFunction(0x40CF80, 0, 0)
+	callFunction(0x4090A0, 0, 0)
+	callFunction(0x5A18B0, 0, 0)
+	callFunction(0x707770, 0, 0)
+	callFunction(0x53BED0, 0, 0)
+	callFunction(0x53C440, 0, 0)
+	callFunction(0x53C4A0, 0, 0)
+	callFunction(0x53C240, 0, 0)
+	callFunction(0x409760, 0, 0)
+	callFunction(0x409210, 0, 0)
+	callFunction(0x40D7C0, 1, 1, -1)
+	callFunction(0x40E4E0, 0, 0)
+	callFunction(0x70C950, 0, 0)
+	callFunction(0x408CB0, 0, 0)
+	callFunction(0x40E460, 0, 0)
+	callFunction(0x407A10, 0, 0)
+	callFunction(0x40B3A0, 0, 0)
+	callFunction(0x5BA060, 0, 0)
 	memory.write(sampGetChatInfoPtr() + 306, 25562, 4, 0x0)
 	memory.write(sampGetChatInfoPtr() + 0x63DA, 1, 1)
 	local pX, pY, pZ = getCharCoordinates(PLAYER_PED)
