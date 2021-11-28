@@ -1,10 +1,11 @@
 -- script_name("{330000}Ar{430006}iz{53000b}on{64000d}a H{75000e}el{86000d}pe{97000a}r")
 -- bool result = setClipboardText(string text) - Записывает текст в буфер обмена Windows.
+-- RPC
 
 script_name("{0d00ff}Ar{2900ff}iz{3900ff}on{4500ff}a H{4f00ff}el{5800ff}pe{6000ff}r")
 local script_names = "Arizona Helper"
 
-script_version('4.858')
+script_version('4.859')
 script_author("metk1u")
 
 local model_name =
@@ -12,7 +13,6 @@ local model_name =
 	[323] = "Дилдо на спину #3",
 	[363] = "Портфель террориста",
 	[371] = "Рюкзак (парашют)",
-	[1114] = "Очки сварщика",
 	[1276] = "Сувенир на спину",
 	[1487] = "Бутылка на спину",
 	[2045] = "Бита с гвоздями",
@@ -28,7 +28,6 @@ local model_name =
 	[2782] = "Устрица на спину & Раптор",
 	[2908] = "Голова зомби",
 	[2918] = "Рюкзак с шипами",
-	[2983] = "Штурвал за спиной",
 	[3026] = "Рюкзак",
 	[3056] = "Магнит на спину & Инопланетная пушка",
 	[3273] = "Ранец охотники на приведений",
@@ -40,6 +39,7 @@ local model_name =
 	[18635] = "Молоток на спину",
 	[18636] = "Кепка Police",
 	[18638] = "Каска строителя",
+	[18640] = "Борода 1",
 	[18645] = "Мотошлем",
 	[18782] = "Печенька на голову",
 	[18890] = "Грабли на спину",
@@ -144,6 +144,7 @@ local model_name_anti_stealer =
 	[1108] = "Кусок косы с модификации Смерть",
 	[1111] = "Хрень на глаз с модификации",
 	[1112] = "Погоны с модификации",
+	[1114] = "Очки сварщика",
 	[1116] = "Маска решетка",
 	[1128] = "Маска для сварки",
 	[1133] = "Меч с модификации Djey",
@@ -151,6 +152,7 @@ local model_name_anti_stealer =
 	[1208] = "INVALID_OBJECT_ID",
 	[1212] = "Пачка денег на спину",
 	[1220] = "Коробка в руку",
+	[1221] = "INVALID_OBJECT_ID",
 	[1228] = "Карамельный посох",
 	[1238] = "Колпак тёмного эльфа",
 	[1239] = "Знак INFO",
@@ -166,9 +168,6 @@ local model_name_anti_stealer =
 	[1275] = "Рубашка на грудь",
 	[1277] = "Синий кейс",
 	[1279] = "INVALID_OBJECT_ID",
-	[19617] = "INVALID_OBJECT_ID",
-	[5683] = "INVALID_OBJECT_ID",
-	[5693] = "INVALID_OBJECT_ID",
 	[1314] = "НЕИЗВЕСТНО",
 	[1316] = "С модификации",
 	[1319] = "Жезл ГАИ",
@@ -186,6 +185,7 @@ local model_name_anti_stealer =
 	[1582] = "Пицца",
 	[1584] = "Девушка с пистолетом",
 	[1585] = "Рюкзак с девушкой 2",
+	[1588] = "НЕИЗВЕСТНО",
 	[1601] = "Молнии Зевса",
 	[1602] = "Призрачный нимб, щит, ледяное копье",
 	[1603] = "Кровавая накидка & Золотая шапка",
@@ -198,6 +198,7 @@ local model_name_anti_stealer =
 	[1654] = "Красный будильник",
 	[1681] = "Самолёт за спиной (Шамал)",
 	[1736] = "Голова оленя & Рюкзак олень",
+	[1851] = "Кубик в руку",
 	[1877] = "Меч красный",
 	[1878] = "Меч ораньжевый",
 	[1879] = "Меч зелёный",
@@ -222,6 +223,7 @@ local model_name_anti_stealer =
 	[2238] = "Шляпа с красными каплями",
 	[2250] = "Цветок",
 	[2253] = "Рюкзак с цветком",
+	[2276] = "INVALID_OBJECT_ID",
 	[2332] = "Коробка какая-то",
 	[2345] = "Плащ из листьев",
 	[2362] = "Переносная лавка",
@@ -261,6 +263,7 @@ local model_name_anti_stealer =
 	[2976] = "Реактивный ранец (4)",
 	[2977] = "Рюкзак",
 	[2978] = "Щит с шипами",
+	[2983] = "Штурвал за спиной",
 	[2985] = "Экзоскилет",
 	[2988] = "Сундук за спиной",
 	[2992] = "Нимб с какой-то модификации",
@@ -291,11 +294,13 @@ local model_name_anti_stealer =
 	[5385] = "INVALID_OBJECT_ID",
 	[5388] = "INVALID_OBJECT_ID",
 	[5389] = "INVALID_OBJECT_ID",
+	[5683] = "INVALID_OBJECT_ID",
 	[5686] = "INVALID_OBJECT_ID",
 	[5689] = "INVALID_OBJECT_ID",
 	[5690] = "INVALID_OBJECT_ID",
 	[5691] = "INVALID_OBJECT_ID",
 	[5692] = "INVALID_OBJECT_ID",
+	[5693] = "INVALID_OBJECT_ID",
 	[5695] = "INVALID_OBJECT_ID",
 	[5698] = "INVALID_OBJECT_ID",
 	[5699] = "INVALID_OBJECT_ID",
@@ -329,6 +334,7 @@ local model_name_anti_stealer =
 	[11736] = "Медицинская маска & Рюкзак медика зелёный",
 	[11738] = "Рюкзак медика красный",
 	[11741] = "Глаз с модификации Ghost",
+	[11743] = "INVALID_OBJECT_ID",
 	[11747] = "Палка с модификации Индеец",
 	[11750] = "VR-очки",
 	[13562] = "Крутящаяся дубина",
@@ -368,6 +374,7 @@ local model_name_anti_stealer =
 	[18875] = "ПипБой",
 	[18891] = "Плащ с модификации",
 	[18936] = "С модификации Палач",
+	[18976] = "Сумка-барыжка синяя",
 	[19054] = "Подарок на спину",
 	[19055] = "Подарок на спину",
 	[19056] = "Подарок на спину",
@@ -432,6 +439,7 @@ local model_name_anti_stealer =
 	[19578] = "Рюкзак банан",
 	[19582] = "Мясо с модификации Дедпул",
 	[19583] = "Нож с модификации Djey",
+	[19617] = "INVALID_OBJECT_ID",
 	[19620] = "Полицейский ранец & Палка красно-синяя",
 	[19626] = "Лопата в руку (2)",
 	[19793] = "С модификации Палач",
@@ -446,12 +454,12 @@ local model_name_anti_stealer =
 	[19840] = "Красный плащ",
 	[19874] = "Мыло с модификации Дедпул",
 	[19893] = "Карта на спину",
+	[19894] = "INVALID_OBJECT_ID",
 	[19917] = "Техно-рюкзак 3",
 	[19959] = "Знак (поворот направо)",
 	[19960] = "Знак (поворот налево)",
 	[19961] = "Знак (поворот направо)",
 	[19962] = "Знак (плюсик)",
-	[18976] = "Сумка-барыжка синяя",
 	[19963] = "Знак (тупик)",
 	[19964] = "Знак (светофор)",
 	[19965] = "Знак (стрелка)",
@@ -461,10 +469,6 @@ local model_name_anti_stealer =
 };
 local textdraw_name =
 {
-	[2973] = "Коробки на рыболове",
-	[5690] = "INVALID_OBJECT_ID",
-	[5700] = "INVALID_OBJECT_ID",
-	[5702] = "INVALID_OBJECT_ID",
 	[312] = "INVALID_OBJECT_ID",
 	[313] = "INVALID_OBJECT_ID",
 	[314] = "INVALID_OBJECT_ID",
@@ -512,7 +516,6 @@ local textdraw_name =
 	[363] = "Портфель террориста",
 	[365] = "Охлаждающая жидкость для видеокарты",
 	[367] = "Фотоаппарат",
-	[368] = "Прибор ночного видения",
 	[371] = "Рюкзак (парашют)",
 	[372] = "Tec-9",
 	[382] = "INVALID_OBJECT_ID",
@@ -1006,6 +1009,7 @@ local textdraw_name =
 	[2961] = "Красный ящик 3",
 	[2964] = "Биллиардный стол",
 	[2968] = "Рюкзак BomjGang",
+	[2973] = "Коробки на рыболове",
 	[2976] = "Реактивный ранец (4)",
 	[2977] = "Супер мото-ящик",
 	[2978] = "Щит с шипами",
@@ -1161,11 +1165,14 @@ local textdraw_name =
 	[5388] = "INVALID_OBJECT_ID",
 	[5686] = "INVALID_OBJECT_ID",
 	[5689] = "INVALID_OBJECT_ID",
+	[5690] = "INVALID_OBJECT_ID",
 	[5691] = "INVALID_OBJECT_ID",
 	[5693] = "INVALID_OBJECT_ID",
 	[5694] = "INVALID_OBJECT_ID",
 	[5698] = "INVALID_OBJECT_ID",
 	[5699] = "INVALID_OBJECT_ID",
+	[5700] = "INVALID_OBJECT_ID",
+	[5702] = "INVALID_OBJECT_ID",
 	[5777] = "Модификация: Смерть",
 	[6012] = "INVALID_OBJECT_ID",
 	[6013] = "INVALID_OBJECT_ID",
@@ -2641,47 +2648,7 @@ function main()
 		----------------------------------------
 	end)
 	----------------------------------------
-	sampRegisterChatCommand('price',function(item)
-		item = string_to_lower(tostring(item))
-		if item ~= nil then
-			local temp = {}
-			for _, info_sell in ipairs(data_cr.sell) do
-				if string_to_lower(info_sell['i']):find(item, 1, true) then
-					local t = 
-					{
-						name = nil,
-						sell = 'Неизвестно',
-						buy = 'Неизвестно'
-					}
-					----------------------------------------
-					t.name = info_sell['i']
-					t.sell = sumFormat(tostring(info_sell['p']))
-					----------------------------------------
-					for _, info_buy in ipairs(data_cr.buy) do
-						if info_sell['i'] == info_buy['i'] then
-							t.buy = sumFormat(tostring(info_buy['p']))
-							break
-						end
-					end
-					----------------------------------------
-					temp[#temp + 1] = (' > {FFFFFF}Товар: {FDDB6D}%s{FFFFFF} | На продажу: {FDDB6D}%s{FFFFFF} | На покупку: {FDDB6D}%s'):format(t.name, t.sell, t.buy)
-				end
-			end
-			----------------------------------------
-			if #temp >= 1 then
-				sampAddChatMessage('[{FDDB6D}'..script_names..' '..thisScript().version..'{FFFFFF}] Найден'.. (#temp > 1 and 'о' or '') .. ' {FDDB6D}' .. #temp .. '{FFFFFF} товар' .. (#temp > 1 and 'ов' or '') .. ':', 0xFFFFFF)
-				for _, str in ipairs(temp) do
-					sampAddChatMessage(str, 0xFFFFFF)
-				end
-				local isOld = os.time() - data_cr.last_update >= 86400
-				sampAddChatMessage(('[{FDDB6D}'..script_names..' '..thisScript().version..'{FFFFFF}] Информация о цен' .. (#temp > 1 and 'ах' or 'е') .. ' от {FF3300}%s'):format(os.date('%d.%m.%Y ' .. (isOld and '( устарела )' or ''), data_cr.last_update)), 0xFFFFFF)
-				return
-			end
-			sampAddChatMessage('[{FDDB6D}'..script_names..' '..thisScript().version..'{FFFFFF}] Не удалось найти товар с похожим названием.', 0xFFFFFF)
-			return
-		end
-		sampAddChatMessage('Используй: /price [название товара]', 0xAFAFAF)
-	end)
+	sampRegisterChatCommand("price",commandPrice)
 	----------------------------------------
 	sampRegisterChatCommand("alt",function()
 		elements.state.alt = not elements.state.alt
@@ -4714,7 +4681,8 @@ function sampev.onShowTextDraw(textdrawId, data)
 	if data.modelId == 19959 then sampAddChatMessage(string.format(data.modelId.." - заскринить название предмета + TD! (%0.6f, %0.6f, %0.6f, %0.6f) (/showmodel)",data.rotation.x,data.rotation.y,data.rotation.z,data.zoom), 0xFFFF00) end
 	if data.modelId == 19967 then sampAddChatMessage(string.format(data.modelId.." - заскринить название предмета + TD! (%0.6f, %0.6f, %0.6f, %0.6f) (/showmodel)",data.rotation.x,data.rotation.y,data.rotation.z,data.zoom), 0xFFFF00) end
 
-
+	-- if data.modelId == 1314 then sampAddChatMessage(string.format("Два человека ("..data.modelId..") - заскринить название предмета + TD! (%0.6f, %0.6f, %0.6f, %0.6f) (/showmodel)",data.rotation.x,data.rotation.y,data.rotation.z,data.zoom), 0xFF3300) end
+	if data.modelId == 1588 then sampAddChatMessage(string.format("Жёлтая голова ("..data.modelId..") - заскринить название предмета + TD! (%0.6f, %0.6f, %0.6f, %0.6f) (/showmodel)",data.rotation.x,data.rotation.y,data.rotation.z,data.zoom), 0xFF3300) end
 	if data.modelId == 1598 then sampAddChatMessage(string.format("Девушка на спину ("..data.modelId..") - заскринить название предмета + TD! (%0.6f, %0.6f, %0.6f, %0.6f) (/showmodel)",data.rotation.x,data.rotation.y,data.rotation.z,data.zoom), 0xFF3300) end
 	if data.modelId == 2061 then sampAddChatMessage("Вертель за спиной ("..data.modelId..") - Если дешево стоит - то купить.", 0xFF3300) end
 	if data.modelId == 2224 then sampAddChatMessage("Карамельная бита ("..data.modelId..") - Если дешево стоит - то купить.", 0xFF3300) end
@@ -4725,9 +4693,12 @@ function sampev.onShowTextDraw(textdrawId, data)
 	if data.modelId == 10145 then sampAddChatMessage("Шляпа из будущего ("..data.modelId..") - Если дешево стоит - то купить.", 0xFF3300) end
 	if data.modelId == 11733 then sampAddChatMessage("Снежные сани 2 ("..data.modelId..") - Если дешево стоит - то купить.", 0xFF3300) end
 	if data.modelId == 18858 then sampAddChatMessage("Реактивный рюкзак 1-2 ("..data.modelId..") - Если дешево стоит - то купить.", 0xFF3300) end
+	if data.modelId == 19067 then sampAddChatMessage(string.format("Капюшон ("..data.modelId..") - заскринить название предмета + TD! (%0.6f, %0.6f, %0.6f, %0.6f) (/showmodel)",data.rotation.x,data.rotation.y,data.rotation.z,data.zoom), 0xFF3300) end
 	if data.modelId == 19086 then sampAddChatMessage(string.format("Маска робота ("..data.modelId..") - заскринить название предмета + TD! (%0.6f, %0.6f, %0.6f, %0.6f) (/showmodel)",data.rotation.x,data.rotation.y,data.rotation.z,data.zoom), 0xFF3300) end
+	if data.modelId == 19274 then sampAddChatMessage(string.format("Борода ("..data.modelId..") - заскринить название предмета + TD! (%0.6f, %0.6f, %0.6f, %0.6f) (/showmodel)",data.rotation.x,data.rotation.y,data.rotation.z,data.zoom), 0xFF3300) end
 	if data.modelId == 19573 then sampAddChatMessage("Рюкзак угол ("..data.modelId..") - Если дешево стоит - то купить.", 0xFF3300) end
 	if data.modelId == 19592 then sampAddChatMessage(string.format("Корзина ("..data.modelId..") - заскринить название предмета + TD! (%0.6f, %0.6f, %0.6f, %0.6f) (/showmodel)",data.rotation.x,data.rotation.y,data.rotation.z,data.zoom), 0xFF3300) end
+	-- if data.modelId == 19627 then sampAddChatMessage(string.format("Копьё ("..data.modelId..") - заскринить название предмета + TD! (%0.6f, %0.6f, %0.6f, %0.6f) (/showmodel)",data.rotation.x,data.rotation.y,data.rotation.z,data.zoom), 0xFF3300) end
 	if data.modelId == 19822 then sampAddChatMessage("Щит за спиной ("..data.modelId..") - Если дешево стоит - то купить.", 0xFF3300) end
 	if data.modelId == 19823 then sampAddChatMessage("Желтая бита на спину ("..data.modelId..") - Если дешево стоит - то купить.", 0xFF3300) end
 	if data.modelId == 19893 then sampAddChatMessage(string.format("Карта на спину ("..data.modelId..") - заскринить название предмета + TD! (%0.6f, %0.6f, %0.6f, %0.6f) (/showmodel)",data.rotation.x,data.rotation.y,data.rotation.z,data.zoom), 0xFF3300) end
@@ -7347,6 +7318,10 @@ function sampev.onSendDialogResponse(dialogId, button, listboxId, input)
 		sampAddChatMessage('[{FDDB6D}'..script_names..' '..thisScript().version..'{FFFFFF}] Запущен анализ цен. Не открывайте до завершения другие диалоги!', 0xFFFFFF)
 		return { dialogId, button, 0, input }
 	end
+	--------------------[Анализ цен при выставлении на продажу]--------------------
+	if dialogId == 3050 and	button ~= 0 and input ~= "<<< Предыдущая страница" and input ~= "Следующая страница >>>" then
+		commandPrice(input)
+	end
 end
 
 function string_to_lower(str) -- Анализ цен на ЦР
@@ -7385,6 +7360,48 @@ function sumFormat(sum) -- Анализ цен на ЦР
 		return sum:gsub(count, (e == 1 and '-' or '') .. d)
 	end
 	return sum
+end
+
+function commandPrice(item)
+	item = string_to_lower(tostring(item))
+	if item ~= nil then
+		local temp = {}
+		for _, info_sell in ipairs(data_cr.sell) do
+			if string_to_lower(info_sell['i']):find(item, 1, true) then
+				local t = 
+				{
+					name = nil,
+					sell = 'Неизвестно',
+					buy = 'Неизвестно'
+				}
+				----------------------------------------
+				t.name = info_sell['i']
+				t.sell = sumFormat(tostring(info_sell['p']))
+				----------------------------------------
+				for _, info_buy in ipairs(data_cr.buy) do
+					if info_sell['i'] == info_buy['i'] then
+						t.buy = sumFormat(tostring(info_buy['p']))
+						break
+					end
+				end
+				----------------------------------------
+				temp[#temp + 1] = (' > {FFFFFF}Товар: {FDDB6D}%s{FFFFFF} | На продажу: {FDDB6D}%s{FFFFFF} | На покупку: {FDDB6D}%s'):format(t.name, t.sell, t.buy)
+			end
+		end
+		----------------------------------------
+		if #temp >= 1 then
+			sampAddChatMessage('[{FDDB6D}'..script_names..' '..thisScript().version..'{FFFFFF}] Найден'.. (#temp > 1 and 'о' or '') .. ' {FDDB6D}' .. #temp .. '{FFFFFF} товар' .. (#temp > 1 and 'ов' or '') .. ':', 0xFFFFFF)
+			for _, str in ipairs(temp) do
+				sampAddChatMessage(str, 0xFFFFFF)
+			end
+			local isOld = os.time() - data_cr.last_update >= 86400
+			sampAddChatMessage(('[{FDDB6D}'..script_names..' '..thisScript().version..'{FFFFFF}] Информация о цен' .. (#temp > 1 and 'ах' or 'е') .. ' от {FF3300}%s'):format(os.date('%d.%m.%Y ' .. (isOld and '( устарела )' or ''), data_cr.last_update)), 0xFFFFFF)
+			return
+		end
+		sampAddChatMessage('[{FDDB6D}'..script_names..' '..thisScript().version..'{FFFFFF}] Не удалось найти товар с похожим названием.', 0xFFFFFF)
+		return
+	end
+	sampAddChatMessage('Используй: /price [название товара]', 0xAFAFAF)
 end
 
 function sampev.onPlayerEnterVehicle(playerId, vehicleId, passenger)
@@ -7589,6 +7606,7 @@ function sampev.onSetPlayerAttachedObject(playerId, index, create, object)
 			if model == 363 and object.bone == 7 then return end -- Бомба на пояс
 			if model == 1210 then return false end -- Коричневый кейс
 			if model == 1276 and object.offset.x == 0 then return false end -- Свечение игрока
+			if model == 2908 and object.bone == 13 then return end -- Голова зомби в руку с модификации
 			if model == 2918 and object.bone == 2 then return end -- Рюкзак с шипами с модификации Костюм для хэллоуина
 			if model == 3524 and (object.scale.x == 0.2029 or object.scale.y == 0.2229 or object.scale.z == 0.1889) then return end -- Левая горящая голова и Правая горящая голова
 			if model == 3528 then return false end -- Дракон
@@ -7601,7 +7619,7 @@ function sampev.onSetPlayerAttachedObject(playerId, index, create, object)
 			if model == 19064 and (object.bone == 1 or object.bone == 3 or object.bone == 4) then return end -- Плащ деда мороза, Наручи на плечи
 			if model == 19065 or model == 19066 then model = 19064 end -- Новогодняя шапка
 			if model == 19076 then return false end -- Ёлочка на плечо
-			if model == 19094 and (object.offset.x == 0.0099 or object.offset.y == 0.0590 or object.offset.z == -0.0030) then return end -- Бургер на рту
+			if model == 19137 and object.bone == 1 then return end -- Голова петуха с модификации
 			if model == 19160 or model == 19161 or model == 19162 then model = 19093 end -- Кепки DUDE & Police
 			if model == 19317 and object.bone == 2 then return end -- Гитара на глазу
 			if model == 19318 or model == 19319 then model = 19317 end -- Гитары
@@ -7609,6 +7627,7 @@ function sampev.onSetPlayerAttachedObject(playerId, index, create, object)
 			if model == 19487 then model = 19352 end -- Конусы
 			if model == 19514 then model = 19141 end -- Каски спецназа
 			if model == 19515 then model = 19142 end -- Бронежилет
+			if model == 19517 and object.bone == 1 then return end -- Крылья с модификаций
 			if model == 19521 then model = 19520 end -- Фуражка офицера
 			if model == 19557 and object.bone == 1 then return end -- Крылья
 			if model == 19581 and object.bone == 14 then return end -- Сковородка в руку
