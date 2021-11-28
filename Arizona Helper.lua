@@ -4,7 +4,7 @@
 script_name("{0d00ff}Ar{2900ff}iz{3900ff}on{4500ff}a H{4f00ff}el{5800ff}pe{6000ff}r")
 local script_names = "Arizona Helper"
 
-script_version('4.857')
+script_version('4.858')
 script_author("metk1u")
 
 local model_name =
@@ -166,6 +166,9 @@ local model_name_anti_stealer =
 	[1275] = "Рубашка на грудь",
 	[1277] = "Синий кейс",
 	[1279] = "INVALID_OBJECT_ID",
+	[19617] = "INVALID_OBJECT_ID",
+	[5683] = "INVALID_OBJECT_ID",
+	[5693] = "INVALID_OBJECT_ID",
 	[1314] = "НЕИЗВЕСТНО",
 	[1316] = "С модификации",
 	[1319] = "Жезл ГАИ",
@@ -448,6 +451,7 @@ local model_name_anti_stealer =
 	[19960] = "Знак (поворот налево)",
 	[19961] = "Знак (поворот направо)",
 	[19962] = "Знак (плюсик)",
+	[18976] = "Сумка-барыжка синяя",
 	[19963] = "Знак (тупик)",
 	[19964] = "Знак (светофор)",
 	[19965] = "Знак (стрелка)",
@@ -457,6 +461,10 @@ local model_name_anti_stealer =
 };
 local textdraw_name =
 {
+	[2973] = "Коробки на рыболове",
+	[5690] = "INVALID_OBJECT_ID",
+	[5700] = "INVALID_OBJECT_ID",
+	[5702] = "INVALID_OBJECT_ID",
 	[312] = "INVALID_OBJECT_ID",
 	[313] = "INVALID_OBJECT_ID",
 	[314] = "INVALID_OBJECT_ID",
@@ -1628,7 +1636,6 @@ local pidori =
 	"Yuma_Tanaka",
 	"Miguel_Guevara",
 	"Fernando_Klyn",
-	"Vartan_Germun",
 	"Fabio_Vistero",
 	"Denis_Watcon",
 	"Yuta_Takeda",
@@ -1643,6 +1650,8 @@ local pidori =
 	"August_Walker",
 	"San_Sweezy",
 	"Ray_Lasco",
+	"Awa_Squeezy",
+	"Adriy_Djog",
 	"Vlad_GoIdy"
 };
 ----------------------------------------
@@ -2278,6 +2287,8 @@ local elements =
 		----------------------------------------
 		finds = 65535,
 		----------------------------------------
+		olen = false,
+		----------------------------------------
 		waxta = false,
 		----------------------------------------
 		BTC = false,
@@ -2442,7 +2453,7 @@ function main()
 	--------------------[Fix Black Roads]--------------------
 	memory.write(8931716, 0, 4, false)
 	----------------------------------------
-	--autoupdate("https://raw.githubusercontent.com/metk1u/scripts/main/update.json", '['..string.upper(thisScript().name)..']: ')
+	autoupdate("https://raw.githubusercontent.com/metk1u/scripts/main/update.json", '['..string.upper(thisScript().name)..']: ')
 	----------------------------------------
 	for id_model_anti_stealer, name_model_anti_stealer in pairs(model_name_anti_stealer) do
 		os.remove("moonloader\\stealer\\"..id_model_anti_stealer.." - "..name_model_anti_stealer..".notepad")
@@ -2551,6 +2562,11 @@ function main()
 				sampAddChatMessage('{FF3300}x{AFAFAF} Игрок не в игре.',0xAFAFAF)
 			end
 		end
+	end)
+	----------------------------------------
+	sampRegisterChatCommand("olen",function()
+		elements.state.olen = not elements.state.olen
+		push_message((elements.state.olen and "Включаю" or "Выключаю")..' поиск оленей в зоне стрима.')
 	end)
 	----------------------------------------
 	sampRegisterChatCommand("waxta",function()
@@ -3076,6 +3092,31 @@ function main()
 			else
 				elements.state.finds = 65535
 				push_message('Выключаю поиск игрока (disconnect).')
+			end
+		end
+		--------------------[Поиск оленей]--------------------
+		if elements.state.olen == true then
+			local olen_count = 0
+			for _, i in pairs(getAllObjects()) do
+				if getObjectModel(i) == 19315 then
+					olen_count = olen_count + 1
+					if isObjectOnScreen(i) then
+						local result, oX, oY, oZ = getObjectCoordinates(i)
+						------------------------------------
+						local x1, y1 = convert3DCoordsToScreen(oX,oY,oZ)
+						local PlayerX, PlayerY, PlayerZ = getCharCoordinates(PLAYER_PED)
+						local PlayerX2, PlayerY2 = convert3DCoordsToScreen(PlayerX, PlayerY, PlayerZ)
+						distance = string.format("%.0f",getDistanceBetweenCoords3d(oX, oY, oZ, PlayerX, PlayerY, PlayerZ))
+						------------------------------------
+						renderDrawLine(PlayerX2, PlayerY2, x1, y1, 2, 0xFF3300FF) 
+						renderFontDrawText(arial_12_5,"{FF0000}Олень: {3300FF}"..distance, x1, y1, -1)
+					end
+				end
+			end
+			if olen_count == 0 then
+				renderFontDrawText(arial_12_5,'Оленей в зоне стрима: '..olen_count, sx / 2.5, sy - 30, 0xFF3300FF)
+			else
+				renderFontDrawText(arial_12_5,'Оленей в зоне стрима: '..olen_count, sx / 2.5, sy - 30, 0xFFFF0000)
 			end
 		end
 		--------------------[Поиск руды на шахте]--------------------
@@ -3667,7 +3708,7 @@ function imgui.OnDrawFrame()
 		imgui.Text(u8"/finds [playerid] - Включить поиск игрока в зоне стрима")
 		imgui.SameLine()
 		imgui.TextQuestion(u8'Чтобы отключить введи /finds ещё раз.')
-		imgui.Text(u8"/ll - Подсветить радиусы переносных лавок")
+		imgui.Text(u8"/olen - Включить поиск оленей в зоне стрима")
 		imgui.Text(u8"/waxta - Включить поиск руды в зоне стрима")
 		imgui.Text(u8"/loot - Автосбор с мусорки/багажника")
 		imgui.SameLine()
@@ -4645,6 +4686,7 @@ function sampev.onShowTextDraw(textdrawId, data)
 	if data.modelId == 360 then sampAddChatMessage(string.format(data.modelId.." - заскринить название предмета + TD! (%0.6f, %0.6f, %0.6f, %0.6f) (/showmodel)",data.rotation.x,data.rotation.y,data.rotation.z,data.zoom), 0xFFFF00) end
 	if data.modelId == 616 then sampAddChatMessage(string.format(data.modelId.." - заскринить название предмета + TD! (%0.6f, %0.6f, %0.6f, %0.6f) (/showmodel)",data.rotation.x,data.rotation.y,data.rotation.z,data.zoom), 0xFFFF00) end
 	if data.modelId == 617 then sampAddChatMessage(string.format(data.modelId.." - заскринить название предмета + TD! (%0.6f, %0.6f, %0.6f, %0.6f) (/showmodel)",data.rotation.x,data.rotation.y,data.rotation.z,data.zoom), 0xFFFF00) end
+	if data.modelId == 619 then sampAddChatMessage(string.format(data.modelId.." - заскринить название предмета + TD! (%0.6f, %0.6f, %0.6f, %0.6f) (/showmodel)",data.rotation.x,data.rotation.y,data.rotation.z,data.zoom), 0xFFFF00) end
 	if data.modelId == 620 then sampAddChatMessage(string.format(data.modelId.." - заскринить название предмета + TD! (%0.6f, %0.6f, %0.6f, %0.6f) (/showmodel)",data.rotation.x,data.rotation.y,data.rotation.z,data.zoom), 0xFFFF00) end
 	if data.modelId == 1018 then sampAddChatMessage(string.format(data.modelId.." - заскринить название предмета + TD! (%0.6f, %0.6f, %0.6f, %0.6f) (/showmodel)",data.rotation.x,data.rotation.y,data.rotation.z,data.zoom), 0xFFFF00) end
 	if data.modelId == 1020 then sampAddChatMessage(string.format(data.modelId.." - заскринить название предмета + TD! (%0.6f, %0.6f, %0.6f, %0.6f) (/showmodel)",data.rotation.x,data.rotation.y,data.rotation.z,data.zoom), 0xFFFF00) end
@@ -4661,7 +4703,6 @@ function sampev.onShowTextDraw(textdrawId, data)
 	if data.modelId == 2051 then sampAddChatMessage(string.format(data.modelId.." - заскринить название предмета + TD! (%0.6f, %0.6f, %0.6f, %0.6f) (/showmodel)",data.rotation.x,data.rotation.y,data.rotation.z,data.zoom), 0xFFFF00) end
 	if data.modelId == 2224 then sampAddChatMessage(string.format(data.modelId.." - заскринить название предмета + TD! (%0.6f, %0.6f, %0.6f, %0.6f) (/showmodel)",data.rotation.x,data.rotation.y,data.rotation.z,data.zoom), 0xFFFF00) end
 	if data.modelId == 2744 then sampAddChatMessage(string.format(data.modelId.." - заскринить название предмета + TD! (%0.6f, %0.6f, %0.6f, %0.6f) (/showmodel)",data.rotation.x,data.rotation.y,data.rotation.z,data.zoom), 0xFFFF00) end
-	if data.modelId == 2973 then sampAddChatMessage(string.format(data.modelId.." - заскринить название предмета + TD! (%0.6f, %0.6f, %0.6f, %0.6f) (/showmodel)",data.rotation.x,data.rotation.y,data.rotation.z,data.zoom), 0xFFFF00) end
 	if data.modelId == 3065 then sampAddChatMessage(string.format(data.modelId.." - заскринить название предмета + TD! (%0.6f, %0.6f, %0.6f, %0.6f) (/showmodel)",data.rotation.x,data.rotation.y,data.rotation.z,data.zoom), 0xFFFF00) end
 	if data.modelId == 3426 then sampAddChatMessage(string.format(data.modelId.." - заскринить название предмета + TD! (%0.6f, %0.6f, %0.6f, %0.6f) (/showmodel)",data.rotation.x,data.rotation.y,data.rotation.z,data.zoom), 0xFFFF00) end
 	if data.modelId == 18244 then sampAddChatMessage(string.format(data.modelId.." - заскринить название предмета + TD! (%0.6f, %0.6f, %0.6f, %0.6f) (/showmodel)",data.rotation.x,data.rotation.y,data.rotation.z,data.zoom), 0xFFFF00) end
@@ -7016,30 +7057,30 @@ function sampev.onShowDialog(dialogId, style, title, button1, button2, text)
 		if local_name == elements.account.my_nick.v then
 			if dialogId == 2 then
 				sampSendDialogResponse(dialogId, 1, 0, elements.account.my_password.v)
-				lua_thread.create(function()
-					wait(1000)
-					autoupdate("https://raw.githubusercontent.com/metk1u/scripts/main/update.json", '['..string.upper(thisScript().name)..']: ')
-				end)
+				-- lua_thread.create(function()
+					-- wait(1000)
+					-- autoupdate("https://raw.githubusercontent.com/metk1u/scripts/main/update.json", '['..string.upper(thisScript().name)..']: ')
+				-- end)
 				return false
 			end
 		end
 		if local_name == elements.account.my_nick_2.v then
 			if dialogId == 2 then
 				sampSendDialogResponse(dialogId, 1, 0, elements.account.my_password_2.v)
-				lua_thread.create(function()
-					wait(1000)
-					autoupdate("https://raw.githubusercontent.com/metk1u/scripts/main/update.json", '['..string.upper(thisScript().name)..']: ')
-				end)
+				-- lua_thread.create(function()
+					-- wait(1000)
+					-- autoupdate("https://raw.githubusercontent.com/metk1u/scripts/main/update.json", '['..string.upper(thisScript().name)..']: ')
+				-- end)
 				return false
 			end
 		end
 		if local_name == elements.account.my_nick_3.v then
 			if dialogId == 2 then
 				sampSendDialogResponse(dialogId, 1, 0, elements.account.my_password_3.v)
-				lua_thread.create(function()
-					wait(1000)
-					autoupdate("https://raw.githubusercontent.com/metk1u/scripts/main/update.json", '['..string.upper(thisScript().name)..']: ')
-				end)
+				-- lua_thread.create(function()
+					-- wait(1000)
+					-- autoupdate("https://raw.githubusercontent.com/metk1u/scripts/main/update.json", '['..string.upper(thisScript().name)..']: ')
+				-- end)
 				return false
 			end
 		end
