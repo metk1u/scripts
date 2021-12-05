@@ -5,7 +5,7 @@
 script_name("{0d00ff}Ar{2900ff}iz{3900ff}on{4500ff}a H{4f00ff}el{5800ff}pe{6000ff}r")
 local script_names = "Arizona Helper"
 
-script_version('4.859')
+script_version('4.86')
 script_author("metk1u")
 
 local model_name =
@@ -142,13 +142,16 @@ local model_name_anti_stealer =
 	[1017] = "С модификации Волшебник",
 	[1019] = "Очки с модификации Бешенный доктор",
 	[1108] = "Кусок косы с модификации Смерть",
-	[1111] = "Хрень на глаз с модификации",
+	[1111] = "С модификации Спарта",
 	[1112] = "Погоны с модификации",
 	[1114] = "Очки сварщика",
 	[1116] = "Маска решетка",
 	[1128] = "Маска для сварки",
 	[1133] = "Меч с модификации Djey",
 	[1177] = "Реактивный ранец (1)",
+	[5387] = "INVALID_OBJECT_ID",
+	[3014] = "INVALID_OBJECT_ID",
+	[5696] = "INVALID_OBJECT_ID",
 	[1208] = "INVALID_OBJECT_ID",
 	[1212] = "Пачка денег на спину",
 	[1220] = "Коробка в руку",
@@ -169,7 +172,7 @@ local model_name_anti_stealer =
 	[1277] = "Синий кейс",
 	[1279] = "INVALID_OBJECT_ID",
 	[1314] = "НЕИЗВЕСТНО",
-	[1316] = "С модификации",
+	[1316] = "С модификации Охранник из Игры в Кальмара",
 	[1319] = "Жезл ГАИ",
 	[1327] = "Походный рюкзак",
 	[1332] = "Сумка доставщика",
@@ -194,7 +197,7 @@ local model_name_anti_stealer =
 	[1609] = "Черепаха на спину",
 	[1614] = "Треугольник",
 	[1622] = "Камера на плечо",
-	[1636] = "С модификации",
+	[1636] = "С модификации Химик",
 	[1654] = "Красный будильник",
 	[1681] = "Самолёт за спиной (Шамал)",
 	[1736] = "Голова оленя & Рюкзак олень",
@@ -208,10 +211,11 @@ local model_name_anti_stealer =
 	[1885] = "Корзины за спиной",
 	[1886] = "Маска робота (1)",
 	[1895] = "Золотая шляпа с шипами",
+	[1944] = "С модификации Спанч Боб",
 	[1946] = "Мяч на ноге",
 	[1954] = "Рюкзак космонавта",
 	[1974] = "С модификации",
-	[2006] = "С модификации",
+	[2006] = "С модификации Химик",
 	[2028] = "INVALID_OBJECT_ID",
 	[2060] = "Мешок грузчиков",
 	[2064] = "Крылья зелёные",
@@ -235,15 +239,15 @@ local model_name_anti_stealer =
 	[2595] = "INVALID_OBJECT_ID",
 	[2614] = "Два флага на спине",
 	[2630] = "Велосипед в руку",
-	[2680] = "С модификации",
+	[2680] = "С модификации Байкер",
 	[2689] = "С модификации",
 	[2703] = "Рюкзак-бургер",
 	[2707] = "Рюкзак со светом",
-	[2711] = "С модификации робот",
+	[2711] = "С модификации Робот",
 	[2714] = "Табличка 'OPEN' на спину",
-	[2726] = "Щит с модификации СПАРТА",
+	[2726] = "С модификации Спарта",
 	[2769] = "С модификации Зомби",
-	[2788] = "Воротник с модификации Гринч",
+	[2788] = "С модификации Гринч",
 	[2803] = "Мешок с подарками",
 	[2804] = "Кусок мяса в руку",
 	[2805] = "Мешок с мясом",
@@ -275,7 +279,7 @@ local model_name_anti_stealer =
 	[3070] = "Реактивный ранец (5) & Скайборд",
 	[3072] = "Гантеля",
 	[3096] = "Синий посох светлый",
-	[3100] = "Шарик с модификации Соник",
+	[3100] = "С модификации Соник",
 	[3272] = "Паук на спину",
 	[3273] = "Ранец охотники на приведений",
 	[3383] = "Усы таракана",
@@ -290,11 +294,16 @@ local model_name_anti_stealer =
 	[3785] = "Светящийся рюкзак",
 	[3801] = "Длинный топор",
 	[3932] = "С модификации PUBG",
+	[5382] = "INVALID_OBJECT_ID",
+	[5383] = "INVALID_OBJECT_ID",
 	[5384] = "INVALID_OBJECT_ID",
 	[5385] = "INVALID_OBJECT_ID",
+	[5386] = "INVALID_OBJECT_ID",
 	[5388] = "INVALID_OBJECT_ID",
 	[5389] = "INVALID_OBJECT_ID",
 	[5683] = "INVALID_OBJECT_ID",
+	[5684] = "INVALID_OBJECT_ID",
+	[5685] = "INVALID_OBJECT_ID",
 	[5686] = "INVALID_OBJECT_ID",
 	[5689] = "INVALID_OBJECT_ID",
 	[5690] = "INVALID_OBJECT_ID",
@@ -304,6 +313,8 @@ local model_name_anti_stealer =
 	[5695] = "INVALID_OBJECT_ID",
 	[5698] = "INVALID_OBJECT_ID",
 	[5699] = "INVALID_OBJECT_ID",
+	[5702] = "INVALID_OBJECT_ID",
+	[6011] = "INVALID_OBJECT_ID",
 	[6012] = "INVALID_OBJECT_ID",
 	[6013] = "INVALID_OBJECT_ID",
 	[6865] = "Маска с рогами & Рюкзак (Череп с рогами)",
@@ -326,16 +337,16 @@ local model_name_anti_stealer =
 	[11705] = "Кейс для оружия",
 	[11712] = "Крест на грудь и Распятие",
 	[11716] = "С модификации Палач",
-	[11722] = "Херня на голове с модификации",
+	[11722] = "С модификации Супер-Эльфа",
 	[11727] = "Очки будущего 2",
-	[11731] = "С модификации",
+	[11731] = "С модификации Негр",
 	[11732] = "Маска лицо в сердечке",
 	[11734] = "Сани на спину",
 	[11736] = "Медицинская маска & Рюкзак медика зелёный",
 	[11738] = "Рюкзак медика красный",
-	[11741] = "Глаз с модификации Ghost",
+	[11741] = "С модификации Ghost",
 	[11743] = "INVALID_OBJECT_ID",
-	[11747] = "Палка с модификации Индеец",
+	[11747] = "С модификации Индеец",
 	[11750] = "VR-очки",
 	[13562] = "Крутящаяся дубина",
 	[13667] = "Маска обезьяны",
@@ -372,7 +383,7 @@ local model_name_anti_stealer =
 	[18873] = "Телефон",
 	[18874] = "Телефон",
 	[18875] = "ПипБой",
-	[18891] = "Плащ с модификации",
+	[18891] = "С модификации",
 	[18936] = "С модификации Палач",
 	[18976] = "Сумка-барыжка синяя",
 	[19054] = "Подарок на спину",
@@ -380,7 +391,7 @@ local model_name_anti_stealer =
 	[19056] = "Подарок на спину",
 	[19057] = "Подарок на спину",
 	[19058] = "Подарок на спину",
-	[19063] = "Шарик с модификации праздник",
+	[19063] = "С модификации праздник",
 	[19078] = "Попугай",
 	[19079] = "Попугай на плечо",
 	[19080] = "Синяя шляпа маяк",
@@ -388,7 +399,7 @@ local model_name_anti_stealer =
 	[19082] = "Шляпа маяк",
 	[19083] = "Шляпа маяк",
 	[19084] = "Шляпа маяк",
-	[19087] = "Палка с модификации праздник",
+	[19087] = "С модификации праздник",
 	[19090] = "Синий берет",
 	[19091] = "Красный берет",
 	[19092] = "Зелёный берет",
@@ -396,11 +407,11 @@ local model_name_anti_stealer =
 	[19130] = "Знак на груди",
 	[19133] = "С модификации",
 	[19135] = "Стрелка с модификации праздник и Вьетнамская шапка",
-	[19163] = "Маска с модификации Дарт-вейдер",
+	[19163] = "С модификации Дарт-вейдер",
 	[19173] = "Картина в руку какая-то",
 	[19177] = "С модификации Палач",
 	[19197] = "Ангельское кольцо на голову",
-	[19200] = "Шлем с модификации Ghost",
+	[19200] = "С модификации Ghost",
 	[19202] = "С модификации Зомби",
 	[19314] = "Рога",
 	[19315] = "Олень на плечо",
@@ -414,16 +425,16 @@ local model_name_anti_stealer =
 	[19336] = "Воздушный шар",
 	[19337] = "Воздушный шар",
 	[19338] = "Воздушный шар",
-	[19339] = "Гроб с модификации Негр",
+	[19339] = "С модификации Негр",
 	[19341] = "Яйцо",
 	[19342] = "Яйцо",
 	[19343] = "Яйцо",
 	[19344] = "Яйцо",
 	[19345] = "Яйцо",
-	[19348] = "Трость с модификации Купидон",
+	[19348] = "С модификации Купидон",
 	[19468] = "Ведро в руку",
 	[19513] = "Телефон",
-	[19516] = "Крылья с модификации",
+	[19516] = "С модификации Купидон",
 	[19518] = "Парик (2)",
 	[19522] = "Значок красного домика",
 	[19523] = "Значок оранжевого домика",
@@ -433,12 +444,12 @@ local model_name_anti_stealer =
 	[19553] = "Фермерская шляпа",
 	[19555] = "Боксерские перчатки",
 	[19556] = "Боксерские перчатки",
-	[19570] = "Молоко с модификации Гринч",
-	[19576] = "Яблоко с модификации Гринч",
-	[19577] = "Помидор с модификации Дедпул",
+	[19570] = "С модификации Гринч",
+	[19576] = "С модификации Гринч",
+	[19577] = "С модификации Дедпул",
 	[19578] = "Рюкзак банан",
-	[19582] = "Мясо с модификации Дедпул",
-	[19583] = "Нож с модификации Djey",
+	[19582] = "С модификации Дедпул",
+	[19583] = "С модификации Djey",
 	[19617] = "INVALID_OBJECT_ID",
 	[19620] = "Полицейский ранец & Палка красно-синяя",
 	[19626] = "Лопата в руку (2)",
@@ -450,9 +461,9 @@ local model_name_anti_stealer =
 	[19824] = "Бита-бутылка на спину",
 	[19828] = "Белый рюкзак",
 	[19831] = "Рюкзак с крышкой",
-	[19836] = "С модификации",
+	[19836] = "С модификации Палач с головой в руке",
 	[19840] = "Красный плащ",
-	[19874] = "Мыло с модификации Дедпул",
+	[19874] = "С модификации Дедпул",
 	[19893] = "Карта на спину",
 	[19894] = "INVALID_OBJECT_ID",
 	[19917] = "Техно-рюкзак 3",
@@ -465,10 +476,12 @@ local model_name_anti_stealer =
 	[19965] = "Знак (стрелка)",
 	[19966] = "Знак (стоп)",
 	[19967] = "Знак (Do Not Enter)",
+	[19993] = "С модификации Спанч Боб",
 	[19977] = "Знак (уступи дорогу)"
 };
 local textdraw_name =
 {
+	[1098] = "СТО",
 	[312] = "INVALID_OBJECT_ID",
 	[313] = "INVALID_OBJECT_ID",
 	[314] = "INVALID_OBJECT_ID",
@@ -510,12 +523,14 @@ local textdraw_name =
 	[356] = "M4",
 	[357] = "Country Rifle",
 	[358] = "Sniper Rifle",
-	[359] = "РПГ 2",
+	[359] = "РПГ 1",
+	[360] = "РПГ 2",
 	[361] = "Огнемёт на спину",
 	[362] = "Миниган на спину",
 	[363] = "Портфель террориста",
 	[365] = "Охлаждающая жидкость для видеокарты",
 	[367] = "Фотоаппарат",
+	[368] = "Прибор ночного видения",
 	[371] = "Рюкзак (парашют)",
 	[372] = "Tec-9",
 	[382] = "INVALID_OBJECT_ID",
@@ -545,6 +560,7 @@ local textdraw_name =
 	[701] = "Адская трава (игровой ресурс)",
 	[756] = "Кактус",
 	[795] = "INVALID_OBJECT_ID",
+	[5389] = "INVALID_OBJECT_ID",
 	[796] = "INVALID_OBJECT_ID",
 	[797] = "INVALID_OBJECT_ID",
 	[798] = "INVALID_OBJECT_ID",
@@ -603,7 +619,7 @@ local textdraw_name =
 	[1014] = "Спойлер",
 	[1015] = "Спойлер",
 	[1016] = "Спойлер",
-	[1019] = "Очки с модификации Бешенный доктор",
+	[1019] = "С модификации Бешенный доктор",
 	[1021] = "Турбина",
 	[1023] = "Спойлер",
 	[1024] = "Фара",
@@ -888,6 +904,9 @@ local textdraw_name =
 	[2036] = "Снайперка",
 	[2041] = "Ящик с патронами",
 	[2045] = "Бита с гвоздями",
+	[2049] = "Синяя мишень",
+	[2050] = "Красная мишень",
+	[2051] = "Зелёная мишень",
 	[2060] = "Ингредиенты",
 	[2061] = "Патроны",
 	[2064] = "Крылья зелёные && Орудие",
@@ -1014,6 +1033,7 @@ local textdraw_name =
 	[2977] = "Супер мото-ящик",
 	[2978] = "Щит с шипами",
 	[2983] = "Штурвал за спиной",
+	[2984] = "Биотуалет",
 	[2985] = "Экзоскилет",
 	[2988] = "Сундук за спиной",
 	[2992] = "Ангельский сет и обручальное кольцо",
@@ -1117,6 +1137,7 @@ local textdraw_name =
 	[3802] = "Настенный цветок 2",
 	[3810] = "Настенный цветок 1",
 	[3850] = "Хз откуда",
+	[3861] = "Палатка с газетами",
 	[3870] = "INVALID_OBJECT_ID",
 	[3871] = "INVALID_OBJECT_ID",
 	[3883] = "INVALID_OBJECT_ID",
@@ -1161,8 +1182,10 @@ local textdraw_name =
 	[5377] = "INVALID_OBJECT_ID",
 	[5378] = "INVALID_OBJECT_ID",
 	[5379] = "INVALID_OBJECT_ID",
+	[5382] = "INVALID_OBJECT_ID",
 	[5384] = "INVALID_OBJECT_ID",
 	[5388] = "INVALID_OBJECT_ID",
+	[5685] = "INVALID_OBJECT_ID",
 	[5686] = "INVALID_OBJECT_ID",
 	[5689] = "INVALID_OBJECT_ID",
 	[5690] = "INVALID_OBJECT_ID",
@@ -1478,7 +1501,7 @@ local textdraw_name =
 	[19177] = "PHONE",
 	[19182] = "PHONE",
 	[19197] = "Ангельское кольцо на голову",
-	[19200] = "Шлем с модификации Ghost",
+	[19200] = "С модификации Ghost",
 	[19201] = "PHONE",
 	[19246] = "Талон снятия предупреждения",
 	[19273] = "Серый домофон",
@@ -1659,6 +1682,11 @@ local pidori =
 	"Ray_Lasco",
 	"Awa_Squeezy",
 	"Adriy_Djog",
+	"Sebastiana_Cafasso",
+	"Ludwig_VanBeethoven",
+	"Tesla_Bennett",
+	"Ramil_Cox",
+	"Flex_Fresco",
 	"Vlad_GoIdy"
 };
 ----------------------------------------
@@ -1697,7 +1725,8 @@ local prods = 2000
 local balls = 
 {
 	[19332] = {3, 3}, 		-- Red
-	[19333] = {152, 152}, 	-- Blue
+	-- [19333] = {152, 152}, 	-- Blue
+	[19333] = {211, 211}, 	-- Blue
 	[19334] = {1, 1}, 		-- White
 	[19335] = {152, 6}, 	-- Blue & Yellow
 	[19336] = {126, 1}, 	-- Pink & White
@@ -1736,6 +1765,8 @@ else
 end
 --------------------[Новый автолут]--------------------
 local autoloot_td = {''}
+--------------------[AntiFlood]--------------------
+local messagesFloodTab = {}
 --------------------[Остальное]--------------------
 local chatMessages = {}
 local reconnect_timer = 0
@@ -1744,7 +1775,7 @@ local local_name = ""
 local carid = -1
 local windowstate = imgui.ImBool(false)
 ----------------------------------------
-local file = 'settings.ini'
+local file_settings = 'settings.ini'
 local path = getWorkingDirectory() .. '\\config'
 ----------------------------------------
 local mainIni = inicfg.load(
@@ -1821,7 +1852,8 @@ local mainIni = inicfg.load(
 		removeadv = true,
 		----------------------------------------
 		distant_active = false,
-		distant_count = 10
+		distant_count = 10,
+		antiflood_time = 10
 	},
 	chest =
 	{
@@ -1983,6 +2015,12 @@ local mainIni = inicfg.load(
 		larec_premium = 0,
 		larec_premium_price = 50000,
 		----------------------------------------
+		smazka = 0,
+		smazka_price = 500000,
+		----------------------------------------
+		oxlajdauka = 0,
+		oxlajdauka_price = 300000,
+		----------------------------------------
 		larec_car_box = 0,
 		larec_car_box_price = 500000
 	},
@@ -2002,10 +2040,10 @@ local mainIni = inicfg.load(
 		al_active = false
 		----------------------------------------
 	}
-},file)
+},file_settings)
 
 if not doesDirectoryExist(path) then
-	inicfg.save(mainIni,file)
+	inicfg.save(mainIni,file_settings)
 end
 
 local elements =
@@ -2022,6 +2060,7 @@ local elements =
 		del_stream = imgui.ImBool(false),
 		del_shout = imgui.ImBool(false),
 		del_stream_pl = imgui.ImBool(false),
+		del_stream_veh = imgui.ImBool(false),
 		anim_car = imgui.ImBool(false),
 		set_weather = imgui.ImInt(mainIni.config.set_weather),
 		set_time = imgui.ImInt(mainIni.config.set_time),
@@ -2087,7 +2126,8 @@ local elements =
 		removeadv = imgui.ImBool(mainIni.chat.removeadv),
 		----------------------------------------
 		distant_active = imgui.ImBool(mainIni.chat.distant_active),
-		distant_count = imgui.ImInt(mainIni.chat.distant_count)
+		distant_count = imgui.ImInt(mainIni.chat.distant_count),
+		antiflood_time = imgui.ImInt(mainIni.chat.antiflood_time)
 	},
 	chest =
 	{
@@ -2248,6 +2288,12 @@ local elements =
 		----------------------------------------
 		larec_premium = imgui.ImInt(mainIni.lavka.larec_premium),
 		larec_premium_price = imgui.ImInt(mainIni.lavka.larec_premium_price),
+		----------------------------------------
+		smazka = imgui.ImInt(mainIni.lavka.smazka),
+		smazka_price = imgui.ImInt(mainIni.lavka.smazka_price),
+		----------------------------------------
+		oxlajdauka = imgui.ImInt(mainIni.lavka.oxlajdauka),
+		oxlajdauka_price = imgui.ImInt(mainIni.lavka.oxlajdauka_price),
 		----------------------------------------
 		larec_car_box = imgui.ImInt(mainIni.lavka.larec_car_box),
 		larec_car_box_price = imgui.ImInt(mainIni.lavka.larec_car_box_price)
@@ -2677,45 +2723,6 @@ function main()
 	end
 	----------------------------------------
 	sampAddChatMessage('['..thisScript().name..' '..thisScript().version..'{FFFFFF}] {299800}Загружен{FFFFFF}. Настройки: /chat.', 0xFFFFFF)
-	----------------------------------------
-	-- lua_thread.create(function()
-		-- while true do
-			-- wait(0)
-			--------------[Авто-открытие сундуков]--------------------
-			-- if elements.chest.roll_state.v == true and
-				-- elements.state.autoloot == false and
-				-- elements.autoopenroul.open_roul_bronze.v == false and
-				-- elements.autoopenroul.open_roul_silver.v == false and
-				-- elements.autoopenroul.open_roul_gold.v == false and
-				-- elements.autoopenroul.open_roul_platina.v == false and
-				-- elements.autoopenroul.open_roul_active == true and
-				-- elements.autotoch.autotoch_enable.v == false and
-				-- (ip == "185.169.134.3" or ip == "185.169.134.4" or ip == "185.169.134.43" or ip == "185.169.134.44" or ip == "185.169.134.45" or ip == "185.169.134.5" or ip == "185.169.134.59" or ip == "185.169.134.61" or ip == "185.169.134.107" or ip == "185.169.134.109" or ip == "185.169.134.166" or ip == "185.169.134.171" or ip == "185.169.134.172" or ip == "185.169.134.173" or ip == "185.169.134.174" or ip == "80.66.82.191" or ip == "80.66.82.190") then
-				-- if elements.chest.roll_standart.v == true then
-					-- chest_timer = os.time()+(elements.chest.roll_wait.v*60)
-					-- wait(elements.chest.roll_wait.v*60000)
-					-- active = true
-					-- sampSendChat("/invent")
-					-- wait(2500)
-				-- end
-				-- if elements.chest.roll_platinum.v == true then
-					-- sampSendClickTextdraw(65535)
-					-- wait(355)
-					-- active2 = true
-					-- sampSendChat("/invent")
-					-- wait(2500)
-				-- end
-				-- if elements.chest.roll_maska.v == true then
-					-- sampSendClickTextdraw(65535)
-					-- wait(355)
-					-- active3 = true
-					-- sampSendChat("/invent")
-					-- wait(2500)
-				-- end
-			-- end
-			--------------------------------------
-		-- end
-	-- end)
 	----------------------------------------
 	while true do
 		wait(0)
@@ -3437,7 +3444,8 @@ function saveini()
 			tosampfuncsadv = elements.chat.tosampfuncsadv.v,
 			removeadv = elements.chat.removeadv.v,
 			distant_active = elements.chat.distant_active.v,
-			distant_count = elements.chat.distant_count.v
+			distant_count = elements.chat.distant_count.v,
+			antiflood_time = elements.chat.antiflood_time.v
 		},
 		chest =
 		{
@@ -3599,6 +3607,12 @@ function saveini()
 			larec_premium = elements.lavka.larec_premium.v,
 			larec_premium_price = elements.lavka.larec_premium_price.v,
 			----------------------------------------
+			smazka = elements.lavka.smazka.v,
+			smazka_price = elements.lavka.smazka_price.v,
+			----------------------------------------
+			oxlajdauka = elements.lavka.oxlajdauka.v,
+			oxlajdauka_price = elements.lavka.oxlajdauka_price.v,
+			----------------------------------------
 			larec_car_box = elements.lavka.larec_car_box.v,
 			larec_car_box_price = elements.lavka.larec_car_box_price.v
 		},
@@ -3618,7 +3632,7 @@ function saveini()
 			al_active = elements.autopiar.al_active.v
 			----------------------------------------
 		}
-	},file)
+	},file_settings)
 end
 function imgui.OnDrawFrame()
 	----------------------------------------
@@ -3886,6 +3900,11 @@ function imgui.OnDrawFrame()
 				imgui.Separator()
 			end
 			imgui.Separator()
+			----------------------------------------
+			imgui.PushItemWidth(300)
+			imgui.SliderInt(u8('Антифлуд (мин.)'),elements.chat.antiflood_time,0,10)
+			imgui.Separator()
+			----------------------------------------
 		end
 		----------------------------------------
 		if imgui.CollapsingHeader(u8'Удаление мусора с сервера') then
@@ -4239,176 +4258,196 @@ INVALID_OBJECT_ID\n\
 			if elements.lavka.larec_premium.v < 0 then elements.lavka.larec_premium.v = 0 end
 			if elements.lavka.larec_premium_price.v < 0 then elements.lavka.larec_premium_price.v = 0 end
 			----------------------------------------
-			imgui.InputInt(u8('Цена  ##44'),elements.lavka.larec_car_box_price)
+			imgui.InputInt(u8('Цена  ##44'),elements.lavka.smazka_price)
+			imgui.SameLine()
+			imgui.InputInt(u8('Смазка для разгона видеокарт (кол-во)'),elements.lavka.smazka)
+			if elements.lavka.smazka.v < 0 then elements.lavka.smazka.v = 0 end
+			if elements.lavka.smazka_price.v < 0 then elements.lavka.smazka_price.v = 0 end
+			----------------------------------------
+			imgui.InputInt(u8('Цена  ##45'),elements.lavka.oxlajdauka_price)
+			imgui.SameLine()
+			imgui.InputInt(u8('Охлаждающая жидкость для видеокарты (кол-во)'),elements.lavka.oxlajdauka)
+			if elements.lavka.oxlajdauka.v < 0 then elements.lavka.oxlajdauka.v = 0 end
+			if elements.lavka.oxlajdauka_price.v < 0 then elements.lavka.oxlajdauka_price.v = 0 end
+			----------------------------------------
+			imgui.InputInt(u8('Цена  ##46'),elements.lavka.larec_car_box_price)
 			imgui.SameLine()
 			imgui.InputInt(u8('Ларец Super Car Box (кол-во)'),elements.lavka.larec_car_box)
 			if elements.lavka.larec_car_box.v < 0 then elements.lavka.larec_car_box.v = 0 end
 			if elements.lavka.larec_car_box_price.v < 0 then elements.lavka.larec_car_box_price.v = 0 end
 			----------------------------------------
-			count_all = 0
-			if elements.lavka.drugs.v ~= 0 then
-				count_all = count_all+(elements.lavka.drugs_price.v*elements.lavka.drugs.v)
-			end
-			if elements.lavka.materials.v ~= 0 then
-				count_all = count_all+(elements.lavka.materials_price.v*elements.lavka.materials.v)
-			end
-			if elements.lavka.fam_talon.v ~= 0 then
-				count_all = count_all+(elements.lavka.fam_talon_price.v*elements.lavka.fam_talon.v)
-			end
-			if elements.lavka.cherepa.v ~= 0 then
-				count_all = count_all+(elements.lavka.cherepa_price.v*elements.lavka.cherepa.v)
-			end
-			if elements.lavka.sale_talon.v ~= 0 then
-				count_all = count_all+(elements.lavka.sale_talon_price.v*elements.lavka.sale_talon.v)
-			end
-			if elements.lavka.gift.v ~= 0 then
-				count_all = count_all+(elements.lavka.gift_price.v*elements.lavka.gift.v)
-			end
-			if elements.lavka.cooper_roll.v ~= 0 then
-				count_all = count_all+(elements.lavka.cooper_roll_price.v*elements.lavka.cooper_roll.v)
-			end
-			if elements.lavka.silver_roll.v ~= 0 then
-				count_all = count_all+(elements.lavka.silver_roll_price.v*elements.lavka.silver_roll.v)
-			end
-			if elements.lavka.gold_roll.v ~= 0 then
-				count_all = count_all+(elements.lavka.gold_roll_price.v*elements.lavka.gold_roll.v)
-			end
-			if elements.lavka.xlopok.v ~= 0 then
-				count_all = count_all+(elements.lavka.xlopok_price.v*elements.lavka.xlopok.v)
-			end
-			if elements.lavka.lens.v ~= 0 then
-				count_all = count_all+(elements.lavka.lens_price.v*elements.lavka.lens.v)
-			end
-			if elements.lavka.stone.v ~= 0 then
-				count_all = count_all+(elements.lavka.stone_price.v*elements.lavka.stone.v)
-			end
-			if elements.lavka.metal.v ~= 0 then
-				count_all = count_all+(elements.lavka.metal_price.v*elements.lavka.metal.v)
-			end
-			if elements.lavka.bronze.v ~= 0 then
-				count_all = count_all+(elements.lavka.bronze_price.v*elements.lavka.bronze.v)
-			end
-			if elements.lavka.silver.v ~= 0 then
-				count_all = count_all+(elements.lavka.silver_price.v*elements.lavka.silver.v)
-			end
-			if elements.lavka.gold.v ~= 0 then
-				count_all = count_all+(elements.lavka.gold_price.v*elements.lavka.gold.v)
-			end
-			if elements.lavka.alyminiu.v ~= 0 then
-				count_all = count_all+(elements.lavka.alyminiu_price.v*elements.lavka.alyminiu.v)
-			end
-			if elements.lavka.tywka.v ~= 0 then
-				count_all = count_all+(elements.lavka.tywka_price.v*elements.lavka.tywka.v)
-			end
-			if elements.lavka.wkyra.v ~= 0 then
-				count_all = count_all+(elements.lavka.wkyra_price.v*elements.lavka.wkyra.v)
-			end
-			if elements.lavka.euro.v ~= 0 then
-				count_all = count_all+(elements.lavka.euro_price.v*elements.lavka.euro.v)
-			end
-			if elements.lavka.gr_talon.v ~= 0 then
-				count_all = count_all+(elements.lavka.gr_talon_price.v*elements.lavka.gr_talon.v)
-			end
-			if elements.lavka.antibiotiki.v ~= 0 then
-				count_all = count_all+(elements.lavka.antibiotiki_price.v*elements.lavka.antibiotiki.v)
-			end
-			if elements.lavka.prison.v ~= 0 then
-				count_all = count_all+(elements.lavka.prison_price.v*elements.lavka.prison.v)
-			end
-			if elements.lavka.mod_wings_price.v ~= 0 then
-				count_all = count_all+elements.lavka.mod_wings_price.v
-			end
-			if elements.lavka.mod_reg_eyes_price.v ~= 0 then
-				count_all = count_all+elements.lavka.mod_reg_eyes_price.v
-			end
-			if elements.lavka.zlov_moneta.v ~= 0 then
-				count_all = count_all+(elements.lavka.zlov_moneta_price.v*elements.lavka.zlov_moneta.v)
-			end
-			if elements.lavka.toch_stone.v ~= 0 then
-				count_all = count_all+(elements.lavka.toch_stone_price.v*elements.lavka.toch_stone.v)
-			end
-			if elements.lavka.bilet_6.v ~= 0 then
-				count_all = count_all+(elements.lavka.bilet_6_price.v*elements.lavka.bilet_6.v)
-			end
-			if elements.lavka.sticker_cluck.v ~= 0 then
-				count_all = count_all+(elements.lavka.sticker_cluck_price.v*elements.lavka.sticker_cluck.v)
-			end
-			if elements.lavka.sticker_binko.v ~= 0 then
-				count_all = count_all+(elements.lavka.sticker_binko_price.v*elements.lavka.sticker_binko.v)
-			end
-			if elements.lavka.sticker_jizzy.v ~= 0 then
-				count_all = count_all+(elements.lavka.sticker_jizzy_price.v*elements.lavka.sticker_jizzy.v)
-			end
-			if elements.lavka.platinum_roll.v ~= 0 then
-				count_all = count_all+(elements.lavka.platinum_roll_price.v*elements.lavka.platinum_roll.v)
-			end
-			if elements.lavka.rare_yellow.v ~= 0 then
-				count_all = count_all+(elements.lavka.rare_yellow_price.v*elements.lavka.rare_yellow.v)
-			end
-			if elements.lavka.rare_red.v ~= 0 then
-				count_all = count_all+(elements.lavka.rare_red_price.v*elements.lavka.rare_red.v)
-			end
-			if elements.lavka.rare_blue.v ~= 0 then
-				count_all = count_all+(elements.lavka.rare_blue_price.v*elements.lavka.rare_blue.v)
-			end
-			if elements.lavka.box_marvel.v ~= 0 then
-				count_all = count_all+(elements.lavka.box_marvel_price.v*elements.lavka.box_marvel.v)
-			end
-			if elements.lavka.fam_money.v ~= 0 then
-				count_all = count_all+(elements.lavka.fam_money_price.v*elements.lavka.fam_money.v)
-			end
-			if elements.lavka.box_djent.v ~= 0 then
-				count_all = count_all+(elements.lavka.box_djent_price.v*elements.lavka.box_djent.v)
-			end
-			if elements.lavka.box_minecraft.v ~= 0 then
-				count_all = count_all+(elements.lavka.box_minecraft_price.v*elements.lavka.box_minecraft.v)
-			end
-			if elements.lavka.box_moto.v ~= 0 then
-				count_all = count_all+(elements.lavka.box_moto_price.v*elements.lavka.box_moto.v)
-			end
-			if elements.lavka.box_car.v ~= 0 then
-				count_all = count_all+(elements.lavka.box_car_price.v*elements.lavka.box_car.v)
-			end
-			if elements.lavka.box_nostalg.v ~= 0 then
-				count_all = count_all+(elements.lavka.box_nostalg_price.v*elements.lavka.box_nostalg.v)
-			end
-			if elements.lavka.larec_oligarha.v ~= 0 then
-				count_all = count_all+(elements.lavka.larec_oligarha_price.v*elements.lavka.larec_oligarha.v)
-			end
-			if elements.lavka.rykzak_para_price.v ~= 0 then
-				count_all = count_all+elements.lavka.rykzak_para_price.v
-			end
-			if elements.lavka.rykzak_pirat_price.v ~= 0 then
-				count_all = count_all+elements.lavka.rykzak_pirat_price.v
-			end
-			if elements.lavka.mod_teddi_1_price.v ~= 0 then
-				count_all = count_all+elements.lavka.mod_teddi_1_price.v
-			end
-			if elements.lavka.mod_teddi_2_price.v ~= 0 then
-				count_all = count_all+elements.lavka.mod_teddi_2_price.v
-			end
-			if elements.lavka.mod_teddi_3_price.v ~= 0 then
-				count_all = count_all+elements.lavka.mod_teddi_3_price.v
-			end
-			if elements.lavka.band_respect.v ~= 0 then
-				count_all = count_all+(elements.lavka.band_respect_price.v*elements.lavka.band_respect.v)
-			end
-			if elements.lavka.larec_premium.v ~= 0 then
-				count_all = count_all+(elements.lavka.larec_premium_price.v*elements.lavka.larec_premium.v)
-			end
-			if elements.lavka.larec_car_box.v ~= 0 then
-				count_all = count_all+(elements.lavka.larec_car_box_price.v*elements.lavka.larec_car_box.v)
-			end
-			imgui.Text('')
-			imgui.Text(u8('Для покупки всех товаров необходимо $'..count_all))
-			if count_all > getPlayerMoney(Player) then
-				imgui.TextColoredRGB(u8('{FF3300}Тебе нехватает $'..count_all-getPlayerMoney(Player)))
-			end
-			if imgui.Button(u8"Начать скупку",imgui.ImVec2(250,25)) then
-				skupka()
-				windowstate.v = not windowstate.v
-			end
 			imgui.Separator()
+		end
+		imgui.Separator()
+		----------------------------------------
+		local count_all = 0
+		if elements.lavka.drugs.v ~= 0 then
+			count_all = count_all+(elements.lavka.drugs_price.v*elements.lavka.drugs.v)
+		end
+		if elements.lavka.materials.v ~= 0 then
+			count_all = count_all+(elements.lavka.materials_price.v*elements.lavka.materials.v)
+		end
+		if elements.lavka.fam_talon.v ~= 0 then
+			count_all = count_all+(elements.lavka.fam_talon_price.v*elements.lavka.fam_talon.v)
+		end
+		if elements.lavka.cherepa.v ~= 0 then
+			count_all = count_all+(elements.lavka.cherepa_price.v*elements.lavka.cherepa.v)
+		end
+		if elements.lavka.sale_talon.v ~= 0 then
+			count_all = count_all+(elements.lavka.sale_talon_price.v*elements.lavka.sale_talon.v)
+		end
+		if elements.lavka.gift.v ~= 0 then
+			count_all = count_all+(elements.lavka.gift_price.v*elements.lavka.gift.v)
+		end
+		if elements.lavka.cooper_roll.v ~= 0 then
+			count_all = count_all+(elements.lavka.cooper_roll_price.v*elements.lavka.cooper_roll.v)
+		end
+		if elements.lavka.silver_roll.v ~= 0 then
+			count_all = count_all+(elements.lavka.silver_roll_price.v*elements.lavka.silver_roll.v)
+		end
+		if elements.lavka.gold_roll.v ~= 0 then
+			count_all = count_all+(elements.lavka.gold_roll_price.v*elements.lavka.gold_roll.v)
+		end
+		if elements.lavka.xlopok.v ~= 0 then
+			count_all = count_all+(elements.lavka.xlopok_price.v*elements.lavka.xlopok.v)
+		end
+		if elements.lavka.lens.v ~= 0 then
+			count_all = count_all+(elements.lavka.lens_price.v*elements.lavka.lens.v)
+		end
+		if elements.lavka.stone.v ~= 0 then
+			count_all = count_all+(elements.lavka.stone_price.v*elements.lavka.stone.v)
+		end
+		if elements.lavka.metal.v ~= 0 then
+			count_all = count_all+(elements.lavka.metal_price.v*elements.lavka.metal.v)
+		end
+		if elements.lavka.bronze.v ~= 0 then
+			count_all = count_all+(elements.lavka.bronze_price.v*elements.lavka.bronze.v)
+		end
+		if elements.lavka.silver.v ~= 0 then
+			count_all = count_all+(elements.lavka.silver_price.v*elements.lavka.silver.v)
+		end
+		if elements.lavka.gold.v ~= 0 then
+			count_all = count_all+(elements.lavka.gold_price.v*elements.lavka.gold.v)
+		end
+		if elements.lavka.alyminiu.v ~= 0 then
+			count_all = count_all+(elements.lavka.alyminiu_price.v*elements.lavka.alyminiu.v)
+		end
+		if elements.lavka.tywka.v ~= 0 then
+			count_all = count_all+(elements.lavka.tywka_price.v*elements.lavka.tywka.v)
+		end
+		if elements.lavka.wkyra.v ~= 0 then
+			count_all = count_all+(elements.lavka.wkyra_price.v*elements.lavka.wkyra.v)
+		end
+		if elements.lavka.euro.v ~= 0 then
+			count_all = count_all+(elements.lavka.euro_price.v*elements.lavka.euro.v)
+		end
+		if elements.lavka.gr_talon.v ~= 0 then
+			count_all = count_all+(elements.lavka.gr_talon_price.v*elements.lavka.gr_talon.v)
+		end
+		if elements.lavka.antibiotiki.v ~= 0 then
+			count_all = count_all+(elements.lavka.antibiotiki_price.v*elements.lavka.antibiotiki.v)
+		end
+		if elements.lavka.prison.v ~= 0 then
+			count_all = count_all+(elements.lavka.prison_price.v*elements.lavka.prison.v)
+		end
+		if elements.lavka.mod_wings_price.v ~= 0 then
+			count_all = count_all+elements.lavka.mod_wings_price.v
+		end
+		if elements.lavka.mod_reg_eyes_price.v ~= 0 then
+			count_all = count_all+elements.lavka.mod_reg_eyes_price.v
+		end
+		if elements.lavka.zlov_moneta.v ~= 0 then
+			count_all = count_all+(elements.lavka.zlov_moneta_price.v*elements.lavka.zlov_moneta.v)
+		end
+		if elements.lavka.toch_stone.v ~= 0 then
+			count_all = count_all+(elements.lavka.toch_stone_price.v*elements.lavka.toch_stone.v)
+		end
+		if elements.lavka.bilet_6.v ~= 0 then
+			count_all = count_all+(elements.lavka.bilet_6_price.v*elements.lavka.bilet_6.v)
+		end
+		if elements.lavka.sticker_cluck.v ~= 0 then
+			count_all = count_all+(elements.lavka.sticker_cluck_price.v*elements.lavka.sticker_cluck.v)
+		end
+		if elements.lavka.sticker_binko.v ~= 0 then
+			count_all = count_all+(elements.lavka.sticker_binko_price.v*elements.lavka.sticker_binko.v)
+		end
+		if elements.lavka.sticker_jizzy.v ~= 0 then
+			count_all = count_all+(elements.lavka.sticker_jizzy_price.v*elements.lavka.sticker_jizzy.v)
+		end
+		if elements.lavka.platinum_roll.v ~= 0 then
+			count_all = count_all+(elements.lavka.platinum_roll_price.v*elements.lavka.platinum_roll.v)
+		end
+		if elements.lavka.rare_yellow.v ~= 0 then
+			count_all = count_all+(elements.lavka.rare_yellow_price.v*elements.lavka.rare_yellow.v)
+		end
+		if elements.lavka.rare_red.v ~= 0 then
+			count_all = count_all+(elements.lavka.rare_red_price.v*elements.lavka.rare_red.v)
+		end
+		if elements.lavka.rare_blue.v ~= 0 then
+			count_all = count_all+(elements.lavka.rare_blue_price.v*elements.lavka.rare_blue.v)
+		end
+		if elements.lavka.box_marvel.v ~= 0 then
+			count_all = count_all+(elements.lavka.box_marvel_price.v*elements.lavka.box_marvel.v)
+		end
+		if elements.lavka.fam_money.v ~= 0 then
+			count_all = count_all+(elements.lavka.fam_money_price.v*elements.lavka.fam_money.v)
+		end
+		if elements.lavka.box_djent.v ~= 0 then
+			count_all = count_all+(elements.lavka.box_djent_price.v*elements.lavka.box_djent.v)
+		end
+		if elements.lavka.box_minecraft.v ~= 0 then
+			count_all = count_all+(elements.lavka.box_minecraft_price.v*elements.lavka.box_minecraft.v)
+		end
+		if elements.lavka.box_moto.v ~= 0 then
+			count_all = count_all+(elements.lavka.box_moto_price.v*elements.lavka.box_moto.v)
+		end
+		if elements.lavka.box_car.v ~= 0 then
+			count_all = count_all+(elements.lavka.box_car_price.v*elements.lavka.box_car.v)
+		end
+		if elements.lavka.box_nostalg.v ~= 0 then
+			count_all = count_all+(elements.lavka.box_nostalg_price.v*elements.lavka.box_nostalg.v)
+		end
+		if elements.lavka.larec_oligarha.v ~= 0 then
+			count_all = count_all+(elements.lavka.larec_oligarha_price.v*elements.lavka.larec_oligarha.v)
+		end
+		if elements.lavka.rykzak_para_price.v ~= 0 then
+			count_all = count_all+elements.lavka.rykzak_para_price.v
+		end
+		if elements.lavka.rykzak_pirat_price.v ~= 0 then
+			count_all = count_all+elements.lavka.rykzak_pirat_price.v
+		end
+		if elements.lavka.mod_teddi_1_price.v ~= 0 then
+			count_all = count_all+elements.lavka.mod_teddi_1_price.v
+		end
+		if elements.lavka.mod_teddi_2_price.v ~= 0 then
+			count_all = count_all+elements.lavka.mod_teddi_2_price.v
+		end
+		if elements.lavka.mod_teddi_3_price.v ~= 0 then
+			count_all = count_all+elements.lavka.mod_teddi_3_price.v
+		end
+		if elements.lavka.band_respect.v ~= 0 then
+			count_all = count_all+(elements.lavka.band_respect_price.v*elements.lavka.band_respect.v)
+		end
+		if elements.lavka.larec_premium.v ~= 0 then
+			count_all = count_all+(elements.lavka.larec_premium_price.v*elements.lavka.larec_premium.v)
+		end
+		if elements.lavka.smazka.v ~= 0 then
+			count_all = count_all+(elements.lavka.smazka_price.v*elements.lavka.smazka.v)
+		end
+		if elements.lavka.oxlajdauka.v ~= 0 then
+			count_all = count_all+(elements.lavka.oxlajdauka_price.v*elements.lavka.oxlajdauka.v)
+		end
+		if elements.lavka.larec_car_box.v ~= 0 then
+			count_all = count_all+(elements.lavka.larec_car_box_price.v*elements.lavka.larec_car_box.v)
+		end
+		----------------------------------------
+		imgui.Text(u8('Для покупки всех товаров необходимо $'..count_all))
+		if count_all > getPlayerMoney(Player) then
+			imgui.TextColoredRGB(u8('{FF3300}Тебе нехватает $'..count_all-getPlayerMoney(Player)))
+		end
+		if imgui.Button(u8"Начать скупку",imgui.ImVec2(250,25)) then
+			skupka()
+			windowstate.v = not windowstate.v
 		end
 		----------------------------------------
 		imgui.Separator()
@@ -4459,6 +4498,10 @@ INVALID_OBJECT_ID\n\
 		imgui.Checkbox(u8('Выключить игроков в зоне стрима'),elements.config.del_stream_pl)
 		imgui.SameLine()
 		imgui.TextQuestion(u8'Отключает появление ИГРОКОВ в зоне стрима.\nПосле отключения функции необходимо обновить зону стрима (достаточно зайти и выйти в любой интерьер).')
+		----------------------------------------
+		imgui.Checkbox(u8('Выключить транспорт в зоне стрима'),elements.config.del_stream_veh)
+		imgui.SameLine()
+		imgui.TextQuestion(u8'Отключает появление ТРАНСПОРТА в зоне стрима.\nПосле отключения функции необходимо обновить зону стрима (достаточно зайти и выйти в любой интерьер).')
 		----------------------------------------
 		if imgui.Checkbox(u8('Выключить обновление зоны стрима'),elements.config.del_stream) then
 			if elements.config.del_stream.v == true then
@@ -4650,7 +4693,6 @@ function sampev.onShowTextDraw(textdrawId, data)
 	end
 	--------------------[Прочее]--------------------
 	if data.modelId == 330 then sampAddChatMessage(string.format(data.modelId.." - заскринить название предмета + TD! (%0.6f, %0.6f, %0.6f, %0.6f) (/showmodel)",data.rotation.x,data.rotation.y,data.rotation.z,data.zoom), 0xFFFF00) end
-	if data.modelId == 360 then sampAddChatMessage(string.format(data.modelId.." - заскринить название предмета + TD! (%0.6f, %0.6f, %0.6f, %0.6f) (/showmodel)",data.rotation.x,data.rotation.y,data.rotation.z,data.zoom), 0xFFFF00) end
 	if data.modelId == 616 then sampAddChatMessage(string.format(data.modelId.." - заскринить название предмета + TD! (%0.6f, %0.6f, %0.6f, %0.6f) (/showmodel)",data.rotation.x,data.rotation.y,data.rotation.z,data.zoom), 0xFFFF00) end
 	if data.modelId == 617 then sampAddChatMessage(string.format(data.modelId.." - заскринить название предмета + TD! (%0.6f, %0.6f, %0.6f, %0.6f) (/showmodel)",data.rotation.x,data.rotation.y,data.rotation.z,data.zoom), 0xFFFF00) end
 	if data.modelId == 619 then sampAddChatMessage(string.format(data.modelId.." - заскринить название предмета + TD! (%0.6f, %0.6f, %0.6f, %0.6f) (/showmodel)",data.rotation.x,data.rotation.y,data.rotation.z,data.zoom), 0xFFFF00) end
@@ -4665,9 +4707,6 @@ function sampev.onShowTextDraw(textdrawId, data)
 	if data.modelId == 1546 then sampAddChatMessage(string.format(data.modelId.." - заскринить название предмета + TD! (%0.6f, %0.6f, %0.6f, %0.6f) (/showmodel)",data.rotation.x,data.rotation.y,data.rotation.z,data.zoom), 0xFFFF00) end
 	if data.modelId == 1588 then sampAddChatMessage(string.format(data.modelId.." - заскринить название предмета + TD! (%0.6f, %0.6f, %0.6f, %0.6f) (/showmodel)",data.rotation.x,data.rotation.y,data.rotation.z,data.zoom), 0xFFFF00) end
 	if data.modelId == 1614 then sampAddChatMessage(string.format(data.modelId.." - заскринить название предмета + TD! (%0.6f, %0.6f, %0.6f, %0.6f) (/showmodel)",data.rotation.x,data.rotation.y,data.rotation.z,data.zoom), 0xFFFF00) end
-	if data.modelId == 2049 then sampAddChatMessage(string.format(data.modelId.." - заскринить название предмета + TD! (%0.6f, %0.6f, %0.6f, %0.6f) (/showmodel)",data.rotation.x,data.rotation.y,data.rotation.z,data.zoom), 0xFFFF00) end
-	if data.modelId == 2050 then sampAddChatMessage(string.format(data.modelId.." - заскринить название предмета + TD! (%0.6f, %0.6f, %0.6f, %0.6f) (/showmodel)",data.rotation.x,data.rotation.y,data.rotation.z,data.zoom), 0xFFFF00) end
-	if data.modelId == 2051 then sampAddChatMessage(string.format(data.modelId.." - заскринить название предмета + TD! (%0.6f, %0.6f, %0.6f, %0.6f) (/showmodel)",data.rotation.x,data.rotation.y,data.rotation.z,data.zoom), 0xFFFF00) end
 	if data.modelId == 2224 then sampAddChatMessage(string.format(data.modelId.." - заскринить название предмета + TD! (%0.6f, %0.6f, %0.6f, %0.6f) (/showmodel)",data.rotation.x,data.rotation.y,data.rotation.z,data.zoom), 0xFFFF00) end
 	if data.modelId == 2744 then sampAddChatMessage(string.format(data.modelId.." - заскринить название предмета + TD! (%0.6f, %0.6f, %0.6f, %0.6f) (/showmodel)",data.rotation.x,data.rotation.y,data.rotation.z,data.zoom), 0xFFFF00) end
 	if data.modelId == 3065 then sampAddChatMessage(string.format(data.modelId.." - заскринить название предмета + TD! (%0.6f, %0.6f, %0.6f, %0.6f) (/showmodel)",data.rotation.x,data.rotation.y,data.rotation.z,data.zoom), 0xFFFF00) end
@@ -4875,18 +4914,18 @@ function sampev.onShowTextDraw(textdrawId, data)
 				return
 			end
 			----------------------------------------
-			local file = io.open('moonloader/stealer/textdraws/'..data.modelId..'.notepad', 'a+')
-			if file ~= -1 and file ~= nil then
+			local file_textdraw = io.open('moonloader/stealer/textdraws/'..data.modelId..'.notepad', 'a+')
+			if file_textdraw ~= -1 and file_textdraw ~= nil then
 				code_temp_3 = ""
 				code_temp_3 = string.format(string.format('Model: %d, %0.6f, %0.6f, %0.6f, %0.6f\n',data.modelId,data.rotation.x,data.rotation.y,data.rotation.z,data.zoom))
-				if string.find(file:read("*all"), code_temp_3, 1, true) then
+				if string.find(file_textdraw:read("*all"), code_temp_3, 1, true) then
 					--sampfuncsLog('{FF3300}<Копия> '..code_temp_3)
-					io.close(file)
+					io.close(file_textdraw)
 					return
 				end
-				file:write('////////////////////['..os.date('%d-%m-%Y || %H:%M:%S')..']////////////////////\n')
-				file:write(string.format('Model: %d, %0.6f, %0.6f, %0.6f, %0.6f\n',data.modelId,data.rotation.x,data.rotation.y,data.rotation.z,data.zoom))
-				io.close(file)
+				file_textdraw:write('////////////////////['..os.date('%d-%m-%Y || %H:%M:%S')..']////////////////////\n')
+				file_textdraw:write(string.format('Model: %d, %0.6f, %0.6f, %0.6f, %0.6f\n',data.modelId,data.rotation.x,data.rotation.y,data.rotation.z,data.zoom))
+				io.close(file_textdraw)
 			end
 		end
 	end
@@ -5033,20 +5072,6 @@ function sampev.onServerMessage(color, text)
 		text:find("В данный момент проходит собеседование") or
 		text:find("Для Вступления необходимо прибыть в") and color == 73381119) or
 		----------------------------------------
-		string.find(text,"Альхамбра") or
-		string.find(text,"findibiz") or
-		string.find(text,"Слив") or
-		string.find(text,"СЛИВ") or
-		string.find(text,"слив") or
-		string.find(text,"CS:GO") or
-		string.find(text,"DOTA") or
-		string.find(text,"Valhalla") or
-		string.find(text,"Скупаю") or
-		string.find(text,"СКУПАЮ") or
-		string.find(text,"Buy") or
-		string.find(text,"Аукцион") or
-		string.find(text,"Выставил") or
-		----------------------------------------
 		string.find(text,"начал работу новый инкассатор") or
 		string.find(text,"Убив его, вы сможете получить деньги") or
 		string.find(text,"Со склада Армии") then
@@ -5128,11 +5153,6 @@ function sampev.onServerMessage(color, text)
 		end
 	end
 	----------------------------------------
-	-- if text:find("Сработала защита от реконнекта! Попробуйте переподключиться через") and color == -10270721 then
-		-- sec = string.match(text,'Сработала защита от реконнекта! Попробуйте переподключиться через (%d+)')
-		-- reconnect_timer = os.time()+sec
-	-- end
-	----------------------------------------
 	if text:find("Необходимо вставить ключи в зажигание. Используйте:") and color == -1347440641 then
 		lua_thread.create(function()
 			sampSendChat("/key")
@@ -5194,6 +5214,33 @@ function sampev.onServerMessage(color, text)
 		finished = true
 	end
 	----------------------------------------
+	if not text:find(local_name) and
+	not text:find("%[Ошибка%]") and
+	not text:find("Увы, вам не удалось улучшить предмет") and
+	not text:find("Вы купили") and
+	not text:find("Вы успешно купили") and
+	not text:find("купил у вас") and
+	not text:find("Вам был добавлен предмет") and
+	not text:find("шанс изготовления") then
+		if messagesFloodTab[text] ~= nil then
+			if messagesFloodTab[text].Message == text and messagesFloodTab[text].Timestamp >= os.time() then
+				-- sampfuncsLog(string.format("[AntiFlood] %s.", text))
+				return false
+			else
+				messagesFloodTab[text] =
+				{
+					Message = text,
+					Timestamp = os.time()+(elements.chat.antiflood_time.v*60)
+				}
+			end
+		else
+			messagesFloodTab[text] =
+			{
+				Message = text,
+				Timestamp = os.time()+(elements.chat.antiflood_time.v*60)
+			}
+		end
+	end
 end
 
 function sampev.onPlayerJoin(playerid, color, isNpc, nickname)
@@ -5312,6 +5359,9 @@ function sampev.onVehicleStreamIn(vehicleId, data)
 	if elements.config.del_stream.v == true then
 		return false
 	end
+	if elements.config.del_stream_veh.v == true then
+		return false
+	end
 end
 
 function sampev.onPlayerDeathNotification(killerid, killedid, reason)
@@ -5356,10 +5406,10 @@ end
 
 function sampev.onCreateObject(objectId, data)
 	-- if data.modelId == 854 then
-		-- local file = io.open('moonloader/waxta.notepad', 'a+')
-		-- if file ~= -1 and file ~= nil then
-			-- file:write(string.format('{120,{%0.6f,%0.6f,%0.6f,%0.6f,%0.6f,%0.6f}},\n',data.position.x,data.position.y,data.position.z,data.rotation.x,data.rotation.y,data.rotation.z))
-			-- io.close(file)
+		-- local file_waxta = io.open('moonloader/waxta.notepad', 'a+')
+		-- if file_waxta ~= -1 and file_waxta ~= nil then
+			-- file_waxta:write(string.format('{120,{%0.6f,%0.6f,%0.6f,%0.6f,%0.6f,%0.6f}},\n',data.position.x,data.position.y,data.position.z,data.rotation.x,data.rotation.y,data.rotation.z))
+			-- io.close(file_waxta)
 		-- end
 	-- end
 	if data.attachToVehicleId ~= 0xFFFF then -- NoBalloons
@@ -5560,13 +5610,13 @@ function fsoav(vehicleId)
 		directory = 'moonloader/stealer/vehicles/'..model..' - '..vehicle_name..'('..vehicleId..').notepad'
 		----------------------------------------
 		os.remove(directory)
-		local file = io.open(directory, 'a+')
+		local file_vehicles = io.open(directory, 'a+')
 		----------------------------------------
 		local vPosX, vPosY, vPosZ = getCarCoordinates(carhandle)
 		local vAngle = getCarHeading(carhandle)
 		local vColorPrim, vColorSec = getCarColours(carhandle)
 		----------------------------------------
-		file:write(string.format('new vehicleid = CreateVehicle(%i, %f, %f, %f, %f, %i, %i, -1);', getCarModel(carhandle), vPosX, vPosY, vPosZ, vAngle, vColorPrim, vColorSec) .. '\n\n')
+		file_vehicles:write(string.format('new vehicleid = CreateVehicle(%i, %f, %f, %f, %f, %i, %i, -1);', getCarModel(carhandle), vPosX, vPosY, vPosZ, vAngle, vColorPrim, vColorSec) .. '\n\n')
 		----------------------------------------
 		for i = 1, #objectsTable do
 			if objectsTable[i] ~= nil then
@@ -5591,7 +5641,7 @@ function fsoav(vehicleId)
 					----------------------------------------
 					if objectsTable[i]['data']['materialNum'] == 0 and objectsTable[i]['data']['materialTxtNum'] == 0 then
 						if objectsTable[i]['data']['streamerDynamic'] then
-							file:write(string.format('%sCreateDynamicObject(%d, %f, %f, %f, %f, %f, %f, %d, %d, -1, STREAMER_OBJECT_SD, %s);\n',
+							file_vehicles:write(string.format('%sCreateDynamicObject(%d, %f, %f, %f, %f, %f, %f, %d, %d, -1, STREAMER_OBJECT_SD, %s);\n',
 							'new ' .. objVar .. ' = ',
 							objectsTable[i]['data']['modelId'],
 							objectsTable[i]['data']['position']['x'],
@@ -5603,8 +5653,8 @@ function fsoav(vehicleId)
 							0,
 							0,
 							setDrawDist))
-							if objectsTable[i]['data']['cameraCol'] == 1 then file:write(string.format('SetDynamicObjectNoCameraCol(%s);\n', objVar)) end
-							file:write(string.format('AttachDynamicObjectToVehicle(%s, vehicleid, %f, %f, %f, %f, %f, %f);\n\n',
+							if objectsTable[i]['data']['cameraCol'] == 1 then file_vehicles:write(string.format('SetDynamicObjectNoCameraCol(%s);\n', objVar)) end
+							file_vehicles:write(string.format('AttachDynamicObjectToVehicle(%s, vehicleid, %f, %f, %f, %f, %f, %f);\n\n',
 							objVar,
 							objectsTable[i]['OffsetX'],
 							objectsTable[i]['OffsetY'],
@@ -5613,7 +5663,7 @@ function fsoav(vehicleId)
 							objectsTable[i]['RotY'],
 							objectsTable[i]['RotZ']))
 						else
-							file:write(string.format('%sCreateObject(%d, %f, %f, %f, %f, %f, %f, %s);\n',
+							file_vehicles:write(string.format('%sCreateObject(%d, %f, %f, %f, %f, %f, %f, %s);\n',
 							'new ' .. objVar .. ' = ',
 							objectsTable[i]['data']['modelId'],
 							objectsTable[i]['data']['position']['x'],
@@ -5623,8 +5673,8 @@ function fsoav(vehicleId)
 							objectsTable[i]['data']['rotation']['y'],
 							objectsTable[i]['data']['rotation']['z'],
 							setDrawDistNum))
-							if objectsTable[i]['data']['cameraCol'] == 1 then file:write(string.format('SetObjectNoCameraCol(%s);\n', objVar)) end
-							file:write(string.format('AttachObjectToVehicle(%s, vehicleid, %f, %f, %f, %f, %f, %f);\n\n',
+							if objectsTable[i]['data']['cameraCol'] == 1 then file_vehicles:write(string.format('SetObjectNoCameraCol(%s);\n', objVar)) end
+							file_vehicles:write(string.format('AttachObjectToVehicle(%s, vehicleid, %f, %f, %f, %f, %f, %f);\n\n',
 							objVar,
 							objectsTable[i]['OffsetX'],
 							objectsTable[i]['OffsetY'],
@@ -5635,7 +5685,7 @@ function fsoav(vehicleId)
 						end
 					else
 						if objectsTable[i]['data']['streamerDynamic'] then
-							file:write(string.format('%sCreateDynamicObject(%d, %f, %f, %f, %f, %f, %f, %d, %d, -1, STREAMER_OBJECT_SD, %s);\n',
+							file_vehicles:write(string.format('%sCreateDynamicObject(%d, %f, %f, %f, %f, %f, %f, %d, %d, -1, STREAMER_OBJECT_SD, %s);\n',
 							'new ' .. objVar .. ' = ',
 							objectsTable[i]['data']['modelId'],
 							objectsTable[i]['data']['position']['x'],
@@ -5647,12 +5697,12 @@ function fsoav(vehicleId)
 							0,
 							0,
 							setDrawDist))
-							if objectsTable[i]['data']['cameraCol'] == 1 then file:write(string.format('SetDynamicObjectNoCameraCol(%s);\n', objVar)) end
+							if objectsTable[i]['data']['cameraCol'] == 1 then file_vehicles:write(string.format('SetDynamicObjectNoCameraCol(%s);\n', objVar)) end
 							----------------------------------------
 							for j = 1, #objectsTable[i]['data'] do
 								if objectsTable[i]['data'][j] ~= nil then
 									if objectsTable[i]['data'][j]['materialType'] == true then
-										file:write(string.format('SetDynamicObjectMaterial(%s, %d, %d, "%s", "%s", %s);\n',
+										file_vehicles:write(string.format('SetDynamicObjectMaterial(%s, %d, %d, "%s", "%s", %s);\n',
 										objVar,
 										objectsTable[i]['data'][j]['materialId'],
 										objectsTable[i]['data'][j]['modelId'],
@@ -5660,7 +5710,7 @@ function fsoav(vehicleId)
 										objectsTable[i]['data'][j]['textureName'],
 										objectsTable[i]['data'][j]['color']))
 									else
-										file:write(string.format('SetDynamicObjectMaterialText(%s, %d, "%s", %d, "%s", %d, %d, %s, %s, %d);\n',
+										file_vehicles:write(string.format('SetDynamicObjectMaterialText(%s, %d, "%s", %d, "%s", %d, %d, %s, %s, %d);\n',
 										objVar,
 										objectsTable[i]['data'][j]['materialId'],
 										objectsTable[i]['data'][j]['text'],
@@ -5675,7 +5725,7 @@ function fsoav(vehicleId)
 								end
 							end
 							----------------------------------------
-							file:write(string.format('AttachDynamicObjectToVehicle(%s, vehicleid, %f, %f, %f, %f, %f, %f);\n\n',
+							file_vehicles:write(string.format('AttachDynamicObjectToVehicle(%s, vehicleid, %f, %f, %f, %f, %f, %f);\n\n',
 							objVar,
 							objectsTable[i]['OffsetX'],
 							objectsTable[i]['OffsetY'],
@@ -5684,7 +5734,7 @@ function fsoav(vehicleId)
 							objectsTable[i]['RotY'],
 							objectsTable[i]['RotZ']))
 						else
-							file:write(string.format('%sCreateObject(%d, %f, %f, %f, %f, %f, %f, %s);\n',
+							file_vehicles:write(string.format('%sCreateObject(%d, %f, %f, %f, %f, %f, %f, %s);\n',
 							'new ' .. objVar .. ' = ',
 							objectsTable[i]['data']['modelId'],
 							objectsTable[i]['data']['position']['x'],
@@ -5694,12 +5744,12 @@ function fsoav(vehicleId)
 							objectsTable[i]['data']['rotation']['y'],
 							objectsTable[i]['data']['rotation']['z'],
 							setDrawDistNum))
-							if objectsTable[i]['data']['cameraCol'] == 1 then file:write(string.format('SetObjectNoCameraCol(%s);\n', objVar)) end
+							if objectsTable[i]['data']['cameraCol'] == 1 then file_vehicles:write(string.format('SetObjectNoCameraCol(%s);\n', objVar)) end
 							----------------------------------------
 							for j = 1, #objectsTable[i]['data'] do
 								if objectsTable[i]['data'][j] ~= nil then
 									if objectsTable[i]['data'][j]['materialType'] == true then
-										file:write(string.format('SetObjectMaterial(%s, %d, %d, "%s", "%s", %s);\n',
+										file_vehicles:write(string.format('SetObjectMaterial(%s, %d, %d, "%s", "%s", %s);\n',
 										objVar,
 										objectsTable[i]['data'][j]['materialId'],
 										objectsTable[i]['data'][j]['modelId'],
@@ -5707,7 +5757,7 @@ function fsoav(vehicleId)
 										objectsTable[i]['data'][j]['textureName'],
 										objectsTable[i]['data'][j]['color']))
 									else
-										file:write(string.format('SetObjectMaterialText(%s, "%s", %d, %d, "%s", %d, %d, %s, %s, %d);\n',
+										file_vehicles:write(string.format('SetObjectMaterialText(%s, "%s", %d, %d, "%s", %d, %d, %s, %s, %d);\n',
 										objVar,
 										objectsTable[i]['data'][j]['text'],
 										objectsTable[i]['data'][j]['materialId'],
@@ -5722,7 +5772,7 @@ function fsoav(vehicleId)
 								end
 							end
 							----------------------------------------
-							file:write(string.format('AttachObjectToVehicle(%s, vehicleid, %f, %f, %f, %f, %f, %f);\n\n',
+							file_vehicles:write(string.format('AttachObjectToVehicle(%s, vehicleid, %f, %f, %f, %f, %f, %f);\n\n',
 							objVar,
 							objectsTable[i]['OffsetX'],
 							objectsTable[i]['OffsetY'],
@@ -5735,7 +5785,7 @@ function fsoav(vehicleId)
 				end
 			end
 		end
-		io.close(file)
+		io.close(file_vehicles)
 	end
 end
 
@@ -6929,6 +6979,80 @@ function skupka()
 			sampSendDialogResponse(3050, 1, 2, nil)
 			sampSendDialogResponse(3060, 1, 0, elements.lavka.larec_premium.v..' '..elements.lavka.larec_premium_price.v)
 		end
+		if elements.lavka.smazka.v ~= 0 then
+			wait(delay_skupka)
+			sampSendDialogResponse(3040, 1, nil, nil)
+			sampSendDialogResponse(3050, 1, 19, nil)
+			sampSendDialogResponse(3050, 1, 20, nil)
+			sampSendDialogResponse(3050, 1, 20, nil)
+			sampSendDialogResponse(3050, 1, 20, nil)
+			wait(delay_skupka)
+			sampSendDialogResponse(3050, 1, 20, nil)
+			sampSendDialogResponse(3050, 1, 20, nil)
+			sampSendDialogResponse(3050, 1, 20, nil)
+			sampSendDialogResponse(3050, 1, 20, nil)
+			sampSendDialogResponse(3050, 1, 20, nil)
+			wait(delay_skupka)
+			sampSendDialogResponse(3050, 1, 20, nil)
+			sampSendDialogResponse(3050, 1, 20, nil)
+			sampSendDialogResponse(3050, 1, 20, nil)
+			sampSendDialogResponse(3050, 1, 20, nil)
+			sampSendDialogResponse(3050, 1, 20, nil)
+			wait(delay_skupka)
+			sampSendDialogResponse(3050, 1, 20, nil)
+			sampSendDialogResponse(3050, 1, 20, nil)
+			sampSendDialogResponse(3050, 1, 20, nil)
+			sampSendDialogResponse(3050, 1, 20, nil)
+			sampSendDialogResponse(3050, 1, 20, nil)
+			wait(delay_skupka)
+			sampSendDialogResponse(3050, 1, 20, nil)
+			sampSendDialogResponse(3050, 1, 20, nil)
+			sampSendDialogResponse(3050, 1, 20, nil)
+			sampSendDialogResponse(3050, 1, 20, nil)
+			sampSendDialogResponse(3050, 1, 20, nil)
+			wait(delay_skupka)
+			sampSendDialogResponse(3050, 1, 20, nil)
+			sampSendDialogResponse(3050, 1, 20, nil)
+			sampSendDialogResponse(3050, 1, 6, nil)
+			sampSendDialogResponse(3060, 1, 0, elements.lavka.smazka.v..' '..elements.lavka.smazka_price.v)
+		end
+		if elements.lavka.oxlajdauka.v ~= 0 then
+			wait(delay_skupka)
+			sampSendDialogResponse(3040, 1, nil, nil)
+			sampSendDialogResponse(3050, 1, 19, nil)
+			sampSendDialogResponse(3050, 1, 20, nil)
+			sampSendDialogResponse(3050, 1, 20, nil)
+			sampSendDialogResponse(3050, 1, 20, nil)
+			wait(delay_skupka)
+			sampSendDialogResponse(3050, 1, 20, nil)
+			sampSendDialogResponse(3050, 1, 20, nil)
+			sampSendDialogResponse(3050, 1, 20, nil)
+			sampSendDialogResponse(3050, 1, 20, nil)
+			sampSendDialogResponse(3050, 1, 20, nil)
+			wait(delay_skupka)
+			sampSendDialogResponse(3050, 1, 20, nil)
+			sampSendDialogResponse(3050, 1, 20, nil)
+			sampSendDialogResponse(3050, 1, 20, nil)
+			sampSendDialogResponse(3050, 1, 20, nil)
+			sampSendDialogResponse(3050, 1, 20, nil)
+			wait(delay_skupka)
+			sampSendDialogResponse(3050, 1, 20, nil)
+			sampSendDialogResponse(3050, 1, 20, nil)
+			sampSendDialogResponse(3050, 1, 20, nil)
+			sampSendDialogResponse(3050, 1, 20, nil)
+			sampSendDialogResponse(3050, 1, 20, nil)
+			wait(delay_skupka)
+			sampSendDialogResponse(3050, 1, 20, nil)
+			sampSendDialogResponse(3050, 1, 20, nil)
+			sampSendDialogResponse(3050, 1, 20, nil)
+			sampSendDialogResponse(3050, 1, 20, nil)
+			sampSendDialogResponse(3050, 1, 20, nil)
+			wait(delay_skupka)
+			sampSendDialogResponse(3050, 1, 20, nil)
+			sampSendDialogResponse(3050, 1, 20, nil)
+			sampSendDialogResponse(3050, 1, 7, nil)
+			sampSendDialogResponse(3060, 1, 0, elements.lavka.oxlajdauka.v..' '..elements.lavka.oxlajdauka_price.v)
+		end
 		if elements.lavka.larec_car_box.v ~= 0 then
 			wait(delay_skupka)
 			sampSendDialogResponse(3040, 1, nil, nil)
@@ -6963,7 +7087,7 @@ function skupka()
 			wait(delay_skupka)
 			sampSendDialogResponse(3050, 1, 20, nil)
 			sampSendDialogResponse(3050, 1, 20, nil)
-			sampSendDialogResponse(3050, 1, 8, nil)
+			sampSendDialogResponse(3050, 1, 9, nil)
 			sampSendDialogResponse(3060, 1, 0, elements.lavka.larec_car_box.v..' '..elements.lavka.larec_car_box_price.v)
 		end
 		sampAddChatMessage('['..thisScript().name..' '..thisScript().version..'{FFFFFF}] Скрипт закончил выставлять товары на покупку.', 0xFFFFFF)
@@ -7194,9 +7318,9 @@ function sampev.onShowDialog(dialogId, style, title, button1, button2, text)
 				data_cr.last_update = os.time()
 				sampAddChatMessage('[{FDDB6D}'..script_names..' '..thisScript().version..'{FFFFFF}] Анализ завершён! Средние цены на товары обновлены!', 0xFFFFFF)
 				----------------------------------------
-				local file_open = io.open(path_cr, "w")
-				file_open:write(encodeJson(data_cr))
-				file_open:close()
+				local file_analysis = io.open(path_cr, "w")
+				file_analysis:write(encodeJson(data_cr))
+				file_analysis:close()
 			end
 			sampSendDialogResponse(dialogId, 0, nil, nil)
 			return false
@@ -7543,10 +7667,10 @@ end
 	-- color_2 = string.format('0x%X', bit.band(0xFFFFFFFF, color))
 	-- sampAddChatMessage(string.format('(0, %f, %f, %f, %f),',squareStart.x,squareStart.y,squareEnd.x,squareEnd.y), -1)
 	
-	-- local file = io.open('moonloader/gz.notepad', 'a+')
-	-- if file ~= -1 and file ~= nil then
-		-- file:write(string.format('(0, %f, %f, %f, %f),\n',squareStart.x,squareStart.y,squareEnd.x,squareEnd.y))
-		-- io.close(file)
+	-- local file_gz = io.open('moonloader/gz.notepad', 'a+')
+	-- if file_gz ~= -1 and file_gz ~= nil then
+		-- file_gz:write(string.format('(0, %f, %f, %f, %f),\n',squareStart.x,squareStart.y,squareEnd.x,squareEnd.y))
+		-- io.close(file_gz)
 	-- end
 
 -- end
@@ -7560,12 +7684,72 @@ function sampev.onSetPlayerAttachedObject(playerId, index, create, object)
 	if elements.config.del_stream.v == false and elements.config.del_stream_pl.v == false then
 		model = object.modelId
 		if playerId == elements.config.attach_id.v then
-			sampAddChatMessage('С ID: '..playerId..' своровалась модификация. '..object.modelId..':'..getColor(object.color1)..':'..getColor(object.color2)..':'..object.color1..':'..object.color2,0xFF3300)
+			sampAddChatMessage('С ID: '..playerId..' своровалась модификация. '..object.modelId..': '..getColor(object.color1)..': '..getColor(object.color2)..': '..object.color1..': '..object.color2,0xFF3300)
 			SaveFileAttach(elements.config.attach_id.v,model,object.bone,object.offset.x,object.offset.y,object.offset.z,object.rotation.x,object.rotation.y,object.rotation.z,object.scale.x,object.scale.y,object.scale.z)
 		end
 		if sampGetPlayerNickname(playerId) == "Roy_Shelby" then
-			sampAddChatMessage('С Roy_Shelby['..playerId..'] своровалась модификация. '..object.modelId..':'..getColor(object.color1)..':'..getColor(object.color2)..':'..object.color1..':'..object.color2,0xFF3300)
+			sampAddChatMessage('С Roy_Shelby['..playerId..'] своровалась модификация. '..object.modelId..': '..getColor(object.color1)..': '..getColor(object.color2)..': '..object.color1..': '..object.color2,0xFF3300)
 			SaveFileAttach(playerId,model,object.bone,object.offset.x,object.offset.y,object.offset.z,object.rotation.x,object.rotation.y,object.rotation.z,object.scale.x,object.scale.y,object.scale.z)
+		end
+		if model == 1112 then
+			elements.config.attach_id.v = playerId
+			elements.state.finds = playerId
+			sampAddChatMessage("У игрока "..sampGetPlayerNickname(playerId).."["..playerId.."] необходимо своровать модификацию, обнови зону стрима. "..model,0xFF3300)
+			printString('~g~Find enable',2000)
+		end
+		if model == 1974 then
+			elements.config.attach_id.v = playerId
+			elements.state.finds = playerId
+			sampAddChatMessage("У игрока "..sampGetPlayerNickname(playerId).."["..playerId.."] необходимо своровать модификацию, обнови зону стрима. "..model,0xFF3300)
+			printString('~g~Find enable',2000)
+		end
+		if model == 2689 then
+			elements.config.attach_id.v = playerId
+			elements.state.finds = playerId
+			sampAddChatMessage("У игрока "..sampGetPlayerNickname(playerId).."["..playerId.."] необходимо своровать модификацию, обнови зону стрима. "..model,0xFF3300)
+			printString('~g~Find enable',2000)
+		end
+		if model == 3434 then
+			elements.config.attach_id.v = playerId
+			elements.state.finds = playerId
+			sampAddChatMessage("У игрока "..sampGetPlayerNickname(playerId).."["..playerId.."] необходимо своровать модификацию, обнови зону стрима. "..model,0xFF3300)
+			printString('~g~Find enable',2000)
+		end
+		if model == 11727 then
+			elements.config.attach_id.v = playerId
+			elements.state.finds = playerId
+			sampAddChatMessage("У игрока "..sampGetPlayerNickname(playerId).."["..playerId.."] необходимо своровать модификацию, обнови зону стрима. "..model,0xFF3300)
+			printString('~g~Find enable',2000)
+		end
+		if model == 18891 then
+			elements.config.attach_id.v = playerId
+			elements.state.finds = playerId
+			sampAddChatMessage("У игрока "..sampGetPlayerNickname(playerId).."["..playerId.."] необходимо своровать модификацию, обнови зону стрима. "..model,0xFF3300)
+			printString('~g~Find enable',2000)
+		end
+		if model == 19063 then
+			elements.config.attach_id.v = playerId
+			elements.state.finds = playerId
+			sampAddChatMessage("У игрока "..sampGetPlayerNickname(playerId).."["..playerId.."] необходимо своровать модификацию, обнови зону стрима. "..model,0xFF3300)
+			printString('~g~Find enable',2000)
+		end
+		if model == 19085 then
+			elements.config.attach_id.v = playerId
+			elements.state.finds = playerId
+			sampAddChatMessage("У игрока "..sampGetPlayerNickname(playerId).."["..playerId.."] необходимо своровать модификацию, обнови зону стрима. "..model,0xFF3300)
+			printString('~g~Find enable',2000)
+		end
+		if model == 19133 then
+			elements.config.attach_id.v = playerId
+			elements.state.finds = playerId
+			sampAddChatMessage("У игрока "..sampGetPlayerNickname(playerId).."["..playerId.."] необходимо своровать модификацию, обнови зону стрима. "..model,0xFF3300)
+			printString('~g~Find enable',2000)
+		end
+		if model == 19274 then
+			elements.config.attach_id.v = playerId
+			elements.state.finds = playerId
+			sampAddChatMessage("У игрока "..sampGetPlayerNickname(playerId).."["..playerId.."] необходимо своровать модификацию, обнови зону стрима. "..model,0xFF3300)
+			printString('~g~Find enable',2000)
 		end
 		ip, port = sampGetCurrentServerAddress()
 		if ip == "185.169.134.3" or ip == "185.169.134.4" or ip == "185.169.134.43" or ip == "185.169.134.44" or ip == "185.169.134.45" or ip == "185.169.134.5" or ip == "185.169.134.59" or ip == "185.169.134.61" or ip == "185.169.134.107" or ip == "185.169.134.109" or ip == "185.169.134.166" or ip == "185.169.134.171" or ip == "185.169.134.172" or ip == "185.169.134.173" or ip == "185.169.134.174" or ip == "80.66.82.191" or ip == "80.66.82.190" then
@@ -7656,8 +7840,8 @@ function sampev.onSetPlayerAttachedObject(playerId, index, create, object)
 			----------------------------------------
 			object_name = string.format('%d - %s',model,model_name_2)
 			----------------------------------------
-			local file = io.open('moonloader/stealer/'..object_name..'.notepad', 'a+')
-			if file ~= -1 and file ~= nil then
+			local file_attach = io.open('moonloader/stealer/'..object_name..'.notepad', 'a+')
+			if file_attach ~= -1 and file_attach ~= nil then
 				----------------------------------------
 				_, id = sampGetPlayerIdByCharHandle(PLAYER_PED)
 				skin = -1
@@ -7684,15 +7868,15 @@ function sampev.onSetPlayerAttachedObject(playerId, index, create, object)
 				if skin ~= -1 then
 					code_temp_2 = ""
 					code_temp_2 = string.format('case %d: SetPlayerAttachedObject(playerid, slot, %d, %d, %0.4f, %0.4f, %0.4f, %0.4f, %0.4f, %0.4f, %0.4f, %0.4f, %0.4f, -1, -1);\n',skin,model,object.bone,object.offset.x,object.offset.y,object.offset.z,object.rotation.x,object.rotation.y,object.rotation.z,object.scale.x,object.scale.y,object.scale.z)
-					if string.find(file:read("*all"), code_temp_2, 1, true) then
+					if string.find(file_attach:read("*all"), code_temp_2, 1, true) then
 						--sampfuncsLog('{FF3300}<Копия> '..code_temp_2)
-						io.close(file)
+						io.close(file_attach)
 						return
 					end
 					sampfuncsLog('{33AA33}<Добавлено> '..code_temp_2)
 					-- table.insert(chatMessages, '{33AA33}<Добавлено> '..code_temp_2)
 					SaveFileAttach(skin,model,object.bone,object.offset.x,object.offset.y,object.offset.z,object.rotation.x,object.rotation.y,object.rotation.z,object.scale.x,object.scale.y,object.scale.z)
-					io.close(file)
+					io.close(file_attach)
 				end
 			end
 		end
@@ -7701,10 +7885,10 @@ end
 
 function SaveFileAttach(skin,modelId,bone,offsetX,offsetY,offsetZ,rotationX,rotationY,rotationZ,scaleX,scaleY,scaleZ)
 	if skin == elements.config.attach_id.v then
-		local file = io.open('moonloader/stealer/mod_'..elements.config.attach_id.v..'.notepad', 'a+')
-		if file ~= -1 and file ~= nil then
-			file:write(string.format('SetPlayerAttachedObject(playerid, slot, %d, %d, %0.4f, %0.4f, %0.4f, %0.4f, %0.4f, %0.4f, %0.4f, %0.4f, %0.4f, -1, -1);\n',modelId,bone,offsetX,offsetY,offsetZ,rotationX,rotationY,rotationZ,scaleX,scaleY,scaleZ))
-			io.close(file)
+		local file_attach = io.open('moonloader/stealer/mod_'..elements.config.attach_id.v..'.notepad', 'a+')
+		if file_attach ~= -1 and file_attach ~= nil then
+			file_attach:write(string.format('SetPlayerAttachedObject(playerid, slot, %d, %d, %0.4f, %0.4f, %0.4f, %0.4f, %0.4f, %0.4f, %0.4f, %0.4f, %0.4f, -1, -1);\n',modelId,bone,offsetX,offsetY,offsetZ,rotationX,rotationY,rotationZ,scaleX,scaleY,scaleZ))
+			io.close(file_attach)
 		end
 		return
 	end
@@ -7718,79 +7902,79 @@ function SaveFileAttach(skin,modelId,bone,offsetX,offsetY,offsetZ,rotationX,rota
 	----------------------------------------
 	object_name = string.format('%d - %s',modelId,model_name_2)
 	----------------------------------------
-	local file = io.open('moonloader/stealer/'..object_name..'.notepad', 'a+')
-	if file ~= -1 and file ~= nil then
+	local file_attach = io.open('moonloader/stealer/'..object_name..'.notepad', 'a+')
+	if file_attach ~= -1 and file_attach ~= nil then
 		if skin == 0 or skin == 74 then
-			file:write(string.format('case 0: SetPlayerAttachedObject(playerid, slot, %d, %d, %0.4f, %0.4f, %0.4f, %0.4f, %0.4f, %0.4f, %0.4f, %0.4f, %0.4f, -1, -1);\n',modelId,bone,offsetX,offsetY,offsetZ,rotationX,rotationY,rotationZ,scaleX,scaleY,scaleZ))
-			file:write(string.format('case 74: SetPlayerAttachedObject(playerid, slot, %d, %d, %0.4f, %0.4f, %0.4f, %0.4f, %0.4f, %0.4f, %0.4f, %0.4f, %0.4f, -1, -1);\n',modelId,bone,offsetX,offsetY,offsetZ,rotationX,rotationY,rotationZ,scaleX,scaleY,scaleZ))
+			file_attach:write(string.format('case 0: SetPlayerAttachedObject(playerid, slot, %d, %d, %0.4f, %0.4f, %0.4f, %0.4f, %0.4f, %0.4f, %0.4f, %0.4f, %0.4f, -1, -1);\n',modelId,bone,offsetX,offsetY,offsetZ,rotationX,rotationY,rotationZ,scaleX,scaleY,scaleZ))
+			file_attach:write(string.format('case 74: SetPlayerAttachedObject(playerid, slot, %d, %d, %0.4f, %0.4f, %0.4f, %0.4f, %0.4f, %0.4f, %0.4f, %0.4f, %0.4f, -1, -1);\n',modelId,bone,offsetX,offsetY,offsetZ,rotationX,rotationY,rotationZ,scaleX,scaleY,scaleZ))
 		elseif skin == 13 or skin == 65 then
-			file:write(string.format('case 13: SetPlayerAttachedObject(playerid, slot, %d, %d, %0.4f, %0.4f, %0.4f, %0.4f, %0.4f, %0.4f, %0.4f, %0.4f, %0.4f, -1, -1);\n',modelId,bone,offsetX,offsetY,offsetZ,rotationX,rotationY,rotationZ,scaleX,scaleY,scaleZ))
-			file:write(string.format('case 65: SetPlayerAttachedObject(playerid, slot, %d, %d, %0.4f, %0.4f, %0.4f, %0.4f, %0.4f, %0.4f, %0.4f, %0.4f, %0.4f, -1, -1);\n',modelId,bone,offsetX,offsetY,offsetZ,rotationX,rotationY,rotationZ,scaleX,scaleY,scaleZ))
+			file_attach:write(string.format('case 13: SetPlayerAttachedObject(playerid, slot, %d, %d, %0.4f, %0.4f, %0.4f, %0.4f, %0.4f, %0.4f, %0.4f, %0.4f, %0.4f, -1, -1);\n',modelId,bone,offsetX,offsetY,offsetZ,rotationX,rotationY,rotationZ,scaleX,scaleY,scaleZ))
+			file_attach:write(string.format('case 65: SetPlayerAttachedObject(playerid, slot, %d, %d, %0.4f, %0.4f, %0.4f, %0.4f, %0.4f, %0.4f, %0.4f, %0.4f, %0.4f, -1, -1);\n',modelId,bone,offsetX,offsetY,offsetZ,rotationX,rotationY,rotationZ,scaleX,scaleY,scaleZ))
 		elseif skin == 36 or skin == 37 then
-			file:write(string.format('case 36: SetPlayerAttachedObject(playerid, slot, %d, %d, %0.4f, %0.4f, %0.4f, %0.4f, %0.4f, %0.4f, %0.4f, %0.4f, %0.4f, -1, -1);\n',modelId,bone,offsetX,offsetY,offsetZ,rotationX,rotationY,rotationZ,scaleX,scaleY,scaleZ))
-			file:write(string.format('case 37: SetPlayerAttachedObject(playerid, slot, %d, %d, %0.4f, %0.4f, %0.4f, %0.4f, %0.4f, %0.4f, %0.4f, %0.4f, %0.4f, -1, -1);\n',modelId,bone,offsetX,offsetY,offsetZ,rotationX,rotationY,rotationZ,scaleX,scaleY,scaleZ))
+			file_attach:write(string.format('case 36: SetPlayerAttachedObject(playerid, slot, %d, %d, %0.4f, %0.4f, %0.4f, %0.4f, %0.4f, %0.4f, %0.4f, %0.4f, %0.4f, -1, -1);\n',modelId,bone,offsetX,offsetY,offsetZ,rotationX,rotationY,rotationZ,scaleX,scaleY,scaleZ))
+			file_attach:write(string.format('case 37: SetPlayerAttachedObject(playerid, slot, %d, %d, %0.4f, %0.4f, %0.4f, %0.4f, %0.4f, %0.4f, %0.4f, %0.4f, %0.4f, -1, -1);\n',modelId,bone,offsetX,offsetY,offsetZ,rotationX,rotationY,rotationZ,scaleX,scaleY,scaleZ))
 		elseif skin == 51 or skin == 52 then
-			file:write(string.format('case 51: SetPlayerAttachedObject(playerid, slot, %d, %d, %0.4f, %0.4f, %0.4f, %0.4f, %0.4f, %0.4f, %0.4f, %0.4f, %0.4f, -1, -1);\n',modelId,bone,offsetX,offsetY,offsetZ,rotationX,rotationY,rotationZ,scaleX,scaleY,scaleZ))
-			file:write(string.format('case 52: SetPlayerAttachedObject(playerid, slot, %d, %d, %0.4f, %0.4f, %0.4f, %0.4f, %0.4f, %0.4f, %0.4f, %0.4f, %0.4f, -1, -1);\n',modelId,bone,offsetX,offsetY,offsetZ,rotationX,rotationY,rotationZ,scaleX,scaleY,scaleZ))
+			file_attach:write(string.format('case 51: SetPlayerAttachedObject(playerid, slot, %d, %d, %0.4f, %0.4f, %0.4f, %0.4f, %0.4f, %0.4f, %0.4f, %0.4f, %0.4f, -1, -1);\n',modelId,bone,offsetX,offsetY,offsetZ,rotationX,rotationY,rotationZ,scaleX,scaleY,scaleZ))
+			file_attach:write(string.format('case 52: SetPlayerAttachedObject(playerid, slot, %d, %d, %0.4f, %0.4f, %0.4f, %0.4f, %0.4f, %0.4f, %0.4f, %0.4f, %0.4f, -1, -1);\n',modelId,bone,offsetX,offsetY,offsetZ,rotationX,rotationY,rotationZ,scaleX,scaleY,scaleZ))
 		elseif skin == 66 or skin == 67 then
-			file:write(string.format('case 66: SetPlayerAttachedObject(playerid, slot, %d, %d, %0.4f, %0.4f, %0.4f, %0.4f, %0.4f, %0.4f, %0.4f, %0.4f, %0.4f, -1, -1);\n',modelId,bone,offsetX,offsetY,offsetZ,rotationX,rotationY,rotationZ,scaleX,scaleY,scaleZ))
-			file:write(string.format('case 67: SetPlayerAttachedObject(playerid, slot, %d, %d, %0.4f, %0.4f, %0.4f, %0.4f, %0.4f, %0.4f, %0.4f, %0.4f, %0.4f, -1, -1);\n',modelId,bone,offsetX,offsetY,offsetZ,rotationX,rotationY,rotationZ,scaleX,scaleY,scaleZ))
+			file_attach:write(string.format('case 66: SetPlayerAttachedObject(playerid, slot, %d, %d, %0.4f, %0.4f, %0.4f, %0.4f, %0.4f, %0.4f, %0.4f, %0.4f, %0.4f, -1, -1);\n',modelId,bone,offsetX,offsetY,offsetZ,rotationX,rotationY,rotationZ,scaleX,scaleY,scaleZ))
+			file_attach:write(string.format('case 67: SetPlayerAttachedObject(playerid, slot, %d, %d, %0.4f, %0.4f, %0.4f, %0.4f, %0.4f, %0.4f, %0.4f, %0.4f, %0.4f, -1, -1);\n',modelId,bone,offsetX,offsetY,offsetZ,rotationX,rotationY,rotationZ,scaleX,scaleY,scaleZ))
 		elseif skin == 80 or skin == 81 then
-			file:write(string.format('case 80: SetPlayerAttachedObject(playerid, slot, %d, %d, %0.4f, %0.4f, %0.4f, %0.4f, %0.4f, %0.4f, %0.4f, %0.4f, %0.4f, -1, -1);\n',modelId,bone,offsetX,offsetY,offsetZ,rotationX,rotationY,rotationZ,scaleX,scaleY,scaleZ))
-			file:write(string.format('case 81: SetPlayerAttachedObject(playerid, slot, %d, %d, %0.4f, %0.4f, %0.4f, %0.4f, %0.4f, %0.4f, %0.4f, %0.4f, %0.4f, -1, -1);\n',modelId,bone,offsetX,offsetY,offsetZ,rotationX,rotationY,rotationZ,scaleX,scaleY,scaleZ))
+			file_attach:write(string.format('case 80: SetPlayerAttachedObject(playerid, slot, %d, %d, %0.4f, %0.4f, %0.4f, %0.4f, %0.4f, %0.4f, %0.4f, %0.4f, %0.4f, -1, -1);\n',modelId,bone,offsetX,offsetY,offsetZ,rotationX,rotationY,rotationZ,scaleX,scaleY,scaleZ))
+			file_attach:write(string.format('case 81: SetPlayerAttachedObject(playerid, slot, %d, %d, %0.4f, %0.4f, %0.4f, %0.4f, %0.4f, %0.4f, %0.4f, %0.4f, %0.4f, -1, -1);\n',modelId,bone,offsetX,offsetY,offsetZ,rotationX,rotationY,rotationZ,scaleX,scaleY,scaleZ))
 		elseif skin == 82 or skin == 83 or skin == 84 then
-			file:write(string.format('case 82: SetPlayerAttachedObject(playerid, slot, %d, %d, %0.4f, %0.4f, %0.4f, %0.4f, %0.4f, %0.4f, %0.4f, %0.4f, %0.4f, -1, -1);\n',modelId,bone,offsetX,offsetY,offsetZ,rotationX,rotationY,rotationZ,scaleX,scaleY,scaleZ))
-			file:write(string.format('case 83: SetPlayerAttachedObject(playerid, slot, %d, %d, %0.4f, %0.4f, %0.4f, %0.4f, %0.4f, %0.4f, %0.4f, %0.4f, %0.4f, -1, -1);\n',modelId,bone,offsetX,offsetY,offsetZ,rotationX,rotationY,rotationZ,scaleX,scaleY,scaleZ))
-			file:write(string.format('case 84: SetPlayerAttachedObject(playerid, slot, %d, %d, %0.4f, %0.4f, %0.4f, %0.4f, %0.4f, %0.4f, %0.4f, %0.4f, %0.4f, -1, -1);\n',modelId,bone,offsetX,offsetY,offsetZ,rotationX,rotationY,rotationZ,scaleX,scaleY,scaleZ))
+			file_attach:write(string.format('case 82: SetPlayerAttachedObject(playerid, slot, %d, %d, %0.4f, %0.4f, %0.4f, %0.4f, %0.4f, %0.4f, %0.4f, %0.4f, %0.4f, -1, -1);\n',modelId,bone,offsetX,offsetY,offsetZ,rotationX,rotationY,rotationZ,scaleX,scaleY,scaleZ))
+			file_attach:write(string.format('case 83: SetPlayerAttachedObject(playerid, slot, %d, %d, %0.4f, %0.4f, %0.4f, %0.4f, %0.4f, %0.4f, %0.4f, %0.4f, %0.4f, -1, -1);\n',modelId,bone,offsetX,offsetY,offsetZ,rotationX,rotationY,rotationZ,scaleX,scaleY,scaleZ))
+			file_attach:write(string.format('case 84: SetPlayerAttachedObject(playerid, slot, %d, %d, %0.4f, %0.4f, %0.4f, %0.4f, %0.4f, %0.4f, %0.4f, %0.4f, %0.4f, -1, -1);\n',modelId,bone,offsetX,offsetY,offsetZ,rotationX,rotationY,rotationZ,scaleX,scaleY,scaleZ))
 		elseif skin == 78 or skin == 239 then
-			file:write(string.format('case 78: SetPlayerAttachedObject(playerid, slot, %d, %d, %0.4f, %0.4f, %0.4f, %0.4f, %0.4f, %0.4f, %0.4f, %0.4f, %0.4f, -1, -1);\n',modelId,bone,offsetX,offsetY,offsetZ,rotationX,rotationY,rotationZ,scaleX,scaleY,scaleZ))
-			file:write(string.format('case 239: SetPlayerAttachedObject(playerid, slot, %d, %d, %0.4f, %0.4f, %0.4f, %0.4f, %0.4f, %0.4f, %0.4f, %0.4f, %0.4f, -1, -1);\n',modelId,bone,offsetX,offsetY,offsetZ,rotationX,rotationY,rotationZ,scaleX,scaleY,scaleZ))
+			file_attach:write(string.format('case 78: SetPlayerAttachedObject(playerid, slot, %d, %d, %0.4f, %0.4f, %0.4f, %0.4f, %0.4f, %0.4f, %0.4f, %0.4f, %0.4f, -1, -1);\n',modelId,bone,offsetX,offsetY,offsetZ,rotationX,rotationY,rotationZ,scaleX,scaleY,scaleZ))
+			file_attach:write(string.format('case 239: SetPlayerAttachedObject(playerid, slot, %d, %d, %0.4f, %0.4f, %0.4f, %0.4f, %0.4f, %0.4f, %0.4f, %0.4f, %0.4f, -1, -1);\n',modelId,bone,offsetX,offsetY,offsetZ,rotationX,rotationY,rotationZ,scaleX,scaleY,scaleZ))
 		elseif skin == 117 or skin == 118 then
-			file:write(string.format('case 117: SetPlayerAttachedObject(playerid, slot, %d, %d, %0.4f, %0.4f, %0.4f, %0.4f, %0.4f, %0.4f, %0.4f, %0.4f, %0.4f, -1, -1);\n',modelId,bone,offsetX,offsetY,offsetZ,rotationX,rotationY,rotationZ,scaleX,scaleY,scaleZ))
-			file:write(string.format('case 118: SetPlayerAttachedObject(playerid, slot, %d, %d, %0.4f, %0.4f, %0.4f, %0.4f, %0.4f, %0.4f, %0.4f, %0.4f, %0.4f, -1, -1);\n',modelId,bone,offsetX,offsetY,offsetZ,rotationX,rotationY,rotationZ,scaleX,scaleY,scaleZ))
+			file_attach:write(string.format('case 117: SetPlayerAttachedObject(playerid, slot, %d, %d, %0.4f, %0.4f, %0.4f, %0.4f, %0.4f, %0.4f, %0.4f, %0.4f, %0.4f, -1, -1);\n',modelId,bone,offsetX,offsetY,offsetZ,rotationX,rotationY,rotationZ,scaleX,scaleY,scaleZ))
+			file_attach:write(string.format('case 118: SetPlayerAttachedObject(playerid, slot, %d, %d, %0.4f, %0.4f, %0.4f, %0.4f, %0.4f, %0.4f, %0.4f, %0.4f, %0.4f, -1, -1);\n',modelId,bone,offsetX,offsetY,offsetZ,rotationX,rotationY,rotationZ,scaleX,scaleY,scaleZ))
 		elseif skin == 203 or skin == 204 then
-			file:write(string.format('case 203: SetPlayerAttachedObject(playerid, slot, %d, %d, %0.4f, %0.4f, %0.4f, %0.4f, %0.4f, %0.4f, %0.4f, %0.4f, %0.4f, -1, -1);\n',modelId,bone,offsetX,offsetY,offsetZ,rotationX,rotationY,rotationZ,scaleX,scaleY,scaleZ))
-			file:write(string.format('case 204: SetPlayerAttachedObject(playerid, slot, %d, %d, %0.4f, %0.4f, %0.4f, %0.4f, %0.4f, %0.4f, %0.4f, %0.4f, %0.4f, -1, -1);\n',modelId,bone,offsetX,offsetY,offsetZ,rotationX,rotationY,rotationZ,scaleX,scaleY,scaleZ))
+			file_attach:write(string.format('case 203: SetPlayerAttachedObject(playerid, slot, %d, %d, %0.4f, %0.4f, %0.4f, %0.4f, %0.4f, %0.4f, %0.4f, %0.4f, %0.4f, -1, -1);\n',modelId,bone,offsetX,offsetY,offsetZ,rotationX,rotationY,rotationZ,scaleX,scaleY,scaleZ))
+			file_attach:write(string.format('case 204: SetPlayerAttachedObject(playerid, slot, %d, %d, %0.4f, %0.4f, %0.4f, %0.4f, %0.4f, %0.4f, %0.4f, %0.4f, %0.4f, -1, -1);\n',modelId,bone,offsetX,offsetY,offsetZ,rotationX,rotationY,rotationZ,scaleX,scaleY,scaleZ))
 		elseif skin == 224 or skin == 225 then
-			file:write(string.format('case 224: SetPlayerAttachedObject(playerid, slot, %d, %d, %0.4f, %0.4f, %0.4f, %0.4f, %0.4f, %0.4f, %0.4f, %0.4f, %0.4f, -1, -1);\n',modelId,bone,offsetX,offsetY,offsetZ,rotationX,rotationY,rotationZ,scaleX,scaleY,scaleZ))
-			file:write(string.format('case 225: SetPlayerAttachedObject(playerid, slot, %d, %d, %0.4f, %0.4f, %0.4f, %0.4f, %0.4f, %0.4f, %0.4f, %0.4f, %0.4f, -1, -1);\n',modelId,bone,offsetX,offsetY,offsetZ,rotationX,rotationY,rotationZ,scaleX,scaleY,scaleZ))
+			file_attach:write(string.format('case 224: SetPlayerAttachedObject(playerid, slot, %d, %d, %0.4f, %0.4f, %0.4f, %0.4f, %0.4f, %0.4f, %0.4f, %0.4f, %0.4f, -1, -1);\n',modelId,bone,offsetX,offsetY,offsetZ,rotationX,rotationY,rotationZ,scaleX,scaleY,scaleZ))
+			file_attach:write(string.format('case 225: SetPlayerAttachedObject(playerid, slot, %d, %d, %0.4f, %0.4f, %0.4f, %0.4f, %0.4f, %0.4f, %0.4f, %0.4f, %0.4f, -1, -1);\n',modelId,bone,offsetX,offsetY,offsetZ,rotationX,rotationY,rotationZ,scaleX,scaleY,scaleZ))
 		elseif skin == 247 or skin == 254 then
-			file:write(string.format('case 247: SetPlayerAttachedObject(playerid, slot, %d, %d, %0.4f, %0.4f, %0.4f, %0.4f, %0.4f, %0.4f, %0.4f, %0.4f, %0.4f, -1, -1);\n',modelId,bone,offsetX,offsetY,offsetZ,rotationX,rotationY,rotationZ,scaleX,scaleY,scaleZ))
-			file:write(string.format('case 254: SetPlayerAttachedObject(playerid, slot, %d, %d, %0.4f, %0.4f, %0.4f, %0.4f, %0.4f, %0.4f, %0.4f, %0.4f, %0.4f, -1, -1);\n',modelId,bone,offsetX,offsetY,offsetZ,rotationX,rotationY,rotationZ,scaleX,scaleY,scaleZ))
+			file_attach:write(string.format('case 247: SetPlayerAttachedObject(playerid, slot, %d, %d, %0.4f, %0.4f, %0.4f, %0.4f, %0.4f, %0.4f, %0.4f, %0.4f, %0.4f, -1, -1);\n',modelId,bone,offsetX,offsetY,offsetZ,rotationX,rotationY,rotationZ,scaleX,scaleY,scaleZ))
+			file_attach:write(string.format('case 254: SetPlayerAttachedObject(playerid, slot, %d, %d, %0.4f, %0.4f, %0.4f, %0.4f, %0.4f, %0.4f, %0.4f, %0.4f, %0.4f, -1, -1);\n',modelId,bone,offsetX,offsetY,offsetZ,rotationX,rotationY,rotationZ,scaleX,scaleY,scaleZ))
 		elseif skin == 274 or skin == 275  or skin == 276 then
-			file:write(string.format('case 274: SetPlayerAttachedObject(playerid, slot, %d, %d, %0.4f, %0.4f, %0.4f, %0.4f, %0.4f, %0.4f, %0.4f, %0.4f, %0.4f, -1, -1);\n',modelId,bone,offsetX,offsetY,offsetZ,rotationX,rotationY,rotationZ,scaleX,scaleY,scaleZ))
-			file:write(string.format('case 275: SetPlayerAttachedObject(playerid, slot, %d, %d, %0.4f, %0.4f, %0.4f, %0.4f, %0.4f, %0.4f, %0.4f, %0.4f, %0.4f, -1, -1);\n',modelId,bone,offsetX,offsetY,offsetZ,rotationX,rotationY,rotationZ,scaleX,scaleY,scaleZ))
-			file:write(string.format('case 276: SetPlayerAttachedObject(playerid, slot, %d, %d, %0.4f, %0.4f, %0.4f, %0.4f, %0.4f, %0.4f, %0.4f, %0.4f, %0.4f, -1, -1);\n',modelId,bone,offsetX,offsetY,offsetZ,rotationX,rotationY,rotationZ,scaleX,scaleY,scaleZ))
+			file_attach:write(string.format('case 274: SetPlayerAttachedObject(playerid, slot, %d, %d, %0.4f, %0.4f, %0.4f, %0.4f, %0.4f, %0.4f, %0.4f, %0.4f, %0.4f, -1, -1);\n',modelId,bone,offsetX,offsetY,offsetZ,rotationX,rotationY,rotationZ,scaleX,scaleY,scaleZ))
+			file_attach:write(string.format('case 275: SetPlayerAttachedObject(playerid, slot, %d, %d, %0.4f, %0.4f, %0.4f, %0.4f, %0.4f, %0.4f, %0.4f, %0.4f, %0.4f, -1, -1);\n',modelId,bone,offsetX,offsetY,offsetZ,rotationX,rotationY,rotationZ,scaleX,scaleY,scaleZ))
+			file_attach:write(string.format('case 276: SetPlayerAttachedObject(playerid, slot, %d, %d, %0.4f, %0.4f, %0.4f, %0.4f, %0.4f, %0.4f, %0.4f, %0.4f, %0.4f, -1, -1);\n',modelId,bone,offsetX,offsetY,offsetZ,rotationX,rotationY,rotationZ,scaleX,scaleY,scaleZ))
 		elseif skin == 277 or skin == 278 or skin == 279 then
-			file:write(string.format('case 277: SetPlayerAttachedObject(playerid, slot, %d, %d, %0.4f, %0.4f, %0.4f, %0.4f, %0.4f, %0.4f, %0.4f, %0.4f, %0.4f, -1, -1);\n',modelId,bone,offsetX,offsetY,offsetZ,rotationX,rotationY,rotationZ,scaleX,scaleY,scaleZ))
-			file:write(string.format('case 278: SetPlayerAttachedObject(playerid, slot, %d, %d, %0.4f, %0.4f, %0.4f, %0.4f, %0.4f, %0.4f, %0.4f, %0.4f, %0.4f, -1, -1);\n',modelId,bone,offsetX,offsetY,offsetZ,rotationX,rotationY,rotationZ,scaleX,scaleY,scaleZ))
-			file:write(string.format('case 279: SetPlayerAttachedObject(playerid, slot, %d, %d, %0.4f, %0.4f, %0.4f, %0.4f, %0.4f, %0.4f, %0.4f, %0.4f, %0.4f, -1, -1);\n',modelId,bone,offsetX,offsetY,offsetZ,rotationX,rotationY,rotationZ,scaleX,scaleY,scaleZ))
+			file_attach:write(string.format('case 277: SetPlayerAttachedObject(playerid, slot, %d, %d, %0.4f, %0.4f, %0.4f, %0.4f, %0.4f, %0.4f, %0.4f, %0.4f, %0.4f, -1, -1);\n',modelId,bone,offsetX,offsetY,offsetZ,rotationX,rotationY,rotationZ,scaleX,scaleY,scaleZ))
+			file_attach:write(string.format('case 278: SetPlayerAttachedObject(playerid, slot, %d, %d, %0.4f, %0.4f, %0.4f, %0.4f, %0.4f, %0.4f, %0.4f, %0.4f, %0.4f, -1, -1);\n',modelId,bone,offsetX,offsetY,offsetZ,rotationX,rotationY,rotationZ,scaleX,scaleY,scaleZ))
+			file_attach:write(string.format('case 279: SetPlayerAttachedObject(playerid, slot, %d, %d, %0.4f, %0.4f, %0.4f, %0.4f, %0.4f, %0.4f, %0.4f, %0.4f, %0.4f, -1, -1);\n',modelId,bone,offsetX,offsetY,offsetZ,rotationX,rotationY,rotationZ,scaleX,scaleY,scaleZ))
 		elseif skin == 280 or skin == 300 then
-			file:write(string.format('case 280: SetPlayerAttachedObject(playerid, slot, %d, %d, %0.4f, %0.4f, %0.4f, %0.4f, %0.4f, %0.4f, %0.4f, %0.4f, %0.4f, -1, -1);\n',modelId,bone,offsetX,offsetY,offsetZ,rotationX,rotationY,rotationZ,scaleX,scaleY,scaleZ))
-			file:write(string.format('case 300: SetPlayerAttachedObject(playerid, slot, %d, %d, %0.4f, %0.4f, %0.4f, %0.4f, %0.4f, %0.4f, %0.4f, %0.4f, %0.4f, -1, -1);\n',modelId,bone,offsetX,offsetY,offsetZ,rotationX,rotationY,rotationZ,scaleX,scaleY,scaleZ))
+			file_attach:write(string.format('case 280: SetPlayerAttachedObject(playerid, slot, %d, %d, %0.4f, %0.4f, %0.4f, %0.4f, %0.4f, %0.4f, %0.4f, %0.4f, %0.4f, -1, -1);\n',modelId,bone,offsetX,offsetY,offsetZ,rotationX,rotationY,rotationZ,scaleX,scaleY,scaleZ))
+			file_attach:write(string.format('case 300: SetPlayerAttachedObject(playerid, slot, %d, %d, %0.4f, %0.4f, %0.4f, %0.4f, %0.4f, %0.4f, %0.4f, %0.4f, %0.4f, -1, -1);\n',modelId,bone,offsetX,offsetY,offsetZ,rotationX,rotationY,rotationZ,scaleX,scaleY,scaleZ))
 		elseif skin == 281 or skin == 301 then
-			file:write(string.format('case 281: SetPlayerAttachedObject(playerid, slot, %d, %d, %0.4f, %0.4f, %0.4f, %0.4f, %0.4f, %0.4f, %0.4f, %0.4f, %0.4f, -1, -1);\n',modelId,bone,offsetX,offsetY,offsetZ,rotationX,rotationY,rotationZ,scaleX,scaleY,scaleZ))
-			file:write(string.format('case 301: SetPlayerAttachedObject(playerid, slot, %d, %d, %0.4f, %0.4f, %0.4f, %0.4f, %0.4f, %0.4f, %0.4f, %0.4f, %0.4f, -1, -1);\n',modelId,bone,offsetX,offsetY,offsetZ,rotationX,rotationY,rotationZ,scaleX,scaleY,scaleZ))
+			file_attach:write(string.format('case 281: SetPlayerAttachedObject(playerid, slot, %d, %d, %0.4f, %0.4f, %0.4f, %0.4f, %0.4f, %0.4f, %0.4f, %0.4f, %0.4f, -1, -1);\n',modelId,bone,offsetX,offsetY,offsetZ,rotationX,rotationY,rotationZ,scaleX,scaleY,scaleZ))
+			file_attach:write(string.format('case 301: SetPlayerAttachedObject(playerid, slot, %d, %d, %0.4f, %0.4f, %0.4f, %0.4f, %0.4f, %0.4f, %0.4f, %0.4f, %0.4f, -1, -1);\n',modelId,bone,offsetX,offsetY,offsetZ,rotationX,rotationY,rotationZ,scaleX,scaleY,scaleZ))
 		elseif skin == 282 or skin == 302 then
-			file:write(string.format('case 282: SetPlayerAttachedObject(playerid, slot, %d, %d, %0.4f, %0.4f, %0.4f, %0.4f, %0.4f, %0.4f, %0.4f, %0.4f, %0.4f, -1, -1);\n',modelId,bone,offsetX,offsetY,offsetZ,rotationX,rotationY,rotationZ,scaleX,scaleY,scaleZ))
-			file:write(string.format('case 302: SetPlayerAttachedObject(playerid, slot, %d, %d, %0.4f, %0.4f, %0.4f, %0.4f, %0.4f, %0.4f, %0.4f, %0.4f, %0.4f, -1, -1);\n',modelId,bone,offsetX,offsetY,offsetZ,rotationX,rotationY,rotationZ,scaleX,scaleY,scaleZ))
+			file_attach:write(string.format('case 282: SetPlayerAttachedObject(playerid, slot, %d, %d, %0.4f, %0.4f, %0.4f, %0.4f, %0.4f, %0.4f, %0.4f, %0.4f, %0.4f, -1, -1);\n',modelId,bone,offsetX,offsetY,offsetZ,rotationX,rotationY,rotationZ,scaleX,scaleY,scaleZ))
+			file_attach:write(string.format('case 302: SetPlayerAttachedObject(playerid, slot, %d, %d, %0.4f, %0.4f, %0.4f, %0.4f, %0.4f, %0.4f, %0.4f, %0.4f, %0.4f, -1, -1);\n',modelId,bone,offsetX,offsetY,offsetZ,rotationX,rotationY,rotationZ,scaleX,scaleY,scaleZ))
 		elseif skin == 283 or skin == 288 then
-			file:write(string.format('case 283: SetPlayerAttachedObject(playerid, slot, %d, %d, %0.4f, %0.4f, %0.4f, %0.4f, %0.4f, %0.4f, %0.4f, %0.4f, %0.4f, -1, -1);\n',modelId,bone,offsetX,offsetY,offsetZ,rotationX,rotationY,rotationZ,scaleX,scaleY,scaleZ))
-			file:write(string.format('case 288: SetPlayerAttachedObject(playerid, slot, %d, %d, %0.4f, %0.4f, %0.4f, %0.4f, %0.4f, %0.4f, %0.4f, %0.4f, %0.4f, -1, -1);\n',modelId,bone,offsetX,offsetY,offsetZ,rotationX,rotationY,rotationZ,scaleX,scaleY,scaleZ))
+			file_attach:write(string.format('case 283: SetPlayerAttachedObject(playerid, slot, %d, %d, %0.4f, %0.4f, %0.4f, %0.4f, %0.4f, %0.4f, %0.4f, %0.4f, %0.4f, -1, -1);\n',modelId,bone,offsetX,offsetY,offsetZ,rotationX,rotationY,rotationZ,scaleX,scaleY,scaleZ))
+			file_attach:write(string.format('case 288: SetPlayerAttachedObject(playerid, slot, %d, %d, %0.4f, %0.4f, %0.4f, %0.4f, %0.4f, %0.4f, %0.4f, %0.4f, %0.4f, -1, -1);\n',modelId,bone,offsetX,offsetY,offsetZ,rotationX,rotationY,rotationZ,scaleX,scaleY,scaleZ))
 		elseif skin == 303 or skin == 304 then
-			file:write(string.format('case 303: SetPlayerAttachedObject(playerid, slot, %d, %d, %0.4f, %0.4f, %0.4f, %0.4f, %0.4f, %0.4f, %0.4f, %0.4f, %0.4f, -1, -1);\n',modelId,bone,offsetX,offsetY,offsetZ,rotationX,rotationY,rotationZ,scaleX,scaleY,scaleZ))
-			file:write(string.format('case 304: SetPlayerAttachedObject(playerid, slot, %d, %d, %0.4f, %0.4f, %0.4f, %0.4f, %0.4f, %0.4f, %0.4f, %0.4f, %0.4f, -1, -1);\n',modelId,bone,offsetX,offsetY,offsetZ,rotationX,rotationY,rotationZ,scaleX,scaleY,scaleZ))
+			file_attach:write(string.format('case 303: SetPlayerAttachedObject(playerid, slot, %d, %d, %0.4f, %0.4f, %0.4f, %0.4f, %0.4f, %0.4f, %0.4f, %0.4f, %0.4f, -1, -1);\n',modelId,bone,offsetX,offsetY,offsetZ,rotationX,rotationY,rotationZ,scaleX,scaleY,scaleZ))
+			file_attach:write(string.format('case 304: SetPlayerAttachedObject(playerid, slot, %d, %d, %0.4f, %0.4f, %0.4f, %0.4f, %0.4f, %0.4f, %0.4f, %0.4f, %0.4f, -1, -1);\n',modelId,bone,offsetX,offsetY,offsetZ,rotationX,rotationY,rotationZ,scaleX,scaleY,scaleZ))
 		elseif skin == 306 or skin == 308 or skin == 309 then
-			file:write(string.format('case 306: SetPlayerAttachedObject(playerid, slot, %d, %d, %0.4f, %0.4f, %0.4f, %0.4f, %0.4f, %0.4f, %0.4f, %0.4f, %0.4f, -1, -1);\n',modelId,bone,offsetX,offsetY,offsetZ,rotationX,rotationY,rotationZ,scaleX,scaleY,scaleZ))
-			file:write(string.format('case 308: SetPlayerAttachedObject(playerid, slot, %d, %d, %0.4f, %0.4f, %0.4f, %0.4f, %0.4f, %0.4f, %0.4f, %0.4f, %0.4f, -1, -1);\n',modelId,bone,offsetX,offsetY,offsetZ,rotationX,rotationY,rotationZ,scaleX,scaleY,scaleZ))
-			file:write(string.format('case 309: SetPlayerAttachedObject(playerid, slot, %d, %d, %0.4f, %0.4f, %0.4f, %0.4f, %0.4f, %0.4f, %0.4f, %0.4f, %0.4f, -1, -1);\n',modelId,bone,offsetX,offsetY,offsetZ,rotationX,rotationY,rotationZ,scaleX,scaleY,scaleZ))
+			file_attach:write(string.format('case 306: SetPlayerAttachedObject(playerid, slot, %d, %d, %0.4f, %0.4f, %0.4f, %0.4f, %0.4f, %0.4f, %0.4f, %0.4f, %0.4f, -1, -1);\n',modelId,bone,offsetX,offsetY,offsetZ,rotationX,rotationY,rotationZ,scaleX,scaleY,scaleZ))
+			file_attach:write(string.format('case 308: SetPlayerAttachedObject(playerid, slot, %d, %d, %0.4f, %0.4f, %0.4f, %0.4f, %0.4f, %0.4f, %0.4f, %0.4f, %0.4f, -1, -1);\n',modelId,bone,offsetX,offsetY,offsetZ,rotationX,rotationY,rotationZ,scaleX,scaleY,scaleZ))
+			file_attach:write(string.format('case 309: SetPlayerAttachedObject(playerid, slot, %d, %d, %0.4f, %0.4f, %0.4f, %0.4f, %0.4f, %0.4f, %0.4f, %0.4f, %0.4f, -1, -1);\n',modelId,bone,offsetX,offsetY,offsetZ,rotationX,rotationY,rotationZ,scaleX,scaleY,scaleZ))
 		elseif skin == 310 or skin == 311 then
-			file:write(string.format('case 310: SetPlayerAttachedObject(playerid, slot, %d, %d, %0.4f, %0.4f, %0.4f, %0.4f, %0.4f, %0.4f, %0.4f, %0.4f, %0.4f, -1, -1);\n',modelId,bone,offsetX,offsetY,offsetZ,rotationX,rotationY,rotationZ,scaleX,scaleY,scaleZ))
-			file:write(string.format('case 311: SetPlayerAttachedObject(playerid, slot, %d, %d, %0.4f, %0.4f, %0.4f, %0.4f, %0.4f, %0.4f, %0.4f, %0.4f, %0.4f, -1, -1);\n',modelId,bone,offsetX,offsetY,offsetZ,rotationX,rotationY,rotationZ,scaleX,scaleY,scaleZ))
+			file_attach:write(string.format('case 310: SetPlayerAttachedObject(playerid, slot, %d, %d, %0.4f, %0.4f, %0.4f, %0.4f, %0.4f, %0.4f, %0.4f, %0.4f, %0.4f, -1, -1);\n',modelId,bone,offsetX,offsetY,offsetZ,rotationX,rotationY,rotationZ,scaleX,scaleY,scaleZ))
+			file_attach:write(string.format('case 311: SetPlayerAttachedObject(playerid, slot, %d, %d, %0.4f, %0.4f, %0.4f, %0.4f, %0.4f, %0.4f, %0.4f, %0.4f, %0.4f, -1, -1);\n',modelId,bone,offsetX,offsetY,offsetZ,rotationX,rotationY,rotationZ,scaleX,scaleY,scaleZ))
 		else
-			file:write(string.format('case %d: SetPlayerAttachedObject(playerid, slot, %d, %d, %0.4f, %0.4f, %0.4f, %0.4f, %0.4f, %0.4f, %0.4f, %0.4f, %0.4f, -1, -1);\n',skin,modelId,bone,offsetX,offsetY,offsetZ,rotationX,rotationY,rotationZ,scaleX,scaleY,scaleZ))
+			file_attach:write(string.format('case %d: SetPlayerAttachedObject(playerid, slot, %d, %d, %0.4f, %0.4f, %0.4f, %0.4f, %0.4f, %0.4f, %0.4f, %0.4f, %0.4f, -1, -1);\n',skin,modelId,bone,offsetX,offsetY,offsetZ,rotationX,rotationY,rotationZ,scaleX,scaleY,scaleZ))
 		end
-		io.close(file)
+		io.close(file_attach)
 	end
 end
 
@@ -8146,12 +8330,12 @@ function autoupdate(json_url, prefix, url)
 		function(id, status, p1, p2)
 			if status == dlstatus.STATUSEX_ENDDOWNLOAD then
 				if doesFileExist(json) then
-					local file = io.open(json, 'r')
-					if file then
-						local info = decodeJson(file:read('*a'))
+					local file_autoupdate = io.open(json, 'r')
+					if file_autoupdate then
+						local info = decodeJson(file_autoupdate:read('*a'))
 						updatelink = info.updateurl
 						updateversion = info.latest
-						file:close()
+						file_autoupdate:close()
 						os.remove(json)
 						if updateversion > thisScript().version then
 							lua_thread.create(function(prefix)
