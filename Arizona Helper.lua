@@ -5,7 +5,7 @@
 script_name("{0d00ff}Ar{2900ff}iz{3900ff}on{4500ff}a H{4f00ff}el{5800ff}pe{6000ff}r")
 local script_names = "Arizona Helper"
 
-script_version('4.86')
+script_version('4.861')
 script_author("metk1u")
 
 local model_name =
