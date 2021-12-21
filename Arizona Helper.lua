@@ -1,19 +1,16 @@
 -- script_name("{330000}Ar{430006}iz{53000b}on{64000d}a H{75000e}el{86000d}pe{97000a}r")
 -- bool result = setClipboardText(string text) - Записывает текст в буфер обмена Windows.
--- RPC
 
 script_name("{0d00ff}Ar{2900ff}iz{3900ff}on{4500ff}a H{4f00ff}el{5800ff}pe{6000ff}r")
 local script_names = "Arizona Helper"
 
-script_version('4.861')
+script_version('4.862')
 script_author("metk1u")
 
 local model_name =
 {
 	[323] = "Дилдо на спину #3",
-	[363] = "Портфель террориста",
 	[371] = "Рюкзак (парашют)",
-	[1276] = "Сувенир на спину",
 	[1487] = "Бутылка на спину",
 	[2045] = "Бита с гвоздями",
 	[2061] = "Патрон на грудь",
@@ -31,7 +28,6 @@ local model_name =
 	[3026] = "Рюкзак",
 	[3056] = "Магнит на спину & Инопланетная пушка",
 	[3273] = "Ранец охотники на приведений",
-	[11704] = "Маска демона",
 	[16368] = "Красная шляпа",
 	[18632] = "Рыболовная удочка на спину",
 	[18633] = "Балонный ключ на спину",
@@ -55,7 +51,6 @@ local model_name =
 	[18964] = "Бандитская шапка",
 	[18967] = "Панамка",
 	[18970] = "Шляпа",
-	[19006] = "Очки",
 	[19036] = "Хоккейная маска",
 	[19039] = "Часы",
 	[19054] = "Подарок на спину",
@@ -76,7 +71,6 @@ local model_name =
 	[19314] = "Рога",
 	[19317] = "Гитара",
 	[19346] = "Хот-дог на голову",
-	[19347] = "Звезда на грудь",
 	[19349] = "Монокль",
 	[19350] = "Усы (короткие)",
 	[19351] = "Усы (длинные)",
@@ -111,6 +105,8 @@ local model_name_anti_stealer =
 {
 	-- [19632] = "Горящий щит",
 	[0] = "None",
+	[3385] = "Рюкзак будущего",
+	[10145] = "Шляпа из будущего",
 	[321] = "Дилдо на спину #1",
 	[322] = "Дилдо на спину #2",
 	[324] = "Рюкзак мотор",
@@ -124,6 +120,7 @@ local model_name_anti_stealer =
 	[341] = "Бензопила на спину",
 	[361] = "Огнемёт на спину",
 	[362] = "Миниган на спину",
+	[363] = "Портфель террориста",
 	[364] = "Пульт от бомбы",
 	[368] = "Прибор ночного видения",
 	[635] = "Плащ с модификации Смерть",
@@ -143,15 +140,13 @@ local model_name_anti_stealer =
 	[1019] = "Очки с модификации Бешенный доктор",
 	[1108] = "Кусок косы с модификации Смерть",
 	[1111] = "С модификации Спарта",
-	[1112] = "Погоны с модификации",
+	[1112] = "НЕИЗВЕСТНО",
 	[1114] = "Очки сварщика",
 	[1116] = "Маска решетка",
 	[1128] = "Маска для сварки",
 	[1133] = "Меч с модификации Djey",
 	[1177] = "Реактивный ранец (1)",
-	[5387] = "INVALID_OBJECT_ID",
-	[3014] = "INVALID_OBJECT_ID",
-	[5696] = "INVALID_OBJECT_ID",
+	[1186] = "Рюкзак трансформер",
 	[1208] = "INVALID_OBJECT_ID",
 	[1212] = "Пачка денег на спину",
 	[1220] = "Коробка в руку",
@@ -169,6 +164,7 @@ local model_name_anti_stealer =
 	[1273] = "Значок зелёного домика",
 	[1274] = "Доллар на грудь",
 	[1275] = "Рубашка на грудь",
+	[1276] = "Сувенир на спину",
 	[1277] = "Синий кейс",
 	[1279] = "INVALID_OBJECT_ID",
 	[1314] = "НЕИЗВЕСТНО",
@@ -201,6 +197,7 @@ local model_name_anti_stealer =
 	[1654] = "Красный будильник",
 	[1681] = "Самолёт за спиной (Шамал)",
 	[1736] = "Голова оленя & Рюкзак олень",
+	[1841] = "INVALID_OBJECT_ID",
 	[1851] = "Кубик в руку",
 	[1877] = "Меч красный",
 	[1878] = "Меч ораньжевый",
@@ -272,6 +269,7 @@ local model_name_anti_stealer =
 	[2988] = "Сундук за спиной",
 	[2992] = "Нимб с какой-то модификации",
 	[3013] = "Ящик за спиной",
+	[3014] = "INVALID_OBJECT_ID",
 	[3016] = "Ядерный рюкзак",
 	[3027] = "Косяк",
 	[3031] = "Ранец вертолёт",
@@ -294,25 +292,32 @@ local model_name_anti_stealer =
 	[3785] = "Светящийся рюкзак",
 	[3801] = "Длинный топор",
 	[3932] = "С модификации PUBG",
+	[5381] = "INVALID_OBJECT_ID",
 	[5382] = "INVALID_OBJECT_ID",
 	[5383] = "INVALID_OBJECT_ID",
 	[5384] = "INVALID_OBJECT_ID",
 	[5385] = "INVALID_OBJECT_ID",
 	[5386] = "INVALID_OBJECT_ID",
+	[5387] = "INVALID_OBJECT_ID",
 	[5388] = "INVALID_OBJECT_ID",
 	[5389] = "INVALID_OBJECT_ID",
 	[5683] = "INVALID_OBJECT_ID",
 	[5684] = "INVALID_OBJECT_ID",
 	[5685] = "INVALID_OBJECT_ID",
 	[5686] = "INVALID_OBJECT_ID",
+	[5688] = "INVALID_OBJECT_ID",
 	[5689] = "INVALID_OBJECT_ID",
 	[5690] = "INVALID_OBJECT_ID",
 	[5691] = "INVALID_OBJECT_ID",
 	[5692] = "INVALID_OBJECT_ID",
 	[5693] = "INVALID_OBJECT_ID",
+	[5694] = "INVALID_OBJECT_ID",
 	[5695] = "INVALID_OBJECT_ID",
+	[5696] = "INVALID_OBJECT_ID",
 	[5698] = "INVALID_OBJECT_ID",
 	[5699] = "INVALID_OBJECT_ID",
+	[5700] = "INVALID_OBJECT_ID",
+	[5701] = "INVALID_OBJECT_ID",
 	[5702] = "INVALID_OBJECT_ID",
 	[6011] = "INVALID_OBJECT_ID",
 	[6012] = "INVALID_OBJECT_ID",
@@ -334,6 +339,7 @@ local model_name_anti_stealer =
 	[11417] = "Портативная АЗС",
 	[11489] = "Крылья гаргульи",
 	[11700] = "Знак (Радиации)",
+	[11704] = "Маска демона",
 	[11705] = "Кейс для оружия",
 	[11712] = "Крест на грудь и Распятие",
 	[11716] = "С модификации Палач",
@@ -386,6 +392,37 @@ local model_name_anti_stealer =
 	[18891] = "С модификации",
 	[18936] = "С модификации Палач",
 	[18976] = "Сумка-барыжка синяя",
+	[19006] = "Очки",
+	[19006] = "Очки",
+	[19007] = "Очки",
+	[19008] = "Очки",
+	[19009] = "Очки",
+	[19010] = "Очки",
+	[19011] = "Очки",
+	[19012] = "Очки",
+	[19013] = "Очки",
+	[19014] = "Очки",
+	[19015] = "Очки",
+	[19016] = "Очки",
+	[19017] = "Очки",
+	[19018] = "Очки",
+	[19019] = "Очки",
+	[19020] = "Очки",
+	[19021] = "Очки",
+	[19022] = "Очки",
+	[19023] = "Очки",
+	[19024] = "Очки",
+	[19025] = "Очки",
+	[19026] = "Очки",
+	[19027] = "Очки",
+	[19028] = "Очки",
+	[19029] = "Очки",
+	[19030] = "Очки",
+	[19031] = "Очки",
+	[19032] = "Очки",
+	[19033] = "Очки",
+	[19034] = "Очки",
+	[19035] = "Очки",
 	[19054] = "Подарок на спину",
 	[19055] = "Подарок на спину",
 	[19056] = "Подарок на спину",
@@ -431,6 +468,7 @@ local model_name_anti_stealer =
 	[19343] = "Яйцо",
 	[19344] = "Яйцо",
 	[19345] = "Яйцо",
+	[19347] = "Звезда на грудь",
 	[19348] = "С модификации Купидон",
 	[19468] = "Ведро в руку",
 	[19513] = "Телефон",
@@ -481,7 +519,9 @@ local model_name_anti_stealer =
 };
 local textdraw_name =
 {
-	[1098] = "СТО",
+	[1132] = "Выхлоп для Tornado (Slamin)",
+	[19759] = "Гидравлика (HYDRAULICS)",
+	[1135] = "Выхлоп для Flash (Alien)",
 	[312] = "INVALID_OBJECT_ID",
 	[313] = "INVALID_OBJECT_ID",
 	[314] = "INVALID_OBJECT_ID",
@@ -544,12 +584,6 @@ local textdraw_name =
 	[617] = "INVALID_OBJECT_ID",
 	[619] = "INVALID_OBJECT_ID",
 	[620] = "INVALID_OBJECT_ID",
-	[1018] = "INVALID_OBJECT_ID",
-	[1020] = "INVALID_OBJECT_ID",
-	[1022] = "INVALID_OBJECT_ID",
-	[1588] = "НЕИЗВЕСТНО",
-	[1104] = "INVALID_OBJECT_ID",
-	[1614] = "Треугольник",
 	[625] = "Цветок в горшке 1",
 	[626] = "Цветок в горшке 2",
 	[627] = "Цветок в горшке 3",
@@ -570,7 +604,6 @@ local textdraw_name =
 	[701] = "Адская трава (игровой ресурс)",
 	[756] = "Кактус",
 	[795] = "INVALID_OBJECT_ID",
-	[5389] = "INVALID_OBJECT_ID",
 	[796] = "INVALID_OBJECT_ID",
 	[797] = "INVALID_OBJECT_ID",
 	[798] = "INVALID_OBJECT_ID",
@@ -629,8 +662,11 @@ local textdraw_name =
 	[1014] = "Спойлер",
 	[1015] = "Спойлер",
 	[1016] = "Спойлер",
+	[1018] = "INVALID_OBJECT_ID",
 	[1019] = "С модификации Бешенный доктор",
+	[1020] = "INVALID_OBJECT_ID",
 	[1021] = "Турбина",
+	[1022] = "INVALID_OBJECT_ID",
 	[1023] = "Спойлер",
 	[1024] = "Фара",
 	[1026] = "Боковая юбка",
@@ -676,6 +712,8 @@ local textdraw_name =
 	[1093] = "Боковая юбка",
 	[1094] = "Боковая юбка",
 	[1095] = "Боковая юбка",
+	[1098] = "СТО",
+	[1104] = "INVALID_OBJECT_ID",
 	[1105] = "Турбина",
 	[1111] = "Накладка на бензобак #1",
 	[1112] = "Накладка на бензобак #1",
@@ -765,7 +803,7 @@ local textdraw_name =
 	[1288] = "Наклейка Supreme",
 	[1304] = "Металл",
 	[1313] = "Два черепа",
-	[1314] = "twoplayer",
+	[1314] = "Дружеский знак",
 	[1316] = "DONATE",
 	[1317] = "Хз откуда",
 	[1318] = "arrow",
@@ -830,6 +868,7 @@ local textdraw_name =
 	[1584] = "Девушка с пистолетом",
 	[1585] = "Рюкзак с девушкой 2",
 	[1586] = "Мишень",
+	[1588] = "НЕИЗВЕСТНО",
 	[1593] = "Шипы",
 	[1594] = "Стулья со столом #3",
 	[1599] = "Золотая рыбка",
@@ -839,6 +878,7 @@ local textdraw_name =
 	[1604] = "Копьё Зевса",
 	[1607] = "Дельфин на спину",
 	[1609] = "Черепаха на спину",
+	[1614] = "Треугольник",
 	[1615] = "Точильный амулет",
 	[1622] = "Регистратор на плечо",
 	[1645] = "Серый Пляжный Лежак",
@@ -1192,9 +1232,15 @@ local textdraw_name =
 	[5377] = "INVALID_OBJECT_ID",
 	[5378] = "INVALID_OBJECT_ID",
 	[5379] = "INVALID_OBJECT_ID",
+	[5381] = "INVALID_OBJECT_ID",
 	[5382] = "INVALID_OBJECT_ID",
+	[5383] = "INVALID_OBJECT_ID",
 	[5384] = "INVALID_OBJECT_ID",
+	[5386] = "INVALID_OBJECT_ID",
+	[5387] = "INVALID_OBJECT_ID",
 	[5388] = "INVALID_OBJECT_ID",
+	[5389] = "INVALID_OBJECT_ID",
+	[5683] = "INVALID_OBJECT_ID",
 	[5685] = "INVALID_OBJECT_ID",
 	[5686] = "INVALID_OBJECT_ID",
 	[5689] = "INVALID_OBJECT_ID",
@@ -1202,9 +1248,11 @@ local textdraw_name =
 	[5691] = "INVALID_OBJECT_ID",
 	[5693] = "INVALID_OBJECT_ID",
 	[5694] = "INVALID_OBJECT_ID",
+	[5696] = "INVALID_OBJECT_ID",
 	[5698] = "INVALID_OBJECT_ID",
 	[5699] = "INVALID_OBJECT_ID",
 	[5700] = "INVALID_OBJECT_ID",
+	[5701] = "INVALID_OBJECT_ID",
 	[5702] = "INVALID_OBJECT_ID",
 	[5777] = "Модификация: Смерть",
 	[6012] = "INVALID_OBJECT_ID",
@@ -1218,6 +1266,23 @@ local textdraw_name =
 	[6020] = "INVALID_OBJECT_ID",
 	[6023] = "INVALID_OBJECT_ID",
 	[6024] = "INVALID_OBJECT_ID",
+	[6752] = "INVALID_OBJECT_ID",
+	[6753] = "INVALID_OBJECT_ID",
+	[6754] = "INVALID_OBJECT_ID",
+	[6755] = "INVALID_OBJECT_ID",
+	[6756] = "INVALID_OBJECT_ID",
+	[6757] = "INVALID_OBJECT_ID",
+	[6758] = "INVALID_OBJECT_ID",
+	[6759] = "INVALID_OBJECT_ID",
+	[6760] = "INVALID_OBJECT_ID",
+	[6761] = "INVALID_OBJECT_ID",
+	[6762] = "INVALID_OBJECT_ID",
+	[6763] = "INVALID_OBJECT_ID",
+	[6764] = "INVALID_OBJECT_ID",
+	[6765] = "INVALID_OBJECT_ID",
+	[6766] = "INVALID_OBJECT_ID",
+	[6767] = "INVALID_OBJECT_ID",
+	[6768] = "INVALID_OBJECT_ID",
 	[6865] = "Маска с рогами & Рюкзак (Череп с рогами)",
 	[7093] = "Рюкзак 'Erotic'",
 	[7302] = "Стикер Victim",
@@ -1261,6 +1326,47 @@ local textdraw_name =
 	[11748] = "Скрепки",
 	[11749] = "Наручники и подводная маска",
 	[11750] = "VR-очки и моноколь",
+	[12534] = "INVALID_OBJECT_ID",
+	[12535] = "INVALID_OBJECT_ID",
+	[12536] = "INVALID_OBJECT_ID",
+	[12537] = "INVALID_OBJECT_ID",
+	[12538] = "INVALID_OBJECT_ID",
+	[12539] = "INVALID_OBJECT_ID",
+	[12540] = "INVALID_OBJECT_ID",
+	[12541] = "INVALID_OBJECT_ID",
+	[12542] = "INVALID_OBJECT_ID",
+	[12543] = "INVALID_OBJECT_ID",
+	[12544] = "INVALID_OBJECT_ID",
+	[12545] = "INVALID_OBJECT_ID",
+	[12547] = "INVALID_OBJECT_ID",
+	[12548] = "INVALID_OBJECT_ID",
+	[12550] = "INVALID_OBJECT_ID",
+	[12551] = "INVALID_OBJECT_ID",
+	[12552] = "INVALID_OBJECT_ID",
+	[12553] = "INVALID_OBJECT_ID",
+	[12554] = "INVALID_OBJECT_ID",
+	[12555] = "INVALID_OBJECT_ID",
+	[12559] = "INVALID_OBJECT_ID",
+	[12560] = "INVALID_OBJECT_ID",
+	[12561] = "INVALID_OBJECT_ID",
+	[12562] = "INVALID_OBJECT_ID",
+	[12563] = "INVALID_OBJECT_ID",
+	[12564] = "INVALID_OBJECT_ID",
+	[12565] = "INVALID_OBJECT_ID",
+	[12566] = "INVALID_OBJECT_ID",
+	[12567] = "INVALID_OBJECT_ID",
+	[12568] = "INVALID_OBJECT_ID",
+	[12569] = "INVALID_OBJECT_ID",
+	[12570] = "INVALID_OBJECT_ID",
+	[12571] = "INVALID_OBJECT_ID",
+	[12572] = "INVALID_OBJECT_ID",
+	[12573] = "INVALID_OBJECT_ID",
+	[12574] = "INVALID_OBJECT_ID",
+	[12575] = "INVALID_OBJECT_ID",
+	[12576] = "INVALID_OBJECT_ID",
+	[12577] = "INVALID_OBJECT_ID",
+	[12578] = "INVALID_OBJECT_ID",
+	[12579] = "INVALID_OBJECT_ID",
 	[13562] = "Крутящаяся дубина",
 	[13646] = "Золотая рулетка",
 	[13667] = "Маска обезьяны",
@@ -1743,10 +1849,16 @@ local balls =
 	[19337] = {243, 6}, 	-- Green & Yellow
 	[19338] = {243, 3}, 	-- Green and Red
 }
+--------------------[RPC]--------------------
+local packet_incoming = 'Waiting for packet!'
+local packet_outcoming = 'Waiting for packet!'
+local rpc_incoming = 'Waiting for RPC!'
+local rpc_outcoming = 'Waiting for RPC!'
 --------------------[Дальний чат]--------------------
 local chatbuble = {}
 --------------------[Стиллер объектов на транспорт]--------------------
-local objectsTable = {}
+local stealerObject = {}
+local stealerObjectMaterial = {}
 local lastPlayerState = -1
 --------------------[Автоввод текста в лавку]--------------------
 dialogs_lavka = -1
@@ -1778,7 +1890,6 @@ local autoloot_td = {''}
 --------------------[AntiFlood]--------------------
 local messagesFloodTab = {}
 --------------------[Остальное]--------------------
-local chatMessages = {}
 local reconnect_timer = 0
 local message_report = ""
 local local_name = ""
@@ -1825,11 +1936,8 @@ local mainIni = inicfg.load(
 	{
 		chatlog = true,
 		----------------------------------------
-		renderchatbuy = true,
 		removechatbuy = false,
 		tosampfuncsbuy = true,
-		----------------------------------------
-		removechatmicro = false,
 		----------------------------------------
 		removechatdepatment = true,
 		----------------------------------------
@@ -1849,15 +1957,12 @@ local mainIni = inicfg.load(
 		tosampfuncsconnect = true,
 		tosampfuncsdisconnect = true,
 		----------------------------------------
-		rendervipchat = true,
 		tosampfuncsvipchat = false,
 		removevipchat = true,
 		----------------------------------------
-		renderjobchat = false,
 		tosampfuncsjobchat = false,
 		removejobchat = true,
 		----------------------------------------
-		renderadv = true,
 		tosampfuncsadv = false,
 		removeadv = true,
 		----------------------------------------
@@ -2099,11 +2204,8 @@ local elements =
 	{
 		chatlog = imgui.ImBool(mainIni.chat.chatlog),
 		----------------------------------------
-		renderchatbuy = imgui.ImBool(mainIni.chat.renderchatbuy),
 		removechatbuy = imgui.ImBool(mainIni.chat.removechatbuy),
 		tosampfuncsbuy = imgui.ImBool(mainIni.chat.tosampfuncsbuy),
-		----------------------------------------
-		removechatmicro = imgui.ImBool(mainIni.chat.removechatmicro),
 		----------------------------------------
 		removechatdepatment = imgui.ImBool(mainIni.chat.removechatdepatment),
 		----------------------------------------
@@ -2123,15 +2225,12 @@ local elements =
 		tosampfuncsconnect = imgui.ImBool(mainIni.chat.tosampfuncsconnect),
 		tosampfuncsdisconnect = imgui.ImBool(mainIni.chat.tosampfuncsdisconnect),
 		----------------------------------------
-		rendervipchat = imgui.ImBool(mainIni.chat.rendervipchat),
 		tosampfuncsvipchat = imgui.ImBool(mainIni.chat.tosampfuncsvipchat),
 		removevipchat = imgui.ImBool(mainIni.chat.removevipchat),
 		----------------------------------------
-		renderjobchat = imgui.ImBool(mainIni.chat.renderjobchat),
 		tosampfuncsjobchat = imgui.ImBool(mainIni.chat.tosampfuncsjobchat),
 		removejobchat = imgui.ImBool(mainIni.chat.removejobchat),
 		----------------------------------------
-		renderadv = imgui.ImBool(mainIni.chat.renderadv),
 		tosampfuncsadv = imgui.ImBool(mainIni.chat.tosampfuncsadv),
 		removeadv = imgui.ImBool(mainIni.chat.removeadv),
 		----------------------------------------
@@ -2354,6 +2453,9 @@ local elements =
 		----------------------------------------
 		waxta = false,
 		----------------------------------------
+		show_packet = false,
+		show_rpc = false,
+		----------------------------------------
 		BTC = false,
 		----------------------------------------
 		autoloot = false,
@@ -2526,7 +2628,7 @@ function main()
 		os.remove("moonloader\\stealer\\"..id_model_anti_stealer.." - "..name_model_anti_stealer..".notepad")
 		os.remove("moonloader\\stealer\\"..id_model_anti_stealer.." - .notepad")
 	end
-	os.remove("moonloader\\stealer\\textdraws\\0000.notepad")
+	-- os.remove("moonloader\\stealer\\textdraws\\0000.notepad")
 	----------------------------------------
 	for model_id, name in pairs(textdraw_name) do
 		os.remove("moonloader\\stealer\\textdraws\\"..model_id..".notepad")
@@ -2641,6 +2743,12 @@ function main()
 		push_message((elements.state.waxta and "Включаю" or "Выключаю")..' поиск руды в зоне стрима.')
 	end)
 	----------------------------------------
+	sampRegisterChatCommand("rpc",function()
+		elements.state.show_packet = not elements.state.show_packet
+		elements.state.show_rpc = not elements.state.show_rpc
+		push_message((elements.state.show_rpc and "Включаю" or "Выключаю")..' показ пакетов.')
+	end)
+	----------------------------------------
 	sampRegisterChatCommand("btc",function()
 		elements.state.BTC = not elements.state.BTC
 		push_message((elements.state.BTC and "Включаю" or "Выключаю")..' скуп биткоинов.')
@@ -2720,8 +2828,6 @@ function main()
 			nickname = sampGetPlayerNickname(i)
 			for id = 1, #friends do
 				if nickname == friends[id] and local_name ~= friends[id] then
-					----------------------------------------
-					table.insert(chatMessages, '{FF3300}'..os.date('[%H:%M:%S] ')..nickname..'['..i..'] находится на сервере.')
 					----------------------------------------
 					if elements.chat.tosampfuncsconnect.v then
 						sampfuncsLog('{FF3300}'..os.date('[%H:%M:%S] ')..nickname..'['..i..'] находится на сервере.')
@@ -3132,6 +3238,14 @@ function main()
 				renderFontDrawText(arial_12_5,'Руды в зоне стрима: '..waxta_count, sx / 2.5, sy - 30, 0xFFFF0000)
 			end
 		end
+		if elements.state.show_packet == true then
+			local packet_x = 35
+			local packet_y = 450
+			local rpc_x = 35
+			local rpc_y = 490
+			renderFontDrawText(arial_12_5, 'INCOMING Packet: {FFFFFF}'..packet_incoming..'\n{FFFF00}OUTCOMING Packet: {FFFFFF}'..packet_outcoming, packet_x, packet_y, 0xFFFF0000)
+			renderFontDrawText(arial_12_5, 'INCOMING RPC: {FFFFFF}'..rpc_incoming..'\n{FFFF00}OUTCOMING RPC: {FFFFFF}'..rpc_outcoming, rpc_x, rpc_y, 0xFFFF0000)
+		end
 		--------------------[Поиск открытых багажников]--------------------
 		if ip == "185.169.134.3" or ip == "185.169.134.4" or ip == "185.169.134.43" or ip == "185.169.134.44" or ip == "185.169.134.45" or ip == "185.169.134.5" or ip == "185.169.134.59" or ip == "185.169.134.61" or ip == "185.169.134.107" or ip == "185.169.134.109" or ip == "185.169.134.166" or ip == "185.169.134.171" or ip == "185.169.134.172" or ip == "185.169.134.173" or ip == "185.169.134.174" or ip == "80.66.82.191" or ip == "80.66.82.190" then
 			if carid ~= -1 then
@@ -3326,9 +3440,14 @@ function main()
 		--------------------[Стиллер объектов на транспорт]--------------------
 		local pState = sampGetGamestate()
 		if pState == 5 and lastPlayerState ~= 5 and lastPlayerState ~= -1 then
-			for i = 1, #objectsTable do
-				if objectsTable[i] ~= nil then
-					objectsTable[i] = nil
+			for i = 1, #stealerObject do
+				if stealerObject[i] ~= nil then
+					stealerObject[i] = nil
+				end
+			end
+			for i = 1, #stealerObjectMaterial do
+				if stealerObjectMaterial[i] ~= nil then
+					stealerObjectMaterial[i] = nil
 				end
 			end
 			lastPlayerState = pState
@@ -3433,7 +3552,6 @@ function saveini()
 		chat =
 		{
 			chatlog = elements.chat.chatlog.v,
-			renderchatbuy = elements.chat.renderchatbuy.v,
 			removechatbuy = elements.chat.removechatbuy.v,
 			tosampfuncsbuy = elements.chat.tosampfuncsbuy.v,
 			removechatdepatment = elements.chat.removechatdepatment.v,
@@ -3443,18 +3561,14 @@ function saveini()
 			removechatfond = elements.chat.removechatfond.v,
 			removechatspam = elements.chat.removechatspam.v,
 			tosampfuncsspam = elements.chat.tosampfuncsspam.v,
-			removechatmicro = elements.chat.removechatmicro.v,
 			sendconnect = elements.chat.sendconnect.v,
 			senddisconnect = elements.chat.senddisconnect.v,
 			tosampfuncsconnect = elements.chat.tosampfuncsconnect.v,
 			tosampfuncsdisconnect = elements.chat.tosampfuncsdisconnect.v,
-			rendervipchat = elements.chat.rendervipchat.v,
 			tosampfuncsvipchat = elements.chat.tosampfuncsvipchat.v,
 			removevipchat = elements.chat.removevipchat.v,
-			renderjobchat = elements.chat.renderjobchat.v,
 			tosampfuncsjobchat = elements.chat.tosampfuncsjobchat.v,
 			removejobchat = elements.chat.removejobchat.v,
-			renderadv = elements.chat.renderadv.v,
 			tosampfuncsadv = elements.chat.tosampfuncsadv.v,
 			removeadv = elements.chat.removeadv.v,
 			distant_active = elements.chat.distant_active.v,
@@ -3648,6 +3762,7 @@ function saveini()
 		}
 	},file_settings)
 end
+
 function imgui.OnDrawFrame()
 	----------------------------------------
 	onRenderNotification()
@@ -3667,9 +3782,9 @@ function imgui.OnDrawFrame()
 	local sw,sh = getScreenResolution()
 	if windowstate.v == true then
 		----------------------------------------
-		imgui.SetNextWindowPos(imgui.ImVec2(sw/2,sh/3),imgui.Cond.FirstUseEver,imgui.ImVec2(0.5,0.5))
-		imgui.SetNextWindowSize(imgui.ImVec2(860,700),imgui.Cond.FirstUseEver)
-		imgui.Begin(u8(script_names..' | v'..thisScript().version),windowstate,imgui.WindowFlags.HorizontalScrollbar)
+		imgui.SetNextWindowPos(imgui.ImVec2(sw/1.9, sh/2.7), imgui.Cond.FirstUseEver, imgui.ImVec2(0.5,0.5))
+		imgui.SetNextWindowSize(imgui.ImVec2(860, 520), imgui.Cond.FirstUseEver)
+		imgui.Begin(u8(script_names..' | v'..thisScript().version),windowstate,imgui.WindowFlags.HorizontalScrollbar + imgui.WindowFlags.AlwaysAutoResize)
 		imgui.BeginGroup()
 		----------------------------------------
 		if imgui.Button(u8('Сохранить настройки'),imgui.ImVec2(170,20)) then
@@ -3844,15 +3959,12 @@ function imgui.OnDrawFrame()
 			imgui.Separator()
 			if imgui.CollapsingHeader(u8'Сообщения о покупке') then
 				imgui.Separator()
-				imgui.Checkbox(u8('Рендер сообщений о покупке'),elements.chat.renderchatbuy)
 				imgui.Checkbox(u8('Отключить в чате сообщения о покупке'),elements.chat.removechatbuy)
 				imgui.Checkbox(u8('Выводить сообщения о покупке в консоль SAMPFUNCS (~)'),elements.chat.tosampfuncsbuy)
 				imgui.Separator()
 			end
 			----------------------------------------
 			if imgui.CollapsingHeader(u8'SPAM сообщения') then
-				imgui.Separator()
-				imgui.Checkbox(u8('Отключить в чате "микрофон"'),elements.chat.removechatmicro)
 				imgui.Separator()
 				imgui.Checkbox(u8('Отключить чат "департамента"'),elements.chat.removechatdepatment)
 				imgui.Separator()
@@ -3884,7 +3996,6 @@ function imgui.OnDrawFrame()
 			----------------------------------------
 			if imgui.CollapsingHeader(u8'Настройки VIP чата') then
 				imgui.Separator()
-				imgui.Checkbox(u8('Рендер вип чата'),elements.chat.rendervipchat)
 				imgui.Checkbox(u8('Выводить вип чат в консоль SAMPFUNCS (~)'),elements.chat.tosampfuncsvipchat)
 				imgui.Checkbox(u8('Отключить вип чат'),elements.chat.removevipchat)
 				imgui.Separator()
@@ -3892,7 +4003,6 @@ function imgui.OnDrawFrame()
 			----------------------------------------
 			if imgui.CollapsingHeader(u8'Настройки /j чата') then
 				imgui.Separator()
-				imgui.Checkbox(u8('Рендер /j чата'),elements.chat.renderjobchat)
 				imgui.Checkbox(u8('Выводить /j чат в консоль SAMPFUNCS (~)'),elements.chat.tosampfuncsjobchat)
 				imgui.Checkbox(u8('Отключить /j чат'),elements.chat.removejobchat)
 				imgui.Separator()
@@ -3900,7 +4010,6 @@ function imgui.OnDrawFrame()
 			----------------------------------------
 			if imgui.CollapsingHeader(u8'Настройки объявлений (/ad)') then
 				imgui.Separator()
-				imgui.Checkbox(u8('Рендер объявлений'),elements.chat.renderadv)
 				imgui.Checkbox(u8('Выводить объявления в консоль SAMPFUNCS (~)'),elements.chat.tosampfuncsadv)
 				imgui.Checkbox(u8('Отключить объявления'),elements.chat.removeadv)
 				imgui.Separator()
@@ -3909,6 +4018,12 @@ function imgui.OnDrawFrame()
 			if imgui.CollapsingHeader(u8'Настройки дальнего чата') then
 				imgui.Separator()
 				imgui.Checkbox(u8('Включить дальний чат'),elements.chat.distant_active)
+				if elements.config.del_stream.v == true then
+					imgui.TextColoredRGB(u8('{FF3300}У тебя отключена зона прорисовки!'))
+				end
+				if elements.config.del_stream_pl.v == true then
+					imgui.TextColoredRGB(u8('{FF3300}У тебя отключена зона прорисовки игроков!'))
+				end
 				imgui.PushItemWidth(370)
 				imgui.SliderInt(u8('Кол-во строк'),elements.chat.distant_count,3,15)
 				imgui.Separator()
@@ -3998,297 +4113,350 @@ INVALID_OBJECT_ID\n\
 			imgui.InputInt(u8('Наркотики (кол-во)'),elements.lavka.drugs)
 			if elements.lavka.drugs.v < 0 then elements.lavka.drugs.v = 0 end
 			if elements.lavka.drugs_price.v < 0 then elements.lavka.drugs_price.v = 0 end
+			if elements.lavka.drugs_price.v > 10000000 then elements.lavka.drugs_price.v = 10000000 end
 			----------------------------------------
 			imgui.InputInt(u8('Цена  ##2'),elements.lavka.materials_price)
 			imgui.SameLine()
 			imgui.InputInt(u8('Материалы (кол-во)'),elements.lavka.materials)
 			if elements.lavka.materials.v < 0 then elements.lavka.materials.v = 0 end
 			if elements.lavka.materials_price.v < 0 then elements.lavka.materials_price.v = 0 end
+			if elements.lavka.materials_price.v > 10000000 then elements.lavka.materials_price.v = 10000000 end
 			----------------------------------------
 			imgui.InputInt(u8('Цена  ##3'),elements.lavka.fam_talon_price)
 			imgui.SameLine()
 			imgui.InputInt(u8('Семейный талон (кол-во)'),elements.lavka.fam_talon)
 			if elements.lavka.fam_talon.v < 0 then elements.lavka.fam_talon.v = 0 end
 			if elements.lavka.fam_talon_price.v < 0 then elements.lavka.fam_talon_price.v = 0 end
+			if elements.lavka.fam_talon_price.v > 10000000 then elements.lavka.fam_talon_price.v = 10000000 end
 			----------------------------------------
 			imgui.InputInt(u8('Цена  ##4'),elements.lavka.cherepa_price)
 			imgui.SameLine()
 			imgui.InputInt(u8('Черепа (кол-во)'),elements.lavka.cherepa)
 			if elements.lavka.cherepa.v < 0 then elements.lavka.cherepa.v = 0 end
 			if elements.lavka.cherepa_price.v < 0 then elements.lavka.cherepa_price.v = 0 end
+			if elements.lavka.cherepa_price.v > 10000000 then elements.lavka.cherepa_price.v = 10000000 end
 			----------------------------------------
 			imgui.InputInt(u8('Цена  ##5'),elements.lavka.sale_talon_price)
 			imgui.SameLine()
 			imgui.InputInt(u8('Скидочный талон (кол-во)'),elements.lavka.sale_talon)
 			if elements.lavka.sale_talon.v < 0 then elements.lavka.sale_talon.v = 0 end
 			if elements.lavka.sale_talon_price.v < 0 then elements.lavka.sale_talon_price.v = 0 end
+			if elements.lavka.sale_talon_price.v > 10000000 then elements.lavka.sale_talon_price.v = 10000000 end
 			----------------------------------------
 			imgui.InputInt(u8('Цена  ##6'),elements.lavka.gift_price)
 			imgui.SameLine()
 			imgui.InputInt(u8('Подарки (кол-во)'),elements.lavka.gift)
 			if elements.lavka.gift.v < 0 then elements.lavka.gift.v = 0 end
 			if elements.lavka.gift_price.v < 0 then elements.lavka.gift_price.v = 0 end
+			if elements.lavka.gift_price.v > 10000000 then elements.lavka.gift_price.v = 10000000 end
 			----------------------------------------
 			imgui.InputInt(u8('Цена  ##7'),elements.lavka.cooper_roll_price)
 			imgui.SameLine()
 			imgui.InputInt(u8('Бронзовые рулетки (кол-во)'),elements.lavka.cooper_roll)
 			if elements.lavka.cooper_roll.v < 0 then elements.lavka.cooper_roll.v = 0 end
 			if elements.lavka.cooper_roll_price.v < 0 then elements.lavka.cooper_roll_price.v = 0 end
+			if elements.lavka.cooper_roll_price.v > 10000000 then elements.lavka.cooper_roll_price.v = 10000000 end
 			----------------------------------------
 			imgui.InputInt(u8('Цена  ##8'),elements.lavka.silver_roll_price)
 			imgui.SameLine()
 			imgui.InputInt(u8('Серебрянные рулетки (кол-во)'),elements.lavka.silver_roll)
 			if elements.lavka.silver_roll.v < 0 then elements.lavka.silver_roll.v = 0 end
 			if elements.lavka.silver_roll_price.v < 0 then elements.lavka.silver_roll_price.v = 0 end
+			if elements.lavka.silver_roll_price.v > 10000000 then elements.lavka.silver_roll_price.v = 10000000 end
 			----------------------------------------
 			imgui.InputInt(u8('Цена  ##9'),elements.lavka.gold_roll_price)
 			imgui.SameLine()
 			imgui.InputInt(u8('Золотые рулетки (кол-во)'),elements.lavka.gold_roll)
 			if elements.lavka.gold_roll.v < 0 then elements.lavka.gold_roll.v = 0 end
 			if elements.lavka.gold_roll_price.v < 0 then elements.lavka.gold_roll_price.v = 0 end
+			if elements.lavka.gold_roll_price.v > 10000000 then elements.lavka.gold_roll_price.v = 10000000 end
 			----------------------------------------
 			imgui.InputInt(u8('Цена  ##10'),elements.lavka.xlopok_price)
 			imgui.SameLine()
 			imgui.InputInt(u8('Хлопок (кол-во)'),elements.lavka.xlopok)
 			if elements.lavka.xlopok.v < 0 then elements.lavka.xlopok.v = 0 end
 			if elements.lavka.xlopok_price.v < 0 then elements.lavka.xlopok_price.v = 0 end
+			if elements.lavka.xlopok_price.v > 10000000 then elements.lavka.xlopok_price.v = 10000000 end
 			----------------------------------------
 			imgui.InputInt(u8('Цена  ##11'),elements.lavka.lens_price)
 			imgui.SameLine()
 			imgui.InputInt(u8('Лён (кол-во)'),elements.lavka.lens)
 			if elements.lavka.lens.v < 0 then elements.lavka.lens.v = 0 end
 			if elements.lavka.lens_price.v < 0 then elements.lavka.lens_price.v = 0 end
+			if elements.lavka.lens_price.v > 10000000 then elements.lavka.lens_price.v = 10000000 end
 			----------------------------------------
 			imgui.InputInt(u8('Цена  ##12'),elements.lavka.stone_price)
 			imgui.SameLine()
 			imgui.InputInt(u8('Камень (кол-во)'),elements.lavka.stone)
 			if elements.lavka.stone.v < 0 then elements.lavka.stone.v = 0 end
 			if elements.lavka.stone_price.v < 0 then elements.lavka.stone_price.v = 0 end
+			if elements.lavka.stone_price.v > 10000000 then elements.lavka.stone_price.v = 10000000 end
 			----------------------------------------
 			imgui.InputInt(u8('Цена  ##13'),elements.lavka.metal_price)
 			imgui.SameLine()
 			imgui.InputInt(u8('Металл (кол-во)'),elements.lavka.metal)
 			if elements.lavka.metal.v < 0 then elements.lavka.metal.v = 0 end
 			if elements.lavka.metal_price.v < 0 then elements.lavka.metal_price.v = 0 end
+			if elements.lavka.metal_price.v > 10000000 then elements.lavka.metal_price.v = 10000000 end
 			----------------------------------------
 			imgui.InputInt(u8('Цена  ##14'),elements.lavka.bronze_price)
 			imgui.SameLine()
 			imgui.InputInt(u8('Бронза (кол-во)'),elements.lavka.bronze)
 			if elements.lavka.bronze.v < 0 then elements.lavka.bronze.v = 0 end
 			if elements.lavka.bronze_price.v < 0 then elements.lavka.bronze_price.v = 0 end
+			if elements.lavka.bronze_price.v > 10000000 then elements.lavka.bronze_price.v = 10000000 end
 			----------------------------------------
 			imgui.InputInt(u8('Цена  ##15'),elements.lavka.silver_price)
 			imgui.SameLine()
 			imgui.InputInt(u8('Серебро (кол-во)'),elements.lavka.silver)
 			if elements.lavka.silver.v < 0 then elements.lavka.silver.v = 0 end
 			if elements.lavka.silver_price.v < 0 then elements.lavka.silver_price.v = 0 end
+			if elements.lavka.silver_price.v > 10000000 then elements.lavka.silver_price.v = 10000000 end
 			----------------------------------------
 			imgui.InputInt(u8('Цена  ##16'),elements.lavka.gold_price)
 			imgui.SameLine()
 			imgui.InputInt(u8('Золото (кол-во)'),elements.lavka.gold)
 			if elements.lavka.gold.v < 0 then elements.lavka.gold.v = 0 end
 			if elements.lavka.gold_price.v < 0 then elements.lavka.gold_price.v = 0 end
+			if elements.lavka.gold_price.v > 10000000 then elements.lavka.gold_price.v = 10000000 end
 			----------------------------------------
 			imgui.InputInt(u8('Цена  ##17'),elements.lavka.alyminiu_price)
 			imgui.SameLine()
 			imgui.InputInt(u8('Алюминий (кол-во)'),elements.lavka.alyminiu)
 			if elements.lavka.alyminiu.v < 0 then elements.lavka.alyminiu.v = 0 end
 			if elements.lavka.alyminiu_price.v < 0 then elements.lavka.alyminiu_price.v = 0 end
+			if elements.lavka.alyminiu_price.v > 10000000 then elements.lavka.alyminiu_price.v = 10000000 end
 			----------------------------------------
 			imgui.InputInt(u8('Цена  ##18'),elements.lavka.tywka_price)
 			imgui.SameLine()
 			imgui.InputInt(u8('Тушка оленя (кол-во)'),elements.lavka.tywka)
 			if elements.lavka.tywka.v < 0 then elements.lavka.tywka.v = 0 end
 			if elements.lavka.tywka_price.v < 0 then elements.lavka.tywka_price.v = 0 end
+			if elements.lavka.tywka_price.v > 10000000 then elements.lavka.tywka_price.v = 10000000 end
 			----------------------------------------
 			imgui.InputInt(u8('Цена  ##19'),elements.lavka.wkyra_price)
 			imgui.SameLine()
 			imgui.InputInt(u8('Шкура оленя (кол-во)'),elements.lavka.wkyra)
 			if elements.lavka.wkyra.v < 0 then elements.lavka.wkyra.v = 0 end
 			if elements.lavka.wkyra_price.v < 0 then elements.lavka.wkyra_price.v = 0 end
+			if elements.lavka.wkyra_price.v > 10000000 then elements.lavka.wkyra_price.v = 10000000 end
 			----------------------------------------
 			imgui.InputInt(u8('Цена  ##20'),elements.lavka.euro_price)
 			imgui.SameLine()
 			imgui.InputInt(u8('Евро (кол-во)'),elements.lavka.euro)
 			if elements.lavka.euro.v < 0 then elements.lavka.euro.v = 0 end
 			if elements.lavka.euro_price.v < 0 then elements.lavka.euro_price.v = 0 end
+			if elements.lavka.euro_price.v > 10000000 then elements.lavka.euro_price.v = 10000000 end
 			----------------------------------------
 			imgui.InputInt(u8('Цена  ##21'),elements.lavka.gr_talon_price)
 			imgui.SameLine()
 			imgui.InputInt(u8('Гражданский талон (кол-во)'),elements.lavka.gr_talon)
 			if elements.lavka.gr_talon.v < 0 then elements.lavka.gr_talon.v = 0 end
 			if elements.lavka.gr_talon_price.v < 0 then elements.lavka.gr_talon_price.v = 0 end
+			if elements.lavka.gr_talon_price.v > 10000000 then elements.lavka.gr_talon_price.v = 10000000 end
 			----------------------------------------
 			imgui.InputInt(u8('Цена  ##22'),elements.lavka.antibiotiki_price)
 			imgui.SameLine()
 			imgui.InputInt(u8('Антибиотики (кол-во)'),elements.lavka.antibiotiki)
 			if elements.lavka.antibiotiki.v < 0 then elements.lavka.antibiotiki.v = 0 end
 			if elements.lavka.antibiotiki_price.v < 0 then elements.lavka.antibiotiki_price.v = 0 end
+			if elements.lavka.antibiotiki_price.v > 10000000 then elements.lavka.antibiotiki_price.v = 10000000 end
 			----------------------------------------
 			imgui.InputInt(u8('Цена  ##23'),elements.lavka.prison_price)
 			imgui.SameLine()
 			imgui.InputInt(u8('Отмычки от ТСР (кол-во)'),elements.lavka.prison)
 			if elements.lavka.prison.v < 0 then elements.lavka.prison.v = 0 end
 			if elements.lavka.prison_price.v < 0 then elements.lavka.prison_price.v = 0 end
+			if elements.lavka.prison_price.v > 10000000 then elements.lavka.prison_price.v = 10000000 end
 			----------------------------------------
 			imgui.InputInt(u8('Модификация Wings'),elements.lavka.mod_wings_price)
 			if elements.lavka.mod_wings_price.v < 0 then elements.lavka.mod_wings_price.v = 0 end
+			if elements.lavka.mod_wings_price.v > 10000000 then elements.lavka.mod_wings_price.v = 10000000 end
 			----------------------------------------
 			imgui.InputInt(u8('Модификация Reg Eyes'),elements.lavka.mod_reg_eyes_price)
 			if elements.lavka.mod_reg_eyes_price.v < 0 then elements.lavka.mod_reg_eyes_price.v = 0 end
+			if elements.lavka.mod_reg_eyes_price.v > 10000000 then elements.lavka.mod_reg_eyes_price.v = 10000000 end
 			----------------------------------------
 			imgui.InputInt(u8('Цена  ##24'),elements.lavka.zlov_moneta_price)
 			imgui.SameLine()
 			imgui.InputInt(u8('Зловещая монета (кол-во)'),elements.lavka.zlov_moneta)
 			if elements.lavka.zlov_moneta.v < 0 then elements.lavka.zlov_moneta.v = 0 end
 			if elements.lavka.zlov_moneta_price.v < 0 then elements.lavka.zlov_moneta_price.v = 0 end
+			if elements.lavka.zlov_moneta_price.v > 10000000 then elements.lavka.zlov_moneta_price.v = 10000000 end
 			----------------------------------------
 			imgui.InputInt(u8('Цена  ##25'),elements.lavka.toch_stone_price)
 			imgui.SameLine()
 			imgui.InputInt(u8('Точильные камни (кол-во)'),elements.lavka.toch_stone)
 			if elements.lavka.toch_stone.v < 0 then elements.lavka.toch_stone.v = 0 end
 			if elements.lavka.toch_stone_price.v < 0 then elements.lavka.toch_stone_price.v = 0 end
+			if elements.lavka.toch_stone_price.v > 10000000 then elements.lavka.toch_stone_price.v = 10000000 end
 			----------------------------------------
 			imgui.InputInt(u8('Цена  ##26'),elements.lavka.bilet_6_price)
 			imgui.SameLine()
 			imgui.InputInt(u8('Билет 6 годовщины (кол-во)'),elements.lavka.bilet_6)
 			if elements.lavka.bilet_6.v < 0 then elements.lavka.bilet_6.v = 0 end
 			if elements.lavka.bilet_6_price.v < 0 then elements.lavka.bilet_6_price.v = 0 end
+			if elements.lavka.bilet_6_price.v > 10000000 then elements.lavka.bilet_6_price.v = 10000000 end
 			----------------------------------------
 			imgui.InputInt(u8('Цена  ##27'),elements.lavka.sticker_cluck_price)
 			imgui.SameLine()
 			imgui.InputInt(u8('Стикер Cluckin Bell (кол-во)'),elements.lavka.sticker_cluck)
 			if elements.lavka.sticker_cluck.v < 0 then elements.lavka.sticker_cluck.v = 0 end
 			if elements.lavka.sticker_cluck_price.v < 0 then elements.lavka.sticker_cluck_price.v = 0 end
+			if elements.lavka.sticker_cluck_price.v > 10000000 then elements.lavka.sticker_cluck_price.v = 10000000 end
 			----------------------------------------
 			imgui.InputInt(u8('Цена  ##28'),elements.lavka.sticker_binko_price)
 			imgui.SameLine()
 			imgui.InputInt(u8('Стикер Binko (кол-во)'),elements.lavka.sticker_binko)
 			if elements.lavka.sticker_binko.v < 0 then elements.lavka.sticker_binko.v = 0 end
 			if elements.lavka.sticker_binko_price.v < 0 then elements.lavka.sticker_binko_price.v = 0 end
+			if elements.lavka.sticker_binko_price.v > 10000000 then elements.lavka.sticker_binko_price.v = 10000000 end
 			----------------------------------------
 			imgui.InputInt(u8('Цена  ##29'),elements.lavka.sticker_jizzy_price)
 			imgui.SameLine()
 			imgui.InputInt(u8('Стикер Jizzy (кол-во)'),elements.lavka.sticker_jizzy)
 			if elements.lavka.sticker_jizzy.v < 0 then elements.lavka.sticker_jizzy.v = 0 end
 			if elements.lavka.sticker_jizzy_price.v < 0 then elements.lavka.sticker_jizzy_price.v = 0 end
+			if elements.lavka.sticker_jizzy_price.v > 10000000 then elements.lavka.sticker_jizzy_price.v = 10000000 end
 			----------------------------------------
 			imgui.InputInt(u8('Цена  ##30'),elements.lavka.platinum_roll_price)
 			imgui.SameLine()
 			imgui.InputInt(u8('Платиновая рулетка (кол-во)'),elements.lavka.platinum_roll)
 			if elements.lavka.platinum_roll.v < 0 then elements.lavka.platinum_roll.v = 0 end
 			if elements.lavka.platinum_roll_price.v < 0 then elements.lavka.platinum_roll_price.v = 0 end
+			if elements.lavka.platinum_roll_price.v > 10000000 then elements.lavka.platinum_roll_price.v = 10000000 end
 			----------------------------------------
 			imgui.InputInt(u8('Цена  ##31'),elements.lavka.rare_yellow_price)
 			imgui.SameLine()
 			imgui.InputInt(u8('Rare Box Yellow (кол-во)'),elements.lavka.rare_yellow)
 			if elements.lavka.rare_yellow.v < 0 then elements.lavka.rare_yellow.v = 0 end
 			if elements.lavka.rare_yellow_price.v < 0 then elements.lavka.rare_yellow_price.v = 0 end
+			if elements.lavka.rare_yellow_price.v > 10000000 then elements.lavka.rare_yellow_price.v = 10000000 end
 			----------------------------------------
 			imgui.InputInt(u8('Цена  ##32'),elements.lavka.rare_red_price)
 			imgui.SameLine()
 			imgui.InputInt(u8('Rare Box Red (кол-во)'),elements.lavka.rare_red)
 			if elements.lavka.rare_red.v < 0 then elements.lavka.rare_red.v = 0 end
 			if elements.lavka.rare_red_price.v < 0 then elements.lavka.rare_red_price.v = 0 end
+			if elements.lavka.rare_red_price.v > 10000000 then elements.lavka.rare_red_price.v = 10000000 end
 			----------------------------------------
 			imgui.InputInt(u8('Цена  ##33'),elements.lavka.rare_blue_price)
 			imgui.SameLine()
 			imgui.InputInt(u8('Rare Box Blue (кол-во)'),elements.lavka.rare_blue)
 			if elements.lavka.rare_blue.v < 0 then elements.lavka.rare_blue.v = 0 end
 			if elements.lavka.rare_blue_price.v < 0 then elements.lavka.rare_blue_price.v = 0 end
+			if elements.lavka.rare_blue_price.v > 10000000 then elements.lavka.rare_blue_price.v = 10000000 end
 			----------------------------------------
 			imgui.InputInt(u8('Цена  ##34'),elements.lavka.fam_money_price)
 			imgui.SameLine()
 			imgui.InputInt(u8('Семейная монета (кол-во)'),elements.lavka.fam_money)
 			if elements.lavka.fam_money.v < 0 then elements.lavka.fam_money.v = 0 end
 			if elements.lavka.fam_money_price.v < 0 then elements.lavka.fam_money_price.v = 0 end
+			if elements.lavka.fam_money_price.v > 10000000 then elements.lavka.fam_money_price.v = 10000000 end
 			----------------------------------------
 			imgui.InputInt(u8('Цена  ##35'),elements.lavka.box_marvel_price)
 			imgui.SameLine()
 			imgui.InputInt(u8('Ящик \'Marvel\' (кол-во)'),elements.lavka.box_marvel)
 			if elements.lavka.box_marvel.v < 0 then elements.lavka.box_marvel.v = 0 end
 			if elements.lavka.box_marvel_price.v < 0 then elements.lavka.box_marvel_price.v = 0 end
+			if elements.lavka.box_marvel_price.v > 10000000 then elements.lavka.box_marvel_price.v = 10000000 end
 			----------------------------------------
 			imgui.InputInt(u8('Цена  ##36'),elements.lavka.box_djent_price)
 			imgui.SameLine()
 			imgui.InputInt(u8('Ящик \'Джентельменов\' (кол-во)'),elements.lavka.box_djent)
 			if elements.lavka.box_djent.v < 0 then elements.lavka.box_djent.v = 0 end
 			if elements.lavka.box_djent_price.v < 0 then elements.lavka.box_djent_price.v = 0 end
+			if elements.lavka.box_djent_price.v > 10000000 then elements.lavka.box_djent_price.v = 10000000 end
 			----------------------------------------
 			imgui.InputInt(u8('Цена  ##37'),elements.lavka.box_minecraft_price)
 			imgui.SameLine()
 			imgui.InputInt(u8('Ящик \'Minecraft\' (кол-во)'),elements.lavka.box_minecraft)
 			if elements.lavka.box_minecraft.v < 0 then elements.lavka.box_minecraft.v = 0 end
 			if elements.lavka.box_minecraft_price.v < 0 then elements.lavka.box_minecraft_price.v = 0 end
+			if elements.lavka.box_minecraft_price.v > 10000000 then elements.lavka.box_minecraft_price.v = 10000000 end
 			----------------------------------------
 			imgui.InputInt(u8('Цена  ##38'),elements.lavka.box_moto_price)
 			imgui.SameLine()
 			imgui.InputInt(u8('Супер мото-ящик (кол-во)'),elements.lavka.box_moto)
 			if elements.lavka.box_moto.v < 0 then elements.lavka.box_moto.v = 0 end
 			if elements.lavka.box_moto_price.v < 0 then elements.lavka.box_moto_price.v = 0 end
+			if elements.lavka.box_moto_price.v > 10000000 then elements.lavka.box_moto_price.v = 10000000 end
 			----------------------------------------
 			imgui.InputInt(u8('Цена  ##39'),elements.lavka.box_car_price)
 			imgui.SameLine()
 			imgui.InputInt(u8('Ящик авто-ящик (кол-во)'),elements.lavka.box_car)
 			if elements.lavka.box_car.v < 0 then elements.lavka.box_car.v = 0 end
 			if elements.lavka.box_car_price.v < 0 then elements.lavka.box_car_price.v = 0 end
+			if elements.lavka.box_car_price.v > 10000000 then elements.lavka.box_car_price.v = 10000000 end
 			----------------------------------------
 			imgui.InputInt(u8('Цена  ##40'),elements.lavka.box_nostalg_price)
 			imgui.SameLine()
 			imgui.InputInt(u8('Ностальгический ящик (кол-во)'),elements.lavka.box_nostalg)
 			if elements.lavka.box_nostalg.v < 0 then elements.lavka.box_nostalg.v = 0 end
 			if elements.lavka.box_nostalg_price.v < 0 then elements.lavka.box_nostalg_price.v = 0 end
+			if elements.lavka.box_nostalg_price.v > 10000000 then elements.lavka.box_nostalg_price.v = 10000000 end
 			----------------------------------------
 			imgui.InputInt(u8('Цена  ##41'),elements.lavka.larec_oligarha_price)
 			imgui.SameLine()
 			imgui.InputInt(u8('Ларец Олигарха (кол-во)'),elements.lavka.larec_oligarha)
 			if elements.lavka.larec_oligarha.v < 0 then elements.lavka.larec_oligarha.v = 0 end
 			if elements.lavka.larec_oligarha_price.v < 0 then elements.lavka.larec_oligarha_price.v = 0 end
+			if elements.lavka.larec_oligarha_price.v > 10000000 then elements.lavka.larec_oligarha_price.v = 10000000 end
 			----------------------------------------
 			imgui.InputInt(u8('Рюкзак пара'),elements.lavka.rykzak_para_price)
 			if elements.lavka.rykzak_para_price.v < 0 then elements.lavka.rykzak_para_price.v = 0 end
+			if elements.lavka.rykzak_para_price.v > 10000000 then elements.lavka.rykzak_para_price.v = 10000000 end
 			----------------------------------------
 			imgui.InputInt(u8('Рюкзак пират'),elements.lavka.rykzak_pirat_price)
 			if elements.lavka.rykzak_pirat_price.v < 0 then elements.lavka.rykzak_pirat_price.v = 0 end
+			if elements.lavka.rykzak_pirat_price.v > 10000000 then elements.lavka.rykzak_pirat_price.v = 10000000 end
 			----------------------------------------
 			imgui.InputInt(u8('Тедди в бирюзовой кофте'),elements.lavka.mod_teddi_1_price)
 			if elements.lavka.mod_teddi_1_price.v < 0 then elements.lavka.mod_teddi_1_price.v = 0 end
+			if elements.lavka.mod_teddi_1_price.v > 10000000 then elements.lavka.mod_teddi_1_price.v = 10000000 end
 			----------------------------------------
 			imgui.InputInt(u8('Тедди в красной кофте'),elements.lavka.mod_teddi_2_price)
 			if elements.lavka.mod_teddi_2_price.v < 0 then elements.lavka.mod_teddi_2_price.v = 0 end
+			if elements.lavka.mod_teddi_2_price.v > 10000000 then elements.lavka.mod_teddi_2_price.v = 10000000 end
 			----------------------------------------
 			imgui.InputInt(u8('Тедди в зеленой кофте'),elements.lavka.mod_teddi_3_price)
 			if elements.lavka.mod_teddi_3_price.v < 0 then elements.lavka.mod_teddi_3_price.v = 0 end
+			if elements.lavka.mod_teddi_3_price.v > 10000000 then elements.lavka.mod_teddi_3_price.v = 10000000 end
 			----------------------------------------
 			imgui.InputInt(u8('Цена  ##42'),elements.lavka.band_respect_price)
 			imgui.SameLine()
 			imgui.InputInt(u8('Бандитские респекты (кол-во)'),elements.lavka.band_respect)
 			if elements.lavka.band_respect.v < 0 then elements.lavka.band_respect.v = 0 end
 			if elements.lavka.band_respect_price.v < 0 then elements.lavka.band_respect_price.v = 0 end
+			if elements.lavka.band_respect_price.v > 10000000 then elements.lavka.band_respect_price.v = 10000000 end
 			----------------------------------------
 			imgui.InputInt(u8('Цена  ##43'),elements.lavka.larec_premium_price)
 			imgui.SameLine()
 			imgui.InputInt(u8('Ларец с премией (кол-во)'),elements.lavka.larec_premium)
 			if elements.lavka.larec_premium.v < 0 then elements.lavka.larec_premium.v = 0 end
 			if elements.lavka.larec_premium_price.v < 0 then elements.lavka.larec_premium_price.v = 0 end
+			if elements.lavka.larec_premium_price.v > 10000000 then elements.lavka.larec_premium_price.v = 10000000 end
 			----------------------------------------
 			imgui.InputInt(u8('Цена  ##44'),elements.lavka.smazka_price)
 			imgui.SameLine()
 			imgui.InputInt(u8('Смазка для разгона видеокарт (кол-во)'),elements.lavka.smazka)
 			if elements.lavka.smazka.v < 0 then elements.lavka.smazka.v = 0 end
 			if elements.lavka.smazka_price.v < 0 then elements.lavka.smazka_price.v = 0 end
+			if elements.lavka.smazka_price.v > 10000000 then elements.lavka.smazka_price.v = 10000000 end
 			----------------------------------------
 			imgui.InputInt(u8('Цена  ##45'),elements.lavka.oxlajdauka_price)
 			imgui.SameLine()
 			imgui.InputInt(u8('Охлаждающая жидкость для видеокарты (кол-во)'),elements.lavka.oxlajdauka)
 			if elements.lavka.oxlajdauka.v < 0 then elements.lavka.oxlajdauka.v = 0 end
 			if elements.lavka.oxlajdauka_price.v < 0 then elements.lavka.oxlajdauka_price.v = 0 end
+			if elements.lavka.oxlajdauka_price.v > 10000000 then elements.lavka.oxlajdauka_price.v = 10000000 end
 			----------------------------------------
 			imgui.InputInt(u8('Цена  ##46'),elements.lavka.larec_car_box_price)
 			imgui.SameLine()
 			imgui.InputInt(u8('Ларец Super Car Box (кол-во)'),elements.lavka.larec_car_box)
 			if elements.lavka.larec_car_box.v < 0 then elements.lavka.larec_car_box.v = 0 end
 			if elements.lavka.larec_car_box_price.v < 0 then elements.lavka.larec_car_box_price.v = 0 end
+			if elements.lavka.larec_car_box_price.v > 10000000 then elements.lavka.larec_car_box_price.v = 10000000 end
 			----------------------------------------
 			imgui.Separator()
 		end
@@ -4509,7 +4677,11 @@ INVALID_OBJECT_ID\n\
 		end
 		imgui.Separator()
 		----------------------------------------
-		imgui.Checkbox(u8('Выключить игроков в зоне стрима'),elements.config.del_stream_pl)
+		if imgui.Checkbox(u8('Выключить игроков в зоне стрима'),elements.config.del_stream_pl) then
+			if elements.chat.distant_active.v == true then
+				elements.chat.distant_active.v = false
+			end
+		end
 		imgui.SameLine()
 		imgui.TextQuestion(u8'Отключает появление ИГРОКОВ в зоне стрима.\nПосле отключения функции необходимо обновить зону стрима (достаточно зайти и выйти в любой интерьер).')
 		----------------------------------------
@@ -4524,6 +4696,9 @@ INVALID_OBJECT_ID\n\
 			if elements.config.del_stream.v == false then
 				elements.config.del_shout.v = false
 			end
+			if elements.chat.distant_active.v == true then
+				elements.chat.distant_active.v = false
+			end
 		end
 		imgui.SameLine()
 		----------------------------------------
@@ -4533,21 +4708,6 @@ INVALID_OBJECT_ID\n\
 		imgui.Checkbox(u8('Выключить /s чат'),elements.config.del_shout)
 		----------------------------------------
 		imgui.EndGroup()
-		imgui.Separator()
-		imgui.CenterTextColored(u8('{FDDB6D}Лог'))
-		imgui.Separator()
-		imgui.BeginChild('rendertextimguifam',imgui.ImVec2(imgui.GetWindowSize().x - 20,imgui.GetWindowSize().y - 110),true, imgui.WindowFlags.HorizontalScrollbar)
-		if #chatMessages > 0  then
-			local clipper = imgui.ImGuiListClipper(#chatMessages)
-			while clipper:Step() do
-				for i = clipper.DisplayStart + 1, clipper.DisplayEnd do
-					imgui.TextColoredRGB(u8(chatMessages[i]))
-				end
-			end
-		else
-			imgui.CenterWindowText(u8('Пустота...'),imgui.TextDisabled)
-		end
-		imgui.EndChild()
 		imgui.End()
 	end
 end
@@ -4707,6 +4867,7 @@ function sampev.onShowTextDraw(textdrawId, data)
 	end
 	--------------------[Прочее]--------------------
 	if data.modelId == 330 then sampAddChatMessage(string.format(data.modelId.." - заскринить название предмета + TD! (%0.6f, %0.6f, %0.6f, %0.6f) (/showmodel)",data.rotation.x,data.rotation.y,data.rotation.z,data.zoom), 0xFFFF00) end
+	if data.modelId == 1035 then sampAddChatMessage(string.format(data.modelId.." - заскринить название предмета + TD! (%0.6f, %0.6f, %0.6f, %0.6f) (/showmodel)",data.rotation.x,data.rotation.y,data.rotation.z,data.zoom), 0xFFFF00) end
 	if data.modelId == 1428 then sampAddChatMessage(string.format(data.modelId.." - заскринить название предмета + TD! (%0.6f, %0.6f, %0.6f, %0.6f) (/showmodel)",data.rotation.x,data.rotation.y,data.rotation.z,data.zoom), 0xFFFF00) end
 	if data.modelId == 1512 then sampAddChatMessage(string.format(data.modelId.." - заскринить название предмета + TD! (%0.6f, %0.6f, %0.6f, %0.6f) (/showmodel)",data.rotation.x,data.rotation.y,data.rotation.z,data.zoom), 0xFFFF00) end
 	if data.modelId == 1520 then sampAddChatMessage(string.format(data.modelId.." - заскринить название предмета + TD! (%0.6f, %0.6f, %0.6f, %0.6f) (/showmodel)",data.rotation.x,data.rotation.y,data.rotation.z,data.zoom), 0xFFFF00) end
@@ -4717,6 +4878,7 @@ function sampev.onShowTextDraw(textdrawId, data)
 	if data.modelId == 3426 then sampAddChatMessage(string.format(data.modelId.." - заскринить название предмета + TD! (%0.6f, %0.6f, %0.6f, %0.6f) (/showmodel)",data.rotation.x,data.rotation.y,data.rotation.z,data.zoom), 0xFFFF00) end
 	if data.modelId == 18244 then sampAddChatMessage(string.format(data.modelId.." - заскринить название предмета + TD! (%0.6f, %0.6f, %0.6f, %0.6f) (/showmodel)",data.rotation.x,data.rotation.y,data.rotation.z,data.zoom), 0xFFFF00) end
 	if data.modelId == 18891 then sampAddChatMessage(string.format(data.modelId.." - заскринить название предмета + TD! (%0.6f, %0.6f, %0.6f, %0.6f) (/showmodel)",data.rotation.x,data.rotation.y,data.rotation.z,data.zoom), 0xFFFF00) end
+	if data.modelId == 18997 then sampAddChatMessage(string.format(data.modelId.." - заскринить название предмета + TD! (%0.6f, %0.6f, %0.6f, %0.6f) (/showmodel)",data.rotation.x,data.rotation.y,data.rotation.z,data.zoom), 0xFFFF00) end
 	if data.modelId == 19348 then sampAddChatMessage(string.format(data.modelId.." - заскринить название предмета + TD! (%0.6f, %0.6f, %0.6f, %0.6f) (/showmodel)",data.rotation.x,data.rotation.y,data.rotation.z,data.zoom), 0xFFFF00) end
 	if data.modelId == 19592 then sampAddChatMessage(string.format(data.modelId.." - заскринить название предмета + TD! (%0.6f, %0.6f, %0.6f, %0.6f) (/showmodel)",data.rotation.x,data.rotation.y,data.rotation.z,data.zoom), 0xFFFF00) end
 	if data.modelId == 19610 then sampAddChatMessage(string.format(data.modelId.." - заскринить название предмета + TD! (%0.6f, %0.6f, %0.6f, %0.6f) (/showmodel)",data.rotation.x,data.rotation.y,data.rotation.z,data.zoom), 0xFFFF00) end
@@ -4725,6 +4887,7 @@ function sampev.onShowTextDraw(textdrawId, data)
 	if data.modelId == 19967 then sampAddChatMessage(string.format(data.modelId.." - заскринить название предмета + TD! (%0.6f, %0.6f, %0.6f, %0.6f) (/showmodel)",data.rotation.x,data.rotation.y,data.rotation.z,data.zoom), 0xFFFF00) end
 
 	-- if data.modelId == 1314 then sampAddChatMessage(string.format("Два человека ("..data.modelId..") - заскринить название предмета + TD! (%0.6f, %0.6f, %0.6f, %0.6f) (/showmodel)",data.rotation.x,data.rotation.y,data.rotation.z,data.zoom), 0xFF3300) end
+	if data.modelId == 1112 then sampAddChatMessage(string.format("Погоны ("..data.modelId..") - заскринить название предмета + TD! (%0.6f, %0.6f, %0.6f, %0.6f) (/showmodel)",data.rotation.x,data.rotation.y,data.rotation.z,data.zoom), 0xFF3300) end
 	if data.modelId == 9958 then sampAddChatMessage(string.format("Подлодка ("..data.modelId..") - заскринить название предмета + TD! (%0.6f, %0.6f, %0.6f, %0.6f) (/showmodel)",data.rotation.x,data.rotation.y,data.rotation.z,data.zoom), 0xFF3300) end
 	if data.modelId == 1588 then sampAddChatMessage(string.format("Жёлтая голова ("..data.modelId..") - заскринить название предмета + TD! (%0.6f, %0.6f, %0.6f, %0.6f) (/showmodel)",data.rotation.x,data.rotation.y,data.rotation.z,data.zoom), 0xFF3300) end
 	if data.modelId == 1598 then sampAddChatMessage(string.format("Девушка на спину ("..data.modelId..") - заскринить название предмета + TD! (%0.6f, %0.6f, %0.6f, %0.6f) (/showmodel)",data.rotation.x,data.rotation.y,data.rotation.z,data.zoom), 0xFF3300) end
@@ -4732,9 +4895,7 @@ function sampev.onShowTextDraw(textdrawId, data)
 	if data.modelId == 2224 then sampAddChatMessage("Карамельная бита ("..data.modelId..") - Если дешево стоит - то купить.", 0xFF3300) end
 	if data.modelId == 2446 then sampAddChatMessage(string.format("Красный ящик ("..data.modelId..") - заскринить название предмета + TD! (%0.6f, %0.6f, %0.6f, %0.6f) (/showmodel)",data.rotation.x,data.rotation.y,data.rotation.z,data.zoom), 0xFF3300) end
 	if data.modelId == 2855 then sampAddChatMessage("Рюкзак-журнальный ("..data.modelId..") - Если дешево стоит - то купить.", 0xFF3300) end
-	if data.modelId == 3385 then sampAddChatMessage("Рюкзак будущего ("..data.modelId..") - Если дешево стоит - то купить.", 0xFF3300) end
 	if data.modelId == 8483 then sampAddChatMessage("Маска череп ("..data.modelId..") - Если дешево стоит - то купить.", 0xFF3300) end
-	if data.modelId == 10145 then sampAddChatMessage("Шляпа из будущего ("..data.modelId..") - Если дешево стоит - то купить.", 0xFF3300) end
 	if data.modelId == 11733 then sampAddChatMessage("Снежные сани 2 ("..data.modelId..") - Если дешево стоит - то купить.", 0xFF3300) end
 	if data.modelId == 18858 then sampAddChatMessage("Реактивный рюкзак 1-2 ("..data.modelId..") - Если дешево стоит - то купить.", 0xFF3300) end
 	if data.modelId == 19067 then sampAddChatMessage(string.format("Капюшон ("..data.modelId..") - заскринить название предмета + TD! (%0.6f, %0.6f, %0.6f, %0.6f) (/showmodel)",data.rotation.x,data.rotation.y,data.rotation.z,data.zoom), 0xFF3300) end
@@ -5011,10 +5172,7 @@ function sampev.onServerMessage(color, text)
 		end
 	end
 	----------------------------------------
-	if string.find(text,"купил у вас") or string.find(text,"Вы купили") or string.find(text,"Вы успешно купили") then
-		if elements.chat.renderchatbuy.v == true then
-			table.insert(chatMessages, '{FDDB6D}'..os.date('[%H:%M:%S] ')..text)
-		end
+	if text:find("купил у вас") or text:find("Вы купили") or text:find("Вы успешно купили") then
 		if elements.chat.tosampfuncsbuy.v == true then
 			sampfuncsLog('{FDDB6D}'..os.date('[%H:%M:%S] ')..text)
 		end
@@ -5023,15 +5181,11 @@ function sampev.onServerMessage(color, text)
 		end
 	end
 	----------------------------------------
-	if elements.chat.removechatmicro.v == true and (text:find("Микрофон") and color == -1863723265) then
+	if elements.chat.removechatdepatment.v == true and text:find("%[D%]") then
 		return false
 	end
 	----------------------------------------
-	if elements.chat.removechatdepatment.v == true and string.find(text,"%[D%]") then
-		return false
-	end
-	----------------------------------------
-	if elements.chat.removechatnews.v == true and string.find(text,"%[ News ") then
+	if elements.chat.removechatnews.v == true and text:find("%[ News ") then
 		return false
 	end
 	----------------------------------------
@@ -5071,9 +5225,9 @@ function sampev.onServerMessage(color, text)
 		text:find("В данный момент проходит собеседование") or
 		text:find("Для Вступления необходимо прибыть в") and color == 73381119) or
 		----------------------------------------
-		string.find(text,"начал работу новый инкассатор") or
-		string.find(text,"Убив его, вы сможете получить деньги") or
-		string.find(text,"Со склада Армии") then
+		text:find("начал работу новый инкассатор") or
+		text:find("Убив его, вы сможете получить деньги") or
+		text:find("Со склада Армии") then
 		if elements.chat.tosampfuncsspam.v == true then
 			sampfuncsLog(os.date('[%H:%M:%S] ')..text)
 		end
@@ -5082,12 +5236,9 @@ function sampev.onServerMessage(color, text)
 		end
 	end
 	----------------------------------------
-	if string.find(text,"%[PREMIUM%]") or
-	(string.find(text,"%[VIP%]") and not string.find(text,"%[VIP%] Объявление")) or
-	string.find(text,"%[ADMIN%]") then
-		if elements.chat.rendervipchat.v == true then
-			table.insert(chatMessages, '{FFFFFF}'..os.date('[%H:%M:%S] ')..text)
-		end
+	if text:find("%[PREMIUM%]") or
+	(text:find("%[VIP%]") and not text:find("%[VIP%] Объявление")) or
+	text:find("%[ADMIN%]") then
 		if elements.chat.tosampfuncsvipchat.v == true then
 			sampfuncsLog('{FFFFFF}'..os.date('[%H:%M:%S] ')..text)
 		end
@@ -5096,36 +5247,33 @@ function sampev.onServerMessage(color, text)
 		end
 	end
 	----------------------------------------
-	if ((string.find(text,"%[Механик%]") or
-	string.find(text,"%[Развозчик продуктов%]") or
-	string.find(text,"%[Крупье%]") or
-	string.find(text,"%[Работник Налоговой%]") or
-	string.find(text,"%[Инкассатор%]") or
-	string.find(text,"%[Дальнобойщик%]") or
-	string.find(text,"%[Развозчик металлолома%]") or
-	string.find(text,"%[Мусорщик%]") or
-	string.find(text,"%[Водитель автобуса%]") or
-	string.find(text,"%[Пожарный%]") or
-	string.find(text,"%[Водитель трамвая%]") or
-	string.find(text,"%[Машинист электропоезда%]") or
-	string.find(text,"%[Главный фермер%]") or
-	string.find(text,"%[Руководитель грузчиков%]") or
-	string.find(text,"%[Руководитель завода%]") or
-	string.find(text,"%[Ремонтник дорог%]") or
-	string.find(text,"%[Продавец хотдогов%]") or
-	string.find(text,"%[Развозчик пиццы%]") or
-	string.find(text,"%[Адвокат%]") or
-	string.find(text,"%[Таксист%]") or
-	string.find(text,"%[Грузчик%]")) and color == -2686721) or
+	if ((text:find("%[Механик%]") or
+	text:find("%[Развозчик продуктов%]") or
+	text:find("%[Крупье%]") or
+	text:find("%[Работник Налоговой%]") or
+	text:find("%[Инкассатор%]") or
+	text:find("%[Дальнобойщик%]") or
+	text:find("%[Развозчик металлолома%]") or
+	text:find("%[Мусорщик%]") or
+	text:find("%[Водитель автобуса%]") or
+	text:find("%[Пожарный%]") or
+	text:find("%[Водитель трамвая%]") or
+	text:find("%[Машинист электропоезда%]") or
+	text:find("%[Главный фермер%]") or
+	text:find("%[Руководитель грузчиков%]") or
+	text:find("%[Руководитель завода%]") or
+	text:find("%[Ремонтник дорог%]") or
+	text:find("%[Продавец хотдогов%]") or
+	text:find("%[Развозчик пиццы%]") or
+	text:find("%[Адвокат%]") or
+	text:find("%[Таксист%]") or
+	text:find("%[Грузчик%]")) and color == -2686721) or
 	-- string.find(text,"Таксист (%w+_%w+) принял вызов игрока (%w+_%w+)") and color == 1687547391 or
-	string.find(text,"принял вызов игрока") and color == 1687547391 or
-	string.find(text,"вызывает такси") and (color == 1687547391 or color == 2046517247) or
-	string.find(text,"Поступил вызов, чтобы принять введите") and color == -1347440641 or
-	string.find(text,"Местоположение:") and color == -1
+	text:find("принял вызов игрока") and color == 1687547391 or
+	text:find("вызывает такси") and color == 1687547391 or
+	text:find("Поступил вызов, чтобы принять введите") and color == -1347440641 or
+	text:find("Местоположение:") and color == -1
 	then
-		if elements.chat.renderjobchat.v == true then
-			table.insert(chatMessages, '{FFFFFF}'..os.date('[%H:%M:%S] ')..text)
-		end
 		if elements.chat.tosampfuncsjobchat.v == true then
 			sampfuncsLog('{FFD700}'..os.date('[%H:%M:%S] ')..text)
 		end
@@ -5134,10 +5282,7 @@ function sampev.onServerMessage(color, text)
 		end
 	end
 	----------------------------------------
-	if ((string.find(text,"Объявление") or string.find(text,"Отредактировал сотрудник СМИ")) and (color == 1941201407 or color == -1)) then
-		if elements.chat.renderadv.v == true then
-			table.insert(chatMessages, '{FFFFFF}'..os.date('[%H:%M:%S] ')..text)
-		end
+	if ((text:find("Объявление") or text:find("Отредактировал сотрудник СМИ")) and (color == 1941201407 or color == -1)) then
 		if elements.chat.tosampfuncsadv.v == true then
 			sampfuncsLog('{FFD700}'..os.date('[%H:%M:%S] ')..text)
 		end
@@ -5146,7 +5291,7 @@ function sampev.onServerMessage(color, text)
 		end
 	end
 	----------------------------------------
-	if (string.find(text,"кричит") and color == -253326081) then
+	if (text:find("кричит") and color == -253326081) then
 		if elements.config.del_shout.v == true then
 			return false
 		end
@@ -5214,16 +5359,41 @@ function sampev.onServerMessage(color, text)
 	end
 	----------------------------------------
 	if not text:find(local_name) and
-	not text:find("%[Ошибка%]") and
-	not text:find("Увы, вам не удалось улучшить предмет") and
-	not text:find("Вы купили") and
-	not text:find("Вы успешно купили") and
-	not text:find("купил у вас") and
-	not text:find("Вам был добавлен предмет") and
-	not text:find("шанс изготовления") then
+	((text:find("%[Механик%]") and color == -2686721) or
+	(text:find("%[Развозчик продуктов%]") and color == -2686721) or
+	(text:find("%[Крупье%]") and color == -2686721) or
+	(text:find("%[Работник Налоговой%]") and color == -2686721) or
+	(text:find("%[Инкассатор%]") and color == -2686721) or
+	(text:find("%[Дальнобойщик%]") and color == -2686721) or
+	(text:find("%[Развозчик металлолома%]") and color == -2686721) or
+	(text:find("%[Мусорщик%]") and color == -2686721) or
+	(text:find("%[Водитель автобуса%]") and color == -2686721) or
+	(text:find("%[Пожарный%]") and color == -2686721) or
+	(text:find("%[Водитель трамвая%]") and color == -2686721) or
+	(text:find("%[Машинист электропоезда%]") and color == -2686721) or
+	(text:find("%[Главный фермер%]") and color == -2686721) or
+	(text:find("%[Руководитель грузчиков%]") and color == -2686721) or
+	(text:find("%[Руководитель завода%]") and color == -2686721) or
+	(text:find("%[Ремонтник дорог%]") and color == -2686721) or
+	(text:find("%[Продавец хотдогов%]") and color == -2686721) or
+	(text:find("%[Развозчик пиццы%]") and color == -2686721) or
+	(text:find("%[Адвокат%]") and color == -2686721) or
+	(text:find("%[Таксист%]") and color == -2686721) or
+	(text:find("%[Грузчик%]") and color == -2686721) or
+	(text:find("%[PREMIUM%]") and color == -1) or
+	(text:find("%[VIP%]") and color == -1) or
+	(text:find("%[Семья%]") and color == -1178486529) or
+	(text:find("%[F%]") and color == 766526463) or
+	(text:find("%[D%]")) or
+	(text:find("Микрофон") and color == -1863723265) or
+	(text:find("очень громко кашлянул") and color == -6684673) or
+	(text:find("забрал с общака") and color == -1347440641) or
+	(text:find("говорит") and color == -1) or
+	(text:find("кричит") and color == -253326081)) then
 		if messagesFloodTab[text] ~= nil then
 			if messagesFloodTab[text].Message == text and messagesFloodTab[text].Timestamp >= os.time() then
-				-- sampfuncsLog(string.format("[AntiFlood] %s.", text))
+				-- r, g, b, a = explode_argb(color)
+				-- sampfuncsLog(string.format("{%06X}[AntiFlood] %s.", join_rgb(r,g,b), text))
 				return false
 			else
 				messagesFloodTab[text] =
@@ -5246,8 +5416,6 @@ function sampev.onPlayerJoin(playerid, color, isNpc, nickname)
 	for i = 1, #friends do
 		if nickname == friends[i] and local_name ~= friends[i] then
 			----------------------------------------
-			table.insert(chatMessages, '{FF3300}'..os.date('[%H:%M:%S] ')..nickname..'['..playerid..'] заходит на сервер.')
-			----------------------------------------
 			if elements.chat.tosampfuncsconnect.v then
 				sampfuncsLog('{FF3300}'..os.date('[%H:%M:%S] ')..nickname..'['..playerid..'] заходит на сервер.')
 			end
@@ -5269,8 +5437,6 @@ function sampev.onPlayerQuit(playerid, reason)
 			if reason == 0 then reason_s = string.format("Ошибка")
 			elseif reason == 1 then reason_s = string.format("Вышел")
 			else reason_s = string.format("Кик/Бан") end
-			----------------------------------------
-			table.insert(chatMessages, '{FF3300}'..os.date('[%H:%M:%S] ')..nickname..'['..playerid..'] выходит с сервера. Причина: '..reason_s)
 			----------------------------------------
 			if elements.chat.tosampfuncsdisconnect.v then
 				sampfuncsLog('{FF3300}'..os.date('[%H:%M:%S] ')..nickname..'['..playerid..'] выходит с сервера. Причина: '..reason_s)
@@ -5296,31 +5462,43 @@ function sampev.onSetVehicleParamsEx(vehicleId, params, doors, windows)
 		carid = -1
 		printString('',0)
 	end
+	--------------------[Стиллер объектов на транспорт]--------------------
 	result, carhandle = sampGetCarHandleBySampVehicleId(vehicleId)
 	if carhandle ~= -1 then
 		----------------------------------------
 		model = getCarModel(carhandle)
 		ip, port = sampGetCurrentServerAddress()
 		----------------------------------------
-		if ip ~= "127.0.0.1" and vehicleId >= 839 then
+		if ip ~= "127.0.0.1" and vehicleId >= 855 then
 			if model ~= 401 and
+			model ~= 410 and
 			model ~= 411 and
+			model ~= 412 and
 			model ~= 413 and
+			model ~= 419 and
+			model ~= 422 and
+			model ~= 426 and
 			model ~= 451 and
 			model ~= 470 and
 			model ~= 475 and
+			model ~= 479 and
 			model ~= 483 and
 			model ~= 487 and
 			model ~= 490 and
 			model ~= 495 and
 			model ~= 497 and
 			model ~= 502 and
+			model ~= 505 and
+			model ~= 527 and
+			model ~= 529 and
 			model ~= 541 and
 			model ~= 550 and
 			model ~= 560 and
 			model ~= 562 and
 			model ~= 565 and
 			model ~= 566 and
+			model ~= 567 and
+			model ~= 576 and
 			model ~= 579 then
 				fsoav(vehicleId)
 			end
@@ -5393,6 +5571,75 @@ function onReceivePacket(id, bitStream)
 	if (id == PACKET_CONNECTION_ATTEMPT_FAILED) then
 		sampfuncsLog('{FF3300}'..os.date('[%H:%M:%S] ')..'Server didn\'t not respond.')
 	end
+	--------------------[RPC]--------------------
+	name = raknetGetPacketName(id)
+    if name then
+        packet_incoming = id..':'..name
+		-- sampfuncsLog('onReceivePacket: '..name)
+    end
+end
+
+function onSendPacket(id, bitStream, priority, reliability, orderingChannel)
+	--------------------[RPC]--------------------
+    name = raknetGetPacketName(id)
+    if name then
+        packet_outcoming = id..':'..name
+		-- sampfuncsLog('onSendPacket: '..name)
+    end
+end
+
+function onReceiveRpc(id, bitStream)
+	--------------------[Выключение зоны стрима]--------------------
+	if elements.config.del_stream.v == true and
+	(
+		id == 43 or -- RPC_SCRREMOVEBUILDINGFORPLAYER
+		id == 58 or -- Update3DTextLabel
+		id == 59 or -- ChatBubble
+		id == 60 or -- UpdateGameTimer
+		id == 72 or -- SetPlayerColor
+		id == 79 or -- CreateExplosion
+		id == 80 or -- ShowPlayerNameTagForPlayer
+		id == 86 or -- ApplyAnimation
+		id == 87 or -- ClearAnimations
+		id == 99 or -- MoveObject
+		id == 113 or -- SetPlayerAttachedObject
+		id == 123 -- SetNumberPlate
+	)
+	then
+		return false
+	end
+	--------------------[RPC]--------------------
+	-- if id ~= 14 and
+	-- id ~= 26 and
+	-- id ~= 59 and
+	-- id ~= 65 and
+	-- id ~= 66 and
+	-- id ~= 93 and
+	-- id ~= 106 and
+	-- id ~= 122 and
+	-- id ~= 137 and
+	-- id ~= 153 and
+	-- id ~= 154 and
+	-- id ~= 159 and
+	-- id ~= 163 and
+	-- id ~= 165 and
+	-- id ~= 138
+	-- then
+		name = raknetGetRpcName(id)
+		if name then
+			rpc_incoming = id..':'..name
+			-- sampfuncsLog('onReceiveRpc: '..name)
+		end
+    -- end
+end
+
+function onSendRpc(id, bitStream, priority, reliability, orderingChannel, shiftTs)
+	--------------------[RPC]--------------------
+    name = raknetGetRpcName(id)
+    if name then
+        rpc_outcoming = id..':'..name
+		-- sampfuncsLog('onSendRpc: '..name)
+    end
 end
 
 function linkVehicleToInterior(vehicleId, interior) -- NoBalloons
@@ -5411,10 +5658,10 @@ function sampev.onCreateObject(objectId, data)
 			-- io.close(file_waxta)
 		-- end
 	-- end
+	local model = data.modelId
 	if data.attachToVehicleId ~= 0xFFFF then -- NoBalloons
 		local result, car = sampGetCarHandleBySampVehicleId(data.attachToVehicleId)
 		if result and isCarModel(car, 487) then
-			local model = data.modelId
 			if model == 2923 or model == 19131 then
 				return false
 			else
@@ -5428,156 +5675,113 @@ function sampev.onCreateObject(objectId, data)
 			end
 		end
 	end
+	if elements.destroy.bucket.v == true and (model == 2404 or model == 2405 or model == 2406 or model == 2410 or model == 19601 or model == 19848) then
+		return false
+	end
+	if elements.destroy.tree.v == true and model == 19076 then
+		return false
+	end
+	if elements.destroy.serdce.v == true and model == 7093 then
+		return false
+	end
+	if elements.destroy.xlam.v == true and 
+	(model == 819 or -- Большой Куст #2
+	model == 823 or -- Большой Куст #1
+	model == 886 or -- Небольшое дерево #1
+	model == 890 or -- Небольшое дерево #2
+	model == 894 or -- INVALID_OBJECT_ID
+	model == 1728 or -- Диван
+	model == 2614 or -- Флаг
+	model == 18659 or -- Граффити
+	model == 18660 or -- Граффити
+	model == 18661 or -- Граффити
+	model == 18662 or -- Граффити
+	-- model == 18663 or -- Граффити (используются на ЦР)
+	-- model == 18664 or -- Граффити (используются для других надписей)
+	model == 18665 or -- Граффити
+	model == 18666 or -- Граффити
+	model == 18667 or -- Граффити
+	model == 19306 or -- Красный флажок
+	model == 19317 or -- Красная гитара
+	model == 19318 or -- Чёрно-белая гитара
+	model == 19319 or -- Чёрная гитара
+	model == 19525) then -- Праздничный торт
+		return false
+	end
 	--------------------[Стиллер объектов на транспорт]--------------------
-	local tempObj = { }
-	----------------------------------------
-	tempObj['objectId'] = objectId
-	tempObj['modelId'] = data.modelId
-	tempObj['position'] = data.position
-	tempObj['rotation'] = data.rotation
-	tempObj['drawDistance'] = data.drawDistance
-	tempObj['cameraCol'] = data.cameraCol
-	tempObj['materialHave'] = false
-	tempObj['materialNum'] = 0
-	tempObj['materialTxtNum'] = 0
-	----------------------------------------
-	if sampGetGamestate() == 2 then
-		tempObj['streamerDynamic'] = false
-	else
-		tempObj['streamerDynamic'] = true
+	if data.attachToVehicleId ~= nil and data.attachToVehicleId ~= 65535 and (data.modelId == 19327 or data.modelId == 19476 or data.modelId == 19981) then
+		----------------------------------------
+		local tempObj = {}
+		tempObj['objectId'] = objectId
+		tempObj['modelId'] = data.modelId
+		tempObj['positionX'] = data.position.x
+		tempObj['positionY'] = data.position.y
+		tempObj['positionZ'] = data.position.z
+		tempObj['rotationX'] = data.rotation.x
+		tempObj['rotationY'] = data.rotation.y
+		tempObj['rotationZ'] = data.rotation.z
+		tempObj['drawDistance'] = data.drawDistance
+		tempObj['cameraCol'] = data.cameraCol
+		----------------------------------------
+		tempObj['id'] = data.attachToVehicleId
+		tempObj['OffsetX'] = data.attachOffsets.x
+		tempObj['OffsetY'] = data.attachOffsets.y
+		tempObj['OffsetZ'] = data.attachOffsets.z
+		tempObj['RotX'] = data.attachRotation.x
+		tempObj['RotY'] = data.attachRotation.y
+		tempObj['RotZ'] = data.attachRotation.z
+		----------------------------------------
+		table.insert(stealerObject, tempObj)
 	end
 	----------------------------------------
-	if data.texturesCount > 0 then
-		if #data.materials ~= 0 then
-			for i = 1, #data.materials do
-				local tempMatObj = { }
-				----------------------------------------
-				tempMatObj['objectId'] = data.objectId
-				tempMatObj['materialId'] = data.materials[i]['materialId']
-				tempMatObj['modelId'] = data.materials[i]['modelId']
-				tempMatObj['libraryName'] = data.materials[i]['libraryName']
-				tempMatObj['textureName'] = data.materials[i]['textureName']
-				tempMatObj['materialType'] = true
-				----------------------------------------
-				if data.materials[i]['color'] == 0 then
-					tempMatObj['color'] = '0'
-				else
-					tempMatObj['color'] = string.format('0x%X', bit.band(0xFFFFFFFF, data.materials[i]['color']))
-				end
-				----------------------------------------
-				tempObj['materialHave'] = true
-				tempObj['materialNum'] = tempObj['materialNum'] + 1
-				----------------------------------------
-				table.insert(tempObj, tempMatObj)
-			end
-		end
-		----------------------------------------
-		if #data.materialText ~= 0 then
-			for i = 1, #data.materialText do
-				local tempMatObj = {}
-				----------------------------------------
-				tempMatObj['objectId'] = data.objectId
-				tempMatObj['materialId'] = data.materialText[i]['materialId']
-				tempMatObj['materialSize'] = data.materialText[i]['materialSize']
-				tempMatObj['fontName'] = data.materialText[i]['fontName']
-				tempMatObj['fontSize'] = data.materialText[i]['fontSize']
-				tempMatObj['bold'] = data.materialText[i]['bold']
-				tempMatObj['materialType'] = false
-				----------------------------------------
-				if data.materialText[i]['fontColor'] == 0 then
-					tempMatObj['fontColor'] = '0'
-				else
-					tempMatObj['fontColor'] = string.format('0x%X', bit.band(0xFFFFFFFF, data.materialText[i]['fontColor']))
-				end
-				----------------------------------------
-				if data.materialText[i]['backGroundColor'] == 0 then
-					tempMatObj['backGroundColor'] = '0'
-				else
-					tempMatObj['backGroundColor'] = string.format('0x%X', bit.band(0xFFFFFFFF, data.materialText[i]['backGroundColor']))
-				end
-				----------------------------------------
-				tempMatObj['align'] = data.materialText[i]['align']
-				data.materialText[i]['text'] = string.gsub(data.materialText[i]['text'], '\n', '\\n')
-				tempMatObj['text'] = data.materialText[i]['text']
-				----------------------------------------
-				tempObj['materialHave'] = true
-				tempObj['materialTxtNum'] = tempObj['materialTxtNum'] + 1
-				----------------------------------------
-				table.insert(tempObj, tempMatObj)
-			end
+end
+
+function sampev.onSetObjectMaterialText(objectId, data)
+	--------------------[Автобазар]--------------------
+	if data.align == 1 and data.fontSize == 40 then
+		local veh, price = data.text:match('^([^\n]+)\n{%x+}%$(%d+)')
+		if veh and price then
+			price = sumFormat(price)
+			--sampfuncsLog('{FFFFFF}На продажу выставлен {FDDB6D}'..veh..'{FFFFFF} за {FDDB6D}$'..price..'{FFFFFF}.')
+			sampAddChatMessage('[{FDDB6D}'..script_names..' '..thisScript().version..'{FFFFFF}] На продажу выставлен {FDDB6D}'..veh..'{FFFFFF} за {FDDB6D}$'..price..'{FFFFFF}.', 0xFFFFFF)
+			----------------------------------------
+			data.text = data.text:gsub('%$%d+', '$' .. price)
+			return { objectId, data }
 		end
 	end
 	----------------------------------------
-	function sampev.onSetObjectMaterialText(objectId, data)
-		--------------------[Автобазар]--------------------
-		if data.align == 1 and data.fontSize == 40 then
-			local veh, price = data.text:match('^([^\n]+)\n{%x+}%$(%d+)')
-			if veh and price then
-				price = sumFormat(price)
-				--sampfuncsLog('{FFFFFF}На продажу выставлен {FDDB6D}'..veh..'{FFFFFF} за {FDDB6D}$'..price..'{FFFFFF}.')
-				sampAddChatMessage('[{FDDB6D}'..script_names..' '..thisScript().version..'{FFFFFF}] На продажу выставлен {FDDB6D}'..veh..'{FFFFFF} за {FDDB6D}$'..price..'{FFFFFF}.', 0xFFFFFF)
+	for i = 1, #stealerObject do
+		if stealerObject[i] ~= nil then
+			if stealerObject[i]['objectId'] == objectId then
 				----------------------------------------
-				data.text = data.text:gsub('%$%d+', '$' .. price)
-				return { objectId, data }
+				local tempObjMat = {}
+				tempObjMat['objectId'] = objectId
+				tempObjMat['materialId'] = data.materialId
+				tempObjMat['text'] = data.text
+				tempObjMat['materialSize'] = data.materialSize
+				tempObjMat['fontName'] = data.fontName
+				tempObjMat['fontSize'] = data.fontSize
+				tempObjMat['bold'] = data.bold
+				tempObjMat['materialType'] = false
+				table.insert(stealerObjectMaterial, tempObjMat)
 			end
 		end
-		----------------------------------------
-		if tempObj['objectId'] == objectId then
-			local tempMatObj = {}
-			----------------------------------------
-			tempMatObj['objectId'] = objectId
-			tempMatObj['materialId'] = data.materialId
-			tempMatObj['materialSize'] = data.materialSize
-			tempMatObj['fontName'] = data.fontName
-			tempMatObj['fontSize'] = data.fontSize
-			tempMatObj['bold'] = data.bold
-			tempMatObj['materialType'] = false
-			----------------------------------------
-			if data.fontColor == 0 then
-				tempMatObj['fontColor'] = '0'
-			else
-				tempMatObj['fontColor'] = string.format('0x%X', bit.band(0xFFFFFFFF, data.fontColor))
-			end
-			if data.backGroundColor == 0 then
-				tempMatObj['backGroundColor'] = '0'
-			else
-				tempMatObj['backGroundColor'] = string.format('0x%X', bit.band(0xFFFFFFFF,data.backGroundColor))
-			end
-			----------------------------------------
-			tempMatObj['align'] = data.align
-			data.text = string.gsub(data.text, '\n', '\\n')
-			tempMatObj['text'] = data.text
-			----------------------------------------
-			tempObj['materialHave'] = true
-			tempObj['materialTxtNum'] = tempObj['materialTxtNum'] + 1
-			----------------------------------------
-			table.insert(tempObj, tempMatObj)
-		end
-	end
-	----------------------------------------
-	if data.attachToVehicleId ~= nil and data.attachToVehicleId ~= 65535 and data.modelId == 19476 then
-		local vehicleData = {}
-		----------------------------------------
-		vehicleData['id'] = data.attachToVehicleId
-		vehicleData['data'] = tempObj
-		----------------------------------------
-		vehicleData['OffsetX'] = data.attachOffsets.x
-		vehicleData['OffsetY'] = data.attachOffsets.y
-		vehicleData['OffsetZ'] = data.attachOffsets.z
-		vehicleData['RotX'] = data.attachRotation.x
-		vehicleData['RotY'] = data.attachRotation.y
-		vehicleData['RotZ'] = data.attachRotation.z
-		----------------------------------------
-		table.insert(objectsTable, vehicleData)
-		----------------------------------------
 	end
 end
 
 function sampev.onDestroyObject(objectId)
-	for i = 1, #objectsTable do
-		if objectsTable[i] ~= nil then
-			if objectsTable[i]['data']['objectId'] == objectId then
-				objectsTable[i] = nil
+	for i = 1, #stealerObject do
+		if stealerObject[i] ~= nil then
+			if stealerObject[i]['objectId'] == objectId then
+				stealerObject[i] = nil
+				break
+			end
+		end
+	end
+	for i = 1, #stealerObjectMaterial do
+		if stealerObjectMaterial[i] ~= nil then
+			if stealerObjectMaterial[i]['objectId'] == objectId then
+				stealerObjectMaterial[i] = nil
 				break
 			end
 		end
@@ -5587,16 +5791,16 @@ end
 function fsoav(vehicleId)
 	if tonumber(vehicleId) == nil then return sampAddChatMessage('Invalid vehicleId', 0xFF9ACD32) end
 	----------------------------------------
-	local res, vHandle = sampGetCarHandleBySampVehicleId(vehicleId)
+	local res, carhandle = sampGetCarHandleBySampVehicleId(vehicleId)
 	if not res then
 		return
 	end
 	----------------------------------------
 	count = false
 	----------------------------------------
-	for i = 1, #objectsTable do
-		if objectsTable[i] ~= nil then
-			if objectsTable[i]['id'] == tonumber(vehicleId) then
+	for i = 1, #stealerObject do
+		if stealerObject[i] ~= nil then
+			if stealerObject[i]['id'] == tonumber(vehicleId) then
 				count = true
 			end
 		end
@@ -5613,218 +5817,41 @@ function fsoav(vehicleId)
 		----------------------------------------
 		local vPosX, vPosY, vPosZ = getCarCoordinates(carhandle)
 		local vAngle = getCarHeading(carhandle)
-		local vColorPrim, vColorSec = getCarColours(carhandle)
 		----------------------------------------
-		file_vehicles:write(string.format('new vehicleid = CreateVehicle(%i, %f, %f, %f, %f, %i, %i, -1);', getCarModel(carhandle), vPosX, vPosY, vPosZ, vAngle, vColorPrim, vColorSec) .. '\n\n')
+		file_vehicles:write(string.format('new vehicleid = CreateVehicle(%i, %f, %f, %f, %f, -1, -1, -1);', getCarModel(carhandle), vPosX, vPosY, vPosZ, vAngle) .. '\n\n')
 		----------------------------------------
-		for i = 1, #objectsTable do
-			if objectsTable[i] ~= nil then
-				if objectsTable[i]['id'] == tonumber(vehicleId) then
-					local setDrawDist = 'STREAMER_OBJECT_DD'
-					local setDrawDistNum = '0.0'
-					----------------------------------------
-					if objectsTable[i]['data']['drawDistance'] > 0 then
-						setDrawDist = tostring(objectsTable[i]['data']['drawDistance'])
-						setDrawDistNum = tostring(objectsTable[i]['data']['drawDistance'])
-						----------------------------------------
-						if setDrawDist == nil and setDrawDistNum == nil then
-							setDrawDist = 'STREAMER_OBJECT_DD'
-							setDrawDistNum = '0.0'
-						else
-							setDrawDist = tostring(math.floor(objectsTable[i]['data']['drawDistance'])) .. '.0'
-							setDrawDistNum = tostring(math.floor(objectsTable[i]['data']['drawDistance'])) .. '.0'
-						end
+		for i = 1, #stealerObject do
+			if stealerObject[i] ~= nil then
+				if stealerObject[i]['id'] == tonumber(vehicleId) then
+					file_vehicles:write(string.format('new vaos_1 = CreateDynamicObject(%d, %f, %f, %f, %f, %f, %f, 0, 0, -1, STREAMER_OBJECT_SD, 150.0);',
+					stealerObject[i]['modelId'],
+					stealerObject[i]['positionX'],
+					stealerObject[i]['positionY'],
+					stealerObject[i]['positionZ'],
+					stealerObject[i]['rotationX'],
+					stealerObject[i]['rotationY'],
+					stealerObject[i]['rotationZ']) .. '\n')
+					
+					if stealerObjectMaterial[i]['materialId'] ~= nil then
+						file_vehicles:write(string.format('SetDynamicObjectMaterialText(vaos_1, %d, "%s", %d, "%s", %d, %d, 0xFFFFFFFF, 0xFFB50100, 1);',
+						stealerObjectMaterial[i]['materialId'],
+						stealerObjectMaterial[i]['text'],
+						stealerObjectMaterial[i]['materialSize'],
+						stealerObjectMaterial[i]['fontName'],
+						stealerObjectMaterial[i]['fontSize'],
+						stealerObjectMaterial[i]['bold']) .. '\n')
 					end
-					----------------------------------------
-					local objVar = 'vaos_' .. tostring(i)
-					----------------------------------------
-					if objectsTable[i]['data']['materialNum'] == 0 and objectsTable[i]['data']['materialTxtNum'] == 0 then
-						if objectsTable[i]['data']['streamerDynamic'] then
-							file_vehicles:write(string.format('%sCreateDynamicObject(%d, %f, %f, %f, %f, %f, %f, %d, %d, -1, STREAMER_OBJECT_SD, %s);\n',
-							'new ' .. objVar .. ' = ',
-							objectsTable[i]['data']['modelId'],
-							objectsTable[i]['data']['position']['x'],
-							objectsTable[i]['data']['position']['y'],
-							objectsTable[i]['data']['position']['z'],
-							objectsTable[i]['data']['rotation']['x'],
-							objectsTable[i]['data']['rotation']['y'],
-							objectsTable[i]['data']['rotation']['z'],
-							0,
-							0,
-							setDrawDist))
-							if objectsTable[i]['data']['cameraCol'] == 1 then file_vehicles:write(string.format('SetDynamicObjectNoCameraCol(%s);\n', objVar)) end
-							file_vehicles:write(string.format('AttachDynamicObjectToVehicle(%s, vehicleid, %f, %f, %f, %f, %f, %f);\n\n',
-							objVar,
-							objectsTable[i]['OffsetX'],
-							objectsTable[i]['OffsetY'],
-							objectsTable[i]['OffsetZ'],
-							objectsTable[i]['RotX'],
-							objectsTable[i]['RotY'],
-							objectsTable[i]['RotZ']))
-						else
-							file_vehicles:write(string.format('%sCreateObject(%d, %f, %f, %f, %f, %f, %f, %s);\n',
-							'new ' .. objVar .. ' = ',
-							objectsTable[i]['data']['modelId'],
-							objectsTable[i]['data']['position']['x'],
-							objectsTable[i]['data']['position']['y'],
-							objectsTable[i]['data']['position']['z'],
-							objectsTable[i]['data']['rotation']['x'],
-							objectsTable[i]['data']['rotation']['y'],
-							objectsTable[i]['data']['rotation']['z'],
-							setDrawDistNum))
-							if objectsTable[i]['data']['cameraCol'] == 1 then file_vehicles:write(string.format('SetObjectNoCameraCol(%s);\n', objVar)) end
-							file_vehicles:write(string.format('AttachObjectToVehicle(%s, vehicleid, %f, %f, %f, %f, %f, %f);\n\n',
-							objVar,
-							objectsTable[i]['OffsetX'],
-							objectsTable[i]['OffsetY'],
-							objectsTable[i]['OffsetZ'],
-							objectsTable[i]['RotX'],
-							objectsTable[i]['RotY'],
-							objectsTable[i]['RotZ']))
-						end
-					else
-						if objectsTable[i]['data']['streamerDynamic'] then
-							file_vehicles:write(string.format('%sCreateDynamicObject(%d, %f, %f, %f, %f, %f, %f, %d, %d, -1, STREAMER_OBJECT_SD, %s);\n',
-							'new ' .. objVar .. ' = ',
-							objectsTable[i]['data']['modelId'],
-							objectsTable[i]['data']['position']['x'],
-							objectsTable[i]['data']['position']['y'],
-							objectsTable[i]['data']['position']['z'],
-							objectsTable[i]['data']['rotation']['x'],
-							objectsTable[i]['data']['rotation']['y'],
-							objectsTable[i]['data']['rotation']['z'],
-							0,
-							0,
-							setDrawDist))
-							if objectsTable[i]['data']['cameraCol'] == 1 then file_vehicles:write(string.format('SetDynamicObjectNoCameraCol(%s);\n', objVar)) end
-							----------------------------------------
-							for j = 1, #objectsTable[i]['data'] do
-								if objectsTable[i]['data'][j] ~= nil then
-									if objectsTable[i]['data'][j]['materialType'] == true then
-										file_vehicles:write(string.format('SetDynamicObjectMaterial(%s, %d, %d, "%s", "%s", %s);\n',
-										objVar,
-										objectsTable[i]['data'][j]['materialId'],
-										objectsTable[i]['data'][j]['modelId'],
-										objectsTable[i]['data'][j]['libraryName'],
-										objectsTable[i]['data'][j]['textureName'],
-										objectsTable[i]['data'][j]['color']))
-									else
-										file_vehicles:write(string.format('SetDynamicObjectMaterialText(%s, %d, "%s", %d, "%s", %d, %d, %s, %s, %d);\n',
-										objVar,
-										objectsTable[i]['data'][j]['materialId'],
-										objectsTable[i]['data'][j]['text'],
-										objectsTable[i]['data'][j]['materialSize'],
-										objectsTable[i]['data'][j]['fontName'],
-										objectsTable[i]['data'][j]['fontSize'],
-										objectsTable[i]['data'][j]['bold'],
-										objectsTable[i]['data'][j]['fontColor'],
-										objectsTable[i]['data'][j]['backGroundColor'],
-										objectsTable[i]['data'][j]['align']))
-									end
-								end
-							end
-							----------------------------------------
-							file_vehicles:write(string.format('AttachDynamicObjectToVehicle(%s, vehicleid, %f, %f, %f, %f, %f, %f);\n\n',
-							objVar,
-							objectsTable[i]['OffsetX'],
-							objectsTable[i]['OffsetY'],
-							objectsTable[i]['OffsetZ'],
-							objectsTable[i]['RotX'],
-							objectsTable[i]['RotY'],
-							objectsTable[i]['RotZ']))
-						else
-							file_vehicles:write(string.format('%sCreateObject(%d, %f, %f, %f, %f, %f, %f, %s);\n',
-							'new ' .. objVar .. ' = ',
-							objectsTable[i]['data']['modelId'],
-							objectsTable[i]['data']['position']['x'],
-							objectsTable[i]['data']['position']['y'],
-							objectsTable[i]['data']['position']['z'],
-							objectsTable[i]['data']['rotation']['x'],
-							objectsTable[i]['data']['rotation']['y'],
-							objectsTable[i]['data']['rotation']['z'],
-							setDrawDistNum))
-							if objectsTable[i]['data']['cameraCol'] == 1 then file_vehicles:write(string.format('SetObjectNoCameraCol(%s);\n', objVar)) end
-							----------------------------------------
-							for j = 1, #objectsTable[i]['data'] do
-								if objectsTable[i]['data'][j] ~= nil then
-									if objectsTable[i]['data'][j]['materialType'] == true then
-										file_vehicles:write(string.format('SetObjectMaterial(%s, %d, %d, "%s", "%s", %s);\n',
-										objVar,
-										objectsTable[i]['data'][j]['materialId'],
-										objectsTable[i]['data'][j]['modelId'],
-										objectsTable[i]['data'][j]['libraryName'],
-										objectsTable[i]['data'][j]['textureName'],
-										objectsTable[i]['data'][j]['color']))
-									else
-										file_vehicles:write(string.format('SetObjectMaterialText(%s, "%s", %d, %d, "%s", %d, %d, %s, %s, %d);\n',
-										objVar,
-										objectsTable[i]['data'][j]['text'],
-										objectsTable[i]['data'][j]['materialId'],
-										objectsTable[i]['data'][j]['materialSize'],
-										objectsTable[i]['data'][j]['fontName'],
-										objectsTable[i]['data'][j]['fontSize'],
-										objectsTable[i]['data'][j]['bold'],
-										objectsTable[i]['data'][j]['fontColor'],
-										objectsTable[i]['data'][j]['backGroundColor'],
-										objectsTable[i]['data'][j]['align']))
-									end
-								end
-							end
-							----------------------------------------
-							file_vehicles:write(string.format('AttachObjectToVehicle(%s, vehicleid, %f, %f, %f, %f, %f, %f);\n\n',
-							objVar,
-							objectsTable[i]['OffsetX'],
-							objectsTable[i]['OffsetY'],
-							objectsTable[i]['OffsetZ'],
-							objectsTable[i]['RotX'],
-							objectsTable[i]['RotY'],
-							objectsTable[i]['RotZ']))
-						end
-					end
+					file_vehicles:write(string.format('AttachDynamicObjectToVehicle(vaos_1, vehicleid, %f, %f, %f, %f, %f, %f);',
+					stealerObject[i]['OffsetX'],
+					stealerObject[i]['OffsetY'],
+					stealerObject[i]['OffsetZ'],
+					stealerObject[i]['RotX'],
+					stealerObject[i]['RotY'],
+					stealerObject[i]['RotZ']) .. '\n\n')
 				end
-			end
+			end	
 		end
 		io.close(file_vehicles)
-	end
-end
-
-function onReceiveRpc(id, bitStream)
-	if id == RPC_SCRCREATEOBJECT and sampIsLocalPlayerSpawned() then
-		local id = raknetBitStreamReadInt16(bitStream)
-		local model = raknetBitStreamReadInt32(bitStream)
-		if elements.destroy.bucket.v == true and (model == 2404 or model == 2405 or model == 2406 or model == 2410 or model == 19601 or model == 19848) then
-			return false
-		end
-		if elements.destroy.tree.v == true and model == 19076 then
-			return false
-		end
-		if elements.destroy.serdce.v == true and model == 7093 then
-			return false
-		end
-		if elements.destroy.xlam.v == true and 
-		(model == 819 or -- Большой Куст #2
-		model == 823 or -- Большой Куст #1
-		model == 886 or -- Небольшое дерево #1
-		model == 890 or -- Небольшое дерево #2
-		model == 894 or -- INVALID_OBJECT_ID
-		model == 1728 or -- Диван
-		model == 2614 or -- Флаг
-		model == 18659 or -- Граффити
-		model == 18660 or -- Граффити
-		model == 18661 or -- Граффити
-		model == 18662 or -- Граффити
-		-- model == 18663 or -- Граффити (используются на ЦР)
-		-- model == 18664 or -- Граффити (используются для других надписей)
-		model == 18665 or -- Граффити
-		model == 18666 or -- Граффити
-		model == 18667 or -- Граффити
-		model == 19306 or -- Красный флажок
-		model == 19317 or -- Красная гитара
-		model == 19318 or -- Чёрно-белая гитара
-		model == 19319 or -- Чёрная гитара
-		model == 19525) then -- Праздничный торт
-			return false
-		end
 	end
 end
 
@@ -7578,6 +7605,12 @@ function sampev.onSendCommand(cmd)
 end
 
 function sampev.onPlayerChatBubble(playerId, color, distance, duration, message)
+	if elements.config.del_stream.v == true then
+		return false
+	end
+	if elements.config.del_stream_pl.v == true then
+		return false
+	end
 	if not sampIsPlayerPaused(playerId) and
 		not message:find("%-%s*%d+%.%d+ хп") and
 		not message:find(".+ взглянул%(a%) на часы$") and
@@ -7690,12 +7723,6 @@ function sampev.onSetPlayerAttachedObject(playerId, index, create, object)
 			sampAddChatMessage('С Roy_Shelby['..playerId..'] своровалась модификация. '..object.modelId..': '..getColor(object.color1)..': '..getColor(object.color2)..': '..object.color1..': '..object.color2,0xFF3300)
 			SaveFileAttach(playerId,model,object.bone,object.offset.x,object.offset.y,object.offset.z,object.rotation.x,object.rotation.y,object.rotation.z,object.scale.x,object.scale.y,object.scale.z)
 		end
-		if model == 1112 then
-			elements.config.attach_id.v = playerId
-			elements.state.finds = playerId
-			sampAddChatMessage("У игрока "..sampGetPlayerNickname(playerId).."["..playerId.."] необходимо своровать модификацию, обнови зону стрима. "..model,0xFF3300)
-			printString('~g~Find enable',2000)
-		end
 		if model == 1974 then
 			elements.config.attach_id.v = playerId
 			elements.state.finds = playerId
@@ -7709,12 +7736,6 @@ function sampev.onSetPlayerAttachedObject(playerId, index, create, object)
 			printString('~g~Find enable',2000)
 		end
 		if model == 3434 then
-			elements.config.attach_id.v = playerId
-			elements.state.finds = playerId
-			sampAddChatMessage("У игрока "..sampGetPlayerNickname(playerId).."["..playerId.."] необходимо своровать модификацию, обнови зону стрима. "..model,0xFF3300)
-			printString('~g~Find enable',2000)
-		end
-		if model == 11727 then
 			elements.config.attach_id.v = playerId
 			elements.state.finds = playerId
 			sampAddChatMessage("У игрока "..sampGetPlayerNickname(playerId).."["..playerId.."] необходимо своровать модификацию, обнови зону стрима. "..model,0xFF3300)
@@ -7752,6 +7773,14 @@ function sampev.onSetPlayerAttachedObject(playerId, index, create, object)
 		end
 		ip, port = sampGetCurrentServerAddress()
 		if ip == "185.169.134.3" or ip == "185.169.134.4" or ip == "185.169.134.43" or ip == "185.169.134.44" or ip == "185.169.134.45" or ip == "185.169.134.5" or ip == "185.169.134.59" or ip == "185.169.134.61" or ip == "185.169.134.107" or ip == "185.169.134.109" or ip == "185.169.134.166" or ip == "185.169.134.171" or ip == "185.169.134.172" or ip == "185.169.134.173" or ip == "185.169.134.174" or ip == "80.66.82.191" or ip == "80.66.82.190" then
+			--------------------[Что не показывается вообще]--------------------
+			if model == 328 then return false end -- Розовый оружейный кейс
+			if model == 1210 then return false end -- Коричневый кейс
+			if model == 1276 and object.offset.x == 0 then return false end -- Свечение игрока
+			if model == 3528 then return false end -- Дракон
+			if model == 11745 then return false end -- Сумка для ноутбука (сделано)
+			if model == 19076 then return false end -- Ёлочка на плечо
+			if model == 19921 then return false end -- Красный чемодан (сделано)
 			----------------------------------------
 			for model_id, name in pairs(model_name_anti_stealer) do
 				if model_id == model then
@@ -7785,15 +7814,9 @@ function sampev.onSetPlayerAttachedObject(playerId, index, create, object)
 				if object.offset.x == 0.0610 then return end
 			end
 			----------------------------------------
-			if model == 328 then return false end -- Розовый оружейный кейс
-			if model == 363 and object.bone == 7 then return end -- Бомба на пояс
-			if model == 1210 then return false end -- Коричневый кейс
-			if model == 1276 and object.offset.x == 0 then return false end -- Свечение игрока
 			if model == 2908 and object.bone == 13 then return end -- Голова зомби в руку с модификации
 			if model == 2918 and object.bone == 2 then return end -- Рюкзак с шипами с модификации Костюм для хэллоуина
 			if model == 3524 and (object.scale.x == 0.2029 or object.scale.y == 0.2229 or object.scale.z == 0.1889) then return end -- Левая горящая голова и Правая горящая голова
-			if model == 3528 then return false end -- Дракон
-			if model == 11745 then return false end -- Сумка для ноутбука (сделано)
 			if model == 18868 and object.bone == 6 then return end -- Телефон
 			if model == 18890 and object.bone == 6 then return end -- Грабли в руку
 			if model == 18954 then model = 18953 end -- Шапки
@@ -7801,7 +7824,6 @@ function sampev.onSetPlayerAttachedObject(playerId, index, create, object)
 			if model == 19037 or model == 19038 then model = 19036 end -- Хоккейная маска
 			if model == 19064 and (object.bone == 1 or object.bone == 3 or object.bone == 4) then return end -- Плащ деда мороза, Наручи на плечи
 			if model == 19065 or model == 19066 then model = 19064 end -- Новогодняя шапка
-			if model == 19076 then return false end -- Ёлочка на плечо
 			if model == 19137 and object.bone == 1 then return end -- Голова петуха с модификации
 			if model == 19160 or model == 19161 or model == 19162 then model = 19093 end -- Кепки DUDE & Police
 			if model == 19317 and object.bone == 2 then return end -- Гитара на глазу
@@ -7816,7 +7838,6 @@ function sampev.onSetPlayerAttachedObject(playerId, index, create, object)
 			if model == 19581 and object.bone == 14 then return end -- Сковородка в руку
 			if model == 19631 and (object.bone == 6 or object.rotation.y == -31.8000) then return end -- Кирка в руку и молот на спину
 			if model == 19847 and object.bone == 5 then return end -- Мясо в руку
-			if model == 19921 then return false end -- Красный чемодан (сделано)
 			if model >= 18892 and model <= 18905 then model = 18891 end -- Бандана
 			if model >= 18907 and model <= 18910 then model = 18906 end -- Банданы на голову
 			if model >= 18912 and model <= 18920 then model = 18911 end -- Банданы
@@ -7824,7 +7845,6 @@ function sampev.onSetPlayerAttachedObject(playerId, index, create, object)
 			if model >= 18927 and model <= 18935 then model = 18926 end -- Кепка передняя
 			if model >= 18956 and model <= 18959 then model = 18955 end -- Кепка обратная
 			if model >= 18971 and model <= 18973 then model = 18970 end -- Шляпы
-			if model >= 19007 and model <= 19035 then model = 19006 end -- Очки
 			if model >= 19040 and model <= 19053 then model = 19039 end -- Часы
 			if model >= 19068 and model <= 19069 then model = 19067 end -- Шапки
 			if model >= 19096 and model <= 19100 then model = 19095 end -- Ковбойская шляпа
@@ -7873,7 +7893,6 @@ function sampev.onSetPlayerAttachedObject(playerId, index, create, object)
 						return
 					end
 					sampfuncsLog('{33AA33}<Добавлено> '..code_temp_2)
-					-- table.insert(chatMessages, '{33AA33}<Добавлено> '..code_temp_2)
 					SaveFileAttach(skin,model,object.bone,object.offset.x,object.offset.y,object.offset.z,object.rotation.x,object.rotation.y,object.rotation.z,object.scale.x,object.scale.y,object.scale.z)
 					io.close(file_attach)
 				end
