@@ -1,10 +1,7 @@
--- script_name("{330000}Ar{430006}iz{53000b}on{64000d}a H{75000e}el{86000d}pe{97000a}r")
--- bool result = setClipboardText(string text) - Записывает текст в буфер обмена Windows.
-
 script_name("{0d00ff}Ar{2900ff}iz{3900ff}on{4500ff}a H{4f00ff}el{5800ff}pe{6000ff}r")
 local script_names = "Arizona Helper"
 
-script_version('4.862')
+script_version('4.863')
 script_author("metk1u")
 
 local model_name =
@@ -211,7 +208,7 @@ local model_name_anti_stealer =
 	[1944] = "С модификации Спанч Боб",
 	[1946] = "Мяч на ноге",
 	[1954] = "Рюкзак космонавта",
-	[1974] = "С модификации",
+	[1974] = "С модификации Тедди",
 	[2006] = "С модификации Химик",
 	[2028] = "INVALID_OBJECT_ID",
 	[2060] = "Мешок грузчиков",
@@ -237,7 +234,7 @@ local model_name_anti_stealer =
 	[2614] = "Два флага на спине",
 	[2630] = "Велосипед в руку",
 	[2680] = "С модификации Байкер",
-	[2689] = "С модификации",
+	[2689] = "С модификации Тедди",
 	[2703] = "Рюкзак-бургер",
 	[2707] = "Рюкзак со светом",
 	[2711] = "С модификации Робот",
@@ -522,13 +519,19 @@ local textdraw_name =
 	[1132] = "Выхлоп для Tornado (Slamin)",
 	[19759] = "Гидравлика (HYDRAULICS)",
 	[1135] = "Выхлоп для Flash (Alien)",
+	[1035] = "Крыша для Sultan (X-Flow Roof Vent)",
+	[18997] = "Стерео (stereo)",
 	[312] = "INVALID_OBJECT_ID",
+	[6011] = "INVALID_OBJECT_ID",
+	[5688] = "INVALID_OBJECT_ID",
+	[5684] = "INVALID_OBJECT_ID",
 	[313] = "INVALID_OBJECT_ID",
 	[314] = "INVALID_OBJECT_ID",
 	[315] = "INVALID_OBJECT_ID",
 	[316] = "INVALID_OBJECT_ID",
 	[317] = "INVALID_OBJECT_ID",
 	[318] = "INVALID_OBJECT_ID",
+	[19348] = "Посох бирюзовый",
 	[319] = "INVALID_OBJECT_ID",
 	[321] = "Дилдо на спину #1",
 	[322] = "Дилдо",
@@ -653,9 +656,9 @@ local textdraw_name =
 	[1004] = "Воздухозаборник",
 	[1005] = "Воздухозаборник",
 	[1006] = "Воздухозаборник",
-	[1008] = "Нитро х1",
-	[1009] = "Нитро х5",
-	[1010] = "Нитро х10",
+	[1008] = "Нитро (1 times)",
+	[1009] = "Нитро (5 times)",
+	[1010] = "Нитро (10 times)",
 	[1011] = "Воздухозаборник",
 	[1012] = "Воздухозаборник",
 	[1013] = "Фара",
@@ -1828,6 +1831,12 @@ local key = require 'vkeys'
 require "lib.moonloader"
 local memory = require'memory'
 local bit = require('numberlua')
+local ffi = require("ffi")
+ffi.cdef[[
+	short GetKeyState(int nVirtKey);
+	bool GetKeyboardLayoutNameA(char* pwszKLID);
+	int GetLocaleInfoA(int Locale, int LCType, char* lpLCData, int cchData);
+]]
 ----------------------------------------
 arial_12_5 = renderCreateFont('Arial', 12, 5)
 molot_8_5 = renderCreateFont("Molot", 8, 5)
@@ -1887,6 +1896,15 @@ else
 end
 --------------------[Новый автолут]--------------------
 local autoloot_td = {''}
+--------------------[BizInfo]--------------------
+local check_biz = 0
+local BizInfo = 
+{
+	bName = nil,
+	bProds = 0,
+	bBank = 0,
+	bTax = 0
+}
 --------------------[AntiFlood]--------------------
 local messagesFloodTab = {}
 --------------------[Остальное]--------------------
@@ -1918,7 +1936,8 @@ local mainIni = inicfg.load(
 		objambient = 1.000,
 		worldambientR = 1.000,
 		worldambientG = 1.000,
-		worldambientB = 1.000
+		worldambientB = 1.000,
+		alpha_chat = true
 	},
 	account =
 	{
@@ -2186,7 +2205,8 @@ local elements =
 		objambient = imgui.ImFloat(mainIni.config.objambient),
 		worldambientR = imgui.ImFloat(mainIni.config.worldambientR),
 		worldambientG = imgui.ImFloat(mainIni.config.worldambientG),
-		worldambientB = imgui.ImFloat(mainIni.config.worldambientB)
+		worldambientB = imgui.ImFloat(mainIni.config.worldambientB),
+		alpha_chat = imgui.ImBool(mainIni.config.alpha_chat)
 	},
 	account =
 	{
@@ -2507,6 +2527,7 @@ function main()
 		-- fix changeCarColour function
 		writeMemory(samp + 0xB0DE0, 0x02, 0xC390, true) 
 	end
+	-- setNextRequestTime(700) -- 250
 	--------------------[Продолжительность взрывов воздушного транспорта]--------------------
 	-- memory.setuint32(0x736F88, 0, true)
 	memory.setuint32(0x736F88, 0, false)
@@ -2637,8 +2658,12 @@ function main()
 	_, playerid = sampGetPlayerIdByCharHandle(PLAYER_PED)
 	local_name = sampGetPlayerNickname(playerid)
 	----------------------------------------
-	sampRegisterChatCommand('chat',function() 
+	sampRegisterChatCommand('chat',function()
 		windowstate.v = not windowstate.v
+	end)
+	sampRegisterChatCommand('biz',function()
+		check_biz = 0
+		auto_bizinfo()
 	end)
 	-- sampRegisterChatCommand('sliver', function(arg)
 		-- if arg:find('(.+), (.+)') then
@@ -2852,6 +2877,15 @@ function main()
 		if memory.read(0x8E4CB4, 4, true) > 1048576*550 then -- 800 МБайт (500 МБайт - 524288000)
 			cleanStreamMemoryBuffer()
 			sampAddChatMessage('['..thisScript().name..'{FFFFFF}] Произвелась очистка памяти!', 0xFFFFFF)
+		end
+		--------------------[Прозрачный чат]--------------------
+		
+		if sampIsChatInputActive() then
+			sampEditChatAlpha(0xFF000000)
+		else
+			if elements.config.alpha_chat.v == true then
+				sampEditChatAlpha(0x00000000)
+			end
 		end
 		--------------------[settime / setweather]--------------------
 		if elements.config.set_time.v ~= memory.read(0xC81320, 2, false) then
@@ -3535,7 +3569,8 @@ function saveini()
 			objambient = elements.config.objambient.v,
 			worldambientR = elements.config.worldambientR.v,
 			worldambientG = elements.config.worldambientG.v,
-			worldambientB = elements.config.worldambientB.v
+			worldambientB = elements.config.worldambientB.v,
+			alpha_chat = elements.config.alpha_chat.v
 		},
 		account =
 		{
@@ -3828,6 +3863,7 @@ function imgui.OnDrawFrame()
 		imgui.Text(u8"/price [название] - Посмотреть цену на товар")
 		imgui.Text(u8"/pp - Поиск пидоров")
 		imgui.Text(u8"/p - Посмотреть пидоров онлайн")
+		imgui.Text(u8"/biz - Посмотреть статистику бизнесов")
 		----------------------------------------
 		imgui.EndGroup()
 		imgui.SameLine()
@@ -3894,6 +3930,7 @@ function imgui.OnDrawFrame()
 			if imgui.SliderFloat(u8('Корректировка синего цвета'), elements.config.worldambientB, 0.000, 1.000, "%.3f") then
 				memory.setfloat(12044096, elements.config.worldambientB.v, false)
 			end
+			imgui.Checkbox(u8('Прозрачный чат'),elements.config.alpha_chat)
 			imgui.Separator()
 			----------------------------------------
 		end
@@ -4867,7 +4904,6 @@ function sampev.onShowTextDraw(textdrawId, data)
 	end
 	--------------------[Прочее]--------------------
 	if data.modelId == 330 then sampAddChatMessage(string.format(data.modelId.." - заскринить название предмета + TD! (%0.6f, %0.6f, %0.6f, %0.6f) (/showmodel)",data.rotation.x,data.rotation.y,data.rotation.z,data.zoom), 0xFFFF00) end
-	if data.modelId == 1035 then sampAddChatMessage(string.format(data.modelId.." - заскринить название предмета + TD! (%0.6f, %0.6f, %0.6f, %0.6f) (/showmodel)",data.rotation.x,data.rotation.y,data.rotation.z,data.zoom), 0xFFFF00) end
 	if data.modelId == 1428 then sampAddChatMessage(string.format(data.modelId.." - заскринить название предмета + TD! (%0.6f, %0.6f, %0.6f, %0.6f) (/showmodel)",data.rotation.x,data.rotation.y,data.rotation.z,data.zoom), 0xFFFF00) end
 	if data.modelId == 1512 then sampAddChatMessage(string.format(data.modelId.." - заскринить название предмета + TD! (%0.6f, %0.6f, %0.6f, %0.6f) (/showmodel)",data.rotation.x,data.rotation.y,data.rotation.z,data.zoom), 0xFFFF00) end
 	if data.modelId == 1520 then sampAddChatMessage(string.format(data.modelId.." - заскринить название предмета + TD! (%0.6f, %0.6f, %0.6f, %0.6f) (/showmodel)",data.rotation.x,data.rotation.y,data.rotation.z,data.zoom), 0xFFFF00) end
@@ -4878,15 +4914,12 @@ function sampev.onShowTextDraw(textdrawId, data)
 	if data.modelId == 3426 then sampAddChatMessage(string.format(data.modelId.." - заскринить название предмета + TD! (%0.6f, %0.6f, %0.6f, %0.6f) (/showmodel)",data.rotation.x,data.rotation.y,data.rotation.z,data.zoom), 0xFFFF00) end
 	if data.modelId == 18244 then sampAddChatMessage(string.format(data.modelId.." - заскринить название предмета + TD! (%0.6f, %0.6f, %0.6f, %0.6f) (/showmodel)",data.rotation.x,data.rotation.y,data.rotation.z,data.zoom), 0xFFFF00) end
 	if data.modelId == 18891 then sampAddChatMessage(string.format(data.modelId.." - заскринить название предмета + TD! (%0.6f, %0.6f, %0.6f, %0.6f) (/showmodel)",data.rotation.x,data.rotation.y,data.rotation.z,data.zoom), 0xFFFF00) end
-	if data.modelId == 18997 then sampAddChatMessage(string.format(data.modelId.." - заскринить название предмета + TD! (%0.6f, %0.6f, %0.6f, %0.6f) (/showmodel)",data.rotation.x,data.rotation.y,data.rotation.z,data.zoom), 0xFFFF00) end
-	if data.modelId == 19348 then sampAddChatMessage(string.format(data.modelId.." - заскринить название предмета + TD! (%0.6f, %0.6f, %0.6f, %0.6f) (/showmodel)",data.rotation.x,data.rotation.y,data.rotation.z,data.zoom), 0xFFFF00) end
 	if data.modelId == 19592 then sampAddChatMessage(string.format(data.modelId.." - заскринить название предмета + TD! (%0.6f, %0.6f, %0.6f, %0.6f) (/showmodel)",data.rotation.x,data.rotation.y,data.rotation.z,data.zoom), 0xFFFF00) end
 	if data.modelId == 19610 then sampAddChatMessage(string.format(data.modelId.." - заскринить название предмета + TD! (%0.6f, %0.6f, %0.6f, %0.6f) (/showmodel)",data.rotation.x,data.rotation.y,data.rotation.z,data.zoom), 0xFFFF00) end
 	if data.modelId == 19822 then sampAddChatMessage(string.format(data.modelId.." - заскринить название предмета + TD! (%0.6f, %0.6f, %0.6f, %0.6f) (/showmodel)",data.rotation.x,data.rotation.y,data.rotation.z,data.zoom), 0xFFFF00) end
 	if data.modelId == 19959 then sampAddChatMessage(string.format(data.modelId.." - заскринить название предмета + TD! (%0.6f, %0.6f, %0.6f, %0.6f) (/showmodel)",data.rotation.x,data.rotation.y,data.rotation.z,data.zoom), 0xFFFF00) end
 	if data.modelId == 19967 then sampAddChatMessage(string.format(data.modelId.." - заскринить название предмета + TD! (%0.6f, %0.6f, %0.6f, %0.6f) (/showmodel)",data.rotation.x,data.rotation.y,data.rotation.z,data.zoom), 0xFFFF00) end
 
-	-- if data.modelId == 1314 then sampAddChatMessage(string.format("Два человека ("..data.modelId..") - заскринить название предмета + TD! (%0.6f, %0.6f, %0.6f, %0.6f) (/showmodel)",data.rotation.x,data.rotation.y,data.rotation.z,data.zoom), 0xFF3300) end
 	if data.modelId == 1112 then sampAddChatMessage(string.format("Погоны ("..data.modelId..") - заскринить название предмета + TD! (%0.6f, %0.6f, %0.6f, %0.6f) (/showmodel)",data.rotation.x,data.rotation.y,data.rotation.z,data.zoom), 0xFF3300) end
 	if data.modelId == 9958 then sampAddChatMessage(string.format("Подлодка ("..data.modelId..") - заскринить название предмета + TD! (%0.6f, %0.6f, %0.6f, %0.6f) (/showmodel)",data.rotation.x,data.rotation.y,data.rotation.z,data.zoom), 0xFF3300) end
 	if data.modelId == 1588 then sampAddChatMessage(string.format("Жёлтая голова ("..data.modelId..") - заскринить название предмета + TD! (%0.6f, %0.6f, %0.6f, %0.6f) (/showmodel)",data.rotation.x,data.rotation.y,data.rotation.z,data.zoom), 0xFF3300) end
@@ -5547,11 +5580,6 @@ function sampev.onPlayerDeathNotification(killerid, killedid, reason)
 	end
 end
 
-function sampev.onSendDeathNotification(reason, killerId)
-	playername = sampGetPlayerNickname(killerId)
-	sampAddChatMessage(playername, -1)
-end
-
 function sampev.onCreate3DText(id, color, position, distance, testLOS, attachedPlayerId, attachedVehicleId, text)
 	if elements.config.del_opisanie_3d.v == true and position.x == 0 and position.y == 0 and position.z == -1 and distance == 7 and attachedPlayerId ~= 65535 then
 		return false
@@ -5575,7 +5603,7 @@ function onReceivePacket(id, bitStream)
 	name = raknetGetPacketName(id)
     if name then
         packet_incoming = id..':'..name
-		-- sampfuncsLog('onReceivePacket: '..name)
+		if elements.state.show_packet == true then sampfuncsLog('onReceivePacket: '..name..' | '..id) end
     end
 end
 
@@ -5584,7 +5612,7 @@ function onSendPacket(id, bitStream, priority, reliability, orderingChannel)
     name = raknetGetPacketName(id)
     if name then
         packet_outcoming = id..':'..name
-		-- sampfuncsLog('onSendPacket: '..name)
+		if elements.state.show_packet == true then sampfuncsLog('onSendPacket: '..name..' | '..id) end
     end
 end
 
@@ -5628,7 +5656,7 @@ function onReceiveRpc(id, bitStream)
 		name = raknetGetRpcName(id)
 		if name then
 			rpc_incoming = id..':'..name
-			-- sampfuncsLog('onReceiveRpc: '..name)
+			if elements.state.show_packet == true then sampfuncsLog('onReceiveRpc: '..name..' | '..id) end
 		end
     -- end
 end
@@ -5638,7 +5666,7 @@ function onSendRpc(id, bitStream, priority, reliability, orderingChannel, shiftT
     name = raknetGetRpcName(id)
     if name then
         rpc_outcoming = id..':'..name
-		-- sampfuncsLog('onSendRpc: '..name)
+		if elements.state.show_packet == true then  sampfuncsLog('onSendRpc: '..name..' | '..id) end
     end
 end
 
@@ -5651,13 +5679,6 @@ function linkVehicleToInterior(vehicleId, interior) -- NoBalloons
 end
 
 function sampev.onCreateObject(objectId, data)
-	-- if data.modelId == 854 then
-		-- local file_waxta = io.open('moonloader/waxta.notepad', 'a+')
-		-- if file_waxta ~= -1 and file_waxta ~= nil then
-			-- file_waxta:write(string.format('{120,{%0.6f,%0.6f,%0.6f,%0.6f,%0.6f,%0.6f}},\n',data.position.x,data.position.y,data.position.z,data.rotation.x,data.rotation.y,data.rotation.z))
-			-- io.close(file_waxta)
-		-- end
-	-- end
 	local model = data.modelId
 	if data.attachToVehicleId ~= 0xFFFF then -- NoBalloons
 		local result, car = sampGetCarHandleBySampVehicleId(data.attachToVehicleId)
@@ -7406,6 +7427,25 @@ function sampev.onShowDialog(dialogId, style, title, button1, button2, text)
 		end
 		return { dialogId, style, title, button1, button2, text }
 	end
+	--------------------[BizInfo]--------------------
+	if dialogId == 9761 and nodial then
+		nodial = false
+		return false
+	end
+	if dialogId == 156 and check_biz < 4 then
+		bName = string.match(text,'Бизнес: {9ACD32}(.+){FFFFFF}Банк бизнеса')
+		bName2 = bName:gsub('Ларек с уличной едой','Ларёк')
+		bProds = string.match(text,'Продуктов: {9ACD32}(%d+)')
+		if bProds == nil then
+			bProds = 0
+		end
+		bTax = string.match(text,'Налог к оплате: {9ACD32}(.+){FFFFFF}Цена покупки с госа')
+		bBank = string.match(text,'Банк бизнеса: {9ACD32}$(%d+)')
+		sampAddChatMessage(string.format("Бизнес: {FDDB6D}%s{FFFFFF} | Продуктов: {FDDB6D}%d{FFFFFF} | Налог: {FDDB6D}%s{FFFFFF} | Банк: {FDDB6D}$%d",bName2,bProds,bTax,bBank), -1)
+		check_biz = check_biz+1
+		auto_bizinfo()
+		return false
+	end
 	--------------------[Авто-открытие рулеток]--------------------
 	if dialogId == 722 and nodial then
 		nodial = false
@@ -7723,18 +7763,6 @@ function sampev.onSetPlayerAttachedObject(playerId, index, create, object)
 			sampAddChatMessage('С Roy_Shelby['..playerId..'] своровалась модификация. '..object.modelId..': '..getColor(object.color1)..': '..getColor(object.color2)..': '..object.color1..': '..object.color2,0xFF3300)
 			SaveFileAttach(playerId,model,object.bone,object.offset.x,object.offset.y,object.offset.z,object.rotation.x,object.rotation.y,object.rotation.z,object.scale.x,object.scale.y,object.scale.z)
 		end
-		if model == 1974 then
-			elements.config.attach_id.v = playerId
-			elements.state.finds = playerId
-			sampAddChatMessage("У игрока "..sampGetPlayerNickname(playerId).."["..playerId.."] необходимо своровать модификацию, обнови зону стрима. "..model,0xFF3300)
-			printString('~g~Find enable',2000)
-		end
-		if model == 2689 then
-			elements.config.attach_id.v = playerId
-			elements.state.finds = playerId
-			sampAddChatMessage("У игрока "..sampGetPlayerNickname(playerId).."["..playerId.."] необходимо своровать модификацию, обнови зону стрима. "..model,0xFF3300)
-			printString('~g~Find enable',2000)
-		end
 		if model == 3434 then
 			elements.config.attach_id.v = playerId
 			elements.state.finds = playerId
@@ -7742,12 +7770,6 @@ function sampev.onSetPlayerAttachedObject(playerId, index, create, object)
 			printString('~g~Find enable',2000)
 		end
 		if model == 18891 then
-			elements.config.attach_id.v = playerId
-			elements.state.finds = playerId
-			sampAddChatMessage("У игрока "..sampGetPlayerNickname(playerId).."["..playerId.."] необходимо своровать модификацию, обнови зону стрима. "..model,0xFF3300)
-			printString('~g~Find enable',2000)
-		end
-		if model == 19063 then
 			elements.config.attach_id.v = playerId
 			elements.state.finds = playerId
 			sampAddChatMessage("У игрока "..sampGetPlayerNickname(playerId).."["..playerId.."] необходимо своровать модификацию, обнови зону стрима. "..model,0xFF3300)
@@ -7993,6 +8015,24 @@ function SaveFileAttach(skin,modelId,bone,offsetX,offsetY,offsetZ,rotationX,rota
 			file_attach:write(string.format('case %d: SetPlayerAttachedObject(playerid, slot, %d, %d, %0.4f, %0.4f, %0.4f, %0.4f, %0.4f, %0.4f, %0.4f, %0.4f, %0.4f, -1, -1);\n',skin,modelId,bone,offsetX,offsetY,offsetZ,rotationX,rotationY,rotationZ,scaleX,scaleY,scaleZ))
 		end
 		io.close(file_attach)
+	end
+end
+
+function onSendSpawn() -- BizInfo
+	ip, port = sampGetCurrentServerAddress()
+	if ip == "185.169.134.5" and check_biz == 0 then
+		auto_bizinfo()
+	end
+end
+
+function auto_bizinfo() -- BizInfo
+	if check_biz < 4 then
+		lua_thread.create(function( ... )
+			nodial = true
+			sampSendChat('/bizinfo')
+			wait(500)
+			sampSendDialogResponse(9761, 1, check_biz, nil)
+		end)
 	end
 end
 
@@ -8279,12 +8319,6 @@ function onWindowMessage(msg, wparam, lparam)
 	end
 end
 
-local ffi = require("ffi")
-ffi.cdef[[
-	short GetKeyState(int nVirtKey);
-	bool GetKeyboardLayoutNameA(char* pwszKLID);
-	int GetLocaleInfoA(int Locale, int LCType, char* lpLCData, int cchData);
-]]
 local BuffSize = 32
 local KeyboardLayoutName = ffi.new("char[?]", BuffSize)
 local LocalInfo = ffi.new("char[?]", BuffSize)
@@ -8337,6 +8371,30 @@ function showInputHelp()
 		renderFontDrawText(molot_10_9, text, fib2, fib, 0xD7FFFFFF)
 		----------------------------------------
 	end
+end
+
+function sampEditChatAlpha(alpha)
+    local samp = getModuleHandle("samp.dll")
+    if samp ~= nil then
+        memory.write(samp + 0x6392F, alpha, 4, true)
+        memory.write(samp + 0x63B3B, alpha, 4, true)
+        memory.write(samp + 0x63B68, alpha, 4, true)
+        memory.write(samp + 0x63B94, alpha, 4, true)
+
+        memory.write(samp + 0x6392F, alpha, 4, true)
+        memory.write(samp + 0x63973, alpha, 4, true)
+        memory.write(samp + 0x639AC, alpha, 4, true)
+        memory.write(samp + 0x639E8, alpha, 4, true)
+        memory.write(samp + 0x63A24, alpha, 4, true)
+        memory.write(samp + 0x63A5D, alpha, 4, true)
+        memory.write(samp + 0x63A99, alpha, 4, true)
+        memory.write(samp + 0x63ADC, alpha, 4, true)
+    end
+end
+
+function setNextRequestTime(time)
+    local samp = getModuleHandle("samp.dll")
+    memory.setuint32(samp + 0x3DBAE, time, true)
 end
 
 function autoupdate(json_url, prefix, url)
