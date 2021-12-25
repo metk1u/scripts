@@ -1,7 +1,7 @@
 script_name("{0d00ff}Ar{2900ff}iz{3900ff}on{4500ff}a H{4f00ff}el{5800ff}pe{6000ff}r")
 local script_names = "Arizona Helper"
 
-script_version('4.863')
+script_version('4.864')
 script_author("metk1u")
 
 local model_name =
@@ -1898,13 +1898,6 @@ end
 local autoloot_td = {''}
 --------------------[BizInfo]--------------------
 local check_biz = 0
-local BizInfo = 
-{
-	bName = nil,
-	bProds = 0,
-	bBank = 0,
-	bTax = 0
-}
 --------------------[AntiFlood]--------------------
 local messagesFloodTab = {}
 --------------------[Остальное]--------------------
@@ -7430,7 +7423,7 @@ function sampev.onShowDialog(dialogId, style, title, button1, button2, text)
 	--------------------[BizInfo]--------------------
 	if dialogId == 9761 and nodial then
 		nodial = false
-		return false
+		-- return false
 	end
 	if dialogId == 156 and check_biz < 4 then
 		bName = string.match(text,'Бизнес: {9ACD32}(.+){FFFFFF}Банк бизнеса')
@@ -7441,10 +7434,13 @@ function sampev.onShowDialog(dialogId, style, title, button1, button2, text)
 		end
 		bTax = string.match(text,'Налог к оплате: {9ACD32}(.+){FFFFFF}Цена покупки с госа')
 		bBank = string.match(text,'Банк бизнеса: {9ACD32}$(%d+)')
-		sampAddChatMessage(string.format("Бизнес: {FDDB6D}%s{FFFFFF} | Продуктов: {FDDB6D}%d{FFFFFF} | Налог: {FDDB6D}%s{FFFFFF} | Банк: {FDDB6D}$%d",bName2,bProds,bTax,bBank), -1)
+		sampAddChatMessage(string.format("{FDDB6D}%s{FFFFFF} | Продуктов: {FDDB6D}%d{FFFFFF} | Налог: {FDDB6D}%s{FFFFFF} | Банк: {FDDB6D}$%d",bName2,bProds,bTax,bBank), -1)
 		check_biz = check_biz+1
 		auto_bizinfo()
-		return false
+		if check_biz == 4 then
+			sampCloseCurrentDialogWithButton(0)
+		end
+		-- return false
 	end
 	--------------------[Авто-открытие рулеток]--------------------
 	if dialogId == 722 and nodial then
