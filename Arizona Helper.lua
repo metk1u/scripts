@@ -1,7 +1,7 @@
 script_name("{0d00ff}Ar{2900ff}iz{3900ff}on{4500ff}a H{4f00ff}el{5800ff}pe{6000ff}r")
 local script_names = "Arizona Helper"
 
-script_version('4.864')
+script_version('4.865')
 script_author("metk1u")
 
 local model_name =
@@ -5610,6 +5610,10 @@ function onSendPacket(id, bitStream, priority, reliability, orderingChannel)
 end
 
 function onReceiveRpc(id, bitStream)
+	ip, port = sampGetCurrentServerAddress()
+	if id == 152 and ip == "185.169.134.5" and check_biz == 0 then
+		auto_bizinfo()
+	end
 	--------------------[Выключение зоны стрима]--------------------
 	if elements.config.del_stream.v == true and
 	(
@@ -7423,7 +7427,13 @@ function sampev.onShowDialog(dialogId, style, title, button1, button2, text)
 	--------------------[BizInfo]--------------------
 	if dialogId == 9761 and nodial then
 		nodial = false
-		-- return false
+		return false
+	end
+	if dialogId == 9761 and check_biz == 4 and close_biz == true then
+		close_biz = false
+		sampSendDialogResponse(dialogId, 0, nil, nil)
+		sampCloseCurrentDialogWithButton(0)
+		return false
 	end
 	if dialogId == 156 and check_biz < 4 then
 		bName = string.match(text,'Бизнес: {9ACD32}(.+){FFFFFF}Банк бизнеса')
@@ -7437,8 +7447,9 @@ function sampev.onShowDialog(dialogId, style, title, button1, button2, text)
 		sampAddChatMessage(string.format("{FDDB6D}%s{FFFFFF} | Продуктов: {FDDB6D}%d{FFFFFF} | Налог: {FDDB6D}%s{FFFFFF} | Банк: {FDDB6D}$%d",bName2,bProds,bTax,bBank), -1)
 		check_biz = check_biz+1
 		auto_bizinfo()
+		sampSendDialogResponse(dialogId, 0, nil, nil)
 		if check_biz == 4 then
-			sampCloseCurrentDialogWithButton(0)
+			close_biz = true
 		end
 		-- return false
 	end
@@ -8014,20 +8025,17 @@ function SaveFileAttach(skin,modelId,bone,offsetX,offsetY,offsetZ,rotationX,rota
 	end
 end
 
-function onSendSpawn() -- BizInfo
-	ip, port = sampGetCurrentServerAddress()
-	if ip == "185.169.134.5" and check_biz == 0 then
-		auto_bizinfo()
-	end
-end
-
 function auto_bizinfo() -- BizInfo
 	if check_biz < 4 then
 		lua_thread.create(function( ... )
+			if check_biz == 0 then
+				wait(10000)
+			end
 			nodial = true
 			sampSendChat('/bizinfo')
 			wait(500)
 			sampSendDialogResponse(9761, 1, check_biz, nil)
+			sampCloseCurrentDialogWithButton(0)
 		end)
 	end
 end
