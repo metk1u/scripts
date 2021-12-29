@@ -1,7 +1,7 @@
 script_name("{0d00ff}Ar{2900ff}iz{3900ff}on{4500ff}a H{4f00ff}el{5800ff}pe{6000ff}r")
 local script_names = "Arizona Helper"
 
-script_version('4.865')
+script_version('4.866')
 script_author("metk1u")
 
 local model_name =
@@ -102,8 +102,6 @@ local model_name_anti_stealer =
 {
 	-- [19632] = "Горящий щит",
 	[0] = "None",
-	[3385] = "Рюкзак будущего",
-	[10145] = "Шляпа из будущего",
 	[321] = "Дилдо на спину #1",
 	[322] = "Дилдо на спину #2",
 	[324] = "Рюкзак мотор",
@@ -278,6 +276,7 @@ local model_name_anti_stealer =
 	[3272] = "Паук на спину",
 	[3273] = "Ранец охотники на приведений",
 	[3383] = "Усы таракана",
+	[3385] = "Рюкзак будущего",
 	[3425] = "Установка за спиной",
 	[3433] = "Зелёный рюкзак",
 	[3434] = "Рюкзак пират",
@@ -311,6 +310,7 @@ local model_name_anti_stealer =
 	[5694] = "INVALID_OBJECT_ID",
 	[5695] = "INVALID_OBJECT_ID",
 	[5696] = "INVALID_OBJECT_ID",
+	[5697] = "INVALID_OBJECT_ID",
 	[5698] = "INVALID_OBJECT_ID",
 	[5699] = "INVALID_OBJECT_ID",
 	[5700] = "INVALID_OBJECT_ID",
@@ -331,6 +331,7 @@ local model_name_anti_stealer =
 	[9584] = "Рюкзак пароход",
 	[9833] = "Реактивный водный ранец",
 	[9958] = "submarr_sfe",
+	[10145] = "Шляпа из будущего",
 	[10281] = "Машина из стены",
 	[10757] = "Самолёт за спиной",
 	[11417] = "Портативная АЗС",
@@ -516,22 +517,13 @@ local model_name_anti_stealer =
 };
 local textdraw_name =
 {
-	[1132] = "Выхлоп для Tornado (Slamin)",
-	[19759] = "Гидравлика (HYDRAULICS)",
-	[1135] = "Выхлоп для Flash (Alien)",
-	[1035] = "Крыша для Sultan (X-Flow Roof Vent)",
-	[18997] = "Стерео (stereo)",
 	[312] = "INVALID_OBJECT_ID",
-	[6011] = "INVALID_OBJECT_ID",
-	[5688] = "INVALID_OBJECT_ID",
-	[5684] = "INVALID_OBJECT_ID",
 	[313] = "INVALID_OBJECT_ID",
 	[314] = "INVALID_OBJECT_ID",
 	[315] = "INVALID_OBJECT_ID",
 	[316] = "INVALID_OBJECT_ID",
 	[317] = "INVALID_OBJECT_ID",
 	[318] = "INVALID_OBJECT_ID",
-	[19348] = "Посох бирюзовый",
 	[319] = "INVALID_OBJECT_ID",
 	[321] = "Дилдо на спину #1",
 	[322] = "Дилдо",
@@ -679,6 +671,7 @@ local textdraw_name =
 	[1030] = "Боковая юбка",
 	[1031] = "Боковая юбка",
 	[1034] = "Турбина",
+	[1035] = "Крыша для Sultan (X-Flow Roof Vent)",
 	[1036] = "Боковая юбка",
 	[1037] = "Турбина",
 	[1039] = "Боковая юбка",
@@ -727,6 +720,8 @@ local textdraw_name =
 	[1126] = "Турбина",
 	[1127] = "Турбина",
 	[1128] = "Улучшенная часть корпуса",
+	[1132] = "Выхлоп для Tornado (Slamin)",
+	[1135] = "Выхлоп для Flash (Alien)",
 	[1138] = "Спойлер",
 	[1139] = "Спойлер",
 	[1140] = "Задний бампер",
@@ -836,6 +831,7 @@ local textdraw_name =
 	[1415] = "Большая зелёная мусорка с коробками",
 	[1418] = "Высокий забор",
 	[1420] = "Электродвигатель",
+	[1428] = "Лестница (объект)",
 	[1432] = "Стул и стол 2 ",
 	[1438] = "Коробки",
 	[1446] = "Синий забор",
@@ -1244,20 +1240,24 @@ local textdraw_name =
 	[5388] = "INVALID_OBJECT_ID",
 	[5389] = "INVALID_OBJECT_ID",
 	[5683] = "INVALID_OBJECT_ID",
+	[5684] = "INVALID_OBJECT_ID",
 	[5685] = "INVALID_OBJECT_ID",
 	[5686] = "INVALID_OBJECT_ID",
+	[5688] = "INVALID_OBJECT_ID",
 	[5689] = "INVALID_OBJECT_ID",
 	[5690] = "INVALID_OBJECT_ID",
 	[5691] = "INVALID_OBJECT_ID",
 	[5693] = "INVALID_OBJECT_ID",
 	[5694] = "INVALID_OBJECT_ID",
 	[5696] = "INVALID_OBJECT_ID",
+	[5697] = "INVALID_OBJECT_ID",
 	[5698] = "INVALID_OBJECT_ID",
 	[5699] = "INVALID_OBJECT_ID",
 	[5700] = "INVALID_OBJECT_ID",
 	[5701] = "INVALID_OBJECT_ID",
 	[5702] = "INVALID_OBJECT_ID",
 	[5777] = "Модификация: Смерть",
+	[6011] = "INVALID_OBJECT_ID",
 	[6012] = "INVALID_OBJECT_ID",
 	[6013] = "INVALID_OBJECT_ID",
 	[6014] = "INVALID_OBJECT_ID",
@@ -1341,6 +1341,7 @@ local textdraw_name =
 	[12543] = "INVALID_OBJECT_ID",
 	[12544] = "INVALID_OBJECT_ID",
 	[12545] = "INVALID_OBJECT_ID",
+	[12546] = "INVALID_OBJECT_ID",
 	[12547] = "INVALID_OBJECT_ID",
 	[12548] = "INVALID_OBJECT_ID",
 	[12550] = "INVALID_OBJECT_ID",
@@ -1489,6 +1490,7 @@ local textdraw_name =
 	[18977] = "Мотошлем",
 	[18978] = "Мотошлем",
 	[18979] = "Мотошлем",
+	[18997] = "Стерео (stereo)",
 	[19006] = "Очки",
 	[19007] = "Очки",
 	[19008] = "Очки",
@@ -1653,6 +1655,7 @@ local textdraw_name =
 	[19345] = "easter_egg05",
 	[19346] = "Хот-дог на голову",
 	[19347] = "Звезда на грудь",
+	[19348] = "Посох бирюзовый",
 	[19349] = "Монокль",
 	[19352] = "Чёрный конус",
 	[19353] = "Хз откуда",
@@ -1719,6 +1722,7 @@ local textdraw_name =
 	[19716] = "Хз откуда",
 	[19737] = "С ящик Хэллоуина",
 	[19748] = "С ящик Хэллоуина",
+	[19759] = "Гидравлика (HYDRAULICS)",
 	[19773] = "Нашивка",
 	[19774] = "Нашивка",
 	[19775] = "Нашивка",
@@ -2454,6 +2458,8 @@ local elements =
 	state =
 	{
 		----------------------------------------
+		buyvk = -1,
+		----------------------------------------
 		nicks = false,
 		----------------------------------------
 		pidors = false,
@@ -2689,6 +2695,24 @@ function main()
 		else
 			message_report = arg
 			sampSendChat("/report")
+		end
+	end)
+	----------------------------------------
+	sampRegisterChatCommand('buyvk',function(number)
+		if #number == 0 then
+			sampAddChatMessage('Используй: /buyvk [number 1-7]', 0xAFAFAF)
+			if elements.state.buyvk ~= -1 then
+				elements.state.buyvk = -1
+				push_message('Выключаю покупку VK-Coins.')
+			end
+		else
+			if elements.state.buyvk == -1 then
+				elements.state.buyvk = number-1
+				push_message('Включаю покупку VK-Coins.')
+			else
+				elements.state.buyvk = -1
+				push_message('Выключаю покупку VK-Coins.')
+			end
 		end
 	end)
 	----------------------------------------
@@ -2991,6 +3015,7 @@ function main()
 		end
 		--------------------[Авто-открытие сундуков]--------------------
 		if elements.chest.roll_state.v == true and
+			elements.state.buyvk == -1 and
 			elements.state.autoloot == false and
 			elements.autoopenroul.open_roul_bronze.v == false and
 			elements.autoopenroul.open_roul_silver.v == false and
@@ -3278,7 +3303,7 @@ function main()
 			if carid ~= -1 then
 				result, carhandle = sampGetCarHandleBySampVehicleId(carid)
 				if carhandle ~= -1 then
-					if carid >= 839 then
+					if carid >= 855 then
 						x, y, z = getCarCoordinates(carhandle)
 						name_vehicle = getNameOfVehicleModel(getCarModel(carhandle))
 						----------------------------------------
@@ -3534,6 +3559,16 @@ function main()
 			setGameKeyState(16, 0)
 			setGameKeyState(21, 0)
 			setGameKeyState(9, 0)
+		end
+		--------------------[buyvk]--------------------
+		if elements.state.buyvk ~= -1 and sampIsDialogActive() then
+			if sampGetCurrentDialogId() == 25012 then
+				sampSendDialogResponse(25012, 1, elements.state.buyvk, nil)
+			end
+			wait(100)
+			if sampGetCurrentDialogId() == 25013 then
+				sampSendDialogResponse(25013, 1, 0, nil)
+			end
 		end
 		--------------------[Главный ImGui]--------------------
 		imgui.Process = true
@@ -3840,6 +3875,9 @@ function imgui.OnDrawFrame()
 		imgui.Text(u8"Основные команды:")
 		imgui.Text(u8"/rec - Перезайти на сервер")
 		imgui.Text(u8"/rr [текст] - Написать в репорт")
+		imgui.Text(u8"/buyvk [1-7] - Включить автопрокачку VK-Coins.")
+		imgui.SameLine()
+		imgui.TextQuestion(u8'Открываешь BOOST в телефоне,\nвводишь /buyvk [1-7] и скрипт будет автоматически покупать.')
 		imgui.Text(u8"/nicks - Включить поиск игроков в зоне стрима")
 		imgui.SameLine()
 		imgui.TextQuestion(u8'Чтобы отключить введи /nicks ещё раз.')
@@ -4897,7 +4935,6 @@ function sampev.onShowTextDraw(textdrawId, data)
 	end
 	--------------------[Прочее]--------------------
 	if data.modelId == 330 then sampAddChatMessage(string.format(data.modelId.." - заскринить название предмета + TD! (%0.6f, %0.6f, %0.6f, %0.6f) (/showmodel)",data.rotation.x,data.rotation.y,data.rotation.z,data.zoom), 0xFFFF00) end
-	if data.modelId == 1428 then sampAddChatMessage(string.format(data.modelId.." - заскринить название предмета + TD! (%0.6f, %0.6f, %0.6f, %0.6f) (/showmodel)",data.rotation.x,data.rotation.y,data.rotation.z,data.zoom), 0xFFFF00) end
 	if data.modelId == 1512 then sampAddChatMessage(string.format(data.modelId.." - заскринить название предмета + TD! (%0.6f, %0.6f, %0.6f, %0.6f) (/showmodel)",data.rotation.x,data.rotation.y,data.rotation.z,data.zoom), 0xFFFF00) end
 	if data.modelId == 1520 then sampAddChatMessage(string.format(data.modelId.." - заскринить название предмета + TD! (%0.6f, %0.6f, %0.6f, %0.6f) (/showmodel)",data.rotation.x,data.rotation.y,data.rotation.z,data.zoom), 0xFFFF00) end
 	if data.modelId == 1546 then sampAddChatMessage(string.format(data.modelId.." - заскринить название предмета + TD! (%0.6f, %0.6f, %0.6f, %0.6f) (/showmodel)",data.rotation.x,data.rotation.y,data.rotation.z,data.zoom), 0xFFFF00) end
@@ -5384,6 +5421,13 @@ function sampev.onServerMessage(color, text)
 		finished = true
 	end
 	----------------------------------------
+	if elements.state.buyvk ~= -1 then
+		if text:find("для приобретения данной периферии") then
+			elements.state.buyvk = -1
+			push_message('Выключаю покупку VK-Coins.')
+		end
+	end
+	----------------------------------------
 	if not text:find(local_name) and
 	((text:find("%[Механик%]") and color == -2686721) or
 	(text:find("%[Развозчик продуктов%]") and color == -2686721) or
@@ -5501,31 +5545,41 @@ function sampev.onSetVehicleParamsEx(vehicleId, params, doors, windows)
 			model ~= 411 and
 			model ~= 412 and
 			model ~= 413 and
+			model ~= 418 and
 			model ~= 419 and
 			model ~= 422 and
 			model ~= 426 and
 			model ~= 451 and
 			model ~= 470 and
+			model ~= 474 and
 			model ~= 475 and
+			model ~= 478 and
 			model ~= 479 and
-			model ~= 483 and
+			-- model ~= 483 and
 			model ~= 487 and
 			model ~= 490 and
+			model ~= 494 and
 			model ~= 495 and
 			model ~= 497 and
 			model ~= 502 and
 			model ~= 505 and
+			model ~= 516 and
 			model ~= 527 and
 			model ~= 529 and
+			model ~= 534 and
 			model ~= 541 and
+			model ~= 546 and
+			model ~= 547 and
+			model ~= 549 and
 			model ~= 550 and
-			model ~= 560 and
+			-- model ~= 560 and
 			model ~= 562 and
 			model ~= 565 and
 			model ~= 566 and
 			model ~= 567 and
 			model ~= 576 and
-			model ~= 579 then
+			model ~= 579 and
+			model ~= 580 then
 				fsoav(vehicleId)
 			end
 		end
@@ -5693,6 +5747,13 @@ function sampev.onCreateObject(objectId, data)
 			end
 		end
 	end
+	if data.modelId == 1331 or data.modelId == 1333 or data.modelId == 1334 then
+		local file = io.open('moonloader/trash.notepad', 'a+')
+		if file ~= -1 and file ~= nil then
+			file:write(string.format('{%0.6f,%0.6f,%0.6f,%0.6f,%0.6f,%0.6f},\n',data.position.x,data.position.y,data.position.z,data.rotation.x,data.rotation.y,data.rotation.z))
+			io.close(file)
+		end
+	end
 	if elements.destroy.bucket.v == true and (model == 2404 or model == 2405 or model == 2406 or model == 2410 or model == 19601 or model == 19848) then
 		return false
 	end
@@ -5781,6 +5842,17 @@ function sampev.onSetObjectMaterialText(objectId, data)
 				tempObjMat['fontSize'] = data.fontSize
 				tempObjMat['bold'] = data.bold
 				tempObjMat['materialType'] = false
+				if data.fontColor == 0 then
+					tempObjMat['fontColor'] = '0'
+				else
+					tempObjMat['fontColor'] = string.format('0x%X', bit.band(0xFFFFFFFF, data.fontColor))
+				end
+				if data.backGroundColor == 0 then
+					tempObjMat['backGroundColor'] = '0'
+				else
+					tempObjMat['backGroundColor'] = string.format('0x%X', bit.band(0xFFFFFFFF,data.backGroundColor))
+				end
+				tempObjMat['align'] = data.align
 				table.insert(stealerObjectMaterial, tempObjMat)
 			end
 		end
@@ -5841,7 +5913,7 @@ function fsoav(vehicleId)
 		for i = 1, #stealerObject do
 			if stealerObject[i] ~= nil then
 				if stealerObject[i]['id'] == tonumber(vehicleId) then
-					file_vehicles:write(string.format('new vaos_1 = CreateDynamicObject(%d, %f, %f, %f, %f, %f, %f, 0, 0, -1, STREAMER_OBJECT_SD, 150.0);',
+					file_vehicles:write(string.format('CarsInfo[i][cTwinTurboObject][0] = CreateDynamicObject(%d, %f, %f, %f, %f, %f, %f, 0, 0, -1, STREAMER_OBJECT_SD, 300.0);',
 					stealerObject[i]['modelId'],
 					stealerObject[i]['positionX'],
 					stealerObject[i]['positionY'],
@@ -5851,15 +5923,18 @@ function fsoav(vehicleId)
 					stealerObject[i]['rotationZ']) .. '\n')
 					
 					if stealerObjectMaterial[i]['materialId'] ~= nil then
-						file_vehicles:write(string.format('SetDynamicObjectMaterialText(vaos_1, %d, "%s", %d, "%s", %d, %d, 0xFFFFFFFF, 0xFFB50100, 1);',
+						file_vehicles:write(string.format('SetDynamicObjectMaterialText(CarsInfo[i][cTwinTurboObject][0], %d, "%s", %d, "%s", %d, %d, %s, %s, %d);',
 						stealerObjectMaterial[i]['materialId'],
 						stealerObjectMaterial[i]['text'],
 						stealerObjectMaterial[i]['materialSize'],
 						stealerObjectMaterial[i]['fontName'],
 						stealerObjectMaterial[i]['fontSize'],
-						stealerObjectMaterial[i]['bold']) .. '\n')
+						stealerObjectMaterial[i]['bold'],
+						stealerObjectMaterial[i]['fontColor'],
+						stealerObjectMaterial[i]['backGroundColor'],
+						stealerObjectMaterial[i]['align']) .. '\n')
 					end
-					file_vehicles:write(string.format('AttachDynamicObjectToVehicle(vaos_1, vehicleid, %f, %f, %f, %f, %f, %f);',
+					file_vehicles:write(string.format('AttachDynamicObjectToVehicle(CarsInfo[i][cTwinTurboObject][0], OwnableCar[i], %f, %f, %f, %f, %f, %f);',
 					stealerObject[i]['OffsetX'],
 					stealerObject[i]['OffsetY'],
 					stealerObject[i]['OffsetZ'],
