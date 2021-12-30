@@ -1,7 +1,7 @@
 script_name("{0d00ff}Ar{2900ff}iz{3900ff}on{4500ff}a H{4f00ff}el{5800ff}pe{6000ff}r")
 local script_names = "Arizona Helper"
 
-script_version('4.866')
+script_version('4.867')
 script_author("metk1u")
 
 local model_name =
@@ -2522,13 +2522,10 @@ function main()
 	memory.setuint8(0x570103, 0xEB, true)
 	--------------------[NoBalloons]--------------------
 	local result, samp = loadDynamicLibrary("samp.dll")
-	if result then 
-		-- fix changeCarColour function
+	if result then
 		writeMemory(samp + 0xB0DE0, 0x02, 0xC390, true) 
 	end
-	-- setNextRequestTime(700) -- 250
 	--------------------[Продолжительность взрывов воздушного транспорта]--------------------
-	-- memory.setuint32(0x736F88, 0, true)
 	memory.setuint32(0x736F88, 0, false)
 	--------------------[Отключает песок из под колес]--------------------
 	memory.fill(0x6AA8CF, 0x90, 53, true)
@@ -2569,7 +2566,6 @@ function main()
 	--------------------[Элучшение эффектов (nomorehaze.cs)]--------------------
 	writeMemory(7520695, 1, 235, true)
 	--------------------[Remove 3D Gunflash (Junior_Djjr).cs]--------------------
-	-- writeMemory(6184746, 20, 144, true)
 	memory.fill(6184746, 144, 20, false)
 	--------------------[MemFix_2GB.cs]--------------------
 	writeMemory(9067136, 4, 2147483647, false)
@@ -3047,7 +3043,6 @@ function main()
 		end
 		--------------------[Новый автолут]--------------------
 		if elements.state.autoloot == true then
-			--for i = 0, 2304 do
 			renderFontDrawText(arial_12_5,'autoloot {33AA33}enable', sx / 20, sy - 260, 0xFF3300FF)
 			for i = 2000, 2160 do
 				if sampTextdrawIsExists(i) then
@@ -4785,18 +4780,11 @@ function sampev.onSendClickTextDraw(textdrawId)
 		model, rotX, rotY, rotZ, zoom, clr1, clr2 = sampTextdrawGetModelRotationZoomVehColor(textdrawId)
 		if model ~= 0 and model ~= 65535 then
 			sampAddChatMessage(string.format('Model: %d, %0.6f, %0.6f, %0.6f, %0.6f',model,rotX,rotY,rotZ,zoom),0xFF3300)
-			-- sampAddChatMessage(string.format('/**/{%d, true, true, 1, 0, "USE", "…CЊO‡’€OBAT’", 0x4F4F4FFF, "Неизвестно (дт)", "", %0.6f, %0.6f, %0.6f, %0.6f},',model,rotX,rotY,rotZ,zoom),0xFF3300)
 		end
 	end
 end
 
 function sampev.onShowTextDraw(textdrawId, data)
-	-- if elements.config.anim_car.v == true then
-		-- if data.text:find('+1') or data.text:find('+2') or data.text:find('+3') or data.text:find('+4') or data.text:find('+5') or data.text:find('+6') or data.text:find('+7') or data.text:find('+8') or data.text:find('+9') or data.text:find('+10') or data.text:find('+11') then  
-			-- data.text = '+12'
-			
-		-- end
-	-- end
 	if data.modelId == 1649 then
 		--------------------[Первая строка]--------------------
 		if data.position.x == 184.5 and math.floor(data.position.y) == 164 and elements.state.autoloot_number == 1 then
@@ -5331,7 +5319,6 @@ function sampev.onServerMessage(color, text)
 	text:find("%[Адвокат%]") or
 	text:find("%[Таксист%]") or
 	text:find("%[Грузчик%]")) and color == -2686721) or
-	-- string.find(text,"Таксист (%w+_%w+) принял вызов игрока (%w+_%w+)") and color == 1687547391 or
 	text:find("принял вызов игрока") and color == 1687547391 or
 	text:find("вызывает такси") and color == 1687547391 or
 	text:find("Поступил вызов, чтобы принять введите") and color == -1347440641 or
@@ -5462,8 +5449,6 @@ function sampev.onServerMessage(color, text)
 	(text:find("кричит") and color == -253326081)) then
 		if messagesFloodTab[text] ~= nil then
 			if messagesFloodTab[text].Message == text and messagesFloodTab[text].Timestamp >= os.time() then
-				-- r, g, b, a = explode_argb(color)
-				-- sampfuncsLog(string.format("{%06X}[AntiFlood] %s.", join_rgb(r,g,b), text))
 				return false
 			else
 				messagesFloodTab[text] =
@@ -5820,7 +5805,7 @@ function sampev.onSetObjectMaterialText(objectId, data)
 	if data.align == 1 and data.fontSize == 40 then
 		local veh, price = data.text:match('^([^\n]+)\n{%x+}%$(%d+)')
 		if veh and price then
-			price = sumFormat(price)
+			price = sumFormat(tostring(price))
 			--sampfuncsLog('{FFFFFF}На продажу выставлен {FDDB6D}'..veh..'{FFFFFF} за {FDDB6D}$'..price..'{FFFFFF}.')
 			sampAddChatMessage('[{FDDB6D}'..script_names..' '..thisScript().version..'{FFFFFF}] На продажу выставлен {FDDB6D}'..veh..'{FFFFFF} за {FDDB6D}$'..price..'{FFFFFF}.', 0xFFFFFF)
 			----------------------------------------
@@ -7237,16 +7222,6 @@ function sampev.onSendPlayerSync(data)
 	----------------------------------------
 end
 
-function sumFormat(sum) -- Для автобазара
-	if #sum > 3 then
-		local b, e = ('%d'):format(sum):gsub('^%-', '')
-		local c = b:reverse():gsub('%d%d%d', '%1.')
-		local d = c:reverse():gsub('^%.', '')
-		return (e == 1 and '-' or '')..d
-	end
-	return sum
-end
-
 -- local orion = 999
 
 function sampev.onShowDialog(dialogId, style, title, button1, button2, text)
@@ -7841,7 +7816,7 @@ function sampev.onSetPlayerAttachedObject(playerId, index, create, object)
 			sampAddChatMessage('С ID: '..playerId..' своровалась модификация. '..object.modelId..': '..getColor(object.color1)..': '..getColor(object.color2)..': '..object.color1..': '..object.color2,0xFF3300)
 			SaveFileAttach(elements.config.attach_id.v,model,object.bone,object.offset.x,object.offset.y,object.offset.z,object.rotation.x,object.rotation.y,object.rotation.z,object.scale.x,object.scale.y,object.scale.z)
 		end
-		if sampGetPlayerNickname(playerId) == "Roy_Shelby" then
+		if sampIsLocalPlayerSpawned() and sampGetPlayerNickname(playerId) == "Roy_Shelby" then
 			sampAddChatMessage('С Roy_Shelby['..playerId..'] своровалась модификация. '..object.modelId..': '..getColor(object.color1)..': '..getColor(object.color2)..': '..object.color1..': '..object.color2,0xFF3300)
 			SaveFileAttach(playerId,model,object.bone,object.offset.x,object.offset.y,object.offset.z,object.rotation.x,object.rotation.y,object.rotation.z,object.scale.x,object.scale.y,object.scale.z)
 		end
@@ -7857,12 +7832,6 @@ function sampev.onSetPlayerAttachedObject(playerId, index, create, object)
 			sampAddChatMessage("У игрока "..sampGetPlayerNickname(playerId).."["..playerId.."] необходимо своровать модификацию, обнови зону стрима. "..model,0xFF3300)
 			printString('~g~Find enable',2000)
 		end
-		-- if model == 19085 then
-			-- elements.config.attach_id.v = playerId
-			-- elements.state.finds = playerId
-			-- sampAddChatMessage("У игрока "..sampGetPlayerNickname(playerId).."["..playerId.."] необходимо своровать модификацию, обнови зону стрима. "..model,0xFF3300)
-			-- printString('~g~Find enable',2000)
-		-- end
 		if model == 19133 then
 			elements.config.attach_id.v = playerId
 			elements.state.finds = playerId
@@ -8469,11 +8438,6 @@ function sampEditChatAlpha(alpha)
         memory.write(samp + 0x63A99, alpha, 4, true)
         memory.write(samp + 0x63ADC, alpha, 4, true)
     end
-end
-
-function setNextRequestTime(time)
-    local samp = getModuleHandle("samp.dll")
-    memory.setuint32(samp + 0x3DBAE, time, true)
 end
 
 function autoupdate(json_url, prefix, url)
