@@ -1,7 +1,7 @@
 script_name("{0d00ff}Ar{2900ff}iz{3900ff}on{4500ff}a H{4f00ff}el{5800ff}pe{6000ff}r")
 local script_names = "Arizona Helper"
 
-script_version('4.867')
+script_version('4.868')
 script_author("metk1u")
 
 local model_name =
@@ -65,7 +65,7 @@ local model_name =
 	[19141] = "Каска спецназа",
 	[19142] = "Бронежилет",
 	[19274] = "Парик (1)",
-	[19314] = "Рога",
+	-- [19314] = "Рога",
 	[19317] = "Гитара",
 	[19346] = "Хот-дог на голову",
 	[19349] = "Монокль",
@@ -101,6 +101,7 @@ local model_name =
 local model_name_anti_stealer =
 {
 	-- [19632] = "Горящий щит",
+	-- [8492] = "Крылья & Красная накидка",
 	[0] = "None",
 	[321] = "Дилдо на спину #1",
 	[322] = "Дилдо на спину #2",
@@ -324,7 +325,6 @@ local model_name_anti_stealer =
 	[7313] = "Ранец радио & Кейс анимированный 2 & Очки анимированые",
 	[7392] = "Девушка на спину & Рюкзак-девушка",
 	[7891] = "Лист металла в руку",
-	[8492] = "Крылья & Красная накидка",
 	[8493] = "Пиратский корабль на спину",
 	[8548] = "С модификации Зомби",
 	[8644] = "Два кинжала на спину",
@@ -352,6 +352,8 @@ local model_name_anti_stealer =
 	[11743] = "INVALID_OBJECT_ID",
 	[11747] = "С модификации Индеец",
 	[11750] = "VR-очки",
+	[12665] = "INVALID_OBJECT_ID",
+	[12667] = "INVALID_OBJECT_ID",
 	[13562] = "Крутящаяся дубина",
 	[13667] = "Маска обезьяны",
 	[14467] = "Человечек на плечо",
@@ -362,7 +364,7 @@ local model_name_anti_stealer =
 	[16442] = "Рюкзак корова",
 	[16776] = "Петух на плечо",
 	[16778] = "НЛО",
-	[18003] = "Оружие",
+	-- [18003] = "Оружие",
 	[18637] = "Щит на спину и в руку",
 	[18641] = "Маска фонарь",
 	[18642] = "Ранец шокер & Копье-шокер",
@@ -517,6 +519,19 @@ local model_name_anti_stealer =
 };
 local textdraw_name =
 {
+	[2701] = "Упаковка для подарков (квест)",
+	[19090] = "Подарок без упаковки (квест)",
+	[19054] = "Запакованный подарок (квест)",
+	[881] = "Срубленная ёлка (квест)",
+	[659] = "Не украшенная ёлка (квест)",
+	[2483] = "Ёлочные украшения (квест)",
+	[2749] = "Осколок игрушки (ресурс)",
+	[1614] = "Ледяной камень (ресурс)",
+	[14872] = "Замерзшее дерево (ресурс)",
+	[1854] = "Новогодняя монета",
+	[1718] = "Ларец организации",
+	[19616] = "Ларец крафтера",
+	[1719] = "Банковская карта VIP-клиента",
 	[312] = "INVALID_OBJECT_ID",
 	[313] = "INVALID_OBJECT_ID",
 	[314] = "INVALID_OBJECT_ID",
@@ -575,6 +590,7 @@ local textdraw_name =
 	[612] = "INVALID_OBJECT_ID",
 	[613] = "INVALID_OBJECT_ID",
 	[614] = "INVALID_OBJECT_ID",
+	[615] = "INVALID_OBJECT_ID",
 	[616] = "INVALID_OBJECT_ID",
 	[617] = "INVALID_OBJECT_ID",
 	[619] = "INVALID_OBJECT_ID",
@@ -1247,6 +1263,7 @@ local textdraw_name =
 	[5689] = "INVALID_OBJECT_ID",
 	[5690] = "INVALID_OBJECT_ID",
 	[5691] = "INVALID_OBJECT_ID",
+	[5692] = "INVALID_OBJECT_ID",
 	[5693] = "INVALID_OBJECT_ID",
 	[5694] = "INVALID_OBJECT_ID",
 	[5696] = "INVALID_OBJECT_ID",
@@ -1371,6 +1388,33 @@ local textdraw_name =
 	[12577] = "INVALID_OBJECT_ID",
 	[12578] = "INVALID_OBJECT_ID",
 	[12579] = "INVALID_OBJECT_ID",
+	[12654] = "INVALID_OBJECT_ID",
+	[12655] = "INVALID_OBJECT_ID",
+	[12656] = "INVALID_OBJECT_ID",
+	[12657] = "INVALID_OBJECT_ID",
+	[12658] = "INVALID_OBJECT_ID",
+	[12660] = "INVALID_OBJECT_ID",
+	[12661] = "INVALID_OBJECT_ID",
+	[12662] = "INVALID_OBJECT_ID",
+	[12663] = "INVALID_OBJECT_ID",
+	[12664] = "INVALID_OBJECT_ID",
+	[12665] = "INVALID_OBJECT_ID",
+	[12666] = "INVALID_OBJECT_ID",
+	[12667] = "INVALID_OBJECT_ID",
+	[12700] = "INVALID_OBJECT_ID",
+	[12701] = "INVALID_OBJECT_ID",
+	[12702] = "INVALID_OBJECT_ID",
+	[12703] = "INVALID_OBJECT_ID",
+	[12704] = "INVALID_OBJECT_ID",
+	[12705] = "INVALID_OBJECT_ID",
+	[12706] = "INVALID_OBJECT_ID",
+	[12707] = "INVALID_OBJECT_ID",
+	[12708] = "INVALID_OBJECT_ID",
+	[12709] = "INVALID_OBJECT_ID",
+	[12709] = "INVALID_OBJECT_ID",
+	[12710] = "INVALID_OBJECT_ID",
+	[12711] = "INVALID_OBJECT_ID",
+	[12712] = "INVALID_OBJECT_ID",
 	[13562] = "Крутящаяся дубина",
 	[13646] = "Золотая рулетка",
 	[13667] = "Маска обезьяны",
@@ -1810,6 +1854,7 @@ local pidori =
 	"Tesla_Bennett",
 	"Ramil_Cox",
 	"Flex_Fresco",
+	"Fallyln_Fillnglin",
 	"Vlad_GoIdy"
 };
 ----------------------------------------
@@ -1843,6 +1888,7 @@ ffi.cdef[[
 ]]
 ----------------------------------------
 arial_12_5 = renderCreateFont('Arial', 12, 5)
+arial_10_13 = renderCreateFont('Arial', 10, 13)
 molot_8_5 = renderCreateFont("Molot", 8, 5)
 molot_10_9 = renderCreateFont('Molot', 10, 9)
 --------------------[Auto /vr]--------------------
@@ -1974,10 +2020,10 @@ local mainIni = inicfg.load(
 		tosampfuncsdisconnect = true,
 		----------------------------------------
 		tosampfuncsvipchat = false,
-		removevipchat = true,
+		removevipchat = false,
 		----------------------------------------
 		tosampfuncsjobchat = false,
-		removejobchat = true,
+		removejobchat = false,
 		----------------------------------------
 		tosampfuncsadv = false,
 		removeadv = true,
@@ -2000,6 +2046,7 @@ local mainIni = inicfg.load(
 		tree = true,
 		serdce = true,
 		xlam = true,
+		newyear = true,
 	},
 	lavka =
 	{
@@ -2268,7 +2315,8 @@ local elements =
 		bucket = imgui.ImBool(mainIni.destroy.bucket),
 		tree = imgui.ImBool(mainIni.destroy.tree),
 		serdce = imgui.ImBool(mainIni.destroy.serdce),
-		xlam = imgui.ImBool(mainIni.destroy.xlam)
+		xlam = imgui.ImBool(mainIni.destroy.xlam),
+		newyear = imgui.ImBool(mainIni.destroy.newyear)
 	},
 	lavka =
 	{
@@ -2469,6 +2517,8 @@ local elements =
 		finds = 65535,
 		----------------------------------------
 		olen = false,
+		----------------------------------------
+		podarok = true,
 		----------------------------------------
 		waxta = false,
 		----------------------------------------
@@ -2774,6 +2824,11 @@ function main()
 	sampRegisterChatCommand("olen",function()
 		elements.state.olen = not elements.state.olen
 		push_message((elements.state.olen and "Включаю" or "Выключаю")..' поиск оленей в зоне стрима.')
+	end)
+	----------------------------------------
+	sampRegisterChatCommand("podarok",function()
+		elements.state.podarok = not elements.state.podarok
+		push_message((elements.state.podarok and "Включаю" or "Выключаю")..' поиск подарков в зоне стрима.')
 	end)
 	----------------------------------------
 	sampRegisterChatCommand("waxta",function()
@@ -3260,6 +3315,22 @@ function main()
 				renderFontDrawText(arial_12_5,'Оленей в зоне стрима: '..olen_count, sx / 2.5, sy - 30, 0xFFFF0000)
 			end
 		end
+		--------------------[Поиск подарков]--------------------
+		if elements.state.podarok == true and elements.config.del_stream.v == false then
+			for _, i in pairs(getAllObjects()) do
+				if getObjectModel(i) == 18849 then
+					local result, oX, oY, oZ = getObjectCoordinates(i)
+					------------------------------------
+					local x1, y1 = convert3DCoordsToScreen(oX,oY,oZ)
+					local PlayerX, PlayerY, PlayerZ = getCharCoordinates(PLAYER_PED)
+					local PlayerX2, PlayerY2 = convert3DCoordsToScreen(PlayerX, PlayerY, PlayerZ)
+					distance = string.format("%.0f",getDistanceBetweenCoords3d(oX, oY, oZ, PlayerX, PlayerY, PlayerZ))
+					------------------------------------
+					renderDrawLine(PlayerX2, PlayerY2, x1, y1, 2, 0xFF3300FF) 
+					renderFontDrawText(arial_10_13,"{FF0000}Новогодний подарок: {3300FF}"..distance, x1, y1, -1)
+				end
+			end
+		end
 		--------------------[Поиск руды на шахте]--------------------
 		if elements.state.waxta == true then
 			local waxta_count = 0
@@ -3547,13 +3618,25 @@ function main()
 		--------------------[Авто-сбор шара]--------------------
 		local text = sampTextdrawGetString(2069)
 		if text:match("%[ ~p~%u+~w~ %]") then
-			setGameKeyState(16, 255)
-			setGameKeyState(21, 255)
+			setGameKeyState(16, 255) -- Shift
+			setGameKeyState(21, 255) -- Alt
 			setGameKeyState(9, 255)
 			wait(0)
-			setGameKeyState(16, 0)
-			setGameKeyState(21, 0)
+			setGameKeyState(16, 0) -- Shift
+			setGameKeyState(21, 0) -- Alt
 			setGameKeyState(9, 0)
+		end
+		--------------------[Авто-сбор на подарка на НГ]--------------------
+		local text = sampTextdrawGetString(2062)
+		if text:match("Press_N") then
+			setGameKeyState(10, 255) -- N
+			wait(0)
+			setGameKeyState(10, 0) -- N
+		end
+		if text:match("Press_Y") then
+			setGameKeyState(11, 255) -- Y
+			wait(0)
+			setGameKeyState(11, 0) -- Y
 		end
 		--------------------[buyvk]--------------------
 		if elements.state.buyvk ~= -1 and sampIsDialogActive() then
@@ -3647,6 +3730,7 @@ function saveini()
 			tree = elements.destroy.tree.v,
 			serdce = elements.destroy.serdce.v,
 			xlam = elements.destroy.xlam.v,
+			newyear = elements.destroy.newyear.v,
 		},
 		lavka =
 		{
@@ -4120,6 +4204,7 @@ INVALID_OBJECT_ID\n\
 Чёрно-белая гитара\n\
 Чёрная гитара\n\
 Праздничный торт')
+			imgui.Checkbox(u8('Отключить на сервере \'новогодний маппинг\''),elements.destroy.newyear)
 			imgui.Separator()
 		end
 		if imgui.CollapsingHeader(u8'Авто-точилка аксессуаров') then
@@ -4928,7 +5013,6 @@ function sampev.onShowTextDraw(textdrawId, data)
 	if data.modelId == 1546 then sampAddChatMessage(string.format(data.modelId.." - заскринить название предмета + TD! (%0.6f, %0.6f, %0.6f, %0.6f) (/showmodel)",data.rotation.x,data.rotation.y,data.rotation.z,data.zoom), 0xFFFF00) end
 	if data.modelId == 2224 then sampAddChatMessage(string.format(data.modelId.." - заскринить название предмета + TD! (%0.6f, %0.6f, %0.6f, %0.6f) (/showmodel)",data.rotation.x,data.rotation.y,data.rotation.z,data.zoom), 0xFFFF00) end
 	if data.modelId == 2744 then sampAddChatMessage(string.format(data.modelId.." - заскринить название предмета + TD! (%0.6f, %0.6f, %0.6f, %0.6f) (/showmodel)",data.rotation.x,data.rotation.y,data.rotation.z,data.zoom), 0xFFFF00) end
-	if data.modelId == 3065 then sampAddChatMessage(string.format(data.modelId.." - заскринить название предмета + TD! (%0.6f, %0.6f, %0.6f, %0.6f) (/showmodel)",data.rotation.x,data.rotation.y,data.rotation.z,data.zoom), 0xFFFF00) end
 	if data.modelId == 3426 then sampAddChatMessage(string.format(data.modelId.." - заскринить название предмета + TD! (%0.6f, %0.6f, %0.6f, %0.6f) (/showmodel)",data.rotation.x,data.rotation.y,data.rotation.z,data.zoom), 0xFFFF00) end
 	if data.modelId == 18244 then sampAddChatMessage(string.format(data.modelId.." - заскринить название предмета + TD! (%0.6f, %0.6f, %0.6f, %0.6f) (/showmodel)",data.rotation.x,data.rotation.y,data.rotation.z,data.zoom), 0xFFFF00) end
 	if data.modelId == 18891 then sampAddChatMessage(string.format(data.modelId.." - заскринить название предмета + TD! (%0.6f, %0.6f, %0.6f, %0.6f) (/showmodel)",data.rotation.x,data.rotation.y,data.rotation.z,data.zoom), 0xFFFF00) end
@@ -5525,7 +5609,9 @@ function sampev.onSetVehicleParamsEx(vehicleId, params, doors, windows)
 		ip, port = sampGetCurrentServerAddress()
 		----------------------------------------
 		if ip ~= "127.0.0.1" and vehicleId >= 855 then
-			if model ~= 401 and
+			if model ~= 400 and
+			model ~= 401 and
+			model ~= 404 and
 			model ~= 410 and
 			model ~= 411 and
 			model ~= 412 and
@@ -5534,17 +5620,23 @@ function sampev.onSetVehicleParamsEx(vehicleId, params, doors, windows)
 			model ~= 419 and
 			model ~= 422 and
 			model ~= 426 and
+			model ~= 436 and
+			model ~= 439 and
+			model ~= 445 and
 			model ~= 451 and
+			model ~= 458 and
+			model ~= 466 and
 			model ~= 470 and
 			model ~= 474 and
 			model ~= 475 and
 			model ~= 478 and
 			model ~= 479 and
-			-- model ~= 483 and
+			model ~= 483 and
 			model ~= 487 and
 			model ~= 490 and
 			model ~= 494 and
 			model ~= 495 and
+			model ~= 496 and
 			model ~= 497 and
 			model ~= 502 and
 			model ~= 505 and
@@ -5553,18 +5645,25 @@ function sampev.onSetVehicleParamsEx(vehicleId, params, doors, windows)
 			model ~= 529 and
 			model ~= 534 and
 			model ~= 541 and
+			model ~= 542 and
+			model ~= 543 and
 			model ~= 546 and
 			model ~= 547 and
 			model ~= 549 and
 			model ~= 550 and
-			-- model ~= 560 and
+			model ~= 558 and
+			model ~= 559 and
+			model ~= 560 and
 			model ~= 562 and
 			model ~= 565 and
 			model ~= 566 and
 			model ~= 567 and
+			model ~= 575 and
 			model ~= 576 and
 			model ~= 579 and
-			model ~= 580 then
+			model ~= 580 and
+			model ~= 600 and
+			model ~= 602 then
 				fsoav(vehicleId)
 			end
 		end
@@ -5657,7 +5756,6 @@ function onReceiveRpc(id, bitStream)
 	if elements.config.del_stream.v == true and
 	(
 		id == 43 or -- RPC_SCRREMOVEBUILDINGFORPLAYER
-		id == 58 or -- Update3DTextLabel
 		id == 59 or -- ChatBubble
 		id == 60 or -- UpdateGameTimer
 		id == 72 or -- SetPlayerColor
@@ -5746,6 +5844,15 @@ function sampev.onCreateObject(objectId, data)
 		return false
 	end
 	if elements.destroy.serdce.v == true and model == 7093 then
+		return false
+	end
+	if elements.destroy.newyear.v == true and
+	model == 830 or
+	model == 2892 or
+	model == 3511 or
+	model == 3511 or
+	model == 3675 or
+	model == 19756 then
 		return false
 	end
 	if elements.destroy.xlam.v == true and 
@@ -7493,8 +7600,9 @@ function sampev.onShowDialog(dialogId, style, title, button1, button2, text)
 			bProds = 0
 		end
 		bTax = string.match(text,'Налог к оплате: {9ACD32}(.+){FFFFFF}Цена покупки с госа')
+		bTax2 = bTax:gsub('PayDay/s','PD')
 		bBank = string.match(text,'Банк бизнеса: {9ACD32}$(%d+)')
-		sampAddChatMessage(string.format("{FDDB6D}%s{FFFFFF} | Продуктов: {FDDB6D}%d{FFFFFF} | Налог: {FDDB6D}%s{FFFFFF} | Банк: {FDDB6D}$%d",bName2,bProds,bTax,bBank), -1)
+		sampAddChatMessage(string.format("{FDDB6D}%s{FFFFFF} | Продуктов: {FDDB6D}%d{FFFFFF} | Налог: {FDDB6D}%s{FFFFFF} | Банк: {FDDB6D}$%d",bName2,bProds,bTax2,bBank), -1)
 		check_biz = check_biz+1
 		auto_bizinfo()
 		sampSendDialogResponse(dialogId, 0, nil, nil)
@@ -7861,11 +7969,6 @@ function sampev.onSetPlayerAttachedObject(playerId, index, create, object)
 				end
 			end
 			----------------------------------------
-			if model == 1247 then -- Звезды
-				if object.rotation.y == -3.4999 and object.rotation.z == 28.2000 then return end
-				if object.scale.x == 0.2579 and object.scale.y == 0.7160 and object.scale.z == 0.3470 then return end
-			end
-			----------------------------------------
 			if model == 2405 or model == 2406 then -- Доска для серфа (сделано)
 				model = 2404
 				if object.bone == 1 then return end
@@ -7895,7 +7998,6 @@ function sampev.onSetPlayerAttachedObject(playerId, index, create, object)
 			if model == 18954 then model = 18953 end -- Шапки
 			if model == 18965 or model == 18966 then model = 18964 end -- Бандитская шапка
 			if model == 19037 or model == 19038 then model = 19036 end -- Хоккейная маска
-			if model == 19064 and (object.bone == 1 or object.bone == 3 or object.bone == 4) then return end -- Плащ деда мороза, Наручи на плечи
 			if model == 19065 or model == 19066 then model = 19064 end -- Новогодняя шапка
 			if model == 19137 and object.bone == 1 then return end -- Голова петуха с модификации
 			if model == 19160 or model == 19161 or model == 19162 then model = 19093 end -- Кепки DUDE & Police
@@ -8253,7 +8355,6 @@ function onRenderNotification()
 				imgui.Begin(u8'##msg' .. k, _, imgui.WindowFlags.NoCollapse + imgui.WindowFlags.NoResize + imgui.WindowFlags.NoScrollbar + imgui.WindowFlags.NoMove + imgui.WindowFlags.NoTitleBar)
 				imgui.CenterText(script_names)
 				imgui.Separator()
-				--imgui.TextWrapped(nText)
 				imgui.TextUnformatted(nText)
 				imgui.End()
 				if push then
@@ -8398,7 +8499,6 @@ function showInputHelp()
 		local _, playerid = sampGetPlayerIdByCharHandle(PLAYER_PED)
 		local color = sampGetPlayerColor(playerid)
 		local name = sampGetPlayerNickname(playerid)
-		local ping = sampGetPlayerPing(playerid)
 		local score = sampGetPlayerScore(playerid)
 		local capsState = ffi.C.GetKeyState(20)
 		local success = ffi.C.GetKeyboardLayoutNameA(KeyboardLayoutName)
@@ -8406,12 +8506,11 @@ function showInputHelp()
 		local localName = ffi.string(LocalInfo)		
 		----------------------------------------
 		local text = string.format(
-			"%s - {%0.6x}%s[%d]{FFFFFF} - Пинг: %d - Уровень: %d - Капс: %s - Язык: {33AA33}%s",
+			"%s - {%0.6x}%s[%d]{FFFFFF} - Уровень: %d - Капс: %s - Язык: {33AA33}%s",
 			os.date("%H:%M:%S"),
 			bit.band(color,0xffffff),
 			name,
 			playerid,
-			ping,
 			score,
 			getStrByState(capsState),
 			string.match(localName, "([^%(]*)")
