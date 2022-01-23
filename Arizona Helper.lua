@@ -1,11 +1,12 @@
 script_name("{0d00ff}Ar{2900ff}iz{3900ff}on{4500ff}a H{4f00ff}el{5800ff}pe{6000ff}r")
 local script_names = "Arizona Helper"
 
-script_version('4.868')
+script_version('4.869')
 script_author("metk1u")
 
 local model_name =
 {
+	-- [19314] = "Рога",
 	[323] = "Дилдо на спину #3",
 	[371] = "Рюкзак (парашют)",
 	[1487] = "Бутылка на спину",
@@ -26,6 +27,7 @@ local model_name =
 	[3056] = "Магнит на спину & Инопланетная пушка",
 	[3273] = "Ранец охотники на приведений",
 	[16368] = "Красная шляпа",
+	[18003] = "Рюкзак переноска (Оружие сделано!)",
 	[18632] = "Рыболовная удочка на спину",
 	[18633] = "Балонный ключ на спину",
 	[18634] = "Лом на спину",
@@ -65,7 +67,6 @@ local model_name =
 	[19141] = "Каска спецназа",
 	[19142] = "Бронежилет",
 	[19274] = "Парик (1)",
-	-- [19314] = "Рога",
 	[19317] = "Гитара",
 	[19346] = "Хот-дог на голову",
 	[19349] = "Монокль",
@@ -100,8 +101,13 @@ local model_name =
 };
 local model_name_anti_stealer =
 {
+	-- [2711] = "С модификации Робот & Рюкзак (Кибер)",
+	-- [2901] = "Рюкзак из травы",
+	-- [3801] = "Длинный топор & Кислородный баллон",
+	-- [18003] = "Оружие",
+	-- [19348] = "С модификации Купидон & Посох бирюзовый & Посох красный",
 	-- [19632] = "Горящий щит",
-	-- [8492] = "Крылья & Красная накидка",
+	-- [19874] = "С модификации Дедпул и Рюкзак бирюзовый",
 	[0] = "None",
 	[321] = "Дилдо на спину #1",
 	[322] = "Дилдо на спину #2",
@@ -210,6 +216,7 @@ local model_name_anti_stealer =
 	[1974] = "С модификации Тедди",
 	[2006] = "С модификации Химик",
 	[2028] = "INVALID_OBJECT_ID",
+	[2053] = "Снаряжение солдата & Снаряжение полицейского",
 	[2060] = "Мешок грузчиков",
 	[2064] = "Крылья зелёные",
 	[2098] = "Адский лук",
@@ -229,6 +236,7 @@ local model_name_anti_stealer =
 	[2429] = "Реактивный ранец (3)",
 	[2511] = "Аэроплан 2",
 	[2512] = "Аэроплан 1",
+	[2594] = "Необычный рюкзак",
 	[2595] = "INVALID_OBJECT_ID",
 	[2614] = "Два флага на спине",
 	[2630] = "Велосипед в руку",
@@ -236,7 +244,6 @@ local model_name_anti_stealer =
 	[2689] = "С модификации Тедди",
 	[2703] = "Рюкзак-бургер",
 	[2707] = "Рюкзак со светом",
-	[2711] = "С модификации Робот",
 	[2714] = "Табличка 'OPEN' на спину",
 	[2726] = "С модификации Спарта",
 	[2769] = "С модификации Зомби",
@@ -249,7 +256,6 @@ local model_name_anti_stealer =
 	[2846] = "Одежда в руках",
 	[2888] = "Маска робота (2)",
 	[2899] = "Ледяное копьё",
-	[2901] = "Стог сена",
 	[2905] = "Модификация: Бешенный доктор",
 	[2907] = "С модификации",
 	[2913] = "Штанга в руку",
@@ -274,6 +280,7 @@ local model_name_anti_stealer =
 	[3072] = "Гантеля",
 	[3096] = "Синий посох светлый",
 	[3100] = "С модификации Соник",
+	[3261] = "С модификации Снаряжение полицейского",
 	[3272] = "Паук на спину",
 	[3273] = "Ранец охотники на приведений",
 	[3383] = "Усы таракана",
@@ -287,7 +294,6 @@ local model_name_anti_stealer =
 	[3643] = "Рюкзак стимпанк",
 	[3658] = "Гармошка",
 	[3785] = "Светящийся рюкзак",
-	[3801] = "Длинный топор",
 	[3932] = "С модификации PUBG",
 	[5381] = "INVALID_OBJECT_ID",
 	[5382] = "INVALID_OBJECT_ID",
@@ -325,6 +331,7 @@ local model_name_anti_stealer =
 	[7313] = "Ранец радио & Кейс анимированный 2 & Очки анимированые",
 	[7392] = "Девушка на спину & Рюкзак-девушка",
 	[7891] = "Лист металла в руку",
+	[8492] = "Крылья & Красная накидка & Красный воротник",
 	[8493] = "Пиратский корабль на спину",
 	[8548] = "С модификации Зомби",
 	[8644] = "Два кинжала на спину",
@@ -345,6 +352,7 @@ local model_name_anti_stealer =
 	[11727] = "Очки будущего 2",
 	[11731] = "С модификации Негр",
 	[11732] = "Маска лицо в сердечке",
+	[11733] = "Снежные сани 2",
 	[11734] = "Сани на спину",
 	[11736] = "Медицинская маска & Рюкзак медика зелёный",
 	[11738] = "Рюкзак медика красный",
@@ -352,7 +360,19 @@ local model_name_anti_stealer =
 	[11743] = "INVALID_OBJECT_ID",
 	[11747] = "С модификации Индеец",
 	[11750] = "VR-очки",
+	[12621] = "INVALID_OBJECT_ID",
+	[12623] = "INVALID_OBJECT_ID",
+	[12634] = "INVALID_OBJECT_ID",
+	[12635] = "INVALID_OBJECT_ID",
+	[12647] = "INVALID_OBJECT_ID",
+	[12652] = "INVALID_OBJECT_ID",
+	[12653] = "INVALID_OBJECT_ID",
+	[12654] = "INVALID_OBJECT_ID",
+	[12657] = "INVALID_OBJECT_ID",
+	[12658] = "INVALID_OBJECT_ID",
+	[12663] = "INVALID_OBJECT_ID",
 	[12665] = "INVALID_OBJECT_ID",
+	[12666] = "INVALID_OBJECT_ID",
 	[12667] = "INVALID_OBJECT_ID",
 	[13562] = "Крутящаяся дубина",
 	[13667] = "Маска обезьяны",
@@ -364,7 +384,6 @@ local model_name_anti_stealer =
 	[16442] = "Рюкзак корова",
 	[16776] = "Петух на плечо",
 	[16778] = "НЛО",
-	-- [18003] = "Оружие",
 	[18637] = "Щит на спину и в руку",
 	[18641] = "Маска фонарь",
 	[18642] = "Ранец шокер & Копье-шокер",
@@ -450,7 +469,7 @@ local model_name_anti_stealer =
 	[19197] = "Ангельское кольцо на голову",
 	[19200] = "С модификации Ghost",
 	[19202] = "С модификации Зомби",
-	[19314] = "Рога",
+	[19314] = "Рога & Уши эльфа",
 	[19315] = "Олень на плечо",
 	[19320] = "Тыква на голову",
 	[19330] = "Женская шляпка",
@@ -469,7 +488,7 @@ local model_name_anti_stealer =
 	[19344] = "Яйцо",
 	[19345] = "Яйцо",
 	[19347] = "Звезда на грудь",
-	[19348] = "С модификации Купидон",
+	[19348] = "Посох бирюзовый & Посох красный",
 	[19468] = "Ведро в руку",
 	[19513] = "Телефон",
 	[19516] = "С модификации Купидон",
@@ -501,9 +520,11 @@ local model_name_anti_stealer =
 	[19831] = "Рюкзак с крышкой",
 	[19836] = "С модификации Палач с головой в руке",
 	[19840] = "Красный плащ",
-	[19874] = "С модификации Дедпул",
 	[19893] = "Карта на спину",
 	[19894] = "INVALID_OBJECT_ID",
+	[12640] = "INVALID_OBJECT_ID",
+	[12661] = "INVALID_OBJECT_ID",
+	[2764] = "Рюкзак в клеточку",
 	[19917] = "Техно-рюкзак 3",
 	[19959] = "Знак (поворот направо)",
 	[19960] = "Знак (поворот налево)",
@@ -519,22 +540,12 @@ local model_name_anti_stealer =
 };
 local textdraw_name =
 {
-	[2701] = "Упаковка для подарков (квест)",
-	[19090] = "Подарок без упаковки (квест)",
-	[19054] = "Запакованный подарок (квест)",
-	[881] = "Срубленная ёлка (квест)",
-	[659] = "Не украшенная ёлка (квест)",
-	[2483] = "Ёлочные украшения (квест)",
-	[2749] = "Осколок игрушки (ресурс)",
-	[1614] = "Ледяной камень (ресурс)",
-	[14872] = "Замерзшее дерево (ресурс)",
-	[1854] = "Новогодняя монета",
-	[1718] = "Ларец организации",
-	[19616] = "Ларец крафтера",
-	[1719] = "Банковская карта VIP-клиента",
+	[12640] = "INVALID_OBJECT_ID",
+	[12651] = "INVALID_OBJECT_ID",
 	[312] = "INVALID_OBJECT_ID",
 	[313] = "INVALID_OBJECT_ID",
 	[314] = "INVALID_OBJECT_ID",
+	[314] = "Баскетбольный мяч (объект)",
 	[315] = "INVALID_OBJECT_ID",
 	[316] = "INVALID_OBJECT_ID",
 	[317] = "INVALID_OBJECT_ID",
@@ -593,6 +604,7 @@ local textdraw_name =
 	[615] = "INVALID_OBJECT_ID",
 	[616] = "INVALID_OBJECT_ID",
 	[617] = "INVALID_OBJECT_ID",
+	[618] = "INVALID_OBJECT_ID",
 	[619] = "INVALID_OBJECT_ID",
 	[620] = "INVALID_OBJECT_ID",
 	[625] = "Цветок в горшке 1",
@@ -605,6 +617,7 @@ local textdraw_name =
 	[633] = "Цветок в горшке 8",
 	[635] = "Хз откуда",
 	[643] = "Стул и стол 1",
+	[659] = "Не украшенная ёлка (квест)",
 	[662] = "INVALID_OBJECT_ID",
 	[663] = "INVALID_OBJECT_ID",
 	[673] = "Хз откуда",
@@ -613,6 +626,7 @@ local textdraw_name =
 	[677] = "Модификация: Demon",
 	[683] = "Хз откуда",
 	[701] = "Адская трава (игровой ресурс)",
+	[702] = "НЕИЗВЕСТНО",
 	[756] = "Кактус",
 	[795] = "INVALID_OBJECT_ID",
 	[796] = "INVALID_OBJECT_ID",
@@ -626,6 +640,7 @@ local textdraw_name =
 	[819] = "Большой Куст #2",
 	[823] = "Большой Куст #1",
 	[826] = "Хлопок",
+	[829] = "НЕИЗВЕСТНО",
 	[841] = "Проклятое дерево",
 	[842] = "Ломанное дерево",
 	[844] = "Заколдованное дерево",
@@ -634,6 +649,7 @@ local textdraw_name =
 	[862] = "Семена наркотиков",
 	[871] = "Лен",
 	[881] = "Ёлка",
+	[881] = "Срубленная ёлка (квест)",
 	[886] = "Небольшое дерево #1",
 	[888] = "Язык Венома",
 	[890] = "Небольшое дерево #2",
@@ -642,6 +658,7 @@ local textdraw_name =
 	[902] = "Ледяная звезда",
 	[907] = "INVALID_OBJECT_ID",
 	[908] = "INVALID_OBJECT_ID",
+	[914] = "Секретная записка",
 	[918] = "Синяя бочка",
 	[920] = "Первый компонент для крафта (квест)",
 	[921] = "Второй компонент для крафта (квест)",
@@ -680,6 +697,7 @@ local textdraw_name =
 	[1022] = "INVALID_OBJECT_ID",
 	[1023] = "Спойлер",
 	[1024] = "Фара",
+	[1025] = "Диски (Offroad)",
 	[1026] = "Боковая юбка",
 	[1027] = "Боковая юбка",
 	[1028] = "Турбина",
@@ -717,14 +735,28 @@ local textdraw_name =
 	[1070] = "Боковая юбка",
 	[1071] = "Боковая юбка",
 	[1072] = "Боковая юбка",
-	[1080] = "Автомобильное колесо",
+	[1073] = "Диски (Shadow)",
+	[1074] = "Диски (Mega)",
+	[1075] = "Диски (Rimshine)",
+	[1076] = "Диски (Wires)",
+	[1077] = "Диски (Classic)",
+	[1078] = "Диски (Twist)",
+	[1079] = "Диски (Cutter)",
+	[1080] = "Диски (Switch)",
+	[1081] = "Диски (Grove)",
+	[1082] = "Диски (Import)",
+	[1083] = "Диски (Dollar)",
+	[1084] = "Диски (Trance)",
+	[1085] = "Диски (Atomic)",
 	[1089] = "Турбина",
 	[1090] = "Боковая юбка",
 	[1092] = "Турбина",
 	[1093] = "Боковая юбка",
 	[1094] = "Боковая юбка",
 	[1095] = "Боковая юбка",
-	[1098] = "СТО",
+	[1096] = "Диски (Ahab)",
+	[1097] = "Диски (Virtual)",
+	[1098] = "Диски (Access)",
 	[1104] = "INVALID_OBJECT_ID",
 	[1105] = "Турбина",
 	[1111] = "Накладка на бензобак #1",
@@ -893,6 +925,7 @@ local textdraw_name =
 	[1604] = "Копьё Зевса",
 	[1607] = "Дельфин на спину",
 	[1609] = "Черепаха на спину",
+	[1614] = "Ледяной камень (ресурс)",
 	[1614] = "Треугольник",
 	[1615] = "Точильный амулет",
 	[1622] = "Регистратор на плечо",
@@ -908,6 +941,8 @@ local textdraw_name =
 	[1685] = "Ящик Minecraft",
 	[1697] = "Солнечные панели",
 	[1699] = "INVALID_OBJECT_ID",
+	[1718] = "Ларец организации",
+	[1719] = "Банковская карта VIP-клиента",
 	[1720] = "Деревянный стул",
 	[1728] = "Диван (объект)",
 	[1733] = "Тайник Илона Маска",
@@ -927,6 +962,7 @@ local textdraw_name =
 	[1851] = "Кубик в руку",
 	[1852] = "Осколок игрушки",
 	[1853] = "Одна фишка",
+	[1854] = "Новогодняя монета",
 	[1854] = "Одна фишка",
 	[1855] = "Одна фишка",
 	[1856] = "Одна фишка",
@@ -955,7 +991,9 @@ local textdraw_name =
 	[1895] = "Золотая шляпа с шипами",
 	[1924] = "Фишки для казино",
 	[1946] = "Мяч на ноге",
+	[1951] = "Сироп майнера & Сироп фармера",
 	[1951] = "Яд",
+	[1952] = "Рама от снегохода",
 	[1953] = "Саб",
 	[1954] = "Рюкзак космонавта",
 	[1956] = "Бандитский респект",
@@ -963,6 +1001,7 @@ local textdraw_name =
 	[1975] = "Наклейка",
 	[1976] = "Наклейка",
 	[1979] = "Бронзовая рулетка",
+	[2006] = "Уголь",
 	[2033] = "Компенсатор",
 	[2034] = "Револьвер",
 	[2035] = "М4",
@@ -975,6 +1014,7 @@ local textdraw_name =
 	[2060] = "Ингредиенты",
 	[2061] = "Патроны",
 	[2064] = "Крылья зелёные && Орудие",
+	[2096] = "Снежные сани 3",
 	[2098] = "Адский лук",
 	[2102] = "Колонка на спину",
 	[2114] = "Мяч",
@@ -1006,8 +1046,10 @@ local textdraw_name =
 	[2406] = "Доска для серфинга",
 	[2410] = "Доска для сёрфинга",
 	[2429] = "Реактивный ранец (3)",
+	[2455] = "Новогодний сундук",
 	[2456] = "Стикер Cluckin Bell",
 	[2469] = "Игрушечный самолетик",
+	[2483] = "Ёлочные украшения (квест)",
 	[2487] = "Модификация: Соник",
 	[2498] = "Осколки ящика",
 	[2510] = "Большой Самолётик",
@@ -1016,6 +1058,7 @@ local textdraw_name =
 	[2587] = "Стикер Verona",
 	[2589] = "Повешенная туша",
 	[2590] = "Коса на спину & Крюк",
+	[2594] = "Необычный рюкзак",
 	[2601] = "Спранк",
 	[2614] = "Флаг",
 	[2640] = "Игральный автомат",
@@ -1037,6 +1080,7 @@ local textdraw_name =
 	[2695] = "Наклейка",
 	[2696] = "Наклейка",
 	[2697] = "Наклейка",
+	[2701] = "Упаковка для подарков (квест)",
 	[2701] = "Ящик Marvel",
 	[2703] = "Рюкзак-бургер",
 	[2705] = "Рваная футболка",
@@ -1047,14 +1091,17 @@ local textdraw_name =
 	[2714] = "Табличка 'OPEN' на спину",
 	[2719] = "Стикер Jizzy",
 	[2722] = "Стикер Binko",
+	[2723] = "Переноска дров",
 	[2726] = "Кальян",
 	[2729] = "DONATE",
 	[2743] = "Статуя человека 1",
 	[2745] = "Статуя человека 3",
+	[2749] = "Осколок игрушки (ресурс)",
 	[2750] = "Хз откуда",
 	[2763] = "Красный стол",
 	[2764] = "Красный стол в клетку",
 	[2768] = "Бургер",
+	[2769] = "Сэндвич",
 	[2776] = "Черный стул",
 	[2782] = "Раптор",
 	[2788] = "Красный стул в клетку",
@@ -1114,6 +1161,7 @@ local textdraw_name =
 	[3031] = "Ранец вертолёт",
 	[3053] = "Дрифт-монета & Монета 6-ой годовщины",
 	[3056] = "Магнит на спину & Инопланетная пушка",
+	[3065] = "Баскетбольный мяч",
 	[3067] = "Покорёженный металл",
 	[3070] = "Модификация: Киборг & Реактивный ранец (5) & Скайборд",
 	[3071] = "Гантеля",
@@ -1388,6 +1436,16 @@ local textdraw_name =
 	[12577] = "INVALID_OBJECT_ID",
 	[12578] = "INVALID_OBJECT_ID",
 	[12579] = "INVALID_OBJECT_ID",
+	[12600] = "INVALID_OBJECT_ID",
+	[12621] = "INVALID_OBJECT_ID",
+	[12623] = "INVALID_OBJECT_ID",
+	[12634] = "INVALID_OBJECT_ID",
+	[12641] = "INVALID_OBJECT_ID",
+	[12646] = "INVALID_OBJECT_ID",
+	[12647] = "INVALID_OBJECT_ID",
+	[12649] = "INVALID_OBJECT_ID",
+	[12652] = "INVALID_OBJECT_ID",
+	[12653] = "INVALID_OBJECT_ID",
 	[12654] = "INVALID_OBJECT_ID",
 	[12655] = "INVALID_OBJECT_ID",
 	[12656] = "INVALID_OBJECT_ID",
@@ -1415,6 +1473,7 @@ local textdraw_name =
 	[12710] = "INVALID_OBJECT_ID",
 	[12711] = "INVALID_OBJECT_ID",
 	[12712] = "INVALID_OBJECT_ID",
+	[12742] = "INVALID_OBJECT_ID",
 	[13562] = "Крутящаяся дубина",
 	[13646] = "Золотая рулетка",
 	[13667] = "Маска обезьяны",
@@ -1423,7 +1482,10 @@ local textdraw_name =
 	[14608] = "Копье бога",
 	[14611] = "Корона (2)",
 	[14637] = "Два дракона",
+	[14872] = "Замерзшее дерево (ресурс)",
+	[16052] = "Декоративная арка",
 	[16112] = "Точильный камень",
+	[16340] = "НЕИЗВЕСТНО",
 	[16368] = "Красная шляпа",
 	[16442] = "Рюкзак корова",
 	[16630] = "Металлический забор",
@@ -1432,6 +1494,7 @@ local textdraw_name =
 	[16779] = "Люстра-вентилятор",
 	[17027] = "Серебро",
 	[18003] = "Оружие",
+	[18244] = "НЕИЗВЕСТНО",
 	[18632] = "Удочка",
 	[18633] = "Балонный ключ на спину",
 	[18634] = "Лом на спину",
@@ -1460,6 +1523,7 @@ local textdraw_name =
 	[18782] = "Печенька на голову",
 	[18848] = "Военный реактивный ранец",
 	[18858] = "Реактивный рюкзак 1 & Реактивный рюкзак 2",
+	[18864] = "НЕИЗВЕСТНО",
 	[18865] = "Телефон",
 	[18866] = "Телефон",
 	[18867] = "Телефон",
@@ -1472,6 +1536,7 @@ local textdraw_name =
 	[18874] = "Телефон",
 	[18875] = "ПипБой & Радио",
 	[18890] = "Грабли на спину",
+	[18891] = "НЕИЗВЕСТНО",
 	[18893] = "Рваная бандана",
 	[18906] = "Бандана на голову",
 	[18907] = "Бандана на голову",
@@ -1583,6 +1648,7 @@ local textdraw_name =
 	[19051] = "Часы",
 	[19052] = "Часы",
 	[19053] = "Часы",
+	[19054] = "Запакованный подарок (квест)",
 	[19054] = "Красный подарок",
 	[19055] = "Подарок",
 	[19056] = "Подарок",
@@ -1609,7 +1675,8 @@ local textdraw_name =
 	[19083] = "Шляпа маяк",
 	[19084] = "Шляпа маяк",
 	[19085] = "Повязка на глаз",
-	[19086] = "Улучшенное дилдо & Маска робота",
+	[19086] = "Улучшенное дилдо & Маска робота & Меч из аниме",
+	[19090] = "Подарок без упаковки (квест)",
 	[19090] = "Синяя новогодняя игрушка",
 	[19091] = "Красный берет",
 	[19092] = "Зелёный берет",
@@ -1666,6 +1733,7 @@ local textdraw_name =
 	[19177] = "PHONE",
 	[19182] = "PHONE",
 	[19197] = "Ангельское кольцо на голову",
+	[19198] = "НЕИЗВЕСТНО",
 	[19200] = "С модификации Ghost",
 	[19201] = "PHONE",
 	[19246] = "Талон снятия предупреждения",
@@ -1747,9 +1815,11 @@ local textdraw_name =
 	[19601] = "Снегоуборочный бампер",
 	[19602] = "Зелёный щит & Монета Хэллоуина",
 	[19605] = "С ящик Хэллоуина",
+	[19610] = "НЕИЗВЕСТНО",
 	[19612] = "Магнитофон",
 	[19613] = "Сундук рулетки",
 	[19614] = "Ларец с премией",
+	[19616] = "Ларец крафтера",
 	[19620] = "Полицейский ранец & Палка красно-синяя",
 	[19621] = "Канистра на правое бедро",
 	[19623] = "Фотоаппарат на грудь",
@@ -1778,6 +1848,7 @@ local textdraw_name =
 	[19782] = "Нашивка",
 	[19783] = "Нашивка",
 	[19792] = "Сим.карты",
+	[19793] = "НЕИЗВЕСТНО",
 	[19797] = "Погоны красно-синие & 3D-очки & Кейс анимированный 1",
 	[19801] = "Маска (/mask)",
 	[19804] = "Отмычка от тюремной двери",
@@ -1785,8 +1856,10 @@ local textdraw_name =
 	[19807] = "Рюкзак телефон",
 	[19813] = "Коричневый рюкзак",
 	[19816] = "Балон",
+	[19819] = "НЕИЗВЕСТНО",
 	[19820] = "Бутылка алко 1",
 	[19821] = "Бутылка алко 2",
+	[19822] = "НЕИЗВЕСТНО",
 	[19823] = "Желтая бита на спину",
 	[19824] = "Бита-бутылка на спину",
 	[19827] = "Хз откуда",
@@ -1813,6 +1886,8 @@ local textdraw_name =
 	[19928] = "Сундук Хэллоуина",
 	[19941] = "Золото",
 	[19942] = "Укол адреналина",
+	[19959] = "НЕИЗВЕСТНО",
+	[19967] = "НЕИЗВЕСТНО",
 	[19996] = "Металлический стул",
 	[19997] = "Деревянный стол",
 	[19998] = "Зажигалка"
@@ -2766,7 +2841,7 @@ function main()
 		if #number == 0 then
 			sampAddChatMessage('Используй: /gocolor [color]', 0xAFAFAF)
 		else
-			r, g, b, a = explode_argb(number)
+			a, r, g, b = explode_argb(number)
 			join_rgb(r,g,b)
 			sampAddChatMessage(string.format('%06X',join_rgb(r,g,b)), 0xAFAFAF)
 		end
@@ -2969,8 +3044,6 @@ function main()
 			raknetEmulRpcReceiveBitStream(152, bs)
 			raknetDeleteBitStream(bs)
 		end
-		--------------------[InputHelp]--------------------
-		showInputHelp()
 		--------------------[Реконнект]--------------------
 		if reconnect_timer >= os.time() then
 			printString(string.format('~r~RECONNECT: %d cek',reconnect_timer-os.time()),100)
@@ -3313,22 +3386,6 @@ function main()
 				renderFontDrawText(arial_12_5,'Оленей в зоне стрима: '..olen_count, sx / 2.5, sy - 30, 0xFF3300FF)
 			else
 				renderFontDrawText(arial_12_5,'Оленей в зоне стрима: '..olen_count, sx / 2.5, sy - 30, 0xFFFF0000)
-			end
-		end
-		--------------------[Поиск подарков]--------------------
-		if elements.state.podarok == true and elements.config.del_stream.v == false then
-			for _, i in pairs(getAllObjects()) do
-				if getObjectModel(i) == 18849 then
-					local result, oX, oY, oZ = getObjectCoordinates(i)
-					------------------------------------
-					local x1, y1 = convert3DCoordsToScreen(oX,oY,oZ)
-					local PlayerX, PlayerY, PlayerZ = getCharCoordinates(PLAYER_PED)
-					local PlayerX2, PlayerY2 = convert3DCoordsToScreen(PlayerX, PlayerY, PlayerZ)
-					distance = string.format("%.0f",getDistanceBetweenCoords3d(oX, oY, oZ, PlayerX, PlayerY, PlayerZ))
-					------------------------------------
-					renderDrawLine(PlayerX2, PlayerY2, x1, y1, 2, 0xFF3300FF) 
-					renderFontDrawText(arial_10_13,"{FF0000}Новогодний подарок: {3300FF}"..distance, x1, y1, -1)
-				end
 			end
 		end
 		--------------------[Поиск руды на шахте]--------------------
@@ -5008,22 +5065,21 @@ function sampev.onShowTextDraw(textdrawId, data)
 	end
 	--------------------[Прочее]--------------------
 	if data.modelId == 330 then sampAddChatMessage(string.format(data.modelId.." - заскринить название предмета + TD! (%0.6f, %0.6f, %0.6f, %0.6f) (/showmodel)",data.rotation.x,data.rotation.y,data.rotation.z,data.zoom), 0xFFFF00) end
+	if data.modelId == 1091 then sampAddChatMessage(string.format(data.modelId.." - заскринить название предмета + TD! (%0.6f, %0.6f, %0.6f, %0.6f) (/showmodel)",data.rotation.x,data.rotation.y,data.rotation.z,data.zoom), 0xFFFF00) end
+	if data.modelId == 1131 then sampAddChatMessage(string.format(data.modelId.." - заскринить название предмета + TD! (%0.6f, %0.6f, %0.6f, %0.6f) (/showmodel)",data.rotation.x,data.rotation.y,data.rotation.z,data.zoom), 0xFFFF00) end
+	if data.modelId == 1136 then sampAddChatMessage(string.format(data.modelId.." - заскринить название предмета + TD! (%0.6f, %0.6f, %0.6f, %0.6f) (/showmodel)",data.rotation.x,data.rotation.y,data.rotation.z,data.zoom), 0xFFFF00) end
 	if data.modelId == 1512 then sampAddChatMessage(string.format(data.modelId.." - заскринить название предмета + TD! (%0.6f, %0.6f, %0.6f, %0.6f) (/showmodel)",data.rotation.x,data.rotation.y,data.rotation.z,data.zoom), 0xFFFF00) end
 	if data.modelId == 1520 then sampAddChatMessage(string.format(data.modelId.." - заскринить название предмета + TD! (%0.6f, %0.6f, %0.6f, %0.6f) (/showmodel)",data.rotation.x,data.rotation.y,data.rotation.z,data.zoom), 0xFFFF00) end
 	if data.modelId == 1546 then sampAddChatMessage(string.format(data.modelId.." - заскринить название предмета + TD! (%0.6f, %0.6f, %0.6f, %0.6f) (/showmodel)",data.rotation.x,data.rotation.y,data.rotation.z,data.zoom), 0xFFFF00) end
-	if data.modelId == 2224 then sampAddChatMessage(string.format(data.modelId.." - заскринить название предмета + TD! (%0.6f, %0.6f, %0.6f, %0.6f) (/showmodel)",data.rotation.x,data.rotation.y,data.rotation.z,data.zoom), 0xFFFF00) end
+	if data.modelId == 1950 then sampAddChatMessage(string.format(data.modelId.." - заскринить название предмета + TD! (%0.6f, %0.6f, %0.6f, %0.6f) (/showmodel)",data.rotation.x,data.rotation.y,data.rotation.z,data.zoom), 0xFFFF00) end
 	if data.modelId == 2744 then sampAddChatMessage(string.format(data.modelId.." - заскринить название предмета + TD! (%0.6f, %0.6f, %0.6f, %0.6f) (/showmodel)",data.rotation.x,data.rotation.y,data.rotation.z,data.zoom), 0xFFFF00) end
+	if data.modelId == 2902 then sampAddChatMessage(string.format(data.modelId.." - заскринить название предмета + TD! (%0.6f, %0.6f, %0.6f, %0.6f) (/showmodel)",data.rotation.x,data.rotation.y,data.rotation.z,data.zoom), 0xFFFF00) end
 	if data.modelId == 3426 then sampAddChatMessage(string.format(data.modelId.." - заскринить название предмета + TD! (%0.6f, %0.6f, %0.6f, %0.6f) (/showmodel)",data.rotation.x,data.rotation.y,data.rotation.z,data.zoom), 0xFFFF00) end
-	if data.modelId == 18244 then sampAddChatMessage(string.format(data.modelId.." - заскринить название предмета + TD! (%0.6f, %0.6f, %0.6f, %0.6f) (/showmodel)",data.rotation.x,data.rotation.y,data.rotation.z,data.zoom), 0xFFFF00) end
-	if data.modelId == 18891 then sampAddChatMessage(string.format(data.modelId.." - заскринить название предмета + TD! (%0.6f, %0.6f, %0.6f, %0.6f) (/showmodel)",data.rotation.x,data.rotation.y,data.rotation.z,data.zoom), 0xFFFF00) end
 	if data.modelId == 19592 then sampAddChatMessage(string.format(data.modelId.." - заскринить название предмета + TD! (%0.6f, %0.6f, %0.6f, %0.6f) (/showmodel)",data.rotation.x,data.rotation.y,data.rotation.z,data.zoom), 0xFFFF00) end
-	if data.modelId == 19610 then sampAddChatMessage(string.format(data.modelId.." - заскринить название предмета + TD! (%0.6f, %0.6f, %0.6f, %0.6f) (/showmodel)",data.rotation.x,data.rotation.y,data.rotation.z,data.zoom), 0xFFFF00) end
-	if data.modelId == 19822 then sampAddChatMessage(string.format(data.modelId.." - заскринить название предмета + TD! (%0.6f, %0.6f, %0.6f, %0.6f) (/showmodel)",data.rotation.x,data.rotation.y,data.rotation.z,data.zoom), 0xFFFF00) end
-	if data.modelId == 19959 then sampAddChatMessage(string.format(data.modelId.." - заскринить название предмета + TD! (%0.6f, %0.6f, %0.6f, %0.6f) (/showmodel)",data.rotation.x,data.rotation.y,data.rotation.z,data.zoom), 0xFFFF00) end
-	if data.modelId == 19967 then sampAddChatMessage(string.format(data.modelId.." - заскринить название предмета + TD! (%0.6f, %0.6f, %0.6f, %0.6f) (/showmodel)",data.rotation.x,data.rotation.y,data.rotation.z,data.zoom), 0xFFFF00) end
-
+	
+	-- if data.modelId == 19627 then sampAddChatMessage(string.format("Копьё ("..data.modelId..") - заскринить название предмета + TD! (%0.6f, %0.6f, %0.6f, %0.6f) (/showmodel)",data.rotation.x,data.rotation.y,data.rotation.z,data.zoom), 0xFF3300) end
+	if data.modelId == 83 then sampAddChatMessage("Вертель за спиной ("..data.modelId..") - Если дешево стоит - то купить.", 0xFF3300) end
 	if data.modelId == 1112 then sampAddChatMessage(string.format("Погоны ("..data.modelId..") - заскринить название предмета + TD! (%0.6f, %0.6f, %0.6f, %0.6f) (/showmodel)",data.rotation.x,data.rotation.y,data.rotation.z,data.zoom), 0xFF3300) end
-	if data.modelId == 9958 then sampAddChatMessage(string.format("Подлодка ("..data.modelId..") - заскринить название предмета + TD! (%0.6f, %0.6f, %0.6f, %0.6f) (/showmodel)",data.rotation.x,data.rotation.y,data.rotation.z,data.zoom), 0xFF3300) end
 	if data.modelId == 1588 then sampAddChatMessage(string.format("Жёлтая голова ("..data.modelId..") - заскринить название предмета + TD! (%0.6f, %0.6f, %0.6f, %0.6f) (/showmodel)",data.rotation.x,data.rotation.y,data.rotation.z,data.zoom), 0xFF3300) end
 	if data.modelId == 1598 then sampAddChatMessage(string.format("Девушка на спину ("..data.modelId..") - заскринить название предмета + TD! (%0.6f, %0.6f, %0.6f, %0.6f) (/showmodel)",data.rotation.x,data.rotation.y,data.rotation.z,data.zoom), 0xFF3300) end
 	if data.modelId == 2061 then sampAddChatMessage("Вертель за спиной ("..data.modelId..") - Если дешево стоит - то купить.", 0xFF3300) end
@@ -5031,14 +5087,12 @@ function sampev.onShowTextDraw(textdrawId, data)
 	if data.modelId == 2446 then sampAddChatMessage(string.format("Красный ящик ("..data.modelId..") - заскринить название предмета + TD! (%0.6f, %0.6f, %0.6f, %0.6f) (/showmodel)",data.rotation.x,data.rotation.y,data.rotation.z,data.zoom), 0xFF3300) end
 	if data.modelId == 2855 then sampAddChatMessage("Рюкзак-журнальный ("..data.modelId..") - Если дешево стоит - то купить.", 0xFF3300) end
 	if data.modelId == 8483 then sampAddChatMessage("Маска череп ("..data.modelId..") - Если дешево стоит - то купить.", 0xFF3300) end
-	if data.modelId == 11733 then sampAddChatMessage("Снежные сани 2 ("..data.modelId..") - Если дешево стоит - то купить.", 0xFF3300) end
+	if data.modelId == 9958 then sampAddChatMessage(string.format("Подлодка ("..data.modelId..") - заскринить название предмета + TD! (%0.6f, %0.6f, %0.6f, %0.6f) (/showmodel)",data.rotation.x,data.rotation.y,data.rotation.z,data.zoom), 0xFF3300) end
 	if data.modelId == 18858 then sampAddChatMessage("Реактивный рюкзак 1-2 ("..data.modelId..") - Если дешево стоит - то купить.", 0xFF3300) end
-	if data.modelId == 19067 then sampAddChatMessage(string.format("Капюшон ("..data.modelId..") - заскринить название предмета + TD! (%0.6f, %0.6f, %0.6f, %0.6f) (/showmodel)",data.rotation.x,data.rotation.y,data.rotation.z,data.zoom), 0xFF3300) end
 	if data.modelId == 19086 then sampAddChatMessage(string.format("Маска робота ("..data.modelId..") - заскринить название предмета + TD! (%0.6f, %0.6f, %0.6f, %0.6f) (/showmodel)",data.rotation.x,data.rotation.y,data.rotation.z,data.zoom), 0xFF3300) end
 	if data.modelId == 19274 then sampAddChatMessage(string.format("Борода ("..data.modelId..") - заскринить название предмета + TD! (%0.6f, %0.6f, %0.6f, %0.6f) (/showmodel)",data.rotation.x,data.rotation.y,data.rotation.z,data.zoom), 0xFF3300) end
 	if data.modelId == 19573 then sampAddChatMessage("Рюкзак угол ("..data.modelId..") - Если дешево стоит - то купить.", 0xFF3300) end
 	if data.modelId == 19592 then sampAddChatMessage(string.format("Корзина ("..data.modelId..") - заскринить название предмета + TD! (%0.6f, %0.6f, %0.6f, %0.6f) (/showmodel)",data.rotation.x,data.rotation.y,data.rotation.z,data.zoom), 0xFF3300) end
-	-- if data.modelId == 19627 then sampAddChatMessage(string.format("Копьё ("..data.modelId..") - заскринить название предмета + TD! (%0.6f, %0.6f, %0.6f, %0.6f) (/showmodel)",data.rotation.x,data.rotation.y,data.rotation.z,data.zoom), 0xFF3300) end
 	if data.modelId == 19822 then sampAddChatMessage("Щит за спиной ("..data.modelId..") - Если дешево стоит - то купить.", 0xFF3300) end
 	if data.modelId == 19823 then sampAddChatMessage("Желтая бита на спину ("..data.modelId..") - Если дешево стоит - то купить.", 0xFF3300) end
 	if data.modelId == 19893 then sampAddChatMessage(string.format("Карта на спину ("..data.modelId..") - заскринить название предмета + TD! (%0.6f, %0.6f, %0.6f, %0.6f) (/showmodel)",data.rotation.x,data.rotation.y,data.rotation.z,data.zoom), 0xFF3300) end
@@ -5354,6 +5408,10 @@ function sampev.onServerMessage(color, text)
 		----------------------------------------
 		text:find("Битва за контроль грузового корабля начнется через") and color == -10270721 or
 		----------------------------------------
+		text:find("Ларец кастомных аксессуаров") and color == 833881343 or
+		----------------------------------------
+		text:find("минут начинается распродажа одежды в секонд") and color == -65281 or
+		----------------------------------------
 		((text:find(" ") and string.len(text) == 1) and color == -1) or
 		----------------------------------------
 		(text:find("Уважаемые жители штата! Минуточку внимания") or
@@ -5609,61 +5667,71 @@ function sampev.onSetVehicleParamsEx(vehicleId, params, doors, windows)
 		ip, port = sampGetCurrentServerAddress()
 		----------------------------------------
 		if ip ~= "127.0.0.1" and vehicleId >= 855 then
-			if model ~= 400 and
-			model ~= 401 and
-			model ~= 404 and
-			model ~= 410 and
-			model ~= 411 and
-			model ~= 412 and
-			model ~= 413 and
-			model ~= 418 and
-			model ~= 419 and
-			model ~= 422 and
-			model ~= 426 and
-			model ~= 436 and
-			model ~= 439 and
-			model ~= 445 and
-			model ~= 451 and
-			model ~= 458 and
-			model ~= 466 and
-			model ~= 470 and
-			model ~= 474 and
-			model ~= 475 and
-			model ~= 478 and
-			model ~= 479 and
-			model ~= 483 and
-			model ~= 487 and
-			model ~= 490 and
-			model ~= 494 and
-			model ~= 495 and
-			model ~= 496 and
-			model ~= 497 and
-			model ~= 502 and
-			model ~= 505 and
-			model ~= 516 and
-			model ~= 527 and
-			model ~= 529 and
-			model ~= 534 and
-			model ~= 541 and
-			model ~= 542 and
-			model ~= 543 and
-			model ~= 546 and
-			model ~= 547 and
-			model ~= 549 and
-			model ~= 550 and
-			model ~= 558 and
-			model ~= 559 and
-			model ~= 560 and
-			model ~= 562 and
-			model ~= 565 and
-			model ~= 566 and
-			model ~= 567 and
-			model ~= 575 and
-			model ~= 576 and
-			model ~= 579 and
-			model ~= 580 and
-			model ~= 600 and
-			model ~= 602 then
+			if model == 403 and
+			model == 407 and
+			model == 408 and
+			model == 409 and
+			model == 414 and
+			model == 416 and
+			model == 421 and
+			model == 423 and
+			model == 424 and
+			model == 427 and
+			model == 431 and
+			model == 433 and
+			model == 434 and
+			model == 437 and
+			model == 438 and
+			model == 442 and
+			model == 443 and
+			model == 444 and
+			model == 449 and
+			model == 455 and
+			model == 456 and
+			model == 467 and
+			model == 488 and
+			model == 489 and
+			model == 491 and
+			model == 498 and
+			model == 499 and
+			model == 500 and
+			model == 504 and
+			model == 506 and
+			model == 508 and
+			model == 514 and
+			model == 515 and
+			model == 518 and
+			model == 524 and
+			model == 525 and
+			model == 526 and
+			model == 528 and
+			model == 531 and
+			model == 535 and
+			model == 536 and
+			model == 540 and
+			model == 544 and
+			model == 551 and
+			model == 552 and
+			model == 554 and
+			model == 555 and
+			model == 556 and
+			model == 557 and
+			model == 561 and
+			model == 563 and
+			model == 582 and
+			model == 585 and
+			model == 587 and
+			model == 588 and
+			model == 589 and
+			model == 596 and
+			model == 597 and
+			model == 598 and
+			model == 599 and
+			model == 601 and
+			model == 603 and
+			model == 604 and
+			model == 605 and
+			model == 609 then
 				fsoav(vehicleId)
 			end
 		end
@@ -5727,8 +5795,11 @@ function onReceivePacket(id, bitStream)
 			reconnect_timer = os.time()+3
 		end
 	end
-	if (id == PACKET_CONNECTION_ATTEMPT_FAILED) then
-		sampfuncsLog('{FF3300}'..os.date('[%H:%M:%S] ')..'Server didn\'t not respond.')
+	-- if (id == PACKET_CONNECTION_ATTEMPT_FAILED) then
+		-- sampfuncsLog('{FF3300}'..os.date('[%H:%M:%S] ')..'Server didn\'t not respond.')
+	-- end
+	if (id == PACKET_DISCONNECTION_NOTIFICATION) then
+		sampfuncsLog('{FF3300}'..os.date('[%H:%M:%S] ')..'Packet disconnect notification.')
 	end
 	--------------------[RPC]--------------------
 	name = raknetGetPacketName(id)
@@ -6005,7 +6076,7 @@ function fsoav(vehicleId)
 		for i = 1, #stealerObject do
 			if stealerObject[i] ~= nil then
 				if stealerObject[i]['id'] == tonumber(vehicleId) then
-					file_vehicles:write(string.format('CarsInfo[i][cTwinTurboObject][0] = CreateDynamicObject(%d, %f, %f, %f, %f, %f, %f, 0, 0, -1, STREAMER_OBJECT_SD, 300.0);',
+					file_vehicles:write(string.format('VehicleInfo[vehicleid][vTwinTurboObject][0] = CreateDynamicObject(%d, %f, %f, %f, %f, %f, %f, 0, 0, -1, STREAMER_OBJECT_SD, 300.0);',
 					stealerObject[i]['modelId'],
 					stealerObject[i]['positionX'],
 					stealerObject[i]['positionY'],
@@ -6015,7 +6086,7 @@ function fsoav(vehicleId)
 					stealerObject[i]['rotationZ']) .. '\n')
 					
 					if stealerObjectMaterial[i]['materialId'] ~= nil then
-						file_vehicles:write(string.format('SetDynamicObjectMaterialText(CarsInfo[i][cTwinTurboObject][0], %d, "%s", %d, "%s", %d, %d, %s, %s, %d);',
+						file_vehicles:write(string.format('SetDynamicObjectMaterialText(VehicleInfo[vehicleid][vTwinTurboObject][0], %d, "%s", %d, "%s", %d, %d, %s, %s, %d);',
 						stealerObjectMaterial[i]['materialId'],
 						stealerObjectMaterial[i]['text'],
 						stealerObjectMaterial[i]['materialSize'],
@@ -6026,7 +6097,7 @@ function fsoav(vehicleId)
 						stealerObjectMaterial[i]['backGroundColor'],
 						stealerObjectMaterial[i]['align']) .. '\n')
 					end
-					file_vehicles:write(string.format('AttachDynamicObjectToVehicle(CarsInfo[i][cTwinTurboObject][0], OwnableCar[i], %f, %f, %f, %f, %f, %f);',
+					file_vehicles:write(string.format('AttachDynamicObjectToVehicle(VehicleInfo[vehicleid][vTwinTurboObject][0], vehicleid, %f, %f, %f, %f, %f, %f);',
 					stealerObject[i]['OffsetX'],
 					stealerObject[i]['OffsetY'],
 					stealerObject[i]['OffsetZ'],
@@ -7389,10 +7460,18 @@ function sampev.onShowDialog(dialogId, style, title, button1, button2, text)
 			end
 		end
 	end
-	if ip == "185.169.134.61" and not sampIsLocalPlayerSpawned() then
+	if ip == "185.169.134.61" and not sampIsLocalPlayerSpawned() then -- Red Rock
 		if local_name == "Che_Lovek" then
 			if dialogId == 2 then
 				sampSendDialogResponse(dialogId, 1, 0, "Sawka1289")
+				return false
+			end
+		end
+	end
+	if ip == "80.66.82.190" and not sampIsLocalPlayerSpawned() then -- Show-Low
+		if local_name == "Sawa_Seleznev" then
+			if dialogId == 2 then
+				sampSendDialogResponse(dialogId, 1, 0, "1234565")
 				return false
 			end
 		end
@@ -7414,6 +7493,14 @@ function sampev.onShowDialog(dialogId, style, title, button1, button2, text)
 		if local_name == elements.account.my_nick_3.v then
 			if dialogId == 991 then
 				sampSendDialogResponse(dialogId, 1, 0, elements.account.my_pincode_3.v)
+				return false
+			end
+		end
+	end
+	if ip == "185.169.134.61" then
+		if local_name == "Che_Lovek" then
+			if dialogId == 991 then
+				sampSendDialogResponse(dialogId, 1, 0, "123456")
 				return false
 			end
 		end
@@ -7649,10 +7736,10 @@ function sampev.onShowDialog(dialogId, style, title, button1, button2, text)
 		return false
 	end
 	--------------------[Отказ показа диалогов Аренды транспорта]--------------------
-	if dialogId == 281 or dialogId == 230 then
-		sampSendDialogResponse(dialogId, 1, nil, nil)
-		return false
-	end
+	-- if dialogId == 281 or dialogId == 230 then
+		-- sampSendDialogResponse(dialogId, 1, nil, nil)
+		-- return false
+	-- end
 	--------------------[Отказ показа диалога при авторизации]--------------------
 	if dialogId == 15330 or dialogId == 15375 then
 		sampSendDialogResponse(dialogId, 1, nil, nil)
@@ -7941,12 +8028,6 @@ function sampev.onSetPlayerAttachedObject(playerId, index, create, object)
 			printString('~g~Find enable',2000)
 		end
 		if model == 19133 then
-			elements.config.attach_id.v = playerId
-			elements.state.finds = playerId
-			sampAddChatMessage("У игрока "..sampGetPlayerNickname(playerId).."["..playerId.."] необходимо своровать модификацию, обнови зону стрима. "..model,0xFF3300)
-			printString('~g~Find enable',2000)
-		end
-		if model == 19274 then
 			elements.config.attach_id.v = playerId
 			elements.state.finds = playerId
 			sampAddChatMessage("У игрока "..sampGetPlayerNickname(playerId).."["..playerId.."] необходимо своровать модификацию, обнови зону стрима. "..model,0xFF3300)
@@ -8465,58 +8546,6 @@ function onWindowMessage(msg, wparam, lparam)
 				windowstate.v = false
 			end
 		end
-	end
-end
-
-local BuffSize = 32
-local KeyboardLayoutName = ffi.new("char[?]", BuffSize)
-local LocalInfo = ffi.new("char[?]", BuffSize)
-chars =
-{
-	["й"] = "q", ["ц"] = "w", ["у"] = "e", ["к"] = "r", ["е"] = "t", ["н"] = "y", ["г"] = "u", ["ш"] = "i", ["щ"] = "o", ["з"] = "p", ["х"] = "[", ["ъ"] = "]", ["ф"] = "a",
-	["ы"] = "s", ["в"] = "d", ["а"] = "f", ["п"] = "g", ["р"] = "h", ["о"] = "j", ["л"] = "k", ["д"] = "l", ["ж"] = ";", ["э"] = "'", ["я"] = "z", ["ч"] = "x", ["с"] = "c",
-	["м"] = "v", ["и"] = "b", ["т"] = "n", ["ь"] = "m", ["б"] = ",", ["ю"] = ".", ["Й"] = "Q", ["Ц"] = "W", ["У"] = "E", ["К"] = "R", ["Е"] = "T", ["Н"] = "Y", ["Г"] = "U",
-	["Ш"] = "I", ["Щ"] = "O", ["З"] = "P", ["Х"] = "{", ["Ъ"] = "}", ["Ф"] = "A", ["Ы"] = "S", ["В"] = "D", ["А"] = "F", ["П"] = "G", ["Р"] = "H", ["О"] = "J", ["Л"] = "K",
-	["Д"] = "L", ["Ж"] = ":", ["Э"] = "\"", ["Я"] = "Z", ["Ч"] = "X", ["С"] = "C", ["М"] = "V", ["И"] = "B", ["Т"] = "N", ["Ь"] = "M", ["Б"] = "<", ["Ю"] = ">"
-}
-
-function getStrByState(keyState)
-	if keyState == 0 then
-		return "{33AA33}Выкл.{FFFFFF}"
-	end
-	return "{FF3300}Вкл.{FFFFFF}"
-end
-
-function showInputHelp()
-	if sampIsChatInputActive() == true then
-		local input = getStructElement(sampGetInputInfoPtr(), 0x8, 4)
-		local windowPosX = getStructElement(input, 0x8, 4)
-		local windowPosY = getStructElement(input, 0xC, 4)
-		----------------------------------------
-		fib = windowPosY + 41
-		fib2 = windowPosX + 10
-		----------------------------------------
-		local _, playerid = sampGetPlayerIdByCharHandle(PLAYER_PED)
-		local color = sampGetPlayerColor(playerid)
-		local name = sampGetPlayerNickname(playerid)
-		local score = sampGetPlayerScore(playerid)
-		local capsState = ffi.C.GetKeyState(20)
-		local success = ffi.C.GetKeyboardLayoutNameA(KeyboardLayoutName)
-		local errorCode = ffi.C.GetLocaleInfoA(tonumber(ffi.string(KeyboardLayoutName), 16), 0x00000002, LocalInfo, BuffSize)
-		local localName = ffi.string(LocalInfo)		
-		----------------------------------------
-		local text = string.format(
-			"%s - {%0.6x}%s[%d]{FFFFFF} - Уровень: %d - Капс: %s - Язык: {33AA33}%s",
-			os.date("%H:%M:%S"),
-			bit.band(color,0xffffff),
-			name,
-			playerid,
-			score,
-			getStrByState(capsState),
-			string.match(localName, "([^%(]*)")
-		)
-		renderFontDrawText(molot_10_9, text, fib2, fib, 0xD7FFFFFF)
-		----------------------------------------
 	end
 end
 
