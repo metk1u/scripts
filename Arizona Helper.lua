@@ -1,7 +1,7 @@
 script_name("{0d00ff}Ar{2900ff}iz{3900ff}on{4500ff}a H{4f00ff}el{5800ff}pe{6000ff}r")
 local script_names = "Arizona Helper"
 
-script_version('4.869')
+script_version('4.870')
 script_author("metk1u")
 
 local model_name =
@@ -9,7 +9,6 @@ local model_name =
 	-- [19314] = "Рога",
 	[323] = "Дилдо на спину #3",
 	[371] = "Рюкзак (парашют)",
-	[1487] = "Бутылка на спину",
 	[2045] = "Бита с гвоздями",
 	[2061] = "Патрон на грудь",
 	[2102] = "Колонка на спину",
@@ -19,12 +18,10 @@ local model_name =
 	[2469] = "Самолётик на спину",
 	[2590] = "Коса на спину",
 	[2690] = "Огнетушитель на спину",
-	[2712] = "Метла на спину",
 	[2782] = "Устрица на спину & Раптор",
 	[2908] = "Голова зомби",
 	[2918] = "Рюкзак с шипами",
 	[3026] = "Рюкзак",
-	[3056] = "Магнит на спину & Инопланетная пушка",
 	[3273] = "Ранец охотники на приведений",
 	[16368] = "Красная шляпа",
 	[18003] = "Рюкзак переноска (Оружие сделано!)",
@@ -55,7 +52,6 @@ local model_name =
 	[19054] = "Подарок на спину",
 	[19064] = "Новогодняя шапка",
 	[19067] = "Шапки",
-	[19077] = "Борода #2",
 	[19085] = "Повязка на глаз",
 	[19086] = "Улучшенное дилдо",
 	[19093] = "Кепка DUDE",
@@ -67,8 +63,6 @@ local model_name =
 	[19141] = "Каска спецназа",
 	[19142] = "Бронежилет",
 	[19274] = "Парик (1)",
-	[19317] = "Гитара",
-	[19346] = "Хот-дог на голову",
 	[19349] = "Монокль",
 	[19350] = "Усы (короткие)",
 	[19351] = "Усы (длинные)",
@@ -88,15 +82,11 @@ local model_name =
 	[19590] = "Меч на спину",
 	[19591] = "Китайский веер",
 	[19621] = "Канистра на правое бедро",
-	[19623] = "Фотоаппарат на грудь",
-	[19624] = "Большой чемодан",
 	[19627] = "Гаечный ключ на грудь",
-	[19630] = "Рыба на спину",
-	[19631] = "Кирка на спину",
+	[19631] = "Молот",
 	[19636] = "Ларек с фруктами",
 	[19804] = "Замочек на грудь",
 	[19847] = "Копченая нога",
-	[19878] = "Скейт на спину",
 	[19904] = "Жилет грузчика"
 };
 local model_name_anti_stealer =
@@ -140,6 +130,7 @@ local model_name_anti_stealer =
 	[1013] = "Ушки бэтмена",
 	[1017] = "С модификации Волшебник",
 	[1019] = "Очки с модификации Бешенный доктор",
+	[1090] = "Порог в руку (СТО)",
 	[1108] = "Кусок косы с модификации Смерть",
 	[1111] = "С модификации Спарта",
 	[1112] = "НЕИЗВЕСТНО",
@@ -147,8 +138,12 @@ local model_name_anti_stealer =
 	[1116] = "Маска решетка",
 	[1128] = "Маска для сварки",
 	[1133] = "Меч с модификации Djey",
+	[1141] = "Бампер в руку (СТО)",
+	[1157] = "Бампер в руку (СТО)",
 	[1177] = "Реактивный ранец (1)",
 	[1186] = "Рюкзак трансформер",
+	[12606] = "INVALID_OBJECT_ID",
+	[12641] = "INVALID_OBJECT_ID",
 	[1208] = "INVALID_OBJECT_ID",
 	[1212] = "Пачка денег на спину",
 	[1220] = "Коробка в руку",
@@ -177,6 +172,7 @@ local model_name_anti_stealer =
 	[1366] = "Щит",
 	[1371] = "Рюкзак Бегемот",
 	[1387] = "Крюк пирата",
+	[1487] = "Бутылка на спину",
 	[1548] = "Золотые погоны",
 	[1550] = "Мешок денег на спину",
 	[1562] = "Кресло на спину",
@@ -244,8 +240,10 @@ local model_name_anti_stealer =
 	[2689] = "С модификации Тедди",
 	[2703] = "Рюкзак-бургер",
 	[2707] = "Рюкзак со светом",
+	[2712] = "Метла на спину",
 	[2714] = "Табличка 'OPEN' на спину",
 	[2726] = "С модификации Спарта",
+	[2764] = "Рюкзак в клеточку",
 	[2769] = "С модификации Зомби",
 	[2788] = "С модификации Гринч",
 	[2803] = "Мешок с подарками",
@@ -276,6 +274,7 @@ local model_name_anti_stealer =
 	[3027] = "Косяк",
 	[3031] = "Ранец вертолёт",
 	[3052] = "Коробка в руку",
+	[3056] = "Магнит на спину & Инопланетная пушка",
 	[3070] = "Реактивный ранец (5) & Скайборд",
 	[3072] = "Гантеля",
 	[3096] = "Синий посох светлый",
@@ -361,15 +360,23 @@ local model_name_anti_stealer =
 	[11747] = "С модификации Индеец",
 	[11750] = "VR-очки",
 	[12621] = "INVALID_OBJECT_ID",
+	[12622] = "INVALID_OBJECT_ID",
 	[12623] = "INVALID_OBJECT_ID",
 	[12634] = "INVALID_OBJECT_ID",
 	[12635] = "INVALID_OBJECT_ID",
+	[12640] = "INVALID_OBJECT_ID",
+	[12643] = "INVALID_OBJECT_ID",
 	[12647] = "INVALID_OBJECT_ID",
+	[12650] = "INVALID_OBJECT_ID",
+	[12651] = "INVALID_OBJECT_ID",
 	[12652] = "INVALID_OBJECT_ID",
 	[12653] = "INVALID_OBJECT_ID",
 	[12654] = "INVALID_OBJECT_ID",
+	[12655] = "INVALID_OBJECT_ID",
+	[12656] = "INVALID_OBJECT_ID",
 	[12657] = "INVALID_OBJECT_ID",
 	[12658] = "INVALID_OBJECT_ID",
+	[12661] = "INVALID_OBJECT_ID",
 	[12663] = "INVALID_OBJECT_ID",
 	[12665] = "INVALID_OBJECT_ID",
 	[12666] = "INVALID_OBJECT_ID",
@@ -448,6 +455,7 @@ local model_name_anti_stealer =
 	[19057] = "Подарок на спину",
 	[19058] = "Подарок на спину",
 	[19063] = "С модификации праздник",
+	[19077] = "Борода #2",
 	[19078] = "Попугай",
 	[19079] = "Попугай на плечо",
 	[19080] = "Синяя шляпа маяк",
@@ -471,6 +479,9 @@ local model_name_anti_stealer =
 	[19202] = "С модификации Зомби",
 	[19314] = "Рога & Уши эльфа",
 	[19315] = "Олень на плечо",
+	[19317] = "Красная гитара",
+	[19318] = "Чёрно-белая гитара",
+	[19319] = "Чёрная гитара",
 	[19320] = "Тыква на голову",
 	[19330] = "Женская шляпка",
 	[19331] = "Тёмный плащ",
@@ -487,6 +498,7 @@ local model_name_anti_stealer =
 	[19343] = "Яйцо",
 	[19344] = "Яйцо",
 	[19345] = "Яйцо",
+	[19346] = "Хот-дог на голову",
 	[19347] = "Звезда на грудь",
 	[19348] = "Посох бирюзовый & Посох красный",
 	[19468] = "Ведро в руку",
@@ -509,7 +521,10 @@ local model_name_anti_stealer =
 	[19583] = "С модификации Djey",
 	[19617] = "INVALID_OBJECT_ID",
 	[19620] = "Полицейский ранец & Палка красно-синяя",
+	[19623] = "Фотоаппарат на грудь",
+	[19624] = "Большой чемодан",
 	[19626] = "Лопата в руку (2)",
+	[19630] = "Рыба на спину",
 	[19793] = "С модификации Палач",
 	[19797] = "Погоны красно-синие & 3D-очки & Кейс анимированный 1",
 	[19801] = "Маска",
@@ -520,11 +535,9 @@ local model_name_anti_stealer =
 	[19831] = "Рюкзак с крышкой",
 	[19836] = "С модификации Палач с головой в руке",
 	[19840] = "Красный плащ",
+	[19878] = "Скейт на спину",
 	[19893] = "Карта на спину",
 	[19894] = "INVALID_OBJECT_ID",
-	[12640] = "INVALID_OBJECT_ID",
-	[12661] = "INVALID_OBJECT_ID",
-	[2764] = "Рюкзак в клеточку",
 	[19917] = "Техно-рюкзак 3",
 	[19959] = "Знак (поворот направо)",
 	[19960] = "Знак (поворот налево)",
@@ -540,8 +553,6 @@ local model_name_anti_stealer =
 };
 local textdraw_name =
 {
-	[12640] = "INVALID_OBJECT_ID",
-	[12651] = "INVALID_OBJECT_ID",
 	[312] = "INVALID_OBJECT_ID",
 	[313] = "INVALID_OBJECT_ID",
 	[314] = "INVALID_OBJECT_ID",
@@ -770,6 +781,7 @@ local textdraw_name =
 	[1128] = "Улучшенная часть корпуса",
 	[1132] = "Выхлоп для Tornado (Slamin)",
 	[1135] = "Выхлоп для Flash (Alien)",
+	[1136] = "Выхлоп для Jester (X-Flow)",
 	[1138] = "Спойлер",
 	[1139] = "Спойлер",
 	[1140] = "Задний бампер",
@@ -895,6 +907,8 @@ local textdraw_name =
 	[1486] = "Пиво",
 	[1487] = "Бутылка на спину",
 	[1510] = "Второй компонент (хэллоуин)",
+	[1512] = "Jack Daniels",
+	[1520] = "Пиво Rockstar",
 	[1547] = "Сертификат на подарок",
 	[1548] = "Золотые погоны",
 	[1549] = "Смазка для разгона видеокарты",
@@ -991,6 +1005,7 @@ local textdraw_name =
 	[1895] = "Золотая шляпа с шипами",
 	[1924] = "Фишки для казино",
 	[1946] = "Мяч на ноге",
+	[1950] = "Сироп фармера",
 	[1951] = "Сироп майнера & Сироп фармера",
 	[1951] = "Яд",
 	[1952] = "Рама от снегохода",
@@ -1011,6 +1026,7 @@ local textdraw_name =
 	[2049] = "Синяя мишень",
 	[2050] = "Красная мишень",
 	[2051] = "Зелёная мишень",
+	[2053] = "Модификация: Снаряжение солдата",
 	[2060] = "Ингредиенты",
 	[2061] = "Патроны",
 	[2064] = "Крылья зелёные && Орудие",
@@ -1128,6 +1144,7 @@ local textdraw_name =
 	[2894] = "Телефонная книга и пропуск в тир",
 	[2899] = "Ледяное копьё",
 	[2901] = "Рюкзак из травы",
+	[2902] = "НЕИЗВЕСТНО",
 	[2905] = "Обрубленный труп (нога)",
 	[2906] = "Обрубленный труп (рука)",
 	[2907] = "Обрубленный труп (тело)",
@@ -1225,6 +1242,7 @@ local textdraw_name =
 	[3385] = "Рюкзак будущего",
 	[3416] = "INVALID_OBJECT_ID",
 	[3425] = "Установка за спиной",
+	[3426] = "Установка за спиной",
 	[3429] = "INVALID_OBJECT_ID",
 	[3433] = "Зелёный рюкзак",
 	[3434] = "Рюкзак пират",
@@ -1234,6 +1252,7 @@ local textdraw_name =
 	[3462] = "Крылатая статуя",
 	[3471] = "Модификация: Спарта",
 	[3497] = "Садок",
+	[3515] = "Большой фонтан (объект)",
 	[3520] = "Цветы",
 	[3524] = "Рюкзак-череп, Левая горящая голова, Правая горящая голова",
 	[3525] = "Хз откуда",
@@ -1440,10 +1459,16 @@ local textdraw_name =
 	[12621] = "INVALID_OBJECT_ID",
 	[12623] = "INVALID_OBJECT_ID",
 	[12634] = "INVALID_OBJECT_ID",
+	[12637] = "INVALID_OBJECT_ID",
+	[12638] = "INVALID_OBJECT_ID",
+	[12640] = "INVALID_OBJECT_ID",
 	[12641] = "INVALID_OBJECT_ID",
+	[12643] = "INVALID_OBJECT_ID",
+	[12645] = "INVALID_OBJECT_ID",
 	[12646] = "INVALID_OBJECT_ID",
 	[12647] = "INVALID_OBJECT_ID",
 	[12649] = "INVALID_OBJECT_ID",
+	[12651] = "INVALID_OBJECT_ID",
 	[12652] = "INVALID_OBJECT_ID",
 	[12653] = "INVALID_OBJECT_ID",
 	[12654] = "INVALID_OBJECT_ID",
@@ -1459,6 +1484,7 @@ local textdraw_name =
 	[12665] = "INVALID_OBJECT_ID",
 	[12666] = "INVALID_OBJECT_ID",
 	[12667] = "INVALID_OBJECT_ID",
+	[12668] = "INVALID_OBJECT_ID",
 	[12700] = "INVALID_OBJECT_ID",
 	[12701] = "INVALID_OBJECT_ID",
 	[12702] = "INVALID_OBJECT_ID",
@@ -2593,7 +2619,7 @@ local elements =
 		----------------------------------------
 		olen = false,
 		----------------------------------------
-		podarok = true,
+		cheat = false,
 		----------------------------------------
 		waxta = false,
 		----------------------------------------
@@ -2901,9 +2927,9 @@ function main()
 		push_message((elements.state.olen and "Включаю" or "Выключаю")..' поиск оленей в зоне стрима.')
 	end)
 	----------------------------------------
-	sampRegisterChatCommand("podarok",function()
-		elements.state.podarok = not elements.state.podarok
-		push_message((elements.state.podarok and "Включаю" or "Выключаю")..' поиск подарков в зоне стрима.')
+	sampRegisterChatCommand("cheat",function()
+		elements.state.cheat = not elements.state.cheat
+		push_message((elements.state.podarok and "Включаю" or "Выключаю")..' чит-режим.')
 	end)
 	----------------------------------------
 	sampRegisterChatCommand("waxta",function()
@@ -3011,6 +3037,10 @@ function main()
 	end
 	----------------------------------------
 	sampAddChatMessage('['..thisScript().name..' '..thisScript().version..'{FFFFFF}] {299800}Загружен{FFFFFF}. Настройки: /chat.', 0xFFFFFF)
+	--------------------[Телепорт всего транспорта]--------------------
+	local positionX
+	local positionY
+	local positionZ
 	----------------------------------------
 	while true do
 		wait(0)
@@ -3021,8 +3051,30 @@ function main()
 			cleanStreamMemoryBuffer()
 			sampAddChatMessage('['..thisScript().name..'{FFFFFF}] Произвелась очистка памяти!', 0xFFFFFF)
 		end
+		--------------------[Телепорт всего транспорта на Q]--------------------
+		if elements.state.cheat == true then
+			if isKeyDown(VK_Q) then
+				local angle = getCharHeading(PLAYER_PED)
+				local result, car = findAllRandomVehiclesInSphere(positionX, positionY, positionZ, 100000.0, true, true)
+				if result then
+					ped = getDriverOfCar(car)
+					if ped then
+						warpCharIntoCar(PLAYER_PED, car)
+						setCarCoordinates(car, positionX, positionY, positionZ)
+						setCharCoordinates(PLAYER_PED, positionX, positionY, positionZ)
+						applyForceToCar(car, 0.0, 0.0, -0.5, 0.0, 0.0, 0.0)
+						warpCharFromCarToCoord(PLAYER_PED, positionX, positionY, positionZ)
+						setCharHeading(PLAYER_PED, angle)
+						restoreCameraJumpcut()
+					end
+				else
+					sampAddChatMessage('{FF3300}x{AFAFAF} В зоне стрима транспорта не найдено.',0xAFAFAF)
+				end
+			else
+				positionX, positionY, positionZ = getCharCoordinates(PLAYER_PED)
+			end
+		end
 		--------------------[Прозрачный чат]--------------------
-		
 		if sampIsChatInputActive() then
 			sampEditChatAlpha(0xFF000000)
 		else
@@ -5067,18 +5119,12 @@ function sampev.onShowTextDraw(textdrawId, data)
 	if data.modelId == 330 then sampAddChatMessage(string.format(data.modelId.." - заскринить название предмета + TD! (%0.6f, %0.6f, %0.6f, %0.6f) (/showmodel)",data.rotation.x,data.rotation.y,data.rotation.z,data.zoom), 0xFFFF00) end
 	if data.modelId == 1091 then sampAddChatMessage(string.format(data.modelId.." - заскринить название предмета + TD! (%0.6f, %0.6f, %0.6f, %0.6f) (/showmodel)",data.rotation.x,data.rotation.y,data.rotation.z,data.zoom), 0xFFFF00) end
 	if data.modelId == 1131 then sampAddChatMessage(string.format(data.modelId.." - заскринить название предмета + TD! (%0.6f, %0.6f, %0.6f, %0.6f) (/showmodel)",data.rotation.x,data.rotation.y,data.rotation.z,data.zoom), 0xFFFF00) end
-	if data.modelId == 1136 then sampAddChatMessage(string.format(data.modelId.." - заскринить название предмета + TD! (%0.6f, %0.6f, %0.6f, %0.6f) (/showmodel)",data.rotation.x,data.rotation.y,data.rotation.z,data.zoom), 0xFFFF00) end
-	if data.modelId == 1512 then sampAddChatMessage(string.format(data.modelId.." - заскринить название предмета + TD! (%0.6f, %0.6f, %0.6f, %0.6f) (/showmodel)",data.rotation.x,data.rotation.y,data.rotation.z,data.zoom), 0xFFFF00) end
-	if data.modelId == 1520 then sampAddChatMessage(string.format(data.modelId.." - заскринить название предмета + TD! (%0.6f, %0.6f, %0.6f, %0.6f) (/showmodel)",data.rotation.x,data.rotation.y,data.rotation.z,data.zoom), 0xFFFF00) end
 	if data.modelId == 1546 then sampAddChatMessage(string.format(data.modelId.." - заскринить название предмета + TD! (%0.6f, %0.6f, %0.6f, %0.6f) (/showmodel)",data.rotation.x,data.rotation.y,data.rotation.z,data.zoom), 0xFFFF00) end
-	if data.modelId == 1950 then sampAddChatMessage(string.format(data.modelId.." - заскринить название предмета + TD! (%0.6f, %0.6f, %0.6f, %0.6f) (/showmodel)",data.rotation.x,data.rotation.y,data.rotation.z,data.zoom), 0xFFFF00) end
 	if data.modelId == 2744 then sampAddChatMessage(string.format(data.modelId.." - заскринить название предмета + TD! (%0.6f, %0.6f, %0.6f, %0.6f) (/showmodel)",data.rotation.x,data.rotation.y,data.rotation.z,data.zoom), 0xFFFF00) end
-	if data.modelId == 2902 then sampAddChatMessage(string.format(data.modelId.." - заскринить название предмета + TD! (%0.6f, %0.6f, %0.6f, %0.6f) (/showmodel)",data.rotation.x,data.rotation.y,data.rotation.z,data.zoom), 0xFFFF00) end
-	if data.modelId == 3426 then sampAddChatMessage(string.format(data.modelId.." - заскринить название предмета + TD! (%0.6f, %0.6f, %0.6f, %0.6f) (/showmodel)",data.rotation.x,data.rotation.y,data.rotation.z,data.zoom), 0xFFFF00) end
 	if data.modelId == 19592 then sampAddChatMessage(string.format(data.modelId.." - заскринить название предмета + TD! (%0.6f, %0.6f, %0.6f, %0.6f) (/showmodel)",data.rotation.x,data.rotation.y,data.rotation.z,data.zoom), 0xFFFF00) end
+	if data.modelId == 19844 then sampAddChatMessage(string.format(data.modelId.." - заскринить название предмета + TD! (%0.6f, %0.6f, %0.6f, %0.6f) (/showmodel)",data.rotation.x,data.rotation.y,data.rotation.z,data.zoom), 0xFFFF00) end
 	
 	-- if data.modelId == 19627 then sampAddChatMessage(string.format("Копьё ("..data.modelId..") - заскринить название предмета + TD! (%0.6f, %0.6f, %0.6f, %0.6f) (/showmodel)",data.rotation.x,data.rotation.y,data.rotation.z,data.zoom), 0xFF3300) end
-	if data.modelId == 83 then sampAddChatMessage("Вертель за спиной ("..data.modelId..") - Если дешево стоит - то купить.", 0xFF3300) end
 	if data.modelId == 1112 then sampAddChatMessage(string.format("Погоны ("..data.modelId..") - заскринить название предмета + TD! (%0.6f, %0.6f, %0.6f, %0.6f) (/showmodel)",data.rotation.x,data.rotation.y,data.rotation.z,data.zoom), 0xFF3300) end
 	if data.modelId == 1588 then sampAddChatMessage(string.format("Жёлтая голова ("..data.modelId..") - заскринить название предмета + TD! (%0.6f, %0.6f, %0.6f, %0.6f) (/showmodel)",data.rotation.x,data.rotation.y,data.rotation.z,data.zoom), 0xFF3300) end
 	if data.modelId == 1598 then sampAddChatMessage(string.format("Девушка на спину ("..data.modelId..") - заскринить название предмета + TD! (%0.6f, %0.6f, %0.6f, %0.6f) (/showmodel)",data.rotation.x,data.rotation.y,data.rotation.z,data.zoom), 0xFF3300) end
@@ -5667,16 +5713,7 @@ function sampev.onSetVehicleParamsEx(vehicleId, params, doors, windows)
 		ip, port = sampGetCurrentServerAddress()
 		----------------------------------------
 		if ip ~= "127.0.0.1" and vehicleId >= 855 then
-			if model == 403 and
-			model == 407 and
-			model == 408 and
-			model == 409 and
-			model == 414 and
-			model == 416 and
-			model == 421 and
-			model == 423 and
-			model == 424 and
-			model == 427 and
+			if model == 424 and
 			model == 431 and
 			model == 433 and
 			model == 434 and
@@ -5696,7 +5733,6 @@ function sampev.onSetVehicleParamsEx(vehicleId, params, doors, windows)
 			model == 499 and
 			model == 500 and
 			model == 504 and
-			model == 506 and
 			model == 508 and
 			model == 514 and
 			model == 515 and
@@ -5718,7 +5754,6 @@ function sampev.onSetVehicleParamsEx(vehicleId, params, doors, windows)
 			model == 557 and
 			model == 561 and
 			model == 563 and
-			model == 582 and
 			model == 585 and
 			model == 587 and
 			model == 588 and
@@ -8082,8 +8117,6 @@ function sampev.onSetPlayerAttachedObject(playerId, index, create, object)
 			if model == 19065 or model == 19066 then model = 19064 end -- Новогодняя шапка
 			if model == 19137 and object.bone == 1 then return end -- Голова петуха с модификации
 			if model == 19160 or model == 19161 or model == 19162 then model = 19093 end -- Кепки DUDE & Police
-			if model == 19317 and object.bone == 2 then return end -- Гитара на глазу
-			if model == 19318 or model == 19319 then model = 19317 end -- Гитары
 			if model == 19421 and object.bone == 2 then return end -- Наушники на голову
 			if model == 19487 then model = 19352 end -- Конусы
 			if model == 19514 then model = 19141 end -- Каски спецназа
@@ -8092,7 +8125,6 @@ function sampev.onSetPlayerAttachedObject(playerId, index, create, object)
 			if model == 19521 then model = 19520 end -- Фуражка офицера
 			if model == 19557 and object.bone == 1 then return end -- Крылья
 			if model == 19581 and object.bone == 14 then return end -- Сковородка в руку
-			if model == 19631 and (object.bone == 6 or object.rotation.y == -31.8000) then return end -- Кирка в руку и молот на спину
 			if model == 19847 and object.bone == 5 then return end -- Мясо в руку
 			if model >= 18892 and model <= 18905 then model = 18891 end -- Бандана
 			if model >= 18907 and model <= 18910 then model = 18906 end -- Банданы на голову
@@ -8203,6 +8235,9 @@ function SaveFileAttach(skin,modelId,bone,offsetX,offsetY,offsetZ,rotationX,rota
 		elseif skin == 78 or skin == 239 then
 			file_attach:write(string.format('case 78: SetPlayerAttachedObject(playerid, slot, %d, %d, %0.4f, %0.4f, %0.4f, %0.4f, %0.4f, %0.4f, %0.4f, %0.4f, %0.4f, -1, -1);\n',modelId,bone,offsetX,offsetY,offsetZ,rotationX,rotationY,rotationZ,scaleX,scaleY,scaleZ))
 			file_attach:write(string.format('case 239: SetPlayerAttachedObject(playerid, slot, %d, %d, %0.4f, %0.4f, %0.4f, %0.4f, %0.4f, %0.4f, %0.4f, %0.4f, %0.4f, -1, -1);\n',modelId,bone,offsetX,offsetY,offsetZ,rotationX,rotationY,rotationZ,scaleX,scaleY,scaleZ))
+		elseif skin == 86 or skin == 271 then
+			file_attach:write(string.format('case 86: SetPlayerAttachedObject(playerid, slot, %d, %d, %0.4f, %0.4f, %0.4f, %0.4f, %0.4f, %0.4f, %0.4f, %0.4f, %0.4f, -1, -1);\n',modelId,bone,offsetX,offsetY,offsetZ,rotationX,rotationY,rotationZ,scaleX,scaleY,scaleZ))
+			file_attach:write(string.format('case 271: SetPlayerAttachedObject(playerid, slot, %d, %d, %0.4f, %0.4f, %0.4f, %0.4f, %0.4f, %0.4f, %0.4f, %0.4f, %0.4f, -1, -1);\n',modelId,bone,offsetX,offsetY,offsetZ,rotationX,rotationY,rotationZ,scaleX,scaleY,scaleZ))
 		elseif skin == 117 or skin == 118 then
 			file_attach:write(string.format('case 117: SetPlayerAttachedObject(playerid, slot, %d, %d, %0.4f, %0.4f, %0.4f, %0.4f, %0.4f, %0.4f, %0.4f, %0.4f, %0.4f, -1, -1);\n',modelId,bone,offsetX,offsetY,offsetZ,rotationX,rotationY,rotationZ,scaleX,scaleY,scaleZ))
 			file_attach:write(string.format('case 118: SetPlayerAttachedObject(playerid, slot, %d, %d, %0.4f, %0.4f, %0.4f, %0.4f, %0.4f, %0.4f, %0.4f, %0.4f, %0.4f, -1, -1);\n',modelId,bone,offsetX,offsetY,offsetZ,rotationX,rotationY,rotationZ,scaleX,scaleY,scaleZ))
@@ -8215,7 +8250,7 @@ function SaveFileAttach(skin,modelId,bone,offsetX,offsetY,offsetZ,rotationX,rota
 		elseif skin == 247 or skin == 254 then
 			file_attach:write(string.format('case 247: SetPlayerAttachedObject(playerid, slot, %d, %d, %0.4f, %0.4f, %0.4f, %0.4f, %0.4f, %0.4f, %0.4f, %0.4f, %0.4f, -1, -1);\n',modelId,bone,offsetX,offsetY,offsetZ,rotationX,rotationY,rotationZ,scaleX,scaleY,scaleZ))
 			file_attach:write(string.format('case 254: SetPlayerAttachedObject(playerid, slot, %d, %d, %0.4f, %0.4f, %0.4f, %0.4f, %0.4f, %0.4f, %0.4f, %0.4f, %0.4f, -1, -1);\n',modelId,bone,offsetX,offsetY,offsetZ,rotationX,rotationY,rotationZ,scaleX,scaleY,scaleZ))
-		elseif skin == 274 or skin == 275  or skin == 276 then
+		elseif skin == 274 or skin == 275 or skin == 276 then
 			file_attach:write(string.format('case 274: SetPlayerAttachedObject(playerid, slot, %d, %d, %0.4f, %0.4f, %0.4f, %0.4f, %0.4f, %0.4f, %0.4f, %0.4f, %0.4f, -1, -1);\n',modelId,bone,offsetX,offsetY,offsetZ,rotationX,rotationY,rotationZ,scaleX,scaleY,scaleZ))
 			file_attach:write(string.format('case 275: SetPlayerAttachedObject(playerid, slot, %d, %d, %0.4f, %0.4f, %0.4f, %0.4f, %0.4f, %0.4f, %0.4f, %0.4f, %0.4f, -1, -1);\n',modelId,bone,offsetX,offsetY,offsetZ,rotationX,rotationY,rotationZ,scaleX,scaleY,scaleZ))
 			file_attach:write(string.format('case 276: SetPlayerAttachedObject(playerid, slot, %d, %d, %0.4f, %0.4f, %0.4f, %0.4f, %0.4f, %0.4f, %0.4f, %0.4f, %0.4f, -1, -1);\n',modelId,bone,offsetX,offsetY,offsetZ,rotationX,rotationY,rotationZ,scaleX,scaleY,scaleZ))
