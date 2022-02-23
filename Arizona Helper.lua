@@ -1,7 +1,7 @@
 script_name("{0d00ff}Ar{2900ff}iz{3900ff}on{4500ff}a H{4f00ff}el{5800ff}pe{6000ff}r")
 local script_names = "Arizona Helper"
 
-script_version('4.870')
+script_version('4.871')
 script_author("metk1u")
 
 local model_name =
@@ -63,6 +63,7 @@ local model_name =
 	[19141] = "Каска спецназа",
 	[19142] = "Бронежилет",
 	[19274] = "Парик (1)",
+	[19330] = "Каска пожарного (жёлтая) & Женская шляпка",
 	[19349] = "Монокль",
 	[19350] = "Усы (короткие)",
 	[19351] = "Усы (длинные)",
@@ -93,8 +94,10 @@ local model_name_anti_stealer =
 {
 	-- [2711] = "С модификации Робот & Рюкзак (Кибер)",
 	-- [2901] = "Рюкзак из травы",
-	-- [3801] = "Длинный топор & Кислородный баллон",
+	-- [3801] = "Длинный топор & Кислородный баллон & Локатор",
+	-- [11727] = "Очки будущего 2",
 	-- [18003] = "Оружие",
+	-- [19331] = "Тёмный плащ",
 	-- [19348] = "С модификации Купидон & Посох бирюзовый & Посох красный",
 	-- [19632] = "Горящий щит",
 	-- [19874] = "С модификации Дедпул и Рюкзак бирюзовый",
@@ -142,8 +145,6 @@ local model_name_anti_stealer =
 	[1157] = "Бампер в руку (СТО)",
 	[1177] = "Реактивный ранец (1)",
 	[1186] = "Рюкзак трансформер",
-	[12606] = "INVALID_OBJECT_ID",
-	[12641] = "INVALID_OBJECT_ID",
 	[1208] = "INVALID_OBJECT_ID",
 	[1212] = "Пачка денег на спину",
 	[1220] = "Коробка в руку",
@@ -175,7 +176,7 @@ local model_name_anti_stealer =
 	[1487] = "Бутылка на спину",
 	[1548] = "Золотые погоны",
 	[1550] = "Мешок денег на спину",
-	[1562] = "Кресло на спину",
+	[1562] = "Белый рюкзак",
 	[1565] = "Корона (1)",
 	[1570] = "Рюкзак для ларьков",
 	[1575] = "Белый пакет с наркотиками на спину",
@@ -348,7 +349,6 @@ local model_name_anti_stealer =
 	[11712] = "Крест на грудь и Распятие",
 	[11716] = "С модификации Палач",
 	[11722] = "С модификации Супер-Эльфа",
-	[11727] = "Очки будущего 2",
 	[11731] = "С модификации Негр",
 	[11732] = "Маска лицо в сердечке",
 	[11733] = "Снежные сани 2",
@@ -359,12 +359,19 @@ local model_name_anti_stealer =
 	[11743] = "INVALID_OBJECT_ID",
 	[11747] = "С модификации Индеец",
 	[11750] = "VR-очки",
+	[12600] = "INVALID_OBJECT_ID",
+	[12606] = "INVALID_OBJECT_ID",
+	[12607] = "INVALID_OBJECT_ID",
 	[12621] = "INVALID_OBJECT_ID",
 	[12622] = "INVALID_OBJECT_ID",
 	[12623] = "INVALID_OBJECT_ID",
 	[12634] = "INVALID_OBJECT_ID",
 	[12635] = "INVALID_OBJECT_ID",
+	[12638] = "INVALID_OBJECT_ID",
+	[12639] = "INVALID_OBJECT_ID",
 	[12640] = "INVALID_OBJECT_ID",
+	[12641] = "INVALID_OBJECT_ID",
+	[12642] = "INVALID_OBJECT_ID",
 	[12643] = "INVALID_OBJECT_ID",
 	[12647] = "INVALID_OBJECT_ID",
 	[12650] = "INVALID_OBJECT_ID",
@@ -377,10 +384,14 @@ local model_name_anti_stealer =
 	[12657] = "INVALID_OBJECT_ID",
 	[12658] = "INVALID_OBJECT_ID",
 	[12661] = "INVALID_OBJECT_ID",
+	[12662] = "INVALID_OBJECT_ID",
 	[12663] = "INVALID_OBJECT_ID",
+	[12664] = "INVALID_OBJECT_ID",
 	[12665] = "INVALID_OBJECT_ID",
 	[12666] = "INVALID_OBJECT_ID",
 	[12667] = "INVALID_OBJECT_ID",
+	[12668] = "INVALID_OBJECT_ID",
+	[12669] = "INVALID_OBJECT_ID",
 	[13562] = "Крутящаяся дубина",
 	[13667] = "Маска обезьяны",
 	[14467] = "Человечек на плечо",
@@ -483,8 +494,6 @@ local model_name_anti_stealer =
 	[19318] = "Чёрно-белая гитара",
 	[19319] = "Чёрная гитара",
 	[19320] = "Тыква на голову",
-	[19330] = "Женская шляпка",
-	[19331] = "Тёмный плащ",
 	[19332] = "Воздушный шар",
 	[19333] = "Воздушный шар",
 	[19334] = "Воздушный шар",
@@ -536,7 +545,7 @@ local model_name_anti_stealer =
 	[19836] = "С модификации Палач с головой в руке",
 	[19840] = "Красный плащ",
 	[19878] = "Скейт на спину",
-	[19893] = "Карта на спину",
+	[19893] = "Проектор с картой за спиной",
 	[19894] = "INVALID_OBJECT_ID",
 	[19917] = "Техно-рюкзак 3",
 	[19959] = "Знак (поворот направо)",
@@ -929,7 +938,7 @@ local textdraw_name =
 	[1584] = "Девушка с пистолетом",
 	[1585] = "Рюкзак с девушкой 2",
 	[1586] = "Мишень",
-	[1588] = "НЕИЗВЕСТНО",
+	[1588] = "Голова мишени",
 	[1593] = "Шипы",
 	[1594] = "Стулья со столом #3",
 	[1599] = "Золотая рыбка",
@@ -1052,6 +1061,7 @@ local textdraw_name =
 	[2253] = "Рюкзак с цветком",
 	[2333] = "Железный стол",
 	[2345] = "Плащ из листьев",
+	[2355] = "Курица с салатом",
 	[2358] = "Ящик с боеприпасами",
 	[2362] = "Переносная лавка",
 	[2386] = "Скин",
@@ -1137,6 +1147,7 @@ local textdraw_name =
 	[2855] = "Газета",
 	[2857] = "Коробки из под пиццы",
 	[2866] = "Коробки из под еды",
+	[2867] = "Картофель-фри",
 	[2883] = "INVALID_OBJECT_ID",
 	[2884] = "INVALID_OBJECT_ID",
 	[2888] = "Маска робота (2)",
@@ -1885,7 +1896,7 @@ local textdraw_name =
 	[19819] = "НЕИЗВЕСТНО",
 	[19820] = "Бутылка алко 1",
 	[19821] = "Бутылка алко 2",
-	[19822] = "НЕИЗВЕСТНО",
+	[19822] = "Щит за спиной",
 	[19823] = "Желтая бита на спину",
 	[19824] = "Бита-бутылка на спину",
 	[19827] = "Хз откуда",
@@ -2624,7 +2635,6 @@ local elements =
 		waxta = false,
 		----------------------------------------
 		show_packet = false,
-		show_rpc = false,
 		----------------------------------------
 		BTC = false,
 		----------------------------------------
@@ -2665,7 +2675,6 @@ function main()
 	while not isSampAvailable() do wait(0) end
 	if not doesDirectoryExist("moonloader\\logs") then createDirectory("moonloader\\logs") end
 	if not doesDirectoryExist("moonloader\\stealer") then createDirectory("moonloader\\stealer") end
-	if not doesDirectoryExist("moonloader\\stealer\\vehicles") then createDirectory("moonloader\\stealer\\vehicles") end
 	if not doesDirectoryExist("moonloader\\stealer\\textdraws") then createDirectory("moonloader\\stealer\\textdraws") end
 	----------------------------------------
 	memory.setuint8(0x5700F7, 0xB8, true)
@@ -2939,8 +2948,7 @@ function main()
 	----------------------------------------
 	sampRegisterChatCommand("rpc",function()
 		elements.state.show_packet = not elements.state.show_packet
-		elements.state.show_rpc = not elements.state.show_rpc
-		push_message((elements.state.show_rpc and "Включаю" or "Выключаю")..' показ пакетов.')
+		push_message((elements.state.show_packet and "Включаю" or "Выключаю")..' показ пакетов.')
 	end)
 	----------------------------------------
 	sampRegisterChatCommand("btc",function()
@@ -5124,24 +5132,11 @@ function sampev.onShowTextDraw(textdrawId, data)
 	if data.modelId == 19592 then sampAddChatMessage(string.format(data.modelId.." - заскринить название предмета + TD! (%0.6f, %0.6f, %0.6f, %0.6f) (/showmodel)",data.rotation.x,data.rotation.y,data.rotation.z,data.zoom), 0xFFFF00) end
 	if data.modelId == 19844 then sampAddChatMessage(string.format(data.modelId.." - заскринить название предмета + TD! (%0.6f, %0.6f, %0.6f, %0.6f) (/showmodel)",data.rotation.x,data.rotation.y,data.rotation.z,data.zoom), 0xFFFF00) end
 	
-	-- if data.modelId == 19627 then sampAddChatMessage(string.format("Копьё ("..data.modelId..") - заскринить название предмета + TD! (%0.6f, %0.6f, %0.6f, %0.6f) (/showmodel)",data.rotation.x,data.rotation.y,data.rotation.z,data.zoom), 0xFF3300) end
 	if data.modelId == 1112 then sampAddChatMessage(string.format("Погоны ("..data.modelId..") - заскринить название предмета + TD! (%0.6f, %0.6f, %0.6f, %0.6f) (/showmodel)",data.rotation.x,data.rotation.y,data.rotation.z,data.zoom), 0xFF3300) end
-	if data.modelId == 1588 then sampAddChatMessage(string.format("Жёлтая голова ("..data.modelId..") - заскринить название предмета + TD! (%0.6f, %0.6f, %0.6f, %0.6f) (/showmodel)",data.rotation.x,data.rotation.y,data.rotation.z,data.zoom), 0xFF3300) end
 	if data.modelId == 1598 then sampAddChatMessage(string.format("Девушка на спину ("..data.modelId..") - заскринить название предмета + TD! (%0.6f, %0.6f, %0.6f, %0.6f) (/showmodel)",data.rotation.x,data.rotation.y,data.rotation.z,data.zoom), 0xFF3300) end
-	if data.modelId == 2061 then sampAddChatMessage("Вертель за спиной ("..data.modelId..") - Если дешево стоит - то купить.", 0xFF3300) end
-	if data.modelId == 2224 then sampAddChatMessage("Карамельная бита ("..data.modelId..") - Если дешево стоит - то купить.", 0xFF3300) end
 	if data.modelId == 2446 then sampAddChatMessage(string.format("Красный ящик ("..data.modelId..") - заскринить название предмета + TD! (%0.6f, %0.6f, %0.6f, %0.6f) (/showmodel)",data.rotation.x,data.rotation.y,data.rotation.z,data.zoom), 0xFF3300) end
-	if data.modelId == 2855 then sampAddChatMessage("Рюкзак-журнальный ("..data.modelId..") - Если дешево стоит - то купить.", 0xFF3300) end
-	if data.modelId == 8483 then sampAddChatMessage("Маска череп ("..data.modelId..") - Если дешево стоит - то купить.", 0xFF3300) end
-	if data.modelId == 9958 then sampAddChatMessage(string.format("Подлодка ("..data.modelId..") - заскринить название предмета + TD! (%0.6f, %0.6f, %0.6f, %0.6f) (/showmodel)",data.rotation.x,data.rotation.y,data.rotation.z,data.zoom), 0xFF3300) end
-	if data.modelId == 18858 then sampAddChatMessage("Реактивный рюкзак 1-2 ("..data.modelId..") - Если дешево стоит - то купить.", 0xFF3300) end
-	if data.modelId == 19086 then sampAddChatMessage(string.format("Маска робота ("..data.modelId..") - заскринить название предмета + TD! (%0.6f, %0.6f, %0.6f, %0.6f) (/showmodel)",data.rotation.x,data.rotation.y,data.rotation.z,data.zoom), 0xFF3300) end
-	if data.modelId == 19274 then sampAddChatMessage(string.format("Борода ("..data.modelId..") - заскринить название предмета + TD! (%0.6f, %0.6f, %0.6f, %0.6f) (/showmodel)",data.rotation.x,data.rotation.y,data.rotation.z,data.zoom), 0xFF3300) end
-	if data.modelId == 19573 then sampAddChatMessage("Рюкзак угол ("..data.modelId..") - Если дешево стоит - то купить.", 0xFF3300) end
 	if data.modelId == 19592 then sampAddChatMessage(string.format("Корзина ("..data.modelId..") - заскринить название предмета + TD! (%0.6f, %0.6f, %0.6f, %0.6f) (/showmodel)",data.rotation.x,data.rotation.y,data.rotation.z,data.zoom), 0xFF3300) end
-	if data.modelId == 19822 then sampAddChatMessage("Щит за спиной ("..data.modelId..") - Если дешево стоит - то купить.", 0xFF3300) end
 	if data.modelId == 19823 then sampAddChatMessage("Желтая бита на спину ("..data.modelId..") - Если дешево стоит - то купить.", 0xFF3300) end
-	if data.modelId == 19893 then sampAddChatMessage(string.format("Карта на спину ("..data.modelId..") - заскринить название предмета + TD! (%0.6f, %0.6f, %0.6f, %0.6f) (/showmodel)",data.rotation.x,data.rotation.y,data.rotation.z,data.zoom), 0xFF3300) end
 	--------------------[Авто-точилка аксессуаров]--------------------
 	if data.modelId == 16112 or data.modelId == 1615 then
 		if elements.autotoch.autotoch_active then
@@ -5705,73 +5700,6 @@ function sampev.onSetVehicleParamsEx(vehicleId, params, doors, windows)
 		carid = -1
 		printString('',0)
 	end
-	--------------------[Стиллер объектов на транспорт]--------------------
-	result, carhandle = sampGetCarHandleBySampVehicleId(vehicleId)
-	if carhandle ~= -1 then
-		----------------------------------------
-		model = getCarModel(carhandle)
-		ip, port = sampGetCurrentServerAddress()
-		----------------------------------------
-		if ip ~= "127.0.0.1" and vehicleId >= 855 then
-			if model == 424 and
-			model == 431 and
-			model == 433 and
-			model == 434 and
-			model == 437 and
-			model == 438 and
-			model == 442 and
-			model == 443 and
-			model == 444 and
-			model == 449 and
-			model == 455 and
-			model == 456 and
-			model == 467 and
-			model == 488 and
-			model == 489 and
-			model == 491 and
-			model == 498 and
-			model == 499 and
-			model == 500 and
-			model == 504 and
-			model == 508 and
-			model == 514 and
-			model == 515 and
-			model == 518 and
-			model == 524 and
-			model == 525 and
-			model == 526 and
-			model == 528 and
-			model == 531 and
-			model == 535 and
-			model == 536 and
-			model == 540 and
-			model == 544 and
-			model == 551 and
-			model == 552 and
-			model == 554 and
-			model == 555 and
-			model == 556 and
-			model == 557 and
-			model == 561 and
-			model == 563 and
-			model == 585 and
-			model == 587 and
-			model == 588 and
-			model == 589 and
-			model == 596 and
-			model == 597 and
-			model == 598 and
-			model == 599 and
-			model == 601 and
-			model == 603 and
-			model == 604 and
-			model == 605 and
-			model == 609 then
-				fsoav(vehicleId)
-			end
-		end
-		----------------------------------------
-	end
 end
 
 function sampev.onVehicleStreamOut(vehicleId)
@@ -5840,7 +5768,7 @@ function onReceivePacket(id, bitStream)
 	name = raknetGetPacketName(id)
     if name then
         packet_incoming = id..':'..name
-		if elements.state.show_packet == true then sampfuncsLog('onReceivePacket: '..name..' | '..id) end
+		if elements.state.show_packet == true then sampfuncsLog('{FF3300}'..os.date('[%H:%M:%S] ')..'onReceivePacket: '..name..' | '..id) end
     end
 end
 
@@ -5849,7 +5777,7 @@ function onSendPacket(id, bitStream, priority, reliability, orderingChannel)
     name = raknetGetPacketName(id)
     if name then
         packet_outcoming = id..':'..name
-		if elements.state.show_packet == true then sampfuncsLog('onSendPacket: '..name..' | '..id) end
+		if elements.state.show_packet == true then sampfuncsLog('{FF3300}'..os.date('[%H:%M:%S] ')..'onSendPacket: '..name..' | '..id) end
     end
 end
 
@@ -5896,17 +5824,21 @@ function onReceiveRpc(id, bitStream)
 		name = raknetGetRpcName(id)
 		if name then
 			rpc_incoming = id..':'..name
-			if elements.state.show_packet == true then sampfuncsLog('onReceiveRpc: '..name..' | '..id) end
+			if elements.state.show_packet == true then sampfuncsLog('{FF3300}'..os.date('[%H:%M:%S] ')..'onReceiveRpc: '..name..' | '..id) end
 		end
     -- end
 end
+
+-- function sampev.onSetVehicleVelocity(turn, velocity)
+	-- sampAddChatMessage(velocity.x..' '..velocity.y..' '..velocity.z..' '..getCarSpeed(storeCarCharIsInNoSave(playerPed)), -1)
+-- end
 
 function onSendRpc(id, bitStream, priority, reliability, orderingChannel, shiftTs)
 	--------------------[RPC]--------------------
     name = raknetGetRpcName(id)
     if name then
         rpc_outcoming = id..':'..name
-		if elements.state.show_packet == true then  sampfuncsLog('onSendRpc: '..name..' | '..id) end
+		if elements.state.show_packet == true then  sampfuncsLog('{FF3300}'..os.date('[%H:%M:%S] ')..'onSendRpc: '..name..' | '..id) end
     end
 end
 
@@ -5985,31 +5917,6 @@ function sampev.onCreateObject(objectId, data)
 	model == 19525) then -- Праздничный торт
 		return false
 	end
-	--------------------[Стиллер объектов на транспорт]--------------------
-	if data.attachToVehicleId ~= nil and data.attachToVehicleId ~= 65535 and (data.modelId == 19327 or data.modelId == 19476 or data.modelId == 19981) then
-		----------------------------------------
-		local tempObj = {}
-		tempObj['objectId'] = objectId
-		tempObj['modelId'] = data.modelId
-		tempObj['positionX'] = data.position.x
-		tempObj['positionY'] = data.position.y
-		tempObj['positionZ'] = data.position.z
-		tempObj['rotationX'] = data.rotation.x
-		tempObj['rotationY'] = data.rotation.y
-		tempObj['rotationZ'] = data.rotation.z
-		tempObj['drawDistance'] = data.drawDistance
-		tempObj['cameraCol'] = data.cameraCol
-		----------------------------------------
-		tempObj['id'] = data.attachToVehicleId
-		tempObj['OffsetX'] = data.attachOffsets.x
-		tempObj['OffsetY'] = data.attachOffsets.y
-		tempObj['OffsetZ'] = data.attachOffsets.z
-		tempObj['RotX'] = data.attachRotation.x
-		tempObj['RotY'] = data.attachRotation.y
-		tempObj['RotZ'] = data.attachRotation.z
-		----------------------------------------
-		table.insert(stealerObject, tempObj)
-	end
 	----------------------------------------
 end
 
@@ -6025,124 +5932,6 @@ function sampev.onSetObjectMaterialText(objectId, data)
 			data.text = data.text:gsub('%$%d+', '$' .. price)
 			return { objectId, data }
 		end
-	end
-	----------------------------------------
-	for i = 1, #stealerObject do
-		if stealerObject[i] ~= nil then
-			if stealerObject[i]['objectId'] == objectId then
-				----------------------------------------
-				local tempObjMat = {}
-				tempObjMat['objectId'] = objectId
-				tempObjMat['materialId'] = data.materialId
-				tempObjMat['text'] = data.text
-				tempObjMat['materialSize'] = data.materialSize
-				tempObjMat['fontName'] = data.fontName
-				tempObjMat['fontSize'] = data.fontSize
-				tempObjMat['bold'] = data.bold
-				tempObjMat['materialType'] = false
-				if data.fontColor == 0 then
-					tempObjMat['fontColor'] = '0'
-				else
-					tempObjMat['fontColor'] = string.format('0x%X', bit.band(0xFFFFFFFF, data.fontColor))
-				end
-				if data.backGroundColor == 0 then
-					tempObjMat['backGroundColor'] = '0'
-				else
-					tempObjMat['backGroundColor'] = string.format('0x%X', bit.band(0xFFFFFFFF,data.backGroundColor))
-				end
-				tempObjMat['align'] = data.align
-				table.insert(stealerObjectMaterial, tempObjMat)
-			end
-		end
-	end
-end
-
-function sampev.onDestroyObject(objectId)
-	for i = 1, #stealerObject do
-		if stealerObject[i] ~= nil then
-			if stealerObject[i]['objectId'] == objectId then
-				stealerObject[i] = nil
-				break
-			end
-		end
-	end
-	for i = 1, #stealerObjectMaterial do
-		if stealerObjectMaterial[i] ~= nil then
-			if stealerObjectMaterial[i]['objectId'] == objectId then
-				stealerObjectMaterial[i] = nil
-				break
-			end
-		end
-	end
-end
-
-function fsoav(vehicleId)
-	if tonumber(vehicleId) == nil then return sampAddChatMessage('Invalid vehicleId', 0xFF9ACD32) end
-	----------------------------------------
-	local res, carhandle = sampGetCarHandleBySampVehicleId(vehicleId)
-	if not res then
-		return
-	end
-	----------------------------------------
-	count = false
-	----------------------------------------
-	for i = 1, #stealerObject do
-		if stealerObject[i] ~= nil then
-			if stealerObject[i]['id'] == tonumber(vehicleId) then
-				count = true
-			end
-		end
-	end
-	if count == true then
-		model = getCarModel(carhandle)
-		----------------------------------------
-		vehicle_name = getNameOfVehicleModel(model)
-		----------------------------------------
-		directory = 'moonloader/stealer/vehicles/'..model..' - '..vehicle_name..'('..vehicleId..').notepad'
-		----------------------------------------
-		os.remove(directory)
-		local file_vehicles = io.open(directory, 'a+')
-		----------------------------------------
-		local vPosX, vPosY, vPosZ = getCarCoordinates(carhandle)
-		local vAngle = getCarHeading(carhandle)
-		----------------------------------------
-		file_vehicles:write(string.format('new vehicleid = CreateVehicle(%i, %f, %f, %f, %f, -1, -1, -1);', getCarModel(carhandle), vPosX, vPosY, vPosZ, vAngle) .. '\n\n')
-		----------------------------------------
-		for i = 1, #stealerObject do
-			if stealerObject[i] ~= nil then
-				if stealerObject[i]['id'] == tonumber(vehicleId) then
-					file_vehicles:write(string.format('VehicleInfo[vehicleid][vTwinTurboObject][0] = CreateDynamicObject(%d, %f, %f, %f, %f, %f, %f, 0, 0, -1, STREAMER_OBJECT_SD, 300.0);',
-					stealerObject[i]['modelId'],
-					stealerObject[i]['positionX'],
-					stealerObject[i]['positionY'],
-					stealerObject[i]['positionZ'],
-					stealerObject[i]['rotationX'],
-					stealerObject[i]['rotationY'],
-					stealerObject[i]['rotationZ']) .. '\n')
-					
-					if stealerObjectMaterial[i]['materialId'] ~= nil then
-						file_vehicles:write(string.format('SetDynamicObjectMaterialText(VehicleInfo[vehicleid][vTwinTurboObject][0], %d, "%s", %d, "%s", %d, %d, %s, %s, %d);',
-						stealerObjectMaterial[i]['materialId'],
-						stealerObjectMaterial[i]['text'],
-						stealerObjectMaterial[i]['materialSize'],
-						stealerObjectMaterial[i]['fontName'],
-						stealerObjectMaterial[i]['fontSize'],
-						stealerObjectMaterial[i]['bold'],
-						stealerObjectMaterial[i]['fontColor'],
-						stealerObjectMaterial[i]['backGroundColor'],
-						stealerObjectMaterial[i]['align']) .. '\n')
-					end
-					file_vehicles:write(string.format('AttachDynamicObjectToVehicle(VehicleInfo[vehicleid][vTwinTurboObject][0], vehicleid, %f, %f, %f, %f, %f, %f);',
-					stealerObject[i]['OffsetX'],
-					stealerObject[i]['OffsetY'],
-					stealerObject[i]['OffsetZ'],
-					stealerObject[i]['RotX'],
-					stealerObject[i]['RotY'],
-					stealerObject[i]['RotZ']) .. '\n\n')
-				end
-			end	
-		end
-		io.close(file_vehicles)
 	end
 end
 
@@ -8037,7 +7826,7 @@ end
 -- function sampev.onGangZoneFlash(zoneId, color)
 	-- color_2 = string.format('0x%X', bit.band(0xFFFFFFFF, color))
 	-- sampAddChatMessage(string.format('%d | %s',zoneId,color_2), -1)
--- end
+-- end					
 
 function sampev.onSetPlayerAttachedObject(playerId, index, create, object)
 	if elements.config.del_stream.v == false and elements.config.del_stream_pl.v == false then
@@ -8050,19 +7839,7 @@ function sampev.onSetPlayerAttachedObject(playerId, index, create, object)
 			sampAddChatMessage('С Roy_Shelby['..playerId..'] своровалась модификация. '..object.modelId..': '..getColor(object.color1)..': '..getColor(object.color2)..': '..object.color1..': '..object.color2,0xFF3300)
 			SaveFileAttach(playerId,model,object.bone,object.offset.x,object.offset.y,object.offset.z,object.rotation.x,object.rotation.y,object.rotation.z,object.scale.x,object.scale.y,object.scale.z)
 		end
-		if model == 3434 then
-			elements.config.attach_id.v = playerId
-			elements.state.finds = playerId
-			sampAddChatMessage("У игрока "..sampGetPlayerNickname(playerId).."["..playerId.."] необходимо своровать модификацию, обнови зону стрима. "..model,0xFF3300)
-			printString('~g~Find enable',2000)
-		end
 		if model == 18891 then
-			elements.config.attach_id.v = playerId
-			elements.state.finds = playerId
-			sampAddChatMessage("У игрока "..sampGetPlayerNickname(playerId).."["..playerId.."] необходимо своровать модификацию, обнови зону стрима. "..model,0xFF3300)
-			printString('~g~Find enable',2000)
-		end
-		if model == 19133 then
 			elements.config.attach_id.v = playerId
 			elements.state.finds = playerId
 			sampAddChatMessage("У игрока "..sampGetPlayerNickname(playerId).."["..playerId.."] необходимо своровать модификацию, обнови зону стрима. "..model,0xFF3300)
@@ -8075,9 +7852,9 @@ function sampev.onSetPlayerAttachedObject(playerId, index, create, object)
 			if model == 1210 then return false end -- Коричневый кейс
 			if model == 1276 and object.offset.x == 0 then return false end -- Свечение игрока
 			if model == 3528 then return false end -- Дракон
-			if model == 11745 then return false end -- Сумка для ноутбука (сделано)
+			if model == 11745 then return false end -- Сумка для ноутбука
 			if model == 19076 then return false end -- Ёлочка на плечо
-			if model == 19921 then return false end -- Красный чемодан (сделано)
+			if model == 19921 then return false end -- Красный чемодан
 			----------------------------------------
 			for model_id, name in pairs(model_name_anti_stealer) do
 				if model_id == model then
