@@ -1,7 +1,7 @@
 script_name("{0d00ff}Ar{2900ff}iz{3900ff}on{4500ff}a H{4f00ff}el{5800ff}pe{6000ff}r")
 local script_names = "Arizona Helper"
 
-script_version('4.874')
+script_version('4.875')
 script_author("metk1u")
 
 local model_name =
@@ -87,23 +87,34 @@ local model_name =
 };
 local model_name_anti_stealer =
 {
+	-- [333] = "Клюшка на спину & Хоккейная клюшка за спиной",
+	-- [1212] = "Пачка денег на спину & Рюкзак бакс",
+	-- [1603] = "Кровавая накидка & Золотая шапка & Огненный щит",
 	-- [2711] = "С модификации Робот & Рюкзак (Кибер)",
-	-- [2901] = "Рюкзак из травы",
+	-- [2769] = "С модификации Зомби & Шаурма на спину",
+	-- [2804] = "Кусок мяса в руку & Сет:Петух",
+	-- [2814] = "Пицца & Сумка доставщика",
+	[2901] = "Рюкзак из травы",
+	-- [3070] = "Реактивный ранец (5) & Скайборд & Маска робота - чёрная & Пушка на руке",
 	-- [3801] = "Длинный топор & Кислородный баллон & Локатор",
 	-- [11727] = "Очки будущего 2",
-	-- [19331] = "Тёмный плащ",
-	-- [19348] = "С модификации Купидон & Посох бирюзовый & Посох красный",
+	-- [11733] = "Снежные сани 2 & Рюкзак конь",
 	-- [19133] = "Хвост чёрта",
+	-- [19200] = "С модификации Ghost & Сет:Птенец",
+	-- [19331] = "Тёмный плащ",
+	-- [19347] = "Звезда на грудь & Значок шерифа на спине",
+	-- [19348] = "С модификации Купидон & Посох бирюзовый & Посох красный",
+	-- [19578] = "Рюкзак банан & Рюкзак жёлтый & Сумка жёлтая через плечо",
+	-- [19620] = "Полицейский ранец & Палка красно-синяя & Рюкзак полицейский",
+	-- [19797] = "Погоны красно-синие & 3D-очки & Кейс анимированный 1 & Очки красно-синий неон",
 	[0] = "None",
 	[321] = "Дилдо на спину #1",
 	[322] = "Дилдо на спину #2",
 	[324] = "Рюкзак мотор",
 	[326] = "Трость на спину",
-	[333] = "Клюшка на спину",
 	[335] = "Нож с модификации Псих",
 	[336] = "Бита на спину",
 	[337] = "Лопата на спину",
-	[18634] = "Лом на спину",
 	[338] = "Кий на спину",
 	[339] = "Катана на спину",
 	[341] = "Бензопила на спину",
@@ -140,7 +151,6 @@ local model_name_anti_stealer =
 	[1177] = "Реактивный ранец (1)",
 	[1186] = "Рюкзак трансформер",
 	[1208] = "INVALID_OBJECT_ID",
-	[1212] = "Пачка денег на спину",
 	[1220] = "Коробка в руку",
 	[1221] = "INVALID_OBJECT_ID",
 	[1228] = "Карамельный посох",
@@ -182,7 +192,6 @@ local model_name_anti_stealer =
 	[1588] = "Голова мишени",
 	[1601] = "Молнии Зевса",
 	[1602] = "Призрачный нимб, щит, ледяное копье",
-	[1603] = "Кровавая накидка & Золотая шапка",
 	[1604] = "Копьё Зевса",
 	[1607] = "Дельфин",
 	[1609] = "Черепаха на спину",
@@ -243,13 +252,10 @@ local model_name_anti_stealer =
 	[2714] = "Табличка 'OPEN' на спину",
 	[2726] = "С модификации Спарта",
 	[2764] = "Рюкзак в клеточку",
-	[2769] = "С модификации Зомби",
 	[2788] = "С модификации Гринч",
 	[2803] = "Мешок с подарками",
-	[2804] = "Кусок мяса в руку",
 	[2805] = "Мешок с мясом",
 	[2810] = "Человечек на спину",
-	[2814] = "Пицца",
 	[2846] = "Одежда в руках",
 	[2888] = "Маска робота (2)",
 	[2899] = "Ледяное копьё",
@@ -274,7 +280,6 @@ local model_name_anti_stealer =
 	[3031] = "Ранец вертолёт",
 	[3052] = "Коробка в руку",
 	[3056] = "Магнит на спину & Инопланетная пушка",
-	[3070] = "Реактивный ранец (5) & Скайборд",
 	[3072] = "Гантеля",
 	[3096] = "Синий посох светлый",
 	[3100] = "С модификации Соник",
@@ -352,7 +357,6 @@ local model_name_anti_stealer =
 	[11726] = "Золотой посох",
 	[11731] = "С модификации Негр",
 	[11732] = "Маска лицо в сердечке",
-	[11733] = "Снежные сани 2",
 	[11734] = "Сани на спину",
 	[11736] = "Медицинская маска & Рюкзак медика зелёный",
 	[11738] = "Рюкзак медика красный",
@@ -366,14 +370,12 @@ local model_name_anti_stealer =
 	[12621] = "INVALID_OBJECT_ID",
 	[12622] = "INVALID_OBJECT_ID",
 	[12623] = "INVALID_OBJECT_ID",
+	[12624] = "INVALID_OBJECT_ID",
 	[12634] = "INVALID_OBJECT_ID",
 	[12635] = "INVALID_OBJECT_ID",
+	[12636] = "INVALID_OBJECT_ID",
 	[12638] = "INVALID_OBJECT_ID",
 	[12639] = "INVALID_OBJECT_ID",
-	[12648] = "INVALID_OBJECT_ID",
-	[12674] = "INVALID_OBJECT_ID",
-	[12624] = "INVALID_OBJECT_ID",
-	[12659] = "INVALID_OBJECT_ID",
 	[12640] = "INVALID_OBJECT_ID",
 	[12641] = "INVALID_OBJECT_ID",
 	[12642] = "INVALID_OBJECT_ID",
@@ -382,6 +384,7 @@ local model_name_anti_stealer =
 	[12645] = "INVALID_OBJECT_ID",
 	[12646] = "INVALID_OBJECT_ID",
 	[12647] = "INVALID_OBJECT_ID",
+	[12648] = "INVALID_OBJECT_ID",
 	[12649] = "INVALID_OBJECT_ID",
 	[12650] = "INVALID_OBJECT_ID",
 	[12651] = "INVALID_OBJECT_ID",
@@ -392,6 +395,7 @@ local model_name_anti_stealer =
 	[12656] = "INVALID_OBJECT_ID",
 	[12657] = "INVALID_OBJECT_ID",
 	[12658] = "INVALID_OBJECT_ID",
+	[12659] = "INVALID_OBJECT_ID",
 	[12661] = "INVALID_OBJECT_ID",
 	[12662] = "INVALID_OBJECT_ID",
 	[12663] = "INVALID_OBJECT_ID",
@@ -402,15 +406,17 @@ local model_name_anti_stealer =
 	[12668] = "INVALID_OBJECT_ID",
 	[12669] = "INVALID_OBJECT_ID",
 	[12673] = "INVALID_OBJECT_ID",
+	[12674] = "INVALID_OBJECT_ID",
+	[12675] = "INVALID_OBJECT_ID",
 	[12676] = "INVALID_OBJECT_ID",
+	[12678] = "INVALID_OBJECT_ID",
+	[12679] = "INVALID_OBJECT_ID",
+	[12681] = "INVALID_OBJECT_ID",
 	[12682] = "INVALID_OBJECT_ID",
 	[12684] = "INVALID_OBJECT_ID",
 	[12688] = "INVALID_OBJECT_ID",
 	[12692] = "INVALID_OBJECT_ID",
 	[12696] = "INVALID_OBJECT_ID",
-	[12636] = "INVALID_OBJECT_ID",
-	[12678] = "INVALID_OBJECT_ID",
-	[12679] = "INVALID_OBJECT_ID",
 	[12697] = "INVALID_OBJECT_ID",
 	[13562] = "Крутящаяся дубина",
 	[13667] = "Маска обезьяны",
@@ -423,6 +429,7 @@ local model_name_anti_stealer =
 	[16776] = "Петух на плечо",
 	[16778] = "НЛО",
 	[18003] = "Оружие & Рюкзак переноска",
+	[18634] = "Лом на спину",
 	[18637] = "Щит на спину и в руку",
 	[18641] = "Маска фонарь",
 	[18642] = "Ранец шокер & Копье-шокер",
@@ -446,7 +453,7 @@ local model_name_anti_stealer =
 	[18872] = "Телефон",
 	[18873] = "Телефон",
 	[18874] = "Телефон",
-	[18875] = "ПипБой",
+	[18875] = "ПипБой & Рюкзак техно",
 	[18891] = "С модификации",
 	[18936] = "С модификации Палач",
 	[18976] = "Сумка-барыжка синяя",
@@ -507,7 +514,6 @@ local model_name_anti_stealer =
 	[19173] = "Картина в руку какая-то",
 	[19177] = "С модификации Палач",
 	[19197] = "Ангельское кольцо на голову",
-	[19200] = "С модификации Ghost",
 	[19202] = "С модификации Зомби",
 	[19300] = "INVALID_OBJECT_ID",
 	[19314] = "Рога & Уши эльфа",
@@ -530,10 +536,9 @@ local model_name_anti_stealer =
 	[19344] = "Яйцо",
 	[19345] = "Яйцо",
 	[19346] = "Хот-дог на голову",
-	[19347] = "Звезда на грудь",
 	[19348] = "Посох бирюзовый & Посох красный",
-	[19421] = "Наушники",
 	[19421] = "Наушники (1)",
+	[19421] = "Наушники",
 	[19422] = "Наушники (2)",
 	[19423] = "Наушники (3)",
 	[19424] = "Наушники (4)",
@@ -541,7 +546,7 @@ local model_name_anti_stealer =
 	[19513] = "Телефон",
 	[19514] = "Каска спецназа (белая)",
 	[19516] = "С модификации Купидон",
-	[19518] = "Парик (2)",
+	[19518] = "Парик (2) & Сет:Яйцо",
 	[19522] = "Значок красного домика",
 	[19523] = "Значок оранжевого домика",
 	[19524] = "Значок желтого домика",
@@ -553,11 +558,9 @@ local model_name_anti_stealer =
 	[19570] = "С модификации Гринч",
 	[19576] = "С модификации Гринч",
 	[19577] = "С модификации Дедпул",
-	[19578] = "Рюкзак банан",
 	[19582] = "С модификации Дедпул",
 	[19583] = "С модификации Djey",
 	[19617] = "INVALID_OBJECT_ID",
-	[19620] = "Полицейский ранец & Палка красно-синяя",
 	[19623] = "Фотоаппарат на грудь",
 	[19624] = "Большой чемодан",
 	[19626] = "Лопата в руку (2)",
@@ -565,7 +568,6 @@ local model_name_anti_stealer =
 	[19632] = "Горящий щит & Горящее копье 1 & Горящий рюкзак",
 	[19636] = "Ларек с фруктами",
 	[19793] = "С модификации Палач",
-	[19797] = "Погоны красно-синие & 3D-очки & Кейс анимированный 1",
 	[19801] = "Маска",
 	[19806] = "Новогодний реактивный ранец",
 	[19807] = "Рюкзак телефон",
@@ -747,11 +749,6 @@ local mainIni = inicfg.load(
 		removechatspam = true,
 		tosampfuncsspam = true,
 		----------------------------------------
-		sendconnect = true,
-		senddisconnect = true,
-		tosampfuncsconnect = true,
-		tosampfuncsdisconnect = true,
-		----------------------------------------
 		tosampfuncsvipchat = false,
 		removevipchat = false,
 		----------------------------------------
@@ -792,12 +789,6 @@ local mainIni = inicfg.load(
 		fam_talon = 0,
 		fam_talon_price = 5000,
 		----------------------------------------
-		cherepa = 0,
-		cherepa_price = 1000,
-		----------------------------------------
-		sale_talon = 0,
-		sale_talon_price = 300000,
-		----------------------------------------
 		gift = 0,
 		gift_price = 4000,
 		----------------------------------------
@@ -831,15 +822,6 @@ local mainIni = inicfg.load(
 		gold = 0,
 		gold_price = 5000,
 		----------------------------------------
-		alyminiu = 0,
-		alyminiu_price = 4000,
-		----------------------------------------
-		tywka = 0,
-		tywka_price = 500,
-		----------------------------------------
-		wkyra = 0,
-		wkyra_price = 500,
-		----------------------------------------
 		euro = 0,
 		euro_price = 4000,
 		----------------------------------------
@@ -851,8 +833,6 @@ local mainIni = inicfg.load(
 		----------------------------------------
 		prison = 0,
 		prison_price = 35000,
-		----------------------------------------
-		mod_reg_eyes_price = 0,
 		----------------------------------------
 		zlov_moneta = 0,
 		zlov_moneta_price = 200000,
@@ -878,29 +858,17 @@ local mainIni = inicfg.load(
 		fam_money = 0,
 		fam_money_price = 1000,
 		----------------------------------------
-		mod_teddi_1_price = 0,
-		----------------------------------------
-		mod_teddi_2_price = 0,
-		----------------------------------------
-		mod_teddi_3_price = 0,
-		----------------------------------------
 		band_respect = 0,
 		band_respect_price = 500,
 		----------------------------------------
-		larec_premium = 0,
-		larec_premium_price = 50000,
+		egg = 0,
+		egg_price = 10000,
 		----------------------------------------
 		smazka = 0,
 		smazka_price = 500000,
 		----------------------------------------
 		oxlajdauka = 0,
-		oxlajdauka_price = 300000,
-		----------------------------------------
-		larec_car_box = 0,
-		larec_car_box_price = 500000,
-		----------------------------------------
-		larec_trucker = 0,
-		larec_trucker_price = 1000000
+		oxlajdauka_price = 300000
 	},
 	autopiar =
 	{
@@ -977,11 +945,6 @@ local elements =
 		removechatspam = imgui.ImBool(mainIni.chat.removechatspam),
 		tosampfuncsspam = imgui.ImBool(mainIni.chat.tosampfuncsspam),
 		----------------------------------------
-		sendconnect = imgui.ImBool(mainIni.chat.sendconnect),
-		senddisconnect = imgui.ImBool(mainIni.chat.senddisconnect),
-		tosampfuncsconnect = imgui.ImBool(mainIni.chat.tosampfuncsconnect),
-		tosampfuncsdisconnect = imgui.ImBool(mainIni.chat.tosampfuncsdisconnect),
-		----------------------------------------
 		tosampfuncsvipchat = imgui.ImBool(mainIni.chat.tosampfuncsvipchat),
 		removevipchat = imgui.ImBool(mainIni.chat.removevipchat),
 		----------------------------------------
@@ -1022,12 +985,6 @@ local elements =
 		fam_talon = imgui.ImInt(mainIni.lavka.fam_talon),
 		fam_talon_price = imgui.ImInt(mainIni.lavka.fam_talon_price),
 		----------------------------------------
-		cherepa = imgui.ImInt(mainIni.lavka.cherepa),
-		cherepa_price = imgui.ImInt(mainIni.lavka.cherepa_price),
-		----------------------------------------
-		sale_talon = imgui.ImInt(mainIni.lavka.sale_talon),
-		sale_talon_price = imgui.ImInt(mainIni.lavka.sale_talon_price),
-		----------------------------------------
 		gift = imgui.ImInt(mainIni.lavka.gift),
 		gift_price = imgui.ImInt(mainIni.lavka.gift_price),
 		----------------------------------------
@@ -1061,15 +1018,6 @@ local elements =
 		gold = imgui.ImInt(mainIni.lavka.gold),
 		gold_price = imgui.ImInt(mainIni.lavka.gold_price),
 		----------------------------------------
-		alyminiu = imgui.ImInt(mainIni.lavka.alyminiu),
-		alyminiu_price = imgui.ImInt(mainIni.lavka.alyminiu_price),
-		----------------------------------------
-		tywka = imgui.ImInt(mainIni.lavka.tywka),
-		tywka_price = imgui.ImInt(mainIni.lavka.tywka_price),
-		----------------------------------------
-		wkyra = imgui.ImInt(mainIni.lavka.wkyra),
-		wkyra_price = imgui.ImInt(mainIni.lavka.wkyra_price),
-		----------------------------------------
 		euro = imgui.ImInt(mainIni.lavka.euro),
 		euro_price = imgui.ImInt(mainIni.lavka.euro_price),
 		----------------------------------------
@@ -1081,8 +1029,6 @@ local elements =
 		----------------------------------------
 		prison = imgui.ImInt(mainIni.lavka.prison),
 		prison_price = imgui.ImInt(mainIni.lavka.prison_price),
-		----------------------------------------
-		mod_reg_eyes_price = imgui.ImInt(mainIni.lavka.mod_reg_eyes_price),
 		----------------------------------------
 		zlov_moneta = imgui.ImInt(mainIni.lavka.zlov_moneta),
 		zlov_moneta_price = imgui.ImInt(mainIni.lavka.zlov_moneta_price),
@@ -1108,29 +1054,17 @@ local elements =
 		fam_money = imgui.ImInt(mainIni.lavka.fam_money),
 		fam_money_price = imgui.ImInt(mainIni.lavka.fam_money_price),
 		----------------------------------------
-		mod_teddi_1_price = imgui.ImInt(mainIni.lavka.mod_teddi_1_price),
-		----------------------------------------
-		mod_teddi_2_price = imgui.ImInt(mainIni.lavka.mod_teddi_2_price),
-		----------------------------------------
-		mod_teddi_3_price = imgui.ImInt(mainIni.lavka.mod_teddi_3_price),
-		----------------------------------------
 		band_respect = imgui.ImInt(mainIni.lavka.band_respect),
 		band_respect_price = imgui.ImInt(mainIni.lavka.band_respect_price),
 		----------------------------------------
-		larec_premium = imgui.ImInt(mainIni.lavka.larec_premium),
-		larec_premium_price = imgui.ImInt(mainIni.lavka.larec_premium_price),
+		egg = imgui.ImInt(mainIni.lavka.egg),
+		egg_price = imgui.ImInt(mainIni.lavka.egg_price),
 		----------------------------------------
 		smazka = imgui.ImInt(mainIni.lavka.smazka),
 		smazka_price = imgui.ImInt(mainIni.lavka.smazka_price),
 		----------------------------------------
 		oxlajdauka = imgui.ImInt(mainIni.lavka.oxlajdauka),
-		oxlajdauka_price = imgui.ImInt(mainIni.lavka.oxlajdauka_price),
-		----------------------------------------
-		larec_car_box = imgui.ImInt(mainIni.lavka.larec_car_box),
-		larec_car_box_price = imgui.ImInt(mainIni.lavka.larec_car_box_price),
-		----------------------------------------
-		larec_trucker = imgui.ImInt(mainIni.lavka.larec_trucker),
-		larec_trucker_price = imgui.ImInt(mainIni.lavka.larec_trucker_price)
+		oxlajdauka_price = imgui.ImInt(mainIni.lavka.oxlajdauka_price)
 	},
 	autopiar =
 	{
@@ -1154,14 +1088,6 @@ local elements =
 		checked_radio = imgui.ImInt(12),
 		checked_inv = imgui.ImInt(2),
 		autotoch_enable = imgui.ImBool(false)
-	},
-	autoopenroul =
-	{
-		open_roul_bronze = imgui.ImBool(false),
-		open_roul_silver = imgui.ImBool(false),
-		open_roul_gold = imgui.ImBool(false),
-		open_roul_platina = imgui.ImBool(false),
-		open_roul_active = true,
 	},
 	state =
 	{
@@ -1573,15 +1499,8 @@ function main()
 			nickname = sampGetPlayerNickname(i)
 			for id = 1, #friends do
 				if nickname == friends[id] and local_name ~= friends[id] then
-					----------------------------------------
-					if elements.chat.tosampfuncsconnect.v then
-						sampfuncsLog('{FF3300}'..os.date('[%H:%M:%S] ')..nickname..'['..i..'] находится на сервере.')
-					end
-					----------------------------------------
-					if elements.chat.sendconnect.v then
-						sampAddChatMessage('Игрок '..nickname..'['..i..'] находится на сервере.', 0xFF3300)
-					end
-					----------------------------------------
+					sampfuncsLog('{FF3300}'..os.date('[%H:%M:%S] ')..nickname..'['..i..'] находится на сервере.')
+					sampAddChatMessage('Игрок '..nickname..'['..i..'] находится на сервере.', 0xFF3300)
 				end
 			end
 		end
@@ -1750,11 +1669,6 @@ function main()
 		if elements.chest.roll_state.v == true and
 			elements.state.buyvk == -1 and
 			elements.state.autoloot == false and
-			elements.autoopenroul.open_roul_bronze.v == false and
-			elements.autoopenroul.open_roul_silver.v == false and
-			elements.autoopenroul.open_roul_gold.v == false and
-			elements.autoopenroul.open_roul_platina.v == false and
-			elements.autoopenroul.open_roul_active == true and
 			elements.autotoch.autotoch_enable.v == false and
 			(ip == "185.169.134.3" or ip == "185.169.134.4" or ip == "185.169.134.43" or ip == "185.169.134.44" or ip == "185.169.134.45" or ip == "185.169.134.5" or ip == "185.169.134.59" or ip == "185.169.134.61" or ip == "185.169.134.107" or ip == "185.169.134.109" or ip == "185.169.134.166" or ip == "185.169.134.171" or ip == "185.169.134.172" or ip == "185.169.134.173" or ip == "185.169.134.174" or ip == "80.66.82.191" or ip == "80.66.82.190") then
 			if elements.chest.roll_standart.v == true and chest_timer_1 <= os.time() and chest_timer_1 ~= 0 then
@@ -2212,51 +2126,6 @@ function main()
 				windowPosY = windowPosY+13
 			end
 		end
-		--------------------[Авто-открытие рулеток]--------------------
-		if elements.autoopenroul.open_roul_bronze.v == true and elements.autoopenroul.open_roul_active == true then
-			auto_roul()
-			wait(500)
-			sampSendClickTextdraw(2089)
-			wait(500)
-			sampSendClickTextdraw(2091)
-			elements.autoopenroul.open_roul_active = false
-		end
-		if elements.autoopenroul.open_roul_silver.v == true and elements.autoopenroul.open_roul_active == true then
-			auto_roul()
-			wait(500)
-			sampSendClickTextdraw(2083)
-			wait(500)
-			sampSendClickTextdraw(2085)
-			wait(500)
-			sampSendClickTextdraw(2089)
-			wait(500)
-			sampSendClickTextdraw(2091)
-			elements.autoopenroul.open_roul_active = false
-		end
-		if elements.autoopenroul.open_roul_gold.v == true and elements.autoopenroul.open_roul_active == true then
-			auto_roul()
-			wait(500)
-			sampSendClickTextdraw(2088)
-			wait(500)
-			sampSendClickTextdraw(2090)
-			wait(500)
-			sampSendClickTextdraw(2089)
-			wait(500)
-			sampSendClickTextdraw(2091)
-			elements.autoopenroul.open_roul_active = false
-		end
-		if elements.autoopenroul.open_roul_platina.v == true and elements.autoopenroul.open_roul_active == true then
-			auto_roul()
-			wait(500)
-			sampSendClickTextdraw(2108)
-			wait(500)
-			sampSendClickTextdraw(2110)
-			wait(500)
-			sampSendClickTextdraw(2089)
-			wait(500)
-			sampSendClickTextdraw(2091)
-			elements.autoopenroul.open_roul_active = false
-		end
 		--------------------[Авто-сбор шара]--------------------
 		local text = sampTextdrawGetString(2069)
 		if text:match("%[ ~p~%u+~w~ %]") then
@@ -2340,10 +2209,6 @@ function saveini()
 			removechatfond = elements.chat.removechatfond.v,
 			removechatspam = elements.chat.removechatspam.v,
 			tosampfuncsspam = elements.chat.tosampfuncsspam.v,
-			sendconnect = elements.chat.sendconnect.v,
-			senddisconnect = elements.chat.senddisconnect.v,
-			tosampfuncsconnect = elements.chat.tosampfuncsconnect.v,
-			tosampfuncsdisconnect = elements.chat.tosampfuncsdisconnect.v,
 			tosampfuncsvipchat = elements.chat.tosampfuncsvipchat.v,
 			removevipchat = elements.chat.removevipchat.v,
 			tosampfuncsjobchat = elements.chat.tosampfuncsjobchat.v,
@@ -2381,12 +2246,6 @@ function saveini()
 			fam_talon = elements.lavka.fam_talon.v,
 			fam_talon_price = elements.lavka.fam_talon_price.v,
 			----------------------------------------
-			cherepa = elements.lavka.cherepa.v,
-			cherepa_price = elements.lavka.cherepa_price.v,
-			----------------------------------------
-			sale_talon = elements.lavka.sale_talon.v,
-			sale_talon_price = elements.lavka.sale_talon_price.v,
-			----------------------------------------
 			gift = elements.lavka.gift.v,
 			gift_price = elements.lavka.gift_price.v,
 			----------------------------------------
@@ -2420,15 +2279,6 @@ function saveini()
 			gold = elements.lavka.gold.v,
 			gold_price = elements.lavka.gold_price.v,
 			----------------------------------------
-			alyminiu = elements.lavka.alyminiu.v,
-			alyminiu_price = elements.lavka.alyminiu_price.v,
-			----------------------------------------
-			tywka = elements.lavka.tywka.v,
-			tywka_price = elements.lavka.tywka_price.v,
-			----------------------------------------
-			wkyra = elements.lavka.wkyra.v,
-			wkyra_price = elements.lavka.wkyra_price.v,
-			----------------------------------------
 			euro = elements.lavka.euro.v,
 			euro_price = elements.lavka.euro_price.v,
 			----------------------------------------
@@ -2440,8 +2290,6 @@ function saveini()
 			----------------------------------------
 			prison = elements.lavka.prison.v,
 			prison_price = elements.lavka.prison_price.v,
-			----------------------------------------
-			mod_reg_eyes_price = elements.lavka.mod_reg_eyes_price.v,
 			----------------------------------------
 			zlov_moneta = elements.lavka.zlov_moneta.v,
 			zlov_moneta_price = elements.lavka.zlov_moneta_price.v,
@@ -2467,26 +2315,17 @@ function saveini()
 			fam_money = elements.lavka.fam_money.v,
 			fam_money_price = elements.lavka.fam_money_price.v,
 			----------------------------------------
-			mod_teddi_1_price = elements.lavka.mod_teddi_1_price.v,
-			----------------------------------------
-			mod_teddi_2_price = elements.lavka.mod_teddi_2_price.v,
-			----------------------------------------
-			mod_teddi_3_price = elements.lavka.mod_teddi_3_price.v,
-			----------------------------------------
 			band_respect = elements.lavka.band_respect.v,
 			band_respect_price = elements.lavka.band_respect_price.v,
 			----------------------------------------
-			larec_premium = elements.lavka.larec_premium.v,
-			larec_premium_price = elements.lavka.larec_premium_price.v,
+			egg = elements.lavka.egg.v,
+			egg_price = elements.lavka.egg_price.v,
 			----------------------------------------
 			smazka = elements.lavka.smazka.v,
 			smazka_price = elements.lavka.smazka_price.v,
 			----------------------------------------
 			oxlajdauka = elements.lavka.oxlajdauka.v,
-			oxlajdauka_price = elements.lavka.oxlajdauka_price.v,
-			----------------------------------------
-			larec_trucker = elements.lavka.larec_trucker.v,
-			larec_trucker_price = elements.lavka.larec_trucker_price.v
+			oxlajdauka_price = elements.lavka.oxlajdauka_price.v
 		},
 		autopiar =
 		{
@@ -2723,15 +2562,6 @@ function imgui.OnDrawFrame()
 				imgui.Separator()
 			end
 			----------------------------------------
-			if imgui.CollapsingHeader(u8'Сообщения о подключении/отключении игроков') then
-				imgui.Separator()
-				imgui.Checkbox(u8('Сообщения о входе игроков'),elements.chat.sendconnect)
-				imgui.Checkbox(u8('Сообщения о выходе игроков'),elements.chat.senddisconnect)
-				imgui.Checkbox(u8('Сообщения о входе игроков в консоль SAMPFUNCS (~)'),elements.chat.tosampfuncsconnect)
-				imgui.Checkbox(u8('Сообщения о выходе игроков в консоль SAMPFUNCS (~)'),elements.chat.tosampfuncsdisconnect)
-				imgui.Separator()
-			end
-			----------------------------------------
 			if imgui.CollapsingHeader(u8'Настройки VIP чата') then
 				imgui.Separator()
 				imgui.Checkbox(u8('Выводить вип чат в консоль SAMPFUNCS (~)'),elements.chat.tosampfuncsvipchat)
@@ -2806,43 +2636,6 @@ INVALID_OBJECT_ID\n\
 			imgui.SliderInt(u8('Выбери страницу инвентаря'),elements.autotoch.checked_inv,1,3)
 			imgui.Separator()
 		end
-		if imgui.CollapsingHeader(u8'Авто-открытие рулеток') then
-			imgui.Separator()
-			imgui.Checkbox(u8'Бронзовая рулетка',elements.autoopenroul.open_roul_bronze)
-			imgui.Checkbox(u8'Серебряная рулетка',elements.autoopenroul.open_roul_silver)
-			imgui.Checkbox(u8'Золотая рулетка',elements.autoopenroul.open_roul_gold)
-			imgui.Checkbox(u8'Платиновая рулетка',elements.autoopenroul.open_roul_platina)
-			----------------------------------------
-			if elements.autoopenroul.open_roul_bronze == false and elements.autoopenroul.open_roul_silver == false and elements.autoopenroul.open_roul_gold == false and elements.autoopenroul.open_roul_platina == false then
-				elements.autoopenroul.open_roul_active = true
-			end
-			if elements.autoopenroul.open_roul_bronze == true then
-				elements.autoopenroul.open_roul_bronze.v = true
-				elements.autoopenroul.open_roul_silver.v = false
-				elements.autoopenroul.open_roul_gold.v = false
-				elements.autoopenroul.open_roul_platina.v = false
-			end
-			if elements.autoopenroul.open_roul_silver == true then
-				elements.autoopenroul.open_roul_bronze.v = false
-				elements.autoopenroul.open_roul_silver.v = true
-				elements.autoopenroul.open_roul_gold.v = false
-				elements.autoopenroul.open_roul_platina.v = false
-			end
-			if elements.autoopenroul.open_roul_gold == true then
-				elements.autoopenroul.open_roul_bronze.v = false
-				elements.autoopenroul.open_roul_silver.v = false
-				elements.autoopenroul.open_roul_gold.v = true
-				elements.autoopenroul.open_roul_platina.v = false
-			end
-			if elements.autoopenroul.open_roul_platina == true then
-				elements.autoopenroul.open_roul_bronze.v = false
-				elements.autoopenroul.open_roul_silver.v = false
-				elements.autoopenroul.open_roul_gold.v = false
-				elements.autoopenroul.open_roul_platina.v = true
-			end
-			----------------------------------------
-			imgui.Separator()
-		end
 		if imgui.CollapsingHeader(u8'Авто-скуп в ларьке') then
 			imgui.Separator()
 			imgui.PushItemWidth(113)
@@ -2868,259 +2661,194 @@ INVALID_OBJECT_ID\n\
 			if elements.lavka.fam_talon_price.v < 0 then elements.lavka.fam_talon_price.v = 0 end
 			if elements.lavka.fam_talon_price.v > 10000000 then elements.lavka.fam_talon_price.v = 10000000 end
 			----------------------------------------
-			imgui.InputInt(u8('Цена  ##4'),elements.lavka.cherepa_price)
-			imgui.SameLine()
-			imgui.InputInt(u8('Черепа (кол-во)'),elements.lavka.cherepa)
-			if elements.lavka.cherepa.v < 0 then elements.lavka.cherepa.v = 0 end
-			if elements.lavka.cherepa_price.v < 0 then elements.lavka.cherepa_price.v = 0 end
-			if elements.lavka.cherepa_price.v > 10000000 then elements.lavka.cherepa_price.v = 10000000 end
-			----------------------------------------
-			imgui.InputInt(u8('Цена  ##5'),elements.lavka.sale_talon_price)
-			imgui.SameLine()
-			imgui.InputInt(u8('Скидочный талон (кол-во)'),elements.lavka.sale_talon)
-			if elements.lavka.sale_talon.v < 0 then elements.lavka.sale_talon.v = 0 end
-			if elements.lavka.sale_talon_price.v < 0 then elements.lavka.sale_talon_price.v = 0 end
-			if elements.lavka.sale_talon_price.v > 10000000 then elements.lavka.sale_talon_price.v = 10000000 end
-			----------------------------------------
-			imgui.InputInt(u8('Цена  ##6'),elements.lavka.gift_price)
+			imgui.InputInt(u8('Цена  ##4'),elements.lavka.gift_price)
 			imgui.SameLine()
 			imgui.InputInt(u8('Подарки (кол-во)'),elements.lavka.gift)
 			if elements.lavka.gift.v < 0 then elements.lavka.gift.v = 0 end
 			if elements.lavka.gift_price.v < 0 then elements.lavka.gift_price.v = 0 end
 			if elements.lavka.gift_price.v > 10000000 then elements.lavka.gift_price.v = 10000000 end
 			----------------------------------------
-			imgui.InputInt(u8('Цена  ##7'),elements.lavka.cooper_roll_price)
+			imgui.InputInt(u8('Цена  ##5'),elements.lavka.cooper_roll_price)
 			imgui.SameLine()
 			imgui.InputInt(u8('Бронзовые рулетки (кол-во)'),elements.lavka.cooper_roll)
 			if elements.lavka.cooper_roll.v < 0 then elements.lavka.cooper_roll.v = 0 end
 			if elements.lavka.cooper_roll_price.v < 0 then elements.lavka.cooper_roll_price.v = 0 end
 			if elements.lavka.cooper_roll_price.v > 10000000 then elements.lavka.cooper_roll_price.v = 10000000 end
 			----------------------------------------
-			imgui.InputInt(u8('Цена  ##8'),elements.lavka.silver_roll_price)
+			imgui.InputInt(u8('Цена  ##6'),elements.lavka.silver_roll_price)
 			imgui.SameLine()
 			imgui.InputInt(u8('Серебрянные рулетки (кол-во)'),elements.lavka.silver_roll)
 			if elements.lavka.silver_roll.v < 0 then elements.lavka.silver_roll.v = 0 end
 			if elements.lavka.silver_roll_price.v < 0 then elements.lavka.silver_roll_price.v = 0 end
 			if elements.lavka.silver_roll_price.v > 10000000 then elements.lavka.silver_roll_price.v = 10000000 end
 			----------------------------------------
-			imgui.InputInt(u8('Цена  ##9'),elements.lavka.gold_roll_price)
+			imgui.InputInt(u8('Цена  ##7'),elements.lavka.gold_roll_price)
 			imgui.SameLine()
 			imgui.InputInt(u8('Золотые рулетки (кол-во)'),elements.lavka.gold_roll)
 			if elements.lavka.gold_roll.v < 0 then elements.lavka.gold_roll.v = 0 end
 			if elements.lavka.gold_roll_price.v < 0 then elements.lavka.gold_roll_price.v = 0 end
 			if elements.lavka.gold_roll_price.v > 10000000 then elements.lavka.gold_roll_price.v = 10000000 end
 			----------------------------------------
-			imgui.InputInt(u8('Цена  ##10'),elements.lavka.xlopok_price)
+			imgui.InputInt(u8('Цена  ##8'),elements.lavka.xlopok_price)
 			imgui.SameLine()
 			imgui.InputInt(u8('Хлопок (кол-во)'),elements.lavka.xlopok)
 			if elements.lavka.xlopok.v < 0 then elements.lavka.xlopok.v = 0 end
 			if elements.lavka.xlopok_price.v < 0 then elements.lavka.xlopok_price.v = 0 end
 			if elements.lavka.xlopok_price.v > 10000000 then elements.lavka.xlopok_price.v = 10000000 end
 			----------------------------------------
-			imgui.InputInt(u8('Цена  ##11'),elements.lavka.lens_price)
+			imgui.InputInt(u8('Цена  ##9'),elements.lavka.lens_price)
 			imgui.SameLine()
 			imgui.InputInt(u8('Лён (кол-во)'),elements.lavka.lens)
 			if elements.lavka.lens.v < 0 then elements.lavka.lens.v = 0 end
 			if elements.lavka.lens_price.v < 0 then elements.lavka.lens_price.v = 0 end
 			if elements.lavka.lens_price.v > 10000000 then elements.lavka.lens_price.v = 10000000 end
 			----------------------------------------
-			imgui.InputInt(u8('Цена  ##12'),elements.lavka.stone_price)
+			imgui.InputInt(u8('Цена  ##10'),elements.lavka.stone_price)
 			imgui.SameLine()
 			imgui.InputInt(u8('Камень (кол-во)'),elements.lavka.stone)
 			if elements.lavka.stone.v < 0 then elements.lavka.stone.v = 0 end
 			if elements.lavka.stone_price.v < 0 then elements.lavka.stone_price.v = 0 end
 			if elements.lavka.stone_price.v > 10000000 then elements.lavka.stone_price.v = 10000000 end
 			----------------------------------------
-			imgui.InputInt(u8('Цена  ##13'),elements.lavka.metal_price)
+			imgui.InputInt(u8('Цена  ##11'),elements.lavka.metal_price)
 			imgui.SameLine()
 			imgui.InputInt(u8('Металл (кол-во)'),elements.lavka.metal)
 			if elements.lavka.metal.v < 0 then elements.lavka.metal.v = 0 end
 			if elements.lavka.metal_price.v < 0 then elements.lavka.metal_price.v = 0 end
 			if elements.lavka.metal_price.v > 10000000 then elements.lavka.metal_price.v = 10000000 end
 			----------------------------------------
-			imgui.InputInt(u8('Цена  ##14'),elements.lavka.bronze_price)
+			imgui.InputInt(u8('Цена  ##12'),elements.lavka.bronze_price)
 			imgui.SameLine()
 			imgui.InputInt(u8('Бронза (кол-во)'),elements.lavka.bronze)
 			if elements.lavka.bronze.v < 0 then elements.lavka.bronze.v = 0 end
 			if elements.lavka.bronze_price.v < 0 then elements.lavka.bronze_price.v = 0 end
 			if elements.lavka.bronze_price.v > 10000000 then elements.lavka.bronze_price.v = 10000000 end
 			----------------------------------------
-			imgui.InputInt(u8('Цена  ##15'),elements.lavka.silver_price)
+			imgui.InputInt(u8('Цена  ##13'),elements.lavka.silver_price)
 			imgui.SameLine()
 			imgui.InputInt(u8('Серебро (кол-во)'),elements.lavka.silver)
 			if elements.lavka.silver.v < 0 then elements.lavka.silver.v = 0 end
 			if elements.lavka.silver_price.v < 0 then elements.lavka.silver_price.v = 0 end
 			if elements.lavka.silver_price.v > 10000000 then elements.lavka.silver_price.v = 10000000 end
 			----------------------------------------
-			imgui.InputInt(u8('Цена  ##16'),elements.lavka.gold_price)
+			imgui.InputInt(u8('Цена  ##14'),elements.lavka.gold_price)
 			imgui.SameLine()
 			imgui.InputInt(u8('Золото (кол-во)'),elements.lavka.gold)
 			if elements.lavka.gold.v < 0 then elements.lavka.gold.v = 0 end
 			if elements.lavka.gold_price.v < 0 then elements.lavka.gold_price.v = 0 end
 			if elements.lavka.gold_price.v > 10000000 then elements.lavka.gold_price.v = 10000000 end
 			----------------------------------------
-			imgui.InputInt(u8('Цена  ##17'),elements.lavka.alyminiu_price)
-			imgui.SameLine()
-			imgui.InputInt(u8('Алюминий (кол-во)'),elements.lavka.alyminiu)
-			if elements.lavka.alyminiu.v < 0 then elements.lavka.alyminiu.v = 0 end
-			if elements.lavka.alyminiu_price.v < 0 then elements.lavka.alyminiu_price.v = 0 end
-			if elements.lavka.alyminiu_price.v > 10000000 then elements.lavka.alyminiu_price.v = 10000000 end
-			----------------------------------------
-			imgui.InputInt(u8('Цена  ##18'),elements.lavka.tywka_price)
-			imgui.SameLine()
-			imgui.InputInt(u8('Тушка оленя (кол-во)'),elements.lavka.tywka)
-			if elements.lavka.tywka.v < 0 then elements.lavka.tywka.v = 0 end
-			if elements.lavka.tywka_price.v < 0 then elements.lavka.tywka_price.v = 0 end
-			if elements.lavka.tywka_price.v > 10000000 then elements.lavka.tywka_price.v = 10000000 end
-			----------------------------------------
-			imgui.InputInt(u8('Цена  ##19'),elements.lavka.wkyra_price)
-			imgui.SameLine()
-			imgui.InputInt(u8('Шкура оленя (кол-во)'),elements.lavka.wkyra)
-			if elements.lavka.wkyra.v < 0 then elements.lavka.wkyra.v = 0 end
-			if elements.lavka.wkyra_price.v < 0 then elements.lavka.wkyra_price.v = 0 end
-			if elements.lavka.wkyra_price.v > 10000000 then elements.lavka.wkyra_price.v = 10000000 end
-			----------------------------------------
-			imgui.InputInt(u8('Цена  ##20'),elements.lavka.euro_price)
+			imgui.InputInt(u8('Цена  ##15'),elements.lavka.euro_price)
 			imgui.SameLine()
 			imgui.InputInt(u8('Евро (кол-во)'),elements.lavka.euro)
 			if elements.lavka.euro.v < 0 then elements.lavka.euro.v = 0 end
 			if elements.lavka.euro_price.v < 0 then elements.lavka.euro_price.v = 0 end
 			if elements.lavka.euro_price.v > 10000000 then elements.lavka.euro_price.v = 10000000 end
 			----------------------------------------
-			imgui.InputInt(u8('Цена  ##21'),elements.lavka.gr_talon_price)
+			imgui.InputInt(u8('Цена  ##16'),elements.lavka.gr_talon_price)
 			imgui.SameLine()
 			imgui.InputInt(u8('Гражданский талон (кол-во)'),elements.lavka.gr_talon)
 			if elements.lavka.gr_talon.v < 0 then elements.lavka.gr_talon.v = 0 end
 			if elements.lavka.gr_talon_price.v < 0 then elements.lavka.gr_talon_price.v = 0 end
 			if elements.lavka.gr_talon_price.v > 10000000 then elements.lavka.gr_talon_price.v = 10000000 end
 			----------------------------------------
-			imgui.InputInt(u8('Цена  ##22'),elements.lavka.antibiotiki_price)
+			imgui.InputInt(u8('Цена  ##17'),elements.lavka.antibiotiki_price)
 			imgui.SameLine()
 			imgui.InputInt(u8('Антибиотики (кол-во)'),elements.lavka.antibiotiki)
 			if elements.lavka.antibiotiki.v < 0 then elements.lavka.antibiotiki.v = 0 end
 			if elements.lavka.antibiotiki_price.v < 0 then elements.lavka.antibiotiki_price.v = 0 end
 			if elements.lavka.antibiotiki_price.v > 10000000 then elements.lavka.antibiotiki_price.v = 10000000 end
 			----------------------------------------
-			imgui.InputInt(u8('Цена  ##23'),elements.lavka.prison_price)
+			imgui.InputInt(u8('Цена  ##18'),elements.lavka.prison_price)
 			imgui.SameLine()
 			imgui.InputInt(u8('Отмычки от ТСР (кол-во)'),elements.lavka.prison)
 			if elements.lavka.prison.v < 0 then elements.lavka.prison.v = 0 end
 			if elements.lavka.prison_price.v < 0 then elements.lavka.prison_price.v = 0 end
 			if elements.lavka.prison_price.v > 10000000 then elements.lavka.prison_price.v = 10000000 end
 			----------------------------------------
-			imgui.InputInt(u8('Модификация Reg Eyes'),elements.lavka.mod_reg_eyes_price)
-			if elements.lavka.mod_reg_eyes_price.v < 0 then elements.lavka.mod_reg_eyes_price.v = 0 end
-			if elements.lavka.mod_reg_eyes_price.v > 10000000 then elements.lavka.mod_reg_eyes_price.v = 10000000 end
-			----------------------------------------
-			imgui.InputInt(u8('Цена  ##24'),elements.lavka.zlov_moneta_price)
+			imgui.InputInt(u8('Цена  ##19'),elements.lavka.zlov_moneta_price)
 			imgui.SameLine()
 			imgui.InputInt(u8('Зловещая монета (кол-во)'),elements.lavka.zlov_moneta)
 			if elements.lavka.zlov_moneta.v < 0 then elements.lavka.zlov_moneta.v = 0 end
 			if elements.lavka.zlov_moneta_price.v < 0 then elements.lavka.zlov_moneta_price.v = 0 end
 			if elements.lavka.zlov_moneta_price.v > 10000000 then elements.lavka.zlov_moneta_price.v = 10000000 end
 			----------------------------------------
-			imgui.InputInt(u8('Цена  ##25'),elements.lavka.toch_stone_price)
+			imgui.InputInt(u8('Цена  ##20'),elements.lavka.toch_stone_price)
 			imgui.SameLine()
 			imgui.InputInt(u8('Точильные камни (кол-во)'),elements.lavka.toch_stone)
 			if elements.lavka.toch_stone.v < 0 then elements.lavka.toch_stone.v = 0 end
 			if elements.lavka.toch_stone_price.v < 0 then elements.lavka.toch_stone_price.v = 0 end
 			if elements.lavka.toch_stone_price.v > 10000000 then elements.lavka.toch_stone_price.v = 10000000 end
 			----------------------------------------
-			imgui.InputInt(u8('Цена  ##26'),elements.lavka.bilet_6_price)
+			imgui.InputInt(u8('Цена  ##21'),elements.lavka.bilet_6_price)
 			imgui.SameLine()
 			imgui.InputInt(u8('Билет 6 годовщины (кол-во)'),elements.lavka.bilet_6)
 			if elements.lavka.bilet_6.v < 0 then elements.lavka.bilet_6.v = 0 end
 			if elements.lavka.bilet_6_price.v < 0 then elements.lavka.bilet_6_price.v = 0 end
 			if elements.lavka.bilet_6_price.v > 10000000 then elements.lavka.bilet_6_price.v = 10000000 end
 			----------------------------------------
-			imgui.InputInt(u8('Цена  ##27'),elements.lavka.sticker_cluck_price)
+			imgui.InputInt(u8('Цена  ##22'),elements.lavka.sticker_cluck_price)
 			imgui.SameLine()
 			imgui.InputInt(u8('Стикер Cluckin Bell (кол-во)'),elements.lavka.sticker_cluck)
 			if elements.lavka.sticker_cluck.v < 0 then elements.lavka.sticker_cluck.v = 0 end
 			if elements.lavka.sticker_cluck_price.v < 0 then elements.lavka.sticker_cluck_price.v = 0 end
 			if elements.lavka.sticker_cluck_price.v > 10000000 then elements.lavka.sticker_cluck_price.v = 10000000 end
 			----------------------------------------
-			imgui.InputInt(u8('Цена  ##28'),elements.lavka.sticker_binko_price)
+			imgui.InputInt(u8('Цена  ##23'),elements.lavka.sticker_binko_price)
 			imgui.SameLine()
 			imgui.InputInt(u8('Стикер Binko (кол-во)'),elements.lavka.sticker_binko)
 			if elements.lavka.sticker_binko.v < 0 then elements.lavka.sticker_binko.v = 0 end
 			if elements.lavka.sticker_binko_price.v < 0 then elements.lavka.sticker_binko_price.v = 0 end
 			if elements.lavka.sticker_binko_price.v > 10000000 then elements.lavka.sticker_binko_price.v = 10000000 end
 			----------------------------------------
-			imgui.InputInt(u8('Цена  ##29'),elements.lavka.sticker_jizzy_price)
+			imgui.InputInt(u8('Цена  ##24'),elements.lavka.sticker_jizzy_price)
 			imgui.SameLine()
 			imgui.InputInt(u8('Стикер Jizzy (кол-во)'),elements.lavka.sticker_jizzy)
 			if elements.lavka.sticker_jizzy.v < 0 then elements.lavka.sticker_jizzy.v = 0 end
 			if elements.lavka.sticker_jizzy_price.v < 0 then elements.lavka.sticker_jizzy_price.v = 0 end
 			if elements.lavka.sticker_jizzy_price.v > 10000000 then elements.lavka.sticker_jizzy_price.v = 10000000 end
 			----------------------------------------
-			imgui.InputInt(u8('Цена  ##30'),elements.lavka.platinum_roll_price)
+			imgui.InputInt(u8('Цена  ##25'),elements.lavka.platinum_roll_price)
 			imgui.SameLine()
 			imgui.InputInt(u8('Платиновая рулетка (кол-во)'),elements.lavka.platinum_roll)
 			if elements.lavka.platinum_roll.v < 0 then elements.lavka.platinum_roll.v = 0 end
 			if elements.lavka.platinum_roll_price.v < 0 then elements.lavka.platinum_roll_price.v = 0 end
 			if elements.lavka.platinum_roll_price.v > 10000000 then elements.lavka.platinum_roll_price.v = 10000000 end
 			----------------------------------------
-			imgui.InputInt(u8('Цена  ##31'),elements.lavka.fam_money_price)
+			imgui.InputInt(u8('Цена  ##26'),elements.lavka.fam_money_price)
 			imgui.SameLine()
 			imgui.InputInt(u8('Семейная монета (кол-во)'),elements.lavka.fam_money)
 			if elements.lavka.fam_money.v < 0 then elements.lavka.fam_money.v = 0 end
 			if elements.lavka.fam_money_price.v < 0 then elements.lavka.fam_money_price.v = 0 end
 			if elements.lavka.fam_money_price.v > 10000000 then elements.lavka.fam_money_price.v = 10000000 end
 			----------------------------------------
-			imgui.InputInt(u8('Тедди в бирюзовой кофте'),elements.lavka.mod_teddi_1_price)
-			if elements.lavka.mod_teddi_1_price.v < 0 then elements.lavka.mod_teddi_1_price.v = 0 end
-			if elements.lavka.mod_teddi_1_price.v > 10000000 then elements.lavka.mod_teddi_1_price.v = 10000000 end
-			----------------------------------------
-			imgui.InputInt(u8('Тедди в красной кофте'),elements.lavka.mod_teddi_2_price)
-			if elements.lavka.mod_teddi_2_price.v < 0 then elements.lavka.mod_teddi_2_price.v = 0 end
-			if elements.lavka.mod_teddi_2_price.v > 10000000 then elements.lavka.mod_teddi_2_price.v = 10000000 end
-			----------------------------------------
-			imgui.InputInt(u8('Тедди в зеленой кофте'),elements.lavka.mod_teddi_3_price)
-			if elements.lavka.mod_teddi_3_price.v < 0 then elements.lavka.mod_teddi_3_price.v = 0 end
-			if elements.lavka.mod_teddi_3_price.v > 10000000 then elements.lavka.mod_teddi_3_price.v = 10000000 end
-			----------------------------------------
-			imgui.InputInt(u8('Цена  ##32'),elements.lavka.band_respect_price)
+			imgui.InputInt(u8('Цена  ##27'),elements.lavka.band_respect_price)
 			imgui.SameLine()
 			imgui.InputInt(u8('Бандитские респекты (кол-во)'),elements.lavka.band_respect)
 			if elements.lavka.band_respect.v < 0 then elements.lavka.band_respect.v = 0 end
 			if elements.lavka.band_respect_price.v < 0 then elements.lavka.band_respect_price.v = 0 end
 			if elements.lavka.band_respect_price.v > 10000000 then elements.lavka.band_respect_price.v = 10000000 end
 			----------------------------------------
-			imgui.InputInt(u8('Цена  ##33'),elements.lavka.larec_premium_price)
+			imgui.InputInt(u8('Цена  ##288'),elements.lavka.egg_price)
 			imgui.SameLine()
-			imgui.InputInt(u8('Ларец с премией (кол-во)'),elements.lavka.larec_premium)
-			if elements.lavka.larec_premium.v < 0 then elements.lavka.larec_premium.v = 0 end
-			if elements.lavka.larec_premium_price.v < 0 then elements.lavka.larec_premium_price.v = 0 end
-			if elements.lavka.larec_premium_price.v > 10000000 then elements.lavka.larec_premium_price.v = 10000000 end
+			imgui.InputInt(u8('Яйца (кол-во)'),elements.lavka.egg)
+			if elements.lavka.egg.v < 0 then elements.lavka.egg.v = 0 end
+			if elements.lavka.egg_price.v < 0 then elements.lavka.egg_price.v = 0 end
+			if elements.lavka.egg_price.v > 10000000 then elements.lavka.egg_price.v = 10000000 end
 			----------------------------------------
-			imgui.InputInt(u8('Цена  ##34'),elements.lavka.smazka_price)
+			imgui.InputInt(u8('Цена  ##28'),elements.lavka.smazka_price)
 			imgui.SameLine()
 			imgui.InputInt(u8('Смазка для разгона видеокарт (кол-во)'),elements.lavka.smazka)
 			if elements.lavka.smazka.v < 0 then elements.lavka.smazka.v = 0 end
 			if elements.lavka.smazka_price.v < 0 then elements.lavka.smazka_price.v = 0 end
 			if elements.lavka.smazka_price.v > 10000000 then elements.lavka.smazka_price.v = 10000000 end
 			----------------------------------------
-			imgui.InputInt(u8('Цена  ##35'),elements.lavka.oxlajdauka_price)
+			imgui.InputInt(u8('Цена  ##29'),elements.lavka.oxlajdauka_price)
 			imgui.SameLine()
 			imgui.InputInt(u8('Охлаждающая жидкость для видеокарты (кол-во)'),elements.lavka.oxlajdauka)
 			if elements.lavka.oxlajdauka.v < 0 then elements.lavka.oxlajdauka.v = 0 end
 			if elements.lavka.oxlajdauka_price.v < 0 then elements.lavka.oxlajdauka_price.v = 0 end
 			if elements.lavka.oxlajdauka_price.v > 10000000 then elements.lavka.oxlajdauka_price.v = 10000000 end
-			----------------------------------------
-			imgui.InputInt(u8('Цена  ##36'),elements.lavka.larec_car_box_price)
-			imgui.SameLine()
-			imgui.InputInt(u8('Ларец Super Car Box (кол-во)'),elements.lavka.larec_car_box)
-			if elements.lavka.larec_car_box.v < 0 then elements.lavka.larec_car_box.v = 0 end
-			if elements.lavka.larec_car_box_price.v < 0 then elements.lavka.larec_car_box_price.v = 0 end
-			if elements.lavka.larec_car_box_price.v > 10000000 then elements.lavka.larec_car_box_price.v = 10000000 end
-			----------------------------------------
-			imgui.InputInt(u8('Цена  ##37'),elements.lavka.larec_trucker_price)
-			imgui.SameLine()
-			imgui.InputInt(u8('Ларец Дальнобойщика (кол-во)'),elements.lavka.larec_trucker)
-			if elements.lavka.larec_trucker.v < 0 then elements.lavka.larec_trucker.v = 0 end
-			if elements.lavka.larec_trucker_price.v < 0 then elements.lavka.larec_trucker_price.v = 0 end
-			if elements.lavka.larec_trucker_price.v > 10000000 then elements.lavka.larec_trucker_price.v = 10000000 end
 			----------------------------------------
 			imgui.Separator()
 		end
@@ -3135,12 +2863,6 @@ INVALID_OBJECT_ID\n\
 		end
 		if elements.lavka.fam_talon.v ~= 0 then
 			count_all = count_all+(elements.lavka.fam_talon_price.v*elements.lavka.fam_talon.v)
-		end
-		if elements.lavka.cherepa.v ~= 0 then
-			count_all = count_all+(elements.lavka.cherepa_price.v*elements.lavka.cherepa.v)
-		end
-		if elements.lavka.sale_talon.v ~= 0 then
-			count_all = count_all+(elements.lavka.sale_talon_price.v*elements.lavka.sale_talon.v)
 		end
 		if elements.lavka.gift.v ~= 0 then
 			count_all = count_all+(elements.lavka.gift_price.v*elements.lavka.gift.v)
@@ -3175,15 +2897,6 @@ INVALID_OBJECT_ID\n\
 		if elements.lavka.gold.v ~= 0 then
 			count_all = count_all+(elements.lavka.gold_price.v*elements.lavka.gold.v)
 		end
-		if elements.lavka.alyminiu.v ~= 0 then
-			count_all = count_all+(elements.lavka.alyminiu_price.v*elements.lavka.alyminiu.v)
-		end
-		if elements.lavka.tywka.v ~= 0 then
-			count_all = count_all+(elements.lavka.tywka_price.v*elements.lavka.tywka.v)
-		end
-		if elements.lavka.wkyra.v ~= 0 then
-			count_all = count_all+(elements.lavka.wkyra_price.v*elements.lavka.wkyra.v)
-		end
 		if elements.lavka.euro.v ~= 0 then
 			count_all = count_all+(elements.lavka.euro_price.v*elements.lavka.euro.v)
 		end
@@ -3195,9 +2908,6 @@ INVALID_OBJECT_ID\n\
 		end
 		if elements.lavka.prison.v ~= 0 then
 			count_all = count_all+(elements.lavka.prison_price.v*elements.lavka.prison.v)
-		end
-		if elements.lavka.mod_reg_eyes_price.v ~= 0 then
-			count_all = count_all+elements.lavka.mod_reg_eyes_price.v
 		end
 		if elements.lavka.zlov_moneta.v ~= 0 then
 			count_all = count_all+(elements.lavka.zlov_moneta_price.v*elements.lavka.zlov_moneta.v)
@@ -3220,32 +2930,17 @@ INVALID_OBJECT_ID\n\
 		if elements.lavka.platinum_roll.v ~= 0 then
 			count_all = count_all+(elements.lavka.platinum_roll_price.v*elements.lavka.platinum_roll.v)
 		end
-		if elements.lavka.mod_teddi_1_price.v ~= 0 then
-			count_all = count_all+elements.lavka.mod_teddi_1_price.v
-		end
-		if elements.lavka.mod_teddi_2_price.v ~= 0 then
-			count_all = count_all+elements.lavka.mod_teddi_2_price.v
-		end
-		if elements.lavka.mod_teddi_3_price.v ~= 0 then
-			count_all = count_all+elements.lavka.mod_teddi_3_price.v
-		end
 		if elements.lavka.band_respect.v ~= 0 then
 			count_all = count_all+(elements.lavka.band_respect_price.v*elements.lavka.band_respect.v)
 		end
-		if elements.lavka.larec_premium.v ~= 0 then
-			count_all = count_all+(elements.lavka.larec_premium_price.v*elements.lavka.larec_premium.v)
+		if elements.lavka.egg.v ~= 0 then
+			count_all = count_all+(elements.lavka.egg_price.v*elements.lavka.egg.v)
 		end
 		if elements.lavka.smazka.v ~= 0 then
 			count_all = count_all+(elements.lavka.smazka_price.v*elements.lavka.smazka.v)
 		end
 		if elements.lavka.oxlajdauka.v ~= 0 then
 			count_all = count_all+(elements.lavka.oxlajdauka_price.v*elements.lavka.oxlajdauka.v)
-		end
-		if elements.lavka.larec_car_box.v ~= 0 then
-			count_all = count_all+(elements.lavka.larec_car_box_price.v*elements.lavka.larec_car_box.v)
-		end
-		if elements.lavka.larec_trucker.v ~= 0 then
-			count_all = count_all+(elements.lavka.larec_trucker_price.v*elements.lavka.larec_trucker.v)
 		end
 		----------------------------------------
 		imgui.Text(u8('Для покупки всех товаров необходимо $'..count_all))
@@ -3707,13 +3402,6 @@ function sampev.onServerMessage(color, text)
 			file_logs:close()
 		end
 	end
-	--------------------[Авто-открытие рулеток]--------------------
-	if text:find("Вам был добавлен предмет") then
-		elements.autoopenroul.open_roul_active = true
-	end
-	if text:find('%[Подсказка%] %{FFFFFF%}Вы получили +(.+)%$!') then
-		elements.autoopenroul.open_roul_active = true
-	end
 	--------------------[Авто-точилка аксессуаров]--------------------
 	if text:find('Увы, вам не удалось улучшить предмет') and elements.autotoch.autotoch_enable.v == true then
 		elements.autotoch.autotoch_active = true
@@ -3967,15 +3655,8 @@ end
 function sampev.onSetPlayerName(playerid, name, success)
 	for i = 1, #friends do
 		if name == friends[i] and local_name ~= friends[i] then
-			----------------------------------------
-			if elements.chat.tosampfuncsconnect.v then
-				sampfuncsLog('{FF3300}'..os.date('[%H:%M:%S] ')..name..'['..playerid..'] заходит на сервер (2).')
-			end
-			----------------------------------------
-			if elements.chat.sendconnect.v then
-				sampAddChatMessage(name..'['..playerid..'] заходит на сервер (2).', 0xFF3300)
-			end
-			----------------------------------------
+			sampfuncsLog('{FF3300}'..os.date('[%H:%M:%S] ')..name..'['..playerid..'] заходит на сервер (2).')
+			sampAddChatMessage(name..'['..playerid..'] заходит на сервер (2).', 0xFF3300)
 		end
 	end
 	----------------------------------------
@@ -3984,15 +3665,8 @@ end
 function sampev.onPlayerJoin(playerid, color, isNpc, nickname)
 	for i = 1, #friends do
 		if nickname == friends[i] and local_name ~= friends[i] then
-			----------------------------------------
-			if elements.chat.tosampfuncsconnect.v then
-				sampfuncsLog('{FF3300}'..os.date('[%H:%M:%S] ')..nickname..'['..playerid..'] заходит на сервер.')
-			end
-			----------------------------------------
-			if elements.chat.sendconnect.v then
-				sampAddChatMessage(nickname..'['..playerid..'] заходит на сервер.', 0xFF3300)
-			end
-			----------------------------------------
+			sampfuncsLog('{FF3300}'..os.date('[%H:%M:%S] ')..nickname..'['..playerid..'] заходит на сервер.')
+			sampAddChatMessage(nickname..'['..playerid..'] заходит на сервер.', 0xFF3300)
 		end
 	end
 	----------------------------------------
@@ -4007,14 +3681,8 @@ function sampev.onPlayerQuit(playerid, reason)
 			elseif reason == 1 then reason_s = string.format("Вышел")
 			else reason_s = string.format("Кик/Бан") end
 			----------------------------------------
-			if elements.chat.tosampfuncsdisconnect.v then
-				sampfuncsLog('{FF3300}'..os.date('[%H:%M:%S] ')..nickname..'['..playerid..'] выходит с сервера. Причина: '..reason_s)
-			end
-			----------------------------------------
-			if elements.chat.senddisconnect.v then
-				sampAddChatMessage(nickname..'['..playerid..'] выходит с сервера. Причина: '..reason_s, 0xFF3300)
-			end
-			----------------------------------------
+			sampfuncsLog('{FF3300}'..os.date('[%H:%M:%S] ')..nickname..'['..playerid..'] выходит с сервера. Причина: '..reason_s)
+			sampAddChatMessage(nickname..'['..playerid..'] выходит с сервера. Причина: '..reason_s, 0xFF3300)
 		end
 	end
 	----------------------------------------
@@ -4258,164 +3926,109 @@ function skupka()
 	lua_thread.create(function()
 		if elements.lavka.drugs.v ~= 0 then
 			wait(delay_skupka)
-			sampSendDialogResponse(3040, 1, nil, nil)
+			sampSendDialogResponse(3040, 1, 2, nil)
 			sampSendDialogResponse(3050, 1, 0, nil)
 			sampSendDialogResponse(3060, 1, 0, elements.lavka.drugs.v..' '..elements.lavka.drugs_price.v)
 		end
 		if elements.lavka.materials.v ~= 0 then
 			wait(delay_skupka)
-			sampSendDialogResponse(3040, 1, nil, nil)
+			sampSendDialogResponse(3040, 1, 2, nil)
 			sampSendDialogResponse(3050, 1, 1, nil)
 			sampSendDialogResponse(3060, 1, 0, elements.lavka.materials.v..' '..elements.lavka.materials_price.v)
 		end
 		if elements.lavka.fam_talon.v ~= 0 then
 			wait(delay_skupka)
-			sampSendDialogResponse(3040, 1, nil, nil)
-			sampSendDialogResponse(3050, 1, 12, nil)
+			sampSendDialogResponse(3040, 1, 2, nil)
+			sampSendDialogResponse(3050, 1, 11, nil)
 			sampSendDialogResponse(3060, 1, 0, elements.lavka.fam_talon.v..' '..elements.lavka.fam_talon_price.v)
-		end
-		if elements.lavka.cherepa.v ~= 0 then
-			wait(delay_skupka)
-			sampSendDialogResponse(3040, 1, nil, nil)
-			sampSendDialogResponse(3050, 1, 18, nil)
-			sampSendDialogResponse(3060, 1, 0, elements.lavka.cherepa.v..' '..elements.lavka.cherepa_price.v)
-		end
-		if elements.lavka.sale_talon.v ~= 0 then
-			wait(delay_skupka)
-			sampSendDialogResponse(3040, 1, nil, nil)
-			sampSendDialogResponse(3050, 1, 19, nil)
-			sampSendDialogResponse(3050, 1, 4, nil)
-			sampSendDialogResponse(3060, 1, 0, elements.lavka.sale_talon.v..' '..elements.lavka.sale_talon_price.v)
 		end
 		if elements.lavka.gift.v ~= 0 then
 			wait(delay_skupka)
-			sampSendDialogResponse(3040, 1, nil, nil)
+			sampSendDialogResponse(3040, 1, 2, nil)
 			sampSendDialogResponse(3050, 1, 19, nil)
-			sampSendDialogResponse(3050, 1, 5, nil)
+			sampSendDialogResponse(3050, 1, 3, nil)
 			sampSendDialogResponse(3060, 1, 0, elements.lavka.gift.v..' '..elements.lavka.gift_price.v)
 		end
 		if elements.lavka.cooper_roll.v ~= 0 then
 			wait(delay_skupka)
-			sampSendDialogResponse(3040, 1, nil, nil)
+			sampSendDialogResponse(3040, 1, 2, nil)
 			sampSendDialogResponse(3050, 1, 19, nil)
-			sampSendDialogResponse(3050, 1, 8, nil)
+			sampSendDialogResponse(3050, 1, 6, nil)
 			sampSendDialogResponse(3060, 1, 0, elements.lavka.cooper_roll.v..' '..elements.lavka.cooper_roll_price.v)
 		end
 		if elements.lavka.silver_roll.v ~= 0 then
 			wait(delay_skupka)
-			sampSendDialogResponse(3040, 1, nil, nil)
+			sampSendDialogResponse(3040, 1, 2, nil)
 			sampSendDialogResponse(3050, 1, 19, nil)
-			sampSendDialogResponse(3050, 1, 9, nil)
+			sampSendDialogResponse(3050, 1, 7, nil)
 			sampSendDialogResponse(3060, 1, 0, elements.lavka.silver_roll.v..' '..elements.lavka.silver_roll_price.v)
 		end
 		if elements.lavka.gold_roll.v ~= 0 then
 			wait(delay_skupka)
-			sampSendDialogResponse(3040, 1, nil, nil)
+			sampSendDialogResponse(3040, 1, 2, nil)
 			sampSendDialogResponse(3050, 1, 19, nil)
-			sampSendDialogResponse(3050, 1, 10, nil)
+			sampSendDialogResponse(3050, 1, 8, nil)
 			sampSendDialogResponse(3060, 1, 0, elements.lavka.gold_roll.v..' '..elements.lavka.gold_roll_price.v)
 		end
 		if elements.lavka.xlopok.v ~= 0 then
 			wait(delay_skupka)
-			sampSendDialogResponse(3040, 1, nil, nil)
+			sampSendDialogResponse(3040, 1, 2, nil)
 			sampSendDialogResponse(3050, 1, 19, nil)
 			sampSendDialogResponse(3050, 1, 20, nil)
-			sampSendDialogResponse(3050, 1, 2, nil)
+			sampSendDialogResponse(3050, 1, 0, nil)
 			sampSendDialogResponse(3060, 1, 0, elements.lavka.xlopok.v..' '..elements.lavka.xlopok_price.v)
 		end
 		if elements.lavka.lens.v ~= 0 then
 			wait(delay_skupka)
-			sampSendDialogResponse(3040, 1, nil, nil)
+			sampSendDialogResponse(3040, 1, 2, nil)
 			sampSendDialogResponse(3050, 1, 19, nil)
 			sampSendDialogResponse(3050, 1, 20, nil)
-			sampSendDialogResponse(3050, 1, 3, nil)
+			sampSendDialogResponse(3050, 1, 1, nil)
 			sampSendDialogResponse(3060, 1, 0, elements.lavka.lens.v..' '..elements.lavka.lens_price.v)
 		end
 		if elements.lavka.stone.v ~= 0 then
 			wait(delay_skupka)
-			sampSendDialogResponse(3040, 1, nil, nil)
+			sampSendDialogResponse(3040, 1, 2, nil)
 			sampSendDialogResponse(3050, 1, 19, nil)
 			sampSendDialogResponse(3050, 1, 20, nil)
-			sampSendDialogResponse(3050, 1, 4, nil)
+			sampSendDialogResponse(3050, 1, 2, nil)
 			sampSendDialogResponse(3060, 1, 0, elements.lavka.stone.v..' '..elements.lavka.stone_price.v)
 		end
 		if elements.lavka.metal.v ~= 0 then
 			wait(delay_skupka)
-			sampSendDialogResponse(3040, 1, nil, nil)
+			sampSendDialogResponse(3040, 1, 2, nil)
 			sampSendDialogResponse(3050, 1, 19, nil)
 			sampSendDialogResponse(3050, 1, 20, nil)
-			sampSendDialogResponse(3050, 1, 5, nil)
+			sampSendDialogResponse(3050, 1, 3, nil)
 			sampSendDialogResponse(3060, 1, 0, elements.lavka.metal.v..' '..elements.lavka.metal_price.v)
 		end
 		if elements.lavka.bronze.v ~= 0 then
 			wait(delay_skupka)
-			sampSendDialogResponse(3040, 1, nil, nil)
+			sampSendDialogResponse(3040, 1, 2, nil)
 			sampSendDialogResponse(3050, 1, 19, nil)
 			sampSendDialogResponse(3050, 1, 20, nil)
-			sampSendDialogResponse(3050, 1, 6, nil)
+			sampSendDialogResponse(3050, 1, 4, nil)
 			sampSendDialogResponse(3060, 1, 0, elements.lavka.bronze.v..' '..elements.lavka.bronze_price.v)
 		end
 		if elements.lavka.silver.v ~= 0 then
 			wait(delay_skupka)
-			sampSendDialogResponse(3040, 1, nil, nil)
+			sampSendDialogResponse(3040, 1, 2, nil)
 			sampSendDialogResponse(3050, 1, 19, nil)
 			sampSendDialogResponse(3050, 1, 20, nil)
-			sampSendDialogResponse(3050, 1, 7, nil)
+			sampSendDialogResponse(3050, 1, 5, nil)
 			sampSendDialogResponse(3060, 1, 0, elements.lavka.silver.v..' '..elements.lavka.silver_price.v)
 		end
 		if elements.lavka.gold.v ~= 0 then
 			wait(delay_skupka)
-			sampSendDialogResponse(3040, 1, nil, nil)
+			sampSendDialogResponse(3040, 1, 2, nil)
 			sampSendDialogResponse(3050, 1, 19, nil)
 			sampSendDialogResponse(3050, 1, 20, nil)
-			sampSendDialogResponse(3050, 1, 8, nil)
+			sampSendDialogResponse(3050, 1, 6, nil)
 			sampSendDialogResponse(3060, 1, 0, elements.lavka.gold.v..' '..elements.lavka.gold_price.v)
-		end
-		if elements.lavka.alyminiu.v ~= 0 then
-			wait(delay_skupka)
-			sampSendDialogResponse(3040, 1, nil, nil)
-			sampSendDialogResponse(3050, 1, 19, nil)
-			sampSendDialogResponse(3050, 1, 20, nil)
-			sampSendDialogResponse(3050, 1, 20, nil)
-			sampSendDialogResponse(3050, 1, 18, nil)
-			wait(delay_skupka)
-			sampSendDialogResponse(3060, 1, 0, elements.lavka.alyminiu.v..' '..elements.lavka.alyminiu_price.v)
-		end
-		if elements.lavka.tywka.v ~= 0 then
-			wait(delay_skupka)
-			sampSendDialogResponse(3040, 1, nil, nil)
-			sampSendDialogResponse(3050, 1, 19, nil)
-			sampSendDialogResponse(3050, 1, 20, nil)
-			sampSendDialogResponse(3050, 1, 20, nil)
-			sampSendDialogResponse(3050, 1, 20, nil)
-			wait(delay_skupka)
-			sampSendDialogResponse(3050, 1, 20, nil)
-			sampSendDialogResponse(3050, 1, 20, nil)
-			sampSendDialogResponse(3050, 1, 20, nil)
-			sampSendDialogResponse(3050, 1, 20, nil)
-			wait(delay_skupka)
-			sampSendDialogResponse(3050, 1, 12, nil)
-			sampSendDialogResponse(3060, 1, 0, elements.lavka.tywka.v..' '..elements.lavka.tywka_price.v)
-		end
-		if elements.lavka.wkyra.v ~= 0 then
-			wait(delay_skupka)
-			sampSendDialogResponse(3040, 1, nil, nil)
-			sampSendDialogResponse(3050, 1, 19, nil)
-			sampSendDialogResponse(3050, 1, 20, nil)
-			sampSendDialogResponse(3050, 1, 20, nil)
-			sampSendDialogResponse(3050, 1, 20, nil)
-			wait(delay_skupka)
-			sampSendDialogResponse(3050, 1, 20, nil)
-			sampSendDialogResponse(3050, 1, 20, nil)
-			sampSendDialogResponse(3050, 1, 20, nil)
-			sampSendDialogResponse(3050, 1, 20, nil)
-			wait(delay_skupka)
-			sampSendDialogResponse(3050, 1, 13, nil)
-			sampSendDialogResponse(3060, 1, 0, elements.lavka.wkyra.v..' '..elements.lavka.wkyra_price.v)
 		end
 		if elements.lavka.euro.v ~= 0 then
 			wait(delay_skupka)
-			sampSendDialogResponse(3040, 1, nil, nil)
+			sampSendDialogResponse(3040, 1, 2, nil)
 			sampSendDialogResponse(3050, 1, 19, nil)
 			sampSendDialogResponse(3050, 1, 20, nil)
 			sampSendDialogResponse(3050, 1, 20, nil)
@@ -4435,12 +4048,12 @@ function skupka()
 			wait(delay_skupka)
 			sampSendDialogResponse(3050, 1, 20, nil)
 			sampSendDialogResponse(3050, 1, 20, nil)
-			sampSendDialogResponse(3050, 1, 4, nil)
+			sampSendDialogResponse(3050, 1, 2, nil)
 			sampSendDialogResponse(3060, 1, 0, elements.lavka.euro.v..' '..elements.lavka.euro_price.v)
 		end
 		if elements.lavka.gr_talon.v ~= 0 then
 			wait(delay_skupka)
-			sampSendDialogResponse(3040, 1, nil, nil)
+			sampSendDialogResponse(3040, 1, 2, nil)
 			sampSendDialogResponse(3050, 1, 19, nil)
 			sampSendDialogResponse(3050, 1, 20, nil)
 			sampSendDialogResponse(3050, 1, 20, nil)
@@ -4462,13 +4075,13 @@ function skupka()
 			sampSendDialogResponse(3050, 1, 20, nil)
 			sampSendDialogResponse(3050, 1, 20, nil)
 			sampSendDialogResponse(3050, 1, 20, nil)
-			sampSendDialogResponse(3050, 1, 5, nil)
+			sampSendDialogResponse(3050, 1, 3, nil)
 			wait(delay_skupka)
 			sampSendDialogResponse(3060, 1, 0, elements.lavka.gr_talon.v..' '..elements.lavka.gr_talon_price.v)
 		end
 		if elements.lavka.antibiotiki.v ~= 0 then
 			wait(delay_skupka)
-			sampSendDialogResponse(3040, 1, nil, nil)
+			sampSendDialogResponse(3040, 1, 2, nil)
 			sampSendDialogResponse(3050, 1, 19, nil)
 			sampSendDialogResponse(3050, 1, 20, nil)
 			sampSendDialogResponse(3050, 1, 20, nil)
@@ -4490,13 +4103,13 @@ function skupka()
 			sampSendDialogResponse(3050, 1, 20, nil)
 			sampSendDialogResponse(3050, 1, 20, nil)
 			sampSendDialogResponse(3050, 1, 20, nil)
-			sampSendDialogResponse(3050, 1, 6, nil)
+			sampSendDialogResponse(3050, 1, 4, nil)
 			wait(delay_skupka)
 			sampSendDialogResponse(3060, 1, 0, elements.lavka.antibiotiki.v..' '..elements.lavka.antibiotiki_price.v)
 		end
 		if elements.lavka.prison.v ~= 0 then
 			wait(delay_skupka)
-			sampSendDialogResponse(3040, 1, nil, nil)
+			sampSendDialogResponse(3040, 1, 2, nil)
 			sampSendDialogResponse(3050, 1, 19, nil)
 			sampSendDialogResponse(3050, 1, 20, nil)
 			sampSendDialogResponse(3050, 1, 20, nil)
@@ -4518,42 +4131,13 @@ function skupka()
 			sampSendDialogResponse(3050, 1, 20, nil)
 			sampSendDialogResponse(3050, 1, 20, nil)
 			sampSendDialogResponse(3050, 1, 20, nil)
-			sampSendDialogResponse(3050, 1, 7, nil)
+			sampSendDialogResponse(3050, 1, 5, nil)
 			wait(delay_skupka)
 			sampSendDialogResponse(3060, 1, 0, elements.lavka.prison.v..' '..elements.lavka.prison_price.v)
 		end
-		if elements.lavka.mod_reg_eyes_price.v ~= 0 then
-			wait(delay_skupka)
-			sampSendDialogResponse(3040, 1, nil, nil)
-			sampSendDialogResponse(3050, 1, 19, nil)
-			sampSendDialogResponse(3050, 1, 20, nil)
-			sampSendDialogResponse(3050, 1, 20, nil)
-			sampSendDialogResponse(3050, 1, 20, nil)
-			wait(delay_skupka)
-			sampSendDialogResponse(3050, 1, 20, nil)
-			sampSendDialogResponse(3050, 1, 20, nil)
-			sampSendDialogResponse(3050, 1, 20, nil)
-			sampSendDialogResponse(3050, 1, 20, nil)
-			sampSendDialogResponse(3050, 1, 20, nil)
-			wait(delay_skupka)
-			sampSendDialogResponse(3050, 1, 20, nil)
-			sampSendDialogResponse(3050, 1, 20, nil)
-			sampSendDialogResponse(3050, 1, 20, nil)
-			sampSendDialogResponse(3050, 1, 20, nil)
-			sampSendDialogResponse(3050, 1, 20, nil)
-			wait(delay_skupka)
-			sampSendDialogResponse(3050, 1, 20, nil)
-			sampSendDialogResponse(3050, 1, 20, nil)
-			sampSendDialogResponse(3050, 1, 20, nil)
-			sampSendDialogResponse(3050, 1, 20, nil)
-			sampSendDialogResponse(3050, 1, 20, nil)
-			wait(delay_skupka)
-			sampSendDialogResponse(3050, 1, 13, nil)
-			sampSendDialogResponse(3060, 1, 0, elements.lavka.mod_reg_eyes_price.v)
-		end
 		if elements.lavka.zlov_moneta.v ~= 0 then
 			wait(delay_skupka)
-			sampSendDialogResponse(3040, 1, nil, nil)
+			sampSendDialogResponse(3040, 1, 2, nil)
 			sampSendDialogResponse(3050, 1, 19, nil)
 			sampSendDialogResponse(3050, 1, 20, nil)
 			sampSendDialogResponse(3050, 1, 20, nil)
@@ -4577,12 +4161,12 @@ function skupka()
 			sampSendDialogResponse(3050, 1, 20, nil)
 			sampSendDialogResponse(3050, 1, 20, nil)
 			wait(delay_skupka)
-			sampSendDialogResponse(3050, 1, 17, nil)
+			sampSendDialogResponse(3050, 1, 15, nil)
 			sampSendDialogResponse(3060, 1, 0, elements.lavka.zlov_moneta.v..' '..elements.lavka.zlov_moneta_price.v)
 		end
 		if elements.lavka.toch_stone.v ~= 0 then
 			wait(delay_skupka)
-			sampSendDialogResponse(3040, 1, nil, nil)
+			sampSendDialogResponse(3040, 1, 2, nil)
 			sampSendDialogResponse(3050, 1, 19, nil)
 			sampSendDialogResponse(3050, 1, 20, nil)
 			sampSendDialogResponse(3050, 1, 20, nil)
@@ -4606,12 +4190,12 @@ function skupka()
 			sampSendDialogResponse(3050, 1, 20, nil)
 			sampSendDialogResponse(3050, 1, 20, nil)
 			wait(delay_skupka)
-			sampSendDialogResponse(3050, 1, 18, nil)
+			sampSendDialogResponse(3050, 1, 16, nil)
 			sampSendDialogResponse(3060, 1, 0, elements.lavka.toch_stone.v..' '..elements.lavka.toch_stone_price.v)
 		end
 		if elements.lavka.bilet_6.v ~= 0 then
 			wait(delay_skupka)
-			sampSendDialogResponse(3040, 1, nil, nil)
+			sampSendDialogResponse(3040, 1, 2, nil)
 			sampSendDialogResponse(3050, 1, 19, nil)
 			sampSendDialogResponse(3050, 1, 20, nil)
 			sampSendDialogResponse(3050, 1, 20, nil)
@@ -4636,12 +4220,12 @@ function skupka()
 			sampSendDialogResponse(3050, 1, 20, nil)
 			wait(delay_skupka)
 			sampSendDialogResponse(3050, 1, 20, nil)
-			sampSendDialogResponse(3050, 1, 3, nil)
+			sampSendDialogResponse(3050, 1, 1, nil)
 			sampSendDialogResponse(3060, 1, 0, elements.lavka.bilet_6.v..' '..elements.lavka.bilet_6_price.v)
 		end
 		if elements.lavka.sticker_cluck.v ~= 0 then
 			wait(delay_skupka)
-			sampSendDialogResponse(3040, 1, nil, nil)
+			sampSendDialogResponse(3040, 1, 2, nil)
 			sampSendDialogResponse(3050, 1, 19, nil)
 			sampSendDialogResponse(3050, 1, 20, nil)
 			sampSendDialogResponse(3050, 1, 20, nil)
@@ -4666,12 +4250,12 @@ function skupka()
 			sampSendDialogResponse(3050, 1, 20, nil)
 			wait(delay_skupka)
 			sampSendDialogResponse(3050, 1, 20, nil)
-			sampSendDialogResponse(3050, 1, 4, nil)
+			sampSendDialogResponse(3050, 1, 2, nil)
 			sampSendDialogResponse(3060, 1, 0, elements.lavka.sticker_cluck.v..' '..elements.lavka.sticker_cluck_price.v)
 		end
 		if elements.lavka.sticker_binko.v ~= 0 then
 			wait(delay_skupka)
-			sampSendDialogResponse(3040, 1, nil, nil)
+			sampSendDialogResponse(3040, 1, 2, nil)
 			sampSendDialogResponse(3050, 1, 19, nil)
 			sampSendDialogResponse(3050, 1, 20, nil)
 			sampSendDialogResponse(3050, 1, 20, nil)
@@ -4696,147 +4280,13 @@ function skupka()
 			sampSendDialogResponse(3050, 1, 20, nil)
 			wait(delay_skupka)
 			sampSendDialogResponse(3050, 1, 20, nil)
-			sampSendDialogResponse(3050, 1, 8, nil)
+			sampSendDialogResponse(3050, 1, 6, nil)
 			sampSendDialogResponse(3060, 1, 0, elements.lavka.sticker_binko.v..' '..elements.lavka.sticker_binko_price.v)
 		end
 		if elements.lavka.sticker_jizzy.v ~= 0 then
 			wait(delay_skupka)
-			sampSendDialogResponse(3040, 1, nil, nil)
+			sampSendDialogResponse(3040, 1, 2, nil)
 			sampSendDialogResponse(3050, 1, 19, nil)
-			sampSendDialogResponse(3050, 1, 20, nil)
-			sampSendDialogResponse(3050, 1, 20, nil)
-			sampSendDialogResponse(3050, 1, 20, nil)
-			wait(delay_skupka)
-			sampSendDialogResponse(3050, 1, 20, nil)
-			sampSendDialogResponse(3050, 1, 20, nil)
-			sampSendDialogResponse(3050, 1, 20, nil)
-			sampSendDialogResponse(3050, 1, 20, nil)
-			sampSendDialogResponse(3050, 1, 20, nil)
-			wait(delay_skupka)
-			sampSendDialogResponse(3050, 1, 20, nil)
-			sampSendDialogResponse(3050, 1, 20, nil)
-			sampSendDialogResponse(3050, 1, 20, nil)
-			sampSendDialogResponse(3050, 1, 20, nil)
-			sampSendDialogResponse(3050, 1, 20, nil)
-			wait(delay_skupka)
-			sampSendDialogResponse(3050, 1, 20, nil)
-			sampSendDialogResponse(3050, 1, 20, nil)
-			sampSendDialogResponse(3050, 1, 20, nil)
-			sampSendDialogResponse(3050, 1, 20, nil)
-			sampSendDialogResponse(3050, 1, 20, nil)
-			wait(delay_skupka)
-			sampSendDialogResponse(3050, 1, 20, nil)
-			sampSendDialogResponse(3050, 1, 9, nil)
-			sampSendDialogResponse(3060, 1, 0, elements.lavka.sticker_jizzy.v..' '..elements.lavka.sticker_jizzy_price.v)
-		end
-		if elements.lavka.platinum_roll.v ~= 0 then
-			wait(delay_skupka)
-			sampSendDialogResponse(3040, 1, nil, nil)
-			sampSendDialogResponse(3050, 1, 19, nil)
-			sampSendDialogResponse(3050, 1, 20, nil)
-			sampSendDialogResponse(3050, 1, 20, nil)
-			sampSendDialogResponse(3050, 1, 20, nil)
-			wait(delay_skupka)
-			sampSendDialogResponse(3050, 1, 20, nil)
-			sampSendDialogResponse(3050, 1, 20, nil)
-			sampSendDialogResponse(3050, 1, 20, nil)
-			sampSendDialogResponse(3050, 1, 20, nil)
-			sampSendDialogResponse(3050, 1, 20, nil)
-			wait(delay_skupka)
-			sampSendDialogResponse(3050, 1, 20, nil)
-			sampSendDialogResponse(3050, 1, 20, nil)
-			sampSendDialogResponse(3050, 1, 20, nil)
-			sampSendDialogResponse(3050, 1, 20, nil)
-			sampSendDialogResponse(3050, 1, 20, nil)
-			wait(delay_skupka)
-			sampSendDialogResponse(3050, 1, 20, nil)
-			sampSendDialogResponse(3050, 1, 20, nil)
-			sampSendDialogResponse(3050, 1, 20, nil)
-			sampSendDialogResponse(3050, 1, 20, nil)
-			sampSendDialogResponse(3050, 1, 20, nil)
-			wait(delay_skupka)
-			sampSendDialogResponse(3050, 1, 20, nil)
-			sampSendDialogResponse(3050, 1, 10, nil)
-			sampSendDialogResponse(3060, 1, 0, elements.lavka.platinum_roll.v..' '..elements.lavka.platinum_roll_price.v)
-		end
-		if elements.lavka.fam_money.v ~= 0 then
-			wait(delay_skupka)
-			sampSendDialogResponse(3040, 1, nil, nil)
-			sampSendDialogResponse(3050, 1, 19, nil)
-			sampSendDialogResponse(3050, 1, 20, nil)
-			sampSendDialogResponse(3050, 1, 20, nil)
-			sampSendDialogResponse(3050, 1, 20, nil)
-			wait(delay_skupka)
-			sampSendDialogResponse(3050, 1, 20, nil)
-			sampSendDialogResponse(3050, 1, 20, nil)
-			sampSendDialogResponse(3050, 1, 20, nil)
-			sampSendDialogResponse(3050, 1, 20, nil)
-			sampSendDialogResponse(3050, 1, 20, nil)
-			wait(delay_skupka)
-			sampSendDialogResponse(3050, 1, 20, nil)
-			sampSendDialogResponse(3050, 1, 20, nil)
-			sampSendDialogResponse(3050, 1, 20, nil)
-			sampSendDialogResponse(3050, 1, 20, nil)
-			sampSendDialogResponse(3050, 1, 20, nil)
-			wait(delay_skupka)
-			sampSendDialogResponse(3050, 1, 20, nil)
-			sampSendDialogResponse(3050, 1, 20, nil)
-			sampSendDialogResponse(3050, 1, 20, nil)
-			sampSendDialogResponse(3050, 1, 20, nil)
-			sampSendDialogResponse(3050, 1, 20, nil)
-			wait(delay_skupka)
-			sampSendDialogResponse(3050, 1, 20, nil)
-			sampSendDialogResponse(3050, 1, 20, nil)
-			sampSendDialogResponse(3050, 1, 20, nil)
-			sampSendDialogResponse(3050, 1, 14, nil)
-			sampSendDialogResponse(3060, 1, 0, elements.lavka.fam_money.v..' '..elements.lavka.fam_money_price.v)
-		end
-		if elements.lavka.mod_teddi_1_price.v ~= 0 then
-			wait(delay_skupka)
-			sampSendDialogResponse(3040, 1, nil, nil)
-			sampSendDialogResponse(3050, 1, 19, nil)
-			sampSendDialogResponse(3050, 1, 20, nil)
-			sampSendDialogResponse(3050, 1, 20, nil)
-			sampSendDialogResponse(3050, 1, 20, nil)
-			wait(delay_skupka)
-			sampSendDialogResponse(3050, 1, 20, nil)
-			sampSendDialogResponse(3050, 1, 20, nil)
-			sampSendDialogResponse(3050, 1, 20, nil)
-			sampSendDialogResponse(3050, 1, 20, nil)
-			sampSendDialogResponse(3050, 1, 20, nil)
-			wait(delay_skupka)
-			sampSendDialogResponse(3050, 1, 20, nil)
-			sampSendDialogResponse(3050, 1, 20, nil)
-			sampSendDialogResponse(3050, 1, 20, nil)
-			sampSendDialogResponse(3050, 1, 20, nil)
-			sampSendDialogResponse(3050, 1, 20, nil)
-			wait(delay_skupka)
-			sampSendDialogResponse(3050, 1, 20, nil)
-			sampSendDialogResponse(3050, 1, 20, nil)
-			sampSendDialogResponse(3050, 1, 20, nil)
-			sampSendDialogResponse(3050, 1, 20, nil)
-			sampSendDialogResponse(3050, 1, 20, nil)
-			wait(delay_skupka)
-			sampSendDialogResponse(3050, 1, 20, nil)
-			sampSendDialogResponse(3050, 1, 20, nil)
-			sampSendDialogResponse(3050, 1, 20, nil)
-			sampSendDialogResponse(3050, 1, 20, nil)
-			sampSendDialogResponse(3050, 1, 20, nil)
-			wait(delay_skupka)
-			sampSendDialogResponse(3050, 1, 20, nil)
-			sampSendDialogResponse(3050, 1, 6, nil)
-			sampSendDialogResponse(3060, 1, 0, elements.lavka.mod_teddi_1_price.v)
-		end
-		if elements.lavka.mod_teddi_2_price.v ~= 0 then
-			wait(delay_skupka)
-			sampSendDialogResponse(3040, 1, nil, nil)
-			sampSendDialogResponse(3050, 1, 19, nil)
-			sampSendDialogResponse(3050, 1, 20, nil)
-			sampSendDialogResponse(3050, 1, 20, nil)
-			sampSendDialogResponse(3050, 1, 20, nil)
-			wait(delay_skupka)
-			sampSendDialogResponse(3050, 1, 20, nil)
-			sampSendDialogResponse(3050, 1, 20, nil)
 			sampSendDialogResponse(3050, 1, 20, nil)
 			sampSendDialogResponse(3050, 1, 20, nil)
 			sampSendDialogResponse(3050, 1, 20, nil)
@@ -4861,18 +4311,12 @@ function skupka()
 			wait(delay_skupka)
 			sampSendDialogResponse(3050, 1, 20, nil)
 			sampSendDialogResponse(3050, 1, 7, nil)
-			sampSendDialogResponse(3060, 1, 0, elements.lavka.mod_teddi_2_price.v)
+			sampSendDialogResponse(3060, 1, 0, elements.lavka.sticker_jizzy.v..' '..elements.lavka.sticker_jizzy_price.v)
 		end
-		if elements.lavka.mod_teddi_3_price.v ~= 0 then
+		if elements.lavka.platinum_roll.v ~= 0 then
 			wait(delay_skupka)
-			sampSendDialogResponse(3040, 1, nil, nil)
+			sampSendDialogResponse(3040, 1, 2, nil)
 			sampSendDialogResponse(3050, 1, 19, nil)
-			sampSendDialogResponse(3050, 1, 20, nil)
-			sampSendDialogResponse(3050, 1, 20, nil)
-			sampSendDialogResponse(3050, 1, 20, nil)
-			wait(delay_skupka)
-			sampSendDialogResponse(3050, 1, 20, nil)
-			sampSendDialogResponse(3050, 1, 20, nil)
 			sampSendDialogResponse(3050, 1, 20, nil)
 			sampSendDialogResponse(3050, 1, 20, nil)
 			sampSendDialogResponse(3050, 1, 20, nil)
@@ -4897,11 +4341,43 @@ function skupka()
 			wait(delay_skupka)
 			sampSendDialogResponse(3050, 1, 20, nil)
 			sampSendDialogResponse(3050, 1, 8, nil)
-			sampSendDialogResponse(3060, 1, 0, elements.lavka.mod_teddi_3_price.v)
+			sampSendDialogResponse(3060, 1, 0, elements.lavka.platinum_roll.v..' '..elements.lavka.platinum_roll_price.v)
+		end
+		if elements.lavka.fam_money.v ~= 0 then
+			wait(delay_skupka)
+			sampSendDialogResponse(3040, 1, 2, nil)
+			sampSendDialogResponse(3050, 1, 19, nil)
+			sampSendDialogResponse(3050, 1, 20, nil)
+			sampSendDialogResponse(3050, 1, 20, nil)
+			sampSendDialogResponse(3050, 1, 20, nil)
+			wait(delay_skupka)
+			sampSendDialogResponse(3050, 1, 20, nil)
+			sampSendDialogResponse(3050, 1, 20, nil)
+			sampSendDialogResponse(3050, 1, 20, nil)
+			sampSendDialogResponse(3050, 1, 20, nil)
+			sampSendDialogResponse(3050, 1, 20, nil)
+			wait(delay_skupka)
+			sampSendDialogResponse(3050, 1, 20, nil)
+			sampSendDialogResponse(3050, 1, 20, nil)
+			sampSendDialogResponse(3050, 1, 20, nil)
+			sampSendDialogResponse(3050, 1, 20, nil)
+			sampSendDialogResponse(3050, 1, 20, nil)
+			wait(delay_skupka)
+			sampSendDialogResponse(3050, 1, 20, nil)
+			sampSendDialogResponse(3050, 1, 20, nil)
+			sampSendDialogResponse(3050, 1, 20, nil)
+			sampSendDialogResponse(3050, 1, 20, nil)
+			sampSendDialogResponse(3050, 1, 20, nil)
+			wait(delay_skupka)
+			sampSendDialogResponse(3050, 1, 20, nil)
+			sampSendDialogResponse(3050, 1, 20, nil)
+			sampSendDialogResponse(3050, 1, 20, nil)
+			sampSendDialogResponse(3050, 1, 12, nil)
+			sampSendDialogResponse(3060, 1, 0, elements.lavka.fam_money.v..' '..elements.lavka.fam_money_price.v)
 		end
 		if elements.lavka.band_respect.v ~= 0 then
 			wait(delay_skupka)
-			sampSendDialogResponse(3040, 1, nil, nil)
+			sampSendDialogResponse(3040, 1, 2, nil)
 			sampSendDialogResponse(3050, 1, 19, nil)
 			sampSendDialogResponse(3050, 1, 20, nil)
 			sampSendDialogResponse(3050, 1, 20, nil)
@@ -4932,12 +4408,12 @@ function skupka()
 			sampSendDialogResponse(3050, 1, 20, nil)
 			wait(delay_skupka)
 			sampSendDialogResponse(3050, 1, 20, nil)
-			sampSendDialogResponse(3050, 1, 17, nil)
+			sampSendDialogResponse(3050, 1, 15, nil)
 			sampSendDialogResponse(3060, 1, 0, elements.lavka.band_respect.v..' '..elements.lavka.band_respect_price.v)
 		end
-		if elements.lavka.larec_premium.v ~= 0 then
+		if elements.lavka.egg.v ~= 0 then
 			wait(delay_skupka)
-			sampSendDialogResponse(3040, 1, nil, nil)
+			sampSendDialogResponse(3040, 1, 2, nil)
 			sampSendDialogResponse(3050, 1, 19, nil)
 			sampSendDialogResponse(3050, 1, 20, nil)
 			sampSendDialogResponse(3050, 1, 20, nil)
@@ -4968,13 +4444,12 @@ function skupka()
 			sampSendDialogResponse(3050, 1, 20, nil)
 			wait(delay_skupka)
 			sampSendDialogResponse(3050, 1, 20, nil)
-			sampSendDialogResponse(3050, 1, 20, nil)
-			sampSendDialogResponse(3050, 1, 2, nil)
-			sampSendDialogResponse(3060, 1, 0, elements.lavka.larec_premium.v..' '..elements.lavka.larec_premium_price.v)
+			sampSendDialogResponse(3050, 1, 16, nil)
+			sampSendDialogResponse(3060, 1, 0, elements.lavka.egg.v..' '..elements.lavka.egg_price.v)
 		end
 		if elements.lavka.smazka.v ~= 0 then
 			wait(delay_skupka)
-			sampSendDialogResponse(3040, 1, nil, nil)
+			sampSendDialogResponse(3040, 1, 2, nil)
 			sampSendDialogResponse(3050, 1, 19, nil)
 			sampSendDialogResponse(3050, 1, 20, nil)
 			sampSendDialogResponse(3050, 1, 20, nil)
@@ -5006,12 +4481,12 @@ function skupka()
 			wait(delay_skupka)
 			sampSendDialogResponse(3050, 1, 20, nil)
 			sampSendDialogResponse(3050, 1, 20, nil)
-			sampSendDialogResponse(3050, 1, 6, nil)
+			sampSendDialogResponse(3050, 1, 4, nil)
 			sampSendDialogResponse(3060, 1, 0, elements.lavka.smazka.v..' '..elements.lavka.smazka_price.v)
 		end
 		if elements.lavka.oxlajdauka.v ~= 0 then
 			wait(delay_skupka)
-			sampSendDialogResponse(3040, 1, nil, nil)
+			sampSendDialogResponse(3040, 1, 2, nil)
 			sampSendDialogResponse(3050, 1, 19, nil)
 			sampSendDialogResponse(3050, 1, 20, nil)
 			sampSendDialogResponse(3050, 1, 20, nil)
@@ -5043,82 +4518,8 @@ function skupka()
 			wait(delay_skupka)
 			sampSendDialogResponse(3050, 1, 20, nil)
 			sampSendDialogResponse(3050, 1, 20, nil)
-			sampSendDialogResponse(3050, 1, 7, nil)
+			sampSendDialogResponse(3050, 1, 5, nil)
 			sampSendDialogResponse(3060, 1, 0, elements.lavka.oxlajdauka.v..' '..elements.lavka.oxlajdauka_price.v)
-		end
-		if elements.lavka.larec_car_box.v ~= 0 then
-			wait(delay_skupka)
-			sampSendDialogResponse(3040, 1, nil, nil)
-			sampSendDialogResponse(3050, 1, 19, nil)
-			sampSendDialogResponse(3050, 1, 20, nil)
-			sampSendDialogResponse(3050, 1, 20, nil)
-			sampSendDialogResponse(3050, 1, 20, nil)
-			wait(delay_skupka)
-			sampSendDialogResponse(3050, 1, 20, nil)
-			sampSendDialogResponse(3050, 1, 20, nil)
-			sampSendDialogResponse(3050, 1, 20, nil)
-			sampSendDialogResponse(3050, 1, 20, nil)
-			sampSendDialogResponse(3050, 1, 20, nil)
-			wait(delay_skupka)
-			sampSendDialogResponse(3050, 1, 20, nil)
-			sampSendDialogResponse(3050, 1, 20, nil)
-			sampSendDialogResponse(3050, 1, 20, nil)
-			sampSendDialogResponse(3050, 1, 20, nil)
-			sampSendDialogResponse(3050, 1, 20, nil)
-			wait(delay_skupka)
-			sampSendDialogResponse(3050, 1, 20, nil)
-			sampSendDialogResponse(3050, 1, 20, nil)
-			sampSendDialogResponse(3050, 1, 20, nil)
-			sampSendDialogResponse(3050, 1, 20, nil)
-			sampSendDialogResponse(3050, 1, 20, nil)
-			wait(delay_skupka)
-			sampSendDialogResponse(3050, 1, 20, nil)
-			sampSendDialogResponse(3050, 1, 20, nil)
-			sampSendDialogResponse(3050, 1, 20, nil)
-			sampSendDialogResponse(3050, 1, 20, nil)
-			sampSendDialogResponse(3050, 1, 20, nil)
-			wait(delay_skupka)
-			sampSendDialogResponse(3050, 1, 20, nil)
-			sampSendDialogResponse(3050, 1, 20, nil)
-			sampSendDialogResponse(3050, 1, 9, nil)
-			sampSendDialogResponse(3060, 1, 0, elements.lavka.larec_car_box.v..' '..elements.lavka.larec_car_box_price.v)
-		end
-		if elements.lavka.larec_trucker.v ~= 0 then
-			wait(delay_skupka)
-			sampSendDialogResponse(3040, 1, nil, nil)
-			sampSendDialogResponse(3050, 1, 19, nil)
-			sampSendDialogResponse(3050, 1, 20, nil)
-			sampSendDialogResponse(3050, 1, 20, nil)
-			sampSendDialogResponse(3050, 1, 20, nil)
-			wait(delay_skupka)
-			sampSendDialogResponse(3050, 1, 20, nil)
-			sampSendDialogResponse(3050, 1, 20, nil)
-			sampSendDialogResponse(3050, 1, 20, nil)
-			sampSendDialogResponse(3050, 1, 20, nil)
-			sampSendDialogResponse(3050, 1, 20, nil)
-			wait(delay_skupka)
-			sampSendDialogResponse(3050, 1, 20, nil)
-			sampSendDialogResponse(3050, 1, 20, nil)
-			sampSendDialogResponse(3050, 1, 20, nil)
-			sampSendDialogResponse(3050, 1, 20, nil)
-			sampSendDialogResponse(3050, 1, 20, nil)
-			wait(delay_skupka)
-			sampSendDialogResponse(3050, 1, 20, nil)
-			sampSendDialogResponse(3050, 1, 20, nil)
-			sampSendDialogResponse(3050, 1, 20, nil)
-			sampSendDialogResponse(3050, 1, 20, nil)
-			sampSendDialogResponse(3050, 1, 20, nil)
-			wait(delay_skupka)
-			sampSendDialogResponse(3050, 1, 20, nil)
-			sampSendDialogResponse(3050, 1, 20, nil)
-			sampSendDialogResponse(3050, 1, 20, nil)
-			sampSendDialogResponse(3050, 1, 20, nil)
-			sampSendDialogResponse(3050, 1, 20, nil)
-			wait(delay_skupka)
-			sampSendDialogResponse(3050, 1, 20, nil)
-			sampSendDialogResponse(3050, 1, 20, nil)
-			sampSendDialogResponse(3050, 1, 16, nil)
-			sampSendDialogResponse(3060, 1, 0, elements.lavka.larec_trucker.v..' '..elements.lavka.larec_trucker_price.v)
 		end
 		sampAddChatMessage('['..thisScript().name..' '..thisScript().version..'{FFFFFF}] Скрипт закончил выставлять товары на покупку.', 0xFFFFFF)
 	end)
@@ -5149,7 +4550,16 @@ function sampev.onShowDialog(dialogId, style, title, button1, button2, text)
 	--sampAddChatMessage(dialogId,-1)
 	--sampAddChatMessage(text,-1)
 	if elements.state.showmodel == true then
-		sampfuncsLog(text)
+		sampfuncsLog(dialogId..' | '..text)
+	end
+	--------------------[Квест пасха 2022]--------------------
+	if dialogId == 25326 then
+		sampSendDialogResponse(dialogId, 1, 0, nil)
+		return false
+	end
+	if dialogId == 25318 then
+		sampSendDialogResponse(dialogId, 1, 0, nil)
+		return false
 	end
 	--------------------[Orio[N]]--------------------
 	-- if dialogId == 8655 then
@@ -5434,13 +4844,13 @@ function sampev.onShowDialog(dialogId, style, title, button1, button2, text)
 		nodial = false
 		return false
 	end
-	if dialogId == 9761 and check_biz == 5 and close_biz == true then
+	if dialogId == 9761 and check_biz == 4 and close_biz == true then
 		close_biz = false
 		sampSendDialogResponse(dialogId, 0, nil, nil)
 		sampCloseCurrentDialogWithButton(0)
 		return false
 	end
-	if dialogId == 156 and check_biz < 5 then
+	if dialogId == 156 and check_biz < 4 then
 		local bName = string.match(text,'Бизнес: {9ACD32}(.+){FFFFFF}Банк бизнеса')
 		local bName2 = bName
 		if text:find("Ларек с уличной едой") then
@@ -5461,28 +4871,10 @@ function sampev.onShowDialog(dialogId, style, title, button1, button2, text)
 		auto_bizinfo()
 		sampSendDialogResponse(dialogId, 0, nil, nil)
 		sampSendClickTextdraw(65535)
-		if check_biz == 5 then
+		if check_biz == 4 then
 			close_biz = true
 		end
 		-- return false
-	end
-	--------------------[Авто-открытие рулеток]--------------------
-	if dialogId == 722 and nodial then
-		nodial = false
-		return false
-	end
-	if elements.autoopenroul.open_roul_bronze.v == true or elements.autoopenroul.open_roul_silver.v == true or elements.autoopenroul.open_roul_gold.v == true or elements.autoopenroul.open_roul_platina.v == true then
-		if dialogId == 9238 then
-			elements.autoopenroul.open_roul_bronze.v = false
-			elements.autoopenroul.open_roul_silver.v = false
-			elements.autoopenroul.open_roul_gold.v = false
-			elements.autoopenroul.open_roul_platina.v = false
-			elements.autoopenroul.open_roul_active = true
-			sampSendDialogResponse(dialogId, 0, nil, nil)
-			sampSendClickTextdraw(65535)
-			sampAddChatMessage('['..thisScript().name..' '..thisScript().version..'{FFFFFF}] Рулетки закончились. Авто-открытие выключено.', 0xFFFFFF)
-			return false
-		end
 	end
 	--------------------[Отказ показа диалогов]--------------------
 	if dialogId == 0 and
@@ -5994,7 +5386,7 @@ function SaveFileAttach(skin,modelId,bone,offsetX,offsetY,offsetZ,rotationX,rota
 end
 
 function auto_bizinfo() -- BizInfo
-	if check_biz < 5 then
+	if check_biz < 4 then
 		lua_thread.create(function( ... )
 			if check_biz == 0 then
 				wait(10000)
@@ -6058,15 +5450,6 @@ end
 function number_separator(n) -- Калькулятор
 	local left, num, right = string.match(n,'^([^%d]*%d)(%d*)(.-)$')
 	return left..(num:reverse():gsub('(%d%d%d)','%1 '):reverse())..right
-end
-
-function auto_roul(respond) -- Авто-открытие рулеток
-	lua_thread.create(function( ... )
-		nodial = true
-		sampSendChat('/mn')
-		wait(222)
-		sampSendDialogResponse(722, 1, 7, nil)
-	end)
 end
 
 function onScriptTerminate(LuaScript, quitGame)
