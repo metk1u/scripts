@@ -1,7 +1,7 @@
 script_name("{0d00ff}Ar{2900ff}iz{3900ff}on{4500ff}a H{4f00ff}el{5800ff}pe{6000ff}r")
 local script_names = "Arizona Helper"
 
-script_version('4.875')
+script_version('4.876')
 script_author("metk1u")
 
 local model_name =
@@ -108,6 +108,8 @@ local model_name_anti_stealer =
 	-- [19620] = "Полицейский ранец & Палка красно-синяя & Рюкзак полицейский",
 	-- [19797] = "Погоны красно-синие & 3D-очки & Кейс анимированный 1 & Очки красно-синий неон",
 	[0] = "None",
+	[370] = "Базука",
+	[2072] = "Сферы",
 	[321] = "Дилдо на спину #1",
 	[322] = "Дилдо на спину #2",
 	[324] = "Рюкзак мотор",
@@ -152,6 +154,12 @@ local model_name_anti_stealer =
 	[1186] = "Рюкзак трансформер",
 	[1208] = "INVALID_OBJECT_ID",
 	[1220] = "Коробка в руку",
+	[12637] = "INVALID_OBJECT_ID",
+	[6271] = "INVALID_OBJECT_ID",
+	[6269] = "INVALID_OBJECT_ID",
+	[6268] = "INVALID_OBJECT_ID",
+	[6271] = "INVALID_OBJECT_ID",
+	[12690] = "INVALID_OBJECT_ID",
 	[1221] = "INVALID_OBJECT_ID",
 	[1228] = "Карамельный посох",
 	[1238] = "Колпак тёмного эльфа",
@@ -3181,7 +3189,6 @@ function sampev.onShowTextDraw(textdrawId, data)
 	--------------------[Прочее]--------------------
 	if data.modelId == 19823 then sampAddChatMessage("Желтая бита на спину ("..data.modelId..") - Если дешево стоит - то купить.", 0xFF3300) end
 	
-	if data.modelId == 1038 then sampAddChatMessage(string.format(data.modelId.." - заскринить название предмета + TD! (%0.6f, %0.6f, %0.6f, %0.6f) (/showmodel)",data.rotation.x,data.rotation.y,data.rotation.z,data.zoom), 0xFFFF00) end
 	if data.modelId == 1131 then sampAddChatMessage(string.format(data.modelId.." - заскринить название предмета + TD! (%0.6f, %0.6f, %0.6f, %0.6f) (/showmodel)",data.rotation.x,data.rotation.y,data.rotation.z,data.zoom), 0xFFFF00) end
 	if data.modelId == 1546 then sampAddChatMessage(string.format(data.modelId.." - заскринить название предмета + TD! (%0.6f, %0.6f, %0.6f, %0.6f) (/showmodel)",data.rotation.x,data.rotation.y,data.rotation.z,data.zoom), 0xFFFF00) end
 	if data.modelId == 2224 then sampAddChatMessage(string.format(data.modelId.." - заскринить название предмета + TD! (%0.6f, %0.6f, %0.6f, %0.6f) (/showmodel)",data.rotation.x,data.rotation.y,data.rotation.z,data.zoom), 0xFFFF00) end
@@ -4551,15 +4558,6 @@ function sampev.onShowDialog(dialogId, style, title, button1, button2, text)
 	--sampAddChatMessage(text,-1)
 	if elements.state.showmodel == true then
 		sampfuncsLog(dialogId..' | '..text)
-	end
-	--------------------[Квест пасха 2022]--------------------
-	if dialogId == 25326 then
-		sampSendDialogResponse(dialogId, 1, 0, nil)
-		return false
-	end
-	if dialogId == 25318 then
-		sampSendDialogResponse(dialogId, 1, 0, nil)
-		return false
 	end
 	--------------------[Orio[N]]--------------------
 	-- if dialogId == 8655 then
