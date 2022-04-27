@@ -1116,6 +1116,8 @@ local elements =
 		----------------------------------------
 		waxta = false,
 		----------------------------------------
+		eggs = false,
+		----------------------------------------
 		run = false,
 		----------------------------------------
 		show_packet = false,
@@ -1411,6 +1413,11 @@ function main()
 	sampRegisterChatCommand("waxta",function()
 		elements.state.waxta = not elements.state.waxta
 		push_message((elements.state.waxta and "Включаю" or "Выключаю")..' поиск руды в зоне стрима.')
+	end)
+	----------------------------------------
+	sampRegisterChatCommand("eggs",function()
+		elements.state.eggs = not elements.state.eggs
+		push_message((elements.state.eggs and "Включаю" or "Выключаю")..' поиск яиц в зоне стрима.')
 	end)
 	----------------------------------------
 	sampRegisterChatCommand("run",function()
@@ -1932,6 +1939,26 @@ function main()
 				renderFontDrawText(arial_12_5,'Руды в зоне стрима: '..waxta_count, sx / 2.5, sy - 30, 0xFF3300FF)
 			else
 				renderFontDrawText(arial_12_5,'Руды в зоне стрима: '..waxta_count, sx / 2.5, sy - 30, 0xFFFF0000)
+			end
+		end
+		--------------------[Поиск яиц]--------------------
+		if elements.state.eggs == true then
+			for i = 0, 2048 do
+				if sampIs3dTextDefined(i) then
+					local text, color, posX, posY, posZ, distance, ignoreWalls, player, vehicle = sampGet3dTextInfoById(i)
+					if text:find('ALT') then
+						if isPointOnScreen(posX, posY, posZ, 0) then
+							----------------------------------------
+							local x10, y10 = convert3DCoordsToScreen(posX, posY, posZ)
+							local PlayerX, PlayerY, PlayerZ = getCharCoordinates(PLAYER_PED)
+							local PlayerX2, PlayerY2 = convert3DCoordsToScreen(PlayerX, PlayerY, PlayerZ)
+							distance = string.format("%.0f",getDistanceBetweenCoords3d(posX, posY, posZ, PlayerX, PlayerY, PlayerZ))
+							----------------------------------------
+							renderDrawLine(PlayerX2, PlayerY2, x10, y10, 2, 0xFF3300FF) 
+							renderFontDrawText(arial_12_5,"{FF0000}Яйко: {3300FF}"..distance, x10, y10, -1)
+						end
+					end
+				end
 			end
 		end
 		if elements.state.show_packet == true then
