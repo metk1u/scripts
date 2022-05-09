@@ -1,12 +1,11 @@
 script_name("{0d00ff}Ar{2900ff}iz{3900ff}on{4500ff}a H{4f00ff}el{5800ff}pe{6000ff}r")
 local script_names = "Arizona Helper"
 
-script_version('4.876')
+script_version('4.877')
 script_author("metk1u")
 
 local model_name =
 {
-	-- [19314] = "Рога",
 	[323] = "Дилдо на спину #3",
 	[348] = "Desert Eagle",
 	[355] = "АК-47 на спину",
@@ -23,17 +22,15 @@ local model_name =
 	[2782] = "Устрица на спину & Раптор",
 	[2908] = "Голова зомби",
 	[2918] = "Рюкзак с шипами",
-	[3026] = "Рюкзак",
 	[3273] = "Ранец охотники на приведений",
 	[16368] = "Красная шляпа",
 	[18632] = "Рыболовная удочка на спину",
-	[18633] = "Балонный ключ на спину",
 	[18635] = "Молоток на спину",
 	[18636] = "Кепка Police",
 	[18638] = "Каска строителя",
 	[18640] = "Борода 1",
 	[18645] = "Мотошлем",
-	[18782] = "Печенька на голову",
+	-- [18782] = "Печенька на голову & Печенька",
 	[18890] = "Грабли на спину",
 	[18906] = "Бандана на голову",
 	[18911] = "Бандана",
@@ -64,7 +61,7 @@ local model_name =
 	[19330] = "Каска пожарного (жёлтая) & Женская шляпка",
 	[19349] = "Монокль",
 	[19350] = "Усы (короткие)",
-	[19351] = "Усы (длинные)",
+	-- [19351] = "Усы (длинные) & Хвост на голове",
 	[19352] = "Чёрный конус",
 	[19469] = "Повязка на шею",
 	[19472] = "Респиратор",
@@ -81,26 +78,29 @@ local model_name =
 	[19591] = "Китайский веер",
 	[19621] = "Канистра на правое бедро",
 	[19627] = "Гаечный ключ на грудь",
-	[19631] = "Молот",
-	[19804] = "Замочек на грудь",
 	[19904] = "Жилет грузчика"
 };
-local model_name_anti_stealer =
+local model_name_anti_stealer = -- http://киберпро.рф/repeat_search/
 {
-	-- [333] = "Клюшка на спину & Хоккейная клюшка за спиной",
 	-- [1212] = "Пачка денег на спину & Рюкзак бакс",
-	-- [1603] = "Кровавая накидка & Золотая шапка & Огненный щит",
+	-- [1371] = "Рюкзак Бегемот & Шапка бегемот",
 	-- [2711] = "С модификации Робот & Рюкзак (Кибер)",
 	-- [2769] = "С модификации Зомби & Шаурма на спину",
-	-- [2804] = "Кусок мяса в руку & Сет:Петух",
 	-- [2814] = "Пицца & Сумка доставщика",
-	[2901] = "Рюкзак из травы",
-	-- [3070] = "Реактивный ранец (5) & Скайборд & Маска робота - чёрная & Пушка на руке",
 	-- [3801] = "Длинный топор & Кислородный баллон & Локатор",
 	-- [11727] = "Очки будущего 2",
 	-- [11733] = "Снежные сани 2 & Рюкзак конь",
+	-- [18865] = "Телефон",
+	-- [18866] = "Телефон",
+	-- [18867] = "Телефон",
+	-- [18868] = "Телефон & Черный чемодан",
+	-- [18869] = "Телефон",
+	-- [18870] = "Телефон",
+	-- [18871] = "Телефон",
+	-- [18872] = "Телефон",
+	-- [18873] = "Телефон",
+	-- [18874] = "Телефон",
 	-- [19133] = "Хвост чёрта",
-	-- [19200] = "С модификации Ghost & Сет:Птенец",
 	-- [19331] = "Тёмный плащ",
 	-- [19347] = "Звезда на грудь & Значок шерифа на спине",
 	-- [19348] = "С модификации Купидон & Посох бирюзовый & Посох красный",
@@ -108,12 +108,11 @@ local model_name_anti_stealer =
 	-- [19620] = "Полицейский ранец & Палка красно-синяя & Рюкзак полицейский",
 	-- [19797] = "Погоны красно-синие & 3D-очки & Кейс анимированный 1 & Очки красно-синий неон",
 	[0] = "None",
-	[370] = "Базука",
-	[2072] = "Сферы",
 	[321] = "Дилдо на спину #1",
 	[322] = "Дилдо на спину #2",
 	[324] = "Рюкзак мотор",
 	[326] = "Трость на спину",
+	[333] = "Клюшка на спину & Хоккейная клюшка за спиной & Клюшка в руку",
 	[335] = "Нож с модификации Псих",
 	[336] = "Бита на спину",
 	[337] = "Лопата на спину",
@@ -125,6 +124,7 @@ local model_name_anti_stealer =
 	[363] = "Портфель террориста",
 	[364] = "Пульт от бомбы",
 	[368] = "Прибор ночного видения",
+	[370] = "Базука",
 	[635] = "Плащ с модификации Смерть",
 	[636] = "Плащ с модификации Тыква",
 	[806] = "Трава какая-то",
@@ -154,12 +154,6 @@ local model_name_anti_stealer =
 	[1186] = "Рюкзак трансформер",
 	[1208] = "INVALID_OBJECT_ID",
 	[1220] = "Коробка в руку",
-	[12637] = "INVALID_OBJECT_ID",
-	[6271] = "INVALID_OBJECT_ID",
-	[6269] = "INVALID_OBJECT_ID",
-	[6268] = "INVALID_OBJECT_ID",
-	[6271] = "INVALID_OBJECT_ID",
-	[12690] = "INVALID_OBJECT_ID",
 	[1221] = "INVALID_OBJECT_ID",
 	[1228] = "Карамельный посох",
 	[1238] = "Колпак тёмного эльфа",
@@ -170,6 +164,7 @@ local model_name_anti_stealer =
 	[1254] = "Череп на грудь",
 	[1265] = "Мешок с мусором в руку",
 	[1269] = "Кувалда",
+	[1270] = "Красный рюкзак",
 	[1272] = "Значок синего домика",
 	[1273] = "Значок зелёного домика",
 	[1274] = "Доллар на грудь",
@@ -183,7 +178,6 @@ local model_name_anti_stealer =
 	[1327] = "Походный рюкзак",
 	[1332] = "Сумка доставщика",
 	[1366] = "Щит",
-	[1371] = "Рюкзак Бегемот",
 	[1387] = "Крюк пирата",
 	[1487] = "Бутылка на спину",
 	[1488] = "Рюкзак разлив №1",
@@ -200,6 +194,7 @@ local model_name_anti_stealer =
 	[1588] = "Голова мишени",
 	[1601] = "Молнии Зевса",
 	[1602] = "Призрачный нимб, щит, ледяное копье",
+	[1603] = "Кровавая накидка & Золотая шапка & Огненный щит",
 	[1604] = "Копьё Зевса",
 	[1607] = "Дельфин",
 	[1609] = "Черепаха на спину",
@@ -226,9 +221,11 @@ local model_name_anti_stealer =
 	[1974] = "С модификации Тедди",
 	[2006] = "С модификации Химик",
 	[2028] = "INVALID_OBJECT_ID",
+	[2044] = "Механизм за спиной",
 	[2053] = "Снаряжение солдата & Снаряжение полицейского",
 	[2060] = "Мешок грузчиков",
 	[2064] = "Крылья зелёные",
+	[2072] = "Сферы",
 	[2096] = "Снежные сани 3",
 	[2098] = "Адский лук",
 	[2102] = "Колонка на спину",
@@ -262,11 +259,13 @@ local model_name_anti_stealer =
 	[2764] = "Рюкзак в клеточку",
 	[2788] = "С модификации Гринч",
 	[2803] = "Мешок с подарками",
+	[2804] = "Кусок мяса в руку & Сет:Петух",
 	[2805] = "Мешок с мясом",
 	[2810] = "Человечек на спину",
 	[2846] = "Одежда в руках",
 	[2888] = "Маска робота (2)",
 	[2899] = "Ледяное копьё",
+	[2901] = "Рюкзак из травы",
 	[2905] = "Модификация: Бешенный доктор",
 	[2907] = "С модификации",
 	[2913] = "Штанга в руку",
@@ -284,10 +283,12 @@ local model_name_anti_stealer =
 	[3013] = "Ящик за спиной",
 	[3014] = "INVALID_OBJECT_ID",
 	[3016] = "Ядерный рюкзак",
+	[3026] = "Рюкзак",
 	[3027] = "Косяк",
 	[3031] = "Ранец вертолёт",
 	[3052] = "Коробка в руку",
 	[3056] = "Магнит на спину & Инопланетная пушка",
+	[3070] = "Реактивный ранец (5) & Скайборд & Маска робота - чёрная & Пушка на руке",
 	[3072] = "Гантеля",
 	[3096] = "Синий посох светлый",
 	[3100] = "С модификации Соник",
@@ -297,47 +298,52 @@ local model_name_anti_stealer =
 	[3383] = "Усы таракана",
 	[3385] = "Рюкзак будущего",
 	[3425] = "Установка за спиной",
+	[3426] = "Установка за спиной (2)",
 	[3433] = "Зелёный рюкзак",
 	[3434] = "Рюкзак пират",
 	[3440] = "Очки переливающиеся",
 	[3497] = "Садок",
+	[3524] = "Левая горящая голова & Правая горящая голова & Рюкзак-череп",
 	[3632] = "Бочка в руку",
 	[3643] = "Рюкзак стимпанк",
 	[3658] = "Гармошка",
 	[3785] = "Светящийся рюкзак",
 	[3932] = "С модификации PUBG",
-	[5381] = "INVALID_OBJECT_ID",
-	[5382] = "INVALID_OBJECT_ID",
-	[5383] = "INVALID_OBJECT_ID",
-	[5384] = "INVALID_OBJECT_ID",
-	[5385] = "INVALID_OBJECT_ID",
-	[5386] = "INVALID_OBJECT_ID",
-	[5387] = "INVALID_OBJECT_ID",
-	[5388] = "INVALID_OBJECT_ID",
-	[5389] = "INVALID_OBJECT_ID",
-	[5683] = "INVALID_OBJECT_ID",
-	[5684] = "INVALID_OBJECT_ID",
-	[5685] = "INVALID_OBJECT_ID",
-	[5686] = "INVALID_OBJECT_ID",
-	[5687] = "INVALID_OBJECT_ID",
-	[5688] = "INVALID_OBJECT_ID",
-	[5689] = "INVALID_OBJECT_ID",
-	[5690] = "INVALID_OBJECT_ID",
-	[5691] = "INVALID_OBJECT_ID",
-	[5692] = "INVALID_OBJECT_ID",
-	[5693] = "INVALID_OBJECT_ID",
-	[5694] = "INVALID_OBJECT_ID",
-	[5695] = "INVALID_OBJECT_ID",
-	[5696] = "INVALID_OBJECT_ID",
-	[5697] = "INVALID_OBJECT_ID",
-	[5698] = "INVALID_OBJECT_ID",
-	[5699] = "INVALID_OBJECT_ID",
-	[5700] = "INVALID_OBJECT_ID",
-	[5701] = "INVALID_OBJECT_ID",
-	[5702] = "INVALID_OBJECT_ID",
-	[6011] = "INVALID_OBJECT_ID",
-	[6012] = "INVALID_OBJECT_ID",
-	[6013] = "INVALID_OBJECT_ID",
+	[5381] = "CUSTOM: Часы 'Rolex Submariner'",
+	[5382] = "CUSTOM: Часы 'Gucci'",
+	[5383] = "CUSTOM: Часы 'Panthere de Cartier'",
+	[5384] = "CUSTOM: Часы 'Relogios Casio'",
+	[5385] = "CUSTOM: Часы 'Casio G-SHOCK'",
+	[5386] = "CUSTOM: Часы 'Patek Philippe Nautilus'",
+	[5387] = "CUSTOM: Часы 'Apple Watch'",
+	[5388] = "CUSTOM: Наушники 'beats by Dre'",
+	[5389] = "CUSTOM: Наушники 'Harman/Kardon'",
+	[5683] = "CUSTOM: Наушники 'Razer'",
+	[5684] = "CUSTOM: Наушники 'AirPods Max'",
+	[5685] = "CUSTOM: Кепка 'Tommy Hilfiger'",
+	[5686] = "CUSTOM: Кепка 'Ralph Lauren'",
+	[5687] = "CUSTOM: Кепка 'LA'",
+	[5688] = "CUSTOM: Кепка 'Gucci'",
+	[5689] = "CUSTOM: Кепка 'Supreme'",
+	[5690] = "CUSTOM: Неоновая маска",
+	[5691] = "CUSTOM: Маска 'Scary'",
+	[5692] = "CUSTOM: Маска 'Wrench'",
+	[5693] = "CUSTOM: Маска Локи",
+	[5694] = "CUSTOM: Маска 'Rust'",
+	[5695] = "CUSTOM: Мотошлем 'Kitty'",
+	[5696] = "CUSTOM: Мотошлем 'Pink'",
+	[5697] = "CUSTOM: Мотошлем",
+	[5698] = "CUSTOM: Мотошлем 'Alien'",
+	[5699] = "CUSTOM: Эксклюзивная шляпа 1",
+	[5700] = "CUSTOM: Эксклюзивная шляпа 2",
+	[5701] = "CUSTOM: Эксклюзивная шляпа 3",
+	[5702] = "CUSTOM: Эксклюзивная шляпа 4",
+	[6011] = "CUSTOM: Эксклюзивная шляпа 5",
+	[6012] = "CUSTOM: Велосипед на спину",
+	[6013] = "CUSTOM: Дельтаплан на спину",
+	[6268] = "INVALID_OBJECT_ID",
+	[6269] = "INVALID_OBJECT_ID",
+	[6271] = "INVALID_OBJECT_ID",
 	[6865] = "Маска с рогами & Рюкзак (Череп с рогами)",
 	[7093] = "Сердечко Erotic",
 	[7313] = "Ранец радио & Кейс анимированный 2 & Очки анимированые",
@@ -356,7 +362,7 @@ local model_name_anti_stealer =
 	[10757] = "Самолёт за спиной",
 	[11417] = "Портативная АЗС",
 	[11489] = "Крылья гаргульи",
-	[11700] = "Знак (Радиации)",
+	[11700] = "Щит знак радиация",
 	[11704] = "Маска демона",
 	[11705] = "Кейс для оружия",
 	[11712] = "Крест на грудь и Распятие",
@@ -368,64 +374,89 @@ local model_name_anti_stealer =
 	[11734] = "Сани на спину",
 	[11736] = "Медицинская маска & Рюкзак медика зелёный",
 	[11738] = "Рюкзак медика красный",
+	[11740] = "Модификация: Блин",
 	[11741] = "С модификации Ghost",
 	[11743] = "INVALID_OBJECT_ID",
 	[11747] = "С модификации Индеец",
 	[11750] = "VR-очки",
-	[12600] = "INVALID_OBJECT_ID",
+	[12598] = "CUSTOM: Каска #1",
+	[12599] = "CUSTOM: Рюкзак #1",
+	[12600] = "CUSTOM: Бронежилет #1",
 	[12606] = "INVALID_OBJECT_ID",
 	[12607] = "INVALID_OBJECT_ID",
-	[12621] = "INVALID_OBJECT_ID",
-	[12622] = "INVALID_OBJECT_ID",
-	[12623] = "INVALID_OBJECT_ID",
-	[12624] = "INVALID_OBJECT_ID",
-	[12634] = "INVALID_OBJECT_ID",
-	[12635] = "INVALID_OBJECT_ID",
-	[12636] = "INVALID_OBJECT_ID",
-	[12638] = "INVALID_OBJECT_ID",
-	[12639] = "INVALID_OBJECT_ID",
-	[12640] = "INVALID_OBJECT_ID",
-	[12641] = "INVALID_OBJECT_ID",
-	[12642] = "INVALID_OBJECT_ID",
-	[12643] = "INVALID_OBJECT_ID",
-	[12644] = "INVALID_OBJECT_ID",
-	[12645] = "INVALID_OBJECT_ID",
-	[12646] = "INVALID_OBJECT_ID",
-	[12647] = "INVALID_OBJECT_ID",
-	[12648] = "INVALID_OBJECT_ID",
-	[12649] = "INVALID_OBJECT_ID",
-	[12650] = "INVALID_OBJECT_ID",
-	[12651] = "INVALID_OBJECT_ID",
-	[12652] = "INVALID_OBJECT_ID",
-	[12653] = "INVALID_OBJECT_ID",
-	[12654] = "INVALID_OBJECT_ID",
+	[12613] = "CUSTOM: Рюкзак #2",
+	[12614] = "CUSTOM: Рюкзак #3",
+	[12615] = "CUSTOM: Рюкзак #4",
+	[12616] = "CUSTOM: Рюкзак #5",
+	[12617] = "CUSTOM: Каска #2",
+	[12618] = "CUSTOM: Каска #3",
+	[12619] = "CUSTOM: Каска #4",
+	[12620] = "CUSTOM: Каска #5",
+	[12621] = "CUSTOM: Бронежилет #2",
+	[12622] = "CUSTOM: Бронежилет #3",
+	[12623] = "CUSTOM: Бронежилет #4",
+	[12624] = "CUSTOM: Бронежилет #5",
+	[12634] = "CUSTOM: Рюкзак 'Крипер'",
+	[12635] = "CUSTOM: Рюкзак альпиниста",
+	[12636] = "CUSTOM: Шлем Тора",
+	[12637] = "CUSTOM: Футбольный шлем",
+	[12638] = "CUSTOM: Шлем 'Daft Punk'",
+	[12639] = "CUSTOM: Шлем 'Стив'",
+	[12640] = "CUSTOM: Шлем 'Гомер'",
+	[12641] = "CUSTOM: Маска распорядителя",
+	[12642] = "CUSTOM: Маска охранника 1",
+	[12643] = "CUSTOM: Маска охранника 3",
+	[12644] = "CUSTOM: Маска охранника 2",
+	[12645] = "CUSTOM: VIP маска 'Бык'",
+	[12646] = "CUSTOM: АлмаЗная кирка",
+	[12647] = "CUSTOM: Крылья #1",
+	[12648] = "CUSTOM: Крылья #2",
+	[12649] = "CUSTOM: Крылья #3",
+	[12650] = "CUSTOM: Крылья #4",
+	[12651] = "CUSTOM: Крылья #5",
+	[12652] = "CUSTOM: Супер-кирка",
+	[12653] = "CUSTOM: Супер-грабли",
+	[12654] = "CUSTOM: Посох Деда Мороза",
 	[12655] = "INVALID_OBJECT_ID",
 	[12656] = "INVALID_OBJECT_ID",
-	[12657] = "INVALID_OBJECT_ID",
-	[12658] = "INVALID_OBJECT_ID",
-	[12659] = "INVALID_OBJECT_ID",
-	[12661] = "INVALID_OBJECT_ID",
-	[12662] = "INVALID_OBJECT_ID",
-	[12663] = "INVALID_OBJECT_ID",
-	[12664] = "INVALID_OBJECT_ID",
-	[12665] = "INVALID_OBJECT_ID",
-	[12666] = "INVALID_OBJECT_ID",
-	[12667] = "INVALID_OBJECT_ID",
-	[12668] = "INVALID_OBJECT_ID",
-	[12669] = "INVALID_OBJECT_ID",
-	[12673] = "INVALID_OBJECT_ID",
-	[12674] = "INVALID_OBJECT_ID",
-	[12675] = "INVALID_OBJECT_ID",
-	[12676] = "INVALID_OBJECT_ID",
-	[12678] = "INVALID_OBJECT_ID",
-	[12679] = "INVALID_OBJECT_ID",
-	[12681] = "INVALID_OBJECT_ID",
-	[12682] = "INVALID_OBJECT_ID",
-	[12684] = "INVALID_OBJECT_ID",
-	[12688] = "INVALID_OBJECT_ID",
-	[12692] = "INVALID_OBJECT_ID",
-	[12696] = "INVALID_OBJECT_ID",
-	[12697] = "INVALID_OBJECT_ID",
+	[12657] = "CUSTOM: Маска Гринча",
+	[12658] = "CUSTOM: Наряженная ёлка на спине",
+	[12659] = "CUSTOM: Крылья #6",
+	[12661] = "CUSTOM: Подарочный бант на спине",
+	[12662] = "CUSTOM: Голова Пряни",
+	[12663] = "CUSTOM: Голова Тигра",
+	[12664] = "CUSTOM: Бронежилет #6",
+	[12665] = "CUSTOM: Крылья #7",
+	[12666] = "CUSTOM: Крылья #8",
+	[12667] = "CUSTOM: Посох Снежной Королевы",
+	[12668] = "CUSTOM: Бронежилет #7",
+	[12669] = "CUSTOM: Бронежилет #8",
+	[12672] = "CUSTOM: Бронежилет желеЗного человека",
+	[12673] = "CUSTOM: Русский боевой топор",
+	[12674] = "CUSTOM: Рюкзак Louis Vuitton",
+	[12675] = "CUSTOM: Плащ Бэтмана",
+	[12676] = "CUSTOM: Рука бесконечности",
+	[12677] = "CUSTOM: Рука Халка",
+	[12678] = "CUSTOM: Молот Тора",
+	[12679] = "CUSTOM: Шлем железного человека",
+	[12680] = "CUSTOM: Шлем Мистерио",
+	[12681] = "CUSTOM: Хук Пуджа",
+	[12682] = "CUSTOM: Меч 'Звёздные войны'",
+	[12683] = "CUSTOM: Маска Халка",
+	[12684] = "CUSTOM: Щит Капитана Америки",
+	[12685] = "CUSTOM: Красный сноуборд",
+	[12686] = "CUSTOM: Пятизубец",
+	[12687] = "CUSTOM: Серебряный крюк",
+	[12688] = "CUSTOM: Посох льда",
+	[12689] = "CUSTOM: Рюкзак Черепашки-ниндЗя",
+	[12690] = "CUSTOM: Голова LEGO",
+	[12691] = "CUSTOM: Голова 'Тише едешь, дальше будешь'",
+	[12692] = "CUSTOM: Голова Робокоп",
+	[12693] = "CUSTOM: Маска Человека-паук",
+	[12694] = "CUSTOM: Маска Шрек",
+	[12695] = "CUSTOM: Маска из Бумажного дома",
+	[12696] = "CUSTOM: Маска Терминатор",
+	[12697] = "CUSTOM: Маска Добби",
 	[13562] = "Крутящаяся дубина",
 	[13667] = "Маска обезьяны",
 	[14467] = "Человечек на плечо",
@@ -437,6 +468,7 @@ local model_name_anti_stealer =
 	[16776] = "Петух на плечо",
 	[16778] = "НЛО",
 	[18003] = "Оружие & Рюкзак переноска",
+	[18633] = "Балонный ключ на спину",
 	[18634] = "Лом на спину",
 	[18637] = "Щит на спину и в руку",
 	[18641] = "Маска фонарь",
@@ -450,20 +482,12 @@ local model_name_anti_stealer =
 	[18717] = "С модификации Волшебник",
 	[18718] = "Огонь",
 	[18729] = "Огонь",
+	[18736] = "Сет:Птенец",
 	[18848] = "Военный реактивный ранец",
-	[18865] = "Телефон",
-	[18866] = "Телефон",
-	[18867] = "Телефон",
-	[18868] = "Телефон & Черный чемодан",
-	[18869] = "Телефон",
-	[18870] = "Телефон",
-	[18871] = "Телефон",
-	[18872] = "Телефон",
-	[18873] = "Телефон",
-	[18874] = "Телефон",
 	[18875] = "ПипБой & Рюкзак техно",
 	[18891] = "С модификации",
 	[18936] = "С модификации Палач",
+	[18974] = "Маска Чумного Доктора",
 	[18976] = "Сумка-барыжка синяя",
 	[19006] = "Очки",
 	[19007] = "Очки",
@@ -522,6 +546,7 @@ local model_name_anti_stealer =
 	[19173] = "Картина в руку какая-то",
 	[19177] = "С модификации Палач",
 	[19197] = "Ангельское кольцо на голову",
+	[19200] = "С модификации Ghost & Сет:Птенец",
 	[19202] = "С модификации Зомби",
 	[19300] = "INVALID_OBJECT_ID",
 	[19314] = "Рога & Уши эльфа",
@@ -546,7 +571,6 @@ local model_name_anti_stealer =
 	[19346] = "Хот-дог на голову",
 	[19348] = "Посох бирюзовый & Посох красный",
 	[19421] = "Наушники (1)",
-	[19421] = "Наушники",
 	[19422] = "Наушники (2)",
 	[19423] = "Наушники (3)",
 	[19424] = "Наушники (4)",
@@ -564,6 +588,8 @@ local model_name_anti_stealer =
 	[19555] = "Боксерские перчатки",
 	[19556] = "Боксерские перчатки",
 	[19570] = "С модификации Гринч",
+	[19572] = "НЕИЗВЕСТНО",
+	[19574] = "Сет:Птенец",
 	[19576] = "С модификации Гринч",
 	[19577] = "С модификации Дедпул",
 	[19582] = "С модификации Дедпул",
@@ -573,10 +599,14 @@ local model_name_anti_stealer =
 	[19624] = "Большой чемодан",
 	[19626] = "Лопата в руку (2)",
 	[19630] = "Рыба на спину",
+	[19631] = "Молот",
 	[19632] = "Горящий щит & Горящее копье 1 & Горящий рюкзак",
 	[19636] = "Ларек с фруктами",
+	[19776] = "Бейдж ФБР",
+	[19777] = "Лого ФБР на спине",
 	[19793] = "С модификации Палач",
 	[19801] = "Маска",
+	[19804] = "Замочек на грудь",
 	[19806] = "Новогодний реактивный ранец",
 	[19807] = "Рюкзак телефон",
 	[19824] = "Бита-бутылка на спину",
@@ -584,21 +614,28 @@ local model_name_anti_stealer =
 	[19831] = "Рюкзак с крышкой",
 	[19836] = "С модификации Палач с головой в руке",
 	[19840] = "Красный плащ",
-	[19847] = "Копченая нога",
+	[19847] = "Копченая нога & Кусок телятины",
+	[19873] = "Модификация: Блин",
 	[19874] = "С модификации Дедпул и Рюкзак бирюзовый",
 	[19878] = "Скейт на спину",
 	[19893] = "Проектор с картой за спиной",
 	[19894] = "INVALID_OBJECT_ID",
+	[19900] = "НЕИЗВЕСТНО",
 	[19917] = "Техно-рюкзак 3",
-	[19959] = "Знак (поворот направо)",
-	[19960] = "Знак (поворот налево)",
-	[19961] = "Знак (поворот направо)",
-	[19962] = "Знак (плюсик)",
-	[19963] = "Знак (тупик)",
-	[19964] = "Знак (светофор)",
-	[19965] = "Знак (стрелка)",
-	[19966] = "Знак (стоп)",
-	[19967] = "Знак (Do Not Enter)",
+	[19958] = "Щит знак налево",
+	[19959] = "Щит знак направо",
+	[19960] = "Щит знак левее",
+	[19961] = "Щит знак правее",
+	[19962] = "Щит знак перекрёсток",
+	[19963] = "Щит знак Т-перекрёсток",
+	[19964] = "Щит знак светофор",
+	[19965] = "Щит знак опасность",
+	[19966] = "Щит знак стоп",
+	[19967] = "Щит знак кирпич",
+	[19973] = "Щит знак старт",
+	[19974] = "Щит знак ремонт",
+	[19975] = "Щит знак уступи дорогу",
+	[19976] = "Щит знак внимание",
 	[19993] = "С модификации Спанч Боб",
 	[19977] = "Знак (уступи дорогу)"
 };
@@ -609,7 +646,11 @@ local friends =
 	"Denis_Seleznev",
 	"Avksentiu_Adaw",
 	"Vartan_Germun",
-	"Mawka_Dvornyawka"
+	"Mawka_Dvornyawka",
+	-- "Kristinka_Mandarinka",
+	"Sam_Mason",
+	"Conor",
+	"Roy_Shelby"
 };
 ----------------------------------------
 local _message = {}
@@ -869,9 +910,6 @@ local mainIni = inicfg.load(
 		band_respect = 0,
 		band_respect_price = 500,
 		----------------------------------------
-		egg = 0,
-		egg_price = 10000,
-		----------------------------------------
 		smazka = 0,
 		smazka_price = 500000,
 		----------------------------------------
@@ -1065,9 +1103,6 @@ local elements =
 		band_respect = imgui.ImInt(mainIni.lavka.band_respect),
 		band_respect_price = imgui.ImInt(mainIni.lavka.band_respect_price),
 		----------------------------------------
-		egg = imgui.ImInt(mainIni.lavka.egg),
-		egg_price = imgui.ImInt(mainIni.lavka.egg_price),
-		----------------------------------------
 		smazka = imgui.ImInt(mainIni.lavka.smazka),
 		smazka_price = imgui.ImInt(mainIni.lavka.smazka_price),
 		----------------------------------------
@@ -1116,7 +1151,9 @@ local elements =
 		----------------------------------------
 		waxta = false,
 		----------------------------------------
-		eggs = false,
+		gribi = false,
+		----------------------------------------
+		petyh = false,
 		----------------------------------------
 		run = false,
 		----------------------------------------
@@ -1159,8 +1196,12 @@ chest_timer_1 = os.time()+(elements.chest.roll_wait.v*60)
 chest_timer_2 = 0
 chest_timer_3 = 0
 ----------------------------------------
+local PICKUP_POOL = 0
 function main()
 	while not isSampAvailable() do wait(0) end
+	
+	PICKUP_POOL = sampGetPickupPoolPtr()
+	
 	if not doesDirectoryExist("moonloader\\logs") then createDirectory("moonloader\\logs") end
 	if not doesDirectoryExist("moonloader\\stealer") then createDirectory("moonloader\\stealer") end
 	----------------------------------------
@@ -1300,7 +1341,7 @@ function main()
 	end)
 	sampRegisterChatCommand('biz',function()
 		check_biz = 0
-		auto_bizinfo()
+		auto_bizinfo(0)
 	end)
 	-- sampRegisterChatCommand('sliver', function(arg)
 		-- if arg:find('(.+), (.+)') then
@@ -1415,9 +1456,14 @@ function main()
 		push_message((elements.state.waxta and "Включаю" or "Выключаю")..' поиск руды в зоне стрима.')
 	end)
 	----------------------------------------
-	sampRegisterChatCommand("eggs",function()
-		elements.state.eggs = not elements.state.eggs
-		push_message((elements.state.eggs and "Включаю" or "Выключаю")..' поиск яиц в зоне стрима.')
+	sampRegisterChatCommand("gribi",function()
+		elements.state.gribi = not elements.state.gribi
+		push_message((elements.state.gribi and "Включаю" or "Выключаю")..' поиск грибов в зоне стрима.')
+	end)
+	----------------------------------------
+	sampRegisterChatCommand("petyh",function()
+		elements.state.petyh = not elements.state.petyh
+		push_message((elements.state.petyh and "Включаю" or "Выключаю")..' поиск петухов в зоне стрима.')
 	end)
 	----------------------------------------
 	sampRegisterChatCommand("run",function()
@@ -1941,12 +1987,14 @@ function main()
 				renderFontDrawText(arial_12_5,'Руды в зоне стрима: '..waxta_count, sx / 2.5, sy - 30, 0xFFFF0000)
 			end
 		end
-		--------------------[Поиск яиц]--------------------
-		if elements.state.eggs == true then
+		--------------------[Поиск грибов]--------------------
+		if elements.state.gribi == true then
+			local gribi_count = 0
 			for i = 0, 2048 do
 				if sampIs3dTextDefined(i) then
 					local text, color, posX, posY, posZ, distance, ignoreWalls, player, vehicle = sampGet3dTextInfoById(i)
-					if text:find('ALT') then
+					if text:find('Срезать гриб') then
+						gribi_count = gribi_count + 1
 						if isPointOnScreen(posX, posY, posZ, 0) then
 							----------------------------------------
 							local x10, y10 = convert3DCoordsToScreen(posX, posY, posZ)
@@ -1955,12 +2003,33 @@ function main()
 							distance = string.format("%.0f",getDistanceBetweenCoords3d(posX, posY, posZ, PlayerX, PlayerY, PlayerZ))
 							----------------------------------------
 							renderDrawLine(PlayerX2, PlayerY2, x10, y10, 2, 0xFF3300FF) 
-							renderFontDrawText(arial_12_5,"{FF0000}Яйко: {3300FF}"..distance, x10, y10, -1)
+							renderFontDrawText(arial_12_5,"{FF0000}Гриб: {3300FF}"..distance, x10, y10, -1)
 						end
 					end
 				end
 			end
+			if gribi_count == 0 then
+				renderFontDrawText(arial_12_5,'Грибов в зоне стрима: '..gribi_count, sx / 2.5, sy - 30, 0xFF3300FF)
+			else
+				renderFontDrawText(arial_12_5,'Грибов в зоне стрима: '..gribi_count, sx / 2.5, sy - 30, 0xFFFF0000)
+			end
 		end
+		--------------------[Поиск петухов]--------------------
+		if elements.state.petyh == true then
+			for id = 0, 4096 do ----------------------- get_pickup_model, PICKUP_POOL
+				local PICKUP_HANDLE = sampGetPickupHandleBySampId(id) 
+				if PICKUP_HANDLE ~= 0 then
+				local vector = require("vector3d")
+					local origin = vector(getCharCoordinates(PLAYER_PED))
+					local pickup = vector(getPickupCoordinates(PICKUP_HANDLE))
+					if getDistanceBetweenCoords3d(origin.x, origin.y, origin.z, pickup.x, pickup.y, pickup.z) <= 100.0 and isPointOnScreen(pickup.x, pickup.y, pickup.z, 1.0) and get_pickup_model(id) == 19137 then
+						local pickup_2d = vector(convert3DCoordsToScreen(pickup.x, pickup.y, pickup.z))
+						renderFontDrawText(arial_10_13, "Петух", pickup_2d.x, pickup_2d.y, 0xFFFF0000)
+					end
+				end
+			end
+		end
+		--------------------[Пакеты]--------------------
 		if elements.state.show_packet == true then
 			local packet_x = 35
 			local packet_y = 450
@@ -2353,9 +2422,6 @@ function saveini()
 			band_respect = elements.lavka.band_respect.v,
 			band_respect_price = elements.lavka.band_respect_price.v,
 			----------------------------------------
-			egg = elements.lavka.egg.v,
-			egg_price = elements.lavka.egg_price.v,
-			----------------------------------------
 			smazka = elements.lavka.smazka.v,
 			smazka_price = elements.lavka.smazka_price.v,
 			----------------------------------------
@@ -2416,11 +2482,15 @@ function imgui.OnDrawFrame()
 			thisScript():reload()
 		end
 		----------------------------------------
+		if imgui.Button(u8('Отключить скрипт'),imgui.ImVec2(170,20)) then
+			thisScript():unload()
+		end
+		imgui.SameLine()
+		----------------------------------------
 		if imgui.Button(u8('Переподключиться (/rec)'),imgui.ImVec2(170,20)) then
 			sampDisconnectWithReason(false)
 			sampSetGamestate(1)
 		end
-		imgui.SameLine()
 		----------------------------------------
 		if imgui.Button(u8('Суицид'),imgui.ImVec2(170,20)) then
 			setCharHealth(PLAYER_PED, 0)
@@ -2430,21 +2500,18 @@ function imgui.OnDrawFrame()
 		imgui.Text(u8"Основные команды:")
 		imgui.Text(u8"/rec - Перезайти на сервер")
 		imgui.Text(u8"/rr [текст] - Написать в репорт")
-		imgui.Text(u8"/buyvk [1-7] - Автопрокачка VK-Coins.")
-		imgui.SameLine()
-		imgui.TextQuestion(u8'Открываешь BOOST в телефоне,\nвводишь /buyvk [1-7] и скрипт будет автоматически покупать.')
-		imgui.Text(u8"/nicks - Игроки в зоне стрима")
-		imgui.SameLine()
-		imgui.TextQuestion(u8'Чтобы отключить введи /nicks ещё раз.')
-		imgui.Text(u8"/finds [playerid] - Поиск игрока в зоне стрима")
-		imgui.SameLine()
-		imgui.TextQuestion(u8'Чтобы отключить введи /finds ещё раз.')
+		imgui.TextColoredRGB(u8"/buyvk [1-7] - Автопрокачка VK-Coins. {FF3300}(?)")
+		imgui.Hint('buyvk', u8'Открываешь BOOST в телефоне, вводишь /buyvk [1-7] и\nскрипт будет автоматически покупать.')
+		imgui.TextColoredRGB(u8"/nicks - Игроки в зоне стрима {FF3300}(?)")
+		imgui.Hint('nicks', u8'Чтобы отключить введи /nicks ещё раз.')
+		imgui.TextColoredRGB(u8"/finds [playerid] - Поиск игрока в зоне стрима {FF3300}(?)")
+		imgui.Hint('finds', u8'Чтобы отключить введи /finds ещё раз.')
 		imgui.Text(u8"/olen - Поиск оленей в зоне стрима")
 		imgui.Text(u8"/waxta - Поиск руды в зоне стрима")
+		imgui.Text(u8"/gribi - Поиск грибов в зоне стрима")
 		imgui.Text(u8"/run - Бесконечный бег")
-		imgui.Text(u8"/loot - Автосбор с мусорки/багажника")
-		imgui.SameLine()
-		imgui.TextQuestion(u8'Заходишь в мусорку, вводишь /loot и скрипт будет автоматически\nлутать все что появится.')
+		imgui.TextColoredRGB(u8"/loot - Автосбор с мусорки/багажника {FF3300}(?)")
+		imgui.Hint('loot', u8'Заходишь в мусорку, вводишь /loot и скрипт будет автоматически\nлутать все что появится.')
 		imgui.Text(u8"/ud - Использует 3 грамма наркотиков")
 		imgui.Text(u8"/ar - Надевает броню")
 		imgui.Text(u8"/price [название] - Посмотреть цену на товар")
@@ -2589,9 +2656,10 @@ function imgui.OnDrawFrame()
 				imgui.Checkbox(u8('Отключить в чате сообщения о пожертвовании'),elements.chat.removechatfond)
 				imgui.Separator()
 				imgui.Checkbox(u8('Отключить в чате SPAM сообщения'),elements.chat.removechatspam)
-				----------------------------------------
 				imgui.SameLine()
-				imgui.TextQuestion(u8'1. Удаляет рекламу от сервера.\n2. Удаляет репортажи СМИ (Гость, Репортёр).\n4. Удаляет сообщения в бандах об инкассаторах.\n5. Сообщения о собеседованиях.')
+				imgui.TextColoredRGB(u8"{FF3300}(?)")
+				----------------------------------------
+				imgui.Hint('SPAM', u8'1. Удаляет рекламу от сервера.\n2. Удаляет репортажи СМИ (Гость, Репортёр).\n4. Удаляет сообщения в бандах об инкассаторах.\n5. Сообщения о собеседованиях.')
 				----------------------------------------
 				imgui.Checkbox(u8('Выводить SPAM сообщения в консоль SAMPFUNCS (~)'),elements.chat.tosampfuncsspam)
 				imgui.Separator()
@@ -2646,7 +2714,9 @@ function imgui.OnDrawFrame()
 			imgui.Checkbox(u8('Отключить на сервере \'огромное сердце\''),elements.destroy.serdce)
 			imgui.Checkbox(u8('Отключить на сервере \'хлам\''),elements.destroy.xlam)
 			imgui.SameLine()
-			imgui.TextQuestion(u8'Отключает:\n\
+			imgui.TextColoredRGB(u8"{FF3300}(?)")
+			----------------------------------------
+			imgui.Hint('XLAM', u8'Отключает:\n\
 Большой Куст #1\n\
 Большой Куст #2\n\
 Небольшое дерево #1\n\
@@ -2864,13 +2934,6 @@ INVALID_OBJECT_ID\n\
 			if elements.lavka.band_respect_price.v < 0 then elements.lavka.band_respect_price.v = 0 end
 			if elements.lavka.band_respect_price.v > 10000000 then elements.lavka.band_respect_price.v = 10000000 end
 			----------------------------------------
-			imgui.InputInt(u8('Цена  ##288'),elements.lavka.egg_price)
-			imgui.SameLine()
-			imgui.InputInt(u8('Яйца (кол-во)'),elements.lavka.egg)
-			if elements.lavka.egg.v < 0 then elements.lavka.egg.v = 0 end
-			if elements.lavka.egg_price.v < 0 then elements.lavka.egg_price.v = 0 end
-			if elements.lavka.egg_price.v > 10000000 then elements.lavka.egg_price.v = 10000000 end
-			----------------------------------------
 			imgui.InputInt(u8('Цена  ##28'),elements.lavka.smazka_price)
 			imgui.SameLine()
 			imgui.InputInt(u8('Смазка для разгона видеокарт (кол-во)'),elements.lavka.smazka)
@@ -2968,9 +3031,6 @@ INVALID_OBJECT_ID\n\
 		if elements.lavka.band_respect.v ~= 0 then
 			count_all = count_all+(elements.lavka.band_respect_price.v*elements.lavka.band_respect.v)
 		end
-		if elements.lavka.egg.v ~= 0 then
-			count_all = count_all+(elements.lavka.egg_price.v*elements.lavka.egg.v)
-		end
 		if elements.lavka.smazka.v ~= 0 then
 			count_all = count_all+(elements.lavka.smazka_price.v*elements.lavka.smazka.v)
 		end
@@ -3038,11 +3098,15 @@ INVALID_OBJECT_ID\n\
 			end
 		end
 		imgui.SameLine()
-		imgui.TextQuestion(u8'Отключает появление ИГРОКОВ в зоне стрима.\nПосле отключения функции необходимо обновить зону стрима (достаточно зайти и выйти в любой интерьер).')
+		imgui.TextColoredRGB(u8"{FF3300}(?)")
+		----------------------------------------
+		imgui.Hint('del_stream_pl', u8'Отключает появление ИГРОКОВ в зоне стрима.\nПосле отключения функции необходимо обновить зону стрима (достаточно зайти и выйти в любой интерьер).')
 		----------------------------------------
 		imgui.Checkbox(u8('Выключить транспорт в зоне стрима'),elements.config.del_stream_veh)
 		imgui.SameLine()
-		imgui.TextQuestion(u8'Отключает появление ТРАНСПОРТА в зоне стрима.\nПосле отключения функции необходимо обновить зону стрима (достаточно зайти и выйти в любой интерьер).')
+		imgui.TextColoredRGB(u8"{FF3300}(?)")
+		----------------------------------------
+		imgui.Hint('del_stream_veh', u8'Отключает появление ТРАНСПОРТА в зоне стрима.\nПосле отключения функции необходимо обновить зону стрима (достаточно зайти и выйти в любой интерьер).')
 		----------------------------------------
 		if imgui.Checkbox(u8('Выключить обновление зоны стрима'),elements.config.del_stream) then
 			if elements.config.del_stream.v == true then
@@ -3056,8 +3120,9 @@ INVALID_OBJECT_ID\n\
 			end
 		end
 		imgui.SameLine()
+		imgui.TextColoredRGB(u8"{FF3300}(?)")
 		----------------------------------------
-		imgui.TextQuestion(u8'Отключает появление игроков и транспорта в зоне стрима.\nПосле отключения функции необходимо обновить зону стрима (достаточно зайти и выйти в любой интерьер).')
+		imgui.Hint('del_stream', u8'Отключает появление игроков и транспорта в зоне стрима.\nПосле отключения функции необходимо обновить зону стрима (достаточно зайти и выйти в любой интерьер).')
 		----------------------------------------
 		imgui.SameLine()
 		imgui.Checkbox(u8('Выключить /s чат'),elements.config.del_shout)
@@ -3215,13 +3280,7 @@ function sampev.onShowTextDraw(textdrawId, data)
 	end
 	--------------------[Прочее]--------------------
 	if data.modelId == 19823 then sampAddChatMessage("Желтая бита на спину ("..data.modelId..") - Если дешево стоит - то купить.", 0xFF3300) end
-	
-	if data.modelId == 1131 then sampAddChatMessage(string.format(data.modelId.." - заскринить название предмета + TD! (%0.6f, %0.6f, %0.6f, %0.6f) (/showmodel)",data.rotation.x,data.rotation.y,data.rotation.z,data.zoom), 0xFFFF00) end
-	if data.modelId == 1546 then sampAddChatMessage(string.format(data.modelId.." - заскринить название предмета + TD! (%0.6f, %0.6f, %0.6f, %0.6f) (/showmodel)",data.rotation.x,data.rotation.y,data.rotation.z,data.zoom), 0xFFFF00) end
 	if data.modelId == 2224 then sampAddChatMessage(string.format(data.modelId.." - заскринить название предмета + TD! (%0.6f, %0.6f, %0.6f, %0.6f) (/showmodel)",data.rotation.x,data.rotation.y,data.rotation.z,data.zoom), 0xFFFF00) end
-	
-	if data.modelId == 1112 then sampAddChatMessage(string.format("Погоны ("..data.modelId..") - заскринить название предмета + TD! (%0.6f, %0.6f, %0.6f, %0.6f) (/showmodel)",data.rotation.x,data.rotation.y,data.rotation.z,data.zoom), 0xFF3300) end
-	if data.modelId == 1598 then sampAddChatMessage(string.format("Девушка на спину ("..data.modelId..") - заскринить название предмета + TD! (%0.6f, %0.6f, %0.6f, %0.6f) (/showmodel)",data.rotation.x,data.rotation.y,data.rotation.z,data.zoom), 0xFF3300) end
 	--------------------[Авто-точилка аксессуаров]--------------------
 	if data.modelId == 16112 or data.modelId == 1615 then
 		if elements.autotoch.autotoch_active then
@@ -3817,7 +3876,7 @@ end
 function onReceiveRpc(id, bitStream)
 	ip, port = sampGetCurrentServerAddress()
 	if id == 152 and ip == "185.169.134.5" and check_biz == 0 then
-		auto_bizinfo()
+		auto_bizinfo(10000)
 	end
 	--------------------[Выключение зоны стрима]--------------------
 	if elements.config.del_stream.v == true and
@@ -3825,11 +3884,8 @@ function onReceiveRpc(id, bitStream)
 		id == 43 or -- RPC_SCRREMOVEBUILDINGFORPLAYER
 		id == 59 or -- ChatBubble
 		id == 60 or -- UpdateGameTimer
-		id == 72 or -- SetPlayerColor
 		id == 79 or -- CreateExplosion
 		id == 80 or -- ShowPlayerNameTagForPlayer
-		id == 86 or -- ApplyAnimation
-		id == 87 or -- ClearAnimations
 		id == 99 or -- MoveObject
 		id == 113 or -- SetPlayerAttachedObject
 		id == 123 -- SetNumberPlate
@@ -4445,42 +4501,6 @@ function skupka()
 			sampSendDialogResponse(3050, 1, 15, nil)
 			sampSendDialogResponse(3060, 1, 0, elements.lavka.band_respect.v..' '..elements.lavka.band_respect_price.v)
 		end
-		if elements.lavka.egg.v ~= 0 then
-			wait(delay_skupka)
-			sampSendDialogResponse(3040, 1, 2, nil)
-			sampSendDialogResponse(3050, 1, 19, nil)
-			sampSendDialogResponse(3050, 1, 20, nil)
-			sampSendDialogResponse(3050, 1, 20, nil)
-			sampSendDialogResponse(3050, 1, 20, nil)
-			wait(delay_skupka)
-			sampSendDialogResponse(3050, 1, 20, nil)
-			sampSendDialogResponse(3050, 1, 20, nil)
-			sampSendDialogResponse(3050, 1, 20, nil)
-			sampSendDialogResponse(3050, 1, 20, nil)
-			sampSendDialogResponse(3050, 1, 20, nil)
-			wait(delay_skupka)
-			sampSendDialogResponse(3050, 1, 20, nil)
-			sampSendDialogResponse(3050, 1, 20, nil)
-			sampSendDialogResponse(3050, 1, 20, nil)
-			sampSendDialogResponse(3050, 1, 20, nil)
-			sampSendDialogResponse(3050, 1, 20, nil)
-			wait(delay_skupka)
-			sampSendDialogResponse(3050, 1, 20, nil)
-			sampSendDialogResponse(3050, 1, 20, nil)
-			sampSendDialogResponse(3050, 1, 20, nil)
-			sampSendDialogResponse(3050, 1, 20, nil)
-			sampSendDialogResponse(3050, 1, 20, nil)
-			wait(delay_skupka)
-			sampSendDialogResponse(3050, 1, 20, nil)
-			sampSendDialogResponse(3050, 1, 20, nil)
-			sampSendDialogResponse(3050, 1, 20, nil)
-			sampSendDialogResponse(3050, 1, 20, nil)
-			sampSendDialogResponse(3050, 1, 20, nil)
-			wait(delay_skupka)
-			sampSendDialogResponse(3050, 1, 20, nil)
-			sampSendDialogResponse(3050, 1, 16, nil)
-			sampSendDialogResponse(3060, 1, 0, elements.lavka.egg.v..' '..elements.lavka.egg_price.v)
-		end
 		if elements.lavka.smazka.v ~= 0 then
 			wait(delay_skupka)
 			sampSendDialogResponse(3040, 1, 2, nil)
@@ -4704,11 +4724,10 @@ function sampev.onShowDialog(dialogId, style, title, button1, button2, text)
 	--------------------[Автоввод текста в лавку]--------------------
 	if dialogId == 3020 then
 		if dialogs_lavka == 0 then
-			sampSendDialogResponse(dialogId, 1, 0, "Продажа")
+			sampSendDialogResponse(dialogId, 1, 0, "Продажа и СКУП")
 			return false
 		else
-			-- sampSendDialogResponse(dialogId, 1, 0, "Скуп")
-			sampSendDialogResponse(dialogId, 1, 0, "Скуп")
+			sampSendDialogResponse(dialogId, 1, 0, "СКУП и продажа")
 			return false
 		end
 		dialogs_lavka = -1
@@ -4865,23 +4884,15 @@ function sampev.onShowDialog(dialogId, style, title, button1, button2, text)
 		return { dialogId, style, title, button1, button2, text }
 	end
 	--------------------[BizInfo]--------------------
-	if dialogId == 9761 and nodial then
-		nodial = false
-		return false
-	end
-	if dialogId == 9761 and check_biz == 4 and close_biz == true then
-		close_biz = false
-		sampSendDialogResponse(dialogId, 0, nil, nil)
-		sampCloseCurrentDialogWithButton(0)
-		return false
-	end
-	if dialogId == 156 and check_biz < 4 then
+	if dialogId == 156 and check_biz < 5 then
 		local bName = string.match(text,'Бизнес: {9ACD32}(.+){FFFFFF}Банк бизнеса')
 		local bName2 = bName
 		if text:find("Ларек с уличной едой") then
 			bName2 = bName:gsub('Ларек с уличной едой','Ларёк')
 		elseif text:find("АЗС/Магазин механики") then
 			bName2 = bName:gsub('АЗС/Магазин механики','АЗС')
+		elseif text:find("Аренда сельхоз техники") then
+			bName2 = bName:gsub('Аренда сельхоз техники','Сельхоз')
 		end
 		
 		local bProds = string.match(text,'Продуктов: {9ACD32}(%d+)')
@@ -4893,13 +4904,14 @@ function sampev.onShowDialog(dialogId, style, title, button1, button2, text)
 		local bBank = string.match(text,'Банк бизнеса: {9ACD32}$(%d+)')
 		sampAddChatMessage(string.format("{FDDB6D}%s{FFFFFF} | Продуктов: {FDDB6D}%d{FFFFFF} | Налог: {FDDB6D}%s{FFFFFF} | Банк: {FDDB6D}$%d",bName2,bProds,bTax2,bBank), -1)
 		check_biz = check_biz+1
-		auto_bizinfo()
+		auto_bizinfo(0)
 		sampSendDialogResponse(dialogId, 0, nil, nil)
-		sampSendClickTextdraw(65535)
-		if check_biz == 4 then
-			close_biz = true
+	end
+	if dialogId == 9761 then
+		if nodial == true then
+			nodial = false
+			return false
 		end
-		-- return false
 	end
 	--------------------[Отказ показа диалогов]--------------------
 	if dialogId == 0 and
@@ -5165,6 +5177,12 @@ end
 
 -- function sampev.onApplyPlayerAnimation(playerId, animLib, animName, frameDelta, loop, lockX, lockY, freeze, time)
 	-- sampAddChatMessage(string.format('ApplyAnimation(playerid,"%s","%s",%0.1f,%s,%s,%s,%s,%d);',animLib, animName, frameDelta, loop, lockX, lockY, freeze, time),-1)
+	-- sampfuncsLog(string.format('ApplyAnimation(playerid,"%s","%s",%0.1f,%s,%s,%s,%s,%d);',animLib, animName, frameDelta, loop, lockX, lockY, freeze, time))
+-- end
+
+-- function sampev.onSetPlayerSpecialAction(actionId)
+	-- sampAddChatMessage(string.format('SetPlayerSpecialAction(playerid, %d);',actionId),-1)
+	-- sampfuncsLog(string.format('SetPlayerSpecialAction(playerid, %d);',actionId))
 -- end
 
 -- function sampev.onClearPlayerAnimation(playerId)
@@ -5244,8 +5262,6 @@ function sampev.onSetPlayerAttachedObject(playerId, index, create, object)
 			----------------------------------------
 			if model == 2908 and object.bone == 13 then return end -- Голова зомби в руку с модификации
 			if model == 2918 and object.bone == 2 then return end -- Рюкзак с шипами с модификации Костюм для хэллоуина
-			if model == 3524 and (object.scale.x == 0.2029 or object.scale.y == 0.2229 or object.scale.z == 0.1889) then return end -- Левая горящая голова и Правая горящая голова
-			if model == 18868 and object.bone == 6 then return end -- Телефон
 			if model == 18890 and object.bone == 6 then return end -- Грабли в руку
 			if model == 18954 then model = 18953 end -- Шапки
 			if model == 18965 or model == 18966 then model = 18964 end -- Бандитская шапка
@@ -5258,7 +5274,6 @@ function sampev.onSetPlayerAttachedObject(playerId, index, create, object)
 			if model == 19517 and object.bone == 1 then return end -- Крылья с модификаций
 			if model == 19521 then model = 19520 end -- Фуражка офицера
 			if model == 19557 and object.bone == 1 then return end -- Крылья
-			if model == 19581 and object.bone == 14 then return end -- Сковородка в руку
 			if model >= 18892 and model <= 18905 then model = 18891 end -- Бандана
 			if model >= 18907 and model <= 18910 then model = 18906 end -- Банданы на голову
 			if model >= 18912 and model <= 18920 then model = 18911 end -- Банданы
@@ -5410,16 +5425,22 @@ function SaveFileAttach(skin,modelId,bone,offsetX,offsetY,offsetZ,rotationX,rota
 	end
 end
 
-function auto_bizinfo() -- BizInfo
-	if check_biz < 4 then
+function auto_bizinfo(timer) -- BizInfo
+	if check_biz < 5 then
 		lua_thread.create(function( ... )
 			if check_biz == 0 then
-				wait(10000)
+				wait(timer)
 			end
 			nodial = true
 			sampSendChat('/bizinfo')
 			wait(500)
 			sampSendDialogResponse(9761, 1, check_biz, nil)
+		end)
+	else
+		lua_thread.create(function( ... )
+			sampSendChat('/bizinfo')
+			wait(500)
+			sampSendDialogResponse(9761, 0, check_biz, nil)
 			sampCloseCurrentDialogWithButton(0)
 		end)
 	end
@@ -5596,15 +5617,58 @@ function onRenderNotification()
 	notfList = list:new()
 end
 
-function imgui.TextQuestion(text)
-	imgui.TextDisabled(u8'(?)')
-	if imgui.IsItemHovered() then
-		imgui.BeginTooltip()
-		imgui.PushTextWrapPos(450)
-		imgui.TextUnformatted(text)
-		imgui.PopTextWrapPos()
-		imgui.EndTooltip()
+function imgui.Hint(str_id, hint, delay)
+	local hovered = imgui.IsItemHovered()
+	local animTime = 0.2
+	local delay = delay or 0.00
+	local show = true
+
+	if not allHints then allHints = {} end
+	if not allHints[str_id] then
+		allHints[str_id] = {
+			status = false,
+			timer = 0
+		}
 	end
+
+	if hovered then
+		for k, v in pairs(allHints) do
+			if k ~= str_id and os.clock() - v.timer <= animTime  then
+				show = false
+			end
+		end
+	end
+
+	if show and allHints[str_id].status ~= hovered then
+		allHints[str_id].status = hovered
+		allHints[str_id].timer = os.clock() + (hovered and delay or 0.00)
+	end
+
+	local getContrastColor = function(col)
+	    local luminance = 1 - (0.299 * col.x + 0.587 * col.y + 0.114 * col.z)
+	    return luminance < 0.5 and imgui.ImVec4(0, 0, 0, 1) or imgui.ImVec4(1, 1, 1, 1)
+	end
+
+	local bg_col = imgui.GetStyle().Colors[imgui.Col.Button]
+	local t_col = getContrastColor(bg_col)
+
+	imgui.PushStyleColor(imgui.Col.PopupBg, bg_col)
+	imgui.PushStyleColor(imgui.Col.Text, t_col)
+	if show then
+		local between = os.clock() - allHints[str_id].timer
+		if between <= animTime then
+			local s = function(f) 
+				return f < 0.0 and 0.0 or (f > 1.0 and 1.0 or f)
+			end
+			local alpha = hovered and s(between / animTime) or s(1.00 - between / animTime)
+			imgui.PushStyleVar(imgui.StyleVar.Alpha, alpha)
+			imgui.SetTooltip(hint)
+			imgui.PopStyleVar()
+		elseif hovered then
+			imgui.SetTooltip(hint)
+		end
+	end
+	imgui.PopStyleColor(2)
 end
 
 function imgui.CenterText(text) 
@@ -5775,6 +5839,10 @@ function autoupdate(json_url, prefix, url)
 	do
 		wait(100)
 	end
+end
+
+function get_pickup_model(id)
+    return ffi.cast("int *", (id * 20 + 61444) + PICKUP_POOL)[0]
 end
 
 function theme()
