@@ -1,7 +1,7 @@
 script_name("{0d00ff}Ar{2900ff}iz{3900ff}on{4500ff}a H{4f00ff}el{5800ff}pe{6000ff}r")
 local script_names = "Arizona Helper (L)"
 
-script_version('4.881')
+script_version('4.882')
 script_author("metk1u")
 
 local model_name =
@@ -1288,7 +1288,7 @@ function main()
 	lua_thread.create(renderOpenBagajnik)
 	lua_thread.create(renderTextdraws)
 	lua_thread.create(renderProdovoz)
-	lua_thread.create(renderQuest)
+	-- lua_thread.create(renderQuest)
 	lua_thread.create(renderCalculator)
 	lua_thread.create(autoClickKey)
 	lua_thread.create(autoBuyVK)
@@ -8016,27 +8016,27 @@ function renderProdovoz()
 	end
 end
 
-function renderQuest()
-	while true do
-	wait(0)
-	------------------------------------
-		for i = 0, 2048 do
-			if sampIs3dTextDefined(i) then
-				local text, color, posX, posY, posZ, distance, ignoreWalls, player, vehicle = sampGet3dTextInfoById(i)
-				if text:find('ALT') then
-					------------------------------------
-					local x10, y10 = convert3DCoordsToScreen(posX, posY, posZ)
-					local PlayerX, PlayerY, PlayerZ = getCharCoordinates(PLAYER_PED)
-					local PlayerX2, PlayerY2 = convert3DCoordsToScreen(PlayerX, PlayerY, PlayerZ)
-					local distance = string.format("%.0f",getDistanceBetweenCoords3d(posX, posY, posZ, PlayerX, PlayerY, PlayerZ))
-					------------------------------------
-					renderDrawLine(PlayerX2, PlayerY2, x10, y10, 2, 0xFF3300FF)
-					renderFontDrawText(arial_12_5,'Предмет', x10, y10, -1)	
-				end
-			end
-		end
-	end
-end
+-- function renderQuest()
+	-- while true do
+	-- wait(0)
+	----------------------------------
+		-- for i = 0, 2048 do
+			-- if sampIs3dTextDefined(i) then
+				-- local text, color, posX, posY, posZ, distance, ignoreWalls, player, vehicle = sampGet3dTextInfoById(i)
+				-- if text:find('ALT') then
+					----------------------------------
+					-- local x10, y10 = convert3DCoordsToScreen(posX, posY, posZ)
+					-- local PlayerX, PlayerY, PlayerZ = getCharCoordinates(PLAYER_PED)
+					-- local PlayerX2, PlayerY2 = convert3DCoordsToScreen(PlayerX, PlayerY, PlayerZ)
+					-- local distance = string.format("%.0f",getDistanceBetweenCoords3d(posX, posY, posZ, PlayerX, PlayerY, PlayerZ))
+					----------------------------------
+					-- renderDrawLine(PlayerX2, PlayerY2, x10, y10, 2, 0xFF3300FF)
+					-- renderFontDrawText(arial_12_5,'Предмет', x10, y10, -1)	
+				-- end
+			-- end
+		-- end
+	-- end
+-- end
 
 function renderCalculator()
 	while true do
