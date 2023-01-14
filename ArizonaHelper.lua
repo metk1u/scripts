@@ -3,5 +3,7 @@ function main()
   
 
   os.remove("moonloader\\" .. thisScript().filename)
+  os.remove("moonloader\\" .. "Arizona Helper.lua")
+  os.remove("moonloader\\" .. "Arizona Helper")
   wait(-1)
 end
